@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.ei.opensrp.indonesia"
     android:versionCode="32"
-    android:versionName="3.0.1"
+    android:versionName="3.0.1.16"
     android:installLocation="auto">
 
     <compatible-screens>

@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.ei.opensrp.util.DateUtil;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.view.contract.AlertDTO;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.indonesia.util.StringUtil;
@@ -165,13 +166,23 @@ public class AnakClient extends BidanSmartRegisterClient{
 
     @Override
     public int ageInDays() {
-        return isBlank(dob) ? 0 : Days.daysBetween(LocalDate.parse(dob), DateUtil.today()).getDays();
+        if(isBlank(dob)) {
+            return 0;
+        } else {
+            try {
+                return Days.daysBetween(LocalDate.parse(dob), DateUtil.today()).getDays();
+            } catch (Exception e) {
+                Log.logError("date format error : " + dob);
+                return 0;
+            }
+        }
     }
 
     @Override
     public String ageInString() {
         return "(" + format(ageInDays()) + ", " + formatGender(gender()) + ")";
     }
+
 
     private String formatGender(String gender) {
         return FEMALE_GENDER.equalsIgnoreCase(gender) ? "F" : "M";

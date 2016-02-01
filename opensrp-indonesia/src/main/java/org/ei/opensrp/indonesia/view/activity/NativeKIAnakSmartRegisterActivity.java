@@ -147,7 +147,7 @@ public class NativeKIAnakSmartRegisterActivity extends BidanSecuredNativeSmartRe
 
     @Override
     protected void startRegistration() {
-        String uniqueIdJson = ((Context)context).uniqueIdController().getUniqueIdJson();
+    /*    String uniqueIdJson = ((Context)context).uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(this, "No Unique Id", Toast.LENGTH_SHORT).show();
             return;
@@ -161,6 +161,7 @@ public class NativeKIAnakSmartRegisterActivity extends BidanSecuredNativeSmartRe
         LocationSelectorDialogFragment
                 .newInstance(this, new EditDialogOptionModel(), context.anmLocationController().get(), ANAK_NEW_REGISTRATION)
                 .show(ft, locationDialogTAG);
+    */
     }
 
     private class ClientActionHandler implements View.OnClickListener {
