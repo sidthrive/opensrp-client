@@ -126,7 +126,7 @@ public class FormDataRepository extends DrishtiRepository {
 
     public long getPendingFormSubmissionsCount() {
         return longForQuery(masterRepository.getReadableDatabase(), "SELECT COUNT(1) FROM " + FORM_SUBMISSION_TABLE_NAME
-                + " WHERE " + SYNC_STATUS_COLUMN + " = ? ",
+                        + " WHERE " + SYNC_STATUS_COLUMN + " = ? ",
                 new String[]{PENDING.value()});
     }
 
@@ -136,6 +136,18 @@ public class FormDataRepository extends DrishtiRepository {
             FormSubmission updatedSubmission = new FormSubmission(submission.instanceId(), submission.entityId(), submission.formName(), submission.instance(), submission.version(), SYNCED, "1");
             database.update(FORM_SUBMISSION_TABLE_NAME, createValuesForFormSubmission(updatedSubmission), INSTANCE_ID_COLUMN + " = ?", new String[]{updatedSubmission.instanceId()});
         }
+    }
+    public void markFormSubmissionsAsUnSynced(List<FormSubmission> formSubmissions) {
+        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        for (FormSubmission submission : formSubmissions) {
+            FormSubmission updatedSubmission = new FormSubmission(submission.instanceId(), submission.entityId(), submission.formName(), submission.instance(), submission.version(), PENDING, "1");
+            database.update(FORM_SUBMISSION_TABLE_NAME, createValuesForFormSubmission(updatedSubmission), INSTANCE_ID_COLUMN + " = ?", new String[]{updatedSubmission.instanceId()});
+        }
+    }
+    public List<FormSubmission> getSyncedFormSubmissions() {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(FORM_SUBMISSION_TABLE_NAME, FORM_SUBMISSION_TABLE_COLUMNS, SYNC_STATUS_COLUMN + " = ?", new String[]{SYNCED.value()}, null, null, null);
+        return readFormSubmission(cursor);
     }
 
     public void updateServerVersion(String instanceId, String serverVersion) {

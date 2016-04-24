@@ -2,6 +2,7 @@ package org.ei.opensrp.mcare;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import org.ei.opensrp.mcare.elco.PSRFHandler;
 import org.ei.opensrp.mcare.household.CensusEnrollmentHandler;
 import org.ei.opensrp.mcare.household.HouseholdCensusDueDateSort;
 import org.ei.opensrp.mcare.household.tutorial.tutorialCircleViewFlow;
+import org.ei.opensrp.repository.FormDataRepository;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -119,6 +121,22 @@ public class NativeHomeActivity extends SecuredActivity {
         context.formSubmissionRouter().getHandlerMap().put("anc_reminder_visit_4", new anc4handler());
         context.formSubmissionRouter().getHandlerMap().put("birthnotificationpregnancystatusfollowup", new nbnfhandler());
 
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        Boolean resendforms_state = prefs.getBoolean("resendforms", true);
+        if (resendforms_state)
+        {
+            FormDataRepository fdr = context.formDataRepository();
+//            fdr.;
+            fdr.markFormSubmissionsAsUnSynced(fdr.getSyncedFormSubmissions());
+
+            prefs.edit().putBoolean("resendforms", false).commit();
+            Log.v("string pretense", "we will resend");
+
+        }else{
+
+        }
+
+
     }
 
     private void setupViews() {
@@ -180,23 +198,23 @@ public class NativeHomeActivity extends SecuredActivity {
         elcocountcursor.moveToFirst();
         elcocount= elcocountcursor.getInt(0);
         elcocountcursor.close();
-        Cursor anccountcursor = context.commonrepository("mcaremother").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcaremother","(mcaremother.Is_PNC is null or mcaremother.Is_PNC = '0') and mcaremother.FWWOMFNAME is not NUll  AND mcaremother.FWWOMFNAME != \"\"      AND mcaremother.details  LIKE '%\"FWWOMVALID\":\"1\"%'"));
-        anccountcursor.moveToFirst();
-        anccount= anccountcursor.getInt(0);
-        anccountcursor.close();
-        Cursor pnccountcursor = context.commonrepository("mcaremother").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcaremother","mcaremother.Is_PNC = '1' and mcaremother.FWWOMFNAME is not NUll  AND mcaremother.FWWOMFNAME != \"\"      AND mcaremother.details  LIKE '%\"FWWOMVALID\":\"1\"%'"));
-        pnccountcursor.moveToFirst();
-        pnccount= pnccountcursor.getInt(0);
-        pnccountcursor.close();
-        Cursor childcountcursor = context.commonrepository("mcarechild").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcarechild"," mcarechild.FWBNFGEN is not NUll "));
-        childcountcursor.moveToFirst();
-        childcount= childcountcursor.getInt(0);
-        childcountcursor.close();
-        pncRegisterClientCountView.setText(valueOf(pnccount));
+//        Cursor anccountcursor = context.commonrepository("mcaremother").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcaremother","(mcaremother.Is_PNC is null or mcaremother.Is_PNC = '0') and mcaremother.FWWOMFNAME is not NUll  AND mcaremother.FWWOMFNAME != \"\"      AND mcaremother.details  LIKE '%\"FWWOMVALID\":\"1\"%'"));
+//        anccountcursor.moveToFirst();
+//        anccount= anccountcursor.getInt(0);
+//        anccountcursor.close();
+//        Cursor pnccountcursor = context.commonrepository("mcaremother").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcaremother","mcaremother.Is_PNC = '1' and mcaremother.FWWOMFNAME is not NUll  AND mcaremother.FWWOMFNAME != \"\"      AND mcaremother.details  LIKE '%\"FWWOMVALID\":\"1\"%'"));
+//        pnccountcursor.moveToFirst();
+//        pnccount= pnccountcursor.getInt(0);
+//        pnccountcursor.close();
+//        Cursor childcountcursor = context.commonrepository("mcarechild").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("mcarechild"," mcarechild.FWBNFGEN is not NUll "));
+//        childcountcursor.moveToFirst();
+//        childcount= childcountcursor.getInt(0);
+//        childcountcursor.close();
+        pncRegisterClientCountView.setText(valueOf(0));
         ecRegisterClientCountView.setText(valueOf(hhcount));
-        ancRegisterClientCountView.setText(valueOf(anccount));
+        ancRegisterClientCountView.setText(valueOf(0));
         fpRegisterClientCountView.setText(valueOf(elcocount));
-        childRegisterClientCountView.setText(valueOf(childcount));
+        childRegisterClientCountView.setText(valueOf(0));
     }
 
     @Override
@@ -287,15 +305,15 @@ public class NativeHomeActivity extends SecuredActivity {
                     break;
 
                 case R.id.btn_anc_register:
-                    navigationController.startANCSmartRegistry();
+//                    navigationController.startANCSmartRegistry();
                     break;
 
                 case R.id.btn_pnc_register:
-                    navigationController.startPNCSmartRegistry();
+//                    navigationController.startPNCSmartRegistry();
                     break;
 
                 case R.id.btn_child_register:
-                    navigationController.startChildSmartRegistry();
+//                    navigationController.startChildSmartRegistry();
                     break;
 
                 case R.id.btn_fp_register:
