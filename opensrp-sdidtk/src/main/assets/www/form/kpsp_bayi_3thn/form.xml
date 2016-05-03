@@ -237,8 +237,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:label"></span>
             <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:label">Apakah anak dapat menyebut 2 di antara gambar-gambar ini tanpa bantuan? (Menyebut dengan suara binatang tidak ikut dinilai)</span>
+            <img lang="Bahasa" class="active" src="http://img13.deviantart.net/0997/i/2016/123/5/9/hal_10_no_10_by_edwarddesu-da14hat.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:label"></span>
             <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:label">Is the child able to name 2 of these pictures without help? (Imitating the animal's sound is not assessed)</span>
+            <img lang="en" src="http://img13.deviantart.net/0997/i/2016/123/5/9/hal_10_no_10_by_edwarddesu-da14hat.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:hint">Bicara dan bahasa</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_3thn/_30bln_menyebut_dua_binatang:hint">Language</span>
@@ -329,8 +333,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:label"></span>
             <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:label">Apakah anak dapat menyebut 2 di antara gambar-gambar ini tanpa bantuan? (Menyebut dengan suara binatang tidak ikut dinilai)</span>
+            <img lang="Bahasa" class="active" src="http://img13.deviantart.net/0997/i/2016/123/5/9/hal_10_no_10_by_edwarddesu-da14hat.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:label"></span>
             <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:label">Is the child able to name 2 of these pictures without help? (Imitating the animal's sound is not assessed)</span>
+            <img lang="en" src="http://img13.deviantart.net/0997/i/2016/123/5/9/hal_10_no_10_by_edwarddesu-da14hat.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:hint">Bicara dan bahasa</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_3thn/_36bln_menyebut_dua_binatang:hint">Language</span>
@@ -398,8 +406,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:label">Buat garis lurus ke bawah sepanjang sekurang-kurangnya 2.5 cm. Suruh anak menggambar garis lain di samping garis ini. Jawab YA bila ia menggambar garis seperti ini: (gambar). Jawab TIDAK bila ia menggambar garis seperti ini: (gambar)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:label">Buat garis lurus ke bawah sepanjang sekurang-kurangnya 2.5 cm. Suruh anak menggambar garis lain di samping garis ini. Jawab YA bila ia menggambar garis seperti gambar atas. Jawab TIDAK bila ia menggambar garis seperti gambar bawah</span>
+            <img lang="Bahasa" class="active" src="http://orig05.deviantart.net/c30e/f/2016/123/c/9/hal_11_no_7_by_edwarddesu-da14ham.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:label"></span>
             <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:label">Draw down a straight line at least 2.5 cm long. Have the child draw another line next to the one you make. Select YES if the child draws like this: (picture). Select NO if the child draws like this: (gambar)</span>
+            <img lang="en" src="http://orig05.deviantart.net/c30e/f/2016/123/c/9/hal_11_no_7_by_edwarddesu-da14ham.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_3thn/_36bln_menggambar_garis_lurus:hint">Fine motor</span>

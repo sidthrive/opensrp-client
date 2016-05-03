@@ -30,8 +30,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label">Jangan membantu anak dan jangan memberitahu nama gambar ini, suruh anak menggambar seperti contoh ini dikertas kosong yang tersedia. Berikan 3 kali kesempatan. Apakah anak dapat menggambar seperti contoh ini? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label">Do not help nor tell the child about this picture. Ask the child to draw this picture on a piece of blank paper. Give 3 chances. Is the child able to draw the picture? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label">Jangan membantu anak dan jangan memberitahu nama gambar ini, suruh anak menggambar seperti contoh ini dikertas kosong yang tersedia. Berikan 3 kali kesempatan. Apakah anak dapat menggambar seperti contoh ini?</span>
+            <img lang="Bahasa" class="active" src="http://orig11.deviantart.net/0732/f/2016/123/b/3/hal_14_no_9_by_edwarddesu-da14hae.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:label">Do not help nor tell the child about this picture. Ask the child to draw this picture on a piece of blank paper. Give 3 chances. Is the child able to draw the picture?</span>
+            <img lang="en" src="http://orig11.deviantart.net/0732/f/2016/123/b/3/hal_14_no_9_by_edwarddesu-da14hae.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_6thn/_66bln_menggambar_silang:hint">Fine motor</span>
@@ -99,8 +103,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label">Jangan menunjuk, membantu atau membetulkan, katakan pada anak: "Tunjukkan segi empat merah". "Tunjukkan segi empat kuning". "Tunjukkan segi empat biru". "Tunjukkan segi empat hijau". Dapatkah anak menunjuk keempat warna itu dengan benar? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label">Do not point at, assist nor rectify the child, tell him/her: "Show me a red square". "Show me a yellow square". "Show me a blue square". "Show me a green square". Is the child able to point out the four colors correctly? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label">Jangan menunjuk, membantu atau membetulkan, katakan pada anak: "Tunjukkan segi empat merah". "Tunjukkan segi empat kuning". "Tunjukkan segi empat biru". "Tunjukkan segi empat hijau". Dapatkah anak menunjuk keempat warna itu dengan benar?</span>
+            <img lang="Bahasa" class="active" src="http://orig02.deviantart.net/5751/f/2016/123/d/8/hal_15_no_8_by_edwarddesu-da14ha9.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_66bln_warna:label">Do not point at, assist nor rectify the child, tell him/her: "Show me a red square". "Show me a yellow square". "Show me a blue square". "Show me a green square". Is the child able to point out the four colors correctly?</span>
+            <img lang="en" src="http://orig02.deviantart.net/5751/f/2016/123/d/8/hal_15_no_8_by_edwarddesu-da14ha9.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_6thn/_66bln_warna:hint">Bicara dan bahasa</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_6thn/_66bln_warna:hint">Language</span>
@@ -260,8 +268,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label">Jangan menunjuk, membantu atau membetulkan, katakan pada anak: "Tunjukkan segi empat merah". "Tunjukkan segi empat kuning". "Tunjukkan segi empat biru". "Tunjukkan segi empat hijau". Dapatkah anak menunjuk keempat warna itu dengan benar? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label">Do not point at, assist nor rectify the child, tell him/her: "Show me a red square". "Show me a yellow square". "Show me a blue square". "Show me a green square". Is the child able to point out the four colors correctly? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label">Jangan menunjuk, membantu atau membetulkan, katakan pada anak: "Tunjukkan segi empat merah". "Tunjukkan segi empat kuning". "Tunjukkan segi empat biru". "Tunjukkan segi empat hijau". Dapatkah anak menunjuk keempat warna itu dengan benar?</span>
+            <img lang="Bahasa" class="active" src="http://orig02.deviantart.net/5751/f/2016/123/d/8/hal_15_no_8_by_edwarddesu-da14ha9.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_72bln_warna:label">Do not point at, assist nor rectify the child, tell him/her: "Show me a red square". "Show me a yellow square". "Show me a blue square". "Show me a green square". Is the child able to point out the four colors correctly?</span>
+            <img lang="en" src="http://orig02.deviantart.net/5751/f/2016/123/d/8/hal_15_no_8_by_edwarddesu-da14ha9.jpg" alt="image" />
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_6thn/_72bln_warna:hint">Bicara dan bahasa</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_6thn/_72bln_warna:hint">Language</span>
          </legend>
@@ -436,8 +448,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label">Jangan membantu anak dan jangan memberitahu nama gambar ini, suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Berikan 3 kali kesempatan. Apakah anak dapat menggambar seperti contoh ini? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label">Do not help nor tell the child about this picture. Ask the child to draw this picture on a piece of blank paper. Give 3 chances. Is the child able to draw the picture? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label">Jangan membantu anak dan jangan memberitahu nama gambar ini, suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Berikan 3 kali kesempatan. Apakah anak dapat menggambar seperti contoh ini?</span>
+            <img lang="Bahasa" class="active" src="http://orig03.deviantart.net/7d2d/f/2016/123/5/3/hal_17_no_9_by_edwarddesu-da14ha5.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:label">Do not help nor tell the child about this picture. Ask the child to draw this picture on a piece of blank paper. Give 3 chances. Is the child able to draw the picture?</span>
+            <img lang="en" src="http://orig03.deviantart.net/7d2d/f/2016/123/5/3/hal_17_no_9_by_edwarddesu-da14ha5.jpg" alt="image" />
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_6thn/_72bln_menggambar:hint">Fine motor</span>
          </legend>

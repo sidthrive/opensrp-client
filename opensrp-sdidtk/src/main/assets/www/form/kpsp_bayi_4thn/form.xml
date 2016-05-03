@@ -145,8 +145,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label">Jangan membantu anak dan jangan menyebut lingkaran. Suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Dapatkah anak menggambar lingkaran? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label">Don't assist the child and don't mention a circle. Ask the child to draw as below example on a blank piece of paper. Is the child able to draw the circle? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label">Jangan membantu anak dan jangan menyebut lingkaran. Suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Dapatkah anak menggambar lingkaran?</span>
+            <img lang="Bahasa" class="active" src="http://img15.deviantart.net/1a53/i/2016/123/7/2/hal_12_no_6_by_edwarddesu-da14hak.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:label">Don't assist the child and don't mention a circle. Ask the child to draw as below example on a blank piece of paper. Is the child able to draw the circle?</span>
+            <img lang="en" src="http://img15.deviantart.net/1a53/i/2016/123/7/2/hal_12_no_6_by_edwarddesu-da14hak.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_4thn/_42bln_menggambar_lingkaran:hint">Fine motor</span>
@@ -329,8 +333,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label">Jangan membantu anak dan jangan menyebut lingkaran. Suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Dapatkah anak menggambar lingkaran? (gambar)</span>
-            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label">Don't assist the child and don't mention a circle. Ask the child to draw as below example on a blank piece of paper. Is the child able to draw the circle? (picture)</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label"></span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label">Jangan membantu anak dan jangan menyebut lingkaran. Suruh anak menggambar seperti contoh ini di kertas kosong yang tersedia. Dapatkah anak menggambar lingkaran?</span>
+            <img lang="Bahasa" class="active" src="http://img15.deviantart.net/1a53/i/2016/123/7/2/hal_12_no_6_by_edwarddesu-da14hak.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label"></span>
+            <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:label">Don't assist the child and don't mention a circle. Ask the child to draw as below example on a blank piece of paper. Is the child able to draw the circle?</span>
+            <img lang="en" src="http://img15.deviantart.net/1a53/i/2016/123/7/2/hal_12_no_6_by_edwarddesu-da14hak.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_4thn/_48bln_menggambar_lingkaran:hint">Fine motor</span>
