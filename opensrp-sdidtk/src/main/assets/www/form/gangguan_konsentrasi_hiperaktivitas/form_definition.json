@@ -1,0 +1,129 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "anak",
+    "default_bind_path": "/model/instance/gangguan_konsentrasi_hiperaktivitas/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "nilai_note1",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/nilai_note1"
+      },
+      {
+        "name": "nilai_note2",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/nilai_note2"
+      },
+      {
+        "name": "gpph_hiperaktif",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_hiperaktif"
+      },
+      {
+        "name": "gpph_impulsif",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_impulsif"
+      },
+      {
+        "name": "gpph_mengganggu",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_mengganggu"
+      },
+      {
+        "name": "gpph_konsentrasi",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_konsentrasi"
+      },
+      {
+        "name": "gpph_bergerak_gerak",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_bergerak_gerak"
+      },
+      {
+        "name": "gpph_perhatian",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_perhatian"
+      },
+      {
+        "name": "gpph_frustasi",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_frustasi"
+      },
+      {
+        "name": "gpph_menangis",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_menangis"
+      },
+      {
+        "name": "gpph_mood",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_mood"
+      },
+      {
+        "name": "gpph_tantrum",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_tantrum"
+      },
+      {
+        "name": "gpph_nilai",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_nilai"
+      },
+      {
+        "name": "_72bln_berpakaian_sendiri",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_berpakaian_sendiri"
+      },
+      {
+        "name": "_72bln_menggambar_3bagian",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar_3bagian"
+      },
+      {
+        "name": "_72bln_menggambar_6bagian",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar_6bagian"
+      },
+      {
+        "name": "_72bln_lawan_kata",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_lawan_kata"
+      },
+      {
+        "name": "_72bln_menangkap_bola",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menangkap_bola"
+      },
+      {
+        "name": "_72bln_berdiri_1kaki",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_berdiri_1kaki"
+      },
+      {
+        "name": "_72bln_menggambar",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar"
+      },
+      {
+        "name": "_72bln_pertanyaan_note1",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note1"
+      },
+      {
+        "name": "_72bln_pertanyaan_note2",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note2"
+      },
+      {
+        "name": "_72bln_pertanyaan_note3",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note3"
+      },
+      {
+        "name": "_72bln_pertanyaan_note4",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note4"
+      },
+      {
+        "name": "_72bln_pertanyaan",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan"
+      },
+      {
+        "name": "isOutOfArea",
+        "value": "false"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
+        "name": "reg_date",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/today"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/reg_date"
+      }
+    ]
+  }
+}
