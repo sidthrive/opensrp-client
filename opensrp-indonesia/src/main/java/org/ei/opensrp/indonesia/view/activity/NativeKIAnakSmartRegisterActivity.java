@@ -145,6 +145,7 @@ public class NativeKIAnakSmartRegisterActivity extends BidanSecuredNativeSmartRe
         FlurryFacade.logEvent("anak_dashboard");
     }
 
+
     @Override
     protected void startRegistration() {
     /*    String uniqueIdJson = ((Context)context).uniqueIdController().getUniqueIdJson();
