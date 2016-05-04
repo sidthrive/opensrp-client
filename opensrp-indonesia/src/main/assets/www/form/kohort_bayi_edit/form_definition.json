@@ -9,11 +9,6 @@
                 "shouldLoadValue": true
             },
             {
-                "name": "kiId",
-                "source": "anak.ibu.kartu_ibu.id",
-                "shouldLoadValue": true
-            },
-            {
                 "name": "motherId",
                 "source": "anak.ibu.id",
                 "shouldLoadValue": true
@@ -41,11 +36,6 @@
             {
                 "name": "jenisKelamin",
                 "bind": "/model/instance/tambah_bayi_reviewed/jenis_kelamin",
-                "shouldLoadValue": true
-            },
-            {
-                "name": "kepemilikanBukuKIA",
-                "bind": "/model/instance/tambah_bayi_reviewed/kepemilikan_buku_kia",
                 "shouldLoadValue": true
             },
             {
