@@ -126,6 +126,11 @@ public class KIANCRegisterController extends CommonController {
                             .withTanggalHPHT(anc.getDetail(HPHT_DATE))
                             .withUniqueId(ki.getDetail(UNIQUE_ID));
 
+
+                    kartuIbuClient.setAncDate(anc.getDetail("ancDate"));
+                    kartuIbuClient.setAncNumber(anc.getDetail("ancKe"));
+                    kartuIbuClient.setKunjunganKe(anc.getDetail("kunjunganKe"));
+
                     kartuIbuClient.setKartuIbuCaseId(anc.getKartuIbuId());
                     kartuIbuClient.setBB(anc.getDetail(WEIGHT_BEFORE));
                     kartuIbuClient.setTB(anc.getDetail(HEIGHT));

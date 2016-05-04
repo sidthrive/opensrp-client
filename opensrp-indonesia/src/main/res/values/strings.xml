@@ -427,7 +427,8 @@
     <string name="kartu_ibu_selection">Kartu Ibu</string>
     <string name="kb_selection">KB</string>
     <string name="str_ki_search_hint">Cari</string>
-
+    <string name="anc_visit_date">ANC Visit Date:</string>
+        <string name="anc_visit_number">ANC Number:</string>
     <string name="couple_selection">Semua Eligible Couples</string>
     <string name="str_ec_search_hint">Cari EC Register</string>
     <string name="str_fp_search_hint">Cari FP Register</string>
@@ -762,4 +763,8 @@
 
     <string name="anc_visit_integrasi">Kunjungan ANC Integrasi</string>
     <string name="anc_visit_labtest">Kunjungan ANC Tes Lab</string>
+    <string name="header_history_anc">VISIT HISTORY</string>
+    <string name="edd_title">EDD :</string>
+    <string name="lila">LILA :</string>
+    <string name="mother_weight">Weight :</string>
 </resources>
