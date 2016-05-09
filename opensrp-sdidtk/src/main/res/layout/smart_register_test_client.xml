@@ -36,14 +36,14 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.01">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/label_nama_anak"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/no_ibu"
                 android:paddingLeft="5dp"
@@ -53,17 +53,17 @@
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/label_jenis_kelamin"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/no_ibu"
                 android:paddingLeft="5dp"
-                android:text="Jenis Kelamin: "
+                android:text="J Kelamin: "
                 android:textSize="12sp"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/label_nama_ibu"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/no_ibu"
                 android:paddingLeft="5dp"
@@ -75,7 +75,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
@@ -110,7 +110,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.01">
@@ -147,14 +147,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="lingkar kepala"
+                android:text="ling kepala"
                 android:textSize="12sp"
                 android:id="@+id/label_lingkar_kepala" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
@@ -198,7 +198,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.01">
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal"
+                android:text="Tanggal:"
                 android:textSize="12sp"
                 android:id="@+id/label_status_today1" />
 
@@ -217,7 +217,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Status Kembang"
+                android:text="Stt Kembang:"
                 android:textSize="12sp"
                 android:id="@+id/label_status_kembang" />
 
@@ -226,7 +226,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
@@ -254,7 +254,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.01">
@@ -264,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal"
+                android:text="Tanggal:"
                 android:textSize="12sp"
                 android:id="@+id/label_today2" />
 
@@ -273,7 +273,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tes dengar"
+                android:text="Tes dengar:"
                 android:textSize="12sp"
                 android:id="@+id/label_tes_dengar" />
 
@@ -282,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tes visual"
+                android:text="Tes visual:"
                 android:textSize="12sp"
                 android:id="@+id/label_tes_visual" />
 
@@ -291,7 +291,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
@@ -328,7 +328,7 @@
 
         <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="fill_parent"
         android:layout_marginLeft="5dp"
         android:layout_weight="0.01">
@@ -338,7 +338,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             style="@style/CustomFontTextViewStyle.ListView.Medium"
-            android:text="Tanggal"
+            android:text="Tanggal:"
             android:textSize="12sp"
             android:id="@+id/label_today4" />
 
@@ -347,7 +347,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             style="@style/CustomFontTextViewStyle.ListView.Medium"
-            android:text="Tes Mental"
+            android:text="Tes Mental:"
             android:textSize="12sp"
             android:id="@+id/label_test_mental" />
 
@@ -355,7 +355,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
@@ -382,7 +382,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.01">
@@ -392,7 +392,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal"
+                android:text="Tanggal:"
                 android:textSize="12sp"
                 android:id="@+id/label_today5" />
 
@@ -401,7 +401,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tes Autis"
+                android:text="Tes Autis:"
                 android:textSize="12sp"
                 android:id="@+id/label_tes_autis" />
 
@@ -410,7 +410,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tes GGPH"
+                android:text="Tes GGPH:"
                 android:textSize="12sp"
                 android:id="@+id/label_tes_ggph" />
 
@@ -419,7 +419,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.07">
