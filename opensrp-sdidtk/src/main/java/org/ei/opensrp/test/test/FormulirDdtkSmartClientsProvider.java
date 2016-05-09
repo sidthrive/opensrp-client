@@ -81,7 +81,16 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
             viewHolder.nama_anak = (TextView)convertView.findViewById(R.id.nama_anak);
             viewHolder.jenis_kelamin = (TextView)convertView.findViewById(R.id.jenis_kelamin);
             viewHolder.nama_ibu = (TextView)convertView.findViewById(R.id.nama_ibu);
-            viewHolder.age = (TextView)convertView.findViewById(R.id.age);
+            viewHolder.berat = (TextView)convertView.findViewById(R.id.berat);
+            viewHolder.tinggi = (TextView)convertView.findViewById(R.id.tinggi);
+            viewHolder.lingkar_kepala = (TextView)convertView.findViewById(R.id.lingkar_kepala);
+            viewHolder.status_kembang = (TextView)convertView.findViewById(R.id.status_kembang);
+            viewHolder.daya_dengar = (TextView)convertView.findViewById(R.id.daya_dengar);
+            viewHolder.daya_lihat = (TextView)convertView.findViewById(R.id.daya_lihat);
+            viewHolder.mental_emosional = (TextView)convertView.findViewById(R.id.mental_emosional);
+            viewHolder.autis = (TextView)convertView.findViewById(R.id.autis);
+            viewHolder.ggph = (TextView)convertView.findViewById(R.id.ggph);
+            viewHolder.today = (TextView)convertView.findViewById(R.id.today);
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile_thumb));
@@ -129,9 +138,19 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         //set default image for mother
         viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
 
-        viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak")!=null?pc.getDetails().get("nama_anak"):"");
+        viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak") != null ? pc.getDetails().get("nama_anak") : "");
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin")!=null?pc.getDetails().get("jenis_kelamin"):"");
-        viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu")!=null?pc.getDetails().get("nama_ibu"):"");
+        viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu") != null ? pc.getDetails().get("nama_ibu") : "");
+        viewHolder.berat.setText(pc.getDetails().get("berat")!=null?pc.getDetails().get("berat"):"");
+        viewHolder.tinggi.setText(pc.getDetails().get("tinggi") != null ? pc.getDetails().get("tinggi") : "");
+        viewHolder.lingkar_kepala.setText(pc.getDetails().get("lingkar_kepala")!=null?pc.getDetails().get("lingkar_kepala"):"");
+        viewHolder.status_kembang.setText(pc.getDetails().get("status_kembang")!=null?pc.getDetails().get("status_kembang"):"");
+        viewHolder.daya_dengar.setText(pc.getDetails().get("daya_dengar") != null ? pc.getDetails().get("daya_dengar") : "");
+        viewHolder.daya_lihat.setText(pc.getDetails().get("daya_lihat")!=null?pc.getDetails().get("daya_lihat"):"");
+        viewHolder.mental_emosional.setText(pc.getDetails().get("mental_emosional")!=null?pc.getDetails().get("mental_emosional"):"");
+        viewHolder.autis.setText(pc.getDetails().get("autis")!=null?pc.getDetails().get("autis"):"");
+        viewHolder.ggph.setText(pc.getDetails().get("ggph")!=null?pc.getDetails().get("ggph"):"");
+        viewHolder.today.setText(pc.getDetails().get("today")!=null?pc.getDetails().get("today"):"");
       //  viewHolder.headofhouseholdname.setText(pc.getDetails().get("FWHOHFNAME")!=null?pc.getDetails().get("FWHOHFNAME"):"");
       //  viewHolder.no_of_mwra.setText(pc.getDetails().get("ELCO")!=null?pc.getDetails().get("ELCO"):"");
        // Date lastdate = null;
@@ -174,7 +193,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
 
      class ViewHolder {
 
-         TextView name ;
+         TextView today ;
          TextView age ;
          TextView village;
          TextView husbandname;
@@ -186,6 +205,15 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
          TextView nama_anak;
          TextView jenis_kelamin;
          TextView nama_ibu;
+         TextView berat;
+         TextView tinggi;
+         TextView lingkar_kepala;
+         TextView status_kembang;
+         TextView daya_dengar;
+         TextView daya_lihat;
+         TextView mental_emosional;
+         TextView autis;
+         TextView ggph;
      }
 
 
