@@ -101,11 +101,11 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
                 new OpenFormOption("Kpsp Bayi 1 Tahun", "kpsp_bayi_1thn", formController),
-                    new OpenFormOption("Kpsp Bayi 2 Tahun", "kpsp_bayi_2thn", formController),
-                    new OpenFormOption("Kpsp Bayi 3 Tahun", "kpsp_bayi_3thn", formController),
-                    new OpenFormOption("Kpsp Bayi 4 Tahun", "kpsp_bayi_4thn", formController),
-                    new OpenFormOption("Kpsp Bayi 5 Tahun", "kpsp_bayi_5thn", formController),
-                    new OpenFormOption("Kpsp Bayi 6 Tahun", "kpsp_bayi_6thn", formController),
+                    new OpenFormOption("Kpsp Balita 2 Tahun", "kpsp_bayi_2thn", formController),
+                    new OpenFormOption("Kpsp Balita 3 Tahun", "kpsp_bayi_3thn", formController),
+                    new OpenFormOption("Kpsp Balita 4 Tahun", "kpsp_bayi_4thn", formController),
+                    new OpenFormOption("Kpsp Balita 5 Tahun", "kpsp_bayi_5thn", formController),
+                    new OpenFormOption("Kpsp Balita 6 Tahun", "kpsp_bayi_6thn", formController),
                     new OpenFormOption("Tes Daya Dengar", "tes_daya_dengar", formController),
                     new OpenFormOption("Masalah Mental Emosional", "masalah_mental_emosional", formController),
                     new OpenFormOption("Deteksi Dini Autis", "deteksi_dini_autis", formController),

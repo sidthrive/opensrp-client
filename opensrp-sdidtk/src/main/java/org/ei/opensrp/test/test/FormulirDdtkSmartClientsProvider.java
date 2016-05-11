@@ -78,6 +78,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
            convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_test_client, null);
             viewHolder = new ViewHolder();
             viewHolder.profilelayout =  (LinearLayout)convertView.findViewById(R.id.profile_info_layout);
+            viewHolder.antrolayout =  (LinearLayout)convertView.findViewById(R.id.profile_antro_layout);
             viewHolder.nama_anak = (TextView)convertView.findViewById(R.id.nama_anak);
             viewHolder.jenis_kelamin = (TextView)convertView.findViewById(R.id.jenis_kelamin);
             viewHolder.nama_ibu = (TextView)convertView.findViewById(R.id.nama_ibu);
@@ -104,6 +105,8 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         viewHolder.follow_up.setTag(smartRegisterClient);
            viewHolder.profilelayout.setOnClickListener(onClickListener);
         viewHolder.profilelayout.setTag(smartRegisterClient);
+        viewHolder.antrolayout.setOnClickListener(onClickListener);
+        viewHolder.antrolayout.setTag(smartRegisterClient);
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
         if (iconPencilDrawable == null) {
             iconPencilDrawable = context.getResources().getDrawable(R.drawable.ic_pencil);
@@ -136,7 +139,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         */
 
         //set default image for mother
-        viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+        viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
 
         viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak") != null ? pc.getDetails().get("nama_anak") : "");
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin")!=null?pc.getDetails().get("jenis_kelamin"):"");
@@ -198,6 +201,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
          TextView village;
          TextView husbandname;
          LinearLayout profilelayout;
+         LinearLayout antrolayout;
          ImageView profilepic;
          FrameLayout due_date_holder;
          Button warnbutton;

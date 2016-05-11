@@ -33,23 +33,23 @@ public class FormulirDdtkServiceModeOption extends ServiceModeOption {
         return new ClientsHeaderProvider() {
             @Override
             public int count() {
-                return 2;
+                return 6;
             }
 
             @Override
             public int weightSum() {
-                return 10;
+                return 13;
             }
 
             @Override
             public int[] weights() {
-                return new int[]{8,2};
+                return new int[]{2,2,2,2,2,2};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.hh_profile,R.string.header_edit
+                        R.string.hh_profile,R.string.hh_antro,R.string.hh_kpsp,R.string.hh_hearing_visual,R.string.hh_mental,R.string.hh_autis_ggph
                         };
             }
         };
