@@ -9,17 +9,25 @@
         "shouldLoadValue": true
       },
       {
+        "name": "reg_date",
+        "bind": "/model/instance/formulir_ddtk/reg_date"
+      },
+      {
         "name": "nama_anak",
         "bind": "/model/instance/formulir_ddtk/nama_anak"
       },
+
       {
         "name": "jenis_kelamin",
         "bind": "/model/instance/formulir_ddtk/jenis_kelamin"
       },
+
+
       {
         "name": "nama_ayah",
         "bind": "/model/instance/formulir_ddtk/nama_ayah"
       },
+
       {
         "name": "nama_ibu",
         "bind": "/model/instance/formulir_ddtk/nama_ibu"
@@ -31,110 +39,6 @@
       {
         "name": "umur",
         "bind": "/model/instance/formulir_ddtk/umur"
-      },
-      {
-        "name": "anamnesis",
-        "bind": "/model/instance/formulir_ddtk/anamnesis"
-      },
-      {
-        "name": "keluhan",
-        "bind": "/model/instance/formulir_ddtk/keluhan"
-      },
-      {
-        "name": "masalah_tumbang",
-        "bind": "/model/instance/formulir_ddtk/masalah_tumbang"
-      },
-      {
-        "name": "pemeriksaan_rutin",
-        "bind": "/model/instance/formulir_ddtk/pemeriksaan_rutin"
-      },
-      {
-        "name": "berat",
-        "bind": "/model/instance/formulir_ddtk/berat"
-      },
-      {
-        "name": "tinggi",
-        "bind": "/model/instance/formulir_ddtk/tinggi"
-      },
-      {
-        "name": "berat_tinggi",
-        "bind": "/model/instance/formulir_ddtk/berat_tinggi"
-      },
-      {
-        "name": "lingkar_kepala",
-        "bind": "/model/instance/formulir_ddtk/lingkar_kepala"
-      },
-      {
-        "name": "lkau",
-        "bind": "/model/instance/formulir_ddtk/lkau"
-      },
-      {
-        "name": "status_kembang",
-        "bind": "/model/instance/formulir_ddtk/status_kembang"
-      },
-      {
-        "name": "status_meragukan",
-        "bind": "/model/instance/formulir_ddtk/status_meragukan"
-      },
-      {
-        "name": "status_penyimpangan",
-        "bind": "/model/instance/formulir_ddtk/status_penyimpangan"
-      },
-      {
-        "name": "daya_lihat",
-        "bind": "/model/instance/formulir_ddtk/daya_lihat"
-      },
-      {
-        "name": "daya_dengar",
-        "bind": "/model/instance/formulir_ddtk/daya_dengar"
-      },
-      {
-        "name": "mental_emosional",
-        "bind": "/model/instance/formulir_ddtk/mental_emosional"
-      },
-      {
-        "name": "pemeriksaan_autis_gpph",
-        "bind": "/model/instance/formulir_ddtk/pemeriksaan_autis_gpph"
-      },
-      {
-        "name": "autis",
-        "bind": "/model/instance/formulir_ddtk/autis"
-      },
-      {
-        "name": "gpph",
-        "bind": "/model/instance/formulir_ddtk/gpph"
-      },
-      {
-        "name": "kesimpulan",
-        "bind": "/model/instance/formulir_ddtk/kesimpulan"
-      },
-      {
-        "name": "tindakan_intervensi",
-        "bind": "/model/instance/formulir_ddtk/tindakan_intervensi"
-      },
-      {
-        "name": "konseling_stimulasi",
-        "bind": "/model/instance/formulir_ddtk/konseling_stimulasi"
-      },
-      {
-        "name": "intervensi_stimulasi",
-        "bind": "/model/instance/formulir_ddtk/intervensi_stimulasi"
-      },
-      {
-        "name": "tindakan_lain",
-        "bind": "/model/instance/formulir_ddtk/tindakan_lain"
-      },
-      {
-        "name": "rujukan",
-        "bind": "/model/instance/formulir_ddtk/rujukan"
-      },
-      {
-        "name": "dirujuk_ke",
-        "bind": "/model/instance/formulir_ddtk/dirujuk_ke"
-      },
-      {
-        "name": "surat_rujukan",
-        "bind": "/model/instance/formulir_ddtk/surat_rujukan"
       },
       {
         "name": "isOutOfArea",

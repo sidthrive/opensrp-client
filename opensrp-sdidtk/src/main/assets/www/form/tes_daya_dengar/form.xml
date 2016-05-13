@@ -7,6 +7,11 @@
       <option value="Bahasa">Bahasa</option>
       <option value="en">English</option>
    </select>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/hear_test_date:label">Tanggal Entry</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/hear_test_date:label">Entry Date</span>
+      <input type="date" name="/tes_daya_dengar/hear_test_date" data-type-xml="date" />
+   </label>
    <fieldset class="question ">
       <fieldset>
          <legend>
@@ -50,8 +55,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln1:label">Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln1:label">When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln1:label">1. Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln1:label">1. When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -71,8 +76,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln2:label">Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln2:label">When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln2:label">2. Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln2:label">2. When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -92,8 +97,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln3:label">Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln3:label">If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_0-6bln3:label">3. Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_0-6bln3:label">3. If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -113,8 +118,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln1:label">Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln1:label">When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln1:label">1. Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln1:label">1. When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -134,8 +139,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln2:label">Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln2:label">When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln2:label">2. Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln2:label">2. When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -155,8 +160,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln3:label">Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln3:label">If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln3:label">3. Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln3:label">3. If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -176,8 +181,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln4:label">Anda berada di sisi yang tidak terlihat oleh bayi, sebut namanya atau bunyikan sesuatu, apakah bayi memalingkan kepala mencari sumber suara?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln4:label">You are in a position unvisible to the baby, call his/her name or make a noise, does the child turn his/her head looking for the source of the sound?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_6-9bln4:label">4. Anda berada di sisi yang tidak terlihat oleh bayi, sebut namanya atau bunyikan sesuatu, apakah bayi memalingkan kepala mencari sumber suara?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_6-9bln4:label">4. You are in a position unvisible to the baby, call his/her name or make a noise, does the child turn his/her head looking for the source of the sound?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -197,8 +202,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln1:label">Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln1:label">When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln1:label">1. Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln1:label">1. When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -218,8 +223,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln2:label">Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln2:label">When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln2:label">2. Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln2:label">2. When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -239,7 +244,7 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">3. Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
             <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
             <span class="required">*</span>
          </legend>
@@ -261,7 +266,7 @@
       <fieldset>
          <legend>
             <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">Anda berada di samping atau belakang bayi dan tidak terlihat oleh bayi, sebut namanya atau bunyikan sesuatu, apakah bayi langsung memalingkan kepala ke arah sumber suara tersebut di samping atau belakangnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">You are beside or behind the baby and unvisible to the baby, call his/her name or make a noise, does the baby turn his/her head toward the source of the sound, beside or behind him/her?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">3. You are beside or behind the baby and unvisible to the baby, call his/her name or make a noise, does the baby turn his/her head toward the source of the sound, beside or behind him/her?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -281,8 +286,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln1:label">Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln1:label">When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln1:label">1. Pada waktu bayi tidur kemudian Anda berbicara atau membuat kegaduhan, apakah bayi akan bergerak atau terbangun dari tidurnya?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln1:label">1. When the baby is sleeping, then you talk or make some noises, does the baby move or wake up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -302,8 +307,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln2:label">Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln2:label">When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln2:label">2. Pada waktu bayi tidur terlentang dan Anda duduk di dekat kepala bayi pada posisi yang tidak terlihat oleh bayi, kemudian Anda bertepuk tangan dengan keras, apakah bayi terkejut atau mengerdipkan matanya atau menegangkan tubuh sambil mengangkat kaki tangannya ke atas?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln2:label">2. When the baby is sleeping on his/her back and you sit next to the baby's head in a position that is unvisible to the baby, then you clap loudly, is the baby surprised or winking or stretching up his/her hands and legs?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -323,8 +328,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln3:label">Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln3:label">If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln3:label">3. Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln3:label">3. If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -344,8 +349,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln4:label">Tanpa terlihat oleh anak, buat suara yang menarik perhatian anak, apakah anak langsung mengetahui posisi Anda sebagai sumber suara yang berpindah-pindah?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln4:label">Unvisible to the child, make a noise that can attract child's attention, is the child able to locate your position as the source of the sound moves around?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln4:label">4. Tanpa terlihat oleh anak, buat suara yang menarik perhatian anak, apakah anak langsung mengetahui posisi Anda sebagai sumber suara yang berpindah-pindah?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln4:label">4. Unvisible to the child, make a noise that can attract child's attention, is the child able to locate your position as the source of the sound moves around?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -365,8 +370,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln5:label">Ucapkan kata-kata yang mudah dan sederhana, dapatkah anak menirukan Anda?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln5:label">Say a few simple and easy words, does the child able to imitate you?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_12-24bln5:label">5. Ucapkan kata-kata yang mudah dan sederhana, dapatkah anak menirukan Anda?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_12-24bln5:label">5. Say a few simple and easy words, does the child able to imitate you?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -386,8 +391,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn1:label">Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan pada anak: "Pegang matamu", "Pegang kakimu". Apakah anak memegang mata dan kakinya dengan benar?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn1:label">Cover your mouth with a book/paper, without seeing your lip movements, tell the child: "Touch your eye", "Touch your foot". Does the child touch his/her eye and foot correctly?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn1:label">1. Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan pada anak: "Pegang matamu", "Pegang kakimu". Apakah anak memegang mata dan kakinya dengan benar?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn1:label">1. Cover your mouth with a book/paper, without seeing your lip movements, tell the child: "Touch your eye", "Touch your foot". Does the child touch his/her eye and foot correctly?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -407,8 +412,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn2:label">Pilih gambar dari majalah/buku bergambar. Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan pada anak: "Tunjukkan gambar kucing (atau anjing, kuda, mobil, orang, rumah, bunga, dan sebagainya)?" Dapatkah anak menunjukkan gambar yang dimaksud dengan benar?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn2:label">Choose a picture from a magazine/picture book. Cover your mouth with a book/paper, without seeing your lip movements, tell the child: "Show me a picture of a cat (or dog, horse, car, people, house, flower, etc.)?" Is the child able to show the picture correctly?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn2:label">2. Pilih gambar dari majalah/buku bergambar. Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan pada anak: "Tunjukkan gambar kucing (atau anjing, kuda, mobil, orang, rumah, bunga, dan sebagainya)?" Dapatkah anak menunjukkan gambar yang dimaksud dengan benar?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn2:label">2. Choose a picture from a magazine/picture book. Cover your mouth with a book/paper, without seeing your lip movements, tell the child: "Show me a picture of a cat (or dog, horse, car, people, house, flower, etc.)?" Is the child able to show the picture correctly?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -428,8 +433,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn3:label">Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan anak untuk mengerjakan sesuatu seperti: "Berikan boneka itu kepada saya", "Taruh kubus-kubus ini di atas meja/kursi", dan sebagainya. Apakah anak dapat mengerjakan perintah tersebut dengan benar?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn3:label">Cover your mouth with a book/paper, without seeing your lip movements, tell the child to do something such as: "Give me the doll", "Put these bricks on the desk/chair", etc. Does the child do the instructions correctly?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_2-3thn3:label">3. Tutup mulut Anda dengan buku/kertas, tanpa melihat gerakan bibir Anda, perintahkan anak untuk mengerjakan sesuatu seperti: "Berikan boneka itu kepada saya", "Taruh kubus-kubus ini di atas meja/kursi", dan sebagainya. Apakah anak dapat mengerjakan perintah tersebut dengan benar?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_2-3thn3:label">3. Cover your mouth with a book/paper, without seeing your lip movements, tell the child to do something such as: "Give me the doll", "Put these bricks on the desk/chair", etc. Does the child do the instructions correctly?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -449,8 +454,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn1:label">Perlihatkan benda-benda yang ada di sekeliling anak seperti sendok, cangkir, bola, bunga, dan sebagainya. Suruh anak menyebutkan nama benda-benda tersebut. Apakah anak dapat menyebutkan nama benda-benda tersebut dengan benar?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn1:label">Show the objects around the child such as spoons, cups, balls, flowers, etc. Ask the chid to name the objects. Is the child able to name the objects correctly?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn1:label">1. Perlihatkan benda-benda yang ada di sekeliling anak seperti sendok, cangkir, bola, bunga, dan sebagainya. Suruh anak menyebutkan nama benda-benda tersebut. Apakah anak dapat menyebutkan nama benda-benda tersebut dengan benar?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn1:label">1. Show the objects around the child such as spoons, cups, balls, flowers, etc. Ask the chid to name the objects. Is the child able to name the objects correctly?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -470,8 +475,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2:label">Suruh anak duduk, Anda duduk dalam jarak 3 meter di depan anak. Suruh anak mengulangi angka-angka yang telah Anda ucapkan: "Empat", "Satu", "Delapan" atau menirukan dengan menggunakan jari tangannya. Kemudian tutup mulut Anda dengan buku/kertas, ucapkan 4 angka yang berlainan. Apakah anak dapat mengulangi atau menirukan ucapan Anda dengan menggunakan jari tangannya? (Anda dapat mengulanginya dengan suara yang lebih keras)</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2:label">Have the child sit, while you sit within 3 meters in front of the child. Ask the child to repeat numbers you have mentioned: "Four", "One", "Eight" or mimic them using his/her fingers. Then cover your mouth with a book/paper, say 4 different numbers. Is the child able to repeat or mimic your words with fingers? (You can repeat the words with a louder voice)</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2:label">2. Suruh anak duduk, Anda duduk dalam jarak 3 meter di depan anak. Suruh anak mengulangi angka-angka yang telah Anda ucapkan: "Empat", "Satu", "Delapan" atau menirukan dengan menggunakan jari tangannya. Kemudian tutup mulut Anda dengan buku/kertas, ucapkan 4 angka yang berlainan. Apakah anak dapat mengulangi atau menirukan ucapan Anda dengan menggunakan jari tangannya? (Anda dapat mengulanginya dengan suara yang lebih keras)</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2:label">2. Have the child sit, while you sit within 3 meters in front of the child. Ask the child to repeat numbers you have mentioned: "Four", "One", "Eight" or mimic them using his/her fingers. Then cover your mouth with a book/paper, say 4 different numbers. Is the child able to repeat or mimic your words with fingers? (You can repeat the words with a louder voice)</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -484,6 +489,111 @@
                <input type="radio" name="/tes_daya_dengar/tdd_lebih_dari_3thn2" data-name="/tes_daya_dengar/tdd_lebih_dari_3thn2" value="tidak" required="required" data-relevant="selected( /tes_daya_dengar/tdd ,'tdd_lebih_dari_3thn')" data-type-xml="select1" />
                <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2/tidak:label">Tidak</span>
                <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/tdd_lebih_dari_3thn2/tidak:label">No</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Pilih "Curiga ada gangguan" jika ada satu atau lebih jawaban YA</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Select "Suspected of development disorder" if there is one or more YES anwer</span>
+      <input type="text" name="/tes_daya_dengar/hasil_daya_dengar" data-type-xml="string" readonly="readonly" />
+   </label>
+   <fieldset class="question or-appearance-horizontal-compact ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/daya_dengar:label">Hasil Tes Daya Dengar</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/daya_dengar:label">Hearing Assessment Result</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/daya_dengar" data-name="/tes_daya_dengar/daya_dengar" value="normal" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/daya_dengar/normal:label">Normal</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/daya_dengar/normal:label">Normal</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/daya_dengar" data-name="/tes_daya_dengar/daya_dengar" value="ada_gangguan" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/daya_dengar/ada_gangguan:label">Curiga ada gangguan</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/daya_dengar/ada_gangguan:label">Suspected of development disorder</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/kesimpulan:label">__KESIMPULAN__</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/kesimpulan:label">__SUMMARY__</span>
+      <input type="text" name="/tes_daya_dengar/kesimpulan" data-type-xml="string" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tindakan_intervensi:label">__TINDAKAN INTERVENSI__</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tindakan_intervensi:label">__INTERVENTION MEASURE__</span>
+      <input type="text" name="/tes_daya_dengar/tindakan_intervensi" data-type-xml="string" readonly="readonly" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/konseling_stimulasi:label">Konseling stimulasi bagi ibu:</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/konseling_stimulasi:label">Stimulation consultation for the mother</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/konseling_stimulasi" data-name="/tes_daya_dengar/konseling_stimulasi" value="diberikan" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/konseling_stimulasi/diberikan:label">Diberikan</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/konseling_stimulasi/diberikan:label">Received</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/konseling_stimulasi" data-name="/tes_daya_dengar/konseling_stimulasi" value="tidak_diberikan" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/konseling_stimulasi/tidak_diberikan:label">Tidak diberikan</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/konseling_stimulasi/tidak_diberikan:label">Not received</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tindakan_lain:label">Tindakan pengobatan lain</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tindakan_lain:label">Other measure:</span>
+      <input type="text" name="/tes_daya_dengar/tindakan_lain" data-type-xml="string" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/rujukan:label">Apakah anak dirujuk?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/rujukan:label">Is the child referred to other facility?</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/rujukan" data-name="/tes_daya_dengar/rujukan" value="ya" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/rujukan/ya:label">Ya</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/rujukan/ya:label">Yes</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/rujukan" data-name="/tes_daya_dengar/rujukan" value="tidak" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/rujukan/tidak:label">Tidak</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/rujukan/tidak:label">No</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/dirujuk_ke:label">Dirujuk ke</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/dirujuk_ke:label">Place of referral</span>
+      <input type="text" name="/tes_daya_dengar/dirujuk_ke" data-type-xml="string" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/surat_rujukan:label">Ada surat rujukan?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/surat_rujukan:label">Referral letter</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/surat_rujukan" data-name="/tes_daya_dengar/surat_rujukan" value="ya" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/surat_rujukan/ya:label">Ya</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/surat_rujukan/ya:label">Yes</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/tes_daya_dengar/surat_rujukan" data-name="/tes_daya_dengar/surat_rujukan" value="tidak" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/tes_daya_dengar/surat_rujukan/tidak:label">Tidak</span>
+               <span lang="en" class="option-label " data-itext-id="/tes_daya_dengar/surat_rujukan/tidak:label">No</span>
             </label>
          </div>
       </fieldset>
@@ -510,7 +620,7 @@
          <input type="hidden" name="/tes_daya_dengar/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string" />
       </label>
       <label class="calculation non-select ">
-         <input type="hidden" name="/tes_daya_dengar/formhub/uuid" data-calculate="'c5f36a948a2648a9bd41d04fa25bd6ce'" data-type-xml="string" />
+         <input type="hidden" name="/tes_daya_dengar/formhub/uuid" data-calculate="'f715e71275bd4322981dc5738c57c536'" data-type-xml="string" />
       </label>
    </fieldset>
 </form>

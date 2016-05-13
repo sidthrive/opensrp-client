@@ -9,6 +9,10 @@
         "shouldLoadValue": true
       },
       {
+        "name": "hear_test_date",
+        "bind": "/model/instance/tes_daya_dengar/hear_test_date"
+      },
+      {
         "name": "tdd",
         "bind": "/model/instance/tes_daya_dengar/tdd"
       },
@@ -95,6 +99,42 @@
       {
         "name": "tdd_lebih_dari_3thn2",
         "bind": "/model/instance/tes_daya_dengar/tdd_lebih_dari_3thn2"
+      },
+      {
+        "name": "hasil_daya_dengar",
+        "bind": "/model/instance/tes_daya_dengar/hasil_daya_dengar"
+      },
+      {
+        "name": "daya_dengar",
+        "bind": "/model/instance/tes_daya_dengar/daya_dengar"
+      },
+      {
+        "name": "kesimpulan",
+        "bind": "/model/instance/tes_daya_dengar/kesimpulan"
+      },
+      {
+        "name": "tindakan_intervensi",
+        "bind": "/model/instance/tes_daya_dengar/tindakan_intervensi"
+      },
+      {
+        "name": "konseling_stimulasi",
+        "bind": "/model/instance/tes_daya_dengar/konseling_stimulasi"
+      },
+      {
+        "name": "tindakan_lain",
+        "bind": "/model/instance/tes_daya_dengar/tindakan_lain"
+      },
+      {
+        "name": "rujukan",
+        "bind": "/model/instance/tes_daya_dengar/rujukan"
+      },
+      {
+        "name": "dirujuk_ke",
+        "bind": "/model/instance/tes_daya_dengar/dirujuk_ke"
+      },
+      {
+        "name": "surat_rujukan",
+        "bind": "/model/instance/tes_daya_dengar/surat_rujukan"
       },
       {
         "name": "isOutOfArea",

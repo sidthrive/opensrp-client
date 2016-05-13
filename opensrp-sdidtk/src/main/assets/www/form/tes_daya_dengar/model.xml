@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <tes_daya_dengar encounter_type="Tes Daya Dengar" id="tes_daya_dengar" version="201604121015">
+        <tes_daya_dengar encounter_type="Tes Daya Dengar" id="tes_daya_dengar" version="201605120836">
           <formhub>
             <uuid/>
           </formhub>
@@ -9,6 +9,7 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <hear_test_date/>
           <tdd/>
           <tdd_0-6bln1/>
           <tdd_0-6bln2/>
@@ -31,6 +32,15 @@
           <tdd_2-3thn3/>
           <tdd_lebih_dari_3thn1/>
           <tdd_lebih_dari_3thn2/>
+          <hasil_daya_dengar/>
+          <daya_dengar/>
+          <kesimpulan/>
+          <tindakan_intervensi/>
+          <konseling_stimulasi/>
+          <tindakan_lain/>
+          <rujukan/>
+          <dirujuk_ke/>
+          <surat_rujukan/>
           <meta>
             <instanceID/>
           </meta>

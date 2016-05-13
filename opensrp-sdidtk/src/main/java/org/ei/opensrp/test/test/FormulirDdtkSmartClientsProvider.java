@@ -79,6 +79,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
             viewHolder = new ViewHolder();
             viewHolder.profilelayout =  (LinearLayout)convertView.findViewById(R.id.profile_info_layout);
             viewHolder.antrolayout =  (LinearLayout)convertView.findViewById(R.id.profile_antro_layout);
+            viewHolder.village = (TextView)convertView.findViewById(R.id.village);
             viewHolder.nama_anak = (TextView)convertView.findViewById(R.id.nama_anak);
             viewHolder.jenis_kelamin = (TextView)convertView.findViewById(R.id.jenis_kelamin);
             viewHolder.nama_ibu = (TextView)convertView.findViewById(R.id.nama_ibu);
@@ -90,8 +91,14 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
             viewHolder.daya_lihat = (TextView)convertView.findViewById(R.id.daya_lihat);
             viewHolder.mental_emosional = (TextView)convertView.findViewById(R.id.mental_emosional);
             viewHolder.autis = (TextView)convertView.findViewById(R.id.autis);
-            viewHolder.ggph = (TextView)convertView.findViewById(R.id.ggph);
-            viewHolder.today = (TextView)convertView.findViewById(R.id.today);
+            viewHolder.ggph_test = (TextView)convertView.findViewById(R.id.ggph_test);
+            viewHolder.anthropometry_date = (TextView)convertView.findViewById(R.id.anthropometry_date);
+            viewHolder.hear_test_date = (TextView)convertView.findViewById(R.id.hear_test_date);
+            viewHolder.sight_test_date = (TextView)convertView.findViewById(R.id.sight_test_date);
+            viewHolder.mental_test_date = (TextView)convertView.findViewById(R.id.mental_test_date);
+            viewHolder.autis_test_date = (TextView)convertView.findViewById(R.id.autis_test_date);
+            viewHolder.ggph_test_date = (TextView)convertView.findViewById(R.id.ggph_test_date);
+            viewHolder.kpsp_test_date = (TextView)convertView.findViewById(R.id.kpsp_test_date);
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile_thumb));
@@ -140,7 +147,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
 
         //set default image for mother
         viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-
+        //viewHolder.village.setText(pc.getDetails().get("village") != null ? pc.getDetails().get("village") : "");
         viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak") != null ? pc.getDetails().get("nama_anak") : "");
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin")!=null?pc.getDetails().get("jenis_kelamin"):"");
         viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu") != null ? pc.getDetails().get("nama_ibu") : "");
@@ -152,8 +159,14 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         viewHolder.daya_lihat.setText(pc.getDetails().get("daya_lihat")!=null?pc.getDetails().get("daya_lihat"):"");
         viewHolder.mental_emosional.setText(pc.getDetails().get("mental_emosional")!=null?pc.getDetails().get("mental_emosional"):"");
         viewHolder.autis.setText(pc.getDetails().get("autis")!=null?pc.getDetails().get("autis"):"");
-        viewHolder.ggph.setText(pc.getDetails().get("ggph")!=null?pc.getDetails().get("ggph"):"");
-        viewHolder.today.setText(pc.getDetails().get("today")!=null?pc.getDetails().get("today"):"");
+        viewHolder.ggph_test.setText(pc.getDetails().get("ggph_test")!=null?pc.getDetails().get("ggph_test"):"");
+        viewHolder.anthropometry_date.setText(pc.getDetails().get("anthropometry_date")!=null?pc.getDetails().get("anthropometry_date"):"");
+        viewHolder.sight_test_date.setText(pc.getDetails().get("sight_test_date")!=null?pc.getDetails().get("sight_test_date"):"");
+        viewHolder.mental_test_date.setText(pc.getDetails().get("mental_test_date")!=null?pc.getDetails().get("mental_test_date"):"");
+        viewHolder.autis_test_date.setText(pc.getDetails().get("autis_test_date")!=null?pc.getDetails().get("autis_test_date"):"");
+        viewHolder.ggph_test_date.setText(pc.getDetails().get("ggph_test_date")!=null?pc.getDetails().get("ggph_test_date"):"");
+        viewHolder.kpsp_test_date.setText(pc.getDetails().get("kpsp_test_date")!=null?pc.getDetails().get("kpsp_test_date"):"");
+        viewHolder.hear_test_date.setText(pc.getDetails().get("hear_test_date")!=null?pc.getDetails().get("hear_test_date"):"");
       //  viewHolder.headofhouseholdname.setText(pc.getDetails().get("FWHOHFNAME")!=null?pc.getDetails().get("FWHOHFNAME"):"");
       //  viewHolder.no_of_mwra.setText(pc.getDetails().get("ELCO")!=null?pc.getDetails().get("ELCO"):"");
        // Date lastdate = null;
@@ -217,7 +230,14 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
          TextView daya_lihat;
          TextView mental_emosional;
          TextView autis;
-         TextView ggph;
+         TextView ggph_test;
+         TextView anthropometry_date;
+         TextView hear_test_date;
+         TextView sight_test_date;
+         TextView mental_test_date;
+         TextView autis_test_date;
+         TextView kpsp_test_date;
+         TextView ggph_test_date;
      }
 
 

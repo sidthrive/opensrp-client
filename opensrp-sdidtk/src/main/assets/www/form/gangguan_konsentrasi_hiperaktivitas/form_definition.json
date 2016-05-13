@@ -9,6 +9,10 @@
         "shouldLoadValue": true
       },
       {
+        "name": "gpph_test_date",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_test_date"
+      },
+      {
         "name": "nilai_note1",
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/nilai_note1"
       },
@@ -61,52 +65,36 @@
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_nilai"
       },
       {
-        "name": "_72bln_berpakaian_sendiri",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_berpakaian_sendiri"
+        "name": "gpph_test",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph"
       },
       {
-        "name": "_72bln_menggambar_3bagian",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar_3bagian"
+        "name": "kesimpulan",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/kesimpulan"
       },
       {
-        "name": "_72bln_menggambar_6bagian",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar_6bagian"
+        "name": "tindakan_intervensi",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/tindakan_intervensi"
       },
       {
-        "name": "_72bln_lawan_kata",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_lawan_kata"
+        "name": "konseling_stimulasi",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/konseling_stimulasi"
       },
       {
-        "name": "_72bln_menangkap_bola",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menangkap_bola"
+        "name": "tindakan_lain",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/tindakan_lain"
       },
       {
-        "name": "_72bln_berdiri_1kaki",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_berdiri_1kaki"
+        "name": "rujukan",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/rujukan"
       },
       {
-        "name": "_72bln_menggambar",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_menggambar"
+        "name": "dirujuk_ke",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/dirujuk_ke"
       },
       {
-        "name": "_72bln_pertanyaan_note1",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note1"
-      },
-      {
-        "name": "_72bln_pertanyaan_note2",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note2"
-      },
-      {
-        "name": "_72bln_pertanyaan_note3",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note3"
-      },
-      {
-        "name": "_72bln_pertanyaan_note4",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan_note4"
-      },
-      {
-        "name": "_72bln_pertanyaan",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/_72bln_pertanyaan"
+        "name": "surat_rujukan",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/surat_rujukan"
       },
       {
         "name": "isOutOfArea",

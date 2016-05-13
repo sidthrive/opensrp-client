@@ -74,8 +74,8 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_reporting"
                 android:drawablePadding="5dp"
-                android:paddingLeft="620dp"
-                android:paddingRight="580dp"
+                android:paddingLeft="540dp"
+                android:paddingRight="500dp"
                 android:text="@string/str_reporting"
                 style="@style/CustomFontTextViewStyle.Home.Buttons"/>
 

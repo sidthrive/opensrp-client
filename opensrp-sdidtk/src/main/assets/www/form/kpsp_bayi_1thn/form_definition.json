@@ -9,6 +9,22 @@
         "shouldLoadValue": true
       },
       {
+        "name": "kpsp_test_date",
+        "bind": "/model/instance/kpsp_bayi_1thn/kpsp_test_date"
+      },
+      {
+        "name": "anamnesis",
+        "bind": "/model/instance/kpsp_bayi_1thn/anamnesis"
+      },
+      {
+        "name": "keluhan",
+        "bind": "/model/instance/kpsp_bayi_1thn/keluhan"
+      },
+      {
+        "name": "masalah_tumbang",
+        "bind": "/model/instance/kpsp_bayi_1thn/masalah_tumbang"
+      },
+      {
         "name": "kpsp_1thn",
         "bind": "/model/instance/kpsp_bayi_1thn/kpsp_1thn"
       },
@@ -171,6 +187,46 @@
       {
         "name": "_12bln_menyusun_benda",
         "bind": "/model/instance/kpsp_bayi_1thn/_12bln_menyusun_benda"
+      },
+      {
+        "name": "status_kembang",
+        "bind": "/model/instance/kpsp_bayi_1thn/status_kembang"
+      },
+      {
+        "name": "status_meragukan",
+        "bind": "/model/instance/kpsp_bayi_1thn/status_meragukan"
+      },
+      {
+        "name": "status_penyimpangan",
+        "bind": "/model/instance/kpsp_bayi_1thn/status_penyimpangan"
+      },
+      {
+        "name": "kesimpulan",
+        "bind": "/model/instance/kpsp_bayi_1thn/kesimpulan"
+      },
+      {
+        "name": "tindakan_intervensi",
+        "bind": "/model/instance/kpsp_bayi_1thn/tindakan_intervensi"
+      },
+      {
+        "name": "konseling_stimulasi",
+        "bind": "/model/instance/kpsp_bayi_1thn/konseling_stimulasi"
+      },
+      {
+        "name": "tindakan_lain",
+        "bind": "/model/instance/kpsp_bayi_1thn/tindakan_lain"
+      },
+      {
+        "name": "rujukan",
+        "bind": "/model/instance/kpsp_bayi_1thn/rujukan"
+      },
+      {
+        "name": "dirujuk_ke",
+        "bind": "/model/instance/kpsp_bayi_1thn/dirujuk_ke"
+      },
+      {
+        "name": "surat_rujukan",
+        "bind": "/model/instance/kpsp_bayi_1thn/surat_rujukan"
       },
       {
         "name": "isOutOfArea",

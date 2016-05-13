@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <kpsp_bayi_1thn encounter_type="KPSP Bayi 1 Tahun" id="kpsp_bayi_1thn" version="201604121044">
+        <kpsp_bayi_1thn encounter_type="KPSP Bayi 1 Tahun" id="kpsp_bayi_1thn" version="201605120841">
           <formhub>
             <uuid/>
           </formhub>
@@ -9,6 +9,10 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <kpsp_test_date/>
+          <anamnesis/>
+          <keluhan/>
+          <masalah_tumbang/>
           <kpsp_1thn/>
           <_3bln_gerakan_lengan/>
           <_3bln_menatap_wajah/>
@@ -50,6 +54,19 @@
           <_12bln_duduk_tanpa_bantuan/>
           <_12bln_meniru_kata/>
           <_12bln_menyusun_benda/>
+          <note_status_kembang/>
+          <status_kembang/>
+          <status_meragukan/>
+          <status_penyimpangan/>
+          <kesimpulan/>
+          <tindakan_intervensi/>
+          <konseling_stimulasi/>
+          <intervensi_stimulasi/>
+          <tanggal_evaluasi_intervensi/>
+          <tindakan_lain/>
+          <rujukan/>
+          <dirujuk_ke/>
+          <surat_rujukan/>
           <meta>
             <instanceID/>
           </meta>

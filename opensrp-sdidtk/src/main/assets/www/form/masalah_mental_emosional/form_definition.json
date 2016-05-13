@@ -9,6 +9,10 @@
         "shouldLoadValue": true
       },
       {
+        "name": "mental_test_date",
+        "bind": "/model/instance/masalah_mental_emosional/mental_test_date"
+      },
+      {
         "name": "mme_marah",
         "bind": "/model/instance/masalah_mental_emosional/mme_marah"
       },
@@ -55,6 +59,42 @@
       {
         "name": "mme_berulang_ulang",
         "bind": "/model/instance/masalah_mental_emosional/mme_berulang_ulang"
+      },
+      {
+        "name": "hasil_mental_emosional",
+        "bind": "/model/instance/masalah_mental_emosional/hasil_mental_emosional"
+      },
+      {
+        "name": "mental_emosional",
+        "bind": "/model/instance/masalah_mental_emosional/mental_emosional"
+      },
+      {
+        "name": "kesimpulan",
+        "bind": "/model/instance/masalah_mental_emosional/kesimpulan"
+      },
+      {
+        "name": "tindakan_intervensi",
+        "bind": "/model/instance/masalah_mental_emosional/tindakan_intervensi"
+      },
+      {
+        "name": "konseling_stimulasi",
+        "bind": "/model/instance/masalah_mental_emosional/konseling_stimulasi"
+      },
+      {
+        "name": "tindakan_lain",
+        "bind": "/model/instance/masalah_mental_emosional/tindakan_lain"
+      },
+      {
+        "name": "rujukan",
+        "bind": "/model/instance/masalah_mental_emosional/rujukan"
+      },
+      {
+        "name": "dirujuk_ke",
+        "bind": "/model/instance/masalah_mental_emosional/dirujuk_ke"
+      },
+      {
+        "name": "surat_rujukan",
+        "bind": "/model/instance/masalah_mental_emosional/surat_rujukan"
       },
       {
         "name": "isOutOfArea",

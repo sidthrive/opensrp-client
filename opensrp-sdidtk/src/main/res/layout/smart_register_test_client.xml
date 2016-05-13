@@ -13,6 +13,7 @@
         android:layout_weight="1.5"
         android:id="@+id/profile_info_layout">
 
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -83,9 +84,9 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.01">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -93,8 +94,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal"
-                android:textSize="14sp"
+                android:text="Tanggal:"
+                android:textSize="13sp"
                 android:id="@+id/label_today" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -102,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="berat"
-                android:textSize="14sp"
+                android:text="berat:"
+                android:textSize="13sp"
                 android:id="@+id/label_berat" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -111,8 +112,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="tinggi"
-                android:textSize="14sp"
+                android:text="tinggi:"
+                android:textSize="13sp"
                 android:id="@+id/label_tinggi" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -121,15 +122,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="ling kepala"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_lingkar_kepala" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -137,9 +138,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="date"
-                android:textSize="14sp"
-                android:id="@+id/today" />
+                android:text="-"
+                android:textSize="13sp"
+                android:id="@+id/anthropometry_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -147,7 +148,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="berat"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/berat" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -156,7 +157,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="tinggi"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/tinggi" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -165,7 +166,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="lingkar kepala"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/lingkar_kepala" />
         </LinearLayout>
         <ImageView
@@ -175,9 +176,9 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="90dp"
+            android:layout_width="70dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.01">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -186,7 +187,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tanggal:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_status_today1" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -195,7 +196,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Status:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_status_kembang" />
 
 
@@ -205,7 +206,7 @@
             android:orientation="vertical"
             android:layout_width="90dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -214,8 +215,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="-"
-                android:textSize="14sp"
-                android:id="@+id/today1" />
+                android:textSize="13sp"
+                android:id="@+id/kpsp_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -223,7 +224,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="status kembang"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/status_kembang" />
 
 
@@ -237,7 +238,7 @@
             android:orientation="vertical"
             android:layout_width="90dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.01">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -246,8 +247,9 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tanggal:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_today2" />
+
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -255,7 +257,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tes dengar:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_tes_dengar" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -263,8 +265,17 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Tanggal:"
+                android:textSize="13sp"
+                android:id="@+id/label_today8" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tes visual:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_tes_visual" />
 
 
@@ -274,7 +285,7 @@
             android:orientation="vertical"
             android:layout_width="90dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -283,8 +294,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="-"
-                android:textSize="14sp"
-                android:id="@+id/today3" />
+                android:textSize="13sp"
+                android:id="@+id/hear_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -292,7 +303,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="daya_dengar"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/daya_dengar" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -300,8 +311,17 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="-"
+                android:textSize="13sp"
+                android:id="@+id/sight_test_date" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="daya_lihat"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/daya_lihat" />
 
 
@@ -315,7 +335,7 @@
         android:orientation="vertical"
         android:layout_width="90dp"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="2dp"
         android:layout_weight="0.01">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -324,7 +344,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             style="@style/CustomFontTextViewStyle.ListView.Medium"
             android:text="Tanggal:"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:id="@+id/label_today4" />
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -333,7 +353,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             style="@style/CustomFontTextViewStyle.ListView.Medium"
             android:text="Tes Mental:"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:id="@+id/label_test_mental" />
 
         </LinearLayout>
@@ -342,7 +362,7 @@
             android:orientation="vertical"
             android:layout_width="90dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -351,16 +371,16 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="-"
-                android:textSize="14sp"
-                android:id="@+id/today4" />
+                android:textSize="13sp"
+                android:id="@+id/mental_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="mental_emosional"
-                android:textSize="14sp"
+                android:text="-"
+                android:textSize="13sp"
                 android:id="@+id/mental_emosional" />
 
         </LinearLayout>
@@ -373,7 +393,7 @@
             android:orientation="vertical"
             android:layout_width="90dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.01">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -382,7 +402,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tanggal:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_today5" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -391,7 +411,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tes Autis:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_tes_autis" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -399,8 +419,17 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Tanggal:"
+                android:textSize="13sp"
+                android:id="@+id/label_today9" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Tes GGPH:"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/label_tes_ggph" />
 
 
@@ -410,7 +439,7 @@
             android:orientation="vertical"
             android:layout_width="80dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -419,8 +448,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="-"
-                android:textSize="14sp"
-                android:id="@+id/today5" />
+                android:textSize="13sp"
+                android:id="@+id/autis_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -428,7 +457,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="autis"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:id="@+id/autis" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -436,9 +465,18 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="-"
+                android:textSize="13sp"
+                android:id="@+id/ggph_test_date" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="ggph"
-                android:textSize="14sp"
-                android:id="@+id/ggph" />
+                android:textSize="13sp"
+                android:id="@+id/ggph_test" />
 
 
         </LinearLayout>

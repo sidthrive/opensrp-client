@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <form autocomplete="off" novalidate="novalidate" class="or clearfix" id="deteksi_dini_autis">
    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSLT sheet created by Enketo LLC.-->
    <section class="form-logo"></section>
@@ -6,16 +7,21 @@
       <option value="Bahasa">Bahasa</option>
       <option value="en">English</option>
    </select>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_test_date:label">Tanggal Entry</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_test_date:label">Entry Date</span>
+      <input type="date" name="/deteksi_dini_autis/autis_test_date" data-type-xml="date" />
+   </label>
    <label class="note non-select ">
-      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_anamnesis:label">Allo Anamnesis</span>
-      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_anamnesis:label">Alloanamnesis</span>
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_anamnesis:label">__A. Allo Anamnesis__</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_anamnesis:label">__A. Alloanamnesis__</span>
       <input type="text" name="/deteksi_dini_autis/chat_anamnesis" data-type-xml="string" readonly="readonly" />
    </label>
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_diayun:label">Apakah anak senang diayun-ayun atau diguncang-guncang naik turun (bounched) di paha Anda?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_diayun:label">Does your child enjoy being swung, bounced on your knee, etc?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_diayun:label">A1. Apakah anak senang diayun-ayun atau diguncang-guncang naik turun (bounched) di paha Anda?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_diayun:label">A1. Does your child enjoy being swung, bounced on your knee, etc?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -34,8 +40,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_tertarik:label">Apakah anak tertarik (memperhatikan) anak lain?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_tertarik:label">Does your child take an interest in other children?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_tertarik:label">A2. Apakah anak tertarik (memperhatikan) anak lain?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_tertarik:label">A2. Does your child take an interest in other children?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -54,8 +60,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_memanjat:label">Apakah anak suka memanjat-manjat, seperti memanjat tangga?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_memanjat:label">Does your child like climbing on things, such as stairs?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_memanjat:label">A3. Apakah anak suka memanjat-manjat, seperti memanjat tangga?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_memanjat:label">A3. Does your child like climbing on things, such as stairs?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -74,8 +80,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_cilukba:label">Apakah anak suka bermain "cilukba" atau "petak umpet"?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_cilukba:label">Does your child enjoy playing peek-a-boo/hide-and-seek?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_cilukba:label">A4. Apakah anak suka bermain "cilukba" atau "petak umpet"?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_cilukba:label">A4. Does your child enjoy playing peek-a-boo/hide-and-seek?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -94,8 +100,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_roleplay:label">Apakah anak pernah bermain-main seolah-olah membuat secangkir teh menggunakan mainan berbentuk cangkir dan teko, atau permainan lain?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_roleplay:label">Does your child ever PRETEND, for example, to make a cup of tea using a toy and teapot, or pretend other things?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_roleplay:label">A5. Apakah anak pernah bermain-main seolah-olah membuat secangkir teh menggunakan mainan berbentuk cangkir dan teko, atau permainan lain?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_roleplay:label">A5. Does your child ever PRETEND, for example, to make a cup of tea using a toy and teapot, or pretend other things?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -114,8 +120,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_meminta:label">Apakah anak pernah menunjuk atau meminta sesuatu dengan menunjukkan jari?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_meminta:label">Does your child ever use his/her index finger to point, to ASK for something?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_meminta:label">A6. Apakah anak pernah menunjuk atau meminta sesuatu dengan menunjukkan jari?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_meminta:label">A6. Does your child ever use his/her index finger to point, to ASK for something?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -134,8 +140,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menunjuk:label">Apakah anak pernah menggunakan jari untuk menunjuk ke sesuatu agar Anda melihat ke sana?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menunjuk:label">Does your child ever use his/her index finger to point, to indicate INTEREST in something?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menunjuk:label">A7. Apakah anak pernah menggunakan jari untuk menunjuk ke sesuatu agar Anda melihat ke sana?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menunjuk:label">A7. Does your child ever use his/her index finger to point, to indicate INTEREST in something?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -154,8 +160,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_mainan_kecil:label">Apakah anak dapat bermain dengan mainan yang kecil (mobil atau kubus)?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_mainan_kecil:label">Can your child play properly with small toys (e.g. cars or bricks) without just mouthing, fiddling, or dropping them?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_mainan_kecil:label">A8. Apakah anak dapat bermain dengan mainan yang kecil (mobil atau kubus)?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_mainan_kecil:label">A8. Can your child play properly with small toys (e.g. cars or bricks) without just mouthing, fiddling, or dropping them?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -174,8 +180,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_memberikan_benda:label">Apakah anak pernah memberikan suatu benda untuk menunjukkan sesuatu?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_memberikan_benda:label">Does your child ever bring objects over to you (parent) to SHOW you something?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_memberikan_benda:label">A9. Apakah anak pernah memberikan suatu benda untuk menunjukkan sesuatu?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_memberikan_benda:label">A9. Does your child ever bring objects over to you (parent) to SHOW you something?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -192,15 +198,15 @@
       </fieldset>
    </fieldset>
    <label class="note non-select ">
-      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_pengamatan:label">Pengamatan</span>
-      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_pengamatan:label">Observation</span>
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_pengamatan:label">__B. Pengamatan__</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_pengamatan:label">__B. Observation__</span>
       <input type="text" name="/deteksi_dini_autis/chat_pengamatan" data-type-xml="string" readonly="readonly" />
    </label>
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_kontak_mata:label">Selama pemeriksaan apakah anak menatap (kontak mata) dengan pemeriksa?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_kontak_mata:label">During the appointment, has the child made eye contact with you?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_kontak_mata:label">B1. Selama pemeriksaan apakah anak menatap (kontak mata) dengan pemeriksa?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_kontak_mata:label">B1. During the appointment, has the child made eye contact with you?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -219,8 +225,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_melihat_benda:label">Usahakan menarik perhatian anak, kemudian pemeriksa menunjuk sesuatu di ruangan pemeriksaan sambil mengatakan: "Lihat itu ada bola (atau mainan lain)!". Perhatikan mata anak, apakah ia melihat ke benda yang ditunjuk, bukan melihat tangan pemeriksa?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_melihat_benda:label">Get child's attention, then point across the room at an interesting object and say 'Oh look! There's a (name of toy)!' Watch child's face. Does the child look across to see what you are pointing at? Ensure the child has not simply looked at your hand, but has actually looked at the object you are pointing at.</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_melihat_benda:label">B2. Usahakan menarik perhatian anak, kemudian pemeriksa menunjuk sesuatu di ruangan pemeriksaan sambil mengatakan: "Lihat itu ada bola (atau mainan lain)!". Perhatikan mata anak, apakah ia melihat ke benda yang ditunjuk, bukan melihat tangan pemeriksa?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_melihat_benda:label">B2. Get child's attention, then point across the room at an interesting object and say 'Oh look! There's a (name of toy)!' Watch child's face. Does the child look across to see what you are pointing at? Ensure the child has not simply looked at your hand, but has actually looked at the object you are pointing at.</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -239,8 +245,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_berpura_pura:label">Usahakan menarik perhatian anak, berikan mainan gelas/cangkir dan teko. Katakan pada anak: "Buatkan secangkir susu buat mama"!</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_berpura_pura:label">Get child's attention, then give child a miniature toy cup and teapot and say 'Can you make me a cup of tea?' Does the child pretend to pour out tea, drink it, etc.?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_berpura_pura:label">B3. Usahakan menarik perhatian anak, berikan mainan gelas/cangkir dan teko. Katakan pada anak: "Buatkan secangkir susu buat mama"!</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_berpura_pura:label">B3. Get child's attention, then give child a miniature toy cup and teapot and say 'Can you make me a cup of tea?' Does the child pretend to pour out tea, drink it, etc.?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -259,8 +265,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menunjuk_dg_jari:label">Tanyakan pada anak: "Tunjukkan mana gelas!" (gelas dapat diganti dengan nama benda lain yang dikenal anak dan ada di sekitar kita). Apakah anak menunjukkan benda tersebut dengan jarinya? Atau sambil menatap wajah Anda ketika menunjuk ke suatu benda?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menunjuk_dg_jari:label">Say to the child 'Where's the light?', or "Show me the light'. Does the child POINT with his/her index finger at the light? Repeat this with some other unreachable object, if child does not understand the word light. The child must have looked up at your face around the time of pointing.</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menunjuk_dg_jari:label">B4. Tanyakan pada anak: "Tunjukkan mana gelas!" (gelas dapat diganti dengan nama benda lain yang dikenal anak dan ada di sekitar kita). Apakah anak menunjukkan benda tersebut dengan jarinya? Atau sambil menatap wajah Anda ketika menunjuk ke suatu benda?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menunjuk_dg_jari:label">B4. Ask the child 'Where's the light?', or "Show me the light'. Does the child POINT with his/her index finger at the light? Repeat this with some other unreachable object, if child does not understand the word light. The child must have looked up at your face around the time of pointing.</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -279,8 +285,8 @@
    <fieldset class="question ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus:label">Apakah anak dapat menumpuk beberapa kubus/balok menjadi suatu menara?</span>
-            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus:label">Can the child build a tower of bricks?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus:label">B5. Apakah anak dapat menumpuk beberapa kubus/balok menjadi suatu menara?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus:label">B5. Can the child build a tower of bricks?</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -292,6 +298,132 @@
                <input type="radio" name="/deteksi_dini_autis/chat_menumpuk_kubus" data-name="/deteksi_dini_autis/chat_menumpuk_kubus" value="tidak" data-type-xml="select1" />
                <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus/tidak:label">Tidak</span>
                <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/chat_menumpuk_kubus/tidak:label">No</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_note1:label">Interpretasi</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_note1:label">Interpretation</span>
+      <input type="text" name="/deteksi_dini_autis/autis_note1" data-type-xml="string" readonly="readonly" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_note2:label">Resiko tinggi = jawaban TIDAK pada A5, A7, B2, B3 dan B4</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_note2:label">High risk = Answered NO on A5, A7, B2, B3 and B4</span>
+      <input type="text" name="/deteksi_dini_autis/autis_note2" data-type-xml="string" readonly="readonly" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_note3:label">Resiko rendah = jawaban TIDAK pada A7 dan B4</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_note3:label">Low risk = Answered NO on A7 and B4</span>
+      <input type="text" name="/deteksi_dini_autis/autis_note3" data-type-xml="string" readonly="readonly" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_note4:label">Gangguan lain = jawaban TIDAK jumlahnya ≤ 3 pada A1-A4, A6, A8-A9, B1, B5</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_note4:label">Other disorder = Answered NO with total of ≤ 3 on A1-A4, A6, A8-A9, B1, B5</span>
+      <input type="text" name="/deteksi_dini_autis/autis_note4" data-type-xml="string" readonly="readonly" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis_note5:label">Batas normal = tidak termasuk kategori 1, 2, dan 3</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis_note5:label">Normal limit = not include in category 1, 2, and 3</span>
+      <input type="text" name="/deteksi_dini_autis/autis_note5" data-type-xml="string" readonly="readonly" />
+   </label>
+   <label class="question or-appearance-minimal ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/autis:label">Hasil Ceklis Autis</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/autis:label">Autism Assessment Result</span>
+      <select name="/deteksi_dini_autis/autis" data-name="/deteksi_dini_autis/autis" data-type-xml="select1">
+         <option value="">...</option>
+         <option value="resiko_tinggi">Resiko tinggi</option>
+         <option value="resiko_rendah">Resiko rendah</option>
+         <option value="gangguan_lain">Gangguan lain</option>
+         <option value="batas_normal">Batas normal</option>
+      </select>
+      <span class="or-option-translations" style="display:none;">
+         <span data-option-value="resiko_tinggi" lang="Bahasa">Resiko tinggi</span>
+         <span data-option-value="resiko_tinggi" lang="en">High risk</span>
+         <span data-option-value="resiko_rendah" lang="Bahasa">Resiko rendah</span>
+         <span data-option-value="resiko_rendah" lang="en">Low risk</span>
+         <span data-option-value="gangguan_lain" lang="Bahasa">Gangguan lain</span>
+         <span data-option-value="gangguan_lain" lang="en">Other disorder</span>
+         <span data-option-value="batas_normal" lang="Bahasa">Batas normal</span>
+         <span data-option-value="batas_normal" lang="en">Normal limit</span>
+      </span>
+   </label>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/kesimpulan:label">__KESIMPULAN__</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/kesimpulan:label">__SUMMARY__</span>
+      <input type="text" name="/deteksi_dini_autis/kesimpulan" data-type-xml="string" />
+   </label>
+   <label class="note non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/tindakan_intervensi:label">__TINDAKAN INTERVENSI__</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/tindakan_intervensi:label">__INTERVENTION MEASURE__</span>
+      <input type="text" name="/deteksi_dini_autis/tindakan_intervensi" data-type-xml="string" readonly="readonly" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/konseling_stimulasi:label">Konseling stimulasi bagi ibu:</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/konseling_stimulasi:label">Stimulation consultation for the mother</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/konseling_stimulasi" data-name="/deteksi_dini_autis/konseling_stimulasi" value="diberikan" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/konseling_stimulasi/diberikan:label">Diberikan</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/konseling_stimulasi/diberikan:label">Received</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/konseling_stimulasi" data-name="/deteksi_dini_autis/konseling_stimulasi" value="tidak_diberikan" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/konseling_stimulasi/tidak_diberikan:label">Tidak diberikan</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/konseling_stimulasi/tidak_diberikan:label">Not received</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/tindakan_lain:label">Tindakan pengobatan lain</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/tindakan_lain:label">Other measure:</span>
+      <input type="text" name="/deteksi_dini_autis/tindakan_lain" data-type-xml="string" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/rujukan:label">Apakah anak dirujuk?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/rujukan:label">Is the child referred to other facility?</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/rujukan" data-name="/deteksi_dini_autis/rujukan" value="ya" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/rujukan/ya:label">Ya</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/rujukan/ya:label">Yes</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/rujukan" data-name="/deteksi_dini_autis/rujukan" value="tidak" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/rujukan/tidak:label">Tidak</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/rujukan/tidak:label">No</span>
+            </label>
+         </div>
+      </fieldset>
+   </fieldset>
+   <label class="question non-select ">
+      <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/dirujuk_ke:label">Dirujuk ke</span>
+      <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/dirujuk_ke:label">Place of referral</span>
+      <input type="text" name="/deteksi_dini_autis/dirujuk_ke" data-type-xml="string" />
+   </label>
+   <fieldset class="question or-appearance-horizontal ">
+      <fieldset>
+         <legend>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/deteksi_dini_autis/surat_rujukan:label">Ada surat rujukan?</span>
+            <span lang="en" class="question-label " data-itext-id="/deteksi_dini_autis/surat_rujukan:label">Referral letter</span>
+         </legend>
+         <div class="option-wrapper">
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/surat_rujukan" data-name="/deteksi_dini_autis/surat_rujukan" value="ya" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/surat_rujukan/ya:label">Ya</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/surat_rujukan/ya:label">Yes</span>
+            </label>
+            <label class="">
+               <input type="radio" name="/deteksi_dini_autis/surat_rujukan" data-name="/deteksi_dini_autis/surat_rujukan" value="tidak" data-type-xml="select1" />
+               <span lang="Bahasa" class="option-label active" data-itext-id="/deteksi_dini_autis/surat_rujukan/tidak:label">Tidak</span>
+               <span lang="en" class="option-label " data-itext-id="/deteksi_dini_autis/surat_rujukan/tidak:label">No</span>
             </label>
          </div>
       </fieldset>
@@ -318,7 +450,7 @@
          <input type="hidden" name="/deteksi_dini_autis/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string" />
       </label>
       <label class="calculation non-select ">
-         <input type="hidden" name="/deteksi_dini_autis/formhub/uuid" data-calculate="'596639d06fcc43629f5843d9d97bd8c9'" data-type-xml="string" />
+         <input type="hidden" name="/deteksi_dini_autis/formhub/uuid" data-calculate="'3aca05e7cba445a0aaae92696076f924'" data-type-xml="string" />
       </label>
    </fieldset>
 </form>
