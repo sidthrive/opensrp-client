@@ -494,8 +494,8 @@
       </fieldset>
    </fieldset>
    <label class="note non-select ">
-      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Pilih "Curiga ada gangguan" jika ada satu atau lebih jawaban YA</span>
-      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Select "Suspected of development disorder" if there is one or more YES anwer</span>
+      <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Pilih "Curiga ada gangguan" jika ada satu atau lebih jawaban TIDAK</span>
+      <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/hasil_daya_dengar:label">Select "Suspected of development disorder" if there is one or more NO answer</span>
       <input type="text" name="/tes_daya_dengar/hasil_daya_dengar" data-type-xml="string" readonly="readonly" />
    </label>
    <fieldset class="question or-appearance-horizontal-compact ">

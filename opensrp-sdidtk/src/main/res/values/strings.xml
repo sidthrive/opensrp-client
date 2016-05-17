@@ -7,7 +7,7 @@
     <string name="image_description">logo</string>
     <string name="spacer">spacer</string>
     <string name="loggin_in_dialog_title">Logging in…</string>
-    <string name="loggin_in_dialog_message">Please Wwait</string>
+    <string name="loggin_in_dialog_message">Please Wait</string>
     <string name="login_failed_dialog_title">Login Failed</string>
     <string name="login_failed_dialog_message">Please check your Username and Password</string>
     <string name="mcareform_back_confirm_dialog_message">Are you sure you want to go back?</string>

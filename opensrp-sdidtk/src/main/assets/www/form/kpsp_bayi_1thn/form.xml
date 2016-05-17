@@ -129,12 +129,12 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label">jr://images/hal-2-no-4.jpg</span>
+            <span lang="Bahasa" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label"></span>
             <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label">4. Pada waktu bayi telentang, apakah ia dapat mengikuti gerakan Anda dengan menggerakkan kepalanya dari kanan/kiri ke tengah?</span>
-            <img lang="Bahasa" class="active" src="/media/get/https/ona.io/thrive_indonesia/xformsMedia/121758/279808.jpg" alt="image" />
-            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label">jr://images/hal-2-no-4.jpg</span>
+            <img lang="Bahasa" class="active" src="http://orig02.deviantart.net/1271/f/2016/122/1/e/hal_2_no_4_by_edwarddesu-da13yur.jpg" alt="image" />
+            <span lang="en" class="question-label  or-form-image " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label"></span>
             <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:label">4. When the baby is lying down, is he/she able to follow your move by moving his/her head from right/left to the centre (facing you)?</span>
-            <img lang="en" src="/media/get/https/ona.io/thrive_indonesia/xformsMedia/121758/279808.jpg" alt="image" />
+            <img lang="en" src="http://orig02.deviantart.net/1271/f/2016/122/1/e/hal_2_no_4_by_edwarddesu-da13yur.jpg" alt="image" />
             <span class="required">*</span>
             <span lang="Bahasa" class="or-hint active" data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:hint">Gerak halus</span>
             <span lang="en" class="or-hint " data-itext-id="/kpsp_bayi_1thn/_3bln_mengikuti_gerakan1:hint">Fine motor</span>
@@ -1111,16 +1111,6 @@
             <span lang="en" class="question-label " data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi:label">Stimulation consultation for the mother</span>
          </legend>
          <div class="option-wrapper">
-            <label class="">
-               <input type="radio" name="/kpsp_bayi_1thn/konseling_stimulasi" data-name="/kpsp_bayi_1thn/konseling_stimulasi" value="diberikan" data-type-xml="select1" />
-               <span lang="Bahasa" class="option-label active" data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi/diberikan:label">Diberikan</span>
-               <span lang="en" class="option-label " data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi/diberikan:label">Received</span>
-            </label>
-            <label class="">
-               <input type="radio" name="/kpsp_bayi_1thn/konseling_stimulasi" data-name="/kpsp_bayi_1thn/konseling_stimulasi" value="tidak_diberikan" data-type-xml="select1" />
-               <span lang="Bahasa" class="option-label active" data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi/tidak_diberikan:label">Tidak diberikan</span>
-               <span lang="en" class="option-label " data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi/tidak_diberikan:label">Not received</span>
-            </label>
             <label class="">
                <input type="radio" name="/kpsp_bayi_1thn/konseling_stimulasi" data-name="/kpsp_bayi_1thn/konseling_stimulasi" value="diberikan" data-type-xml="select1" />
                <span lang="Bahasa" class="option-label active" data-itext-id="/kpsp_bayi_1thn/konseling_stimulasi/diberikan:label">Diberikan</span>
