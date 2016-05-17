@@ -545,7 +545,7 @@
    <label class="question or-appearance-minimal  or-branch pre-init ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_balita_3thn/status_meragukan:label">Meragukan</span>
       <span lang="en" class="question-label " data-itext-id="/kpsp_balita_3thn/status_meragukan:label">Inconclusive Development</span>
-      <select name="/kpsp_balita_3thn/status_meragukan" data-name="/kpsp_balita_3thn/status_meragukan" data-relevant="selected( /kpsp_balita_3thn/status_kembang ,'meragukan')" data-type-xml="select1">
+      <select multiple="multiple" name="/kpsp_balita_3thn/status_meragukan" data-name="/kpsp_balita_3thn/status_meragukan" data-relevant="selected( /kpsp_balita_3thn/status_kembang ,'meragukan')" data-type-xml="select1">
          <option value="">...</option>
          <option value="gerak_kasar">Gerak Kasar</option>
          <option value="gerak_halus">Gerak Halus</option>
@@ -566,7 +566,7 @@
    <label class="question or-appearance-minimal  or-branch pre-init ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_balita_3thn/status_penyimpangan:label">Penyimpangan</span>
       <span lang="en" class="question-label " data-itext-id="/kpsp_balita_3thn/status_penyimpangan:label">Deviation of Development</span>
-      <select name="/kpsp_balita_3thn/status_penyimpangan" data-name="/kpsp_balita_3thn/status_penyimpangan" data-relevant="selected( /kpsp_balita_3thn/status_kembang ,'penyimpangan')" data-type-xml="select1">
+      <select multiple="multiple" name="/kpsp_balita_3thn/status_penyimpangan" data-name="/kpsp_balita_3thn/status_penyimpangan" data-relevant="selected( /kpsp_balita_3thn/status_kembang ,'penyimpangan')" data-type-xml="select1">
          <option value="">...</option>
          <option value="gerak_kasar">Gerak Kasar</option>
          <option value="gerak_halus">Gerak Halus</option>
@@ -617,7 +617,7 @@
    <label class="question or-appearance-minimal  or-branch pre-init ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/kpsp_balita_3thn/intervensi_stimulasi:label">Intervensi stimulasi perkembangan:</span>
       <span lang="en" class="question-label " data-itext-id="/kpsp_balita_3thn/intervensi_stimulasi:label">Stimulation intervention on:</span>
-      <select name="/kpsp_balita_3thn/intervensi_stimulasi" data-name="/kpsp_balita_3thn/intervensi_stimulasi" data-relevant="selected( /kpsp_balita_3thn/konseling_stimulasi ,'diberikan')" data-type-xml="select1">
+      <select multiple="multiple" name="/kpsp_balita_3thn/intervensi_stimulasi" data-name="/kpsp_balita_3thn/intervensi_stimulasi" data-relevant="selected( /kpsp_balita_3thn/konseling_stimulasi ,'diberikan')" data-type-xml="select1">
          <option value="">...</option>
          <option value="gerak_kasar">Gerak Kasar</option>
          <option value="gerak_halus">Gerak Halus</option>
