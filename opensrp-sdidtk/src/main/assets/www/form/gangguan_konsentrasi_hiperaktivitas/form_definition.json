@@ -13,14 +13,6 @@
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_test_date"
       },
       {
-        "name": "nilai_note1",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/nilai_note1"
-      },
-      {
-        "name": "nilai_note2",
-        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/nilai_note2"
-      },
-      {
         "name": "gpph_hiperaktif",
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_hiperaktif"
       },
@@ -65,7 +57,7 @@
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_nilai"
       },
       {
-        "name": "gpph_test",
+        "name": "gpph",
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph"
       },
       {

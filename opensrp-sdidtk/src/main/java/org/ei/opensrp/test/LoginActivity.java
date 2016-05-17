@@ -326,16 +326,7 @@ public class LoginActivity extends Activity {
          AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(Context.getInstance().applicationContext()));
 
          String preferredLocale = allSharedPreferences.fetchLanguagePreference();
-        if (INDONESIA_LOCALE.equals(preferredLocale)) {
-            allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
-            Resources res = Context.getInstance().applicationContext().getResources();
-            // Change locale settings in the app.
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale(ENGLISH_LOCALE);
-            res.updateConfiguration(conf, dm);
-            return ENGLISH_LANGUAGE;
-        } else {
+        if (ENGLISH_LOCALE.equals(preferredLocale)) {
             allSharedPreferences.saveLanguagePreference(INDONESIA_LOCALE);
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
@@ -344,6 +335,15 @@ public class LoginActivity extends Activity {
             conf.locale = new Locale(INDONESIA_LOCALE);
             res.updateConfiguration(conf, dm);
             return INDONESIA_LANGUAGE;
+        } else {
+            allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
+            Resources res = Context.getInstance().applicationContext().getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(ENGLISH_LOCALE);
+            res.updateConfiguration(conf, dm);
+            return ENGLISH_LANGUAGE;
         }
     }
 

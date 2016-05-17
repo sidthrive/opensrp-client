@@ -306,7 +306,7 @@
     <string name="label_visual_test">Tes Lihat:</string>
     <string name="label_mental_test">Tes mental:</string>
     <string name="label_autist_test">Tes Autist:</string>
-    <string name="label_ggph_test">Tes GGPH:</string>
+    <string name="label_ggph_test">Tes GPPH:</string>
 
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
@@ -320,7 +320,7 @@
     <string name="hh_kpsp">KPSP</string>
     <string name="hh_hearing_visual">Tes Hearing/Visual</string>
     <string name="hh_mental">Tes Mental</string>
-    <string name="hh_autis_ggph">Test Autist/GGPH</string>
+    <string name="hh_autis_ggph">Test Autist/GPPH</string>
     <string name="hh_no_of_mwra">No of ELCO</string>
     <string name="hh_last_visit_date">Last Visit Date</string>
     <string name="hh_visit_due_date">HH Visit Due Date</string>

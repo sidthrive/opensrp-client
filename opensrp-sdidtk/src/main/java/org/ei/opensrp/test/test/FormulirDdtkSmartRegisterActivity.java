@@ -111,7 +111,7 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
                     new OpenFormOption("Tes Daya Lihat", "tes_daya_lihat", formController),
                     new OpenFormOption("Masalah Mental Emosional", "masalah_mental_emosional", formController),
                     new OpenFormOption("Deteksi Dini Autis", "deteksi_dini_autis", formController),
-                    new OpenFormOption("GGPH", "gangguan_konsentrasi_hiperaktivitas", formController)
+                    new OpenFormOption("GPPH", "gangguan_konsentrasi_hiperaktivitas", formController),
 
             };
     }
@@ -246,10 +246,10 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
         formNames.add("kpsp_balita_6thn");
         formNames.add("tes_daya_dengar");
         formNames.add("tes_daya_lihat");
-        formNames.add("gangguan_konsentrasi_hiperaktivitas");
         formNames.add("masalah_mental_emosional");
         formNames.add("deteksi_dini_autis");
-     //   formNames.add("census_enrollment_form");
+        formNames.add("gangguan_konsentrasi_hiperaktivitas");
+        //   formNames.add("census_enrollment_form");
 //        DialogOption[] options = getEditOptions();
 //        for (int i = 0; i < options.length; i++){
 //            formNames.add(((OpenFormOption) options[i]).getFormName());

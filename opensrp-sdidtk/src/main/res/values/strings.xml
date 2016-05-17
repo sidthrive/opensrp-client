@@ -307,7 +307,7 @@
     <string name="hh_kpsp">KPSP</string>
     <string name="hh_hearing_visual">Hearing/Visual Test</string>
     <string name="hh_mental">Mental test</string>
-    <string name="hh_autis_ggph">Autist/GGPH Test</string>
+    <string name="hh_autis_ggph">Autist/GPPH Test</string>
     <string name="hh_no_of_mwra">No of ELCO</string>
     <string name="hh_last_visit_date">Last Visit Date</string>
     <string name="hh_visit_due_date">HH Visit Due Date</string>
@@ -327,7 +327,7 @@
     <string name="label_visual_test">Visual Test:</string>
     <string name="label_mental_test">Mental Test:</string>
     <string name="label_autist_test">Autist Test:</string>
-    <string name="label_ggph_test">GGPH Test:</string>
+    <string name="label_ggph_test">GPPH Test:</string>
 
     <string name="elco_profile">Profile;</string>
     <string name="elco_unique_id">Unique ID</string>

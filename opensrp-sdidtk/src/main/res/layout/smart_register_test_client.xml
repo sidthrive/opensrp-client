@@ -476,16 +476,16 @@
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="-"
                 android:textSize="13sp"
-                android:id="@+id/ggph_test_date" />
+                android:id="@+id/gpph_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="ggph"
+                android:text="-"
                 android:textSize="13sp"
-                android:id="@+id/ggph_test" />
+                android:id="@+id/gpph" />
 
 
         </LinearLayout>
