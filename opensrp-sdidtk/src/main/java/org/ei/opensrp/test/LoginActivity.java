@@ -55,10 +55,10 @@ public class LoginActivity extends Activity {
     private EditText userNameEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
-    public static final String ENGLISH_LOCALE = "en";
     public static final String INDONESIA_LOCALE = "id";
-    public static final String ENGLISH_LANGUAGE = "English";
+    public static final String ENGLISH_LOCALE = "en";
     public static final String INDONESIA_LANGUAGE = "Bahasa";
+    public static final String ENGLISH_LANGUAGE = "English";
 
 
     @Override

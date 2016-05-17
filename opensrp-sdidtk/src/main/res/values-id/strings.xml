@@ -24,6 +24,8 @@
     <string name="register_label">Register</string>
     <string name="home_videos_label">Videos</string>
 
+
+
     <string name="videos_cannot_play_video_dialog_title">Cannot play video.</string>
     <string name="videos_IEC_not_installed_dialog_message">Please install IEC application to play the videos.
     </string>
@@ -295,6 +297,17 @@
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
 
+    <string name="label_date">Tanggal:</string>
+    <string name="label_weight">Berat:</string>
+    <string name="label_height">Tinggi:</string>
+    <string name="label_head_cir">Ling Kepala:</string>
+    <string name="label_status">Status:</string>
+    <string name="label_hearing_test">Tes Dengar:</string>
+    <string name="label_visual_test">Tes Lihat:</string>
+    <string name="label_mental_test">Tes mental:</string>
+    <string name="label_autist_test">Tes Autist:</string>
+    <string name="label_ggph_test">Tes GGPH:</string>
+
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
     <string name="ic_keyboard_arrow_down">&#xe0c5;</string>
@@ -302,20 +315,20 @@
     <string name="ic_keyboard_arrow_right">&#xe0c7;</string>
     <string name="ic_keyboard_arrow_up">&#xe0c8;</string>
 
-    <string name="hh_profile">Profile</string>
+    <string name="hh_profile">Profil</string>
     <string name="hh_antro">Antropometri</string>
     <string name="hh_kpsp">KPSP</string>
-    <string name="hh_hearing_visual">Hearing/Visual Test</string>
-    <string name="hh_mental">Mental test</string>
-    <string name="hh_autis_ggph">Autis/GGPH Test</string>
+    <string name="hh_hearing_visual">Tes Hearing/Visual</string>
+    <string name="hh_mental">Tes Mental</string>
+    <string name="hh_autis_ggph">Test Autist/GGPH</string>
     <string name="hh_no_of_mwra">No of ELCO</string>
     <string name="hh_last_visit_date">Last Visit Date</string>
     <string name="hh_visit_due_date">HH Visit Due Date</string>
     <string name="hh_other_inhabitants">Other Inhabitants</string>
     <string name="hh_inhabitants_details">HH Inhabitants Details</string>
     <string name="household_entries">All Household Entries</string>
-    <string name="instrumen_sdidtk">SDIDTK</string>
-    <string name="sdidtk">SDIDTK</string>
+    <string name="instrumen_sdidtk"></string>
+    <string name="sdidtk">Instrumen SDIDTK</string>
     <string name="hh_register_title_in_short">HH</string>
 
     <string name="elco_profile">Profile;</string>

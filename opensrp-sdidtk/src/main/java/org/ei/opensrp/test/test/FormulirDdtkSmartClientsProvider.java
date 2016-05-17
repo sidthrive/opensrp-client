@@ -82,6 +82,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
             viewHolder.village = (TextView)convertView.findViewById(R.id.village);
             viewHolder.nama_anak = (TextView)convertView.findViewById(R.id.nama_anak);
             viewHolder.jenis_kelamin = (TextView)convertView.findViewById(R.id.jenis_kelamin);
+            viewHolder.umur = (TextView)convertView.findViewById(R.id.umur);
             viewHolder.nama_ibu = (TextView)convertView.findViewById(R.id.nama_ibu);
             viewHolder.berat = (TextView)convertView.findViewById(R.id.berat);
             viewHolder.tinggi = (TextView)convertView.findViewById(R.id.tinggi);
@@ -150,6 +151,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         //viewHolder.village.setText(pc.getDetails().get("village") != null ? pc.getDetails().get("village") : "");
         viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak") != null ? pc.getDetails().get("nama_anak") : "");
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin")!=null?pc.getDetails().get("jenis_kelamin"):"");
+        viewHolder.umur.setText(pc.getDetails().get("umur")!=null?pc.getDetails().get("umur"):"");
         viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu") != null ? pc.getDetails().get("nama_ibu") : "");
         viewHolder.berat.setText(pc.getDetails().get("berat")!=null?pc.getDetails().get("berat"):"");
         viewHolder.tinggi.setText(pc.getDetails().get("tinggi") != null ? pc.getDetails().get("tinggi") : "");
@@ -210,7 +212,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
      class ViewHolder {
 
          TextView today ;
-         TextView age ;
+         TextView umur;
          TextView village;
          TextView husbandname;
          LinearLayout profilelayout;
