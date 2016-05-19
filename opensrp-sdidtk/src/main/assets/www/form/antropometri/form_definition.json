@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/antropometri/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "anthropometry_date",
         "bind": "/model/instance/antropometri/anthropometry_date"
       },

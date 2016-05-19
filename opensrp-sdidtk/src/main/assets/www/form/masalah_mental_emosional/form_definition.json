@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/masalah_mental_emosional/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "mental_test_date",
         "bind": "/model/instance/masalah_mental_emosional/mental_test_date"
       },

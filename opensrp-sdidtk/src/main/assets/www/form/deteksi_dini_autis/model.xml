@@ -9,6 +9,8 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <umur />
+		  <generated_note_name_12 />
           <autis_test_date/>
           <chat_anamnesis/>
           <chat_diayun/>

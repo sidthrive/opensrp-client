@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/kpsp_bayi_1thn/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "kpsp_test_date",
         "bind": "/model/instance/kpsp_bayi_1thn/kpsp_test_date"
       },

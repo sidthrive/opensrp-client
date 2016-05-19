@@ -9,6 +9,8 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <umur />
+		  <generated_note_name_12 />
           <gpph_test_date/>
           <nilai_note1/>
           <nilai_note2/>

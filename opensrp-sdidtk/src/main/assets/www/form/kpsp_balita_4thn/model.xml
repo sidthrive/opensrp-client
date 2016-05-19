@@ -9,6 +9,8 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <umur />
+		  <generated_note_name_12 />
           <kpsp_test_date/>
           <anamnesis/>
           <keluhan/>

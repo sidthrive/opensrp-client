@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/deteksi_dini_autis/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "autis_test_date",
         "bind": "/model/instance/deteksi_dini_autis/autis_test_date"
       },

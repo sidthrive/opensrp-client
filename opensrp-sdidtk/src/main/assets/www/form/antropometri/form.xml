@@ -7,6 +7,18 @@
       <option value="Bahasa">Bahasa</option>
       <option value="en">English</option>
    </select>
+    <label class="note non-select ">
+        <span class="question-label active" data-itext-id="/antropometri/generated_note_name_12:label"
+            lang="Bahasa">Umur:
+            <span class="or-output"
+                data-value=" /antropometri/umur "></span>
+        </span>
+        <span class="question-label " data-itext-id="/antropometri/generated_note_name_12:label"
+            lang="en">Age:
+        </span>
+        <input name="/antropometri/generated_note_name_12" data-type-xml="string"
+            readonly="readonly" type="text" />
+    </label>
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/antropometri/anthropometry_date:label">Tanggal Entry</span>
       <span lang="en" class="question-label " data-itext-id="/antropometri/anthropometry_date:label">Entry Date</span>

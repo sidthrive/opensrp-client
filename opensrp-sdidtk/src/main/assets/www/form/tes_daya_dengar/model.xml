@@ -9,6 +9,8 @@
           <deviceid/>
           <simserial/>
           <phonenumber/>
+          <umur />
+		  <generated_note_name_12 />
           <hear_test_date/>
           <tdd/>
           <tdd_0-6bln1/>

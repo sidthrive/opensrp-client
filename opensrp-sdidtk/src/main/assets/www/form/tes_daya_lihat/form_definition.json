@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/tes_daya_lihat/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "sight_test_date",
         "bind": "/model/instance/tes_daya_lihat/sight_test_date"
       },

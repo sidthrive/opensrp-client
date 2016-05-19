@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/tes_daya_dengar/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "hear_test_date",
         "bind": "/model/instance/tes_daya_dengar/hear_test_date"
       },

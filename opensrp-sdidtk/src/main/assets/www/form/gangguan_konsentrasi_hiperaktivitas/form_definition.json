@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "umur",
+        "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/umur",
+		"shouldLoadValue": true
+      },
+      {
         "name": "gpph_test_date",
         "bind": "/model/instance/gangguan_konsentrasi_hiperaktivitas/gpph_test_date"
       },
