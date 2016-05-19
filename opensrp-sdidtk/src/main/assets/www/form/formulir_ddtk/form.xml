@@ -10,11 +10,11 @@
    <label class="note non-select ">
         <span class="question-label active" data-itext-id="/formulir_ddtk/generated_note_name_10:label"
             lang="Bahasa">Desa:
-            <span class="or-output" data-value=" /formulir_ddtk/desa "></span>
+            <span class="or-output" data-value=" /formulir_ddtk/existing_Village "></span>
         </span>
         <span class="question-label " data-itext-id="/formulir_ddtk/generated_note_name_10:label"
             lang="en">Village:
-            <span class="or-output" data-value=" /formulir_ddtk/desa "></span>
+            <span class="or-output" data-value=" /formulir_ddtk/existing_Village "></span>
         </span>
         <input name="/formulir_ddtk/generated_note_name_10" data-type-xml="string" readonly="readonly"
             type="text" />
@@ -22,11 +22,11 @@
     <label class="note non-select ">
         <span class="question-label active" data-itext-id="/formulir_ddtk/generated_note_name_12:label"
             lang="Bahasa">Dusun:
-            <span class="or-output" data-value=" /formulir_ddtk/dusun "></span>
+            <span class="or-output" data-value=" /formulir_ddtk/existing_Sub-village "></span>
         </span>
         <span class="question-label " data-itext-id="/formulir_ddtk/generated_note_name_12:label"
             lang="en">Sub-village:
-            <span class="or-output" data-value=" /formulir_ddtk/dusun "></span>
+            <span class="or-output" data-value=" /formulir_ddtk/existing_Sub-village "></span>
         </span>
         <input name="/formulir_ddtk/generated_note_name_12" data-type-xml="string" readonly="readonly"
             type="text" />
@@ -108,23 +108,23 @@
          <input type="hidden" name="/formulir_ddtk/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string" />
       </label>
 	  <label class="calculation non-select ">
-            <input name="/formulir_ddtk/dusun" data-calculate=" /formulir_ddtk/existing_Sub-village " data-type-xml="string"
+            <input name="/formulir_ddtk/existing_dusun" data-calculate=" /formulir_ddtk/existing_Sub-village " data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/formulir_ddtk/desa" data-calculate=" /formulir_ddtk/existing_Village " data-type-xml="string"
+            <input name="/formulir_ddtk/existing_desa" data-calculate=" /formulir_ddtk/existing_Village " data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/formulir_ddtk/provinsi" data-calculate=" /formulir_ddtk/Province " data-type-xml="string"
+            <input name="/formulir_ddtk/existing_provinsi" data-calculate=" /formulir_ddtk/existing_Province " data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/formulir_ddtk/kabupaten" data-calculate=" /formulir_ddtk/District " data-type-xml="string"
+            <input name="/formulir_ddtk/existing_kabupaten" data-calculate=" /formulir_ddtk/existing_District " data-type-xml="string"
                 type="hidden" />
         </label>
         <label class="calculation non-select ">
-            <input name="/formulir_ddtk/kecamatan" data-calculate=" /formulir_ddtk/Sub-district "
+            <input name="/formulir_ddtk/existing_kecamatan" data-calculate=" /formulir_ddtk/existing_Sub-district "
                 data-type-xml="string" type="hidden" />
         </label>
       <label class="calculation non-select ">
