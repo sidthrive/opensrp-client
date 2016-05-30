@@ -14,8 +14,8 @@
 		"shouldLoadValue": true
       },
       {
-        "name": "kpsp_test_date",
-        "bind": "/model/instance/kpsp_balita_3thn/kpsp_test_date"
+        "name": "kpsp_test_date3",
+        "bind": "/model/instance/kpsp_balita_3thn/kpsp_test_date3"
       },
       {
         "name": "anamnesis",
@@ -114,8 +114,8 @@
         "bind": "/model/instance/kpsp_balita_3thn/_36bln_mengayuh_sepeda"
       },
       {
-        "name": "status_kembang",
-        "bind": "/model/instance/kpsp_balita_3thn/status_kembang"
+        "name": "status_kembang3",
+        "bind": "/model/instance/kpsp_balita_3thn/status_kembang3"
       },
       {
         "name": "status_meragukan",

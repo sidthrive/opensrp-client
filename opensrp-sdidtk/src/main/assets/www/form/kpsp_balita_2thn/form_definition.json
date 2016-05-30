@@ -14,8 +14,8 @@
       	"shouldLoadValue": true
     },
       {
-        "name": "kpsp_test_date",
-        "bind": "/model/instance/kpsp_balita_2thn/kpsp_test_date"
+        "name": "kpsp_test_date2",
+        "bind": "/model/instance/kpsp_balita_2thn/kpsp_test_date2"
       },
       {
         "name": "anamnesis",
@@ -194,8 +194,8 @@
         "bind": "/model/instance/kpsp_balita_2thn/_24bln_mendendang_bola"
       },
       {
-        "name": "status_kembang",
-        "bind": "/model/instance/kpsp_balita_2thn/status_kembang"
+        "name": "status_kembang2",
+        "bind": "/model/instance/kpsp_balita_2thn/status_kembang2"
       },
       {
         "name": "status_meragukan",

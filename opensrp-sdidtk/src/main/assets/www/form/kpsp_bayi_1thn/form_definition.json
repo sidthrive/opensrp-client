@@ -14,8 +14,8 @@
 		"shouldLoadValue": true
       },
       {
-        "name": "kpsp_test_date",
-        "bind": "/model/instance/kpsp_bayi_1thn/kpsp_test_date"
+        "name": "kpsp_test_date1",
+        "bind": "/model/instance/kpsp_bayi_1thn/kpsp_test_date1"
       },
       {
         "name": "anamnesis",
@@ -194,8 +194,8 @@
         "bind": "/model/instance/kpsp_bayi_1thn/_12bln_menyusun_benda"
       },
       {
-        "name": "status_kembang",
-        "bind": "/model/instance/kpsp_bayi_1thn/status_kembang"
+        "name": "status_kembang1",
+        "bind": "/model/instance/kpsp_bayi_1thn/status_kembang1"
       },
       {
         "name": "status_meragukan",

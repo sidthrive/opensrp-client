@@ -2,17 +2,21 @@ package org.ei.opensrp.test.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
+import org.ei.opensrp.commonregistry.CommonObjectSort;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.test.LoginActivity;
 import org.ei.opensrp.test.R;
 
+import org.ei.opensrp.test.test.ChildDetailActivity;
 import org.ei.opensrp.test.test.FormulirDdtkSmartRegisterActivity;
 import org.ei.opensrp.test.test.FormulirDdtkSearchOption;
 import org.ei.opensrp.test.test.FormulirDdtkServiceModeOption;
@@ -134,6 +138,9 @@ public class FormulirDdtkSmartRegisterFragment extends SecuredNativeSmartRegiste
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
+                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false, "nama_anak", getResources().getString(R.string.child_alphabetical_sort)),
+                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false, "nama_ibu", getResources().getString(R.string.mothername_alphabetical_sort)),
+                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false, "umur", getResources().getString(R.string.age_alphabetical_sort)),
 
 //""
 //                        new CommonObjectSort(true,false,true,"age")
@@ -206,12 +213,11 @@ public class FormulirDdtkSmartRegisterFragment extends SecuredNativeSmartRegiste
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-               /*     HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),HouseHoldDetailActivity.class);
+                    ChildDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
+                    Intent intent = new Intent(getActivity(), ChildDetailActivity.class);
                     startActivity(intent);
-                    getActivity().finish(); */
+                    getActivity().finish();
                     break;
-
                 //untuk follow up button
                 case R.id.btn_edit:
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());

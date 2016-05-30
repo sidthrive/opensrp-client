@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SDIDTK</string>
-    <string name="userNameEditText">Enter Username</string>
-    <string name="passwordEditText">Enter password</string>
+    <string name="userNameEditText">Masukan nama pengguna</string>
+    <string name="passwordEditText">Masukan password</string>
     <string name="login_text">Log In</string>
     <string name="image_description">logo</string>
     <string name="spacer">spacer</string>
     <string name="loggin_in_dialog_title">Logging in…</string>
-    <string name="loggin_in_dialog_message">Please Wait</string>
-    <string name="login_failed_dialog_title">Login Failed</string>
-    <string name="login_failed_dialog_message">Please check your Username and Password</string>
+    <string name="loggin_in_dialog_message">Harap tunggu</string>
+    <string name="login_failed_dialog_title">Log in gagal</string>
+    <string name="login_failed_dialog_message">Harap periksa username dan sandi</string>
     <string name="mcareform_back_confirm_dialog_message">Are you sure you want to go back?</string>
     <string name="mcareform_back_confirm_dialog_title">Confirm form close</string>
-    <string name="mcareyes_button_label">Yes</string>
-    <string name="mcareno_button_label">No</string>
+    <string name="mcareyes_button_label">Ya</string>
+    <string name="mcareno_button_label">Tidak</string>
     <string name="home_hh_label">Household</string>
     <string name="home_ec_label">ELCO</string>
     <string name="home_fp_label">FP</string>
@@ -23,6 +23,8 @@
     <string name="home_report_label">Reporting</string>
     <string name="register_label">Register</string>
     <string name="home_videos_label">Videos</string>
+
+
 
     <string name="videos_cannot_play_video_dialog_title">Cannot play video.</string>
     <string name="videos_IEC_not_installed_dialog_message">Please install IEC application to play the videos.
@@ -295,6 +297,17 @@
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
 
+    <string name="label_date">Tanggal:</string>
+    <string name="label_weight">Berat:</string>
+    <string name="label_height">Tinggi:</string>
+    <string name="label_head_cir">Ling Kepala:</string>
+    <string name="label_status">Status:</string>
+    <string name="label_hearing_test">Tes Dengar:</string>
+    <string name="label_visual_test">Tes Lihat:</string>
+    <string name="label_mental_test">Tes mental:</string>
+    <string name="label_autist_test">Tes Autist:</string>
+    <string name="label_ggph_test">Tes GPPH:</string>
+
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
     <string name="ic_keyboard_arrow_down">&#xe0c5;</string>
@@ -302,12 +315,12 @@
     <string name="ic_keyboard_arrow_right">&#xe0c7;</string>
     <string name="ic_keyboard_arrow_up">&#xe0c8;</string>
 
-    <string name="hh_profile">Profile</string>
-    <string name="hh_antro">Anthropometry</string>
+    <string name="hh_profile">Profil</string>
+    <string name="hh_antro">Antropometri</string>
     <string name="hh_kpsp">KPSP</string>
-    <string name="hh_hearing_visual">Hearing/Visual Test</string>
-    <string name="hh_mental">Mental test</string>
-    <string name="hh_autis_ggph">Autist/GPPH Test</string>
+    <string name="hh_hearing_visual">Tes Hearing/Visual</string>
+    <string name="hh_mental">Tes Mental</string>
+    <string name="hh_autis_ggph">Test Autist/GPPH</string>
     <string name="hh_no_of_mwra">No of ELCO</string>
     <string name="hh_last_visit_date">Last Visit Date</string>
     <string name="hh_visit_due_date">HH Visit Due Date</string>
@@ -317,17 +330,6 @@
     <string name="instrumen_sdidtk"></string>
     <string name="sdidtk">Instrumen SDIDTK</string>
     <string name="hh_register_title_in_short">HH</string>
-
-    <string name="label_date">Date:</string>
-    <string name="label_weight">Weight:</string>
-    <string name="label_height">Height:</string>
-    <string name="label_head_cir">Head Cir:</string>
-    <string name="label_status">Status:</string>
-    <string name="label_hearing_test">Hearing Test:</string>
-    <string name="label_visual_test">Visual Test:</string>
-    <string name="label_mental_test">Mental Test:</string>
-    <string name="label_autist_test">Autist Test:</string>
-    <string name="label_ggph_test">GPPH Test:</string>
 
     <string name="elco_profile">Profile;</string>
     <string name="elco_unique_id">Unique ID</string>
@@ -377,6 +379,31 @@
     <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
     <string name="forminputerror">Please check the form for any error/missing input marked in Red box</string>
     <string name="okforminputerror">ok</string>
+    <string name="kpspdate1">Tanggal KPSP 1</string>
+    <string name="kpspresult1">Status Kembang 1</string>
+    <string name="kpspdate2">Tanggal KPSP 2</string>
+    <string name="kpspresult2">Status Kembang 2</string>
+    <string name="child_alphabetical_sort">Nama Anak</string>
+    <string name="mothername_alphabetical_sort">Nama Ibu</string>
+    <string name="age_alphabetical_sort">Umur</string>
+    <string name="kpspdate3">Tanggal KPSP 3</string>
+    <string name="kpspresult3">Status Kembang 3</string>
+    <string name="kpspdate4">Tanggal KPSP 4</string>
+    <string name="kpspresult4">Status Kembang 4</string>
+    <string name="kpspdate5">Tanggal KPSP 5</string>
+    <string name="kpspresult5">Status Kembang 5</string>
+    <string name="kpspdate6">Tanggal KPSP 6</string>
+    <string name="kpspresult6">Status Kembang 6</string>
+    <string name="hearingdate">Tanggal Tes Dengar</string>
+    <string name="hearingresult">Tes Dengar</string>
+    <string name="visualdate">Tanggal Tes Visual</string>
+    <string name="visualresult">Tes Visual</string>
+    <string name="mentaldate">Tanggal Tes Menta</string>
+    <string name="mentalresult">Tes Mental</string>
+    <string name="autisdate">Tanggal Test Autis</string>
+    <string name="autisresult">Test Autist</string>
+    <string name="ggphdate">Tanggal Tes GGPH</string>
+    <string name="ggphresult">Tes GGPH</string>
 
 
 </resources>

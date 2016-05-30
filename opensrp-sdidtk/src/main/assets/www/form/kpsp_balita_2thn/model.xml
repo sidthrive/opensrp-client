@@ -11,7 +11,7 @@
           <phonenumber/>
           <umur />
 		  <generated_note_name_12 />
-          <kpsp_test_date/>
+          <kpsp_test_date2/>
           <anamnesis/>
           <keluhan/>
           <masalah_tumbang/>
@@ -57,7 +57,7 @@
           <_24bln_membantu/>
           <_24bln_mendendang_bola/>
           <note_status_kembang/>
-          <status_kembang/>
+          <status_kembang2/>
           <status_meragukan/>
           <status_penyimpangan/>
           <kesimpulan/>

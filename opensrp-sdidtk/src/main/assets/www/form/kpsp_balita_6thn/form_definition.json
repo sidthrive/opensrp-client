@@ -14,8 +14,8 @@
 		"shouldLoadValue": true
       },
       {
-        "name": "kpsp_test_date",
-        "bind": "/model/instance/kpsp_balita_6thn/kpsp_test_date"
+        "name": "kpsp_test_date6",
+        "bind": "/model/instance/kpsp_balita_6thn/kpsp_test_date6"
       },
       {
         "name": "anamnesis",
@@ -130,8 +130,8 @@
         "bind": "/model/instance/kpsp_balita_6thn/_72bln_pertanyaan"
       },
       {
-        "name": "status_kembang",
-        "bind": "/model/instance/kpsp_balita_6thn/status_kembang"
+        "name": "status_kembang6",
+        "bind": "/model/instance/kpsp_balita_6thn/status_kembang6"
       },
       {
         "name": "status_meragukan",

@@ -14,8 +14,8 @@
 		"shouldLoadValue": true
       },
       {
-        "name": "kpsp_test_date",
-        "bind": "/model/instance/kpsp_balita_5thn/kpsp_test_date"
+        "name": "kpsp_test_date5",
+        "bind": "/model/instance/kpsp_balita_5thn/kpsp_test_date5"
       },
       {
         "name": "anamnesis",
@@ -146,8 +146,8 @@
         "bind": "/model/instance/kpsp_balita_5thn/_60bln_berpakaian_sendiri"
       },
       {
-        "name": "status_kembang",
-        "bind": "/model/instance/kpsp_balita_5thn/status_kembang"
+        "name": "status_kembang5",
+        "bind": "/model/instance/kpsp_balita_5thn/status_kembang5"
       },
       {
         "name": "status_meragukan",
