@@ -101,35 +101,35 @@ public class ChildDetailActivity extends Activity {
             }
         });
 
-        anakName.setText(childclient.getDetails().get("nama_anak") != null ? childclient.getDetails().get("nama_anak") : "-");
-        anakJenisKelamin.setText(childclient.getDetails().get("jenis_kelamin") != null ? childclient.getDetails().get("jenis_kelamin") : "-");
-        anakNamaIbu.setText(childclient.getDetails().get("nama_ibu") != null ? childclient.getDetails().get("nama_ibu") : "-");
-        anakUmur.setText(childclient.getDetails().get("umur") != null ? childclient.getDetails().get("umur") : "-");
-        anakBerat.setText(childclient.getDetails().get("berat") != null ? childclient.getDetails().get("berat") : "-");
-        anakTinggi.setText(childclient.getDetails().get("tinggi") != null ? childclient.getDetails().get("tinggi") : "-");
-        anakLingKepala.setText(childclient.getDetails().get("lingkar_kepala") != null ? childclient.getDetails().get("lingkar_kepala") : "-");
-        anakKpspDate1.setText(getString(R.string.kpspdate1) +" : "+ (childclient.getDetails().get("kpsp_test_date1") != null ? childclient.getDetails().get("kpsp_test_date1") : "-"));
-        anakKpspResult1.setText(getString(R.string.kpspresult1) +" : "+ (childclient.getDetails().get("status_kembang1") != null ? childclient.getDetails().get("status_kembang1") : "-"));
-        anakKpspDate2.setText(getString(R.string.kpspdate2) + " : " + (childclient.getDetails().get("kpsp_test_date2") != null ? childclient.getDetails().get("kpsp_test_date2") : "-"));
-        anakKpspResult2.setText(getString(R.string.kpspresult2) +" : "+ (childclient.getDetails().get("status_kembang2") != null ? childclient.getDetails().get("status_kembang2") : "-"));
-        anakKpspDate3.setText(getString(R.string.kpspdate3) +" : "+ (childclient.getDetails().get("kpsp_test_date3") != null ? childclient.getDetails().get("kpsp_test_date3") : "-"));
-        anakKpspResult3.setText(getString(R.string.kpspresult3) +" : "+ (childclient.getDetails().get("status_kembang3") != null ? childclient.getDetails().get("status_kembang3") : "-"));
-        anakKpspDate4.setText(getString(R.string.kpspdate4) +" : "+ (childclient.getDetails().get("kpsp_test_date4") != null ? childclient.getDetails().get("kpsp_test_date4") : "-"));
-        anakKpspResult4.setText(getString(R.string.kpspresult4) +" : "+ (childclient.getDetails().get("status_kembang4") != null ? childclient.getDetails().get("status_kembang4") : "-"));
-        anakKpspDate5.setText(getString(R.string.kpspdate5) +" : "+ (childclient.getDetails().get("kpsp_test_date5") != null ? childclient.getDetails().get("kpsp_test_date5") : "-"));
-        anakKpspResult5.setText(getString(R.string.kpspresult5) +" : "+ (childclient.getDetails().get("status_kembang5") != null ? childclient.getDetails().get("status_kembang5") : "-"));
-        anakKpspDate6.setText(getString(R.string.kpspdate6) +" : "+ (childclient.getDetails().get("kpsp_test_date6") != null ? childclient.getDetails().get("kpsp_test_date6") : "-"));
-        anakKpspResult6.setText(getString(R.string.kpspresult6) +" : "+ (childclient.getDetails().get("status_kembang6") != null ? childclient.getDetails().get("status_kembang6") : "-"));
-        anakHearingDate.setText(getString(R.string.hearingdate) +" : "+ (childclient.getDetails().get("hear_test_date") != null ? childclient.getDetails().get("hear_test_date") : "-"));
-        anakHearingResult.setText(getString(R.string.hearingresult) +" : "+ (childclient.getDetails().get("daya_dengar") != null ? childclient.getDetails().get("daya_dengar") : "-"));
-        anakVisualDate.setText(getString(R.string.visualdate) +" : "+ (childclient.getDetails().get("sight_test_date") != null ? childclient.getDetails().get("sight_test_date") : "-"));
-        anakVisualResult.setText(getString(R.string.visualresult) +" : "+ (childclient.getDetails().get("daya_lihat") != null ? childclient.getDetails().get("daya_lihat") : "-"));
-        anakMentalDate.setText(getString(R.string.mentaldate) +" : "+ (childclient.getDetails().get("mental_test_date") != null ? childclient.getDetails().get("mental_test_date") : "-"));
-        anakMentalResult.setText(getString(R.string.mentalresult) +" : "+ (childclient.getDetails().get("mental_emosional") != null ? childclient.getDetails().get("mental_emosional") : "-"));
-        anakAutistDate.setText(getString(R.string.autisdate) +" : "+ (childclient.getDetails().get("autis_test_date") != null ? childclient.getDetails().get("autis_test_date") : "-"));
-        anakAutistResult.setText(getString(R.string.autisresult) +" : "+ (childclient.getDetails().get("autis") != null ? childclient.getDetails().get("autis") : "-"));
-        anakGgphDate.setText(getString(R.string.ggphdate) +" : "+ (childclient.getDetails().get("gpph_test_date") != null ? childclient.getDetails().get("gpph_test_date") : "-"));
-        anakGgphResult.setText(getString(R.string.ggphresult) +" : "+ (childclient.getDetails().get("gpph") != null ? childclient.getDetails().get("gpph") : "-"));
+        anakName.setText(getString(R.string.detailNamaAnak) +": "+ (childclient.getDetails().get("nama_anak") != null ? childclient.getDetails().get("nama_anak") : "-"));
+        anakJenisKelamin.setText(getString(R.string.detailJenisKelamin) +": "+ (childclient.getDetails().get("jenis_kelamin") != null ? childclient.getDetails().get("jenis_kelamin") : "-"));
+        anakNamaIbu.setText(getString(R.string.detailNamaIbu) +": "+ (childclient.getDetails().get("nama_ibu") != null ? childclient.getDetails().get("nama_ibu") : "-"));
+        anakUmur.setText(getString(R.string.detailUmur) +": "+ (childclient.getDetails().get("umur") != null ? childclient.getDetails().get("umur") : "-"));
+        anakBerat.setText(getString(R.string.detailBerat) +": "+ (childclient.getDetails().get("berat") != null ? childclient.getDetails().get("berat") : "-"));
+        anakTinggi.setText(getString(R.string.detailTinggi) +": "+ (childclient.getDetails().get("tinggi") != null ? childclient.getDetails().get("tinggi") : "-"));
+        anakLingKepala.setText(getString(R.string.detailLingkarKepala) +": "+ (childclient.getDetails().get("lingkar_kepala") != null ? childclient.getDetails().get("lingkar_kepala") : "-"));
+        anakKpspDate1.setText(getString(R.string.kpspdate1) +": "+ (childclient.getDetails().get("kpsp_test_date1") != null ? childclient.getDetails().get("kpsp_test_date1") : "-"));
+        anakKpspResult1.setText(getString(R.string.kpspresult1) +": "+ (childclient.getDetails().get("status_kembang1") != null ? childclient.getDetails().get("status_kembang1") : "-"));
+        anakKpspDate2.setText(getString(R.string.kpspdate2) + ": " + (childclient.getDetails().get("kpsp_test_date2") != null ? childclient.getDetails().get("kpsp_test_date2") : "-"));
+        anakKpspResult2.setText(getString(R.string.kpspresult2) +": "+ (childclient.getDetails().get("status_kembang2") != null ? childclient.getDetails().get("status_kembang2") : "-"));
+        anakKpspDate3.setText(getString(R.string.kpspdate3) +": "+ (childclient.getDetails().get("kpsp_test_date3") != null ? childclient.getDetails().get("kpsp_test_date3") : "-"));
+        anakKpspResult3.setText(getString(R.string.kpspresult3) +": "+ (childclient.getDetails().get("status_kembang3") != null ? childclient.getDetails().get("status_kembang3") : "-"));
+        anakKpspDate4.setText(getString(R.string.kpspdate4) +": "+ (childclient.getDetails().get("kpsp_test_date4") != null ? childclient.getDetails().get("kpsp_test_date4") : "-"));
+        anakKpspResult4.setText(getString(R.string.kpspresult4) +": "+ (childclient.getDetails().get("status_kembang4") != null ? childclient.getDetails().get("status_kembang4") : "-"));
+        anakKpspDate5.setText(getString(R.string.kpspdate5) +": "+ (childclient.getDetails().get("kpsp_test_date5") != null ? childclient.getDetails().get("kpsp_test_date5") : "-"));
+        anakKpspResult5.setText(getString(R.string.kpspresult5) +": "+ (childclient.getDetails().get("status_kembang5") != null ? childclient.getDetails().get("status_kembang5") : "-"));
+        anakKpspDate6.setText(getString(R.string.kpspdate6) +": "+ (childclient.getDetails().get("kpsp_test_date6") != null ? childclient.getDetails().get("kpsp_test_date6") : "-"));
+        anakKpspResult6.setText(getString(R.string.kpspresult6) +": "+ (childclient.getDetails().get("status_kembang6") != null ? childclient.getDetails().get("status_kembang6") : "-"));
+        anakHearingDate.setText(getString(R.string.hearingdate) +": "+ (childclient.getDetails().get("hear_test_date") != null ? childclient.getDetails().get("hear_test_date") : "-"));
+        anakHearingResult.setText(getString(R.string.hearingresult) +": "+ (childclient.getDetails().get("daya_dengar") != null ? childclient.getDetails().get("daya_dengar") : "-"));
+        anakVisualDate.setText(getString(R.string.visualdate) +": "+ (childclient.getDetails().get("sight_test_date") != null ? childclient.getDetails().get("sight_test_date") : "-"));
+        anakVisualResult.setText(getString(R.string.visualresult) +": "+ (childclient.getDetails().get("daya_lihat") != null ? childclient.getDetails().get("daya_lihat") : "-"));
+        anakMentalDate.setText(getString(R.string.mentaldate) +": "+ (childclient.getDetails().get("mental_test_date") != null ? childclient.getDetails().get("mental_test_date") : "-"));
+        anakMentalResult.setText(getString(R.string.mentalresult) +": "+ (childclient.getDetails().get("mental_emosional") != null ? childclient.getDetails().get("mental_emosional") : "-"));
+        anakAutistDate.setText(getString(R.string.autisdate) +": "+ (childclient.getDetails().get("autis_test_date") != null ? childclient.getDetails().get("autis_test_date") : "-"));
+        anakAutistResult.setText(getString(R.string.autisresult) +": "+ (childclient.getDetails().get("autis") != null ? childclient.getDetails().get("autis") : "-"));
+        anakGgphDate.setText(getString(R.string.ggphdate) +": "+ (childclient.getDetails().get("gpph_test_date") != null ? childclient.getDetails().get("gpph_test_date") : "-"));
+        anakGgphResult.setText(getString(R.string.ggphresult) +": "+ (childclient.getDetails().get("gpph") != null ? childclient.getDetails().get("gpph") : "-"));
 
         //KMS calculation
 

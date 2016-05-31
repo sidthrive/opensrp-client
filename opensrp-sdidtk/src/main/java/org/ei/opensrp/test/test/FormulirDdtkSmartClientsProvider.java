@@ -14,11 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
-import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.test.R;
@@ -29,23 +26,16 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static org.ei.opensrp.util.StringUtil.humanize;
 
 /**
  * Created by user on 2/12/15.
  */
-public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsProvider {
+public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsProvider{
 
     private final LayoutInflater inflater;
-    private final Context context;
+    public final Context context;
     private final View.OnClickListener onClickListener;
 
     private final int txtColorBlack;
@@ -159,33 +149,33 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin") != null ? pc.getDetails().get("jenis_kelamin") : "");
         viewHolder.umur.setText(pc.getDetails().get("umur")!=null?pc.getDetails().get("umur"):"");
         viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu") != null ? pc.getDetails().get("nama_ibu") : "");
-        viewHolder.berat.setText(pc.getDetails().get("berat")!=null?pc.getDetails().get("berat"):"");
-        viewHolder.tinggi.setText(pc.getDetails().get("tinggi") != null ? pc.getDetails().get("tinggi") : "");
-        viewHolder.lingkar_kepala.setText(pc.getDetails().get("lingkar_kepala")!=null?pc.getDetails().get("lingkar_kepala"):"");
-        viewHolder.status_kembang1.setText(pc.getDetails().get("status_kembang1")!=null?pc.getDetails().get("status_kembang1"):"");
-        viewHolder.kpsp_test_date1.setText(pc.getDetails().get("kpsp_test_date1")!=null?pc.getDetails().get("kpsp_test_date1"):"");
-        viewHolder.status_kembang2.setText(pc.getDetails().get("status_kembang2")!=null?pc.getDetails().get("status_kembang2"):"");
+        viewHolder.berat.setText("Berat: "+ (pc.getDetails().get("berat")!=null?pc.getDetails().get("berat"):""));
+        viewHolder.tinggi.setText("Tinggi: "+ (pc.getDetails().get("tinggi") != null ? pc.getDetails().get("tinggi") : ""));
+        viewHolder.lingkar_kepala.setText("Lingkar Kepala: "+ (pc.getDetails().get("lingkar_kepala")!=null?pc.getDetails().get("lingkar_kepala"):""));
+        viewHolder.kpsp_test_date1.setText("Tanggal: "+ (pc.getDetails().get("kpsp_test_date1")!=null?pc.getDetails().get("kpsp_test_date1"):""));
         viewHolder.kpsp_test_date2.setText(pc.getDetails().get("kpsp_test_date2")!=null?pc.getDetails().get("kpsp_test_date2"):"");
-        viewHolder.status_kembang3.setText(pc.getDetails().get("status_kembang3")!=null?pc.getDetails().get("status_kembang3"):"");
+        viewHolder.status_kembang2.setText(pc.getDetails().get("status_kembang2")!=null?pc.getDetails().get("status_kembang2"):"");
         viewHolder.kpsp_test_date3.setText(pc.getDetails().get("kpsp_test_date3")!=null?pc.getDetails().get("kpsp_test_date3"):"");
-        viewHolder.status_kembang4.setText(pc.getDetails().get("status_kembang4")!=null?pc.getDetails().get("status_kembang4"):"");
+        viewHolder.status_kembang3.setText(pc.getDetails().get("status_kembang3")!=null?pc.getDetails().get("status_kembang3"):"");
         viewHolder.kpsp_test_date4.setText(pc.getDetails().get("kpsp_test_date4")!=null?pc.getDetails().get("kpsp_test_date4"):"");
-        viewHolder.status_kembang5.setText(pc.getDetails().get("status_kembang5")!=null?pc.getDetails().get("status_kembang5"):"");
+        viewHolder.status_kembang4.setText(pc.getDetails().get("status_kembang4")!=null?pc.getDetails().get("status_kembang4"):"");
         viewHolder.kpsp_test_date5.setText(pc.getDetails().get("kpsp_test_date5")!=null?pc.getDetails().get("kpsp_test_date5"):"");
-        viewHolder.status_kembang6.setText(pc.getDetails().get("status_kembang6")!=null?pc.getDetails().get("status_kembang6"):"");
+        viewHolder.status_kembang5.setText(pc.getDetails().get("status_kembang5")!=null?pc.getDetails().get("status_kembang5"):"");
         viewHolder.kpsp_test_date6.setText(pc.getDetails().get("kpsp_test_date6")!=null?pc.getDetails().get("kpsp_test_date6"):"");
-        viewHolder.daya_dengar.setText(pc.getDetails().get("daya_dengar") != null ? pc.getDetails().get("daya_dengar") : "");
-        viewHolder.daya_lihat.setText(pc.getDetails().get("daya_lihat")!=null?pc.getDetails().get("daya_lihat"):"");
-        viewHolder.mental_emosional.setText(pc.getDetails().get("mental_emosional")!=null?pc.getDetails().get("mental_emosional"):"");
-        viewHolder.autis.setText(pc.getDetails().get("autis")!=null?pc.getDetails().get("autis"):"");
-        viewHolder.gpph.setText(pc.getDetails().get("gpph")!=null?pc.getDetails().get("gpph"):"");
-        viewHolder.anthropometry_date.setText(pc.getDetails().get("anthropometry_date")!=null?pc.getDetails().get("anthropometry_date"):"");
-        viewHolder.sight_test_date.setText(pc.getDetails().get("sight_test_date")!=null?pc.getDetails().get("sight_test_date"):"");
-        viewHolder.mental_test_date.setText(pc.getDetails().get("mental_test_date")!=null?pc.getDetails().get("mental_test_date"):"");
-        viewHolder.autis_test_date.setText(pc.getDetails().get("autis_test_date")!=null?pc.getDetails().get("autis_test_date"):"");
-        viewHolder.gpph_test_date.setText(pc.getDetails().get("gpph_test_date")!=null?pc.getDetails().get("gpph_test_date"):"");
-        viewHolder.kpsp_test_date1.setText(pc.getDetails().get("kpsp_test_date1")!=null?pc.getDetails().get("kpsp_test_date1"):"");
-        viewHolder.hear_test_date.setText(pc.getDetails().get("hear_test_date")!=null?pc.getDetails().get("hear_test_date"):"");
+        viewHolder.status_kembang6.setText(pc.getDetails().get("status_kembang6")!=null?pc.getDetails().get("status_kembang6"):"");
+        viewHolder.daya_dengar.setText("Tes Hearing: "+ (pc.getDetails().get("daya_dengar") != null ? pc.getDetails().get("daya_dengar") : ""));
+        viewHolder.daya_lihat.setText("Tes Visual: "+ (pc.getDetails().get("daya_lihat")!=null?pc.getDetails().get("daya_lihat"):""));
+        viewHolder.mental_emosional.setText("Tes Mental: "+ (pc.getDetails().get("mental_emosional")!=null?pc.getDetails().get("mental_emosional"):""));
+        viewHolder.autis.setText("Test Autist: "+ (pc.getDetails().get("autis")!=null?pc.getDetails().get("autis"):""));
+        viewHolder.gpph.setText("Tes GGPH: "+ (pc.getDetails().get("gpph")!=null?pc.getDetails().get("gpph"):""));
+        viewHolder.anthropometry_date.setText("Tanggal: "+ (pc.getDetails().get("anthropometry_date")!=null?pc.getDetails().get("anthropometry_date"):""));
+        viewHolder.sight_test_date.setText("Tanggal: "+ (pc.getDetails().get("sight_test_date")!=null?pc.getDetails().get("sight_test_date"):""));
+        viewHolder.mental_test_date.setText("Tanggal: "+ (pc.getDetails().get("mental_test_date")!=null?pc.getDetails().get("mental_test_date"):""));
+        viewHolder.autis_test_date.setText("Tanggal: "+ (pc.getDetails().get("autis_test_date")!=null?pc.getDetails().get("autis_test_date"):""));
+        viewHolder.gpph_test_date.setText("Tanggal: "+ (pc.getDetails().get("gpph_test_date")!=null?pc.getDetails().get("gpph_test_date"):""));
+        viewHolder.kpsp_test_date1.setText("Tanggal: "+ (pc.getDetails().get("kpsp_test_date1")!=null?pc.getDetails().get("kpsp_test_date1"):""));
+        viewHolder.status_kembang1.setText("Status Kembang: "+ (pc.getDetails().get("status_kembang1")!=null?pc.getDetails().get("status_kembang1"):""));
+        viewHolder.hear_test_date.setText("Tanggal: "+ (pc.getDetails().get("hear_test_date")!=null?pc.getDetails().get("hear_test_date"):""));
       //  viewHolder.headofhouseholdname.setText(pc.getDetails().get("FWHOHFNAME")!=null?pc.getDetails().get("FWHOHFNAME"):"");
       //  viewHolder.no_of_mwra.setText(pc.getDetails().get("ELCO")!=null?pc.getDetails().get("ELCO"):"");
        // Date lastdate = null;

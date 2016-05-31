@@ -81,53 +81,11 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="75dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="0.01">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_today" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_weight"
-                android:textSize="13sp"
-                android:id="@+id/label_berat" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_height"
-                android:textSize="13sp"
-                android:id="@+id/label_tinggi" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_head_cir"
-                android:textSize="13sp"
-                android:id="@+id/label_lingkar_kepala" />
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="175dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="1dp"
             android:layout_weight="0.07">
@@ -146,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="berat"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_berat" />
 
@@ -155,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="tinggi"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_tinggi" />
 
@@ -164,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="lingkar kepala"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_lingkar_kepala" />
         </LinearLayout>
@@ -173,37 +131,11 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="60dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_weight="0.01">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_status_today1" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_status"
-                android:textSize="13sp"
-                android:id="@+id/label_status_kembang" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="0dp"
             android:layout_weight="0.07">
@@ -222,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="status kembang"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_status_kembang" />
 
@@ -233,56 +165,11 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="90dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_weight="0.01">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_today2" />
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_hearing_test"
-                android:textSize="13sp"
-                android:id="@+id/label_tes_dengar" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_today8" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_visual_test"
-                android:textSize="13sp"
-                android:id="@+id/label_tes_visual" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
@@ -301,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="daya_dengar"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_daya_dengar" />
 
@@ -319,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="daya_lihat"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_daya_lihat" />
 
@@ -330,36 +217,11 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-        <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="90dp"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="2dp"
-        android:layout_weight="0.01">
 
-        <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            style="@style/CustomFontTextViewStyle.ListView.Medium"
-            android:text="@string/label_date"
-            android:textSize="13sp"
-            android:id="@+id/label_today4" />
-
-        <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            style="@style/CustomFontTextViewStyle.ListView.Medium"
-            android:text="@string/label_mental_test"
-            android:textSize="13sp"
-            android:id="@+id/label_test_mental" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
@@ -388,55 +250,11 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="80dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_weight="0.01">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_today5" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_autist_test"
-                android:textSize="13sp"
-                android:id="@+id/label_tes_autis" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_date"
-                android:textSize="13sp"
-                android:id="@+id/label_today9" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/label_ggph_test"
-                android:textSize="13sp"
-                android:id="@+id/label_tes_ggph" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="0.07">
@@ -455,7 +273,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="autis"
+                android:text="-"
                 android:textSize="13sp"
                 android:id="@+id/text_autis" />
 

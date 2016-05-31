@@ -404,6 +404,13 @@
     <string name="autisresult">Test Autist</string>
     <string name="ggphdate">Tanggal Tes GGPH</string>
     <string name="ggphresult">Tes GGPH</string>
+    <string name="detailNamaAnak">Nama Anak</string>
+    <string name="detailJenisKelamin">Jenis Kelamin</string>
+    <string name="detailNamaIbu">Nama Ibu</string>
+    <string name="detailUmur">Umur</string>
+    <string name="detailBerat">Berat</string>
+    <string name="detailTinggi">Tinggi</string>
+    <string name="detailLingkarKepala">Lingkar Kepala</string>
 
 
 </resources>
