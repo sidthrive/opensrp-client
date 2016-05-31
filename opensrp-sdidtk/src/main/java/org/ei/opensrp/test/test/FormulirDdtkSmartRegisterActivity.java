@@ -1,5 +1,7 @@
 package org.ei.opensrp.test.test;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,6 +33,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static org.ei.opensrp.R.string.form_back_confirm_dialog_message;
+import static org.ei.opensrp.R.string.form_back_confirm_dialog_title;
+import static org.ei.opensrp.R.string.no_button_label;
+import static org.ei.opensrp.R.string.yes_button_label;
 
 public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
 
@@ -223,11 +230,49 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
     public DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
         return  (DisplayFormFragment)findFragmentByPosition(index);
     }
-
+    private void goBack() {
+        switchToBaseFragment(null);
+    }
     @Override
     public void onBackPressed() {
-        if (currentPage != 0) {
-            switchToBaseFragment(null);
+        if (currentPage > 1) {
+            new AlertDialog.Builder(this)
+                    .setMessage(form_back_confirm_dialog_message)
+                    .setTitle(form_back_confirm_dialog_title)
+                    .setCancelable(false)
+                    .setPositiveButton(yes_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    goBack();
+                                }
+                            })
+                    .setNegativeButton(no_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                }
+                            })
+                    .show();
+        } else if(currentPage == 1) {
+            new AlertDialog.Builder(this)
+                    .setMessage(form_back_confirm_dialog_message)
+                    .setTitle(form_back_confirm_dialog_title)
+                    .setCancelable(false)
+                    .setPositiveButton(yes_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    goBack();
+                                }
+                            })
+                    .setNegativeButton(no_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                }
+                            })
+                    .show();
         } else if (currentPage == 0) {
             super.onBackPressed(); // allow back key only if we are
         }

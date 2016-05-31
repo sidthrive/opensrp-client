@@ -10,10 +10,10 @@
     <string name="loggin_in_dialog_message">Harap tunggu</string>
     <string name="login_failed_dialog_title">Log in gagal</string>
     <string name="login_failed_dialog_message">Harap periksa username dan sandi</string>
-    <string name="mcareform_back_confirm_dialog_message">Are you sure you want to go back?</string>
-    <string name="mcareform_back_confirm_dialog_title">Confirm form close</string>
-    <string name="mcareyes_button_label">Ya</string>
-    <string name="mcareno_button_label">Tidak</string>
+    <string name="form_back_confirm_dialog_message">Apakah anda yakin ingin kembali? Semua data yang telah di entry akan hilang</string>
+    <string name="form_back_confirm_dialog_title">Confirm form close</string>
+    <string name="yes_button_label">Ya</string>
+    <string name="no_button_label">Tidak</string>
     <string name="home_hh_label">Household</string>
     <string name="home_ec_label">ELCO</string>
     <string name="home_fp_label">FP</string>
