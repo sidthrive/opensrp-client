@@ -34,6 +34,7 @@
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/reg_date:label">Tanggal Entry</span>
       <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/reg_date:label">Entry Date</span>
+       <span class="required">*</span>
       <input type="date" name="/formulir_ddtk/reg_date" data-type-xml="date" />
    </label>
    <label class="note non-select ">
@@ -44,6 +45,7 @@
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/nama_anak:label">Nama Anak</span>
       <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/nama_anak:label">Child's Name</span>
+       <span class="required">*</span>
       <input type="text" name="/formulir_ddtk/nama_anak" data-type-xml="string" />
    </label>
    <fieldset class="question or-appearance-horizontal ">
@@ -51,6 +53,7 @@
          <legend>
             <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/jenis_kelamin:label">Jenis Kelamin</span>
             <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/jenis_kelamin:label">Gender</span>
+             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
             <label class="">
@@ -69,16 +72,19 @@
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/nama_ayah:label">Nama Ayah</span>
       <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/nama_ayah:label">Child's Father</span>
+       <span class="required">*</span>
       <input type="text" name="/formulir_ddtk/nama_ayah" data-type-xml="string" />
    </label>
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/nama_ibu:label">Nama Ibu</span>
       <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/nama_ibu:label">Child's Mother</span>
+       <span class="required">*</span>
       <input type="text" name="/formulir_ddtk/nama_ibu" data-type-xml="string" />
    </label>
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/formulir_ddtk/tanggal_lahir:label">Tanggal Lahir Anak</span>
       <span lang="en" class="question-label " data-itext-id="/formulir_ddtk/tanggal_lahir:label">Child's Date of Birth</span>
+       <span class="required">*</span>
       <input type="date" name="/formulir_ddtk/tanggal_lahir" data-type-xml="date" />
    </label>
    <label class="note non-select ">
