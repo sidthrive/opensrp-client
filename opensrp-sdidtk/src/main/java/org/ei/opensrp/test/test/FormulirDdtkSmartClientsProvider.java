@@ -64,6 +64,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
     public View getView(SmartRegisterClient smartRegisterClient, View convertView, ViewGroup viewGroup) {
 
         ViewHolder viewHolder;
+        ViewGroup itemView = viewGroup;
         if (convertView == null){
            convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_test_client, null);
             viewHolder = new ViewHolder();
@@ -121,18 +122,23 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
       //  List<Alert> alertlist_for_client = alertService.findByEntityIdAndAlertNames(pc.entityId(), "FW CENSUS");
 
 */
+
        //set image picture
+        final ImageView childview = (ImageView)convertView.findViewById(R.id.childdetailprofileview);
+
         if (pc.getDetails().get("profilepic") == null) {
             if (pc.getDetails().get("jenis_kelamin").equalsIgnoreCase("laki_laki")) {
                 viewHolder.profilepic.setImageResource(org.ei.opensrp.R.drawable.child_boy_infant);
 
             } else {
+
                 viewHolder.profilepic.setImageResource(org.ei.opensrp.R.drawable.child_girl_infant);
 
             }
-        } else {
 
-
+        } if (pc.getDetails().get("profilepic") != null) {
+            ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.ic_dristhi_logo);
+            childview.setTag(smartRegisterClient);
         }
 
 
