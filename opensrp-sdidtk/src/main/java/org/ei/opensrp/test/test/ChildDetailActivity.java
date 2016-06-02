@@ -91,6 +91,8 @@ public class ChildDetailActivity extends Activity {
         TextView anakGgphDate = (TextView) findViewById(R.id.childdetail_ggphtestdate);
         TextView anakGgphResult = (TextView) findViewById(R.id.childdetail_ggphtestresult);
 
+
+
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,36 +102,63 @@ public class ChildDetailActivity extends Activity {
                 overridePendingTransition(0, 0);
             }
         });
+        final ImageView childview = (ImageView)findViewById(R.id.childdetailprofileview);
+        if(childclient.getDetails().get("profilepic")!= null){
+            if((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("perempuan")) {
 
-        anakName.setText(getString(R.string.detailNamaAnak) +": "+ (childclient.getDetails().get("nama_anak") != null ? childclient.getDetails().get("nama_anak") : "-"));
-        anakJenisKelamin.setText(getString(R.string.detailJenisKelamin) +": "+ (childclient.getDetails().get("jenis_kelamin") != null ? childclient.getDetails().get("jenis_kelamin") : "-"));
-        anakNamaIbu.setText(getString(R.string.detailNamaIbu) +": "+ (childclient.getDetails().get("nama_ibu") != null ? childclient.getDetails().get("nama_ibu") : "-"));
-        anakUmur.setText(getString(R.string.detailUmur) +": "+ (childclient.getDetails().get("umur") != null ? childclient.getDetails().get("umur") : "-"));
-        anakBerat.setText(getString(R.string.detailBerat) +": "+ (childclient.getDetails().get("berat") != null ? childclient.getDetails().get("berat") : "-"));
-        anakTinggi.setText(getString(R.string.detailTinggi) +": "+ (childclient.getDetails().get("tinggi") != null ? childclient.getDetails().get("tinggi") : "-"));
-        anakLingKepala.setText(getString(R.string.detailLingkarKepala) +": "+ (childclient.getDetails().get("lingkar_kepala") != null ? childclient.getDetails().get("lingkar_kepala") : "-"));
-        anakKpspDate1.setText(getString(R.string.kpspdate1) +": "+ (childclient.getDetails().get("kpsp_test_date1") != null ? childclient.getDetails().get("kpsp_test_date1") : "-"));
-        anakKpspResult1.setText(getString(R.string.kpspresult1) +": "+ (childclient.getDetails().get("status_kembang1") != null ? childclient.getDetails().get("status_kembang1") : "-"));
-        anakKpspDate2.setText(getString(R.string.kpspdate2) + ": " + (childclient.getDetails().get("kpsp_test_date2") != null ? childclient.getDetails().get("kpsp_test_date2") : "-"));
-        anakKpspResult2.setText(getString(R.string.kpspresult2) +": "+ (childclient.getDetails().get("status_kembang2") != null ? childclient.getDetails().get("status_kembang2") : "-"));
-        anakKpspDate3.setText(getString(R.string.kpspdate3) +": "+ (childclient.getDetails().get("kpsp_test_date3") != null ? childclient.getDetails().get("kpsp_test_date3") : "-"));
-        anakKpspResult3.setText(getString(R.string.kpspresult3) +": "+ (childclient.getDetails().get("status_kembang3") != null ? childclient.getDetails().get("status_kembang3") : "-"));
-        anakKpspDate4.setText(getString(R.string.kpspdate4) +": "+ (childclient.getDetails().get("kpsp_test_date4") != null ? childclient.getDetails().get("kpsp_test_date4") : "-"));
-        anakKpspResult4.setText(getString(R.string.kpspresult4) +": "+ (childclient.getDetails().get("status_kembang4") != null ? childclient.getDetails().get("status_kembang4") : "-"));
-        anakKpspDate5.setText(getString(R.string.kpspdate5) +": "+ (childclient.getDetails().get("kpsp_test_date5") != null ? childclient.getDetails().get("kpsp_test_date5") : "-"));
-        anakKpspResult5.setText(getString(R.string.kpspresult5) +": "+ (childclient.getDetails().get("status_kembang5") != null ? childclient.getDetails().get("status_kembang5") : "-"));
-        anakKpspDate6.setText(getString(R.string.kpspdate6) +": "+ (childclient.getDetails().get("kpsp_test_date6") != null ? childclient.getDetails().get("kpsp_test_date6") : "-"));
-        anakKpspResult6.setText(getString(R.string.kpspresult6) +": "+ (childclient.getDetails().get("status_kembang6") != null ? childclient.getDetails().get("status_kembang6") : "-"));
-        anakHearingDate.setText(getString(R.string.hearingdate) +": "+ (childclient.getDetails().get("hear_test_date") != null ? childclient.getDetails().get("hear_test_date") : "-"));
-        anakHearingResult.setText(getString(R.string.hearingresult) +": "+ (childclient.getDetails().get("daya_dengar") != null ? childclient.getDetails().get("daya_dengar") : "-"));
-        anakVisualDate.setText(getString(R.string.visualdate) +": "+ (childclient.getDetails().get("sight_test_date") != null ? childclient.getDetails().get("sight_test_date") : "-"));
-        anakVisualResult.setText(getString(R.string.visualresult) +": "+ (childclient.getDetails().get("daya_lihat") != null ? childclient.getDetails().get("daya_lihat") : "-"));
-        anakMentalDate.setText(getString(R.string.mentaldate) +": "+ (childclient.getDetails().get("mental_test_date") != null ? childclient.getDetails().get("mental_test_date") : "-"));
-        anakMentalResult.setText(getString(R.string.mentalresult) +": "+ (childclient.getDetails().get("mental_emosional") != null ? childclient.getDetails().get("mental_emosional") : "-"));
-        anakAutistDate.setText(getString(R.string.autisdate) +": "+ (childclient.getDetails().get("autis_test_date") != null ? childclient.getDetails().get("autis_test_date") : "-"));
-        anakAutistResult.setText(getString(R.string.autisresult) +": "+ (childclient.getDetails().get("autis") != null ? childclient.getDetails().get("autis") : "-"));
-        anakGgphDate.setText(getString(R.string.ggphdate) +": "+ (childclient.getDetails().get("gpph_test_date") != null ? childclient.getDetails().get("gpph_test_date") : "-"));
-        anakGgphResult.setText(getString(R.string.ggphresult) +": "+ (childclient.getDetails().get("gpph") != null ? childclient.getDetails().get("gpph") : "-"));
+                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.womanimageload);
+            } else if ((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("laki_laki")){
+                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.householdload);
+
+            }
+        }else{
+
+            if((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("perempuan")){
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+            }else if ((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("laki_laki")){
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+            }
+        }
+        // }
+        childview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bindobject = "anak";
+                entityid = childclient.entityId();
+                dispatchTakePictureIntent(childview);
+
+            }
+        });
+        anakName.setText(getString(R.string.detailNamaAnak) +": "+ (childclient.getDetails().get("nama_anak") != null ? childclient.getDetails().get("nama_anak").replaceAll("_", " ") : "-"));
+        anakJenisKelamin.setText(getString(R.string.detailJenisKelamin) +": "+ (childclient.getDetails().get("jenis_kelamin") != null ? childclient.getDetails().get("jenis_kelamin").replaceAll("_", " ") : "-"));
+        anakNamaIbu.setText(getString(R.string.detailNamaIbu) +": "+ (childclient.getDetails().get("nama_ibu") != null ? childclient.getDetails().get("nama_ibu").replaceAll("_", " ") : "-"));
+        anakUmur.setText(getString(R.string.detailUmur) +": "+ (childclient.getDetails().get("umur") != null ? childclient.getDetails().get("umur").replaceAll("_", " ")+" Tahun" : "-"));
+        anakBerat.setText(getString(R.string.detailBerat) +": "+ (childclient.getDetails().get("berat") != null ? childclient.getDetails().get("berat").replaceAll("_", " ") : "-"));
+        anakTinggi.setText(getString(R.string.detailTinggi) +": "+ (childclient.getDetails().get("tinggi") != null ? childclient.getDetails().get("tinggi").replaceAll("_", " ") : "-"));
+        anakLingKepala.setText(getString(R.string.detailLingkarKepala) +": "+ (childclient.getDetails().get("lingkar_kepala") != null ? childclient.getDetails().get("lingkar_kepala").replaceAll("_", " ") : "-"));
+        anakKpspDate1.setText(getString(R.string.kpspdate1) +": "+ (childclient.getDetails().get("kpsp_test_date1") != null ? childclient.getDetails().get("kpsp_test_date1").replaceAll("_", " ") : "-"));
+        anakKpspResult1.setText(getString(R.string.kpspresult1) +": "+ (childclient.getDetails().get("status_kembang1") != null ? childclient.getDetails().get("status_kembang1").replaceAll("_", " ") : "-"));
+        anakKpspDate2.setText(getString(R.string.kpspdate2) + ": " + (childclient.getDetails().get("kpsp_test_date2") != null ? childclient.getDetails().get("kpsp_test_date2").replaceAll("_", " ") : "-"));
+        anakKpspResult2.setText(getString(R.string.kpspresult2) +": "+ (childclient.getDetails().get("status_kembang2") != null ? childclient.getDetails().get("status_kembang2").replaceAll("_", " ") : "-"));
+        anakKpspDate3.setText(getString(R.string.kpspdate3) +": "+ (childclient.getDetails().get("kpsp_test_date3") != null ? childclient.getDetails().get("kpsp_test_date3").replaceAll("_", " ") : "-"));
+        anakKpspResult3.setText(getString(R.string.kpspresult3) +": "+ (childclient.getDetails().get("status_kembang3") != null ? childclient.getDetails().get("status_kembang3").replaceAll("_", " ") : "-"));
+        anakKpspDate4.setText(getString(R.string.kpspdate4) +": "+ (childclient.getDetails().get("kpsp_test_date4") != null ? childclient.getDetails().get("kpsp_test_date4").replaceAll("_", " ") : "-"));
+        anakKpspResult4.setText(getString(R.string.kpspresult4) +": "+ (childclient.getDetails().get("status_kembang4") != null ? childclient.getDetails().get("status_kembang4").replaceAll("_", " ") : "-"));
+        anakKpspDate5.setText(getString(R.string.kpspdate5) +": "+ (childclient.getDetails().get("kpsp_test_date5") != null ? childclient.getDetails().get("kpsp_test_date5").replaceAll("_", " ") : "-"));
+        anakKpspResult5.setText(getString(R.string.kpspresult5) +": "+ (childclient.getDetails().get("status_kembang5") != null ? childclient.getDetails().get("status_kembang5").replaceAll("_", " ") : "-"));
+        anakKpspDate6.setText(getString(R.string.kpspdate6) +": "+ (childclient.getDetails().get("kpsp_test_date6") != null ? childclient.getDetails().get("kpsp_test_date6").replaceAll("_", " ") : "-"));
+        anakKpspResult6.setText(getString(R.string.kpspresult6) +": "+ (childclient.getDetails().get("status_kembang6") != null ? childclient.getDetails().get("status_kembang6").replaceAll("_", " ") : "-"));
+        anakHearingDate.setText(getString(R.string.hearingdate) +": "+ (childclient.getDetails().get("hear_test_date") != null ? childclient.getDetails().get("hear_test_date").replaceAll("_", " ") : "-"));
+        anakHearingResult.setText(getString(R.string.hearingresult) +": "+ (childclient.getDetails().get("daya_dengar") != null ? childclient.getDetails().get("daya_dengar").replaceAll("_", " ") : "-"));
+        anakVisualDate.setText(getString(R.string.visualdate) +": "+ (childclient.getDetails().get("sight_test_date") != null ? childclient.getDetails().get("sight_test_date").replaceAll("_", " ") : "-"));
+        anakVisualResult.setText(getString(R.string.visualresult) +": "+ (childclient.getDetails().get("daya_lihat") != null ? childclient.getDetails().get("daya_lihat").replaceAll("_", " ") : "-"));
+        anakMentalDate.setText(getString(R.string.mentaldate) +": "+ (childclient.getDetails().get("mental_test_date") != null ? childclient.getDetails().get("mental_test_date").replaceAll("_", " ") : "-"));
+        anakMentalResult.setText(getString(R.string.mentalresult) +": "+ (childclient.getDetails().get("mental_emosional") != null ? childclient.getDetails().get("mental_emosional").replaceAll("_", " ") : "-"));
+        anakAutistDate.setText(getString(R.string.autisdate) +": "+ (childclient.getDetails().get("autis_test_date") != null ? childclient.getDetails().get("autis_test_date").replaceAll("_", " ") : "-"));
+        anakAutistResult.setText(getString(R.string.autisresult) +": "+ (childclient.getDetails().get("autis") != null ? childclient.getDetails().get("autis").replaceAll("_", " ") : "-"));
+        anakGgphDate.setText(getString(R.string.ggphdate) +": "+ (childclient.getDetails().get("gpph_test_date") != null ? childclient.getDetails().get("gpph_test_date").replaceAll("_", " ") : "-"));
+        anakGgphResult.setText(getString(R.string.ggphresult) +": "+ (childclient.getDetails().get("gpph") != null ? childclient.getDetails().get("gpph").replaceAll("_", " ") : "-"));
 
         //KMS calculation
 
@@ -228,10 +257,18 @@ public class ChildDetailActivity extends Activity {
 
 
 
-
 //        BitmapFactory.Options options = new BitmapFactory.Options();
 //        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 //        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
 //        view.setImageBitmap(bitmap);
     }
+    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+        File externalFile = new File(file);
+        Uri external = Uri.fromFile(externalFile);
+        view.setImageURI(external);
+
+
+    }
+
 }
