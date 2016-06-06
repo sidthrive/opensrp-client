@@ -38,12 +38,12 @@ public class FormulirDdtkServiceModeOption extends ServiceModeOption {
 
             @Override
             public int weightSum() {
-                return 13;
+                return 52;
             }
 
             @Override
             public int[] weights() {
-                return new int[]{2,2,2,2,2,2};
+                return new int[]{10,7,7,8,8,8};
             }
 
             @Override

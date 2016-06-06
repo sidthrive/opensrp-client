@@ -9,9 +9,34 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/bg_texture"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical">
+            android:background="@drawable/bg_texture">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/sdidtk_logo"/>
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:id="@+id/feedback_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/message_box"
+                    android:visibility="invisible"/>
+
+
+            </FrameLayout>
+        </LinearLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"

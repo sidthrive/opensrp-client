@@ -146,7 +146,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         //viewHolder.village.setText(pc.getDetails().get("village") != null ? pc.getDetails().get("village") : "");
         viewHolder.nama_anak.setText(pc.getDetails().get("nama_anak") != null ? pc.getDetails().get("nama_anak").replaceAll("_", " ") : "-");
         viewHolder.jenis_kelamin.setText(pc.getDetails().get("jenis_kelamin") != null ? pc.getDetails().get("jenis_kelamin").replaceAll("_", " ") : "-");
-        viewHolder.umur.setText(pc.getDetails().get("umur")!=null?pc.getDetails().get("umur").replaceAll("_", " ")+" Tahun" :"-");
+        viewHolder.umur.setText(pc.getDetails().get("umur")!=null?pc.getDetails().get("umur").replaceAll("_", " ")+" Bulan" :"-");
         viewHolder.nama_ibu.setText(pc.getDetails().get("nama_ibu") != null ? pc.getDetails().get("nama_ibu").replaceAll("_", " ") : "-");
         viewHolder.berat.setText("Berat: "+ (pc.getDetails().get("berat")!=null?pc.getDetails().get("berat").replaceAll("_", " "):"-"));
         viewHolder.tinggi.setText("Tinggi: "+ (pc.getDetails().get("tinggi") != null ? pc.getDetails().get("tinggi").replaceAll("_", " ") : "-"));

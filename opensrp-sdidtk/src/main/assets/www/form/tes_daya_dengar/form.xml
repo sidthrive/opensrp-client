@@ -8,17 +8,17 @@
       <option value="en">English</option>
    </select>
    <label class="note non-select ">
-        <span class="question-label active" data-itext-id="/tes_daya_dengar/generated_note_name_12:label"
-            lang="Bahasa">Umur:
-            <span class="or-output"
-                data-value=" /tes_daya_dengar/umur "></span>
-        </span>
-        <span class="question-label " data-itext-id="/tes_daya_dengar/generated_note_name_12:label"
-            lang="en">Age:
-        </span>
-        <input name="/tes_daya_dengar/generated_note_name_12" data-type-xml="string"
-            readonly="readonly" type="text" />
-    </label>
+      <span class="question-label active" data-itext-id="/tes_daya_dengar/generated_note_name_12:label"
+          lang="Bahasa">Umur:
+         <span class="or-output"
+             data-value=" /tes_daya_dengar/umur "></span>
+      </span>
+      <span class="question-label " data-itext-id="/tes_daya_dengar/generated_note_name_12:label"
+          lang="en">Age:
+      </span>
+      <input name="/tes_daya_dengar/generated_note_name_12" data-type-xml="string"
+          readonly="readonly" type="text" />
+   </label>
    <label class="question non-select ">
       <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/hear_test_date:label">Tanggal Entry</span>
       <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/hear_test_date:label">Entry Date</span>
@@ -257,7 +257,7 @@
       <fieldset>
          <legend>
             <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">3. Apabila ada suara nyaring (misal suara batuk, salak anjing, piring jatuh ke lantai dan lain-lainnya), apakah bayi terkejut atau terlompat?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln3:label">3. If there is a loud voice (e.g. A cough, dog's bark, a plate fell to the floor, etc.), is the baby surprised or jumped up?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">
@@ -277,8 +277,8 @@
    <fieldset class="question or-branch pre-init ">
       <fieldset>
          <legend>
-            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">Anda berada di samping atau belakang bayi dan tidak terlihat oleh bayi, sebut namanya atau bunyikan sesuatu, apakah bayi langsung memalingkan kepala ke arah sumber suara tersebut di samping atau belakangnya?</span>
-            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">3. You are beside or behind the baby and unvisible to the baby, call his/her name or make a noise, does the baby turn his/her head toward the source of the sound, beside or behind him/her?</span>
+            <span lang="Bahasa" class="question-label active" data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">4. Anda berada di samping atau belakang bayi dan tidak terlihat oleh bayi, sebut namanya atau bunyikan sesuatu, apakah bayi langsung memalingkan kepala ke arah sumber suara tersebut di samping atau belakangnya?</span>
+            <span lang="en" class="question-label " data-itext-id="/tes_daya_dengar/tdd_9-12bln4:label">4. You are beside or behind the baby and unvisible to the baby, call his/her name or make a noise, does the baby turn his/her head toward the source of the sound, beside or behind him/her?</span>
             <span class="required">*</span>
          </legend>
          <div class="option-wrapper">

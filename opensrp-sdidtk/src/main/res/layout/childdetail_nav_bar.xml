@@ -12,7 +12,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
-            android:src="@drawable/homestacks"
+            android:src="@drawable/sdidtk_homestacks"
             android:background="@drawable/transparent_gray_background"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"/>

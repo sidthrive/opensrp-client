@@ -25,7 +25,7 @@
         <ImageView
             android:id="@+id/login_logo"
             android:contentDescription="@string/image_description"
-            android:src="@drawable/login_logo"
+            android:src="@drawable/sdidtk_login_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
