@@ -105,7 +105,6 @@ public class ChildDetailActivity extends Activity {
         final ImageView childview = (ImageView)findViewById(R.id.childdetailprofileview);
         if(childclient.getDetails().get("profilepic")!= null){
             if((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("perempuan")) {
-
                 setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.womanimageload);
             } else if ((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("laki_laki")){
                 setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.householdload);
@@ -270,5 +269,12 @@ public class ChildDetailActivity extends Activity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, FormulirDdtkSmartRegisterActivity.class));
+        overridePendingTransition(0, 0);
 
+
+    }
 }
