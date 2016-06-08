@@ -1,4 +1,4 @@
-package org.ei.opensrp.test.fragment;
+package org.ei.opensrp.ddtk.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -12,15 +12,15 @@ import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.commonregistry.CommonObjectSort;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
+import org.ei.opensrp.ddtk.LoginActivity;
+import org.ei.opensrp.ddtk.ddtk.FormulirDdtkServiceModeOption;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.test.LoginActivity;
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 
-import org.ei.opensrp.test.test.ChildDetailActivity;
-import org.ei.opensrp.test.test.FormulirDdtkSmartRegisterActivity;
-import org.ei.opensrp.test.test.FormulirDdtkSearchOption;
-import org.ei.opensrp.test.test.FormulirDdtkServiceModeOption;
-import org.ei.opensrp.test.test.FormulirDdtkSmartClientsProvider;
+import org.ei.opensrp.ddtk.ddtk.ChildDetailActivity;
+import org.ei.opensrp.ddtk.ddtk.FormulirDdtkSmartRegisterActivity;
+import org.ei.opensrp.ddtk.ddtk.FormulirDdtkSearchOption;
+import org.ei.opensrp.ddtk.ddtk.FormulirDdtkSmartClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
 import org.ei.opensrp.view.contract.SmartRegisterClient;

@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package org.ei.opensrp.test.pageradapter;
+package org.ei.opensrp.ddtk.pageradapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

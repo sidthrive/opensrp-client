@@ -1,10 +1,10 @@
-package org.ei.opensrp.test.test;
+package org.ei.opensrp.ddtk.ddtk;
 
 import android.view.View;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 import org.ei.opensrp.view.contract.ANCSmartRegisterClient;
 import org.ei.opensrp.view.contract.ChildSmartRegisterClient;
 import org.ei.opensrp.view.contract.FPSmartRegisterClient;

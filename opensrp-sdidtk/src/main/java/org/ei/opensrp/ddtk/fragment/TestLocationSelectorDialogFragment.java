@@ -1,4 +1,4 @@
-package org.ei.opensrp.test.fragment;
+package org.ei.opensrp.ddtk.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

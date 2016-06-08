@@ -1,4 +1,4 @@
-package org.ei.opensrp.test.test;
+package org.ei.opensrp.ddtk.ddtk;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.AlertService;
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -66,7 +66,7 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterClientsPro
         ViewHolder viewHolder;
         ViewGroup itemView = viewGroup;
         if (convertView == null){
-           convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_test_client, null);
+           convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_ddtk_client, null);
             viewHolder = new ViewHolder();
             viewHolder.profilelayout =  (LinearLayout)convertView.findViewById(R.id.profile_info_layout);
             viewHolder.nama_anak = (TextView)convertView.findViewById(R.id.text_nama_anak);

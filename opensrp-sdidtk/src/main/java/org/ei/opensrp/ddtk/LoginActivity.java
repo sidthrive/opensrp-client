@@ -1,4 +1,4 @@
-package org.ei.opensrp.test;
+package org.ei.opensrp.ddtk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -86,8 +86,8 @@ public class LoginActivity extends Activity {
         setDoneActionHandlerOnPasswordField();
         initializeProgressDialog();
         getActionBar().setTitle("");
-        getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.test.R.mipmap.logo));
-        getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.test.R.color.action_bar_background));
+        getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.ddtk.R.mipmap.logo));
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.ddtk.R.color.action_bar_background));
         setLanguage();
 
     }

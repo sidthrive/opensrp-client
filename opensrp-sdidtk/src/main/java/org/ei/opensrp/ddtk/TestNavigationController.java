@@ -1,11 +1,11 @@
-package org.ei.opensrp.test;
+package org.ei.opensrp.ddtk;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 
-import org.ei.opensrp.test.test.FormulirDdtkSmartRegisterActivity;
+import org.ei.opensrp.ddtk.ddtk.FormulirDdtkSmartRegisterActivity;
 import org.ei.opensrp.view.controller.ANMController;
 
 

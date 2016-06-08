@@ -1,6 +1,5 @@
-package org.ei.opensrp.test;
+package org.ei.opensrp.ddtk;
 
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -75,7 +74,7 @@ public class NativeHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
-        setContentView(R.layout.smart_registers_test_home);
+        setContentView(R.layout.smart_registers_ddtk_home);
         navigationController = new TestNavigationController(this,anmController);
         setupViews();
         initialize();
@@ -102,8 +101,8 @@ public class NativeHomeActivity extends SecuredActivity {
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
         ACTION_HANDLED.addListener(updateANMDetailsListener);
         getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.test.R.mipmap.logo));
-        getSupportActionBar().setLogo(org.ei.opensrp.test.R.mipmap.logo);
+        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.ddtk.R.mipmap.logo));
+        getSupportActionBar().setLogo(org.ei.opensrp.ddtk.R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         LoginActivity.setLanguage();

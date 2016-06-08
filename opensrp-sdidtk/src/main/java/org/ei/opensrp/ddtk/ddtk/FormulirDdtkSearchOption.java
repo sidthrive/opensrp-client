@@ -1,15 +1,10 @@
-package org.ei.opensrp.test.test;
+package org.ei.opensrp.ddtk.ddtk;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.FilterOption;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FormulirDdtkSearchOption implements FilterOption {
     private final String criteria;

@@ -1,4 +1,4 @@
-package org.ei.opensrp.test;
+package org.ei.opensrp.ddtk;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

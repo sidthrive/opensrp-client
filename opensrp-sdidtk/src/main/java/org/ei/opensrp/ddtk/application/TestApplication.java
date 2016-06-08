@@ -1,13 +1,10 @@
-package org.ei.opensrp.test.application;
+package org.ei.opensrp.ddtk.application;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 
-import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
 import org.ei.opensrp.Context;
-import org.ei.opensrp.test.LoginActivity;
+import org.ei.opensrp.ddtk.LoginActivity;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;

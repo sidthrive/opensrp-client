@@ -1,4 +1,4 @@
-package org.ei.opensrp.test.test;
+package org.ei.opensrp.ddtk.ddtk;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,15 +10,15 @@ import android.util.Log;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.ddtk.LoginActivity;
+import org.ei.opensrp.ddtk.fragment.FormulirDdtkSmartRegisterFragment;
+import org.ei.opensrp.ddtk.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.test.LoginActivity;
-import org.ei.opensrp.test.R;
+import org.ei.opensrp.ddtk.R;
 //import org.ei.opensrp.test.fragment.HouseHoldSmartRegisterFragment;
-import org.ei.opensrp.test.fragment.FormulirDdtkSmartRegisterFragment;
-import org.ei.opensrp.test.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.dialog.DialogOption;

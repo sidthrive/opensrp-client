@@ -1,27 +1,21 @@
-package org.ei.opensrp.test.test;
+package org.ei.opensrp.ddtk.ddtk;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.commonregistry.CommonPersonObjectController;
-import org.ei.opensrp.test.R;
-import org.ei.opensrp.test.test.FormulirDdtkSmartRegisterActivity;
+import org.ei.opensrp.ddtk.R;
 
 import java.io.File;
 import java.io.IOException;
