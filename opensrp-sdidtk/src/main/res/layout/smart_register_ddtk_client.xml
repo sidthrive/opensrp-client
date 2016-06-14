@@ -39,7 +39,7 @@
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Medium Text"
                 android:id="@+id/text_nama_anak"
-                android:textSize="14sp" />
+                android:textSize="15dp" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Medium Text"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:id="@+id/text_jenis_kelamin" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -56,7 +56,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Medium Text"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:id="@+id/text_umur" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -65,7 +65,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Medium Text"
-                android:textSize="14sp"
+                android:textSize="15dp"
                 android:id="@+id/text_nama_ibu" />
         </LinearLayout>
     </LinearLayout>
@@ -94,36 +94,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_anthropometry_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_berat" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_tinggi" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_lingkar_kepala" />
         </LinearLayout>
         <ImageView
@@ -144,18 +144,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_kpsp_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_status_kembang" />
 
 
@@ -178,36 +178,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_hear_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_daya_dengar" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_sight_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_daya_lihat" />
 
 
@@ -230,18 +230,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_mental_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_mental_emosional" />
 
         </LinearLayout>
@@ -263,36 +263,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_autis_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_autis" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_gpph_test_date" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:text="-"
-                android:textSize="13sp"
+                android:textSize="15dp"
                 android:id="@+id/text_gpph" />
 
 
