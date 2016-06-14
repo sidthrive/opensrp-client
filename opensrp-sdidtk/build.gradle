@@ -18,7 +18,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "org.ei.opensrp.test"
+        applicationId "org.ei.opensrp.sdidtk"
         minSdkVersion 16
         targetSdkVersion 21
         versionCode 21
