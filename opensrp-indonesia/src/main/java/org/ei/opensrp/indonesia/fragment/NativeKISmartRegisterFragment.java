@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -39,6 +40,7 @@ import org.ei.opensrp.view.dialog.DialogOptionMapper;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
+import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
@@ -234,13 +236,19 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     public void startRegistration() {
         FlurryFacade.logEvent("click_start_registration_on_kohort_ibu_dashboard");
+        String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
+        if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
+            Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-        BidanLocationSelectorDialogFragment
+        LocationSelectorDialogFragment
                 .newInstance((NativeKISmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "kartu_ibu_registration")
                 .show(ft, locationDialogTAG);
     }

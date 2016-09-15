@@ -10,7 +10,7 @@ import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
+import org.ei.opensrp.indonesia.application.SyncBidanBroadcastReceiver;
 import static org.ei.opensrp.util.Log.logInfo;
 
 import java.util.Locale;
@@ -20,11 +20,11 @@ public class BidanApplication extends DrishtiApplication {
 
     @Override
     public void onCreate() {
-        DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
+        DrishtiSyncScheduler.setReceiverClass(SyncBidanBroadcastReceiver.class);
         super.onCreate();
         //  ACRA.init(this);
 
-        DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
+        DrishtiSyncScheduler.setReceiverClass(SyncBidanBroadcastReceiver.class);
         FlurryFacade.init(this);
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
