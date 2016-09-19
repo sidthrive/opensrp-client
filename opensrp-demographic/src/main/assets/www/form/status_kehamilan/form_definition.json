@@ -1,0 +1,64 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_keluarga",
+    "default_bind_path": "/model/instance/Pregnancy_Status/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Pregnancy_Status_tanggal",
+        "bind": "/model/instance/Pregnancy_Status/tanggal"
+      },
+
+      {
+        "name": "nama",
+        "bind": "/model/instance/Pregnancy_Status/nama"
+      },
+
+
+      {
+        "name": "pregnant",
+        "bind": "/model/instance/Pregnancy_Status/pregnant"
+      },
+
+      {
+        "name": "usia_kehamilan",
+        "bind": "/model/instance/Pregnancy_Status/usia_kehamilan"
+      },
+      {
+        "name": "gravida",
+        "bind": "/model/instance/Pregnancy_Status/gravida"
+      },
+      {
+        "name": "paritas",
+        "bind": "/model/instance/Pregnancy_Status/paritas"
+      },
+      {
+        "name": "abortus",
+        "bind": "/model/instance/Pregnancy_Status/abortus"
+      },
+
+      {
+        "name": "lahir_hidup",
+        "bind": "/model/instance/Pregnancy_Status/lahir_hidup"
+      },
+
+      {
+        "name": "lahir_kembar",
+        "bind": "/model/instance/Pregnancy_Status/lahir_kembar"
+      },
+      {
+        "name": "anak_hidup",
+        "bind": "/model/instance/Pregnancy_Status/anak_hidup"
+      },
+      
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/Pregnancy_Status/today"
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+<model>
+    <instance>
+        <DeathForm encounter_type="Kematian" id="kematian" version="201609150434">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <start openmrs_entity="encounter" openmrs_entity_id="encounter_start"/>
+          <today openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <tanggal/>
+          <nama/>
+          <tanggal_kematian/>
+          <place_death/>
+          <pregnancy_status/>
+          <penyebab_kematian/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </DeathForm>
+      </instance>
+  </model>

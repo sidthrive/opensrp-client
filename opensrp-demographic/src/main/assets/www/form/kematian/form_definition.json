@@ -1,0 +1,47 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_keluarga",
+    "default_bind_path": "/model/instance/DeathForm/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "DeathForm_tanggal",
+        "bind": "/model/instance/DeathForm/tanggal"
+      },
+
+      {
+        "name": "nama",
+        "bind": "/model/instance/DeathForm/nama"
+      },
+
+
+      {
+        "name": "tanggalKunjKematian",
+        "bind": "/model/instance/DeathForm/tanggal_kematian"
+      },
+
+      {
+        "name": "place_death",
+        "bind": "/model/instance/DeathForm/place_death"
+      },
+      {
+        "name": "pregnancy_status",
+        "bind": "/model/instance/DeathForm/pregnancy_status"
+      },
+      {
+        "name": "penyebab_kematian",
+        "bind": "/model/instance/DeathForm/penyebab_kematian"
+      },
+     
+
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/DeathForm/today"
+      }
+    ]
+  }
+}

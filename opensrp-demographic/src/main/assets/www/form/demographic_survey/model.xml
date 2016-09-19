@@ -1,0 +1,40 @@
+<model>
+    <instance>
+        <Demographic_Survey encounter_type="Demographic Survey" id="demographic_survey" version="201609150434">
+            <formhub>
+                <uuid/>
+            </formhub>
+            <start openmrs_entity="encounter" openmrs_entity_id="encounter_start"/>
+            <today openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+            <deviceid/>
+            <simserial/>
+            <phonenumber/>
+            <tanggal/>
+            <no_kk/>
+            <nama_kk/>
+            <tgl_kk/>
+            <jumlah_isteri/>
+            <isterilain/>
+            <desaisterilain/>
+            <anggota_keluarga template="">
+                <nik/>
+                <nama/>
+                <tanggal_lahir/>
+                <umur/>
+                <generated_note_name_21/>
+                <umur_manual/>
+                <hubungan/>
+                <jenis_kelamin/>
+                <beratlahir/>
+                <pendidikan/>
+                <pekerjaan/>
+                <status_pernikahan/>
+                <hidup/>
+                <sumber_data/>
+            </anggota_keluarga>
+            <meta>
+                <instanceID/>
+            </meta>
+        </Demographic_Survey>
+    </instance>
+</model>

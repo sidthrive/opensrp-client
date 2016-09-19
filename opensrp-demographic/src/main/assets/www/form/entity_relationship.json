@@ -8,12 +8,20 @@
     "to":"kartu_ibu.relationalid"
   },
   {
+    "parent":"kartu_keluarga",
+    "child": "anak",
+    "field":"anak",
+    "kind":"one_to_many",
+    "from":"kartu_keluarga.id",
+    "to":"anak.relationalid"
+  },
+  {
     "parent":"kartu_ibu",
     "child": "ibu",
     "field":"istri",
     "kind":"one_to_one",
     "from":"kartu_ibu.id",
-    "to":"ibu.kartuIbuId"
+    "to":"ibu.relationalid"
   },
   {
     "parent":"ibu",
@@ -21,6 +29,6 @@
     "field":"anak_anak",
     "kind":"one_to_many",
     "from":"ibu.id",
-    "to":"anak.ibuCaseId"
+    "to":"anak.relationalid"
   }
 ]

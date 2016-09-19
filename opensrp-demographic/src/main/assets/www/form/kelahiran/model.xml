@@ -1,0 +1,28 @@
+<model>
+    <instance>
+        <Birth_Form encounter_type="Kelahiran" id="kelahiran" version="201609150433">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <start openmrs_entity="encounter" openmrs_entity_id="encounter_start"/>
+          <today openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <tanggal/>
+          <nama_ayah/>
+          <nama_ibu/>
+          <gestation_age/>
+          <birthplace/>
+          <birth_assistant/>
+          <kelahiran template="">
+            <nama_anak/>
+            <tanggallahir/>
+            <beratlahir/>
+          </kelahiran>
+          <meta>
+            <instanceID/>
+          </meta>
+        </Birth_Form>
+      </instance>
+  </model>

@@ -1,0 +1,46 @@
+<model>
+    <instance>
+        <Migration_Form encounter_type="Relokasi" id="relokasi" version="201609150434">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <start openmrs_entity="encounter" openmrs_entity_id="encounter_start"/>
+          <today openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <tanggal/>
+          <jenis_perpindahan/>
+          <lama_pindah/>
+          <alasan_pindah/>
+          <detail_migrate_in template="">
+            <nik/>
+            <nama_in/>
+            <tanggal_lahir/>
+            <umur/>
+            <generated_note_name_20/>
+            <umur_manual/>
+            <hubungan/>
+            <jenis_kelamin/>
+            <beratlahir/>
+            <pendidikan/>
+            <pekerjaan/>
+            <status_pernikahan/>
+            <hidup/>
+            <sumber_data/>
+          </detail_migrate_in>
+          <detail_migrate_out template="">
+            <nama_out/>
+            <nama_kk/>
+            <pindah_desathrive/>
+            <dusun/>
+            <desa/>
+            <kecamatan/>
+            <kabupaten/>
+          </detail_migrate_out>
+          <meta>
+            <instanceID/>
+          </meta>
+        </Migration_Form>
+      </instance>
+  </model>

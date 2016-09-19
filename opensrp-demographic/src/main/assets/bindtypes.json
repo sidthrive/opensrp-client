@@ -9,7 +9,7 @@
     {
       "name": "kartu_ibu",
       "columns": [
-
+        {"name":"nik"}
       ]
     },
     {

@@ -1,0 +1,27 @@
+<model>
+    <instance>
+        <Pregnancy_Status encounter_type="Status Kehamilan" id="status_kehamilan" version="201609150434">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <start openmrs_entity="encounter" openmrs_entity_id="encounter_start"/>
+          <today openmrs_entity="encounter" openmrs_entity_id="encounter_date"/>
+          <deviceid/>
+          <simserial/>
+          <phonenumber/>
+          <tanggal/>
+          <nama/>
+          <pregnant/>
+          <usia_kehamilan/>
+          <gravida/>
+          <paritas/>
+          <abortus/>
+          <lahir_hidup/>
+          <lahir_kembar/>
+          <anak_hidup/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </Pregnancy_Status>
+      </instance>
+  </model>

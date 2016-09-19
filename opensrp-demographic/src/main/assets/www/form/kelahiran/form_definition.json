@@ -1,0 +1,75 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_keluarga",
+    "default_bind_path": "/model/instance/Birth_Form/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Birth_Form_tanggal",
+        "bind": "/model/instance/Birth_Form/tanggal"
+      },
+
+      {
+        "name": "nama_ayah",
+        "bind": "/model/instance/Birth_Form/nama_ayah"
+      },
+      {
+        "name": "nama_ibu",
+        "bind": "/model/instance/Birth_Form/nama_ibu"
+      },
+
+      {
+        "name": "gestation_age",
+        "bind": "/model/instance/Birth_Form/gestation_age"
+      },
+      {
+        "name": "birthplace",
+        "bind": "/model/instance/Birth_Form/birthplace"
+      },
+      {
+        "name": "birth_assistant",
+        "bind": "/model/instance/Birth_Form/birth_assistant"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/Birth_Form/today"
+      }
+    ],
+    "sub_forms": [
+      {
+        "name": "kelahiran",
+        "bind_type": "anak",
+        "default_bind_path": "/model/instance/Birth_Form/kelahiran/",
+        "fields": [
+          {
+            "name": "id",
+            "shouldLoadValue": true
+          },
+          {
+            "name": "relationalid",
+            "shouldLoadValue": true
+          },
+          {
+            "name": "nama_anak",
+            "bind": "/model/instance/Birth_Form/kelahiran/nama_anak"
+          },
+
+          {
+            "name": "tanggallahir",
+            "bind": "/model/instance/Birth_Form/kelahiran/tanggallahir"
+          },
+
+          {
+            "name": "beratlahir",
+            "bind": "/model/instance/Birth_Form/kelahiran/beratlahir"
+          }
+
+        ]
+      }
+    ]
+  }
+}

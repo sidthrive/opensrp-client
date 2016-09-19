@@ -1,0 +1,170 @@
+{
+    "form_data_definition_version": "1",
+    "form": {
+    "default_bind_path": "/model/instance/Birth_Form/",
+    "bind_type": "kartu_keluarga",
+    "fields": [
+    {
+    "name": "id",
+    "shouldLoadValue": true
+    },
+        {
+            "name": "birth_form_tanggal",
+            "bind": "/model/instance/Birth_Form/tanggal"
+        },
+
+        {
+            "name": "jenis_perpindahan",
+            "bind": "/model/instance/Birth_Form/jenis_perpindahan"
+        },
+
+
+        {
+            "name": "lama_pindah",
+            "bind": "/model/instance/Birth_Form/lama_pindah"
+        },
+
+        {
+            "name": "alasan_pindah",
+            "bind": "/model/instance/Birth_Form/alasan_pindah"
+        },
+        {
+        "name": "registrationDate",
+        "bind": "/model/instance/Birth_Form/today"
+        },
+        {
+        "name": "start",
+        "bind": "/model/instance/Birth_Form/start"
+        },
+        {
+        "name": "end",
+        "bind": "/model/instance/Birth_Form/end"
+        }
+        ],
+    "sub_forms": [
+    {
+    "name": "keluarga_baru",
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/Birth_Form/detail_migrate_in",
+    "fields": [
+    {
+    "name": "id",
+    "shouldLoadValue": true
+    },
+    {
+    "name": "relationalid",
+    "shouldLoadValue": true
+    },
+        {
+            "name": "nik",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/nik"
+        },
+        {
+            "name": "nama_in",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/nama_in"
+        },
+        {
+            "name": "tanggal_lahir",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/tanggal_lahir"
+        },
+
+        {
+            "name": "umur",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/umur"
+        },
+
+        {
+            "name": "umur_manual",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/umur_manual"
+        },
+        {
+            "name": "hubungan",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/hubungan"
+        },
+
+        {
+            "name": "jenis_kelamin",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/jenis_kelamin"
+        },
+
+
+        {
+            "name": "beratlahir",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/beratlahir"
+        },
+
+        {
+            "name": "pendidikan",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/pendidikan"
+        },
+        {
+            "name": "pekerjaan",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/pekerjaan"
+        },
+        {
+            "name": "status_pernikahan",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/status_pernikahan"
+        },
+        {
+            "name": "hidup",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/hidup"
+        },
+
+        {
+            "name": "sumber_data",
+            "bind": "/model/instance/Birth_Form/detail_migrate_in/sumber_data"
+        }
+    ]
+    }
+    ],
+        "sub_forms": [
+            {
+                "name": "keluarga_keluar",
+                "bind_type": "kartu_ibu",
+                "default_bind_path": "/model/instance/Birth_Form/detail_migrate_out/",
+                "fields": [
+                    {
+                        "name": "id",
+                        "shouldLoadValue": true
+                    },
+                    {
+                        "name": "relationalid",
+                        "shouldLoadValue": true
+                    },
+                    {
+                        "name": "nama_out",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/nama_out"
+                    },
+
+                    {
+                        "name": "nama_kk",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/nama_kk"
+                    },
+
+
+                    {
+                        "name": "pindah_desathrive",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/pindah_desathrive"
+                    },
+
+                    {
+                        "name": "dusun",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/dusun"
+                    },
+                    {
+                        "name": "desa",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/desa"
+                    },
+                    {
+                        "name": "kecamatan",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/kecamatan"
+                    },
+                    {
+                        "name": "kabupaten",
+                        "bind": "/model/instance/Birth_Form/detail_migrate_out/kabupaten"
+                    }
+                ]
+            }
+        ]  
+    }
+    }

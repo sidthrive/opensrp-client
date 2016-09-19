@@ -1,0 +1,122 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "default_bind_path": "/model/instance/Demographic_Survey/",
+    "bind_type": "kartu_keluarga",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tanggal",
+        "bind": "/model/instance/Demographic_Survey/tanggal"
+      },
+      {
+        "name": "no_kk",
+        "bind": "/model/instance/Demographic_Survey/no_kk"
+      },
+      {
+        "name": "nama_kk",
+        "bind": "/model/instance/Demographic_Survey/nama_kk"
+      },
+      {
+        "name": "tgl_kk",
+        "bind": "/model/instance/Demographic_Survey/tgl_kk"
+      },
+      {
+        "name": "jumlah_isteri",
+        "bind": "/model/instance/Demographic_Survey/jumlah_isteri"
+      },
+      {
+        "name": "isterilain",
+        "bind": "/model/instance/Demographic_Survey/isterilain"
+      },
+      {
+        "name": "desaisterilain",
+        "bind": "/model/instance/Demographic_Survey/desaisterilain"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/Demographic_Survey/today"
+      },
+      {
+        "name": "start",
+        "bind": "/model/instance/Demographic_Survey/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/Demographic_Survey/end"
+      }
+    ],
+    "sub_forms": [
+      {
+        "name": "registrasi_keluarga",
+        "bind_type": "kartu_ibu",
+        "default_bind_path": "/model/instance/Demographic_Survey/anggota_keluarga",
+        "fields": [
+          {
+            "name": "id",
+            "shouldLoadValue": true
+          },
+          {
+            "name": "relationalid",
+            "shouldLoadValue": true
+          },
+          {
+            "name": "nik",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/nik"
+          },
+          {
+            "name": "nama",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/nama"
+          },
+          {
+            "name": "tanggal_lahir",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/tanggal_lahir"
+          },
+          {
+            "name": "umur",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/umur"
+          },
+          {
+            "name": "umur_manual",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/umur_manual"
+          },
+          {
+            "name": "hubungan",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/hubungan"
+          },
+          {
+            "name": "jenis_kelamin",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/jenis_kelamin"
+          },
+          {
+            "name": "beratlahir",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/beratlahir"
+          },
+          {
+            "name": "pendidikan",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/pendidikan"
+          },
+          {
+            "name": "pekerjaan",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/pekerjaan"
+          },
+          {
+            "name": "status_pernikahan",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/status_pernikahan"
+          },
+          {
+            "name": "hidup",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/hidup"
+          },
+          {
+            "name": "sumber_data",
+            "bind": "/model/instance/Demographic_Survey/anggota_keluarga/sumber_data"
+          }
+        ]
+      }
+    ]
+  }
+}
