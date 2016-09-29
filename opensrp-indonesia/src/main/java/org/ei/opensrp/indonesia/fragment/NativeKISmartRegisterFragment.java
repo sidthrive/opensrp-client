@@ -289,7 +289,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
 
     private String KiSortByNameAZ() {
-        return " namalengkap ASC";
+        return " namalengkap IS NULL OR namalengkap='', namalengkap";
     }
     private String KiSortByNameZA() {
         return " namalengkap DESC";
@@ -303,8 +303,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     private String KiSortByEdd() {
-         return " htp IS NULL, htp";
+        return " htp IS NULL OR htp='', htp";
     }
+
 
 
     private class EditDialogOptionModel implements DialogOptionModel {

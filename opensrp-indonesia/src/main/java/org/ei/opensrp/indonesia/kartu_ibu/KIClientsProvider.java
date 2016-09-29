@@ -166,8 +166,15 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
                 viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
         }
-        viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
-        viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
+
+        if(StringUtils.isBlank(pc.getColumnmaps().get("namalengkap"))){
+            viewHolder.wife_name.setText(pc.getColumnmaps().get("anak.namaBayi")!=null?"Inaq. "+pc.getColumnmaps().get("anak.namaBayi"):"");
+            viewHolder.husband_name.setText(pc.getColumnmaps().get("anak.namaBayi")!=null?"Amaq. "+pc.getColumnmaps().get("anak.namaBayi"):"");
+        }
+        else if(StringUtils.isNotBlank(pc.getColumnmaps().get("namalengkap"))){
+            viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
+            viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
+        }
         viewHolder.village_name.setText(pc.getDetails().get("desa")!=null?pc.getDetails().get("desa"):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("umur")!=null?pc.getColumnmaps().get("umur"):"");
         viewHolder.no_ibu.setText(pc.getColumnmaps().get("noIbu")!=null?pc.getDetails().get("noIbu"):"");
@@ -245,12 +252,14 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 viewHolder.date_status.setText( visit_date);
                 viewHolder.visit_status.setText( hariKeKF);
             }
-            if(!pc.getDetails().get("jenisKontrasepsi").equals("")){
-                viewHolder.anc_status_layout.setText(context.getString(R.string.service_fp));
-                String visit_date = pc.getDetails().get("tanggalkunjungan")!=null?context.getString(R.string.date_visit_title) +" " +pc.getDetails().get("tanggalkunjungan"):"";
-                String visit_stat = pc.getDetails().get("jenisKontrasepsi")!=null?context.getString(R.string.fp_methods) +" " + pc.getDetails().get("jenisKontrasepsi"):"";
-                viewHolder.date_status.setText( visit_date);
-                viewHolder.visit_status.setText(visit_stat);
+            if(pc.getDetails().get("jenisKontrasepsi")!=null) {
+                if (!pc.getDetails().get("jenisKontrasepsi").equals("")) {
+                    viewHolder.anc_status_layout.setText(context.getString(R.string.service_fp));
+                    String visit_date = pc.getDetails().get("tanggalkunjungan") != null ? context.getString(R.string.date_visit_title) + " " + pc.getDetails().get("tanggalkunjungan") : "";
+                    String visit_stat = pc.getDetails().get("jenisKontrasepsi") != null ? context.getString(R.string.fp_methods) + " " + pc.getDetails().get("jenisKontrasepsi") : "";
+                    viewHolder.date_status.setText(visit_date);
+                    viewHolder.visit_status.setText(visit_stat);
+                }
             }
         }
 
