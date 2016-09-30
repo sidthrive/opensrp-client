@@ -49,7 +49,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_UPDAT
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
-public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
 
     public static final String TAG = "KBActivity";
     @Bind(R.id.view_pager)
@@ -130,27 +130,31 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-    /*
-    private String getalertstateforcensus(CommonPersonObjectClient pc) {
+    @Override
+    public void OnLocationSelected(String locationJSONString) {
+        JSONObject combined = null;
+
         try {
-            List<Alert> alertlist_for_client = Context.getInstance().alertService().findByEntityIdAndAlertNames(pc.entityId(), "FW CENSUS");
-            String alertstate = "";
-            if (alertlist_for_client.size() == 0) {
+            JSONObject locationJSON = new JSONObject(locationJSONString);
+            //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
-            } else {
-                for (int i = 0; i < alertlist_for_client.size(); i++) {
-//           psrfdue.setText(alertlist_for_client.get(i).expiryDate());
-                    Log.v("printing alertlist", alertlist_for_client.get(i).status().value());
-                    alertstate = alertlist_for_client.get(i).status().value();
+            combined = locationJSON;
+            //   Iterator<String> iter = uniqueId.keys();
 
-                }
-            }
-            return alertstate;
-        }catch (Exception e){
-            return "";
+            //  while (iter.hasNext()) {
+            //      String key = iter.next();
+            //       combined.put(key, uniqueId.get(key));
+            //    }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (combined != null) {
+            FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
+            startFormActivity(KOHORT_KB_REGISTER, null, fieldOverrides.getJSONString());
         }
     }
-    */
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
@@ -160,6 +164,8 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
             ziggyService.saveForm(getParams(submission), submission.instance());
+
+            context.formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -176,6 +182,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
+        FlurryFacade.logEvent(formName);
       //  Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset

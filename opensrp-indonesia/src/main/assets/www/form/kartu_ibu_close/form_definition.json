@@ -1,5 +1,5 @@
 {
-    "form_data_definition_version": "1",
+    "form_data_definition_version": "2",
     "form": {
         "bind_type": "kartu_ibu",
         "default_bind_path": "/model/instance/penutupan_ibu_reviewed/",
@@ -7,6 +7,31 @@
             {
                 "name": "id",
                 "shouldLoadValue": true
+            },
+            {
+                "name": "dusun",
+                "bind": "/model/instance/penutupan_ibu_reviewed/dusun",
+                "shouldLoadValue" : true
+            },
+            {
+                "name": "provinsi",
+                "bind": "/model/instance/penutupan_ibu_reviewed/provinsi",
+                "shouldLoadValue" : true
+            },
+            {
+                "name": "kabupaten",
+                "bind": "/model/instance/penutupan_ibu_reviewed/kabupaten",
+                "shouldLoadValue" : true
+            },
+            {
+                "name": "kecamatan",
+                "bind": "/model/instance/penutupan_ibu_reviewed/kecamatan",
+                "shouldLoadValue" : true
+            },
+            {
+                "name": "desa",
+                "bind": "/model/instance/penutupan_ibu_reviewed/desa",
+                "shouldLoadValue" : true
             },
             {
                 "name": "closeReason",
@@ -21,6 +46,10 @@
                 "bind": "/model/instance/penutupan_ibu_reviewed/maternal_death_date"
             },
             {
+                "name": "maternalDeathDateEstimated",
+                "bind": "/model/instance/penutupan_ibu_reviewed/maternal_death_date_estimated"
+            },
+            {
                 "name": "placeOfDeath",
                 "bind": "/model/instance/penutupan_ibu_reviewed/place_of_death"
             },
@@ -28,17 +57,18 @@
                 "name": "otherPlaceOfDeath",
                 "bind": "/model/instance/penutupan_ibu_reviewed/other_place_of_death"
             },
-            {
-                "name": "notMaternalDeathCause",
-                "bind": "/model/instance/penutupan_ibu_reviewed/not_maternal_death_cause"
-            },
+
             {
                 "name": "maternalDeathCause",
                 "bind": "/model/instance/penutupan_ibu_reviewed/maternal_death_cause"
             },
             {
+                "name": "maternalDeathProbable",
+                "bind": "/model/instance/penutupan_ibu_reviewed/maternal_death_probable"
+            },
+            {
                 "name": "otherMaternalDeathCause",
-                "bind": "/model/instance/penutupan_ibu_reviewed/other_maternal_death_cause"
+                "bind": "/model/instance/penutupan_ibu_reviewed/maternal_death_cause_other"
             },
             {
                 "name": "isKICloseConfirmed",

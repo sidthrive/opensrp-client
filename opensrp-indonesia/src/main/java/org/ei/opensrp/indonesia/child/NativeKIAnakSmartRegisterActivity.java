@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.BALITA_KUNJUNGAN;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.BAYI_NEONATAL_PERIOD;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANAK_CLOSE;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANC_CLOSE;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.BAYI_IMUNISASI;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_PNC_CLOSE;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_PNC_EDIT;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_PNC_POSPARTUM_KB;
@@ -119,36 +119,16 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
                 new OpenFormOption(getString(R.string.str_anak_bayi_visit), KOHORT_BAYI_KUNJUNGAN, formController),
                 new OpenFormOption(getString(R.string.str_anak_balita_visit), BALITA_KUNJUNGAN, formController),
                 new OpenFormOption(getString(R.string.str_anak_edit), KOHORT_BAYI_EDIT, formController),
-
+                new OpenFormOption(getString(R.string.str_child_immunizations), BAYI_IMUNISASI, formController),
+                new OpenFormOption(getString(R.string.str_child_close), KARTU_IBU_ANAK_CLOSE, formController),
             //    new OpenFormOption(getString(R.string.str_tutup_anak),
-             //           KARTU_IBU_ANAK_CLOSE, formController),
+             //           BAYI_IMUNISASI, formController),
 
         };
 
 
     }
 
-    /*
-    private String getalertstateforcensus(CommonPersonObjectClient pc) {
-        try {
-            List<Alert> alertlist_for_client = Context.getInstance().alertService().findByEntityIdAndAlertNames(pc.entityId(), "FW CENSUS");
-            String alertstate = "";
-            if (alertlist_for_client.size() == 0) {
-
-            } else {
-                for (int i = 0; i < alertlist_for_client.size(); i++) {
-//           psrfdue.setText(alertlist_for_client.get(i).expiryDate());
-                    Log.v("printing alertlist", alertlist_for_client.get(i).status().value());
-                    alertstate = alertlist_for_client.get(i).status().value();
-
-                }
-            }
-            return alertstate;
-        }catch (Exception e){
-            return "";
-        }
-    }
-    */
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
@@ -158,6 +138,8 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
             ziggyService.saveForm(getParams(submission), submission.instance());
+
+            context.formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -174,6 +156,7 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
+        FlurryFacade.logEvent(formName);
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -250,8 +233,8 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
         formNames.add(KOHORT_BAYI_KUNJUNGAN);
         formNames.add(BALITA_KUNJUNGAN);
         formNames.add(KOHORT_BAYI_EDIT);
-    //    formNames.add(KARTU_IBU_PNC_REGISTRATION);
-      //  formNames.add(KARTU_IBU_ANC_EDIT);
+        formNames.add(KARTU_IBU_ANAK_CLOSE);
+        formNames.add(BAYI_IMUNISASI);
      //   formNames.add(KARTU_IBU_ANC_CLOSE);
 
     //    DialogOption[] options = getEditOptions();

@@ -53,30 +53,6 @@
                 "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/dilakukan_imunisasi"
             },
             {
-                "name": "tanggalpemberianimunisasiHb07",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_hb_07"
-            },
-            {
-                "name": "tanggalpemberianimunisasiBCGdanPolio1",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_bcg_dan_Polio1"
-            },
-            {
-                "name": "tanggalpemberianimunisasiDPTHB1Polio2",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_dpthb1Polio2"
-            },
-            {
-                "name": "tanggalpemberianimunisasiDPTHB2Polio3",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_dpthb2Polio3"
-            },
-            {
-                "name": "tanggalpemberianimunisasiDPTHB3Polio4",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_dpthb3Polio4"
-            },
-            {
-                "name": "tanggalpemberianimunisasiCampak",
-                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/tanggal_pemberian_imunisasi_campak"
-            },
-            {
                 "name": "keterangan",
                 "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/keterangan"
             },

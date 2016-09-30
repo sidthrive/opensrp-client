@@ -41,6 +41,7 @@ import org.ei.opensrp.view.dialog.DialogOptionMapper;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
+import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
@@ -143,9 +144,11 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
 
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByHtp()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label),KiSortByEdd()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
                 };
             }
 
@@ -199,29 +202,31 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
                 "Else alerts.status END ASC";
     }
     public void initializeQueries(){
-        CommonRepository commonRepository = context.commonrepository("ibu");
+        KIPNCClientsProvider kiscp = new KIPNCClientsProvider(getActivity(),clientActionHandler,context.alertService());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ibu",new String []{"ibu.isClosed",  "ibu.hariKeKF","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"}));
+        clientsView.setAdapter(clientAdapter);
+
         setTablename("ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ibu");
         countqueryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        countSelect = countqueryBUilder.mainCondition(" ibu.isClosed !='true'  and ibu.type = 'pnc'");
-        CountExecute();
-
+        countSelect = countqueryBUilder.mainCondition(" ibu.isClosed !='true'  and ibu.type = 'pnc' and ibu.kartuIbuId != ''");
+        mainCondition = " isClosed !='true'  and type = 'pnc' and kartuIbuId != '' ";
+        super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ibu", new String[]{"ibu.isClosed", "ibu.details", "ibu.hariKeKF","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"});
 
         queryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
       //  queryBUilder.joinwithIbus("ibu");
-        mainSelect = queryBUilder.mainCondition(" ibu.isClosed !='true' and ibu.type = 'pnc'");
-        queryBUilder.addCondition(filters);
+        mainSelect = queryBUilder.mainCondition(" ibu.isClosed !='true' and ibu.type = 'pnc' and ibu.kartuIbuId != ''");
         //   Sortqueries = KiSortByNameAZ();
-        currentquery  = queryBUilder.orderbyCondition(Sortqueries);
 
-        databaseCursor = commonRepository.RawCustomQueryForAdapter(queryBUilder.Endquery(queryBUilder.addlimitandOffset(currentquery, 20, 0))); //,"ibu.type as type"
-        KIPNCClientsProvider kiscp = new KIPNCClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), databaseCursor, kiscp, new CommonRepository("ibu",new String []{"ibu.isClosed",  "ibu.hariKeKF","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"}));
-        clientsView.setAdapter(clientAdapter);
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
 //        setServiceModeViewDrawableRight(null);
         updateSearchView();
         refresh();
@@ -230,14 +235,14 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     public void startRegistration() {
-        FlurryFacade.logEvent("click_start_registration_on_kohort_pnc_dashboard");
+
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-        BidanLocationSelectorDialogFragment
+        LocationSelectorDialogFragment
                 .newInstance((NativeKIPNCSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "kartu_pnc_regitration_oa")
                 .show(ft, locationDialogTAG);
     }
@@ -253,11 +258,6 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
                     startActivity(intent);
                     getActivity().finish();
                     break;
-                //    case R.id.hh_due_date:
-                //        HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
-//
-                //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
-                //        break;
                 case R.id.btn_edit:
                     FlurryFacade.logEvent("click_visit_button_on_kohort_pnc_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
@@ -273,18 +273,24 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
 
     private String KiSortByName() {
-        return " kartu_ibu.namalengkap ASC";
+        return " namalengkap ASC";
     }
     private String KiSortByNameAZ() {
-        return " kartu_ibu.namalengkap ASC";
+        return " namalengkap ASC";
     }
     private String KiSortByNameZA() {
-        return " kartu_ibu.namalengkap DESC";
+        return " namalengkap DESC";
     }
-    private String KiSortByHtp() {
-        return " kartu_ibu.umur DESC";
+    private String KiSortByAge() {
+        return " umur DESC";
+    }
+    private String KiSortByNoIbu() {
+        return " noIbu ASC";
     }
 
+    private String KiSortByEdd() {
+        return " htp IS NULL, htp";
+    }
     private class EditDialogOptionModel implements DialogOptionModel {
         @Override
         public DialogOption[] getDialogOptions() {
@@ -301,7 +307,9 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();
-        initializeQueries();
+        if(isPausedOrRefreshList()) {
+            initializeQueries();
+        }
         //     updateSearchView();
 //
         try{
@@ -334,7 +342,9 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 //                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
-                        filters = "and kartu_ibu.namalengkap Like '%" + cs.toString() + "%' or kartu_ibu.namaSuami Like '%" + cs.toString() + "%' ";
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true'  and type = 'pnc' and kartuIbuId != '' ";
                         return null;
                     }
 
@@ -380,7 +390,9 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 //                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
-                        filters = "and kartu_ibu.namalengkap Like '%" + cs.toString() + "%' or kartu_ibu.namaSuami Like '%" + cs.toString() + "%' ";
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true'  and type = 'pnc' and kartuIbuId != '' ";
                         return null;
                     }
 

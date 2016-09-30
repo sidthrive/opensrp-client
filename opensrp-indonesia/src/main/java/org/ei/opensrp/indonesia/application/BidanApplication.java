@@ -6,7 +6,9 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.indonesia.LoginActivity;
+import org.ei.opensrp.indonesia.lib.ErrorReportingFacade;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -24,10 +26,16 @@ public class BidanApplication extends DrishtiApplication {
         super.onCreate();
         //  ACRA.init(this);
 
+//<<<<<<< HEAD
+//        DrishtiSyncScheduler.setReceiverClass(SyncBidanBroadcastReceiver.class);
+//=======
         DrishtiSyncScheduler.setReceiverClass(SyncBidanBroadcastReceiver.class);
+        ErrorReportingFacade.initErrorHandler(getApplicationContext());
+//>>>>>>> indonesia-prot5
         FlurryFacade.init(this);
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
         applyUserLanguagePreference();
         cleanUpSyncState();
     }
@@ -67,6 +75,75 @@ public class BidanApplication extends DrishtiApplication {
         Locale.setDefault(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    private String[] getFtsSearchFields(String tableName){
+        if(tableName.equals("kartu_ibu")){
+            String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
+            return ftsSearchFields;
+        } else if(tableName.equals("anak")){
+            String[] ftsSearchFields =  { "namaBayi" };
+            return ftsSearchFields;
+        } else if (tableName.equals("ibu")){
+            String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
+            return ftsSearchFields;
+        }
+        return null;
+    }
+
+    private String[] getFtsSortFields(String tableName){
+        if(tableName.equals("kartu_ibu")) {
+            String[] sortFields = { "namalengkap", "umur",  "noIbu", "htp" };
+            return sortFields;
+        } else if(tableName.equals("anak")){
+            String[] sortFields = { "namaBayi", "tanggalLahirAnak" };
+            return sortFields;
+        } else if(tableName.equals("ibu")){
+            String[] sortFields = { "namalengkap", "umur", "noIbu", "htp" };
+            return sortFields;
+        }
+        return null;
+    }
+
+    private String[] getFtsMainConditions(String tableName){
+        if(tableName.equals("kartu_ibu")) {
+            String[] mainConditions = { "isClosed", "details" };
+            return mainConditions;
+        } else if(tableName.equals("anak")){
+            String[] mainConditions = { "isClosed", "ibuCaseId" };
+            return mainConditions;
+        } else if(tableName.equals("ibu")){
+            String[] mainConditions = { "isClosed", "type", "kartuIbuId" };
+            return mainConditions;
+        }
+        return null;
+    }
+
+    private String getFtsCustomRelationalId(String tableName){
+        if(tableName.equals("anak")){
+            String customRelationalId = "ibuCaseId";
+            return customRelationalId;
+        } else if(tableName.equals("ibu")){
+            String customRelationalId =  "kartuIbuId" ;
+            return customRelationalId;
+        }
+        return null;
+    }
+
+    private String[] getFtsTables(){
+        String[] ftsTables = { "kartu_ibu", "anak", "ibu" };
+        return ftsTables;
+    }
+
+    private CommonFtsObject createCommonFtsObject(){
+        CommonFtsObject commonFtsObject = new CommonFtsObject(getFtsTables());
+        for(String ftsTable: commonFtsObject.getTables()){
+            commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
+            commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
+            commonFtsObject.updateMainConditions(ftsTable, getFtsMainConditions(ftsTable));
+            commonFtsObject.updateCustomRelationalId(ftsTable, getFtsCustomRelationalId(ftsTable));
+        }
+        return commonFtsObject;
     }
 
 }

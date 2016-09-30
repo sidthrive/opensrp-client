@@ -1,5 +1,5 @@
 {
-  "form_data_definition_version": "1",
+  "form_data_definition_version": "2",
   "form": {
     "bind_type": "kartu_ibu",
     "default_bind_path": "/model/instance/Kartu_ibu/",
@@ -7,6 +7,10 @@
       {
         "name": "id",
         "shouldLoadValue": true
+      },
+      {
+        "name": "lokasiPeriksa",
+        "bind": "/model/instance/Kartu_ibu/Lokasi_periksa"
       },
       {
         "name": "unique_id",
@@ -22,6 +26,11 @@
         "name": "Province",
         "bind": "/model/instance/Kartu_ibu/Province",
         "shouldLoadValue": true
+      },
+      {
+        "name": "nik",
+        "bind": "/model/instance/Kartu_ibu/nik",
+        "shouldLoadValue" : true
       },
       {
         "name": "Sub-district",
@@ -155,11 +164,17 @@
       },
       {
         "name": "highRiskPregnancyYoungMaternalAge",
-        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Young_maternal_age"
+        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Young_maternal_age",
+        "shouldLoadValue" : true
       },
       {
         "name": "highRiskPregnancyOldMaternalAge",
-        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Old_maternal_age"
+        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Old_maternal_age",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "jenisKontrasepsi",
+        "value": ""
       },
       {
         "name": "isOutOfArea",

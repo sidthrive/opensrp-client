@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -19,7 +22,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="Tanggal Kunjungan : "
                 android:layout_margin="5dp"
                 android:id="@+id/lbl_ancDate"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -30,7 +33,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A "
                 android:layout_margin="5dp"
                 android:id="@+id/txt_ancDate"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
 
@@ -497,7 +500,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="Status Imunisasi TT : "
                 android:layout_margin="5dp"
                 android:id="@+id/lbl_statusImunisasitt"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -508,7 +511,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A "
                 android:layout_margin="5dp"
                 android:id="@+id/txt_statusImunisasitt"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
 
@@ -962,3 +965,4 @@ android:layout_width="match_parent" android:layout_height="match_parent"
 
 
 </LinearLayout>
+</ScrollView>

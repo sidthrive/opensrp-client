@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/list_item_height"
-              android:weightSum="@integer/ec_list_item_weight_count"
-              android:background="#ffffff">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:weightSum="@integer/ec_list_item_weight_count"
+    android:background="#ffffff">
 
     <include layout="@layout/smart_register_client_profile_ki"/>
 
     <ImageView
-            android:layout_width="@dimen/smart_register_client_divider_height"
-            android:layout_height="fill_parent"
-            android:src="@color/smart_register_client_divider_color"/>
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
 
     <RelativeLayout
         android:id="@+id/id_detail_layout"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="100"
+        android:layout_weight="90"
         android:orientation="horizontal"
         android:weightSum="1">
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -69,8 +69,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="110"
-        android:padding="5dp"
+        android:layout_weight="150"
+        android:padding="2dp"
         >
 
         <LinearLayout
@@ -92,13 +92,20 @@
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EDD :"/>
+                android:text="@string/edd_label"/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/txt_htpt"
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="14/08/2014"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/txt_edd_due"
+                style="@style/CustomFontTextViewStyle.ListView.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/alert_urgent_red"
                 android:text="14/08/2014"/>
         </LinearLayout>
 
@@ -128,7 +135,7 @@
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LILA"/>
+                android:text="@string/lila"/>
 
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -166,7 +173,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="190"
+        android:layout_weight="170"
         android:padding="5dp"
         >
 
@@ -184,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Something "/>
+                android:text=" "/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/txt_anc_number"
@@ -193,7 +200,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Something "/>
+                android:text=" "/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/txt_kunjugan_ke"
@@ -202,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Something "/>
+                android:text=" "/>
 
 
         </LinearLayout>
@@ -237,7 +244,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_status_type"
             android:layout_alignParentLeft="true"
-            android:text="Expire :"
+            android:text="Start:"
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -274,47 +281,5 @@
         android:focusable="true"
         android:background="@drawable/edit_button_background"/>
 
-    <!--
 
-    <include
-            android:id="@+id/client_id_details_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/anc_list_id_no_view_weight"
-            layout="@layout/anc_smart_register_id_details"/>
-
-    <ImageView
-            android:layout_width="@dimen/smart_register_client_divider_height"
-            android:layout_height="fill_parent"
-            android:src="@color/smart_register_client_divider_color"/>
-
-    <include
-            android:id="@+id/client_status_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/anc_list_status_view_weight"
-            layout="@layout/anc_smart_register_status"/>
-
-    <ImageView
-            android:layout_width="@dimen/smart_register_client_divider_height"
-            android:layout_height="fill_parent"
-            android:src="@color/smart_register_client_divider_color"/>
-
-    <LinearLayout
-            android:id="@+id/anc_register_service_mode_options_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/anc_list_service_mode_views_section_weight"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-        <include
-                android:id="@+id/overview_service_mode_views"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                layout="@layout/anc_register_overview_service_mode_views"/>
-
-    </LinearLayout>
-
-    -->
 </LinearLayout>

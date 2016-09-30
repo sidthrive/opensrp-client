@@ -27,6 +27,7 @@ import org.ei.opensrp.domain.LoginResponse;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.domain.ResponseStatus;
 import org.ei.opensrp.event.Listener;
+import org.ei.opensrp.indonesia.lib.ErrorReportingFacade;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
@@ -82,7 +83,7 @@ public class LoginActivity extends Activity {
         }
         setContentView(org.ei.opensrp.R.layout.login);
         ImageView loginglogo = (ImageView)findViewById(R.id.login_logo);
-        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.login_logo));
+        loginglogo.setImageDrawable(getResources().getDrawable(R.drawable.login_logo_bidan));
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         initializeLoginFields();
         initializeBuildDetails();
@@ -287,6 +288,7 @@ public class LoginActivity extends Activity {
 
     private void localLoginWith(String userName, String password) {
         context.userService().localLogin(userName, password);
+        ErrorReportingFacade.setUsername("", userName);
         FlurryFacade.setUserId(userName);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
@@ -294,6 +296,7 @@ public class LoginActivity extends Activity {
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
         context.userService().remoteLogin(userName, password, userInfo);
+        ErrorReportingFacade.setUsername("", userName);
         FlurryFacade.setUserId(userName);
         // Get unique id
         tryGetUniqueId(userName, password, new Listener<ResponseStatus>() {

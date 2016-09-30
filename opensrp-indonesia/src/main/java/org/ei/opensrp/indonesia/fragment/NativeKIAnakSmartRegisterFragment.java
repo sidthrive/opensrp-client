@@ -163,6 +163,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),AnakNameShort()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),AnakNameShortR()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_dob_label),AnakDOB()),//tanggalLahirAnak
 
                 };
             }
@@ -172,6 +173,10 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 return getResources().getString(R.string.hh_search_hint);
             }
         };
+    }
+
+    private String AnakDOB() {
+        return "tanggalLahirAnak ASC";
     }
 
     @Override
@@ -198,6 +203,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
+        view.findViewById(R.id.register_client).setVisibility(View.GONE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
@@ -220,26 +226,29 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
         ///------------------------------------------------------------------
 
-        CommonRepository commonRepository = context.commonrepository("anak");
+        AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(),clientActionHandler,context.alertService());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, anakscp, new CommonRepository("anak",new String []{"namaBayi", "tanggalLahirAnak", "anak.isClosed"}));
+        clientsView.setAdapter(clientAdapter);
+
         setTablename("anak");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
         countqueryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = anak.ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        countSelect = countqueryBUilder.mainCondition(" anak.isClosed !='true' ");
-        CountExecute();
+        countSelect = countqueryBUilder.mainCondition(" anak.isClosed !='true' and anak.ibuCaseId !='' ");
+        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+        super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed", "anak.details", "namaBayi"});
+        queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed", "anak.details", "namaBayi", "tanggalLahirAnak"});
         queryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = anak.ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
         mainSelect = queryBUilder.mainCondition(" anak.isClosed !='true' and anak.ibuCaseId !='' ");
-        queryBUilder.addCondition(filters);
         Sortqueries = AnakNameShort();
-        currentquery  = queryBUilder.orderbyCondition(Sortqueries);
 
-        databaseCursor = commonRepository.RawCustomQueryForAdapter(queryBUilder.Endquery(queryBUilder.addlimitandOffset(currentquery, 20, 0)));
-        AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), databaseCursor, anakscp, new CommonRepository("anak",new String []{"namaBayi", "anak.isClosed"}));
-        clientsView.setAdapter(clientAdapter);
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
 //        setServiceModeViewDrawableRight(null);
         updateSearchView();
         refresh();
@@ -271,12 +280,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                     startActivity(intent);
                     getActivity().finish();
                     break;
-                //    case R.id.hh_due_date:
-                //        HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
-//
-                //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
-                //        break;
-                case R.id.btn_edit:
+               case R.id.btn_edit:
                     FlurryFacade.logEvent("click_visit_button_on_kohort_anak_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
@@ -313,7 +317,9 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();
-        initializeQueries();
+        if(isPausedOrRefreshList()) {
+            initializeQueries();
+        }
         //     updateSearchView();
 
 
@@ -347,7 +353,9 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 //                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
-                        filters = "and namaBayi Like '%" + cs.toString() +"%'" ;
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
                         return null;
                     }
 
@@ -393,7 +401,9 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 //                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
-                        filters = "and namaBayi Like '%" + cs.toString() +"%'" ;
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
                         return null;
                     }
 

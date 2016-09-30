@@ -144,10 +144,13 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
 
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByHtp()),
+
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label),KiSortByEdd()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
+                    //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_high_risk_pregnancy_label),ShortByriskflag()),
                 };
             }
 
@@ -157,6 +160,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         };
     }
+
+
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
@@ -201,7 +206,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 "Else alerts.status END ASC";
     }
     public void initializeQueries(){
-        CommonRepository commonRepository = context.commonrepository("kartu_ibu");
+        KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context.alertService());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","anak.namaBayi","anak.tanggalLahirAnak","ibu.id","noIbu","htp","kartu_ibu.isOutOfArea"}));
+        clientsView.setAdapter(clientAdapter);
+
         setTablename("kartu_ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
@@ -209,22 +217,21 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
       //  countqueryBUilder.joinwithKIs("kartu_ibu");
         countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
-        CountExecute();
-
+        mainCondition = " isClosed !='true' ";
+        super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea","namalengkap", "umur","ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","anak.namaBayi","anak.tanggalLahirAnak"});
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "anak.namaBayi", "anak.tanggalLahirAnak", "ibu.id", "noIbu", "htp"});
         queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
         mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
-        queryBUilder.addCondition(filters);
         Sortqueries = KiSortByNameAZ();
-        currentquery  = queryBUilder.orderbyCondition(Sortqueries);
 
-        databaseCursor = commonRepository.RawCustomQueryForAdapter(queryBUilder.Endquery(queryBUilder.addlimitandOffset(currentquery, 20, 0))); //,"ibu.type as type"
-        KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), databaseCursor, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","anak.namaBayi","anak.tanggalLahirAnak","kartu_ibu.isOutOfArea"}));
-        clientsView.setAdapter(clientAdapter);
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
 //        setServiceModeViewDrawableRight(null);
         updateSearchView();
         refresh();
@@ -235,13 +242,16 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     public void startRegistration() {
-        FlurryFacade.logEvent("click_start_registration_on_kohort_ibu_dashboard");
+//<<<<<<< HEAD
+ //       FlurryFacade.logEvent("click_start_registration_on_kohort_ibu_dashboard");
         String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
             return;
         }
 
+//=======
+//>>>>>>> indonesia-prot5
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {
@@ -270,7 +280,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
             //        break;
                 case R.id.btn_edit:
-                    FlurryFacade.logEvent("click_visit_button_on_kohort_ibu_dashboard");
+                    KIDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
             }
@@ -284,23 +294,43 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
 
     private String KiSortByNameAZ() {
-        return " namalengkap ASC";
+        return " namalengkap IS NULL OR namalengkap='', namalengkap";
     }
     private String KiSortByNameZA() {
         return " namalengkap DESC";
     }
-    private String KiSortByHtp() {
+
+    private String KiSortByAge() {
         return " umur DESC";
     }
+    private String KiSortByNoIbu() {
+        return " noIbu ASC";
+    }
+
+    private String KiSortByEdd() {
+        return " htp IS NULL OR htp='', htp";
+    }
+
+
 
     private class EditDialogOptionModel implements DialogOptionModel {
         @Override
         public DialogOption[] getDialogOptions() {
             return getEditOptions();
         }
-
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
+
+
+            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
+                CommonPersonObjectClient pc = KIDetailActivity.kiclient;
+                if(pc.getColumnmaps().get("ibu.type")!= null) {
+                    if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
@@ -309,7 +339,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();
-        initializeQueries();
+        if(isPausedOrRefreshList()) {
+            initializeQueries();
+        }
    //     updateSearchView();
 //
         try{
@@ -342,7 +374,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
-                        filters = "and namalengkap Like '%" + cs.toString() + "%' or namaSuami Like '%" + cs.toString() + "%' ";
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true' ";
                         return null;
                     }
 
@@ -389,7 +423,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
 
-                        filters = "and namalengkap Like '%" + cs.toString() + "%' or namaSuami Like '%" + cs.toString() + "%' ";
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " isClosed !='true' ";
                         return null;
                     }
 
@@ -430,7 +466,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             }else{
                 StringUtil.humanize(entry.getValue().getLabel());
                 String name = StringUtil.humanize(entry.getValue().getLabel());
-                dialogOptionslist.add(new KICommonObjectFilterOption(name,"Village", name));
+                dialogOptionslist.add(new KICommonObjectFilterOption(name,"desa", name));
 
             }
         }
