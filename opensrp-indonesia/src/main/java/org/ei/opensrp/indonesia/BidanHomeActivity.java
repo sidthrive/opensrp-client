@@ -125,12 +125,14 @@ public class BidanHomeActivity extends SecuredActivity {
         SYNC_COMPLETED.addListener(onSyncCompleteListener);
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
         ACTION_HANDLED.addListener(updateANMDetailsListener);
+
         getSupportActionBar().setTitle("");
         getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.indonesia.R.mipmap.logo));
         getSupportActionBar().setLogo(org.ei.opensrp.indonesia.R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         LoginActivity.setLanguage();
+        updateFromServer();
 //        getActionBar().setBackgroundDrawable(getReso
 // urces().getDrawable(R.color.action_bar_background));
     }
@@ -231,8 +233,8 @@ public class BidanHomeActivity extends SecuredActivity {
     public void updateFromServer() {
         FlurryFacade.logEvent("clicked_update_from_server");
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
-                this, context.actionService(), context.formSubmissionSyncService(),
-                new SyncProgressIndicator(), context.allFormVersionSyncService());
+                this, context.actionService(), context.formSubmissionSyncService(), new SyncProgressIndicator(), context.allFormVersionSyncService());
+        updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 
