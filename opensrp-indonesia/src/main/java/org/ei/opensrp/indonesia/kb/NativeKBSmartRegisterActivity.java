@@ -136,15 +136,15 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+               JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-            //   Iterator<String> iter = uniqueId.keys();
+               Iterator<String> iter = uniqueId.keys();
 
-            //  while (iter.hasNext()) {
-            //      String key = iter.next();
-            //       combined.put(key, uniqueId.get(key));
-            //    }
+              while (iter.hasNext()) {
+                  String key = iter.next();
+                   combined.put(key, uniqueId.get(key));
+                }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -153,6 +153,16 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         if (combined != null) {
             FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
             startFormActivity(KOHORT_KB_REGISTER, null, fieldOverrides.getJSONString());
+        }
+    }
+    public void saveuniqueid() {
+        try {
+            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            String uniq = uniqueId.getString("unique_id");
+            context.uniqueIdController().updateCurrentUniqueId(uniq);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
     @Override
@@ -177,6 +187,9 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 displayFormFragment.hideTranslucentProgressDialog();
             }
             e.printStackTrace();
+        }
+        if(formName.equals(KOHORT_KB_REGISTER)){
+            saveuniqueid();
         }
     }
 

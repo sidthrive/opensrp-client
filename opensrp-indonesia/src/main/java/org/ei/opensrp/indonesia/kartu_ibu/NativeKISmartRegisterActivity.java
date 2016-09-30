@@ -129,32 +129,6 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
     @Override
-    public void OnLocationSelected(String locationJSONString) {
-        JSONObject combined = null;
-
-        try {
-            JSONObject locationJSON = new JSONObject(locationJSONString);
-         //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
-
-            combined = locationJSON;
-         //   Iterator<String> iter = uniqueId.keys();
-
-          //  while (iter.hasNext()) {
-          //      String key = iter.next();
-         //       combined.put(key, uniqueId.get(key));
-        //    }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (combined != null) {
-            FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
-
-            startFormActivity(KARTU_IBU_REGISTRATION, null, fieldOverrides.getJSONString());
-        }
-    }
-    @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
         // save the form
@@ -177,8 +151,21 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
+        if(formName.equals(KARTU_IBU_REGISTRATION)){
+                       saveuniqueid();
+                   }
     }
 
+    public void saveuniqueid() {
+               try {
+                       JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+                       String uniq = uniqueId.getString("unique_id");
+                        context.uniqueIdController().updateCurrentUniqueId(uniq);
+
+                            } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+           }
     @Override
     public void OnLocationSelected(String locationJSONString) {
         JSONObject combined = null;

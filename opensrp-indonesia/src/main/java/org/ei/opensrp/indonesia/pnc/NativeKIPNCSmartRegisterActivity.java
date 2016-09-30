@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -137,15 +138,15 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+               JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-            //   Iterator<String> iter = uniqueId.keys();
+               Iterator<String> iter = uniqueId.keys();
 
-            //  while (iter.hasNext()) {
-            //      String key = iter.next();
-            //       combined.put(key, uniqueId.get(key));
-            //    }
+              while (iter.hasNext()) {
+                 String key = iter.next();
+                   combined.put(key, uniqueId.get(key));
+                }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -154,6 +155,17 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
         if (combined != null) {
             FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
             startFormActivity(KARTU_IBU_PNC_OA, null, fieldOverrides.getJSONString());
+        }
+    }
+
+    public void saveuniqueid() {
+        try {
+            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            String uniq = uniqueId.getString("unique_id");
+            context.uniqueIdController().updateCurrentUniqueId(uniq);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
     @Override
@@ -179,6 +191,10 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
             }
             e.printStackTrace();
         }
+        if(formName.equals(KARTU_IBU_PNC_OA)){
+            saveuniqueid();
+        }
+
     }
 
     @Override
