@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
@@ -23,6 +24,9 @@ import org.ei.opensrp.view.contract.HomeContext;
 import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
 import org.ei.opensrp.view.controller.NativeUpdateANMDetailsTask;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
@@ -229,7 +233,7 @@ public class BidanHomeActivity extends SecuredActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+/*
     public void updateFromServer() {
         FlurryFacade.logEvent("clicked_update_from_server");
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
@@ -237,7 +241,21 @@ public class BidanHomeActivity extends SecuredActivity {
         updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
+    */
+    public void updateFromServer() {
+        UpdateActionsTask updateActionsTask = new UpdateActionsTask(
+                this, context.actionService(), context.formSubmissionSyncService(),
+                new SyncProgressIndicator(), context.allFormVersionSyncService());
+        //    updateActionsTask.updateFromServer(new SyncAfterFetchListener());
+        String locationAnmids=context.allSharedPreferences().getPreference(AllConstants.LoginResponse.LOCATION_ANMIDS);
 
+        locationAnmids = locationAnmids.replaceAll("\\[", "").replaceAll("\\]", "");
+        locationAnmids=locationAnmids.replaceAll("\",\"", "-").replaceAll("\"", "");
+
+        final Map<String, String> syncParams= new HashMap<String, String>();
+        syncParams.put(AllConstants.LoginResponse.LOCATION_ANMIDS,locationAnmids);
+        updateActionsTask.updateFromServer(new SyncAfterFetchListener(),syncParams);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

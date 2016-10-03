@@ -58,6 +58,14 @@ public class AllSharedPreferences {
         return  Integer.parseInt( preferences.getString(PORT,""+port));
     }
 
+    public String getPreference(String key) {
+                return preferences.getString(key, "").trim();
+                   }
+
+    public void setPreference(String key, String value) {
+                       preferences.edit().putString(key, value).commit();
+    }
+
     public void savePort(Integer port){
         preferences.edit().putString(PORT,String.valueOf(port)).commit();
     }

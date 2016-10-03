@@ -15,7 +15,9 @@ public class AllSettings {
         this.preferences = preferences;
         this.settingsRepository = settingsRepository;
     }
-
+    public void saveUserInformation(String userInformation,String userInfoKey) {
+                        settingsRepository.updateSetting(userInfoKey, userInformation);
+                   }
     public void registerANM(String userName, String password) {
         preferences.updateANMUserName(userName);
         settingsRepository.updateSetting(ANM_PASSWORD_PREFERENCE_KEY, password);
