@@ -138,7 +138,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-               JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
                Iterator<String> iter = uniqueId.keys();

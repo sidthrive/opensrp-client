@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -235,7 +236,11 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     public void startRegistration() {
-
+        String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
+        if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
+            Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
+            return;
+        }
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {

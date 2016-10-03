@@ -227,21 +227,22 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         ///------------------------------------------------------------------
 
         AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, anakscp, new CommonRepository("anak",new String []{"namaBayi", "tanggalLahirAnak", "anak.isClosed"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, anakscp, new CommonRepository("anak",new String []{"namaBayi", "tanggalLahirAnak", "isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("anak");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
-        countqueryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = anak.ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        countSelect = countqueryBUilder.mainCondition(" anak.isClosed !='true' and anak.ibuCaseId !='' ");
-        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+       // countqueryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
+        countSelect = countqueryBUilder.mainCondition(" isClosed is null or isClosed != 'true'");
+        mainCondition = "isClosed is null or isClosed != 'true'";
+
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed", "anak.details", "namaBayi", "tanggalLahirAnak"});
-        queryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = anak.ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        mainSelect = queryBUilder.mainCondition(" anak.isClosed !='true' and anak.ibuCaseId !='' ");
+        queryBUilder.SelectInitiateMainTable("anak", new String[]{"isClosed", "details", "namaBayi", "tanggalLahirAnak"});
+       // queryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
+        mainSelect = queryBUilder.mainCondition("isClosed is null or isClosed != 'true'");
         Sortqueries = AnakNameShort();
 
         currentlimit = 20;

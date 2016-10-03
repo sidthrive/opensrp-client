@@ -478,4 +478,24 @@
     <string name="fe">FE:</string>
 
     <string name="Nutrition_status">Status Gizi:</string>
+
+    <string name="hfa">Tinggi/Umur: </string>
+    <string name="wfl">Berat/Tinggi: </string>
+    <string name="wfa">Berat/Umur: </string>
+    <string name="s_underweight"> Gizi Buruk</string>
+    <string name="underweight">Gizi Kurang</string>
+    <string name="good_nutrition">Gizi Baik</string>
+    <string name="overnutrition">Gizi Lebih</string>
+    <string name="overweight">Gemuk</string>
+    <string name="s_stunted">Sangat Pendek</string>
+    <string name="stunted">Pendek</string>
+    <string name="normal">Normal</string>
+    <string name="tall">Tinggi</string>
+    <string name="s_wasted">Sangat Kurus</string>
+    <string name="wasted">Kurus</string>
+
+    <string name="weight_new">Baru</string>
+    <string name="weight_increase">Naik</string>
+    <string name="weight_not_increase">Tidak Naik</string>
+    <string name="weight_not_attend">Tidak Datang Bulan Lalu</string>
 </resources>

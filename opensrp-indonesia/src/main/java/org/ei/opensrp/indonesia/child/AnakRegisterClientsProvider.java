@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -133,27 +134,120 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             childview.setTag(smartRegisterClient);
         }
         else {
-            if(pc.getDetails().get("jenisKelamin").equals("laki")) {
+            if(pc.getDetails().get("jenisKelamin").equals("laki") || pc.getDetails().get("jenisKelamin").equals("male")) {
                 viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
             }
             else
                 viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
         }
-        
-        viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"Bayi");
+
+        //mother details
+        AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
+        CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
+
+            viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"Bayi");
+                //delivery documentation
+
+                if(StringUtils.isNotBlank(pc.getColumnmaps().get("tanggalLahirAnak"))) {
+                    viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak") != null ? pc.getColumnmaps().get("tanggalLahirAnak") : "");
+                }
+                else {
+                    viewHolder.anak_register_dob.setText(pc.getDetails().get("tanggalLahir") != null ? pc.getDetails().get("tanggalLahir") : "");
+                }
+                viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir") != null ? pc.getDetails().get("beratLahir") : "");
 
 
+            //visit status from other workers
+            if(StringUtils.isBlank(childobject.getColumnmaps().get("ibuCaseId"))) {
+                String stunt = (hasValue(pc.getDetails().get("stunting"))?setStatus(pc.getDetails().get("stunting")):"-");
+                String underweight = (hasValue(pc.getDetails().get("underweight"))?setStatus(pc.getDetails().get("underweight")):"-");
+                String wasting = (hasValue(pc.getDetails().get("wasting"))?setStatus(pc.getDetails().get("wasting")):"-");
+
+                viewHolder.berat_badan.setText(context.getString(R.string.hfa)+": "+stunt);
+                viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.wfa)+" "+underweight);
+                viewHolder.tinggi.setText(context.getString(R.string.wfl)+" "+wasting);
+
+                viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ (pc.getDetails().get("nutrition_status") != null ? weightStatus(pc.getDetails().get("nutrition_status")) : "-"));
+                viewHolder.tempat_lahir.setText("-");
+
+                String namaayah = pc.getDetails().get("namaAyah")!=null?pc.getDetails().get("namaAyah"):"";
+                String namaibu = pc.getDetails().get("namaIbu")!=null?pc.getDetails().get("namaIbu"):"";
+
+                viewHolder.mother_name.setText(namaibu +","+ namaayah);
+                viewHolder.village_name.setText("gizi");
+                viewHolder.no_ibu.setText(pc.getDetails().get("unique_id")!=null?pc.getDetails().get("unique_id"):"");
+
+                //child age
+                String childAge = pc.getDetails().get("tanggalLahir")!=null?pc.getDetails().get("tanggalLahir"):"-";
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                if(pc.getDetails().get("tanggalLahir")!=null) {
+                    String age = childAge;
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+                    LocalDate dates = parse(age, formatter).toLocalDate();
+                    LocalDate dateNow = LocalDate.now();
+
+                    dates = dates.withDayOfMonth(1);
+                    dateNow = dateNow.withDayOfMonth(1);
+
+                    int months = Months.monthsBetween(dates, dateNow).getMonths();
+                    viewHolder.childs_age.setText(months+ " "+context.getString(R.string.month));
+
+                }
+                else{
+                    viewHolder.childs_age.setText("-");
+                }
+            }
+
+            //visit status from bidan
+            else {
+                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
+                final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
+                AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
+                final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
+
+                String berat = pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan") != null ? " " + pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan") : "";
+                String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan") != null ? " " + pc.getDetails().get("tanggalKunjunganBayiPerbulan") : "";
+                String tinggi = pc.getDetails().get("hasilPengukuranTinggiBayi") != null ? " " + pc.getDetails().get("hasilPengukuranTinggiBayi") : "";
+                String status_gizi = pc.getDetails().get("statusGizi") != null ? pc.getDetails().get("statusGizi") : "";
+                //  String gizi = status_gizi.equals("GB")?"Gizi Buruk":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
 
 
-        //delivery documentation
-        viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null?pc.getColumnmaps().get("tanggalLahirAnak"):"");
-      //  viewHolder.tempat_lahir.setText(humanize(pc.getDetails().get("tempatBersalin")!=null?pc.getDetails().get("tempatBersalin"):""));
-        viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir")!=null?pc.getDetails().get("beratLahir"):"");
-       // viewHolder.tipe_lahir.setText(pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):"");
+                viewHolder.berat_badan.setText(context.getString(R.string.str_weight) + ": " + berat);
+                viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title) + " " + tanggal);
+                viewHolder.tinggi.setText(context.getString(R.string.height) + " " + tinggi);
+                viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status) + " " + status_gizi);
 
+            String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
+            viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
+
+            String namaayah = kiparent.getDetails().get("namaSuami")!=null?kiparent.getDetails().get("namaSuami"):"";
+            String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
+
+            viewHolder.mother_name.setText(namaibu +","+ namaayah);
+            viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
+            viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
+
+            //child age
+            String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            if(childobject.getColumnmaps().get("tanggalLahirAnak")!=null) {
+                String age = childAge;
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+                LocalDate dates = parse(age, formatter).toLocalDate();
+                LocalDate dateNow = LocalDate.now();
+
+                dates = dates.withDayOfMonth(1);
+                dateNow = dateNow.withDayOfMonth(1);
+
+                int months = Months.monthsBetween(dates, dateNow).getMonths();
+                viewHolder.childs_age.setText(months+ " "+context.getString(R.string.month));
+
+            }
+
+        }
 
         //immunization
-        if(pc.getDetails().get("tanggalpemberianimunisasiHb07")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiHb07"))){
             viewHolder.hb0_no.setVisibility(View.INVISIBLE);
             viewHolder.hb0_yes.setVisibility(View.VISIBLE);
         } else {
@@ -161,7 +255,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.hb0_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1"))){
             viewHolder.pol1_no.setVisibility(View.INVISIBLE);
             viewHolder.pol1_yes.setVisibility(View.VISIBLE);
         } else {
@@ -169,7 +263,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol1_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2"))){
             viewHolder.pol2_no.setVisibility(View.INVISIBLE);
             viewHolder.pol2_yes.setVisibility(View.VISIBLE);
         } else {
@@ -177,7 +271,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol2_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3"))){
             viewHolder.pol3_no.setVisibility(View.INVISIBLE);
             viewHolder.pol3_yes.setVisibility(View.VISIBLE);
         } else {
@@ -185,55 +279,6 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol3_yes.setVisibility(View.INVISIBLE);
         }
 
-        String berat = pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan"):"";
-        String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("tanggalKunjunganBayiPerbulan"):"";
-        String tinggi = pc.getDetails().get("hasilPengukuranTinggiBayi")!=null?" "+pc.getDetails().get("hasilPengukuranTinggiBayi"):"";
-        String status_gizi = pc.getDetails().get("statusGizi")!=null?pc.getDetails().get("statusGizi"):"";
-      //  String gizi = status_gizi.equals("GB")?"Gizi Buruk":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
-        viewHolder.berat_badan.setText(context.getString(R.string.str_weight)+": "+berat);
-        viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title)+" "+tanggal);
-        viewHolder.tinggi.setText(context.getString(R.string.height)+" "+tinggi);
-        viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ status_gizi);
-
-        AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
-        CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
-
-        AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
-        final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
-        String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
-
-        viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
-
-        AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
-
-        String namaayah = kiparent.getDetails().get("namaSuami")!=null?kiparent.getDetails().get("namaSuami"):"";
-        String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
-
-          viewHolder.mother_name.setText(namaibu +","+ namaayah);
-           viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
-            viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
-
-
-        String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        if(childobject.getColumnmaps().get("tanggalLahirAnak")!=null) {
-            String age = childAge;
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-            LocalDate dates = parse(age, formatter).toLocalDate();
-            LocalDate dateNow = LocalDate.now();
-
-            dates = dates.withDayOfMonth(1);
-            dateNow = dateNow.withDayOfMonth(1);
-
-            int months = Months.monthsBetween(dates, dateNow).getMonths();
-            viewHolder.childs_age.setText(months+ " "+context.getString(R.string.month));
-
-        }
-        else{
-            viewHolder.childs_age.setText("-");
-        }
 
         convertView.setLayoutParams(clientViewLayoutParams);
      //   return convertView;
@@ -270,6 +315,46 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
     public View inflatelayoutForCursorAdapter() {
         View View = (ViewGroup) inflater().inflate(R.layout.smart_register_anak_client, null);
         return View;
+    }
+    private boolean hasValue(String data){
+        if(data == null)
+            return false;
+        return data.length() > 2;
+    }
+    private String weightStatus(String value){
+        if(value.toLowerCase().contains("gain") || value.toLowerCase().contains("idak"))
+            return context.getString(R.string.weight_not_increase);
+        else if(value.toLowerCase().contains("ncrea"))
+            return context.getString(R.string.weight_increase);
+        else if(value.toLowerCase().contains("atten"))
+            return context.getString(R.string.weight_not_attend);
+        else
+            return context.getString(R.string.weight_new);
+    }
+    private String setStatus(String status){
+        switch (status.toLowerCase()){
+            case "underweight" :
+                return context.getString(R.string.underweight);
+            case "severely underweight" :
+                return context.getString(R.string.s_underweight);
+            case "normal":
+                return context.getString(R.string.normal);
+            case "overweight":
+                return context.getString(R.string.overweight);
+            case "severely stunted" :
+                return context.getString(R.string.s_stunted);
+            case "stunted" :
+                return context.getString(R.string.stunted);
+            case "tall" :
+                return context.getString(R.string.tall);
+            case "severely wasted" :
+                return context.getString(R.string.s_wasted);
+            case "wasted" :
+                return context.getString(R.string.wasted);
+            default:
+                return "";
+        }
+
     }
 
     class ViewHolder {
