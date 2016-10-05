@@ -248,6 +248,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     public void startRegistration() {
+     /*
         FlurryFacade.logEvent("click_start_registration_on_kohort_kb_dashboard");
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
@@ -258,6 +259,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         LocationSelectorDialogFragment
                 .newInstance((NativeKBSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), KOHORT_KB_REGISTER)
                 .show(ft, locationDialogTAG);
+    */
     }
 
     private class ClientActionHandler implements View.OnClickListener {
