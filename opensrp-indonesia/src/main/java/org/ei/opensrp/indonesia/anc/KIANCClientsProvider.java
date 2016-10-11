@@ -33,10 +33,12 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -189,19 +191,34 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.no_ibu.setText(ibuparent.getColumnmaps().get("noIbu")!=null?ibuparent.getColumnmaps().get("noIbu"):"");
         viewHolder.unique_id.setText(ibuparent.getDetails().get("unique_id")!=null?ibuparent.getDetails().get("unique_id"):"");
 
-        viewHolder.usia_klinis.setText(pc.getDetails().get("usiaKlinis")!=null?context.getString(R.string.usia)+pc.getDetails().get("usiaKlinis")+context.getString(R.string.str_weeks):"-");
+
+
+
+
+            String UsiaKlinis = pc.getDetails().get("tanggalHPHT");
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
+            LocalDate dateNow = LocalDate.now();
+
+            int minggu = (Weeks.weeksBetween(date , dateNow ).getWeeks()) + 1;
+            date = date.withDayOfMonth(1);
+            dateNow = dateNow.withDayOfWeek(1);
+          //  int weeks = Weeks.weeksBetween(date, dateNow).getWeeks();
+            viewHolder.usia_klinis.setText(minggu + context.getString(R.string.str_weeks));
+
+
         viewHolder.htpt.setText(ibuparent.getColumnmaps().get("htp")!=null?ibuparent.getColumnmaps().get("htp"):"-");
 
         String edd = ibuparent.getColumnmaps().get("htp");
         if(StringUtils.isNotBlank(ibuparent.getColumnmaps().get("htp"))) {
             String _edd = edd;
             String _dueEdd = "";
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-            LocalDate date = parse(_edd, formatter).toLocalDate();
-            LocalDate dateNow = LocalDate.now();
-            date = date.withDayOfMonth(1);
+          //  DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            LocalDate dates = parse(_edd, formatter).toLocalDate();
+            LocalDate dateMonth = LocalDate.now();
+            dateMonth = dateMonth.withDayOfMonth(1);
             dateNow = dateNow.withDayOfMonth(1);
-            int months = Months.monthsBetween(dateNow, date).getMonths();
+            int months = Months.monthsBetween(dateMonth, dates).getMonths();
             if(months >= 1) {
                 viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 _dueEdd = "" + months + " " + context.getString(R.string.months_away);

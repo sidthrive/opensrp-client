@@ -193,7 +193,7 @@
     <string name="str_reporting">Reporting</string>
     <string name="str_videos">Videos</string>
 
-    <string name="child_register_title_in_short">Anak:</string>
+    <string name="child_register_title_in_short">Anak</string>
     <string name="child_service_mode_overview">Overview</string>
     <string name="child_service_mode_immunization">Imunisasi</string>
     <string name="child_service_mode_immunization_0_to_9">Imunisasi 0-9</string>
@@ -476,6 +476,6 @@
     <string name="str_pnc_delivery">Tgl Persalinan:</string>
     <string name="edd_passed">HTP sudah lewat</string>
     <string name="fe">FE:</string>
-
+    <string name="tgl_melahirkan">Tanggal Melahirkan:</string>
     <string name="Nutrition_status">Status Gizi:</string>
 </resources>

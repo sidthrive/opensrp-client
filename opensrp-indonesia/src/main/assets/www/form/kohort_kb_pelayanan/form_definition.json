@@ -35,23 +35,28 @@
       },
       {
         "name": "dusun",
-        "bind": "/model/instance/tambah_kb_reviewed/dusun"
+        "bind": "/model/instance/tambah_kb_reviewed/dusun",
+        "shouldLoadValue": true
       },
       {
         "name": "provinsi",
-        "bind": "/model/instance/tambah_kb_reviewed/provinsi"
+        "bind": "/model/instance/tambah_kb_reviewed/provinsi",
+        "shouldLoadValue": true
       },
       {
         "name": "kabupaten",
-        "bind": "/model/instance/tambah_kb_reviewed/kabupaten"
+        "bind": "/model/instance/tambah_kb_reviewed/kabupaten",
+        "shouldLoadValue": true
       },
       {
         "name": "kecamatan",
-        "bind": "/model/instance/tambah_kb_reviewed/kecamatan"
+        "bind": "/model/instance/tambah_kb_reviewed/kecamatan",
+        "shouldLoadValue": true
       },
       {
         "name": "desa",
-        "bind": "/model/instance/tambah_kb_reviewed/desa"
+        "bind": "/model/instance/tambah_kb_reviewed/desa",
+        "shouldLoadValue": true
       },
       {
         "name": "tanggalkunjungan",
@@ -86,7 +91,7 @@
         "name": "tdDiastolik",
         "bind": "/model/instance/tambah_kb_reviewed/td_diastolik"
       },
-      {r
+      {
         "name": "paritas",
         "bind": "/model/instance/tambah_kb_reviewed/paritas"
       },

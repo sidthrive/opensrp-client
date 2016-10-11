@@ -178,10 +178,6 @@
         "shouldLoadValue" : true
       },
       {
-        "name": "jenisKontrasepsi",
-        "value": ""
-      },
-      {
         "name": "isOutOfArea",
         "value": "false"
       },

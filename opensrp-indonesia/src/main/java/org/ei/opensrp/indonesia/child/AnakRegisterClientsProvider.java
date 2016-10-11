@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -153,7 +154,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
 
         //immunization
-        if(pc.getDetails().get("tanggalpemberianimunisasiHb07")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiHb07"))){
             viewHolder.hb0_no.setVisibility(View.INVISIBLE);
             viewHolder.hb0_yes.setVisibility(View.VISIBLE);
         } else {
@@ -161,7 +162,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.hb0_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1"))){
             viewHolder.pol1_no.setVisibility(View.INVISIBLE);
             viewHolder.pol1_yes.setVisibility(View.VISIBLE);
         } else {
@@ -169,7 +170,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol1_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2"))){
             viewHolder.pol2_no.setVisibility(View.INVISIBLE);
             viewHolder.pol2_yes.setVisibility(View.VISIBLE);
         } else {
@@ -177,7 +178,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol2_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3")!=null){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3"))){
             viewHolder.pol3_no.setVisibility(View.INVISIBLE);
             viewHolder.pol3_yes.setVisibility(View.VISIBLE);
         } else {
@@ -207,10 +208,10 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
         final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
 
-        String namaayah = kiparent.getDetails().get("namaSuami")!=null?kiparent.getDetails().get("namaSuami"):"";
+        String namaayah = kiparent.getColumnmaps().get("namaSuami")!=null?kiparent.getColumnmaps().get("namaSuami"):"";
         String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
 
-          viewHolder.mother_name.setText(namaibu +","+ namaayah);
+          viewHolder.mother_name.setText(namaibu +", "+ namaayah);
            viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
             viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
 

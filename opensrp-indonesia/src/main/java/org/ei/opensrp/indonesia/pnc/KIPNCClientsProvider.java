@@ -1,5 +1,6 @@
 package org.ei.opensrp.indonesia.pnc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -147,6 +149,16 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.td_sistolik.setText(humanize(ibuparent.getDetails().get("tandaVitalTDSistolik")!=null?ibuparent.getDetails().get("tandaVitalTDSistolik"):""));
         viewHolder.td_diastolik.setText(humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik")!=null?ibuparent.getDetails().get("tandaVitalTDDiastolik"):""));
 
+        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+        if (ibuparent.getDetails().get("profilepic") != null) {
+            ANCDetailActivity.setImagetoHolderFromUri((Activity) context, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+            kiview.setTag(smartRegisterClient);
+        }
+        else {
+
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+
+        }
         viewHolder.hr_badge.setVisibility(View.INVISIBLE);
         viewHolder.hrp_badge.setVisibility(View.INVISIBLE);
         viewHolder.img_hrl_badge.setVisibility(View.INVISIBLE);

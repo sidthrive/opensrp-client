@@ -26,6 +26,10 @@
         "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/Keterangan_k1k4"
       },
       {
+        "name": "Keterangan_k1k4Who",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/Keterangan_k1k4_who"
+      },
+      {
         "name": "referenceDate",
         "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/ref_date"
       },
