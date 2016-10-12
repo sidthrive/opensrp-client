@@ -64,13 +64,9 @@ public class GrowthChartGenerator {
 
         graph.setBackgroundColor(Color.rgb(215, 215, 215));
 
-//        graph.getViewport().setScrollable(true);
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScalable(true);
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(10);
 
         graph.addSeries(series7);
         graph.addSeries(series6);
