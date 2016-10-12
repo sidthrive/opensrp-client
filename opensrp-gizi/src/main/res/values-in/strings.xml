@@ -50,7 +50,7 @@
     <string name="str_ec_search_hint">Search EC Register</string>
     <string name="str_fp_search_hint">Search FP Register</string>
     <string name="str_pnc_search_hint">Search PNC Register</string>
-    <string name="str_child_search_hint">Cari Anak</string>
+    <string name="str_child_search_hint">Pencarian</string>
     <string name="label_sorted_by">Diurutkan berdasarkan:</string>
     <string name="label_village">, Desa:</string>
     <string name="ec_register_wife_age">({0})</string>
@@ -99,7 +99,7 @@
     <string name="str_edit_ec_form">Edit EC</string>
     <string name="str_close_ec_form">Close EC</string>
     <string name="report_month_sample_text">26/03 - 25/04</string>
-    <string name="str_switch_language">Switch Language</string>
+    <string name="str_switch_language">Ubah Bahasa</string>
 
     <string name="str_register_anc_visit_form">ANC Visit</string>
     <string name="str_register_hb_test_form">Hb Test</string>

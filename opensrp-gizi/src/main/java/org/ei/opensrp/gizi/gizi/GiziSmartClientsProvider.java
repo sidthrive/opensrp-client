@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -126,8 +124,8 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
 
         if (pc.getDetails().get("profilepic") != null) {
-                       ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-                       childview.setTag(smartRegisterClient);
+            ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+            childview.setTag(smartRegisterClient);
         }
         else {
             if (pc.getDetails().get("jenisKelamin").equalsIgnoreCase("male") || pc.getDetails().get("jenisKelamin").equalsIgnoreCase("laki-laki" )|| pc.getDetails().get("jenisKelamin").equalsIgnoreCase("laki")){
