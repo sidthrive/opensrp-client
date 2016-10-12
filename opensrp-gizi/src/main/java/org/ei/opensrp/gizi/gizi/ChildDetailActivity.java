@@ -42,6 +42,7 @@ import util.ImageCache;
 import util.ImageFetcher;
 import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
+import util.growthChart.GrowthChartGenerator;
 
 /**
  * Created by Iq on 26/04/16.
@@ -157,24 +158,27 @@ public class ChildDetailActivity extends Activity {
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        //set data for graph
-        DataPoint dataPoint[] = new DataPoint[history_berat.length];
-        for(int i=0;i<history_berat.length;i++){
-            dataPoint[i]= new DataPoint(Double.parseDouble(history_umur[i]),Double.parseDouble(history_berat[i]));
-        }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoint);
-        //add series data into chart
-        graph.addSeries(series);
+        new GrowthChartGenerator(graph,umurs,berats);
 
-        //series.setTitle("Random Curve 1");
-        series.setColor(Color.BLUE);
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(6);
-        series.setThickness(10);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        series.setCustomPaint(paint);
+        //set data for graph
+//        DataPoint dataPoint[] = new DataPoint[history_berat.length];
+//        for(int i=0;i<history_berat.length;i++){
+//            dataPoint[i]= new DataPoint(Double.parseDouble(history_umur[i]),Double.parseDouble(history_berat[i]));
+//        }
+//        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoint);
+//        //add series data into chart
+//        graph.addSeries(series);
+//
+//        //series.setTitle("Random Curve 1");
+//        series.setColor(Color.BLUE);
+//        series.setDrawDataPoints(true);
+//        series.setDataPointsRadius(6);
+//        series.setThickness(10);
+//        Paint paint = new Paint();
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(5);
+//        series.setCustomPaint(paint);
+
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -188,6 +192,8 @@ public class ChildDetailActivity extends Activity {
             }
 
         });
+
+
 
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
