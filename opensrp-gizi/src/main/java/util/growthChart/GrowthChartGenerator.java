@@ -53,13 +53,13 @@ public class GrowthChartGenerator {
         initSeries(seriesMain,Color.argb(0,0,0,0),Color.BLUE,3,"weight",true);
 
         for(int i=0;i<graphLine.length;i++){
-            series1.appendData(new DataPoint(i,graphLine[i][0]),false,60);
-            series2.appendData(new DataPoint(i,graphLine[i][1]),false,60);
-            series3.appendData(new DataPoint(i,graphLine[i][2]),false,60);
-            series4.appendData(new DataPoint(i,graphLine[i][3]),false,60);
-            series5.appendData(new DataPoint(i,graphLine[i][4]),false,60);
-            series6.appendData(new DataPoint(i,graphLine[i][5]),false,60);
-            series7.appendData(new DataPoint(i,graphLine[i][6]),false,60);
+            series1.appendData(new DataPoint(i,graphLine[i][0]),false,70);
+            series2.appendData(new DataPoint(i,graphLine[i][1]),false,70);
+            series3.appendData(new DataPoint(i,graphLine[i][2]),false,70);
+            series4.appendData(new DataPoint(i,graphLine[i][3]),false,70);
+            series5.appendData(new DataPoint(i,graphLine[i][4]),false,70);
+            series6.appendData(new DataPoint(i,graphLine[i][5]),false,70);
+            series7.appendData(new DataPoint(i,graphLine[i][6]),false,70);
         }
 
         graph.setBackgroundColor(Color.rgb(215, 215, 215));
@@ -67,10 +67,6 @@ public class GrowthChartGenerator {
 //        graph.getViewport().setScrollable(true);
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScalable(true);
-
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(30);
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
@@ -110,7 +106,7 @@ public class GrowthChartGenerator {
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(7);
         for(int i=0;i<age.length;i++){
-            series.appendData(new DataPoint(Double.parseDouble(age[i]), Double.parseDouble(weight[i])), false, 60);
+            series.appendData(new DataPoint(Double.parseDouble(age[i]), Double.parseDouble(weight[i])), false, 70);
         }
         return series;
     }
