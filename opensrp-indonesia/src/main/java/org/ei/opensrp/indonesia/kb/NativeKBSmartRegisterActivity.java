@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
@@ -29,9 +31,13 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,7 +56,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_UPDAT
  * Created by Dimas Ciputra on 2/18/15.
  */
 public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     public static final String TAG = "KBActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -70,7 +76,13 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        FlurryFacade.logEvent("kb_dashboard");
+        //flurry log start
+        String KBstart = timer.format(new Date());
+        Map<String, String> KB = new HashMap<String, String>();
+        KB.put("start", KBstart);
+        FlurryAgent.logEvent("kb_dashboard",KB, true);
+      //  FlurryFacade.logEvent("kb_dashboard");
+
         formNames = this.buildFormNameList();
         mBaseFragment = new NativeKBSmartRegisterFragment();
 
@@ -191,11 +203,21 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         if(formName.equals(KOHORT_KB_REGISTER)){
             saveuniqueid();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+        //Start capture flurry log for FS
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
+       // FlurryFacade.logEvent(formName);
       //  Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -283,6 +305,10 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KBend = timer.format(new Date());
+        Map<String, String> KB = new HashMap<String, String>();
+        KB.put("end", KBend);
+        FlurryAgent.logEvent("kb_dashboard", KB, true);
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

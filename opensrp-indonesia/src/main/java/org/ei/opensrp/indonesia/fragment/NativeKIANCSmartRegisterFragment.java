@@ -265,14 +265,12 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-                    FlurryFacade.logEvent("click_detail_view_on_kohort_anc_dashboard");
                     ANCDetailActivity.ancclient = (CommonPersonObjectClient)view.getTag();
                     Intent intent = new Intent(getActivity(),ANCDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
                  case R.id.btn_edit:
-                    FlurryFacade.logEvent("click_visit_button_on_kohort_anc_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
             }

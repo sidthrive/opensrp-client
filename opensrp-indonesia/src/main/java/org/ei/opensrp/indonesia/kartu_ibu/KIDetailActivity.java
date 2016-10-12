@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -38,7 +40,7 @@ import util.ImageFetcher;
  * Created by Iq on 07/09/16.
  */
 public class KIDetailActivity extends Activity {
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
     private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
@@ -53,6 +55,13 @@ public class KIDetailActivity extends Activity {
     public static CommonPersonObjectClient kiclient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> KIDetail = new HashMap<String, String>();
+        KIDetail.put("start", DetailStart);
+        FlurryAgent.logEvent("kohort_ibu_detail_view",KIDetail, true);
+       // FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
+
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.ki_detail_activity);
@@ -126,6 +135,10 @@ public class KIDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(KIDetailActivity.this, NativeKISmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> KIDetail = new HashMap<String, String>();
+                KIDetail.put("end", DetailEnd);
+                FlurryAgent.logEvent("kohort_ibu_detail_view",KIDetail, true);
             }
         });
 
@@ -219,7 +232,7 @@ public class KIDetailActivity extends Activity {
         show_risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlurryFacade.logEvent("click_risk_detail");
+                FlurryAgent.logEvent("click_risk_detail");
                 findViewById(R.id.id1).setVisibility(View.GONE);
                 findViewById(R.id.id2).setVisibility(View.VISIBLE);
                 findViewById(R.id.show_more_detail).setVisibility(View.VISIBLE);
@@ -240,7 +253,7 @@ public class KIDetailActivity extends Activity {
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
+                FlurryAgent.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
                 dispatchTakePictureIntent(kiview);

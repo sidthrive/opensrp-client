@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.LoginResponse;
 import org.ei.opensrp.domain.Response;
@@ -289,7 +291,7 @@ public class LoginActivity extends Activity {
     private void localLoginWith(String userName, String password) {
         context.userService().localLogin(userName, password);
         ErrorReportingFacade.setUsername("", userName);
-        FlurryFacade.setUserId(userName);
+        FlurryAgent.setUserId(userName);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
@@ -297,7 +299,7 @@ public class LoginActivity extends Activity {
     private void remoteLoginWith(String userName, String password, String userInfo) {
         context.userService().remoteLogin(userName, password, userInfo);
         ErrorReportingFacade.setUsername("", userName);
-        FlurryFacade.setUserId(userName);
+        FlurryAgent.setUserId(userName);
         // Get unique id
         tryGetUniqueId(userName, password, new Listener<ResponseStatus>() {
             @Override

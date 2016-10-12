@@ -25,10 +25,10 @@ public class AllConstantsINA {
     public static final String HIGH_RISK_POST_PARTUM = "high_risk_post_partum";
 
     // Flurry Bidan Testing 2
-    // public static final String FLURRY_KEY = "9RDM5TWW4HJ5QH8TNJ3P";
+     public static final String FLURRY_KEY = "QRQZ6KSKBWYNKJ5ZPDNR";
 
     // Flurry Key Bidan Prototype 4
-    public static final String FLURRY_KEY = "JBWHFW9M4D9XD38H6KD6";
+   // public static final String FLURRY_KEY = "JBWHFW9M4D9XD38H6KD6";
 
     public class KeluargaBerencanaFields {
         public static final String CONTRACEPTION_METHOD = "jenisKontrasepsi";

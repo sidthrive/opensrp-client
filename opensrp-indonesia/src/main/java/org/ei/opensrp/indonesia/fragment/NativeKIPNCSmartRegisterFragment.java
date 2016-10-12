@@ -147,7 +147,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
-                     //   new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label),KiSortByEdd()),
+                     //and   new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label),KiSortByEdd()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
                 };
             }
@@ -252,14 +252,12 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-                    FlurryFacade.logEvent("click_detail_view_on_kohort_pnc_dashboard");
                     PNCDetailActivity.pncclient = (CommonPersonObjectClient)view.getTag();
                     Intent intent = new Intent(getActivity(),PNCDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
                 case R.id.btn_edit:
-                    FlurryFacade.logEvent("click_visit_button_on_kohort_pnc_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
             }

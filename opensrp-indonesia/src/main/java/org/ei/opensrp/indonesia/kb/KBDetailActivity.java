@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -40,7 +42,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
  * Created by Iq on 07/09/16.
  */
 public class KBDetailActivity extends Activity {
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
     private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
@@ -58,6 +60,11 @@ public class KBDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.kb_detail_activity);
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> KBDetail = new HashMap<String, String>();
+        KBDetail.put("start", DetailStart);
+        FlurryAgent.logEvent("kb_detail_view",KBDetail, true);
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -140,6 +147,10 @@ public class KBDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(KBDetailActivity.this, NativeKBSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> KBDetail = new HashMap<String, String>();
+                KBDetail.put("end", DetailEnd);
+                FlurryAgent.logEvent("kb_detail_view",KBDetail, true);
             }
         });
 

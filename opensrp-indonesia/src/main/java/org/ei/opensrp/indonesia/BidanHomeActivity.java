@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
@@ -24,6 +26,11 @@ import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
 import org.ei.opensrp.view.controller.NativeUpdateANMDetailsTask;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
 import static org.ei.opensrp.event.Event.ACTION_HANDLED;
@@ -32,6 +39,7 @@ import static org.ei.opensrp.event.Event.SYNC_COMPLETED;
 import static org.ei.opensrp.event.Event.SYNC_STARTED;
 
 public class BidanHomeActivity extends SecuredActivity {
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private MenuItem updateMenuItem;
     private MenuItem remainingFormsToSyncMenuItem;
     private PendingFormSubmissionService pendingFormSubmissionService;
@@ -90,7 +98,13 @@ public class BidanHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
-        FlurryFacade.logEvent("home_dashboard");
+
+        String HomeStart = timer.format(new Date());
+        Map<String, String> Home = new HashMap<String, String>();
+        Home.put("start", HomeStart);
+        FlurryAgent.logEvent("home_dashboard",Home, true );
+
+       // FlurryAgent.logEvent("home_dashboard");
         setContentView(R.layout.smart_registers_home_bidan);
         navigationController = new NavigationControllerINA(this,anmController);
         setupViews();
@@ -139,6 +153,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
     @Override
     protected void onResumption() {
+
         LoginActivity.setLanguage();
         updateRegisterCounts();
         updateSyncIndicator();
@@ -241,7 +256,10 @@ public class BidanHomeActivity extends SecuredActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        String HomeEnd = timer.format(new Date());
+        Map<String, String> Home = new HashMap<String, String>();
+        Home.put("end", HomeEnd);
+        FlurryAgent.logEvent("home_dashboard",Home, true);
         SYNC_STARTED.removeListener(onSyncStartListener);
         SYNC_COMPLETED.removeListener(onSyncCompleteListener);
         FORM_SUBMITTED.removeListener(onFormSubmittedListener);
@@ -296,6 +314,11 @@ public class BidanHomeActivity extends SecuredActivity {
                    navigationController.startPNCSmartRegistry();
                    break;
             }
+            String HomeEnd = timer.format(new Date());
+            Map<String, String> Home = new HashMap<String, String>();
+            Home.put("end", HomeEnd);
+            FlurryAgent.logEvent("home_dashboard",Home, true);
+         //   FlurryAgent.endTimedEvent("home_dashboard");
         }
     };
 

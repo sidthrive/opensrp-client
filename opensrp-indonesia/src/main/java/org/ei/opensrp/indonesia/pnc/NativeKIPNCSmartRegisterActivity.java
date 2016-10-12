@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
@@ -27,9 +29,13 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,7 +57,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGIS
  * Created by Dimas Ciputra on 3/5/15.
  */
 public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     public static final String TAG = "PNCActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -74,7 +80,13 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
         formNames = this.buildFormNameList();
         mBaseFragment = new NativeKIPNCSmartRegisterFragment();
-        FlurryFacade.logEvent("pnc_dashboard");
+
+        //flurry log start
+        String PNCstart = timer.format(new Date());
+        Map<String, String> PNC = new HashMap<String, String>();
+        PNC.put("start", PNCstart);
+        FlurryAgent.logEvent("pnc_dashboard",PNC, true);
+       // FlurryFacade.logEvent("pnc_dashboard");
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
         mPager.setOffscreenPageLimit(formNames.length);
@@ -194,12 +206,21 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
         if(formName.equals(KARTU_IBU_PNC_OA)){
             saveuniqueid();
         }
-
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+        //Start capture flurry log for FS
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
+//        FlurryFacade.logEvent(formName);
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -291,6 +312,10 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String PNCEnd = timer.format(new Date());
+        Map<String, String> PNC = new HashMap<String, String>();
+        PNC.put("end", PNCEnd);
+        FlurryAgent.logEvent("pnc_dashboard",PNC, true);
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

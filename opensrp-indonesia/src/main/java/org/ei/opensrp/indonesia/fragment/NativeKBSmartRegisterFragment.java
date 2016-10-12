@@ -267,14 +267,12 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-                    FlurryFacade.logEvent("click_detail_view_on_kohort_kb_dashboard");
                     KBDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
                     Intent intent = new Intent(getActivity(),KBDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
          case R.id.btn_edit:
-                    FlurryFacade.logEvent("click_visit_button_on_kohort_kb_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
             }

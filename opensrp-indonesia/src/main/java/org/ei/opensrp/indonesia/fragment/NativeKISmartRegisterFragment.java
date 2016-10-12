@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
@@ -49,7 +51,10 @@ import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import util.AsyncTask;
@@ -61,7 +66,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Created by Dimas Ciputra on 2/18/15.
  */
 public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
     private VillageController villageController;
@@ -73,6 +78,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void onCreation() {
         //
     }
+
 
 //    @Override
 //    protected SmartRegisterPaginatedAdapter adapter() {
@@ -191,8 +197,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
+
         initializeQueries();
     }
+
     private String filterStringForAll(){
         return "";
     }
@@ -263,12 +271,16 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 .show(ft, locationDialogTAG);
     }
 
+    private void goBack() {
+        getActivity().finish();
+    }
+
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-                    FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
+
                    KIDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
                     Intent intent = new Intent(getActivity(),KIDetailActivity.class);
                     startActivity(intent);
@@ -322,7 +334,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
 
-            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
+            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) || option.name().equalsIgnoreCase(getString(R.string.str_register_kb_form))) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
                 if(pc.getColumnmaps().get("ibu.type")!= null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {

@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -42,7 +44,7 @@ import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
  * Created by Iq on 07/09/16.
  */
 public class PNCDetailActivity extends Activity {
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
     private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
@@ -60,6 +62,11 @@ public class PNCDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.pnc_detail_activity);
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> PNCDetail = new HashMap<String, String>();
+        PNCDetail.put("start", DetailStart);
+        FlurryAgent.logEvent("pnc_detail_view",PNCDetail, true);
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -156,6 +163,10 @@ public class PNCDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(PNCDetailActivity.this, NativeKIPNCSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> KBDetail = new HashMap<String, String>();
+                KBDetail.put("end", DetailEnd);
+                FlurryAgent.logEvent("pnc_detail_view",KBDetail, true);
             }
         });
 
