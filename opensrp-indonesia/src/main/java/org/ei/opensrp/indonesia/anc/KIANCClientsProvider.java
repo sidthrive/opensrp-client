@@ -192,20 +192,21 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.unique_id.setText(ibuparent.getDetails().get("unique_id")!=null?ibuparent.getDetails().get("unique_id"):"");
 
 
-
-
-
             String UsiaKlinis = pc.getDetails().get("tanggalHPHT");
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-            LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
             LocalDate dateNow = LocalDate.now();
 
-            int minggu = (Weeks.weeksBetween(date , dateNow ).getWeeks()) + 1;
-            date = date.withDayOfMonth(1);
-            dateNow = dateNow.withDayOfWeek(1);
-          //  int weeks = Weeks.weeksBetween(date, dateNow).getWeeks();
-            viewHolder.usia_klinis.setText(minggu + context.getString(R.string.str_weeks));
-
+        if(StringUtils.isNotBlank(UsiaKlinis) || !UsiaKlinis.equals("")){
+            LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
+                int minggu = (Weeks.weeksBetween(date , dateNow ).getWeeks()) + 1;
+                //date = date.withDayOfMonth(1);
+                //dateNow = dateNow.withDayOfWeek(1);
+                //  int weeks = Weeks.weeksBetween(date, dateNow).getWeeks();
+                viewHolder.usia_klinis.setText(minggu + context.getString(R.string.str_weeks));
+            }
+        else {
+            viewHolder.usia_klinis.setText("-");
+        }
 
         viewHolder.htpt.setText(ibuparent.getColumnmaps().get("htp")!=null?ibuparent.getColumnmaps().get("htp"):"-");
 
