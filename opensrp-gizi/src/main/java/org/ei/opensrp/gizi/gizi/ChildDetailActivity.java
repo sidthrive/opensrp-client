@@ -158,7 +158,7 @@ public class ChildDetailActivity extends Activity {
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        new GrowthChartGenerator(graph,umurs,berats);
+        new GrowthChartGenerator(graph,childclient.getDetails().get("jenisKelamin"),umurs,berats);
 
         //set data for graph
 //        DataPoint dataPoint[] = new DataPoint[history_berat.length];
