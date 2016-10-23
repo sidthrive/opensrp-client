@@ -414,5 +414,6 @@
     <string name="obatcacing">Obat Cacing:</string>
     <string name="lastVitA">Vitamin A terakhir diberikan:</string>
     <string name="lastAnthelmintic">Obat cacing terakhir diberikan:</string>
+    <string name="mth">bln</string>
 
 </resources>

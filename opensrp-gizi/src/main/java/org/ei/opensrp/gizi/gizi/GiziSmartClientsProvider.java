@@ -136,7 +136,10 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         }
 
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
-        viewHolder.age.setText(pc.getDetails().get("tanggalLahir")!= null ? Integer.toString(monthRangeToToday(pc.getDetails().get("tanggalLahir")))+" bln" : "");
+        viewHolder.age.setText(pc.getDetails().get("tanggalLahir")!= null
+                ? Integer.toString(monthRangeToToday(pc.getDetails().get("tanggalLahir")))
+                                                +" "+context.getString(R.string.mth)
+                : "");
         viewHolder.fatherName.setText(pc.getDetails().get("namaIbu")!=null
                 ? pc.getDetails().get("namaIbu")
                 : pc.getDetails().get("namaOrtu") != null
@@ -144,13 +147,14 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
                     : "");
         viewHolder.subVillage.setText(pc.getDetails().get("dusun")!=null ? pc.getDetails().get("dusun"):"");
         viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahir")!=null?pc.getDetails().get("tanggalLahir"):pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):"");
-        viewHolder.gender.setText(pc.getDetails().get("jenisKelamin").contains("em")? "Perempuan" : "Laki-laki");
+        viewHolder.gender.setText(pc.getDetails().get("jenisKelamin").contains("em")? context.getString(R.string.child_female) : context.getString(R.string.child_male));
         viewHolder.visitDate.setText(context.getString(R.string.tanggal) +  " "+(pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"-"));
         viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
         viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
         viewHolder.weightText.setText(context.getString(R.string.label_weight));
         viewHolder.heightText.setText(context.getString(R.string.label_height));
         viewHolder.antihelminticText.setText(R.string.anthelmintic);
+        viewHolder.absentAlert.setText(context.getString(R.string.weight_not_attend));
 
 //------VISIBLE AND INVISIBLE COMPONENT
         viewHolder.absentAlert.setVisibility(pc.getDetails().get("tanggalPenimbangan")!=null

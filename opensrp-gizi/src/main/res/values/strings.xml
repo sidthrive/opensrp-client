@@ -415,6 +415,7 @@
     <string name="wasted">Wasted</string>
     <string name="lastVitA">Last Vitamin A given:</string>
     <string name="lastAnthelmintic">Last Anthelmintic given:</string>
-
+    <string name="absent">Not attending </string>
+    <string name="mth">mth</string>
 
 </resources>
