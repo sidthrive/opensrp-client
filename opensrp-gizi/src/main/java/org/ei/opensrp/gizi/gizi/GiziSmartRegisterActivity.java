@@ -113,8 +113,8 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
-                new OpenFormOption("Kunjungan Per Bulan ", "kunjungan_gizi", formController),
-                new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
+                new OpenFormOption(context.getStringResource(R.string.form_name_visit), "kunjungan_gizi", formController),
+                new OpenFormOption(context.getStringResource(R.string.form_name_edit_registration), "edit_registrasi_gizi", formController),
                 new OpenFormOption("Close Form","close_form",formController)
 
 

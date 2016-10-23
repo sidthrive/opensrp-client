@@ -416,4 +416,7 @@
     <string name="lastAnthelmintic">Obat cacing terakhir diberikan:</string>
     <string name="mth">bln</string>
 
+    <string name="form_name_edit_registration">Ubah Data Registrasi</string>
+    <string name="form_name_visit">Kunjungan Per Bulan</string>
+
 </resources>
