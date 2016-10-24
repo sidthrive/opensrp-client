@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -129,12 +130,14 @@ public class AnakDetailActivity extends Activity {
         final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
         
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
 
-        
+        if(StringUtils.isNotBlank(ibuparent.getColumnmaps().get("kartuIbuId"))) {
+            final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
+            mother.setText(getResources().getString(R.string.child_details_mothers_name_label) + humanize(kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
+            father.setText(getResources().getString(R.string.child_details_fathers_name_label) + humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
+        }
+
         nama.setText(getResources().getString(R.string.name)+humanize (childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
-        mother.setText(getResources().getString(R.string.child_details_mothers_name_label)+humanize (kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
-        father.setText(getResources().getString(R.string.child_details_fathers_name_label)+ humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
         dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak") : "-"));
         
 

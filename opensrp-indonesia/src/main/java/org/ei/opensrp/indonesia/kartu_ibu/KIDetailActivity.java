@@ -308,6 +308,7 @@ public class KIDetailActivity extends Activity {
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
+
         }
     }
 

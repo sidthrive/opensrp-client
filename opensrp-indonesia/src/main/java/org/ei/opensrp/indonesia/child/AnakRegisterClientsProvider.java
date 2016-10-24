@@ -142,6 +142,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         }
         
         viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"Bayi");
+        viewHolder.no_ibu.setText(pc.getDetails().get("noBayi")!=null?pc.getDetails().get("noBayi"):"");
 
 
 
@@ -205,21 +206,29 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
 
-        AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
 
-        String namaayah = kiparent.getColumnmaps().get("namaSuami")!=null?kiparent.getColumnmaps().get("namaSuami"):"";
-        String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
+        if(StringUtils.isNotBlank(ibuparent.getColumnmaps().get("kartuIbuId"))) {
+            AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
+            final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
+            String namaayah = kiparent.getColumnmaps().get("namaSuami")!=null?kiparent.getColumnmaps().get("namaSuami"):"";
+            String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
+            viewHolder.mother_name.setText(namaibu +", "+ namaayah);
+            viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
 
-          viewHolder.mother_name.setText(namaibu +", "+ namaayah);
-           viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
-            viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
+        }
+        else {
+
+            viewHolder.mother_name.setText("Inaq "+pc.getColumnmaps().get("namaBayi"));
+            viewHolder.village_name.setText("");
+            viewHolder.no_ibu.setText("");
+        }
 
 
         String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        if(childobject.getColumnmaps().get("tanggalLahirAnak")!=null) {
+        if(StringUtils.isNotBlank(childobject.getColumnmaps().get("tanggalLahirAnak"))) {
+        //if(childobject.getColumnmaps().get("tanggalLahirAnak")!=null) {
             String age = childAge;
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             LocalDate dates = parse(age, formatter).toLocalDate();

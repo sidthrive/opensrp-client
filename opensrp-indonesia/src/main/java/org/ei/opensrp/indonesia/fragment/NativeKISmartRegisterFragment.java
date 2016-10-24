@@ -125,6 +125,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
            //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
           //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
+
                 String locationjson = context.anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
@@ -215,24 +216,24 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
     public void initializeQueries(){
         KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","anak.namaBayi","anak.tanggalLahirAnak","ibu.id","noIbu","htp","kartu_ibu.isOutOfArea"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","anak.namaBayi","anak.tanggalLahirAnak","ibu.id","noIbu","htp","kartu_ibu.isOutOfArea","ibu.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("kartu_ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
 
-        countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
+        countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId");
       //  countqueryBUilder.joinwithKIs("kartu_ibu");
-        countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
-        mainCondition = " isClosed !='true' ";
+        countSelect = countqueryBUilder.mainCondition(" isClosed !='true' and namalengkap !=''");
+        mainCondition = " isClosed !='true' and namalengkap !=''";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "anak.namaBayi", "anak.tanggalLahirAnak", "ibu.id", "noIbu", "htp"});
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "anak.namaBayi", "anak.tanggalLahirAnak", "ibu.id", "noIbu", "htp","ibu.isClosed"});
         queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
-        mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
+        mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' and namalengkap !=''");
         Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
