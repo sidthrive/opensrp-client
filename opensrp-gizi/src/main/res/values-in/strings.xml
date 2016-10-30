@@ -418,5 +418,11 @@
 
     <string name="form_name_edit_registration">Ubah Data Registrasi</string>
     <string name="form_name_visit">Kunjungan Per Bulan</string>
+    <string name="weight_unit">Kg</string>
+    <string name="length_unit">Cm</string>
+    <string name="x_axis_label">Bulan</string>
+    <string name="chart_title">GRAFIK PERTUMBUHAN ANAK</string>
+    <string name="lfa_string">Panjang Badan thd Umur</string>
+    <string name="hfa_string">Tinggi Badan thd Umur</string>
 
 </resources>

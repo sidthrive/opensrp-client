@@ -192,7 +192,6 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         convertView.setLayoutParams(clientViewLayoutParams);
         return convertView;
     }
-    CommonPersonObjectController householdelcocontroller;
 
     private String setStatus(String status){
         switch (status.toLowerCase()){

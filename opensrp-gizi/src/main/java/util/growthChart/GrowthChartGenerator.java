@@ -1,10 +1,13 @@
 package util.growthChart;
 
 import android.graphics.Color;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 
 public class GrowthChartGenerator {
 
@@ -13,7 +16,8 @@ public class GrowthChartGenerator {
         this.xValue = xValue;
         this.yValue = yValue;
         this.dateOfBirth=dateOfBirth;
-        graphLine = gender.toLowerCase().contains("em") ? GraphConstant.girlsChart : GraphConstant.boyChart;
+        this.gender = gender;
+        graphLine = this.gender.toLowerCase().contains("em") ? GraphConstant.girlWeightChart : GraphConstant.boyWeightChart;
         buildGraphTemplate();
     }
 
@@ -21,6 +25,27 @@ public class GrowthChartGenerator {
         graph.setBackgroundColor(Color.rgb(215, 215, 215));
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScalable(true);
+    }
+
+    public void initLengthForAgeChart(String xValue, String yValue){
+        this.xValue = xValue;
+        this.yValue = yValue;
+        graphLine = gender.toLowerCase().contains("em") ? GraphConstant.girlLengthChart : GraphConstant.boyLengthChart;
+        buildGraphTemplate();
+    }
+
+    public void initHeightForAgeChart(String xValue, String yValue){
+        this.xValue = xValue;
+        this.yValue = yValue;
+        graphLine = gender.toLowerCase().contains("em") ? GraphConstant.girlHeightChart : GraphConstant.boyHeightChart;
+        buildGraphTemplate();
+    }
+
+    public void initWeightForAgeChart(String xValue, String yValue){
+        this.xValue = xValue;
+        this.yValue = yValue;
+        graphLine = gender.toLowerCase().contains("em") ? GraphConstant.girlWeightChart : GraphConstant.boyWeightChart;
+        buildGraphTemplate();
     }
 
     private void buildGraphTemplate() {
@@ -38,13 +63,15 @@ public class GrowthChartGenerator {
         initSeries(seriesMain, Color.argb(0, 0, 0, 0), Color.BLUE, 3, "weight", true);
 
         for(int i=0;i<graphLine.length;i++){
-            series1.appendData(new DataPoint(i,graphLine[i][0]),false,70);
-            series2.appendData(new DataPoint(i,graphLine[i][1]),false,70);
-            series3.appendData(new DataPoint(i,graphLine[i][2]),false,70);
-            series4.appendData(new DataPoint(i,graphLine[i][3]),false,70);
-            series5.appendData(new DataPoint(i,graphLine[i][4]),false,70);
-            series6.appendData(new DataPoint(i,graphLine[i][5]),false,70);
-            series7.appendData(new DataPoint(i,graphLine[i][6]),false,70);
+            series1.appendData(new DataPoint(i,graphLine[i][0]),false,62);
+
+
+            series2.appendData(new DataPoint(i,graphLine[i][1]),false,62);
+            series3.appendData(new DataPoint(i,graphLine[i][2]),false,62);
+            series4.appendData(new DataPoint(i,graphLine[i][3]),false,62);
+            series5.appendData(new DataPoint(i,graphLine[i][4]),false,62);
+            series6.appendData(new DataPoint(i,graphLine[i][5]),false,62);
+            series7.appendData(new DataPoint(i,graphLine[i][6]),false,62);
         }
 
         graph.addSeries(series7);
@@ -74,7 +101,6 @@ public class GrowthChartGenerator {
         series.setColor(color);
         series.setThickness(thick);
     }
-
 
     private LineGraphSeries<DataPoint>createDataSeries(String []age,String []weight){
         LineGraphSeries<DataPoint>series=new LineGraphSeries<>();
@@ -114,7 +140,11 @@ public class GrowthChartGenerator {
         for(int i=0;i<series.length;i++){
             if(series[i]==null)
                 continue;
-            graph.addSeries(createDataSeries(axis[i].split(","),series[i].split(",")));
+            try {
+                graph.addSeries(createDataSeries(axis[i].split(","), series[i].split(",")));
+            }catch(Exception e){
+                continue;
+            }
         }
     }
 
@@ -168,9 +198,14 @@ public class GrowthChartGenerator {
     private String xValue;
     private String yValue;
     private String dateOfBirth;
+    private String gender;
 
     private final int red = Color.rgb(255,0,0);
     private final int yellow = Color.rgb(255,255,0);
     private final int green = Color.rgb(0,255,0);
+
+    public static final int WFA_CHART = 0;
+    public static final int LFA_CHART = 1;
+    public static final int HFA_CHART = 2;
 
 }
