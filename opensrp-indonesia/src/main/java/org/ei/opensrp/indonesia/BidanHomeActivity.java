@@ -131,6 +131,10 @@ public class BidanHomeActivity extends SecuredActivity {
         kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_anak_client_count);
         kohortKbCountView = (TextView) findViewById(R.id.txt_kohort_kb_register_count);
+
+        findViewById(R.id.btn_videos).setVisibility(View.GONE);
+
+        //.setVisibility(View.INVISIBLE);
     }
 
     private void initialize() {
@@ -328,12 +332,12 @@ public class BidanHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
-                case R.id.btn_videos:
-//                    navigationController.startVideos();
-                    break;
+               /* case R.id.btn_videos:
+                    navigationController.startVideos();
+                    break;*/
             }
         }
     };

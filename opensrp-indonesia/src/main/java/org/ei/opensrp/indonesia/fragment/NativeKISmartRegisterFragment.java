@@ -335,7 +335,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
 
-            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) || option.name().equalsIgnoreCase(getString(R.string.str_register_kb_form))) {
+            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
                 if(pc.getColumnmaps().get("ibu.type")!= null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc")) {

@@ -16,6 +16,7 @@ import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -152,7 +153,8 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            context.formSubmissionService().updateFTSsearch(submission);
+            FormSubmissionService formSubmissionService = context.formSubmissionService();
+            formSubmissionService.updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data

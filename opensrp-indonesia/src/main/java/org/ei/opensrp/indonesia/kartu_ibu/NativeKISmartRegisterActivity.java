@@ -145,7 +145,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
 
     }
-    @Override
+    /*@Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
         // save the form
@@ -168,15 +168,40 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
-        if(formName.equals(KARTU_IBU_REGISTRATION)){
+      *//*  if(formName.equals(KARTU_IBU_REGISTRATION)){
                        saveuniqueid();
         }
         //end capture flurry log for FS
         String end = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("end", end);
-        FlurryAgent.logEvent(formName,FS, true);
+        FlurryAgent.logEvent(formName,FS, true);*//*
 
+    }*/
+    @Override
+    public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
+        Log.v("fieldoverride", fieldOverrides.toString());
+        // save the form
+        try{
+            FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
+            FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
+
+            ziggyService.saveForm(getParams(submission), submission.instance());
+
+            FormSubmissionService formSubmissionService = context.formSubmissionService();
+            formSubmissionService.updateFTSsearch(submission);
+
+            //switch to forms list fragment
+            switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
+
+        }catch (Exception e){
+            // TODO: show error dialog on the formfragment if the submission fails
+            DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
+            if (displayFormFragment != null) {
+                displayFormFragment.hideTranslucentProgressDialog();
+            }
+            e.printStackTrace();
+        }
     }
 
     public void saveuniqueid() {
