@@ -81,6 +81,7 @@ public class VaksinatorDetailActivity extends Activity {
         TextView additionalMeaslesLabel = (TextView) findViewById(R.id.additionalMeaslesLabel);
 
         //profile
+        TextView uniqueID = (TextView) findViewById(R.id.uniqueID);
         TextView nama = (TextView) findViewById(R.id.childName);
         TextView motherName = (TextView) findViewById(R.id.motherName);
         TextView fatherName = (TextView) findViewById(R.id.fatherName);
@@ -153,7 +154,8 @@ public class VaksinatorDetailActivity extends Activity {
         additionalDPTLabel.setText(getString(R.string.dptTambahan));
         additionalMeaslesLabel.setText(getString(R.string.campakTambahan));
 
-
+        //display value
+        uniqueID.setText(": " + (controller.getDetails().get("unique_id") != null ? controller.getDetails().get("unique_id") : "-"));
         nama.setText(": " + (controller.getDetails().get("nama_bayi") != null ? controller.getDetails().get("nama_bayi") : "-"));
         fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
@@ -205,8 +207,8 @@ public class VaksinatorDetailActivity extends Activity {
         measles.setText(": " + (controller.getDetails().get("imunisasi_campak") != null ? controller.getDetails().get("imunisasi_campak") : "-"));
 
         complete.setText(": " + (controller.getDetails().get("imunisasi_lengkap") != null ? controller.getDetails().get("imunisasi_lengkap") : "-"));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_lanjutan") != null ? controller.getDetails().get("dpt_hb_lanjutan") : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("campak_lanjutan") != null ? controller.getDetails().get("campak_lanjutan") : "-"));
 
         if(controller.getDetails().get("profilepic")!= null){
             setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
