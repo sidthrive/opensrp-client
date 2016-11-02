@@ -41,8 +41,8 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:textStyle="bold"
             android:text="@string/jurim_detail" />
-
     </LinearLayout>
 
     <ImageView
