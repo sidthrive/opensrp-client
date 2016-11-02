@@ -74,6 +74,7 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
 
         ViewHolder viewHolder;
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
+        System.out.println(pc.getDetails().toString());
         if (viewGroup.getTag() == null || !(viewGroup.getTag() instanceof  ViewHolder)){
             convertView = (ViewGroup) inflater().inflate(R.layout.smart_register_jurim_client, null);
             viewHolder = new ViewHolder();
@@ -117,7 +118,6 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) viewGroup.getTag();
-           // viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile_thumb));
         }
 
         viewHolder.follow_up.setOnClickListener(onClickListener);
@@ -132,9 +132,6 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
         int umur = pc.getDetails().get("tanggal_lahir") != null ? age(pc.getDetails().get("tanggal_lahir")) : 0;
-        //set default image for mother
-
-        //final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
 
         if (pc.getDetails().get("profilepic") != null) {
             VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), viewHolder.profilepic, R.drawable.child_boy_infant);
@@ -177,44 +174,22 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
                     : "Laki-laki"
                 : " ");
 
-        viewHolder.hb0.setText(latestDate(new String[]{pc.getDetails().get("hb_1_under_7"),pc.getDetails().get("hb_1_over_7"),pc.getDetails().get("hb0")}));
+        viewHolder.hb0.setText(latestDate(new String[]{pc.getDetails().get("hb0")}));
 
         viewHolder.pol1.setText(
-                latestDate(new String[]{pc.getDetails().get("bcg_pol_1"),pc.getDetails().get("bcg"),pc.getDetails().get("polio1")})
-//            hasDate(pc,"bcg")//pc.getDetails().get("bcg")!=null && pc.getDetails().get("bcg").length()>6
-//                ? pc.getDetails().get("bcg")
-//                : hasDate(pc,"polio1")//pc.getDetails().get("polio1")!=null && pc.getDetails().get("polio1").length()>6
-//                    ? pc.getDetails().get("polio1")
-//                    : " "
+                latestDate(new String[]{pc.getDetails().get("bcg"),pc.getDetails().get("polio1")})
         );
 
         viewHolder.pol2.setText(
-                latestDate(new String[]{pc.getDetails().get("dpt_1_pol_2"),pc.getDetails().get("dpt_hb1"),pc.getDetails().get("polio2")})
-//            hasDate(pc,"dpt_hb1")//pc.getDetails().get("dpt_hb1")!=null && pc.getDetails().get("dpt_hb1").length()>6
-//                ? pc.getDetails().get("dpt_hb1")
-//                : hasDate(pc,"polio2")//pc.getDetails().get("polio2")!=null && pc.getDetails().get("polio_2").length()>6
-//                    ? pc.getDetails().get("polio2")
-//                    : " "
+                latestDate(new String[]{pc.getDetails().get("dpt_hb1"),pc.getDetails().get("polio2")})
         );
 
         viewHolder.pol3.setText(
-                latestDate(new String[]{pc.getDetails().get("dpt_2_pol_3"),pc.getDetails().get("dpt_hb2"),pc.getDetails().get("polio3")})
-//              hasDate(pc,"dpt_hb2")//pc.getDetails().get("dpt_hb2")!=null && pc.getDetails().get("dpt_hb_2").length()>6
-//                 ? pc.getDetails().get("dpt_hb2")
-//                 : hasDate(pc,"polio3")//pc.getDetails().get("polio3")!=null && pc.getDetails().get("polio3").length()>6
-//                    ? pc.getDetails().get("polio3")
-//                    : " "
+                latestDate(new String[]{pc.getDetails().get("dpt_hb2"),pc.getDetails().get("polio3")})
         );
 
         viewHolder.pol4.setText(
-                latestDate(new String[]{pc.getDetails().get("dpt_3_pol_4_ipv"),pc.getDetails().get("dpt_hb3"),pc.getDetails().get("polio4"),pc.getDetails().get("ipv")})
-//             hasDate(pc,"dpt_hb3")//pc.getDetails().get("dpt_hb3")!=null && pc.getDetails().get("dpt_hb3").length()>6
-//                ? pc.getDetails().get("dpt_hb3")
-//                : hasDate(pc,"polio4")//pc.getDetails().get("polio4")!=null && pc.getDetails().get("polio4").length()>6
-//                   ? pc.getDetails().get("polio4")
-//                   : hasDate(pc,"ipv")//pc.getDetails().get("ipv")!=null && pc.getDetails().get("ipv").length()>6
-//                       ? pc.getDetails().get("ipv")
-//                       : " "
+                latestDate(new String[]{pc.getDetails().get("dpt_hb3"),pc.getDetails().get("polio4"),pc.getDetails().get("ipv")})
         );
 
         viewHolder.campak.setText(pc.getDetails().get("imunisasi_campak") != null ? pc.getDetails().get("imunisasi_campak") : " ");
@@ -222,8 +197,6 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
 //----- logo visibility, sometimes the variable contains blank string that count as not null, so we must check both the availability and content
         boolean a = hasDate(pc,"hb0") || hasDate(pc,"hb1_kurang_7_hari") || hasDate(pc,"hb1_lebih_7_hari");
         viewHolder.hbLogo.setImageResource(a ? R.drawable.ic_yes_large : umur > 0 ? R.drawable.vacc_late : umur == 0 ? R.mipmap.vacc_due : R.drawable.abc_list_divider_mtrl_alpha);
-        //if(!a)
-           // viewHolder.hb0Layout.setBackgroundColor(context.getResources().getColor(R.color.vaccBlue));
 
         setIcon(viewHolder.bcgLayout,viewHolder.pol1Logo,"bcg_pol_1","bcg,polio1",umur,1,pc);
         setIcon(viewHolder.hb1Layout,viewHolder.pol2Logo,"dpt_1_pol_2","dpt_hb1,polio2",umur,2,pc);
@@ -295,17 +268,6 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
         if((umur == indicator) && !(complete || someComplete))
             frame.setBackgroundColor(context.getResources().getColor(R.color.vaccBlue));
     }
-
-    /*
-    * Used to check if the variable contains a date (10 character which representing yyyy-MM-dd) or not
-    * params:
-    * CommonPersonObjectClient pc
-    * String variable
-    *
-    * return:
-    * true - if the variable contains date
-    * false - if the variable null or less than 10 character length
-    * */
 
     private boolean hasDate(CommonPersonObjectClient pc, String variable){
         return pc.getDetails().get(variable)!=null && pc.getDetails().get(variable).length()>6;
