@@ -126,7 +126,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
                 new OpenFormOption(context.getStringResource(R.string.polio3VisitLabel), "polio3_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.dpt3VisitLabel), "hb3_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.polio4VisitLabel), "polio4_visit", formController),
-                new OpenFormOption(context.getStringResource(R.string.ipvVisitLabel), "ipv_visit", formController),
+               // new OpenFormOption(context.getStringResource(R.string.ipvVisitLabel), "ipv_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.campakVisitLabel), "campak_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.dptTambahanVisitLabel), "dpthb_lanjutan_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.campakTambahanVisitLabel), "campak_lanjutan_visit", formController),
@@ -314,7 +314,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         formNames.add("polio3_visit");
         formNames.add("hb3_visit");
         formNames.add("polio4_visit");
-        formNames.add("ipv_visit");
+//        formNames.add("ipv_visit");
         formNames.add("campak_visit");
         formNames.add("dpthb_lanjutan_visit");
         formNames.add("campak_lanjutan_visit");
