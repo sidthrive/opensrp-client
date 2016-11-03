@@ -21,6 +21,20 @@ public class GrowthChartGenerator {
         buildGraphTemplate();
     }
 
+    public GrowthChartGenerator(GraphView graph,int graphStyle, String gender,String dateOfBirth, String xValue,String yValue){
+        this.graph = graph;
+        this.dateOfBirth=dateOfBirth;
+        this.gender = gender;
+        switch(graphStyle){
+            case GraphConstant.WFA_CHART : initWeightForAgeChart(xValue, yValue);
+                             break;
+            case GraphConstant.HFA_CHART : initHeightForAgeChart(xValue, yValue);
+                break;
+            case GraphConstant.LFA_CHART : initLengthForAgeChart(xValue, yValue);
+                break;
+        }
+    }
+
     private void initStage(){
         graph.setBackgroundColor(Color.rgb(215, 215, 215));
         graph.getViewport().setScrollable(true);
@@ -116,6 +130,8 @@ public class GrowthChartGenerator {
 
     private void createLineChart(GraphView graph, String dateOfBirth, String date,String weight){
         int counter = 0;
+        if(date.equals("")||date.equals(" "))
+            return;
         int[]dateInt = calculateAgesFrom(dateOfBirth, date.split(","));
         String []weightDouble = weight.split(",");
         int length = countAgeSeries(dateInt);
@@ -150,12 +166,15 @@ public class GrowthChartGenerator {
 
     private int[]calculateAgesFrom(String dateOfBirth,String []data){
         int[]result=new int[data.length];
+        System.out.println("data length : "+data.length);
+        System.out.println("data = "+data[0]);
         if(data[0].length()>5) {
             for (int i = 0; i < data.length; i++) {
                 result[i] = getMonthAge(dateOfBirth, data[i]);
             }
         }else{
             for (int i=0;i<data.length;i++){
+                System.out.println("parsing result = "+data[i]);
                 result[i]=Integer.parseInt(data[i]);
             }
         }
@@ -204,8 +223,6 @@ public class GrowthChartGenerator {
     private final int yellow = Color.rgb(255,255,0);
     private final int green = Color.rgb(0,255,0);
 
-    public static final int WFA_CHART = 0;
-    public static final int LFA_CHART = 1;
-    public static final int HFA_CHART = 2;
+
 
 }

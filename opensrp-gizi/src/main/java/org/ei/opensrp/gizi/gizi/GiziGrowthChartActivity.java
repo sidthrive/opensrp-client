@@ -13,6 +13,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.gizi.R;
 
+import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
 
 /**
@@ -53,7 +54,7 @@ public class GiziGrowthChartActivity extends Activity{
 
         String []series=initiateSeries();
 
-        new GrowthChartGenerator(lfaGraph,client.getDetails().get("tanggalLahir"),client.getDetails().get("jenisKelamin"),series[0],series[1]);
+        new GrowthChartGenerator(lfaGraph, GraphConstant.LFA_CHART,client.getDetails().get("tanggalLahir"),client.getDetails().get("jenisKelamin"),series[0],series[1]);
         lfaGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -64,7 +65,7 @@ public class GiziGrowthChartActivity extends Activity{
             }
         });
 
-        new GrowthChartGenerator(hfaGraph,client.getDetails().get("tanggalLahir"),client.getDetails().get("jenisKelamin"),series[2],series[3]);
+        new GrowthChartGenerator(hfaGraph,GraphConstant.HFA_CHART,client.getDetails().get("tanggalLahir"),client.getDetails().get("jenisKelamin"),series[2],series[3]);
         hfaGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -102,7 +103,9 @@ public class GiziGrowthChartActivity extends Activity{
     }
 
     private String createSeries(){
-        if(client.getDetails().get("historyTinggi").length()<10)
+        if(client.getDetails().get("history_tinggi")==null)
+            return "0#0";
+        else if(client.getDetails().get("historyTinggi").length()<10)
             return "0#0";
         String ageSeries="";
         String lengthSeries="";

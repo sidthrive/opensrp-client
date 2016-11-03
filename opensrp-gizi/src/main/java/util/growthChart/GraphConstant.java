@@ -4,6 +4,11 @@ package util.growthChart;
  * Created by Null on 2016-10-14.
  */
 public class GraphConstant {
+
+        public static final int WFA_CHART = 0;
+        public static final int LFA_CHART = 1;
+        public static final int HFA_CHART = 2;
+
     public static final double boyWeightChart[][]={
             {2.1,2.5,2.9,3.3,3.9,4.4,5},
             {2.9,3.4,3.9,4.5,5.1,5.8,6.6},
