@@ -200,6 +200,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 int months = Months.monthsBetween(dateNow, date).getMonths();
 
                 if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
+
                     if (months >= 1) {
                         viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                         _dueEdd = "" + months + " " + context.getString(R.string.months_away);
@@ -208,8 +209,14 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                         _dueEdd = context.getString(R.string.this_month);
                     } else if (months < 0) {
                         viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_urgent_red));
-                        _dueEdd = context.getString(R.string.edd_passed);
+                        if (pc.getDetails().get("childId") != null) {
+                            viewHolder.edd.setText("");
+                            viewHolder.edd_due.setText("-");
+                        } else {
+                            _dueEdd = context.getString(R.string.edd_passed);
+                        }
                     }
+
                 } else if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
                     viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
                     _dueEdd = context.getString(R.string.delivered);
@@ -237,7 +244,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
             if (pc.getColumnmaps().get("ibu.type") != null ) {
                // if(pc.getColumnmaps().get("ibu.isClosed") != null) {
-               // if(!pc.getColumnmaps().get("ibu.isClosed").equals("true")) {
+                if(pc.getDetails().get("childId") == null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
                         viewHolder.anc_status_layout.setText(context.getString(R.string.service_anc));
                         String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
@@ -245,7 +252,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                         viewHolder.date_status.setText(visit_date);
                         viewHolder.visit_status.setText(visit_stat);
                     }
-                    //  }
+                      }
                     else if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
                         viewHolder.anc_status_layout.setText(context.getString(R.string.service_pnc));
                         if(pc.getDetails().get("childId") != null) {
