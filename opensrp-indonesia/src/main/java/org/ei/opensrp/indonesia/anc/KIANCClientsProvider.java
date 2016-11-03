@@ -196,14 +196,21 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             LocalDate dateNow = LocalDate.now();
 
-        if(StringUtils.isNotBlank(UsiaKlinis) || !UsiaKlinis.equals("")){
-            LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
-                int minggu = (Weeks.weeksBetween(date , dateNow ).getWeeks()) + 1;
+        if(StringUtils.isNotBlank(UsiaKlinis) || !UsiaKlinis.equals("")) {
+            if (UsiaKlinis.contains("T")) {
+                UsiaKlinis = UsiaKlinis.substring(0, UsiaKlinis.indexOf("T"));
+                LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
+                int minggu = (Weeks.weeksBetween(date, dateNow).getWeeks()) + 1;
+                viewHolder.usia_klinis.setText(minggu + context.getString(R.string.str_weeks));
+            } else {
+                LocalDate date = parse(UsiaKlinis, formatter).toLocalDate();
+                int minggu = (Weeks.weeksBetween(date, dateNow).getWeeks()) + 1;
                 //date = date.withDayOfMonth(1);
                 //dateNow = dateNow.withDayOfWeek(1);
                 //  int weeks = Weeks.weeksBetween(date, dateNow).getWeeks();
                 viewHolder.usia_klinis.setText(minggu + context.getString(R.string.str_weeks));
             }
+        }
         else {
             viewHolder.usia_klinis.setText("-");
         }

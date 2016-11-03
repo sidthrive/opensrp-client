@@ -28,6 +28,7 @@ import org.ei.opensrp.indonesia.pnc.KIPNCClientsProvider;
 import org.ei.opensrp.indonesia.pnc.KIPNCOverviewServiceMode;
 import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.pnc.PNCDetailActivity;
+import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -174,6 +175,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     protected void onInitialization() {
+        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
         //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 

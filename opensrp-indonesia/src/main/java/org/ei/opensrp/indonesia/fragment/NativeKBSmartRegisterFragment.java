@@ -216,21 +216,22 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
     public void initializeQueries(){
         KBClientsProvider kiscp = new KBClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur","namaSuami","ibu.id", "kartu_ibu.isOutOfArea"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur","namaSuami", "kartu_ibu.isOutOfArea"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("kartu_ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
-        countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-        countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' and kartu_ibu.details not LIKE '%\"jenisKontrasepsi\":\"\"%' ");
-        mainCondition = " isClosed !='true' and namalengkap != '' and details not LIKE '%\"jenisKontrasepsi\":\"\"%' ";
+       // countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+        mainCondition = " isClosed !='true' and jenisKontrasepsi != '' ";
+        countSelect = countqueryBUilder.mainCondition(mainCondition);
+
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "namaSuami", "ibu.id"});
-        queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-        mainSelect = queryBUilder.mainCondition("kartu_ibu.isClosed !='true' and namalengkap != '' and kartu_ibu.details not LIKE '%\"jenisKontrasepsi\":\"\"%' ");
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "namaSuami"});
+      //  queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+        mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;

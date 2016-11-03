@@ -1,5 +1,4 @@
 package org.ei.opensrp.indonesia;
-import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +14,9 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
+import org.ei.opensrp.indonesia.anc.ChildMergeID;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
+import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -112,6 +113,8 @@ public class BidanHomeActivity extends SecuredActivity {
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
       //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
+        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
+        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
 
     }
 
@@ -181,7 +184,7 @@ public class BidanHomeActivity extends SecuredActivity {
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();
 
-        Cursor kbcountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true' and details not LIKE '%\"jenisKontrasepsi\":\"\"%'"));
+        Cursor kbcountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true' and jenisKontrasepsi != ''"));
         kbcountcursor.moveToFirst();
         kbcount= kbcountcursor.getInt(0);
         kbcountcursor.close();
@@ -193,13 +196,13 @@ public class BidanHomeActivity extends SecuredActivity {
         anccountcursor.close();
 
 
-        Cursor pnccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.type NOT Null and ibu.type = 'pnc'"));
+        Cursor pnccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.isClosed != 'true' and ibu.type = 'pnc'"));
         pnccountcursor.moveToFirst();
         pnccount= pnccountcursor.getInt(0);
         pnccountcursor.close();
 
 
-        Cursor childcountcursor = context.commonrepository("anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("anak", "anak.isClosed = 'false'"));
+        Cursor childcountcursor = context.commonrepository("anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("anak", "anak.isClosed NOT Null and anak.isClosed != '' and anak.isClosed != 'true' "));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
         childcountcursor.close();
