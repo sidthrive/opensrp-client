@@ -107,7 +107,7 @@ public class BidanApplication extends DrishtiApplication {
 
     private String[] getFtsMainConditions(String tableName){
         if(tableName.equals("kartu_ibu")) {
-            String[] mainConditions = { "isClosed", "details","isOutOfArea","jenisKontrasepsi" };
+            String[] mainConditions = { "isClosed", "details","isOutOfArea" };
             return mainConditions;
         } else if(tableName.equals("anak")){
             String[] mainConditions = { "isClosed", "ibuCaseId" };

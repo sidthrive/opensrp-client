@@ -182,6 +182,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
             viewHolder.number_of_abortus.setText(pc.getDetails().get("abortus") != null ? pc.getDetails().get("abortus") : "-");
             viewHolder.number_of_alive.setText(pc.getDetails().get("hidup") != null ? pc.getDetails().get("hidup") : "-");
 
+    //        viewHolder.edd.setText(pc.getDetails().get("jenisKontrasepsi") != null ? pc.getDetails().get("jenisKontrasepsi") : "");
             viewHolder.edd.setText(pc.getColumnmaps().get("htp") != null ? pc.getColumnmaps().get("htp") : "");
 
             viewHolder.edd_due.setText("");
@@ -261,11 +262,11 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
              //   }
 
             }
-            else if (pc.getDetails().get("jenisKontrasepsi") != null) {
+            if (pc.getDetails().get("jenisKontrasepsi") != null) {
                 if (!pc.getDetails().get("jenisKontrasepsi").equals("")) {
                     viewHolder.anc_status_layout.setText(context.getString(R.string.service_fp));
                     String visit_date = pc.getDetails().get("tanggalkunjungan") != null ? context.getString(R.string.date_visit_title) + " " + pc.getDetails().get("tanggalkunjungan") : "";
-                    String visit_stat = pc.getDetails().get("jenisKontrasepsi") != null ? context.getString(R.string.fp_methods) + " " + pc.getDetails().get("jenisKontrasepsi") : "";
+                    String visit_stat = pc.getColumnmaps().get("jenisKontrasepsi") != null ? context.getString(R.string.fp_methods) + " " + pc.getColumnmaps().get("jenisKontrasepsi") : "";
                     viewHolder.date_status.setText(visit_date);
                     viewHolder.visit_status.setText(visit_stat);
                 }
