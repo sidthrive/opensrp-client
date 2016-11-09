@@ -91,6 +91,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
         formNames.add("psrf_form");
+        formNames.add("mis_elco");
 //        DialogOption[] options = getEditOptions();
 //        for (int i = 0; i < options.length; i++){
 //            formNames.add(((OpenFormOption) options[i]).getFormName());
@@ -145,6 +146,13 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 new OpenFormOption(getResources().getString(R.string.psrfform), "psrf_form", formController,overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
         };
     }
+    public DialogOption[] getEditOptionsForMISELCO(CommonPersonObjectClient elco) {
+
+        return new DialogOption[]{
+
+                new OpenFormOption(getResources().getString(R.string.mis_elco), "mis_elco", formController)
+        };
+    }
 
     private String getalertstateofelco(CommonPersonObjectClient elco) {
         List<Alert> alertlist_for_client = org.ei.opensrp.Context.getInstance().alertService().findByEntityIdAndAlertNames(elco.entityId(), "ELCO PSRF");
@@ -164,7 +172,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        Log.v("fieldoverride", metaData);
+//        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -178,7 +186,6 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
-                    displayFormFragment.loadFormData();
                     displayFormFragment.setRecordId(entityId);
                     displayFormFragment.setFieldOverides(metaData);
                 }
@@ -283,7 +290,6 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
-                    displayFormFragment.loadFormData();
                 }
 
                 displayFormFragment.setRecordId(null);

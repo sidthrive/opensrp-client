@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -126,8 +124,8 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
 
         if (pc.getDetails().get("profilepic") != null) {
-                       ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-                       childview.setTag(smartRegisterClient);
+            ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+            childview.setTag(smartRegisterClient);
         }
         else {
             if (pc.getDetails().get("jenisKelamin").equalsIgnoreCase("male") || pc.getDetails().get("jenisKelamin").equalsIgnoreCase("laki-laki" )|| pc.getDetails().get("jenisKelamin").equalsIgnoreCase("laki")){
@@ -138,7 +136,10 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         }
 
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
-        viewHolder.age.setText(pc.getDetails().get("tanggalLahir")!= null ? Integer.toString(monthRangeToToday(pc.getDetails().get("tanggalLahir")))+" bln" : "");
+        viewHolder.age.setText(pc.getDetails().get("tanggalLahir")!= null
+                ? Integer.toString(monthRangeToToday(pc.getDetails().get("tanggalLahir")))
+                                                +" "+context.getString(R.string.mth)
+                : "");
         viewHolder.fatherName.setText(pc.getDetails().get("namaIbu")!=null
                 ? pc.getDetails().get("namaIbu")
                 : pc.getDetails().get("namaOrtu") != null
@@ -146,13 +147,14 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
                     : "");
         viewHolder.subVillage.setText(pc.getDetails().get("dusun")!=null ? pc.getDetails().get("dusun"):"");
         viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahir")!=null?pc.getDetails().get("tanggalLahir"):pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):"");
-        viewHolder.gender.setText(pc.getDetails().get("jenisKelamin").contains("em")? "Perempuan" : "Laki-laki");
+        viewHolder.gender.setText(pc.getDetails().get("jenisKelamin").contains("em")? context.getString(R.string.child_female) : context.getString(R.string.child_male));
         viewHolder.visitDate.setText(context.getString(R.string.tanggal) +  " "+(pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"-"));
         viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
         viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
         viewHolder.weightText.setText(context.getString(R.string.label_weight));
         viewHolder.heightText.setText(context.getString(R.string.label_height));
         viewHolder.antihelminticText.setText(R.string.anthelmintic);
+        viewHolder.absentAlert.setText(context.getString(R.string.weight_not_attend));
 
 //------VISIBLE AND INVISIBLE COMPONENT
         viewHolder.absentAlert.setVisibility(pc.getDetails().get("tanggalPenimbangan")!=null
@@ -190,7 +192,6 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
         convertView.setLayoutParams(clientViewLayoutParams);
         return convertView;
     }
-    CommonPersonObjectController householdelcocontroller;
 
     private String setStatus(String status){
         switch (status.toLowerCase()){

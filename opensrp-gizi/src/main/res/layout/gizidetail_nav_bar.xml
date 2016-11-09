@@ -43,7 +43,21 @@
                 style="@style/CustomFontTextViewStyle.NavBar.Black"
             android:text="Child Details" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="50dp"/>
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/detail_navbar_chart_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:text="LFA Growth Chart" />
+
     </LinearLayout>
+
 
     <ImageView
             android:layout_width="@dimen/smart_register_nav_bar_separator"

@@ -43,6 +43,7 @@ import util.ImageCache;
 import util.ImageFetcher;
 import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
+import util.growthChart.GrowthChartGenerator;
 
 /**
  * Created by Iq on 26/04/16.
@@ -52,6 +53,7 @@ public class ChildDetailActivity extends Activity {
     //image retrieving
     private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
+    private int graphType = 0;
   //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
     private static int mImageThumbSpacing;
@@ -61,16 +63,18 @@ public class ChildDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient childclient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = Context.getInstance();
+        final Context context = Context.getInstance();
         setContentView(R.layout.gizi_detail_activity);
         String DetailStart = timer.format(new Date());
                 Map<String, String> Detail = new HashMap<String, String>();
                 Detail.put("start", DetailStart);
                 FlurryAgent.logEvent("gizi_detail_view",Detail, true );
 
+        System.out.println(childclient.getDetails().toString());
         final ImageView childview = (ImageView)findViewById(R.id.detail_profilepic);
         //header
         TextView header_name = (TextView) findViewById(R.id.header_name);
@@ -99,6 +103,7 @@ public class ChildDetailActivity extends Activity {
         TextView obatCacing = (TextView) findViewById(R.id.txt_anthelmintic);
         TextView lastVitA = (TextView) findViewById(R.id.txt_profile_last_vitA);
         TextView lastAnthelmintic = (TextView) findViewById(R.id.txt_profile_last_anthelmintic);
+        TextView chartNavbarLabel = (TextView) findViewById(R.id.detail_navbar_chart_menu);
 
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +117,16 @@ public class ChildDetailActivity extends Activity {
                 Map<String, String> Detail = new HashMap<String, String>();
                 Detail.put("end", DetailEnd);
                 FlurryAgent.logEvent("gizi_detail_view",Detail, true );
+            }
+        });
+
+        chartNavbarLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                GiziGrowthChartActivity.client = childclient;
+                startActivity(new Intent(ChildDetailActivity.this, GiziGrowthChartActivity.class));
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -158,7 +173,6 @@ public class ChildDetailActivity extends Activity {
         String umurs = childclient.getDetails().get("history_umur")!= null ? childclient.getDetails().get("history_umur") :"0";
         String[] history_umur = umurs.split(",");
 
-
             dua_t.setText(getString(R.string.dua_t) +" "+ (childclient.getDetails().get("dua_t") != null ? yesNo(childclient.getDetails().get("dua_t")) : "-"));
             bgm.setText(getString(R.string.bgm) + " "+ (childclient.getDetails().get("bgm") != null ? yesNo(childclient.getDetails().get("bgm")) : "-"));
             under_yellow_line.setText(getString(R.string.under_yellow_line) + " "+ (childclient.getDetails().get("garis_kuning") != null ? yesNo(childclient.getDetails().get("garis_kuning")) : "-"));
@@ -167,46 +181,29 @@ public class ChildDetailActivity extends Activity {
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        //set data for graph
-        DataPoint dataPoint[] = new DataPoint[history_berat.length];
-        for(int i=0;i<history_berat.length;i++){
-            dataPoint[i]= new DataPoint(Double.parseDouble(history_umur[i]),Double.parseDouble(history_berat[i]));
-        }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoint);
-        //add series data into chart
-        graph.addSeries(series);
-
-        //series.setTitle("Random Curve 1");
-        series.setColor(Color.BLUE);
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(6);
-        series.setThickness(10);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        series.setCustomPaint(paint);
+        new GrowthChartGenerator(graph,childclient.getDetails().get("tanggalLahir"),childclient.getDetails().get("jenisKelamin"),umurs,berats);
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     // show normal x values
-                    return super.formatLabel(value, isValueX )+ " Month";
+                    return super.formatLabel(value, isValueX) + " " + context.getStringResource(R.string.x_axis_label);
                 } else {
                     // show currency for y values
-                    return super.formatLabel(value, isValueX) + " Kg";
+                    return super.formatLabel(value, isValueX) + " " + context.getStringResource(R.string.weight_unit);
                 }
             }
 
         });
 
+
+
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 bindobject = "anak";
                 entityid = childclient.entityId();
                 dispatchTakePictureIntent(childview);
-
             }
         });
 
@@ -257,6 +254,7 @@ public class ChildDetailActivity extends Activity {
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
+
     static final int REQUEST_TAKE_PHOTO = 1;
     static ImageView mImageView;
     static File currentfile;
@@ -288,9 +286,6 @@ public class ChildDetailActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
             HashMap <String,String> details = new HashMap<String,String>();
             details.put("profilepic",currentfile.getAbsolutePath());
             saveimagereference(bindobject,entityid,details);
@@ -334,13 +329,11 @@ public class ChildDetailActivity extends Activity {
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
         ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                childclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
+
     public static void setImagetoHolder(Activity activity,String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
-
 
         ImageCache.ImageCacheParams cacheParams =
                 new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
@@ -348,34 +341,20 @@ public class ChildDetailActivity extends Activity {
         mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
         mImageFetcher.setLoadingImage(placeholder);
         mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
         mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
-
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
     }
+
     public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
         File externalFile = new File(file);
         Uri external = Uri.fromFile(externalFile);
         view.setImageURI(external);
-
-
     }
+
     @Override
     public void onBackPressed() {
         finish();
         startActivity(new Intent(this, GiziSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
-
-
     }
 }

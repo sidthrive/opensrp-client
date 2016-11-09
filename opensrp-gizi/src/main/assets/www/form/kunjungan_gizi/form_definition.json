@@ -111,10 +111,18 @@
         "name": "history_berat",
         "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/history_berat"
       },
-
       {
         "name": "tinggiBadan",
         "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/tinggi_badan"
+      },
+      {
+        "name": "history_tinggi",
+        "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/preload_history_tinggi",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "history_tinggi",
+        "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/history_tinggi"
       },
       {
         "name": "asi",

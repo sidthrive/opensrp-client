@@ -125,8 +125,8 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
-                new OpenFormOption("Kunjungan Per Bulan ", "kunjungan_gizi", formController),
-                new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
+                new OpenFormOption(context.getStringResource(R.string.form_name_visit), "kunjungan_gizi", formController),
+                new OpenFormOption(context.getStringResource(R.string.form_name_edit_registration), "edit_registrasi_gizi", formController),
                 new OpenFormOption("Close Form","close_form",formController)
 
 
@@ -248,7 +248,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
-                    displayFormFragment.loadFormData();
+//                    displayFormFragment.loadFormData();
                     displayFormFragment.setRecordId(entityId);
                     displayFormFragment.setFieldOverides(metaData);
                 }
@@ -278,7 +278,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
-                    displayFormFragment.loadFormData();
+//                    displayFormFragment.loadFormData();
                 }
 
                 displayFormFragment.setRecordId(null);
