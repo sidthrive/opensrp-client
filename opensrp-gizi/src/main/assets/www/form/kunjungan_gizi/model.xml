@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <gizi_history_tinggi encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201610280725">
+    <Kunjungan_Gizi_NewStructure-mapped encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201611150106">
       <formhub>
         <uuid/>
       </formhub>
@@ -33,7 +33,7 @@
       <dua_t/>
       <ntob_status openmrs_entity="concept" openmrs_entity_id="1854AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <bgm_status openmrs_entity="concept" openmrs_entity_id="1854AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-      <dua_t_status openmrs_entity="concept" openmrs_entity_id="164136"/>
+      <dua_t_status openmrs_entity="concept" openmrs_entity_id="164136AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <generated_note_name_38/>
       <generated_note_name_39/>
       <generated_note_name_40/>
@@ -41,7 +41,7 @@
       <generated_note_name_42/>
       <generated_note_name_43/>
       <generated_note_name_44/>
-      <tanggal_preload/>
+      <tanggal_preload openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <tanggal_penimbangan openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <kunjungan_sebelumnya/>
       <tanggal_lahir openmrs_entity="person" openmrs_entity_id="birthdate"/>
@@ -60,11 +60,11 @@
       <vitA openmrs_entity="concept" openmrs_entity_id="161534AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <waktuVitA openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <jenisVitA openmrs_entity="n/a"/>
-      <obatcacing openmrs_entity="concept" openmrs_entity_id="164137"/>
+      <obatcacing openmrs_entity="concept" openmrs_entity_id="164137AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <end openmrs_entity="encounter" openmrs_entity_id="encounter_end"/>
       <meta>
         <instanceID/>
       </meta>
-    </gizi_history_tinggi>
+    </Kunjungan_Gizi_NewStructure-mapped>
   </instance>
 </model>
