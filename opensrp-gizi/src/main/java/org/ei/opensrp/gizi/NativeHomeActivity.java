@@ -1,5 +1,6 @@
 package org.ei.opensrp.gizi;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.uniqueIDGenerator.Generator;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
 import static org.ei.opensrp.event.Event.ACTION_HANDLED;
@@ -39,6 +42,7 @@ import static org.ei.opensrp.event.Event.SYNC_COMPLETED;
 import static org.ei.opensrp.event.Event.SYNC_STARTED;
 
 public class NativeHomeActivity extends SecuredActivity {
+
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private MenuItem updateMenuItem;
     private MenuItem remainingFormsToSyncMenuItem;
@@ -85,6 +89,9 @@ public class NativeHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
+
+        System.out.println("on class Native Home Activity");
+        LoginActivity.generator.showStatus();
         String HomeStart = timer.format(new Date());
                        Map<String, String> Home = new HashMap<String, String>();
                         Home.put("start", HomeStart);
@@ -97,8 +104,6 @@ public class NativeHomeActivity extends SecuredActivity {
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
         context.formSubmissionRouter().getHandlerMap().put("kunjungan_gizi", new KmsHandler());
-
-
     }
 
     private void setupViews() {

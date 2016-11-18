@@ -43,6 +43,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import util.uniqueIDGenerator.Generator;
 
 //import org.ei.opensrp.gizi.fragment.HouseHoldSmartRegisterFragment;
 
@@ -50,6 +51,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         LocationSelectorDialogFragment.OnLocationSelectedListener{
 
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
+    public static Generator generator;
 
     public static final String TAG = "GiziActivity";
     @Bind(R.id.view_pager)
@@ -77,7 +79,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
        // FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
-        mBaseFragment = new GiziSmartRegisterFragment();
+        mBaseFragment = new GiziSmartRegisterFragment(generator);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -196,7 +198,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
             Iterator<String> iter = uniqueId.keys();

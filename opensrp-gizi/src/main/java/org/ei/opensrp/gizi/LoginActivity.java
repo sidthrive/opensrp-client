@@ -29,7 +29,6 @@ import org.ei.opensrp.domain.LoginResponse;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.domain.ResponseStatus;
 import org.ei.opensrp.event.Listener;
-import org.ei.opensrp.gizi.gizi.FlurryFacade;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.util.Log;
@@ -44,6 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import util.uniqueIDGenerator.Generator;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -66,6 +67,7 @@ public class LoginActivity extends Activity {
     public static final String KANNADA_LANGUAGE = "Kannada";
     public static final String Bahasa_LANGUAGE = "bahasa";
 
+    public static Generator generator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -304,18 +306,24 @@ public class LoginActivity extends Activity {
     }
 
     private void localLoginWith(String userName, String password) {
+        LoginActivity.generator = new Generator(context);
         context.userService().localLogin(userName, password);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
+        LoginActivity.generator = new Generator(context);
         context.userService().remoteLogin(userName, password, userInfo);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
 
     private void goToHome() {
+        if(generator == null) {
+            System.out.println("generator does not instantiated");
+            finish();
+        }
         startActivity(new Intent(this, NativeHomeActivity.class));
         finish();
     }
@@ -347,8 +355,10 @@ public class LoginActivity extends Activity {
         task.doActionInBackground(new BackgroundAction<ResponseStatus>() {
                 @Override
                 public ResponseStatus actionToDoInBackgroundThread() {
-                        ((Context)context).uniqueIdService().syncUniqueIdFromServer(username, password);
-                        return ((Context)context).uniqueIdService().getLastUsedId(username, password);
+                        LoginActivity.generator = new Generator(context);
+                        LoginActivity.generator.status = "Unique id generator from login activity";
+                        LoginActivity.generator.uniqueIdService().syncUniqueIdFromServer(username, password);
+                        return LoginActivity.generator.uniqueIdService().getLastUsedId(username, password);
                     }
     
                         @Override

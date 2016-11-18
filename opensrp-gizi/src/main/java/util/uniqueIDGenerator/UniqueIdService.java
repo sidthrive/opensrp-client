@@ -73,12 +73,11 @@ public class UniqueIdService implements AdditionalSyncService {
     }
 
     public Response<String> pullUniqueIdFromServer(String username, String password) {
-        String baseURL = configuration.dristhiBaseURL();
+//        String baseURL = configuration.dristhiBaseURL();
         while (true) {
-            String uri = format("{0}/{1}",
-                            baseURL,
-                            UNIQUE_ID_PATH);
+            String uri = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(5)+"&username="+username+"&password="+password;
             Response<String> response = httpAgent.fetchWithCredentials(uri, username, password);
+            System.out.println("pull unique id response = "+response.toString());
             if (response.isFailure()) {
                     logError(format("Unique id pull failed"));
                     return new Response<>(failure, "");
@@ -153,6 +152,7 @@ public class UniqueIdService implements AdditionalSyncService {
                                     baseURL,
                                     UNIQUE_ID_PATH);
                     Response<String> refillResponse = httpAgent.fetch(uri);
+                    System.out.println(refillResponse.toString());
                     if (refillResponse.isFailure()) {
                             logError(format("Unique id pull failed"));
                             return fetchedFailed;
@@ -169,10 +169,13 @@ public class UniqueIdService implements AdditionalSyncService {
         if (payload != null) {
             try {
                     JSONObject ids = new JSONObject(payload);
-                    JSONArray uniqueId = ids.getJSONArray("ids");
+                    JSONArray uniqueId = ids.getJSONArray("identifiers");
                     for (int i = 0; i < uniqueId.length(); i++) {
-                            uniqueIdController.saveUniqueId(uniqueId.getString(i));
+                        System.out.println("unique id "+i+", : "+uniqueId.getString(i));
                         }
+                    for (int i = 0; i < uniqueId.length(); i++) {
+                        uniqueIdController.saveUniqueId(uniqueId.getString(i));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
