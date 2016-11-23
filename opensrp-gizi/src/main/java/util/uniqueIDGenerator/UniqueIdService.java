@@ -75,9 +75,8 @@ public class UniqueIdService implements AdditionalSyncService {
     public Response<String> pullUniqueIdFromServer(String username, String password) {
 //        String baseURL = configuration.dristhiBaseURL();
         while (true) {
-            String uri = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(5)+"&username="+username+"&password="+password;
+            String uri = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(3)+"&username="+username+"&password="+password;
             Response<String> response = httpAgent.fetchWithCredentials(uri, username, password);
-            System.out.println("pull unique id response = "+response.toString());
             if (response.isFailure()) {
                     logError(format("Unique id pull failed"));
                     return new Response<>(failure, "");
@@ -103,16 +102,15 @@ public class UniqueIdService implements AdditionalSyncService {
                 }
             logDebug(format("Unique id fetched"));
 
-                    try {
-                    JSONObject jsonObject = new JSONObject(response.payload());
-                    String lastUsedId = jsonObject.getString("lastUsedId");
-                    allSettings.saveLastUsedId(lastUsedId);
-                    allSettings.saveCurrentId(lastUsedId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                    return ResponseStatus.success;
+            try {
+                JSONObject jsonObject = new JSONObject(response.payload());
+                String lastUsedId = jsonObject.getString("lastUsedId");
+                allSettings.saveLastUsedId(lastUsedId);
+                allSettings.saveCurrentId(lastUsedId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return ResponseStatus.success;
         }
     }
 
@@ -164,6 +162,14 @@ public class UniqueIdService implements AdditionalSyncService {
         }
 
         }
+
+//    public void refillUniqueId(String username, String password){
+//        this.syncUniqueIdFromServer(username,password);
+//    }
+//
+//    public boolean uniqueIdReachLimit(int limit){
+//        return uniqueIdController.needToRefillUniqueId();
+//    }
 
     public void saveJsonResponseToUniqueId(String payload) {
         if (payload != null) {

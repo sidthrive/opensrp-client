@@ -12,12 +12,9 @@ import org.ei.opensrp.view.activity.ReportsActivity;
 import org.ei.opensrp.view.controller.ANMController;
 
 
-import util.uniqueIDGenerator.Generator;
-
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class GiziNavigationController extends org.ei.opensrp.view.controller.NavigationController {
-    public Generator generator;
     private Activity activity;
     private ANMController anmController;
 
@@ -27,10 +24,6 @@ public class GiziNavigationController extends org.ei.opensrp.view.controller.Nav
         this.anmController = anmController;
     }
 
-    public GiziNavigationController(Activity activity, ANMController anmController, Generator generator){
-        this(activity,anmController);
-        this.generator = generator;
-    }
     @Override
     public void startECSmartRegistry() {
       //  activity.startActivity(new Intent(activity, TestSmartRegisterActivity.class));

@@ -37,7 +37,6 @@ import java.util.Map;
 import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
 import util.ZScore.ZScoreSystemCalculation;
-import util.uniqueIDGenerator.Generator;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -55,7 +54,6 @@ public class GiziSmartClientsProvider implements SmartRegisterClientsProvider {
     private final AbsListView.LayoutParams clientViewLayoutParams;
     private Drawable iconPencilDrawable;
     protected CommonPersonObjectController controller;
-    public static Generator generator;
 
     AlertService alertService;
 

@@ -51,8 +51,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import util.AsyncTask;
-import util.uniqueIDGenerator.Generator;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -70,15 +68,6 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterFragmen
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
 
-    public Generator generator;
-
-    public GiziSmartRegisterFragment(){
-
-    }
-
-    public GiziSmartRegisterFragment(Generator generator){
-        this.generator=generator;
-    }
 
     @Override
     protected void onCreation() {
@@ -233,9 +222,8 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterFragmen
             ft.remove(prev);
         }
         FlurryFacade.logEvent("click_start_registration_on_gizi");
-        System.out.println("on class register fragment");
-        LoginActivity.generator.showStatus();
         String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
+
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
             return;

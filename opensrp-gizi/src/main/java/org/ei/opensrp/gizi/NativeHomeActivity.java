@@ -13,6 +13,7 @@ import com.flurry.android.FlurryAgent;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
+import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.event.Listener;
 
 import org.ei.opensrp.gizi.gizi.FlurryFacade;
@@ -31,8 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import util.uniqueIDGenerator.Generator;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
@@ -89,9 +88,6 @@ public class NativeHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
-
-        System.out.println("on class Native Home Activity");
-        LoginActivity.generator.showStatus();
         String HomeStart = timer.format(new Date());
                        Map<String, String> Home = new HashMap<String, String>();
                         Home.put("start", HomeStart);
@@ -155,7 +151,7 @@ public class NativeHomeActivity extends SecuredActivity {
         CommonPersonObjectController childcontroller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("anak"),
                 context.allBeneficiaries(), context.listCache(),
                 context.personObjectClientsCache(),"namaBayi","anak","jenisKelamin", CommonPersonObjectController.ByColumnAndByDetails.byDetails);
-        ecRegisterClientCountView.setText(valueOf(childcontroller.getClients("form_ditutup","yes").size()));
+        ecRegisterClientCountView.setText(valueOf(childcontroller.getClients("form_ditutup", "yes").size()));
 
     }
 
@@ -204,13 +200,22 @@ public class NativeHomeActivity extends SecuredActivity {
                 new SyncProgressIndicator(), context.allFormVersionSyncService());
     //    updateActionsTask.updateFromServer(new SyncAfterFetchListener());
         String locationAnmids=context.allSharedPreferences().getPreference(AllConstants.LoginResponse.LOCATION_ANMIDS);
-        
-                        locationAnmids = locationAnmids.replaceAll("\\[", "").replaceAll("\\]", "");
-                locationAnmids=locationAnmids.replaceAll("\",\"", "-").replaceAll("\"", "");
-        
-                        final Map<String, String> syncParams= new HashMap<String, String>();
-                syncParams.put(AllConstants.LoginResponse.LOCATION_ANMIDS,locationAnmids);
-                updateActionsTask.updateFromServer(new SyncAfterFetchListener(),syncParams);
+        locationAnmids = locationAnmids.replaceAll("\\[", "").replaceAll("\\]", "");
+        locationAnmids=locationAnmids.replaceAll("\",\"", "-").replaceAll("\"", "");
+
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
+            LoginActivity.generator.requestUniqueId();
+//            if(response.isFailure())
+//                Toast.makeText(context.applicationContext(),"failed to refill unique id",LENGTH_SHORT).show();
+//            else{
+//                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(response.payload());
+//                Toast.makeText(context.applicationContext(),"Unique ID has been refilled",LENGTH_SHORT).show();
+//            }
+        }
+
+        final Map<String, String> syncParams= new HashMap<String, String>();
+        syncParams.put(AllConstants.LoginResponse.LOCATION_ANMIDS,locationAnmids);
+        updateActionsTask.updateFromServer(new SyncAfterFetchListener(),syncParams);
     }
 
     @Override

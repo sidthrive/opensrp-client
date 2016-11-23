@@ -306,14 +306,14 @@ public class LoginActivity extends Activity {
     }
 
     private void localLoginWith(String userName, String password) {
-        LoginActivity.generator = new Generator(context);
+        LoginActivity.generator = new Generator(context,userName,password);
         context.userService().localLogin(userName, password);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
-        LoginActivity.generator = new Generator(context);
+        LoginActivity.generator = new Generator(context,userName,password);
         context.userService().remoteLogin(userName, password, userInfo);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
@@ -355,8 +355,7 @@ public class LoginActivity extends Activity {
         task.doActionInBackground(new BackgroundAction<ResponseStatus>() {
                 @Override
                 public ResponseStatus actionToDoInBackgroundThread() {
-                        LoginActivity.generator = new Generator(context);
-                        LoginActivity.generator.status = "Unique id generator from login activity";
+                        LoginActivity.generator = new Generator(context,username,password);
                         LoginActivity.generator.uniqueIdService().syncUniqueIdFromServer(username, password);
                         return LoginActivity.generator.uniqueIdService().getLastUsedId(username, password);
                     }
