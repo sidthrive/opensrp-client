@@ -198,11 +198,11 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
         boolean a = hasDate(pc,"hb0") || hasDate(pc,"hb1_kurang_7_hari") || hasDate(pc,"hb1_lebih_7_hari");
         viewHolder.hbLogo.setImageResource(a ? R.drawable.ic_yes_large : umur > 0 ? R.drawable.vacc_late : umur == 0 ? R.mipmap.vacc_due : R.drawable.abc_list_divider_mtrl_alpha);
 
-        setIcon(viewHolder.bcgLayout,viewHolder.pol1Logo/*,"bcg_pol_1"*/,"bcg,polio1",umur,1,pc);
-        setIcon(viewHolder.hb1Layout,viewHolder.pol2Logo/*,"dpt_1_pol_2"*/,"dpt_hb1,polio2",umur,2,pc);
-        setIcon(viewHolder.hb2Layout,viewHolder.pol3Logo/*,"dpt_2_pol_3"*/,"dpt_hb2,polio3",umur,3,pc);
-        setIcon(viewHolder.hb3Layout,viewHolder.pol4Logo/*,"dpt_3_pol_4_ipv"*/,"dpt_hb3,polio4",umur,4,pc);
-        setIcon(viewHolder.campakLayout,viewHolder.ipvLogo/*,"imunisasi_campak"*/,"imunisasi_campak",umur,9,pc);
+        setIcon(viewHolder.bcgLayout,viewHolder.pol1Logo,"bcg,polio1",umur,1,pc);
+        setIcon(viewHolder.hb1Layout,viewHolder.pol2Logo,"dpt_hb1,polio2",umur,2,pc);
+        setIcon(viewHolder.hb2Layout,viewHolder.pol3Logo,"dpt_hb2,polio3",umur,3,pc);
+        setIcon(viewHolder.hb3Layout,viewHolder.pol4Logo,"dpt_hb3,polio4",umur,4,pc);
+        setIcon(viewHolder.campakLayout,viewHolder.ipvLogo,"imunisasi_campak",umur,9,pc);
 
         convertView.setLayoutParams(clientViewLayoutParams);
         return convertView;
@@ -229,18 +229,7 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
 
     //  updating icon
     private void setIcon(FrameLayout frame,ImageView image,/* String oldCode,*/ String detailID,int umur, int indicator, CommonPersonObjectClient pc) {
-//        if(hasDate(pc,oldCode)){
-//            image.setImageResource(pc.getDetails().get(oldCode).contains("-")
-//                ? R.drawable.ic_yes_large
-//                : umur > indicator
-//                    ? R.drawable.vacc_late
-//                    : R.drawable.abc_list_divider_mtrl_alpha
-//            );
-//            return;
-//        }
-
         frame.setBackgroundColor(context.getResources().getColor(R.color.abc_background_cache_hint_selector_material_light));
-
         String[]var = detailID.split(",");
         boolean complete = false;
         boolean someComplete = false;
@@ -337,12 +326,6 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterClientsProvi
          public ImageView pol3Logo;
          public ImageView pol4Logo;
          public ImageView ipvLogo;
-         public ImageView hbAlert;
-         public ImageView pol1Alert;
-         public ImageView pol2Alert;
-         public ImageView pol3Alert;
-         public ImageView pol4Alert;
-         public ImageView measlesAlert;
          public FrameLayout hb0Layout;
          public FrameLayout bcgLayout;
          public FrameLayout hb1Layout;
