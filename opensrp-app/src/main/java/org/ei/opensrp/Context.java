@@ -163,11 +163,8 @@ public class Context {
     private HTTPAgent httpAgent;
     private ZiggyFileLoader ziggyFileLoader;
 
-    private UniqueIdRepository uniqueIdRepository;
     private Cache<List<Long>> uIdsCache;
     private AllSettingsINA allSettingsINA;
-    private UniqueIdController uniqueIdController;
-    private UniqueIdService uniqueIdService;
     private FormSubmissionRouter formSubmissionRouter;
     private ECRegistrationHandler ecRegistrationHandler;
     private FPComplicationsHandler fpComplicationsHandler;
@@ -279,24 +276,6 @@ public class Context {
             uIdsCache = new Cache<>();
         }
         return uIdsCache;
-    }
-    public UniqueIdRepository uniqueIdRepository() {
-        if(uniqueIdRepository==null) {
-            uniqueIdRepository = new UniqueIdRepository();
-        }
-        return uniqueIdRepository;
-    }
-    public UniqueIdController uniqueIdController() {
-        if(uniqueIdController == null) {
-            uniqueIdController = new UniqueIdController(uniqueIdRepository(), allSettingsINA(), uIdsCache());
-        }
-        return uniqueIdController;
-    }
-    public UniqueIdService uniqueIdService() {
-        if(uniqueIdService == null) {
-            uniqueIdService = new UniqueIdService(httpAgent(), configuration(), uniqueIdController(), allSettingsINA(), allSharedPreferences());
-        }
-        return uniqueIdService;
     }
 
     public FormSubmissionRouter formSubmissionRouter() {
@@ -510,14 +489,14 @@ public class Context {
         return formSubmissionSyncService;
     }
 
-    protected HTTPAgent httpAgent() {
+    public HTTPAgent httpAgent() {
         if (httpAgent == null) {
             httpAgent = new HTTPAgent(applicationContext, allSettings(), allSharedPreferences(), configuration());
         }
         return httpAgent;
     }
 
-    protected Repository initRepository() {
+    public Repository initRepository() {
         if(configuration().appName().equals(AllConstants.APP_NAME_INDONESIA)) {
             return null;
         }
@@ -535,7 +514,6 @@ public class Context {
             drishtireposotorylist.add(serviceProvidedRepository());
             drishtireposotorylist.add(formsVersionRepository());
             drishtireposotorylist.add(imageRepository());
-            drishtireposotorylist.add(uniqueIdRepository());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
             }
@@ -623,7 +601,7 @@ public class Context {
         return alertRepository;
     }
 
-    protected SettingsRepository settingsRepository() {
+    public SettingsRepository settingsRepository() {
         if (settingsRepository == null) {
             settingsRepository = new SettingsRepository();
         }

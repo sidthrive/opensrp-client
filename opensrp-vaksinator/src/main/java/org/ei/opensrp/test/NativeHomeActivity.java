@@ -152,7 +152,7 @@ public class NativeHomeActivity extends SecuredActivity {
                 context.allBeneficiaries(), context.listCache(),
                 context.personObjectClientsCache(),"nama_bayi","anak","tanggal_lahir", CommonPersonObjectController.ByColumnAndByDetails.byDetails);
 
-        ecRegisterClientCountView.setText(valueOf(hhcontroller.getClients("form_ditutup","true").size()));
+        ecRegisterClientCountView.setText(valueOf(hhcontroller.getClients("form_ditutup", "true").size()));
     }
 
     @Override
@@ -197,8 +197,12 @@ public class NativeHomeActivity extends SecuredActivity {
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
                 this, context.actionService(), context.formSubmissionSyncService(),
                 new SyncProgressIndicator(), context.allFormVersionSyncService());
+
         FlurryFacade.logEvent("click_update_from_server");
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT))
+            LoginActivity.generator.requestUniqueId();
+
     }
 
     @Override

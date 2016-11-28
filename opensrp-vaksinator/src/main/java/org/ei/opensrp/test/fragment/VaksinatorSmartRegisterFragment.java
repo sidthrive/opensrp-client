@@ -197,7 +197,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
     @Override
     public void startRegistration() {
         FlurryFacade.logEvent("click_start_registration_on_vaksinator");
-        String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
+        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
             return;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -85,7 +86,16 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             }
         });
 
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
+            String toastMessage = "need to refill unique id, its only "+
+                    LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
+                    " remaining";
+            Toast.makeText(context.applicationContext(), toastMessage,
+                    Toast.LENGTH_LONG).show();
+        }
         ziggyService = context.ziggyService();
+        String uniqueID = LoginActivity.generator.uniqueIdController().getAllUniqueId().toString();
+        System.out.println("unique id remains on database : "+uniqueID);
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -156,6 +166,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         }
     }
     */
+
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
@@ -193,7 +204,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
             Iterator<String> iter = uniqueId.keys();
@@ -214,9 +225,9 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
     }
     public void saveuniqueid() {
         try {
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            context.uniqueIdController().updateCurrentUniqueId(uniq);
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();
