@@ -365,6 +365,7 @@
     <string name="unknown_response">login failed. Try later</string>
     <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
     <string name="forminputerror">Please check the form for any error/missing input marked in Red box</string>
+    <string name="unique_id_almost_empty">need to refill unique id, its only {0} remaining.</string>
     <string name="okforminputerror">ok</string>
     <string name="year_short">y</string>
     <string name="month_short">m</string>

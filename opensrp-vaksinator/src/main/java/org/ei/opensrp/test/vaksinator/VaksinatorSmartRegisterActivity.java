@@ -28,6 +28,7 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,9 +88,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         });
 
         if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
-            String toastMessage = "need to refill unique id, its only "+
-                    LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
-                    " remaining";
+            String toastMessage = MessageFormat.format(getString(R.string.unique_id_almost_empty),
+                    Integer.toString(LoginActivity.generator.uniqueIdController().countRemainingUniqueId()));
             Toast.makeText(context.applicationContext(), toastMessage,
                     Toast.LENGTH_LONG).show();
         }

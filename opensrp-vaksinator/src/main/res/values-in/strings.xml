@@ -357,10 +357,11 @@
     <string name="anc2form">ANC Visit 2 Form</string>
     <string name="anc1form">ANC Visit 1 Form</string>
     <string name="mcare_ANC_register_title_in_short">ANC Register</string>
-    <string name="unauthorized">Please check the credentials</string>
-    <string name="unknown_response">login failed. Try later</string>
-    <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
+    <string name="unauthorized">ID dan/atau password salah</string>
+    <string name="unknown_response">Login gagal. Coba lagi.</string>
+    <string name="no_internet_connectivity">Tidak ada koneksi internet. Harap periksa koneksi data</string>
     <string name="forminputerror">Please check the form for any error/missing input marked in Red box</string>
+    <string name="unique_id_almost_empty">Unique ID perlu diisi ulang, tersisa {0} lagi.</string>
     <string name="okforminputerror">ok</string>
     <string name="year_short">thn</string>
     <string name="month_short">bln</string>
