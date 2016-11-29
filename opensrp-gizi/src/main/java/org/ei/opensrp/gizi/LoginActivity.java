@@ -273,12 +273,12 @@ public class LoginActivity extends Activity {
         LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
             @Override
             public void setVisible() {
-                progressDialog.show();
+
             }
 
             @Override
             public void setInvisible() {
-                progressDialog.dismiss();
+
             }
         });
 
