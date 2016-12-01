@@ -8,6 +8,7 @@ public class GraphConstant {
         public static final int WFA_CHART = 0;
         public static final int LFA_CHART = 1;
         public static final int HFA_CHART = 2;
+        public static final int Z_SCORE_CHART = 3;
 
     public static final double boyWeightChart[][]={
             {2.1,2.5,2.9,3.3,3.9,4.4,5},
@@ -273,5 +274,15 @@ public class GraphConstant {
             {95.2,99.9,104.7,109.4,114.2,118.9,123.7}
 
     };
+
+    public static double[][] zScoreBackground(){
+            double data[][]=new double[61][7];
+            for(int i=0;i<data.length;i++){
+                for(int j=0;j<data[0].length;j++){
+                        data[i][j]=j-3;
+                }
+            }
+            return data;
+    }
 
 }

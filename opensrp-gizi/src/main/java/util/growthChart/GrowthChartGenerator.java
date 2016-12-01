@@ -32,6 +32,8 @@ public class GrowthChartGenerator {
                 break;
             case GraphConstant.LFA_CHART : initLengthForAgeChart(xValue, yValue);
                 break;
+            case GraphConstant.Z_SCORE_CHART : initzScoreChart(xValue, yValue);
+                break;
         }
     }
 
@@ -62,6 +64,13 @@ public class GrowthChartGenerator {
         buildGraphTemplate();
     }
 
+    public void initzScoreChart(String xValue, String yValue){
+        this.xValue = xValue;
+        this.yValue = yValue;
+        graphLine = GraphConstant.zScoreBackground();
+        buildGraphTemplate();
+    }
+
     private void buildGraphTemplate() {
 
         initStage();
@@ -78,8 +87,6 @@ public class GrowthChartGenerator {
 
         for(int i=0;i<graphLine.length;i++){
             series1.appendData(new DataPoint(i,graphLine[i][0]),false,62);
-
-
             series2.appendData(new DataPoint(i,graphLine[i][1]),false,62);
             series3.appendData(new DataPoint(i,graphLine[i][2]),false,62);
             series4.appendData(new DataPoint(i,graphLine[i][3]),false,62);
@@ -96,7 +103,10 @@ public class GrowthChartGenerator {
         graph.addSeries(series2);
         graph.addSeries(series1);
 
-        createLineChart(graph,dateOfBirth,xValue,yValue);
+        if(xValue.contains("@"))
+            createLineChart(graph,dateOfBirth,xValue.split("@"),yValue.split("@"));
+        else
+            createLineChart(graph,dateOfBirth,xValue,yValue);
 
     }
 
@@ -119,7 +129,7 @@ public class GrowthChartGenerator {
     private LineGraphSeries<DataPoint>createDataSeries(String []age,String []weight){
         LineGraphSeries<DataPoint>series=new LineGraphSeries<>();
         series.setDrawDataPoints(true);
-        series.setDataPointsRadius(7);
+        series.setDataPointsRadius(dataPointRadius);
         if(age[0]!=null)
             series.appendData(new DataPoint(Double.parseDouble(age[0]), Double.parseDouble(weight[0])), false, 70);
         for(int i=0;i<age.length;i++){
@@ -161,6 +171,12 @@ public class GrowthChartGenerator {
             }catch(Exception e){
                 continue;
             }
+        }
+    }
+
+    private void createLineChart(GraphView graph, String dateOfBirth, String[]date, String[]value){
+        for(int i=0;i<date.length;i++){
+            createLineChart(graph,dateOfBirth,date[i],value[i]);
         }
     }
 
@@ -222,7 +238,5 @@ public class GrowthChartGenerator {
     private final int red = Color.rgb(255,0,0);
     private final int yellow = Color.rgb(255,255,0);
     private final int green = Color.rgb(0,255,0);
-
-
-
+    private final int dataPointRadius = 7;
 }

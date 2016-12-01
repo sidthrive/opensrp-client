@@ -103,14 +103,16 @@ public class GiziGrowthChartActivity extends Activity{
     }
 
     private String createSeries(){
-        if(client.getDetails().get("history_tinggi")==null)
+        if(client.getDetails().get("history_tinggi")==null) {
             return "0#0";
-        else if(client.getDetails().get("historyTinggi").length()<10)
+        }
+        else if(client.getDetails().get("history_tinggi").length()<10) {
             return "0#0";
+        }
         String ageSeries="";
         String lengthSeries="";
-        String dateOfBirth = "2016-01-01";
-        String data = client.getDetails().get("historyTinggi");
+        String dateOfBirth = client.getDetails().get("tanggalLahir");
+        String data = client.getDetails().get("history_tinggi");
         String []array = data.substring(4,data.length()).split(",");
         String [][]array2 = new String[array.length][];
         int []age = new int[array.length];
@@ -132,8 +134,10 @@ public class GiziGrowthChartActivity extends Activity{
     private int monthAge(String dateFrom, String dateTo){
         if(dateFrom==null || dateTo==null)
             return 0;
-        else if(dateFrom.length()<6 || dateTo.length()<6)
+        else if(dateFrom.length()<6 || dateTo.equals("") || dateTo.equals(" "))
             return 0;
+        else if(dateTo.length()>0 && dateTo.length()<3)
+            return Integer.parseInt(dateTo);
         return ((Integer.parseInt(dateTo.substring(0,4))-Integer.parseInt(dateFrom.substring(0,4)))*12) +
                 (Integer.parseInt(dateTo.substring(5,7))-Integer.parseInt(dateFrom.substring(5,7)));
     }

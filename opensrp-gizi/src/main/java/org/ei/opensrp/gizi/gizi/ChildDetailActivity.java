@@ -74,7 +74,7 @@ public class ChildDetailActivity extends Activity {
                 Detail.put("start", DetailStart);
                 FlurryAgent.logEvent("gizi_detail_view",Detail, true );
 
-        System.out.println(childclient.getDetails().toString());
+        System.out.println("child details : "+childclient.getDetails().toString());
         final ImageView childview = (ImageView)findViewById(R.id.detail_profilepic);
         //header
         TextView header_name = (TextView) findViewById(R.id.header_name);
