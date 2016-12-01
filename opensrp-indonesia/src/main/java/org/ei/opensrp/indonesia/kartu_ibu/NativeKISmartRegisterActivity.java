@@ -54,6 +54,8 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_CLOSE
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_EDIT;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_PELAYANAN;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGISTER;
+
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
@@ -202,6 +204,14 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
+        if(formName.equals(KARTU_IBU_REGISTRATION)){
+            saveuniqueid();
+        }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     public void saveuniqueid() {

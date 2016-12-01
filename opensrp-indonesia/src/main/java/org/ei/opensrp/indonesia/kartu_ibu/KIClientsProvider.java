@@ -244,7 +244,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
             if (pc.getColumnmaps().get("ibu.type") != null ) {
                // if(pc.getColumnmaps().get("ibu.isClosed") != null) {
-                if(pc.getDetails().get("childId") == null) {
+                if(pc.getDetails().get("htp") != null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
                         viewHolder.anc_status_layout.setText(context.getString(R.string.service_anc));
                         String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
