@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -102,6 +103,13 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
+            String toastMessage =   "need to refill unique id, its only "+
+                                    LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
+                                    " remaining";
+             Toast.makeText(context.applicationContext(), toastMessage,
+             Toast.LENGTH_LONG).show();
+        }
         ziggyService = context.ziggyService();
 
     }
@@ -215,22 +223,22 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void saveuniqueid() {
-               try {
-                       JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
-                       String uniq = uniqueId.getString("unique_id");
-                        context.uniqueIdController().updateCurrentUniqueId(uniq);
+        try {
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+            String uniq = uniqueId.getString("unique_id");
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
-                            } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-           }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void OnLocationSelected(String locationJSONString) {
         JSONObject combined = null;
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
             Iterator<String> iter = uniqueId.keys();
@@ -325,9 +333,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             switchToBaseFragment(null);
         } else if (currentPage == 0) {
             super.onBackPressed(); // allow back key only if we are
-
         }
-
 
        // FlurryAgent.endTimedEvent("kohort_ibu_dashboard");
     }
@@ -357,7 +363,6 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         KI.put("end", KIend);
         FlurryAgent.logEvent("kohort_ibu_dashboard", KI, true);
     }
-
 
     public void retrieveAndSaveUnsubmittedFormData(){
         if (currentActivityIsShowingForm()){

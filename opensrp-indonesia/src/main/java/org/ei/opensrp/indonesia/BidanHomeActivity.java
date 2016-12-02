@@ -116,6 +116,7 @@ public class BidanHomeActivity extends SecuredActivity {
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
 
+        System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
     }
 
     private void setupViews() {
@@ -256,7 +257,13 @@ public class BidanHomeActivity extends SecuredActivity {
         FlurryFacade.logEvent("clicked_update_from_server");
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
                 this, context.actionService(), context.formSubmissionSyncService(), new SyncProgressIndicator(), context.allFormVersionSyncService());
-        updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
+
+//        updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
+            System.out.println("unique id need to be reloaded");
+            LoginActivity.generator.requestUniqueId();
+        }
+
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.sync.UpdateActionsTask;
@@ -24,7 +25,7 @@ public class SyncBidanBroadcastReceiver extends BroadcastReceiver {
                 new SyncProgressIndicator(),
                 org.ei.opensrp.Context.getInstance().allFormVersionSyncService());
 
-        updateActionsTask.setAdditionalSyncService(org.ei.opensrp.Context.getInstance().uniqueIdService());
+//        updateActionsTask.setAdditionalSyncService(LoginActivity.generator.uniqueIdService());
 
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
