@@ -50,7 +50,6 @@ public class ZScoreSystemCalculation {
     }
 
     public double countWFA(boolean isMale,int age,double weight){
-
         coefficient = isMale ? new ReferenceTableForDailyIndex().getBoysWeightForAge(age):
                 new ReferenceTableForDailyIndex().getGirlsWeightForAge(age);
         return this.zScoreCalculation(weight, coefficient);
@@ -61,7 +60,6 @@ public class ZScoreSystemCalculation {
     }
 
     public double countHFA(boolean isMale,int age, double height){
-
         coefficient = isMale ? new ReferenceTableForDailyIndex().getBoysLengthForAge(age):
                 new ReferenceTableForDailyIndex().getGirlsLengthForAge(age);
         return this.zScoreCalculation(height, coefficient);
