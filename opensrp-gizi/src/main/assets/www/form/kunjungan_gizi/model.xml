@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <Kunjungan_Gizi_NewStructure-mapped encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201611150106">
+    <Kunjungan_Gizi_NewStructure-mapped encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201612050724">
       <formhub>
         <uuid/>
       </formhub>
@@ -49,12 +49,18 @@
       <generated_note_name_52/>
       <preload_umur>0</preload_umur>
       <history_umur/>
+      <umur_hari/>
+      <preload_umur_hari>0</preload_umur_hari>
+      <history_umur_hari/>
+      <generated_note_name_58/>
       <berat_preload>0</berat_preload>
       <berat_badan openmrs_entity="concept" openmrs_entity_id="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <history_berat/>
       <tinggi_badan openmrs_entity="concept" openmrs_entity_id="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <preload_history_tinggi>0:0</preload_history_tinggi>
       <history_tinggi/>
+      <preload_tinggi_umur_hari>0:0</preload_tinggi_umur_hari>
+      <history_tinggi_umur_hari/>
       <mp_asi openmrs_entity="concept" openmrs_entity_id="159854AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <ae openmrs_entity="concept" openmrs_entity_id="5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <vitA openmrs_entity="concept" openmrs_entity_id="161534AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
