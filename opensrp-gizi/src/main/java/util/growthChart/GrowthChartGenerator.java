@@ -86,13 +86,13 @@ public class GrowthChartGenerator {
         initSeries(seriesMain, Color.argb(0, 0, 0, 0), Color.BLUE, 3, "weight", true);
 
         for(int i=0;i<graphLine.length;i++){
-            series1.appendData(new DataPoint(i,graphLine[i][0]),false,62);
-            series2.appendData(new DataPoint(i,graphLine[i][1]),false,62);
-            series3.appendData(new DataPoint(i,graphLine[i][2]),false,62);
-            series4.appendData(new DataPoint(i,graphLine[i][3]),false,62);
-            series5.appendData(new DataPoint(i,graphLine[i][4]),false,62);
-            series6.appendData(new DataPoint(i,graphLine[i][5]),false,62);
-            series7.appendData(new DataPoint(i,graphLine[i][6]),false,62);
+            series1.appendData(new DataPoint(i+ageShift,graphLine[i][0]),false,62);
+            series2.appendData(new DataPoint(i+ageShift,graphLine[i][1]),false,62);
+            series3.appendData(new DataPoint(i+ageShift,graphLine[i][2]),false,62);
+            series4.appendData(new DataPoint(i+ageShift,graphLine[i][3]),false,62);
+            series5.appendData(new DataPoint(i+ageShift,graphLine[i][4]),false,62);
+            series6.appendData(new DataPoint(i+ageShift,graphLine[i][5]),false,62);
+            series7.appendData(new DataPoint(i+ageShift,graphLine[i][6]),false,62);
         }
 
         graph.addSeries(series7);
@@ -182,15 +182,12 @@ public class GrowthChartGenerator {
 
     private int[]calculateAgesFrom(String dateOfBirth,String []data){
         int[]result=new int[data.length];
-        System.out.println("data length : "+data.length);
-        System.out.println("data = "+data[0]);
         if(data[0].length()>5) {
             for (int i = 0; i < data.length; i++) {
                 result[i] = getMonthAge(dateOfBirth, data[i]);
             }
         }else{
             for (int i=0;i<data.length;i++){
-                System.out.println("parsing result = "+data[i]);
                 result[i]=Integer.parseInt(data[i]);
             }
         }
@@ -234,6 +231,12 @@ public class GrowthChartGenerator {
     private String yValue;
     private String dateOfBirth;
     private String gender;
+
+    /**
+     * age shift used to shift X-Axis value so the axis value will start from (0 + ageShift) value,
+     * currently used when generating height for age chart.
+     */
+    private int ageShift = 0;
 
     private final int red = Color.rgb(255,0,0);
     private final int yellow = Color.rgb(255,255,0);

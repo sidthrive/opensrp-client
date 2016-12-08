@@ -12,6 +12,7 @@ import com.jjoe64.graphview.GraphView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.gizi.R;
+import org.w3c.dom.Text;
 
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
@@ -37,6 +38,7 @@ public class GiziGrowthChartActivity extends Activity{
         TextView hfaChartLabel = (TextView)findViewById(R.id.hfa_chart_name);
 
         TextView navBarDetails = (TextView)findViewById(R.id.chart_navbar_details);
+        TextView navBarZScore = (TextView)findViewById(R.id.chart_navbar_z_score);
 
         navBarDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +46,16 @@ public class GiziGrowthChartActivity extends Activity{
                 finish();
                 ChildDetailActivity.childclient = client;
                 startActivity(new Intent(GiziGrowthChartActivity.this, ChildDetailActivity.class));
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        navBarZScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                GiziZScoreChartActivity.client = client;
+                startActivity(new Intent(GiziGrowthChartActivity.this, GiziZScoreChartActivity.class));
                 overridePendingTransition(0, 0);
             }
         });

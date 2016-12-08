@@ -138,15 +138,6 @@
         "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/history_tinggi"
       },
       {
-        "name": "history_tinggi",
-        "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/preload_history_tinggi",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "history_tinggi",
-        "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/history_tinggi"
-      },
-      {
         "name": "history_tinggi_umur_hari",
         "bind": "/model/instance/Kunjungan_Gizi_NewStructure-mapped/preload_tinggi_umur_hari",
         "shouldLoadValue": true
