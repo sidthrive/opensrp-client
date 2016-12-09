@@ -33,21 +33,23 @@ public class GiziZScoreChartActivity extends Activity{
         calc = new ZScoreSystemCalculation();
         setContentView(R.layout.gizi_z_score_activity);
 
-        String seriesAxis = "";
-        String [] temp = buildDayAgeArray(client.getDetails().get("history_umur"), client.getDetails().get("history_umur_hari")).split(",");
-        seriesAxis = temp[0].equals("") ? "" : ""+(Integer.parseInt(temp[0])/30);
-        for(int i=1;i<temp.length;i++){
-            seriesAxis = seriesAxis + "," + (Integer.parseInt(temp[i])/30);
-        }
-
-        String seriesData = this.createWFASeries();
-
-        System.out.println("series axis = "+seriesAxis);
-        System.out.println("series data = "+seriesData);
-
+        // configure nav bar option
         detailActivity = (TextView)findViewById(R.id.chart_navbar_details);
         back = (ImageButton)findViewById(R.id.btn_back_to_home);
         lfaActivity = (TextView)findViewById(R.id.chart_navbar_growth_chart);
+        initializeActionNavBar();
+
+        //
+
+        String [] data = initializeZScoreSeries();
+//        String seriesAxis = this.createWFAAxis();
+//        String seriesData = this.createWFASeries();
+        String seriesAxis = data[0];
+        String seriesData = data[1];
+        System.out.println("series axis = "+seriesAxis);
+        System.out.println("series data = "+seriesData);
+
+
 
         zScoreGraph = (GraphView)findViewById(R.id.z_score_chart);
 
@@ -57,16 +59,24 @@ public class GiziZScoreChartActivity extends Activity{
                 seriesAxis,seriesData
         );
 
-        zScoreGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                if (isValueX)
-                    return super.formatLabel(value, isValueX) + " Bulan";
-                else
-                    return super.formatLabel(value, isValueX) + "";
-            }
-        });
 
+    }
+
+    private String[]initializeZScoreSeries(){
+        String axis1 = createWFAAxis();
+        String data1 = createWFASeries();
+
+        String tempAxis2 = createHFAAxis();
+        String axis2 = tempAxis2.split(",").length>0 ? tempAxis2.split(",")[0]:"";
+        for(int i=1;i<tempAxis2.split(",").length;i++){
+            axis2 = axis2 + "," + Integer.toString(Integer.parseInt(tempAxis2.split(",")[i])/30);
+        }
+        String data2 = createHFASeries();
+
+        return new String[]{axis1+"@"+axis2,data1+"@"+data2};
+    }
+
+    public void initializeActionNavBar(){
         detailActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,24 +107,61 @@ public class GiziZScoreChartActivity extends Activity{
         });
     }
 
+    private String createWFAAxis(){
+        String seriesAxis = "";
+        String [] temp = buildDayAgeArray(client.getDetails().get("history_umur"), client.getDetails().get("history_umur_hari")).split(",");
+        seriesAxis = temp[0].equals("") ? "" : ""+(Integer.parseInt(temp[0])/30);
+        for(int i=1;i<temp.length;i++){
+            seriesAxis = seriesAxis + "," + (Integer.parseInt(temp[i])/30);
+        }
+        return seriesAxis;
+    }
+
     private String createWFASeries(){
         String []dayAge = buildDayAgeArray(client.getDetails().get("history_umur"),client.getDetails().get("history_umur_hari")).split(",");
         String []weight = client.getDetails().get("history_berat").split(",");
-//
         boolean isMale = !client.getDetails().get("jenisKelamin").toLowerCase().contains("em");
         String wfa = "";
-//        String hfa = "";
-//        String wfh = "";
-
         int ageLength = dayAge.length;
-
         for(int i=0;i<ageLength;i++){
             if(i>0)
                 wfa = wfa + ",";
             wfa = wfa + calc.countWFA(isMale,Integer.parseInt(dayAge[i]),Double.parseDouble(weight[i+1]));
         }
-
         return wfa;
+    }
+
+    private String createHFAAxis(){
+        String []historyUmur = client.getDetails().get("history_tinggi").split(",");
+        String []historyUmurHari = client.getDetails().get("history_tinggi_umur_hari").split(",");
+
+        String tempUmur = historyUmur.length>1? historyUmur[0].split(":")[0]:"";
+        String tempUmurHari = historyUmurHari.length>1?historyUmurHari[0].split(":")[0]:"";
+
+        for(int i=1;i<historyUmur.length;i++){
+            tempUmur = tempUmur + "," + historyUmur[i].split(":")[0];
+            if(historyUmurHari.length>i)
+                tempUmurHari = tempUmurHari+ ","+historyUmurHari[i].split(":")[0];
+        }
+        return buildDayAgeArray(tempUmur,tempUmurHari);
+    }
+
+    private String createHFASeries(){
+        String []historyUmur = createHFAAxis().split(",");
+        if(historyUmur.length<1 || historyUmur[0].equals(""))
+            return "";
+        String []temp = client.getDetails().get("history_tinggi").split(",");
+        boolean isMale = !client.getDetails().get("jenisKelamin").toLowerCase().contains("em");
+
+
+        String result = "";
+        for(int i=0;i<historyUmur.length;i++){
+            if(i>0)
+                result = result+",";
+            result = result + Double.toString(calc.countHFA(isMale,Integer.parseInt(historyUmur[i]),Double.parseDouble(temp[i+1].split(":")[1])));
+        }
+        System.out.println("hfa result = "+result);
+        return result;
     }
 
     private String buildDayAgeArray(String hu,String huh){
@@ -156,11 +203,12 @@ public class GiziZScoreChartActivity extends Activity{
             }
         }
         if(huh!=null) {
-            result = result.length() > 0 && !huhLength[0].equals("") ? result + "," + huhLength[1] : "";
+            result = result.length() > 0 && !huhLength[0].equals("") && huhLength.length > 1? result + "," + huhLength[1] : "";
             for (int i = 2; i < huhLength.length; i++) {
                 result = result + "," + huhLength[i];
             }
         }
+        System.out.println("result = "+result);
         return result;
     }
 

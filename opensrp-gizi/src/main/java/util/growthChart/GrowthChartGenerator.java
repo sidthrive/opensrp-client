@@ -27,7 +27,7 @@ public class GrowthChartGenerator {
         this.gender = gender;
         switch(graphStyle){
             case GraphConstant.WFA_CHART : initWeightForAgeChart(xValue, yValue);
-                             break;
+                break;
             case GraphConstant.HFA_CHART : initHeightForAgeChart(xValue, yValue);
                 break;
             case GraphConstant.LFA_CHART : initLengthForAgeChart(xValue, yValue);
@@ -51,6 +51,7 @@ public class GrowthChartGenerator {
     }
 
     public void initHeightForAgeChart(String xValue, String yValue){
+        this.ageShift = 24;
         this.xValue = xValue;
         this.yValue = yValue;
         graphLine = gender.toLowerCase().contains("em") ? GraphConstant.girlHeightChart : GraphConstant.boyHeightChart;
@@ -83,7 +84,7 @@ public class GrowthChartGenerator {
         initSeries(series6, Color.argb(128, 0, 255, 0), green, 5);
         initSeries(series7, Color.argb(128, 255, 255, 0), yellow, 5);
 
-        initSeries(seriesMain, Color.argb(0, 0, 0, 0), Color.BLUE, 3, "weight", true);
+//        initSeries(seriesMain, Color.argb(0, 0, 0, 0), Color.BLUE, 3, "weight", true);
 
         for(int i=0;i<graphLine.length;i++){
             series1.appendData(new DataPoint(i+ageShift,graphLine[i][0]),false,62);
@@ -224,7 +225,7 @@ public class GrowthChartGenerator {
     LineGraphSeries<DataPoint> series5 = new LineGraphSeries<DataPoint>();
     LineGraphSeries<DataPoint> series6 = new LineGraphSeries<DataPoint>();
     LineGraphSeries<DataPoint> series7 = new LineGraphSeries<DataPoint>();
-    LineGraphSeries<DataPoint> seriesMain = new LineGraphSeries<DataPoint>();
+//    LineGraphSeries<DataPoint> seriesMain = new LineGraphSeries<DataPoint>();
 
     private double [][]graphLine;
     private String xValue;
