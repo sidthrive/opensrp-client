@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,12 +52,7 @@ public class UniqueIdController {
     }
 
     public List<Long> getAllUniqueId() {
-        return cache.get("UNIQUE_ID_LIST", new CacheableData<List<Long>>() {
-            @Override
-            public List<Long> fetch() {
-                    return uniqueIdRepository.getAllUniqueId();
-                }
-        });
+        return uniqueIdRepository.getAllUniqueId();
     }
 
     public void saveUniqueId(String uniqueId) {
@@ -67,6 +63,18 @@ public class UniqueIdController {
         List<Long> uids = getAllUniqueId();
         int currentId = Integer.parseInt(allSettings.fetchCurrentId());
         return uids==null || uids.isEmpty() || uids.get(uids.size()-15) < currentId;
+    }
+
+    public boolean needToRefillUniqueId(int limit) {
+        List<Long> uids = getAllUniqueId();
+        int currentId = Integer.parseInt(allSettings.fetchCurrentId());
+        return uids==null || uids.isEmpty() || uids.get(uids.size()-(limit+1) < 0 ? 0 : uids.size()-(limit+1)) <= currentId;
+    }
+
+    public int countRemainingUniqueId(){
+        List<Long> uids = getAllUniqueId();
+        int currentId = Integer.parseInt(allSettings.fetchCurrentId());
+        return uids.size()- Collections.binarySearch(uids,new Long(currentId));
     }
 
     // Class for testing

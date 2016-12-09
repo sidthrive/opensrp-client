@@ -11,7 +11,6 @@ import android.widget.Toast;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.commonregistry.CommonObjectSort;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.gizi.LoginActivity;
@@ -52,7 +51,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import util.AsyncTask;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -69,6 +67,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterFragmen
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
+
 
     @Override
     protected void onCreation() {
@@ -223,7 +222,8 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterFragmen
             ft.remove(prev);
         }
         FlurryFacade.logEvent("click_start_registration_on_gizi");
-        String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
+        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
+
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
             return;

@@ -73,11 +73,9 @@ public class UniqueIdService implements AdditionalSyncService {
     }
 
     public Response<String> pullUniqueIdFromServer(String username, String password) {
-        String baseURL = configuration.dristhiBaseURL();
+//        String baseURL = configuration.dristhiBaseURL();
         while (true) {
-            String uri = format("{0}/{1}",
-                            baseURL,
-                            UNIQUE_ID_PATH);
+            String uri = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(3)+"&username="+username+"&password="+password;
             Response<String> response = httpAgent.fetchWithCredentials(uri, username, password);
             if (response.isFailure()) {
                     logError(format("Unique id pull failed"));
@@ -104,16 +102,15 @@ public class UniqueIdService implements AdditionalSyncService {
                 }
             logDebug(format("Unique id fetched"));
 
-                    try {
-                    JSONObject jsonObject = new JSONObject(response.payload());
-                    String lastUsedId = jsonObject.getString("lastUsedId");
-                    allSettings.saveLastUsedId(lastUsedId);
-                    allSettings.saveCurrentId(lastUsedId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                    return ResponseStatus.success;
+            try {
+                JSONObject jsonObject = new JSONObject(response.payload());
+                String lastUsedId = jsonObject.getString("lastUsedId");
+                allSettings.saveLastUsedId(lastUsedId);
+                allSettings.saveCurrentId(lastUsedId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return ResponseStatus.success;
         }
     }
 
@@ -153,6 +150,7 @@ public class UniqueIdService implements AdditionalSyncService {
                                     baseURL,
                                     UNIQUE_ID_PATH);
                     Response<String> refillResponse = httpAgent.fetch(uri);
+                    System.out.println(refillResponse.toString());
                     if (refillResponse.isFailure()) {
                             logError(format("Unique id pull failed"));
                             return fetchedFailed;
@@ -165,14 +163,25 @@ public class UniqueIdService implements AdditionalSyncService {
 
         }
 
+//    public void refillUniqueId(String username, String password){
+//        this.syncUniqueIdFromServer(username,password);
+//    }
+//
+//    public boolean uniqueIdReachLimit(int limit){
+//        return uniqueIdController.needToRefillUniqueId();
+//    }
+
     public void saveJsonResponseToUniqueId(String payload) {
         if (payload != null) {
             try {
                     JSONObject ids = new JSONObject(payload);
-                    JSONArray uniqueId = ids.getJSONArray("ids");
+                    JSONArray uniqueId = ids.getJSONArray("identifiers");
                     for (int i = 0; i < uniqueId.length(); i++) {
-                            uniqueIdController.saveUniqueId(uniqueId.getString(i));
+                        System.out.println("unique id "+i+", : "+uniqueId.getString(i));
                         }
+                    for (int i = 0; i < uniqueId.length(); i++) {
+                        uniqueIdController.saveUniqueId(uniqueId.getString(i));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

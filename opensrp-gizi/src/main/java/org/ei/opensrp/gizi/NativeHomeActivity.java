@@ -1,5 +1,6 @@
 package org.ei.opensrp.gizi;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import com.flurry.android.FlurryAgent;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
+import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.event.Listener;
 
 import org.ei.opensrp.gizi.gizi.FlurryFacade;
@@ -39,6 +41,7 @@ import static org.ei.opensrp.event.Event.SYNC_COMPLETED;
 import static org.ei.opensrp.event.Event.SYNC_STARTED;
 
 public class NativeHomeActivity extends SecuredActivity {
+
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private MenuItem updateMenuItem;
     private MenuItem remainingFormsToSyncMenuItem;
@@ -97,8 +100,6 @@ public class NativeHomeActivity extends SecuredActivity {
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
         context.formSubmissionRouter().getHandlerMap().put("kunjungan_gizi", new KmsHandler());
-
-
     }
 
     private void setupViews() {
@@ -150,7 +151,7 @@ public class NativeHomeActivity extends SecuredActivity {
         CommonPersonObjectController childcontroller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("anak"),
                 context.allBeneficiaries(), context.listCache(),
                 context.personObjectClientsCache(),"namaBayi","anak","jenisKelamin", CommonPersonObjectController.ByColumnAndByDetails.byDetails);
-        ecRegisterClientCountView.setText(valueOf(childcontroller.getClients("form_ditutup","yes").size()));
+        ecRegisterClientCountView.setText(valueOf(childcontroller.getClients("form_ditutup", "yes").size()));
 
     }
 
@@ -199,13 +200,22 @@ public class NativeHomeActivity extends SecuredActivity {
                 new SyncProgressIndicator(), context.allFormVersionSyncService());
     //    updateActionsTask.updateFromServer(new SyncAfterFetchListener());
         String locationAnmids=context.allSharedPreferences().getPreference(AllConstants.LoginResponse.LOCATION_ANMIDS);
-        
-                        locationAnmids = locationAnmids.replaceAll("\\[", "").replaceAll("\\]", "");
-                locationAnmids=locationAnmids.replaceAll("\",\"", "-").replaceAll("\"", "");
-        
-                        final Map<String, String> syncParams= new HashMap<String, String>();
-                syncParams.put(AllConstants.LoginResponse.LOCATION_ANMIDS,locationAnmids);
-                updateActionsTask.updateFromServer(new SyncAfterFetchListener(),syncParams);
+        locationAnmids = locationAnmids.replaceAll("\\[", "").replaceAll("\\]", "");
+        locationAnmids=locationAnmids.replaceAll("\",\"", "-").replaceAll("\"", "");
+
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
+            LoginActivity.generator.requestUniqueId();
+//            if(response.isFailure())
+//                Toast.makeText(context.applicationContext(),"failed to refill unique id",LENGTH_SHORT).show();
+//            else{
+//                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(response.payload());
+//                Toast.makeText(context.applicationContext(),"Unique ID has been refilled",LENGTH_SHORT).show();
+//            }
+        }
+
+        final Map<String, String> syncParams= new HashMap<String, String>();
+        syncParams.put(AllConstants.LoginResponse.LOCATION_ANMIDS,locationAnmids);
+        updateActionsTask.updateFromServer(new SyncAfterFetchListener(),syncParams);
     }
 
     @Override

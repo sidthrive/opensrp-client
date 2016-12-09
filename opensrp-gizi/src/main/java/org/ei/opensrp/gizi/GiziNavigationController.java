@@ -23,6 +23,7 @@ public class GiziNavigationController extends org.ei.opensrp.view.controller.Nav
         this.activity = activity;
         this.anmController = anmController;
     }
+
     @Override
     public void startECSmartRegistry() {
       //  activity.startActivity(new Intent(activity, TestSmartRegisterActivity.class));
@@ -46,7 +47,7 @@ public class GiziNavigationController extends org.ei.opensrp.view.controller.Nav
 
     @Override
     public void startChildSmartRegistry() {
-         activity.startActivity(new Intent(activity, GiziSmartRegisterActivity.class));
+        activity.startActivity(new Intent(activity, GiziSmartRegisterActivity.class));
     }
 
     @Override

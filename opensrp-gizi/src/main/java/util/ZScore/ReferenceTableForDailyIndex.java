@@ -13616,7 +13616,6 @@ public class ReferenceTableForDailyIndex {
         return data[index < data.length ? index : data.length];
     }
 
-
 //    public String[]WeightAgeStandardIndex = {context.getResources().getString(R.string.Underweight),
 // context.getResources().getString(R.string.Underweight),context.getResources().getString(R.string.good_nutrition),context.getResources().getString(R.string.overweight)};
     public String[]WeightAgeStandardIndex = {"Severely Underweight","Underweight","Normal","Overweight"};

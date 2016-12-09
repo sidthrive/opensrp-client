@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -50,7 +51,6 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         LocationSelectorDialogFragment.OnLocationSelectedListener{
 
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
-
     public static final String TAG = "GiziActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -91,7 +91,17 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
         });
 
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
+            String toastMessage = "need to refill unique id, its only "+
+                    LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
+                    " remaining";
+            Toast.makeText(context.applicationContext(), toastMessage,
+                    Toast.LENGTH_LONG).show();
+        }
         ziggyService = context.ziggyService();
+
+        String uniqueID = LoginActivity.generator.uniqueIdController().getAllUniqueId().toString();
+        System.out.println("unique id remains on database : "+uniqueID);
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -128,10 +138,6 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 new OpenFormOption(context.getStringResource(R.string.form_name_visit), "kunjungan_gizi", formController),
                 new OpenFormOption(context.getStringResource(R.string.form_name_edit_registration), "edit_registrasi_gizi", formController),
                 new OpenFormOption("Close Form","close_form",formController)
-
-
-
-
             };
 
 
@@ -180,13 +186,13 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             e.printStackTrace();
         }
         if(formName.equals("registrasi_gizi")) {
-            saveuniqueid();
+            saveUniqueId();
         }
         //end capture flurry log for FS
-                        String end = timer.format(new Date());
-                        Map<String, String> FS = new HashMap<String, String>();
-                        FS.put("end", end);
-                        FlurryAgent.logEvent(formName,FS, true);
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
 
     }
 
@@ -196,7 +202,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
             Iterator<String> iter = uniqueId.keys();
@@ -216,11 +222,11 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         }
     }
 
-    public void saveuniqueid() {
+    public void saveUniqueId() {
         try {
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            context.uniqueIdController().updateCurrentUniqueId(uniq);
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();
