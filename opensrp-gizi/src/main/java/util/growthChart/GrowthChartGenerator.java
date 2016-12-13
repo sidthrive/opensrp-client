@@ -110,15 +110,15 @@ public class GrowthChartGenerator {
             createLineChart(graph,dateOfBirth,xValue,yValue);
 
     }
-
-    private void initSeries(LineGraphSeries<DataPoint> series, int backGround, int color, int thick,String title, boolean putStroke){
-        series.setTitle(title);
-        this.initSeries(series, backGround, color, thick);
-        if(putStroke){
-            series.setDrawDataPoints(true);
-            series.setDataPointsRadius(5);
-        }
-    }
+//
+//    private void initSeries(LineGraphSeries<DataPoint> series, int backGround, int color, int thick,String title, boolean putStroke){
+//        series.setTitle(title);
+//        this.initSeries(series, backGround, color, thick);
+//        if(putStroke){
+//            series.setDrawDataPoints(true);
+//            series.setDataPointsRadius(5);
+//        }
+//    }
 
     private void initSeries(LineGraphSeries<DataPoint> series, int backGround, int color, int thick){
         series.setDrawBackground(true);
@@ -131,6 +131,7 @@ public class GrowthChartGenerator {
         LineGraphSeries<DataPoint>series=new LineGraphSeries<>();
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(dataPointRadius);
+        series.setColor(zScoreChartColor[colorIndex]);
         if(age[0]!=null)
             series.appendData(new DataPoint(Double.parseDouble(age[0]), Double.parseDouble(weight[0])), false, 70);
         for(int i=0;i<age.length;i++){
@@ -177,9 +178,10 @@ public class GrowthChartGenerator {
 
     private void createLineChart(GraphView graph, String dateOfBirth, String[]date, String[]value){
         for(int i=0;i<date.length;i++){
-            System.out.println("Z Score line chart : "+i);
-            System.out.println("date "+i+" : "+date[i]);
-            System.out.println("value "+i+" : "+value[i]);
+            colorIndex=i;
+//            System.out.println("Z Score line chart : "+i);
+//            System.out.println("date "+i+" : "+date[i]);
+//            System.out.println("value "+i+" : "+value[i]);
             createLineChart(graph, dateOfBirth, date[i], value[i]);
         }
     }
@@ -241,9 +243,14 @@ public class GrowthChartGenerator {
      * currently used when generating height for age chart.
      */
     private int ageShift = 0;
+    private int colorIndex = 0;
 
     private final int red = Color.rgb(255,0,0);
     private final int yellow = Color.rgb(255,255,0);
     private final int green = Color.rgb(0,255,0);
+    private final int blue = Color.rgb(0,32,255);
+    private final int purple = Color.rgb(239,0,255);
+    private final int orange = Color.rgb(255,111,0);
+    private final int []zScoreChartColor = {blue,purple,orange};
     private final int dataPointRadius = 7;
 }
