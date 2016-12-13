@@ -177,7 +177,10 @@ public class GrowthChartGenerator {
 
     private void createLineChart(GraphView graph, String dateOfBirth, String[]date, String[]value){
         for(int i=0;i<date.length;i++){
-            createLineChart(graph,dateOfBirth,date[i],value[i]);
+            System.out.println("Z Score line chart : "+i);
+            System.out.println("date "+i+" : "+date[i]);
+            System.out.println("value "+i+" : "+value[i]);
+            createLineChart(graph, dateOfBirth, date[i], value[i]);
         }
     }
 
