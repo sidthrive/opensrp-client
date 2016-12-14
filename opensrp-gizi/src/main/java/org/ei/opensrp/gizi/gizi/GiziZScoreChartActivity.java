@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,51 +33,72 @@ public class GiziZScoreChartActivity extends Activity{
         calc = new ZScoreSystemCalculation();
         setContentView(R.layout.gizi_z_score_activity);
 
+        // Initializing layout component
         // configure nav bar option
         detailActivity = (TextView)findViewById(R.id.chart_navbar_details);
         back = (ImageButton)findViewById(R.id.btn_back_to_home);
         lfaActivity = (TextView)findViewById(R.id.chart_navbar_growth_chart);
+        wfaCheckBox = (CheckBox)findViewById(R.id.wfaCheckBox);
+        hfaCheckBox = (CheckBox)findViewById(R.id.hfaCheckBox);
+        wfhCheckBox = (CheckBox)findViewById(R.id.wflCheckBox);
+        zScoreGraph = (GraphView)findViewById(R.id.z_score_chart);
+        initializeActionCheckBox();
         initializeActionNavBar();
+        refreshGraph();
+    }
 
-        //
-
+    private void refreshGraph(){
         String [] data = initializeZScoreSeries();
-//        String seriesAxis = this.createWFAAxis();
-//        String seriesData = this.createWFASeries();
         String seriesAxis = data[0];
         String seriesData = data[1];
-        System.out.println("series axis = "+seriesAxis);
-        System.out.println("series data = "+seriesData);
 
-
-
-        zScoreGraph = (GraphView)findViewById(R.id.z_score_chart);
-
-        new GrowthChartGenerator(zScoreGraph, GraphConstant.Z_SCORE_CHART,
+        generator = new GrowthChartGenerator(zScoreGraph, GraphConstant.Z_SCORE_CHART,
                 client.getDetails().get("tanggalLahir"),
                 client.getDetails().get("jenisKelamin"),
                 seriesAxis,seriesData
         );
-
-
     }
 
-    private String[]initializeZScoreSeries(){
-        String axis1 = createWFAAxis();
-        String data1 = createWFASeries();
-        String axis2="",data2="";
+    private void initializeActionCheckBox(){
+        wfaCheckBox.setChecked(true);
+        hfaCheckBox.setChecked(true);
+        wfhCheckBox.setChecked(true);
 
-        String tempAxis2 = createHFAAxis();
-        if(!tempAxis2.equals("")) {
-            axis2 = tempAxis2.split(",").length > 0 ? Integer.toString(Integer.parseInt(tempAxis2.split(",")[0]) / 30) : "";
-            for (int i = 1; i < tempAxis2.split(",").length; i++) {
-                axis2 = axis2 + "," + Integer.toString(Integer.parseInt(tempAxis2.split(",")[i]) / 30);
-            }
-            data2 = createHFASeries();
-        }
-        String axis3 = createWFHAxis();
-        String data3 = createWFHSeries();
-        return new String[]{axis1+"@"+axis2+"@"+axis3,data1+"@"+data2+"@"+data3};
+        wfaCheckBox.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked)
+                            generator.putSeriesOfIndex(0);
+                        else
+                            generator.removeSeriesOfIndex(0);
+
+//                        refreshGraph();
+                    }
+                }
+        );
+        hfaCheckBox.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked)
+                            generator.putSeriesOfIndex(1);
+                        else
+                            generator.removeSeriesOfIndex(1);
+                    }
+                }
+        );
+        wfhCheckBox.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked)
+                            generator.putSeriesOfIndex(2);
+                        else
+                            generator.removeSeriesOfIndex(2);
+                    }
+                }
+        );
     }
 
     public void initializeActionNavBar(){
@@ -109,6 +132,28 @@ public class GiziZScoreChartActivity extends Activity{
         });
     }
 
+    private String[]initializeZScoreSeries(){
+        String axis1 = wfaChecked ? createWFAAxis():"";
+        String data1 = wfaChecked ? createWFASeries():"";
+        String axis2="",data2="";
+
+        if(hfaChecked) {
+            String tempAxis2 = createHFAAxis();
+            if (!tempAxis2.equals("")) {
+                axis2 = tempAxis2.split(",").length > 0 ? Integer.toString(Integer.parseInt(tempAxis2.split(",")[0]) / 30) : "";
+                for (int i = 1; i < tempAxis2.split(",").length; i++) {
+                    axis2 = axis2 + "," + Integer.toString(Integer.parseInt(tempAxis2.split(",")[i]) / 30);
+                }
+                data2 = createHFASeries();
+            }
+        }
+
+        String axis3 = wfhChecked ? createWFHAxis() : "";
+        String data3 = wfhChecked ? createWFHSeries() : "";
+        return new String[]{axis1+"@"+axis2+"@"+axis3,data1+"@"+data2+"@"+data3};
+    }
+
+    //CREATING AXIS AND SERIES DATA
     private String createWFAAxis(){
         String seriesAxis = "";
         String [] temp = buildDayAgeArray(client.getDetails().get("history_umur"), client.getDetails().get("history_umur_hari")).split(",");
@@ -262,42 +307,51 @@ public class GiziZScoreChartActivity extends Activity{
         return result;
     }
 
-    private String [] splitHeightHistory(String htu, String htuh){
-        String [] historyNew = htu.split(",");
-        String [] historyOld = htuh.split(",");
-        String tempOldHistory = "";
-        tempOldHistory = historyOld.length > 1 ? historyOld[1].split(":")[0]:"";
-        for(int i=2;i<historyOld.length;i++){
-            tempOldHistory = tempOldHistory + "," + historyOld[i].split(":")[0];
-        }
-
-        String tempNewHistory = historyNew.length > 1 ? historyNew[1].split(":")[0]:"";
-        for(int i=2;i<historyNew.length;i++){
-            tempNewHistory = tempNewHistory + "," + historyNew[i].split(":")[0];
-        }
-//        tempOldHistory = tempOldHistory +
-//                (!tempOldHistory.equals("") && historyNew.length>1
-//                    ? "," + historyNew[1].split(":")[0]
-//                    : historyNew.length>1
-//                        ? historyNew[1].split(":")[0]
-//                        : ""
-//                );
-//        for(int i=2;i<historyNew.length;i++){
-//            tempOldHistory = tempOldHistory + "," + historyNew[i].split(":")[0];
+//    private String [] splitHeightHistory(String htu, String htuh){
+//        String [] historyNew = htu.split(",");
+//        String [] historyOld = htuh.split(",");
+//        String tempOldHistory = "";
+//        tempOldHistory = historyOld.length > 1 ? historyOld[1].split(":")[0]:"";
+//        for(int i=2;i<historyOld.length;i++){
+//            tempOldHistory = tempOldHistory + "," + historyOld[i].split(":")[0];
 //        }
+//
+//        String tempNewHistory = historyNew.length > 1 ? historyNew[1].split(":")[0]:"";
+//        for(int i=2;i<historyNew.length;i++){
+//            tempNewHistory = tempNewHistory + "," + historyNew[i].split(":")[0];
+//        }
+////        tempOldHistory = tempOldHistory +
+////                (!tempOldHistory.equals("") && historyNew.length>1
+////                    ? "," + historyNew[1].split(":")[0]
+////                    : historyNew.length>1
+////                        ? historyNew[1].split(":")[0]
+////                        : ""
+////                );
+////        for(int i=2;i<historyNew.length;i++){
+////            tempOldHistory = tempOldHistory + "," + historyNew[i].split(":")[0];
+////        }
+//
+//        String tempHeight = "";
+//        for(int i=1;i<historyOld.length;i++){
+//            tempHeight = tempHeight + "," + historyOld[i].split(":")[1];
+//        }
+//
+//        return new String[]{buildDayAgeArray(tempOldHistory,tempNewHistory),tempHeight};
+//    }
 
-        String tempHeight = "";
-        for(int i=1;i<historyOld.length;i++){
-            tempHeight = tempHeight + "," + historyOld[i].split(":")[1];
-        }
-
-        return new String[]{buildDayAgeArray(tempOldHistory,tempNewHistory),tempHeight};
-    }
+    GrowthChartGenerator generator;
 
     private TextView detailActivity;
     private ImageButton back;
     private TextView lfaActivity;
 
+    private boolean wfaChecked=true;
+    private boolean hfaChecked=true;
+    private boolean wfhChecked=true;
+
     private GraphView zScoreGraph;
+    private CheckBox wfaCheckBox;
+    private CheckBox hfaCheckBox;
+    private CheckBox wfhCheckBox;
 
 }

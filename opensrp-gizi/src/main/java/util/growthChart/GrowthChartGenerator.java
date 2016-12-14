@@ -17,6 +17,7 @@ public class GrowthChartGenerator {
         this.yValue = yValue;
         this.dateOfBirth=dateOfBirth;
         this.gender = gender;
+        a = new LineGraphSeries[3][];
         graphLine = this.gender.toLowerCase().contains("em") ? GraphConstant.girlWeightChart : GraphConstant.boyWeightChart;
         buildGraphTemplate();
     }
@@ -25,6 +26,7 @@ public class GrowthChartGenerator {
         this.graph = graph;
         this.dateOfBirth=dateOfBirth;
         this.gender = gender;
+        a = new LineGraphSeries[3][];
         switch(graphStyle){
             case GraphConstant.WFA_CHART : initWeightForAgeChart(xValue, yValue);
                 break;
@@ -131,7 +133,7 @@ public class GrowthChartGenerator {
         LineGraphSeries<DataPoint>series=new LineGraphSeries<>();
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(dataPointRadius);
-        series.setColor(zScoreChartColor[colorIndex]);
+        series.setColor(zScoreChartColor[index]);
         if(age[0]!=null)
             series.appendData(new DataPoint(Double.parseDouble(age[0]), Double.parseDouble(weight[0])), false, 70);
         for(int i=0;i<age.length;i++){
@@ -165,11 +167,13 @@ public class GrowthChartGenerator {
                 axis[counter]=axis[counter]+","+Integer.toString(dateInt[i]);
             }
         }
+        a[index] = new LineGraphSeries[series.length];
         for(int i=0;i<series.length;i++){
             if(series[i]==null)
                 continue;
             try {
-                graph.addSeries(createDataSeries(axis[i].split(","), series[i].split(",")));
+                a[index][i] = createDataSeries(axis[i].split(","), series[i].split(","));
+                graph.addSeries(a[index][i]);
             }catch(Exception e){
                 continue;
             }
@@ -178,7 +182,7 @@ public class GrowthChartGenerator {
 
     private void createLineChart(GraphView graph, String dateOfBirth, String[]date, String[]value){
         for(int i=0;i<date.length;i++){
-            colorIndex=i;
+            index=i;
 //            System.out.println("Z Score line chart : "+i);
 //            System.out.println("date "+i+" : "+date[i]);
 //            System.out.println("value "+i+" : "+value[i]);
@@ -222,6 +226,26 @@ public class GrowthChartGenerator {
         return counter+1;
     }
 
+    public void putSeriesOfIndex(int idx){
+        index = idx;
+        if(!chartDisplay[index]){
+            for(int i=0;i<a[index].length;i++){
+                graph.addSeries(a[index][i]);
+            }
+            chartDisplay[index]=true;
+        }
+    }
+
+    public void removeSeriesOfIndex(int idx){
+        index=idx;
+        if(chartDisplay[index]){
+            for(int i=0;i<a[index].length;i++) {
+                graph.removeSeries(a[index][i]);
+            }
+            chartDisplay[index]=false;
+        }
+    }
+
     GraphView graph;
     LineGraphSeries<DataPoint> series1 = new LineGraphSeries<DataPoint>();
     LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>();
@@ -237,13 +261,15 @@ public class GrowthChartGenerator {
     private String yValue;
     private String dateOfBirth;
     private String gender;
+    LineGraphSeries [][]a;
 
     /**
      * age shift used to shift X-Axis value so the axis value will start from (0 + ageShift) value,
      * currently used when generating height for age chart.
      */
     private int ageShift = 0;
-    private int colorIndex = 0;
+    private int index = 0;
+    private boolean[]chartDisplay = {true,true,true};
 
     private final int red = Color.rgb(255,0,0);
     private final int yellow = Color.rgb(255,255,0);
