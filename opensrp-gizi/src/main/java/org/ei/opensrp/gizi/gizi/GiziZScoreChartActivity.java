@@ -184,7 +184,9 @@ public class GiziZScoreChartActivity extends Activity{
         if (client.getDetails().get("history_tinggi")==null)
             return "";
         String []historyUmur = client.getDetails().get("history_tinggi").split(",");
-        String []historyUmurHari = client.getDetails().get("history_tinggi_umur_hari").split(",");
+        String []historyUmurHari = client.getDetails().get("history_tinggi_umur_hari")!=null
+                ? client.getDetails().get("history_tinggi_umur_hari").split(",")
+                : new String[]{""};
 
         String tempUmur = historyUmur.length>1? historyUmur[0].split(":")[0]:"";
         String tempUmurHari = historyUmurHari.length>1?historyUmurHari[0].split(":")[0]:"";
@@ -279,8 +281,8 @@ public class GiziZScoreChartActivity extends Activity{
             }
 
             // step 3.  fix the duplicate value on series
-            if (age[0] == age[1])
-                age[1]++;
+            if (age.length>1)
+                age[1]= age[0] == age[1] ? age[1]++ : age[1];
             for (int i = 2; i < age.length - 1; i++) {
                 if (age[i - 1] == age[i]) {
                     if (age[i - 1] - age[i - 2] == 2)

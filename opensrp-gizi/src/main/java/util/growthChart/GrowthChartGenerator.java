@@ -228,7 +228,7 @@ public class GrowthChartGenerator {
 
     public void putSeriesOfIndex(int idx){
         index = idx;
-        if(!chartDisplay[index]){
+        if(!chartDisplay[index] && a[index]!=null){
             for(int i=0;i<a[index].length;i++){
                 graph.addSeries(a[index][i]);
             }
@@ -238,7 +238,7 @@ public class GrowthChartGenerator {
 
     public void removeSeriesOfIndex(int idx){
         index=idx;
-        if(chartDisplay[index]){
+        if(chartDisplay[index] && a[index]!=null){
             for(int i=0;i<a[index].length;i++) {
                 graph.removeSeries(a[index][i]);
             }
