@@ -33,6 +33,9 @@ public class GiziZScoreChartActivity extends Activity{
         calc = new ZScoreSystemCalculation();
         setContentView(R.layout.gizi_z_score_activity);
 
+        // initializing global variable
+        initializeGlobalVariable();
+
         // Initializing layout component
         // configure nav bar option
         detailActivity = (TextView)findViewById(R.id.chart_navbar_details);
@@ -57,6 +60,15 @@ public class GiziZScoreChartActivity extends Activity{
                 client.getDetails().get("jenisKelamin"),
                 seriesAxis,seriesData
         );
+    }
+
+    private void initializeGlobalVariable(){
+        historyUmur = client.getDetails().get("history_umur");
+        historyUmurHari = client.getDetails().get("history_umur_tinggi");
+        historyBerat = client.getDetails().get("history_berat");
+        historyTinggi = cleanBlankValueOf(client.getDetails().get("history_tinggi"));
+        historyTinggiUmurHari = cleanBlankValueOf(client.getDetails().get("history_tinggi_umur_hari"));
+
     }
 
     private void initializeActionCheckBox(){
@@ -156,7 +168,7 @@ public class GiziZScoreChartActivity extends Activity{
     //CREATING AXIS AND SERIES DATA
     private String createWFAAxis(){
         String seriesAxis = "";
-        String [] temp = buildDayAgeArray(client.getDetails().get("history_umur"), client.getDetails().get("history_umur_hari")).split(",");
+        String [] temp = buildDayAgeArray(historyUmur, historyUmurHari).split(",");
         seriesAxis = temp[0].equals("") ? "" : ""+(Integer.parseInt(temp[0])/30);
         for(int i=1;i<temp.length;i++){
             seriesAxis = seriesAxis + "," + (Integer.parseInt(temp[i])/30);
@@ -165,10 +177,10 @@ public class GiziZScoreChartActivity extends Activity{
     }
 
     private String createWFASeries(){
-        if(client.getDetails().get("history_berat")==null)
+        if(historyBerat==null)
             return "";
-        String []dayAge = buildDayAgeArray(client.getDetails().get("history_umur"),client.getDetails().get("history_umur_hari")).split(",");
-        String[] weight = client.getDetails().get("history_berat").split(",");
+        String []dayAge = buildDayAgeArray(historyUmur,historyUmurHari).split(",");
+        String[] weight = historyBerat.split(",");
         boolean isMale = !client.getDetails().get("jenisKelamin").toLowerCase().contains("em");
         String wfa = "";
         int ageLength = dayAge.length;
@@ -181,11 +193,11 @@ public class GiziZScoreChartActivity extends Activity{
     }
 
     private String createHFAAxis(){
-        if (client.getDetails().get("history_tinggi")==null)
+        if (historyTinggi==null)
             return "";
-        String []historyUmur = client.getDetails().get("history_tinggi").split(",");
-        String []historyUmurHari = client.getDetails().get("history_tinggi_umur_hari")!=null
-                ? client.getDetails().get("history_tinggi_umur_hari").split(",")
+        String []historyUmur = historyTinggi.split(",");
+        String []historyUmurHari = historyTinggiUmurHari!=null
+                ? historyTinggiUmurHari.split(",")
                 : new String[]{""};
 
         String tempUmur = historyUmur.length>1? historyUmur[0].split(":")[0]:"";
@@ -203,7 +215,7 @@ public class GiziZScoreChartActivity extends Activity{
         String []historyUmur = createHFAAxis().split(",");
         if(historyUmur.length<1 || historyUmur[0].equals(""))
             return "";
-        String []temp = client.getDetails().get("history_tinggi").split(",");
+        String []temp = historyTinggi.split(",");
         boolean isMale = !client.getDetails().get("jenisKelamin").toLowerCase().contains("em");
 
 
@@ -232,11 +244,11 @@ public class GiziZScoreChartActivity extends Activity{
     private String createWFHSeries(){
         String result = "";
         String uT = createWFHAxis();
-        String u = client.getDetails().get("history_umur");
+        String u = historyUmur;
         System.out.println("u = "+u);
-        String b = client.getDetails().get("history_berat");
+        String b = historyBerat;
         System.out.println("b = "+b);
-        String t= client.getDetails().get("history_tinggi");
+        String t= historyTinggi;
         System.out.println("t = "+t);
         if(u==null || uT.equals("") || t==null)
             return "";
@@ -250,14 +262,16 @@ public class GiziZScoreChartActivity extends Activity{
         for(int i=0;i<umurTinggi.length;i++){
             for(;j<umur.length;j++){
                 if(umurTinggi[i].equals(umur[j])) {
+                    System.out.println("berat = "+berat[j]);
+                    System.out.println("tinggi = "+ tinggi[i].split(":")[1]);
                     result = result + "," + Double.toString(Integer.parseInt(umurTinggi[i])<24
-                            ? calc.countWFL(isMale,Double.parseDouble(berat[j]),Double.parseDouble(tinggi[i].split(":")[1]))
-                            : calc.countWFH(isMale, Double.parseDouble(berat[j]), Double.parseDouble(tinggi[i].split(":")[1])));
+                            ? calc.countWFL(isMale,Double.parseDouble(berat[j]),Double.parseDouble(tinggi[i+1].split(":")[1]))
+                            : calc.countWFH(isMale, Double.parseDouble(berat[j]), Double.parseDouble(tinggi[i+1].split(":")[1])));
                     break;
                 }
             }
         }
-
+        System.out.println("z-score = "+result);
         return result.length()>1 ? result.substring(1,result.length()):"";
     }
 
@@ -273,7 +287,7 @@ public class GiziZScoreChartActivity extends Activity{
         if(huhLength.length<huLength.length) {
             // step 1.  initializing sum of data that recorded before the history_umur_hari.
             int[] age = new int[(huLength.length)-huhLength.length];
-//            String[] temp = client.getDetails().get("history_umur").split(",");
+//            String[] temp = historyUmur.split(",");
 
             // step 2.  copying month age data
             for (int i = 0; i < age.length; i++) {
@@ -300,13 +314,33 @@ public class GiziZScoreChartActivity extends Activity{
             }
         }
         if(huh!=null) {
-            result = result.length() > 0 && !huhLength[0].equals("") && huhLength.length > 1? result + "," + huhLength[1] : "";
+            result = result.length() > 0 && !huhLength[0].equals("") && huhLength.length > 1
+                    ? result + "," + huhLength[1]
+                    : huhLength.length > 1
+                        ? huhLength[1]
+                        : "";
+
             for (int i = 2; i < huhLength.length; i++) {
                 result = result + "," + huhLength[i];
             }
         }
         //System.out.println("result = "+result);
         return result;
+    }
+
+    public String cleanBlankValueOf(String string){
+        if(string==null)
+            return null;
+        String[] tempArray = string.split(",");
+        String tempString = "";
+        for(int i=0;i<tempArray.length;i++){
+            if(tempArray[i].charAt(tempArray[i].length()-1) == ':')
+                continue;
+            tempString = tempString + "~" + tempArray[i]
+                         + (tempArray[i].substring(tempArray[i].length()-1).equalsIgnoreCase(":")? "0" : "")
+                         + "~";
+        }
+        return tempString.substring(1,tempString.length()-1).replaceAll("~~", ",");
     }
 
 //    private String [] splitHeightHistory(String htu, String htuh){
@@ -346,6 +380,12 @@ public class GiziZScoreChartActivity extends Activity{
     private TextView detailActivity;
     private ImageButton back;
     private TextView lfaActivity;
+
+    private String historyUmur;
+    private String historyUmurHari;
+    private String historyBerat;
+    private String historyTinggi;
+    private String historyTinggiUmurHari;
 
     private boolean wfaChecked=true;
     private boolean hfaChecked=true;

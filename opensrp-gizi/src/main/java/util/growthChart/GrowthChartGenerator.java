@@ -9,6 +9,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 
+import java.util.ArrayList;
+
 public class GrowthChartGenerator {
 
     public GrowthChartGenerator(GraphView graph,String gender,String dateOfBirth, String xValue,String yValue){
@@ -111,6 +113,8 @@ public class GrowthChartGenerator {
         else
             createLineChart(graph,dateOfBirth,xValue,yValue);
 
+//        System.out.println("length of a = "+a[0].length + ","+a[1].length + ","+a[2].length);
+
     }
 //
 //    private void initSeries(LineGraphSeries<DataPoint> series, int backGround, int color, int thick,String title, boolean putStroke){
@@ -167,22 +171,30 @@ public class GrowthChartGenerator {
                 axis[counter]=axis[counter]+","+Integer.toString(dateInt[i]);
             }
         }
-        a[index] = new LineGraphSeries[series.length];
+        System.out.println("index of line 172 = "+index);
+        ArrayList<LineGraphSeries>list = new ArrayList<>();
+        LineGraphSeries<DataPoint>temp = new LineGraphSeries<>();
         for(int i=0;i<series.length;i++){
             if(series[i]==null)
                 continue;
             try {
-                a[index][i] = createDataSeries(axis[i].split(","), series[i].split(","));
-                graph.addSeries(a[index][i]);
+                temp = createDataSeries(axis[i].split(","), series[i].split(","));
+                graph.addSeries(temp);
+                list.add(temp);
             }catch(Exception e){
                 continue;
             }
         }
+        a[index]=new LineGraphSeries[list.size()];
+        for(int i=0;i<list.size();i++){
+            a[index][i]=list.get(i);
+        }
     }
 
     private void createLineChart(GraphView graph, String dateOfBirth, String[]date, String[]value){
+        System.out.println("date length = "+date.length);
         for(int i=0;i<date.length;i++){
-            index=i;
+            this.index=i;
 //            System.out.println("Z Score line chart : "+i);
 //            System.out.println("date "+i+" : "+date[i]);
 //            System.out.println("value "+i+" : "+value[i]);

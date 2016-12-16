@@ -129,6 +129,8 @@ public class GiziGrowthChartActivity extends Activity{
         String [][]array2 = new String[array.length][];
         int []age = new int[array.length];
         for(int i=0;i<array.length;i++){
+            if(array[i].charAt(array[i].length()-1) == ':')
+                continue;
             array2[i]=array[i].split(":");
             age[i]=monthAge(dateOfBirth, array2[i][0]);
             ageSeries = ageSeries + "," + Integer.toString(age[i]);
