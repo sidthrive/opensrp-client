@@ -35,6 +35,9 @@ public class UniqueIdRepository extends SQLiteOpenHelper{
     }
 
     public void saveUniqueId(String uniqueId) {
+        System.out.println("uniqueId on saveUniqueId method = "+uniqueId);
+        if(Long.parseLong(uniqueId.substring(0,8))>Long.parseLong("20000000"))
+            uniqueId = "10000000";
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UNIQUE_ID_COLUMN, uniqueId);
@@ -75,6 +78,6 @@ public class UniqueIdRepository extends SQLiteOpenHelper{
     public void deleteUsedId(int lastUsedId){
         SQLiteDatabase database = this.getWritableDatabase();
         List<Long> allUniqueId = this.getAllUniqueId();
-        database.delete(UNIQUE_ID_TABLE_NAME,UNIQUE_ID_COLUMN+" < ?",new String[]{Integer.toString(lastUsedId)});
+        database.delete(UNIQUE_ID_TABLE_NAME, UNIQUE_ID_COLUMN + " < ?", new String[]{Integer.toString(lastUsedId)});
     }
 }
