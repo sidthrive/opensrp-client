@@ -131,7 +131,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                 return new DialogOption[]{
                         new CursorCommonObjectSort(getString(R.string.due_status),sortByAlertmethod()),
                         new CursorCommonObjectSort(getString(R.string.elco_alphabetical_sort),householdSortByName()),
-                         new CursorCommonObjectSort(Context.getInstance().applicationContext().getString(R.string.hh_fwGobhhid_sort),householdSortByFWGOBHHID()),
+                        new CursorCommonObjectSort(Context.getInstance().applicationContext().getString(R.string.hh_fwGobhhid_sort),householdSortByFWGOBHHID()),
                         new CursorCommonObjectSort( Context.getInstance().applicationContext().getString(R.string.hh_fwJivhhid_sort),householdSortByFWJIVHHID())
 
 //                        new CommonObjectSort(true,false,true,"age")
