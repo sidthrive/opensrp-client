@@ -45,7 +45,8 @@ public class UniqueIdController {
     }
 
     public void updateCurrentUniqueId(String id) {
-        if(Long.parseLong(allSettings.fetchCurrentId()) < Long.parseLong(id)) {
+        Long ids = Long.parseLong(allSettings.fetchCurrentId());
+        if((ids > 20000000) || (ids < Long.parseLong(id))) {
             allSettings.saveCurrentId(id);
         }
     }
@@ -91,7 +92,7 @@ public class UniqueIdController {
 
     @Nullable
     private String processLatestUniqueId(List<Long> uids) {
-        Long currentId = Long.parseLong(allSettings.fetchCurrentId());
+        Long currentId = Long.parseLong(allSettings.fetchCurrentId()) > 20000000 ? 10000000 : Long.parseLong(allSettings.fetchCurrentId());
         if(uids == null || uids.isEmpty() || currentId > uids.get(uids.size()-1)) {
             return null;
         }
