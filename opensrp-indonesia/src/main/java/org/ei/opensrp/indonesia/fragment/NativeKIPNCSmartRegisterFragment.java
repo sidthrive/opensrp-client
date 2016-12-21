@@ -240,7 +240,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     public void startRegistration() {
 
         String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
-        if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
+        if(uniqueIdJson == null || uniqueIdJson.isEmpty() || LoginActivity.generator.uniqueIdController().countRemainingUniqueId()<=1) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_LONG).show();
             return;
         }

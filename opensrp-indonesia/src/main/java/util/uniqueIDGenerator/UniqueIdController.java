@@ -73,8 +73,8 @@ public class UniqueIdController {
 
     public int countRemainingUniqueId(){
         List<Long> uids = getAllUniqueId();
-        int currentId = Integer.parseInt(allSettings.fetchCurrentId());
-        System.out.println("current id = "+currentId);
+        int currentId = Integer.parseInt(allSettings.fetchCurrentId())>200000000
+                ? 10000000 : Integer.parseInt(allSettings.fetchCurrentId());
         return (uids.size()-1)- Collections.binarySearch(uids,new Long(currentId));
     }
 
