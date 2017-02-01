@@ -224,7 +224,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
         countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
-        mainCondition = " isClosed !='true' and details not LIKE '%\"jenisKontrasepsi\":\"\"%' ";
+        mainCondition = " isClosed !='true'  and namalengkap !='' and details not LIKE '%\"jenisKontrasepsi\":\"\"%' ";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
 
         super.CountExecute();
