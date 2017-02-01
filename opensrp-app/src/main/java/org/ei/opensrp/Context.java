@@ -281,37 +281,37 @@ public class Context {
         }
         return allFormVersionSyncService;
     }
-    public AllSettingsINA allSettingsINA() {
-        initRepository();
-        if(allSettingsINA == null) {
-            allSettingsINA = new AllSettingsINA(allSharedPreferences(), settingsRepository());
-        }
-        return allSettingsINA;
-    }
+//    public AllSettingsINA allSettingsINA() {
+//        initRepository();
+//        if(allSettingsINA == null) {
+//            allSettingsINA = new AllSettingsINA(allSharedPreferences(), settingsRepository());
+//        }
+//        return allSettingsINA;
+//    }
     public Cache<List<Long>> uIdsCache() {
         if (uIdsCache == null) {
             uIdsCache = new Cache<>();
         }
         return uIdsCache;
     }
-    public UniqueIdRepository uniqueIdRepository() {
-        if(uniqueIdRepository==null) {
-            uniqueIdRepository = new UniqueIdRepository();
-        }
-        return uniqueIdRepository;
-    }
-    public UniqueIdController uniqueIdController() {
-        if(uniqueIdController == null) {
-            uniqueIdController = new UniqueIdController(uniqueIdRepository(), allSettingsINA(), uIdsCache());
-        }
-        return uniqueIdController;
-    }
-    public UniqueIdService uniqueIdService() {
-        if(uniqueIdService == null) {
-            uniqueIdService = new UniqueIdService(httpAgent(), configuration(), uniqueIdController(), allSettingsINA(), allSharedPreferences());
-        }
-        return uniqueIdService;
-    }
+//    public UniqueIdRepository uniqueIdRepository() {
+//        if(uniqueIdRepository==null) {
+//            uniqueIdRepository = new UniqueIdRepository();
+//        }
+//        return uniqueIdRepository;
+//    }
+//    public UniqueIdController uniqueIdController() {
+//        if(uniqueIdController == null) {
+//            uniqueIdController = new UniqueIdController(uniqueIdRepository(), allSettingsINA(), uIdsCache());
+//        }
+//        return uniqueIdController;
+//    }
+//    public UniqueIdService uniqueIdService() {
+//        if(uniqueIdService == null) {
+//            uniqueIdService = new UniqueIdService(httpAgent(), configuration(), uniqueIdController(), allSettingsINA(), allSharedPreferences());
+//        }
+//        return uniqueIdService;
+//    }
     public FormSubmissionRouter formSubmissionRouter() {
         initRepository();
         if (formSubmissionRouter == null) {
@@ -523,14 +523,14 @@ public class Context {
         return formSubmissionSyncService;
     }
 
-    protected HTTPAgent httpAgent() {
+    public HTTPAgent httpAgent() {
         if (httpAgent == null) {
             httpAgent = new HTTPAgent(applicationContext, allSettings(), allSharedPreferences(), configuration());
         }
         return httpAgent;
     }
 
-    protected Repository initRepository() {
+    public Repository initRepository() {
         if(configuration().appName().equals(AllConstants.APP_NAME_INDONESIA)) {
             return null;
         }
@@ -548,7 +548,7 @@ public class Context {
             drishtireposotorylist.add(serviceProvidedRepository());
             drishtireposotorylist.add(formsVersionRepository());
             drishtireposotorylist.add(imageRepository());
-            drishtireposotorylist.add(uniqueIdRepository());
+//            drishtireposotorylist.add(uniqueIdRepository());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
             }
@@ -640,7 +640,7 @@ public class Context {
         return alertRepository;
     }
 
-    protected SettingsRepository settingsRepository() {
+    public SettingsRepository settingsRepository() {
         if (settingsRepository == null) {
             settingsRepository = new SettingsRepository();
         }

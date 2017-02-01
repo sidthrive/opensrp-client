@@ -253,9 +253,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     public void startRegistration() {
 //<<<<<<< HEAD
  //       FlurryFacade.logEvent("click_start_registration_on_kohort_ibu_dashboard");
-        String uniqueIdJson = context.uniqueIdController().getUniqueIdJson();
+        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
-            Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_LONG).show();
             return;
         }
 

@@ -148,7 +148,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-               JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+               JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
                Iterator<String> iter = uniqueId.keys();
@@ -169,9 +169,9 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
     }
     public void saveuniqueid() {
         try {
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            context.uniqueIdController().updateCurrentUniqueId(uniq);
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();

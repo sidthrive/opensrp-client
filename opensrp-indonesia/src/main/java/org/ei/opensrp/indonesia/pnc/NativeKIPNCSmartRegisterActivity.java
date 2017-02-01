@@ -112,7 +112,6 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
     @Override
     protected void setupViews() {
 
-
     }
 
     @Override
@@ -137,11 +136,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
                 new OpenFormOption("Postpartum KB ", KARTU_IBU_PNC_POSPARTUM_KB, formController),
                 new OpenFormOption("Edit PNC ", KARTU_IBU_PNC_EDIT, formController),
                 new OpenFormOption("PNC Close ", KARTU_IBU_PNC_CLOSE, formController),
-
-
         };
-
-
     }
 
     @Override
@@ -150,7 +145,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-               JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+               JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
                Iterator<String> iter = uniqueId.keys();
@@ -172,9 +167,9 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     public void saveuniqueid() {
         try {
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            context.uniqueIdController().updateCurrentUniqueId(uniq);
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();
