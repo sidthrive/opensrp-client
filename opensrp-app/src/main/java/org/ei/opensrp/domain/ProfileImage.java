@@ -2,7 +2,6 @@ package org.ei.opensrp.domain;
 
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
-import org.ei.opensrp.util.FileUtilities;
 
 import static java.text.MessageFormat.format;
 
@@ -83,10 +82,9 @@ public class ProfileImage {
     }
 
     public String getImageUrl() {
-        String ext = FileUtilities.getFileExtension(this.filepath);
         String url = format("{0}/{1}/{2}",
                 Context.getInstance().allSharedPreferences().fetchBaseURL(""),
-                AllConstants.PROFILE_IMAGES_DOWNLOAD_PATH, (entityID+"."+ext));
+                AllConstants.PROFILE_IMAGES_DOWNLOAD_PATH, entityID);
         return url;
     }
 }

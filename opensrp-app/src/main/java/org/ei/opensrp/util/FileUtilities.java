@@ -27,8 +27,8 @@ import static java.text.MessageFormat.format;
 public class FileUtilities {
     private Writer writer;
     private String absolutePath;
-//    private final Context context;
-    private final static String TAG=FileUtilities.class.getCanonicalName();
+    //    private final Context context;
+    private final static String TAG = FileUtilities.class.getCanonicalName();
     private static String mUserAgent = null;
 
 
@@ -102,12 +102,14 @@ public class FileUtilities {
             System.gc();
         }
     }
-    public static String getFileExtension(String fileName){
-        String extension = "";
 
-        int i = fileName.lastIndexOf('.');
-        if (i > 0) {
-            extension = fileName.substring(i+1);
+    public static String getFileExtension(String fileName) {
+        String extension = "";
+        if (fileName != null && !fileName.isEmpty()) {
+            int i = fileName.lastIndexOf('.');
+            if (i > 0) {
+                extension = fileName.substring(i + 1);
+            }
         }
         return extension;
     }
@@ -125,6 +127,7 @@ public class FileUtilities {
         }
         return mUserAgent;
     }
+
     public static String getImageUrl(String entityID) {
         String url = format("{0}/{1}/{2}",
                 org.ei.opensrp.Context.getInstance().allSharedPreferences().fetchBaseURL(""),
