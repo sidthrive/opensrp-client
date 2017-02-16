@@ -1,5 +1,7 @@
 package org.ei.opensrp.path.activity;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,14 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.toolbars.BaseToolbar;
+import org.opensrp.api.constants.Gender;
 
 /**
  * Base activity class for all other PATH activity classes. Implements:
  * - A uniform navigation bar that is launched by swiping from the left
- * - Support of custom toolbars
+ * - Support for specifying which {@link BaseToolbar} to use
  * <p>
  * This activity requires that the base view for any child activity be {@link DrawerLayout}
  * Make sure include the navigation view as the last element in the activity's root DrawerLayout
@@ -27,32 +35,13 @@ import org.ei.opensrp.path.R;
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * The layout resource file to user for this activity
-     *
-     * @return The resource id for the layout file to use
-     */
-    protected abstract int getContentView();
-
-    /**
-     * The id for the base {@link DrawerLayout} for the activity
-     *
-     * @return
-     */
-    protected abstract int getDrawerLayoutId();
-
-    /**
-     * The id for the toolbar used in this activity
-     *
-     * @return The id for the toolbar used
-     */
-    protected abstract int getToolbarId();
+    private BaseToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
-        Toolbar toolbar = getToolbar();
+        toolbar = (BaseToolbar) findViewById(getToolbarId());
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
@@ -63,6 +52,17 @@ public abstract class BaseActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(toolbar.getSupportedMenu(), menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(toolbar.onMenuItemSelected(item));
     }
 
     @Override
@@ -96,7 +96,59 @@ public abstract class BaseActivity extends AppCompatActivity
         return true;
     }
 
-    protected Toolbar getToolbar() {
-        return (Toolbar) findViewById(getToolbarId());
+    /**
+     * Updates all gender affected views
+     *
+     * @param gender The gender to update the
+     */
+    protected int[] updateGenderViews(Gender gender) {
+        int darkShade = R.color.gender_neutral_dark_green;
+        int normalShade = R.color.gender_neutral_green;
+        int lightSade = R.color.gender_neutral_light_green;
+
+        if (gender.equals(Gender.FEMALE)) {
+            darkShade = R.color.female_dark_pink;
+            normalShade = R.color.female_pink;
+            lightSade = R.color.female_light_pink;
+        } else if (gender.equals(Gender.MALE)) {
+            darkShade = R.color.male_dark_blue;
+            normalShade = R.color.male_blue;
+            lightSade = R.color.male_light_blue;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(darkShade));
+        }
+        toolbar.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
+        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+        viewGroup.setBackground(new ColorDrawable(getResources().getColor(lightSade)));
+
+        return new int[]{darkShade, normalShade, lightSade};
     }
+
+    protected BaseToolbar getToolbar() {
+        return toolbar;
+    }
+
+    /**
+     * The layout resource file to user for this activity
+     *
+     * @return The resource id for the layout file to use
+     */
+    protected abstract int getContentView();
+
+    /**
+     * The id for the base {@link DrawerLayout} for the activity
+     *
+     * @return
+     */
+    protected abstract int getDrawerLayoutId();
+
+    /**
+     * The id for the toolbar used in this activity
+     *
+     * @return The id for the toolbar used
+     */
+    protected abstract int getToolbarId();
 }

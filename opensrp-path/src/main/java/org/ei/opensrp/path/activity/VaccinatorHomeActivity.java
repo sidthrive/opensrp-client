@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.controller.VaccinatorNavigationController;
@@ -22,6 +24,8 @@ import org.ei.opensrp.view.contract.HomeContext;
 import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
 import org.ei.opensrp.view.controller.NativeUpdateANMDetailsTask;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
+
+import java.util.HashMap;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
@@ -134,6 +138,17 @@ public class VaccinatorHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
+        //TODO: remove
+        HashMap<String, String> details = new HashMap<>();
+        details.put("first_name", "John");
+        details.put("last_name", "Doe");
+        details.put("gender", "male");
+        details.put("zeir", "231243");
+        details.put("dob", "06-03-1991");
+        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient("test", details, null);
+        commonPersonObjectClient.setColumnmaps(details);
+        ChildImmunizationActivity.launchActivity(this, commonPersonObjectClient);
+        //TODO: end remove
     }
 
     private void updateRegisterCounts() {

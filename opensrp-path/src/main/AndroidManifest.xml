@@ -13,8 +13,7 @@
 
     <application
         android:name=".application.VaccinatorApplication"
-        android:allowBackup="true"
-        android:theme="@style/AppThemeNoTitle">
+        android:allowBackup="true">
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
@@ -35,6 +34,7 @@
             android:name=".activity.ChildSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
+            android:launchMode="singleTask"
             android:theme="@style/AppThemeNoActionBarAndTitle" />
         <activity
             android:name=".activity.ChildDetailActivity"
@@ -75,13 +75,8 @@
         <activity
             android:name=".activity.ChildImmunizationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoTitle.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppThemeNoTitle.NoActionBar" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />

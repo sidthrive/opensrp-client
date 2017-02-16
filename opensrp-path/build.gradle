@@ -21,6 +21,7 @@ dependencies {
     compile project(':opensrp-app')
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">opensrp-path</string>
+    <string name="app_name">ZEIR</string>
     <string name="invalid_device_date">Device current datetime must be after last synced server datetime which was </string>
     <string name="home_women_label">Woman</string>
     <string name="home_field_monitor_label">Stock</string>
@@ -19,7 +19,7 @@
     <string name="vaccination_summary"> Vaccination Summary</string>
 
     <string name="search_hint">Search Register</string>
-    <string name="birthdate">DoB</string>
+    <string name="birthdate">DOB</string>
     <string name="age">AGE</string>
     <string name="uc">UC</string>
     <string name="town">Town</string>
@@ -112,4 +112,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="child_siblings">%s siblings</string>
+    <string name="neutral_sex_id">his or her</string>
+    <string name="female_sex_id">her</string>
+    <string name="male_sex_id">his</string>
+    <string name="label_zeir">ZEIR</string>
+    <string name="label_immunization_records">IMMUNISATION RECORDS</string>
 </resources>
