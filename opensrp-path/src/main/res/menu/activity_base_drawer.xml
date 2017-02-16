@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/logo"
+            android:title="Register" />
+        <item
+            android:id="@+id/nav_record_vaccination_out_catchment"
+            android:icon="@drawable/logo"
+            android:title="Record out of catchment vaccination" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/logo"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_sync"
+            android:icon="@drawable/logo"
+            android:title="Sync" />
+    </group>
+
+</menu>

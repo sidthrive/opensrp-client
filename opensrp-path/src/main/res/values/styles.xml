@@ -5,7 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">false</item> <!-- this is useful to prevent the keyboard from covering up the input fields -->
+        <item name="android:windowFullscreen">false
+        </item> <!-- this is useful to prevent the keyboard from covering up the input fields -->
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -14,22 +15,36 @@
         <item name="android:textSize">14sp</item>
         <item name="android:paddingTop">130dp</item>
     </style>
+
     <style name="CustomFontTextViewStyle.Home.RegisterNameCustom">
         <item name="fontVariant">black</item>
         <item name="android:textSize">20sp</item>
         <item name="android:paddingTop">55dp</item>
     </style>
+
     <style name="CustomFontTextViewStyle.Home.RegisterLabelCustomForField">
         <item name="fontVariant">regular</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingTop">115dp</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppThemeNoTitle.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeNoTitle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppThemeNoTitle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
