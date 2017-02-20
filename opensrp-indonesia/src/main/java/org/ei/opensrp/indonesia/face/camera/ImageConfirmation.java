@@ -380,6 +380,8 @@ public class ImageConfirmation extends Activity {
 
         faceVector = objFace.serializeRecogntionAlbum();
 
+
+
         Log.e(TAG, "saveAndClose: " + Arrays.toString(faceVector));
 
 //        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
@@ -390,9 +392,16 @@ public class ImageConfirmation extends Activity {
 
 //        saveHash(clientList, getApplicationContext());
 
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, faceVector);
+        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
 
-        HashMap<String,String> details = new HashMap<>();
+        //
+
+        SmartShutterActivity.faceProc.resetAlbum();
+
+        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer);
+//        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, faceVector);
+
+//        HashMap<String,String> details = new HashMap<>();
 
 //        details.put("profilepic",currentfile.getAbsolutePath());
 

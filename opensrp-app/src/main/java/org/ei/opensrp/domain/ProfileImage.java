@@ -15,7 +15,7 @@ public class ProfileImage {
     private String filecategory;
     private String filevector;
 
-    public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory) {
+    public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory, String filevector) {
         this.imageid = imageid;
         this.entityID = entityID;
         this.anmId = anmId;
@@ -23,7 +23,7 @@ public class ProfileImage {
         this.filepath = filepath;
         this.syncStatus = syncStatus;
         this.filecategory = filecategory;
-//        this.filevector = filevector;
+        this.filevector = filevector;
     }
     public ProfileImage(){}
 

@@ -144,7 +144,7 @@ public class Tools {
 
             HashMap<String,String> details = new HashMap<>();
 
-            saveimagereference(bindobject, entityId, details);
+//            saveimagereference(bindobject, entityId, details);
 //            details.put("profilepic", photoPath);
             details.put("profilepic", thumbs_photo.toString());
 
@@ -390,18 +390,17 @@ public class Tools {
 //        return hash;
 //    }
 
-    public static void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(
-                UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,
-                "dp",
-                "dp"
-        );
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+//    public static void saveimagereference(String bindobject,String entityid,Map<String,String> details){
+//        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+//        ProfileImage profileImage = new ProfileImage(
+//                UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,
+//                "dp"
+//        );
+//        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
+//    }
 
 
 }

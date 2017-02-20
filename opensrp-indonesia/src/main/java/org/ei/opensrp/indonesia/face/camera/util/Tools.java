@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,63 +45,9 @@ public class Tools {
 
     private static final String TAG = Tools.class.getSimpleName();
     public static final int CONFIDENCE_VALUE = 58;
-    private static String bindobject;
     private Canvas canvas = null;
     SmartShutterActivity ss = new SmartShutterActivity();
     ClientsList cl = new ClientsList();
-
-    public static boolean SavePictureToFile(android.content.Context context, Bitmap bitmap, String entityId) {
-        for (int i = 0; i < 2; i++) {
-            File pictureFile = getOutputMediaFile(i, entityId);
-
-            if (pictureFile == null) {
-                Log.e(TAG, "Error creating media file, check path permissions!");
-                return false;
-            }
-
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                fos.close();
-                Log.e(TAG, "Wrote image to " + pictureFile);
-
-                MediaScannerConnection.scanFile(context,
-                        new String[]{pictureFile.toString()}, null,
-                        new MediaScannerConnection.OnScanCompletedListener() {
-                            public void onScanCompleted(String path, Uri uri) {
-                                Log.i("ExternalStorage", "Scanned " + path + ":");
-                                Log.i("ExternalStorage", "-> uri=" + uri);
-                    }
-                });
-                String photoPath = pictureFile.toString();
-                Log.e(TAG, "Photo Path = " + photoPath);
-
-//            Database
-                DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
-
-                Long tsLong = System.currentTimeMillis()/1000;
-                detailsRepository.add(entityId, "profilepic"+i, photoPath, tsLong);
-//            kiclient.getDetails().get("profilepic");
-
-                return true;
-
-            } catch (FileNotFoundException e) {
-                Log.d(TAG, "File not found: " + e.getMessage());
-            } catch (IOException e) {
-                Log.d(TAG, "Error accessing file: " + e.getMessage());
-            }
-
-            if(i == 1) {
-                final int THUMBSIZE = FaceConstants.THUMBSIZE;
-                Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(""),
-                        THUMBSIZE, THUMBSIZE);
-            }
-
-
-        }
-        return false;
-    }
 
     public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector) {
 
@@ -139,36 +86,13 @@ public class Tools {
             tfos.close();
             Log.e(TAG, "Wrote Thumbs image to " + thumbs_photo);
 
-//          PUT into DB
-            bindobject = "kartu_ibu";
-
-            HashMap<String,String> details = new HashMap<>();
-            // SAVE DATA VECTOR ON DB
-//            saveimagereference(bindobject, entityId, details);
-//            details.put("profilepic", photoPath);
-            details.put("profilepic", thumbs_photo.toString());
-
-//            KIDetailActivity.details = new HashMap<>();
 //            HashMap<String,String> details = new HashMap<>();
-//            KIDetailActivity.details.put("profilepic",photoPath);
-
-//            Database Stored
-            DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
-            Long tsLong = System.currentTimeMillis()/1000;
-//            detailsRepository.add(entityId, "profilepic", photoPath, tsLong);
-            detailsRepository.add(entityId, "profilepic", thumbs_photo.toString(), tsLong);
-
-            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
             // SAVE DATA VECTOR ON DB
-            ProfileImage profileImage = new ProfileImage(
-                    UUID.randomUUID().toString(),
-                    anmId,
-                    entityId,
-                    "jpeg",
-                    thumbs_photo.toString(),
-                    ImageRepository.TYPE_Unsynced,
-                    "profilepic");
-            ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+//            details.put("profilepic", photoPath);
+//            details.put("profilepic", thumbs_photo.toString());
+
+//           FIXME File & Database Stored
+            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector));
 
             return true;
 
@@ -206,22 +130,6 @@ public class Tools {
 //        String filename = entity);
         return new File(String.format("%s%s%s.jpg", mediaStorageDir.getPath(), File.separator, entityId));
     }
-
-    public static Bitmap getThumbnail(ContentResolver cr, String path) throws Exception {
-
-        Cursor ca = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] { MediaStore.MediaColumns._ID }, MediaStore.MediaColumns.DATA + "=?", new String[] {path}, null);
-        if (ca != null && ca.moveToFirst()) {
-            int id = ca.getInt(ca.getColumnIndex(MediaStore.MediaColumns._ID));
-            ca.close();
-            return MediaStore.Images.Thumbnails.getThumbnail(cr, id, MediaStore.Images.Thumbnails.MICRO_KIND, null );
-        }
-
-        assert ca != null;
-        ca.close();
-        return null;
-
-    }
-
 
     public static void drawInfo(Rect rect, Bitmap mutableBitmap, float pixelDensity, String personName) {
         Log.e(TAG, "drawInfo: rect "+rect );
@@ -399,14 +307,14 @@ public class Tools {
 //        return hash;
 //    }
 
-    public static void saveimagereference(String bindobject, String entityid, Map<String, String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"jpeg",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+//    public static void saveimagereference(String bindobject, String entityid, Map<String, String> details){
+//        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+//        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"jpeg",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
+//        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
+//    }
 
     public void resetAlbum() {
 
@@ -428,5 +336,53 @@ public class Tools {
         }
         Log.e(TAG, "resetAlbum: "+ "finish" );
     }
+
+    public static void saveStaticImageToDisk(String entityId, Bitmap image, String faceVector) {
+        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+
+        if (image != null) {
+            OutputStream os = null;
+            try {
+
+                if (entityId != null && !entityId.isEmpty()) {
+                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
+
+                    File outputFile = new File(absoluteFileName);
+                    os = new FileOutputStream(outputFile);
+                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
+                    if (compressFormat != null) {
+                        image.compress(compressFormat, 100, os);
+                    } else {
+                        throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+                                + absoluteFileName);
+                    }
+                    // insert into the db local
+                    ProfileImage profileImage= new ProfileImage();
+                    profileImage.setImageid(UUID.randomUUID().toString());
+                    profileImage.setAnmId(anmId);
+                    profileImage.setEntityID(entityId);
+                    profileImage.setContenttype("jpeg");
+                    profileImage.setFilepath(absoluteFileName);
+                    profileImage.setFilecategory("profilepic");
+                    profileImage.setFilevector(faceVector);
+                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+                    imageRepo.add(profileImage);
+                }
+
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "Failed to save static image to disk");
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                    }
+                }
+            }
+        }
+    }
+
 
 }

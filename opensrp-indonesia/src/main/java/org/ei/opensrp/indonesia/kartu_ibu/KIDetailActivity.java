@@ -17,6 +17,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
@@ -273,10 +274,9 @@ public class KIDetailActivity extends Activity {
     private void dispatchTakePictureIntent(ImageView imageView) {
         Log.e(TAG, "dispatchTakePictureIntent: "+"klik" );
         mImageView = imageView;
-      //  Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
         //FIXME USE SmartShutterActivity INSTEAD
-     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 
         Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
         // Ensure that there's a camera activity to handle the intent
@@ -320,7 +320,7 @@ public class KIDetailActivity extends Activity {
 //
             Bundle extras = intent.getExtras();
             Bitmap mImageBitmap = (Bitmap) extras.get("data");
-            saveStaticImageToDisk(kiclient.getCaseId(),mImageBitmap);
+//            saveStaticImageToDisk(kiclient.getCaseId(),mImageBitmap);
             mImageView.setImageBitmap(mImageBitmap);
         }
     }
@@ -350,6 +350,7 @@ public class KIDetailActivity extends Activity {
                     profileImage.setEntityID(entityId);
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
+                    profileImage.setFilevector("[ve, ct, or]");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
                     imageRepo.add(profileImage);
@@ -367,61 +368,6 @@ public class KIDetailActivity extends Activity {
                 }
             }
         }
-    }
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-
-        return image;
-    }
-
-
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(
-                UUID.randomUUID().toString(),
-                anmId,
-                entityid,
-                "Image",
-                details.get("profilepic"),
-                ImageRepository.TYPE_Unsynced,
-                "dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
-
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
-        mImageThumbSize = 300;
-        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
-
-
-        ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
-        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
-        mImageFetcher.setLoadingImage(placeholder);
-        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
     }
 
     public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
