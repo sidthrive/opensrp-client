@@ -13,6 +13,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import util.JsonFormUtils;
 import util.Utils;
 
 public class ECSQLiteHelper extends SQLiteOpenHelper {
@@ -133,6 +136,9 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
     public void insert(Event event) {
         try {
+            if(StringUtils.isBlank(event.getFormSubmissionId())){
+                event.setFormSubmissionId(generateRandomUUIDString());
+            }
             insert(Event.class, Table.event, event_column.values(), event);
             for (Obs o : event.getObs()) {
                 insert(Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
@@ -142,7 +148,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long batchInsertClients(JSONArray array) {
+    public long batchInsertClients(JSONArray array) throws Exception {
         if (array == null || array.length() == 0) {
             return 0l;
         }
@@ -151,31 +157,26 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
         getDatabase().beginTransaction();
 
-        try {
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jo = array.getJSONObject(i);
-                Client c = Utils.getLongDateAwareGson().fromJson(jo.toString(), Client.class);
-                insert(c);
-                if (c.getServerVersion() > 01) {
-                    lastServerVersion = c.getServerVersion();
+        for (int i = 0; i < array.length(); i++) {
+            Object o = array.get(i);
+            if (o instanceof JSONObject) {
+                JSONObject jo = (JSONObject) o;
+                Client c = convert(jo, Client.class);
+                if (c != null) {
+                    insert(c);
+                    if (c.getServerVersion() > 01) {
+                        lastServerVersion = c.getServerVersion();
+                    }
                 }
-
             }
-
-            getDatabase().setTransactionSuccessful();
-
-        } catch (Exception e) {
-            Log.e(getClass().getName(), "", e);
-            e.printStackTrace();
-            lastServerVersion = 0l;
-        } finally {
-            getDatabase().endTransaction();
         }
+
+        getDatabase().setTransactionSuccessful();
+        getDatabase().endTransaction();
         return lastServerVersion;
     }
 
-    public long batchInsertEvents(JSONArray array, long serverVersion) {
+    public long batchInsertEvents(JSONArray array, long serverVersion) throws Exception {
         if (array == null || array.length() == 0) {
             return 0l;
         }
@@ -184,27 +185,36 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
         getDatabase().beginTransaction();
 
-        try {
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jo = array.getJSONObject(i);
-                Event e = Utils.getLongDateAwareGson().fromJson(jo.toString(), Event.class);
-                insert(e);
-                if (e.getServerVersion() > 01) {
-                    lastServerVersion = e.getServerVersion();
+        for (int i = 0; i < array.length(); i++) {
+            Object o = array.get(i);
+            if (o instanceof JSONObject) {
+                JSONObject jo = (JSONObject) o;
+                Event e = convert(jo, Event.class);
+                if (e != null) {
+                    insert(e);
+                    if (e.getServerVersion() > 01) {
+                        lastServerVersion = e.getServerVersion();
+                    }
                 }
             }
+        }
 
-            getDatabase().setTransactionSuccessful();
+        getDatabase().setTransactionSuccessful();
+        getDatabase().endTransaction();
+        return lastServerVersion;
+    }
 
+    private <T> T convert(JSONObject jo, Class<T> t) {
+        if (jo == null) {
+            return null;
+        }
+        try {
+            return Utils.getLongDateAwareGson().fromJson(jo.toString(), t);
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
-            lastServerVersion = serverVersion;
-
-        } finally {
-            getDatabase().endTransaction();
+            Log.e(getClass().getName(), "Unable to convert: " + jo.toString());
+            return null;
         }
-        return lastServerVersion;
     }
 
     public List<JSONObject> getEvents(long startServerVersion, long lastServerVersion) throws JSONException, ParseException {
@@ -553,5 +563,9 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
             return "integer";
         }
         return null;
+    }
+
+    private String generateRandomUUIDString() {
+        return UUID.randomUUID().toString();
     }
 }

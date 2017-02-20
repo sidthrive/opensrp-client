@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 
 import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.path.activity.LoginActivity;
-import org.ei.opensrp.path.receiver.CESyncReceiver;
 import org.ei.opensrp.path.receiver.ConfigSyncReceiver;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
 
 import java.util.Locale;
+
+import io.fabric.sdk.android.Fabric;
 
 import static org.ei.opensrp.util.Log.logInfo;
 
@@ -37,7 +37,6 @@ public class VaccinatorApplication extends DrishtiApplication{
         context.updateCommonFtsObject(createCommonFtsObject());
         applyUserLanguagePreference();
         cleanUpSyncState();
-        //startCESyncService(getApplicationContext());
         ConfigSyncReceiver.scheduleFirstSync(getApplicationContext());
         setCrashlyticsUser(context);
     }
@@ -55,9 +54,6 @@ public class VaccinatorApplication extends DrishtiApplication{
         context.allSharedPreferences().saveIsSyncInProgress(false);
     }
 
-    private void startCESyncService(android.content.Context context){
-        CESyncReceiver.scheduleFirstSync(context);
-    }
 
     @Override
     public void onTerminate() {
@@ -85,7 +81,7 @@ public class VaccinatorApplication extends DrishtiApplication{
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("ec_child")){
-            String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name", "father_name", "mother_name", "contact_phone_number" };
+            String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name" };
             return ftsSearchFileds;
         }else if(tableName.equals("ec_woman")){
             String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name", "father_name", "husband_name", "contact_phone_number" };

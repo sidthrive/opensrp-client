@@ -1,18 +1,27 @@
 package org.ei.opensrp.path.domain;
 
+import com.vijay.jsonwizard.widgets.LabelFactory;
+
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by keyman on 16/11/2016.
  */
 public class VaccineWrapper {
+    private String id = UUID.randomUUID().toString();
+    private Photo photo;
+    ;
     private String status;
-    private Vaccine vaccine;
+    private List<Vaccine> vaccines;
     private DateTime vaccineDate;
     private Alert alert;
-    private String previousVaccine;
+    private String previousVaccineId;
     private boolean compact;
 
     private String color;
@@ -26,6 +35,10 @@ public class VaccineWrapper {
 
     private boolean today;
 
+    public String getId() {
+        return id;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -34,12 +47,15 @@ public class VaccineWrapper {
         this.status = status;
     }
 
-    public Vaccine getVaccine() {
-        return vaccine;
+    public List<Vaccine> vaccines() {
+        if (vaccines == null) {
+            vaccines = new ArrayList<>();
+        }
+        return vaccines;
     }
 
-    public void setVaccine(Vaccine vaccine) {
-        this.vaccine = vaccine;
+    public void addVaccine(Vaccine vaccine) {
+        this.vaccines().add(vaccine);
     }
 
     public DateTime getVaccineDate() {
@@ -58,12 +74,12 @@ public class VaccineWrapper {
         this.alert = alert;
     }
 
-    public String getPreviousVaccine() {
-        return previousVaccine;
+    public String getPreviousVaccineId() {
+        return previousVaccineId;
     }
 
-    public void setPreviousVaccine(String previousVaccine) {
-        this.previousVaccine = previousVaccine;
+    public void setPreviousVaccine(String previousVaccineId) {
+        this.previousVaccineId = previousVaccineId;
     }
 
     public boolean isCompact() {
@@ -127,11 +143,6 @@ public class VaccineWrapper {
         return today;
     }
 
-    //Custom getters
-    public String getVaccineAsString() {
-        return vaccine.display();
-    }
-
     public String getVaccineDateAsString() {
         return vaccineDate != null ? vaccineDate.toString("yyyy-MM-dd") : "";
     }
@@ -140,5 +151,12 @@ public class VaccineWrapper {
         return updatedVaccineDate != null ? updatedVaccineDate.toString("yyyy-MM-dd") : "";
     }
 
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
 
 }

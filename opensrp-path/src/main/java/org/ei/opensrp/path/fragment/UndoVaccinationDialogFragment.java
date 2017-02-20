@@ -53,7 +53,7 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
         numberView.setText(tag.getPatientNumber());
 
         TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccine);
-        vaccineView.setText(tag.getVaccineAsString());
+        vaccineView.setText(tag.vaccines().get(0).display());
 
         Button vaccinateToday = (Button) dialogView.findViewById(R.id.yes_undo);
         vaccinateToday.setOnClickListener(new Button.OnClickListener() {
@@ -79,13 +79,13 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
 
     private void updateFormSubmission() {
         VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = null;
-        if (tag.getVaccine().category().equals("child") && listener instanceof ChildDetailActivity) {
+        if (tag.vaccines().get(0).category().equals("child") && listener instanceof ChildDetailActivity) {
             vaccinateFormSubmissionWrapper = ((ChildDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        } else if (tag.getVaccine().category().equals("woman") && listener instanceof WomanDetailActivity) {
+        } else if (tag.vaccines().get(0).category().equals("woman") && listener instanceof WomanDetailActivity) {
             vaccinateFormSubmissionWrapper = ((WomanDetailActivity) listener).getVaccinateFormSubmissionWrapper();
         }
 
-        if(vaccinateFormSubmissionWrapper != null) {
+        if (vaccinateFormSubmissionWrapper != null) {
             vaccinateFormSubmissionWrapper.remove(tag);
         }
 

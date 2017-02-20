@@ -16,7 +16,6 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
 import org.ei.opensrp.path.option.StatusSort;
-import org.ei.opensrp.path.db.CESQLiteHelper;
 import org.ei.opensrp.path.db.Client;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -37,12 +36,6 @@ import util.barcode.BarcodeIntentResult;
 
 public abstract class SmartClientRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
-    public CESQLiteHelper getClientEventDb() {
-        return ceDb;
-    }
-
-    private CESQLiteHelper ceDb;
-
     public SmartClientRegisterFragment(FormController formController) {
         // FIXME path_conflict
         //super(formController);
@@ -54,7 +47,6 @@ public abstract class SmartClientRegisterFragment extends SecuredNativeSmartRegi
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ceDb = new CESQLiteHelper(activity);
     }
 
     @Override
@@ -164,7 +156,6 @@ public abstract class SmartClientRegisterFragment extends SecuredNativeSmartRegi
         else {
             Client c = null;
             try{
-                c = ceDb.getClient(qrCode);
             }
             catch (Exception e){
                 e.printStackTrace();

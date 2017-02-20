@@ -66,7 +66,7 @@ public class Client extends org.ei.opensrp.clientandeventmodel.Client {
     }
 
     public static final String type_key = "type";
-    public static final String adresses_key = "adresses";
+    public static final String addresses_key = "addresses";
     public static final String attributes_key = "attributes";
     public static final String base_entity_id_key = "baseEntityId";
     public static final String birth_date_key = "birthdate";
@@ -95,8 +95,8 @@ public class Client extends org.ei.opensrp.clientandeventmodel.Client {
         Map<String, Object> map = rev.asMap();
         if (map.containsKey(type_key) && map.get(type_key).equals(Client.DOC_TYPE)) {
             client.setType((String) map.get(type_key));
-            if (map.get(adresses_key) != null)
-                client.setAddresses((List<Address>) map.get(adresses_key));
+            if (map.get(addresses_key) != null)
+                client.setAddresses((List<Address>) map.get(addresses_key));
             if (map.get(attributes_key) != null)
                 client.setAttributes((Map<String, Object>) map.get(attributes_key));
 
@@ -164,7 +164,7 @@ public class Client extends org.ei.opensrp.clientandeventmodel.Client {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put(type_key, type);
         if (getAddresses() != null)
-            map.put(adresses_key, getAddresses());
+            map.put(addresses_key, getAddresses());
         if (getAttributes() != null)
             map.put(attributes_key, getAttributes());
         if (getBaseEntityId() != null)

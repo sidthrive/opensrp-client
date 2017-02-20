@@ -176,7 +176,7 @@ public class WomanDetailActivity extends DetailActivity implements VaccinationAc
 
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setStatus(m.get("status").toString());
-            vaccineWrapper.setVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
+            vaccineWrapper.addVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
             vaccineWrapper.setVaccineDate((DateTime) m.get("date"));
             vaccineWrapper.setAlert((Alert) m.get("alert"));
             vaccineWrapper.setPreviousVaccine(previousVaccine);
@@ -186,7 +186,7 @@ public class WomanDetailActivity extends DetailActivity implements VaccinationAc
             vaccineWrapper.setPatientName(getValue(client.getColumnmaps(), "first_name", true));
 
             addVaccineDetail(this, table, vaccineWrapper);
-            previousVaccine = vaccineWrapper.getVaccineAsString();
+            previousVaccine = vaccineWrapper.getId();
         }
 
         if (age < 0) {
@@ -249,7 +249,7 @@ public class WomanDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     private TableRow findRow(VaccineWrapper tag) {
-        return VaccinateActionUtils.findRow(table, tag.getVaccine().name());
+        return VaccinateActionUtils.findRow(table, tag.getId());
     }
 
     public VaccinateFormSubmissionWrapper getVaccinateFormSubmissionWrapper() {

@@ -24,11 +24,14 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.Months;
 import org.joda.time.Years;
 
 import java.util.List;
 import java.util.Map;
+
+import util.DateUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.convertDateFormat;
@@ -52,7 +55,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     private final AbsListView.LayoutParams clientViewLayoutParams;
 
     public ChildSmartClientsProvider(Context context, View.OnClickListener onClickListener,
-             AlertService alertService) {
+                                     AlertService alertService) {
         this.onClickListener = onClickListener;
         this.context = context;
         this.alertService = alertService;
@@ -65,38 +68,38 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     public void getView(SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
-        fillValue((TextView) convertView.findViewById(R.id.child_id), pc.getColumnmaps(), "program_client_id", false);
-        fillValue((TextView) convertView.findViewById(R.id.child_name), getValue(pc.getColumnmaps(), "first_name", true)+" "+getValue(pc, "last_name", true));
-        fillValue((TextView) convertView.findViewById(R.id.child_mothername), getValue(pc.getColumnmaps(), "mother_name", true));
-        fillValue((TextView) convertView.findViewById(R.id.child_fathername), getValue(pc.getColumnmaps(), "father_name", true));
+        fillValue((TextView) convertView.findViewById(R.id.child_zeir_id), pc.getColumnmaps(), "program_client_id", false);
+        String childName = getValue(pc.getColumnmaps(), "first_name", true) + " " + getValue(pc, "last_name", true);
+        String motherFirstName = getValue(pc.getColumnmaps(), "mother_first_name", true);
+        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
+            childName = "B/o " + motherFirstName;
+        }
+        fillValue((TextView) convertView.findViewById(R.id.child_name), childName);
+
+        String motherName = getValue(pc.getColumnmaps(), "mother_first_name", true) + " " + getValue(pc, "mother_last_name", true);
+        if (!motherName.trim().isEmpty()) {
+            motherName = "M/G: " + motherName;
+        }
+        fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
+
         String gender = getValue(pc.getColumnmaps(), "gender", true);
-        if(gender.equalsIgnoreCase("male")){
-            ((ImageView)convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_boy_infant);
-        }
-        else if(gender.equalsIgnoreCase("female")){
-            ((ImageView)convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_girl_infant);
-        }
-        else if(gender.toLowerCase().contains("trans")){
-            ((ImageView)convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_transgender_inflant);
+        if (gender.equalsIgnoreCase("male")) {
+            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_boy_infant);
+        } else if (gender.equalsIgnoreCase("female")) {
+            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_girl_infant);
+        } else if (gender.toLowerCase().contains("trans")) {
+            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_transgender_inflant);
         }
 
-        int agey = -1;
-        try{
-            agey = Years.yearsBetween(new DateTime(getValue(pc.getColumnmaps(), "dob", false)), DateTime.now()).getYears();
+        DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
+        String duration = DateUtils.getDuration(dateTime);
+        if (duration != null) {
+            fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
         }
-        catch (Exception e){ }
 
-        fillValue((TextView) convertView.findViewById(R.id.child_birthdate), convertDateFormat(getValue(pc.getColumnmaps(), "dob", false), "No DoB", true));
-        int months = -1;
-        try{
-            months = Months.monthsBetween(new DateTime(getValue(pc.getColumnmaps(), "dob", false)), DateTime.now()).getMonths();
-        }
-        catch (Exception e){
-            Log.e(getClass().getName(), "", e);
-        }
-        fillValue((TextView) convertView.findViewById(R.id.child_age), (months < 0?"":(months+ " months") ));
-        fillValue((TextView) convertView.findViewById(R.id.child_epi_number), pc.getColumnmaps(), "epi_card_number", false);
-        fillValue((TextView) convertView.findViewById(R.id.child_contact_number), pc.getColumnmaps(), "contact_phone_number", false);
+        fillValue((TextView) convertView.findViewById(R.id.child_card_number), pc.getColumnmaps(), "epi_card_number", false);
+
+        /*
 
         String vaccineretro = getValue(pc.getColumnmaps(), "vaccines", false);
         String vaccine2 = getValue(pc.getColumnmaps(), "vaccines_2", false);
@@ -111,47 +114,39 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         fillValue((TextView) convertView.findViewById(R.id.child_last_visit_date), lastVaccine);
 
         List<Alert> alertlist_for_client = alertService.findByEntityIdAndAlertNames(pc.entityId(),
-                "BCG", "OPV 0", "Penta 1", "OPV 1","PCV 1", "Penta 2", "OPV 2", "PCV 2",
+                "BCG", "OPV 0", "Penta 1", "OPV 1", "PCV 1", "Penta 2", "OPV 2", "PCV 2",
                 "Penta 3", "OPV 3", "PCV 3", "IPV", "Measles 1", "Measles2",
-                "bcg", "opv0", "penta1", "opv1","pcv1", "penta2", "opv2", "pcv2",
+                "bcg", "opv0", "penta1", "opv1", "pcv1", "penta2", "opv2", "pcv2",
                 "penta3", "opv3", "pcv3", "ipv", "measles1", "measles2");
 
-        if(agey < 0){
+        if (agey < 0) {
             deactivateNextVaccine("Invalid DoB", "", R.color.alert_na, convertView);
-        }
-        else if(!hasAnyEmptyValue(pc.getColumnmaps(), "_retro", vaccineList)){
+        } else if (!hasAnyEmptyValue(pc.getColumnmaps(), "_retro", vaccineList)) {
             deactivateNextVaccine("Fully Immunized", "", R.color.alert_na, convertView);
-        }
-        else if(agey >= 5 && hasAnyEmptyValue(pc.getColumnmaps(), "_retro", vaccineList)){
+        } else if (agey >= 5 && hasAnyEmptyValue(pc.getColumnmaps(), "_retro", vaccineList)) {
             deactivateNextVaccine("Partially Immunized", "", R.color.alert_na, convertView);
-        }
-        else {
+        } else {
             List<Map<String, Object>> sch = generateSchedule("child", new DateTime(pc.getColumnmaps().get("dob")), pc.getColumnmaps(), alertlist_for_client);
             Map<String, Object> nv = nextVaccineDue(sch, toDate(lastVaccine, true));
-            if(nv != null){
-                DateTime dueDate = (DateTime)nv.get("date");
+            if (nv != null) {
+                DateTime dueDate = (DateTime) nv.get("date");
                 VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get("vaccine");
-                if(nv.get("alert") == null){
-                    activateNextVaccine(dueDate, (VaccineRepo.Vaccine)nv.get("vaccine"), Color.BLACK, R.color.alert_na, onClickListener, client, convertView);
-                }
-                else if (((Alert)nv.get("alert")).status().value().equalsIgnoreCase("normal")) {
+                if (nv.get("alert") == null) {
+                    activateNextVaccine(dueDate, (VaccineRepo.Vaccine) nv.get("vaccine"), Color.BLACK, R.color.alert_na, onClickListener, client, convertView);
+                } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("normal")) {
                     activateNextVaccine(dueDate, vaccine, Color.WHITE, R.color.alert_normal, onClickListener, client, convertView);
-                }
-                else if (((Alert)nv.get("alert")).status().value().equalsIgnoreCase("upcoming")) {
+                } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("upcoming")) {
                     activateNextVaccine(dueDate, vaccine, Color.BLACK, R.color.alert_upcoming, onClickListener, client, convertView);
-                }
-                else if (((Alert)nv.get("alert")).status().value().equalsIgnoreCase("urgent")) {
+                } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("urgent")) {
                     activateNextVaccine(dueDate, vaccine, Color.WHITE, R.color.alert_urgent, onClickListener, client, convertView);
-                }
-                else if (((Alert)nv.get("alert")).status().value().equalsIgnoreCase("expired")) {
+                } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("expired")) {
                     deactivateNextVaccine(vaccine + " Expired", "", R.color.alert_expired, convertView);
                 }
-            }
-            else {
+            } else {
                 fillValue((TextView) convertView.findViewById(R.id.child_next_visit_vaccine), "Waiting");
                 deactivateNextVaccine("Waiting", "", R.color.alert_na, convertView);
             }
-        }
+        } */
 
         setProfiePic(convertView.getContext(), (ImageView) convertView.findViewById(R.id.child_profilepic), client.entityId(), null);
 
@@ -162,7 +157,8 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
     }
 
-    private void deactivateNextVaccine(String vaccineViewText, String vaccineDateText, int color, View convertView){
+    /*
+    private void deactivateNextVaccine(String vaccineViewText, String vaccineDateText, int color, View convertView) {
         fillValue((TextView) convertView.findViewById(R.id.child_next_visit_vaccine), vaccineViewText);
         ((TextView) convertView.findViewById(R.id.child_next_visit_date)).setText(convertDateFormat(vaccineDateText, true));
         ((TextView) convertView.findViewById(R.id.child_next_visit_vaccine)).setTextColor(Color.BLACK);
@@ -173,8 +169,8 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     }
 
     private void activateNextVaccine(String dueDate, String vaccine, int foreColor, int backColor, View.OnClickListener onClickListener,
-                                     SmartRegisterClient client, View convertView){
-        fillValue((TextView) convertView.findViewById(R.id.child_next_visit_vaccine), vaccine==null?"":vaccine.replaceAll(" ", ""));
+                                     SmartRegisterClient client, View convertView) {
+        fillValue((TextView) convertView.findViewById(R.id.child_next_visit_vaccine), vaccine == null ? "" : vaccine.replaceAll(" ", ""));
         fillValue((TextView) convertView.findViewById(R.id.child_next_visit_date), convertDateFormat(dueDate, true));
         ((TextView) convertView.findViewById(R.id.child_next_visit_vaccine)).setTextColor(foreColor);
         ((TextView) convertView.findViewById(R.id.child_next_visit_date)).setTextColor(foreColor);
@@ -185,9 +181,9 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     }
 
     private void activateNextVaccine(DateTime dueDate, VaccineRepo.Vaccine vaccine, int foreColor, int backColor, View.OnClickListener onClickListener,
-                                     SmartRegisterClient client, View convertView){
-        activateNextVaccine(dueDate==null?"":dueDate.toString("yyyy-MM-dd"), vaccine==null?"":StringUtil.humanize(vaccine.display().replaceAll(" ","")), foreColor, backColor, onClickListener, client, convertView);
-    }
+                                     SmartRegisterClient client, View convertView) {
+        activateNextVaccine(dueDate == null ? "" : dueDate.toString("yyyy-MM-dd"), vaccine == null ? "" : StringUtil.humanize(vaccine.display().replaceAll(" ", "")), foreColor, backColor, onClickListener, client, convertView);
+    }*/
 
     @Override
     public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption, FilterOption searchFilter, SortOption sortOption) {

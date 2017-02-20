@@ -28,17 +28,17 @@
         <activity
             android:name=".activity.VaccinatorHomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoTitle" />
         <activity
             android:name=".activity.ChildSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarAndTitle" />
         <activity
             android:name=".activity.ChildDetailActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarAndTitle" />
         <activity
             android:name=".activity.FieldMonitorSmartRegisterActivity"
@@ -65,9 +65,13 @@
         <activity
             android:name=".activity.VaccineReportActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <receiver android:name=".receiver.CESyncReceiver" />
+        <receiver android:name=".receiver.PathSyncBroadcastReceiver" />
 
         <activity android:name=".activity.ProviderProfileActivity"></activity>
         <activity android:name="org.ei.opensrp.view.activity.SettingsActivity"
@@ -80,6 +84,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
+        <service android:name=".service.intent.PathReplicationIntentService" />
     </application>
 
 </manifest>

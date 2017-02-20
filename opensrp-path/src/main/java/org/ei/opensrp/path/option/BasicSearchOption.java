@@ -62,8 +62,12 @@ public class BasicSearchOption implements FilterOption {
                 && currentclient.getDetails().get("father_name").contains(filter)) {
             return true;
         }
-        if(currentclient.getDetails().get("mother_name") != null
-                && currentclient.getDetails().get("mother_name").contains(filter)) {
+        if(currentclient.getDetails().get("mother_first_name") != null
+                && currentclient.getDetails().get("mother_first_name").contains(filter)) {
+            return true;
+        }
+        if(currentclient.getDetails().get("mother_last_name") != null
+                && currentclient.getDetails().get("mother_last_name").contains(filter)) {
             return true;
         }
         if(currentclient.getDetails().get("husband_name") != null

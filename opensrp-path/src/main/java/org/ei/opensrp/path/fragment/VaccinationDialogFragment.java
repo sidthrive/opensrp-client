@@ -10,11 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.activity.ChildDetailActivity;
+import org.ei.opensrp.path.db.VaccineRepo;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.activity.WomanDetailActivity;
@@ -23,6 +28,9 @@ import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.joda.time.DateTime;
 
 import java.util.Calendar;
+import java.util.List;
+
+import util.Utils;
 
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends DialogFragment {
@@ -59,14 +67,47 @@ public class VaccinationDialogFragment extends DialogFragment {
         TextView numberView = (TextView) dialogView.findViewById(R.id.number);
         numberView.setText(tag.getPatientNumber());
 
-        final TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccine);
-        vaccineView.setText(tag.getVaccineAsString());
+        LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
+
+        List<VaccineRepo.Vaccine> vaccines = tag.vaccines();
+        if (vaccines.size() == 1) {
+            VaccineRepo.Vaccine vaccine = tag.vaccines().get(0);
+
+            View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+            TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+            vaccineView.setText(vaccine.display());
+            CheckBox select = (CheckBox) vaccinationName.findViewById(R.id.select);
+            select.setVisibility(View.GONE);
+
+            vaccinationNameLayout.addView(vaccinationName);
+        } else if (vaccines.size() > 1) {
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+
+                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+                TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+                vaccineView.setText(vaccine.display());
+
+                vaccinationNameLayout.addView(vaccinationName);
+            }
+        }
+
+        Photo photo = tag.getPhoto();
+        if (photo != null) {
+            ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
+            if (StringUtils.isNotBlank(photo.getFilePath())) {
+                Utils.setProfiePicFromPath(context, mImageView, photo.getFilePath(), null);
+            } else if (photo.getResourceId() > 0) {
+                Utils.setProfiePic(context, mImageView, photo.getResourceId(), null);
+            }
+        }
 
         final DatePicker earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
 
-        String color =  tag.getColor();
+        String color = tag.getColor();
         Button status = (Button) dialogView.findViewById(R.id.status);
-        status.setBackgroundColor(StringUtils.isBlank(color) ? Color.WHITE : Color.parseColor(color));
+        if (status != null) {
+            status.setBackgroundColor(StringUtils.isBlank(color) ? Color.WHITE : Color.parseColor(color));
+        }
 
         final Button set = (Button) dialogView.findViewById(R.id.set);
         set.setOnClickListener(new View.OnClickListener() {
@@ -129,17 +170,16 @@ public class VaccinationDialogFragment extends DialogFragment {
 
     private void updateFormSubmission() {
         VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = null;
-        if (tag.getVaccine().category().equals("child") && listener instanceof ChildDetailActivity) {
+        if (tag.vaccines().get(0).category().equals("child") && listener instanceof ChildDetailActivity) {
             vaccinateFormSubmissionWrapper = ((ChildDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        } else if (tag.getVaccine().category().equals("woman") && listener instanceof WomanDetailActivity) {
+        } else if (tag.vaccines().get(0).category().equals("woman") && listener instanceof WomanDetailActivity) {
             vaccinateFormSubmissionWrapper = ((WomanDetailActivity) listener).getVaccinateFormSubmissionWrapper();
         }
 
-        if(vaccinateFormSubmissionWrapper != null) {
+        if (vaccinateFormSubmissionWrapper != null) {
             vaccinateFormSubmissionWrapper.add(tag);
         }
     }
-
 
 
     @Override

@@ -51,7 +51,11 @@ public class ImageRepository extends DrishtiRepository {
 
         SQLiteDatabase database = masterRepository.getReadableDatabase();
         Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, entityID_COLUMN + " = ?", new String[]{entityId}, null, null, null, null);
-        return readAll(cursor).isEmpty()?null:readAll(cursor).get(0);
+        List<ProfileImage> images  = readAll(cursor);
+        if(images == null || images.isEmpty()){
+            return null;
+        }
+        return images.get(0);
     }
 
     public List<ProfileImage> findAllUnSynced() {

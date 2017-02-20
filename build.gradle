@@ -25,6 +25,7 @@ subprojects {
     ext.androidAnnotationsAPIVersion = '3.0.1';
 
     repositories {
+        jcenter()
         mavenCentral()
         maven { url "${projectDir}/libs/" }
         maven { url "http://nexus.motechproject.org/content/repositories/drishti" }

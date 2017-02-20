@@ -407,7 +407,7 @@ public class ClientProcessor {
                         String fieldNameArray[] = fieldName.split("\\.");
                         dataSegment = fieldNameArray[0];
                         fieldName = fieldNameArray[1];
-                        fieldValue = jsonMapping.has("concept") ? jsonMapping.getString("concept") : null;
+                        fieldValue = jsonMapping.has("concept") ? jsonMapping.getString("concept") : (jsonMapping.has("formSubmissionField") ? jsonMapping.getString("formSubmissionField"): null);
                         if (fieldValue != null) {
                             responseKey = VALUES_KEY;
                         }
@@ -428,7 +428,7 @@ public class ClientProcessor {
                     }
 
                     //special handler needed to process address,
-                    if (dataSegment != null && dataSegment.equalsIgnoreCase("adresses")) {
+                    if (dataSegment != null && dataSegment.equalsIgnoreCase("addresses")) {
                         Map<String, String> addressMap = getClientAddressAsMap(client);
                         if (addressMap.containsKey(fieldName)) {
                             contentValues.put(columnName, addressMap.get(fieldName).toString());
@@ -745,10 +745,10 @@ public class ClientProcessor {
         Map<String, String> addressMap = new HashMap<String, String>();
         try {
             String addressFieldsKey = "addressFields";
-            String adressesKey = "adresses";
+            String addressesKey = "addresses";
 
-            if (client.has(adressesKey)) {
-                JSONArray addressJsonArray = client.getJSONArray(adressesKey);
+            if (client.has(addressesKey)) {
+                JSONArray addressJsonArray = client.getJSONArray(addressesKey);
                 if (addressJsonArray != null && addressJsonArray.length() > 0) {
                     JSONObject addressJson = addressJsonArray.getJSONObject(0);// Need to handle multiple addresses as well
                     if (addressJson.has(addressFieldsKey)) {

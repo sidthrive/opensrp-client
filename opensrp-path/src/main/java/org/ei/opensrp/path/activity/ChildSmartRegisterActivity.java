@@ -2,22 +2,37 @@ package org.ei.opensrp.path.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
+import org.ei.opensrp.clientandeventmodel.Client;
+import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
+import org.ei.opensrp.path.receiver.ServiceReceiver;
+import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
+import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
+import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
@@ -29,9 +44,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import util.JsonFormUtils;
+import util.barcode.Barcode;
+import util.barcode.BarcodeIntentIntegrator;
+import util.barcode.BarcodeIntentResult;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -42,10 +62,14 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
+    private static final int REQUEST_CODE_GET_JSON = 3432;
     private int currentPage;
 
     private String[] formNames = new String[]{};
     private android.support.v4.app.Fragment mBaseFragment = null;
+
+    private ServiceReceiver receiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +77,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         formNames = this.buildFormNameList();
         mBaseFragment = new ChildSmartRegisterFragment();
@@ -69,6 +93,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 onPageChanged(position);
             }
         });
+
     }
 
     private String[] buildFormNameList() {
@@ -81,47 +106,58 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     }
 
 
-    public void onPageChanged(int page){
-        setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    public void onPageChanged(int page) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
     protected SmartRegisterPaginatedAdapter adapter() {
         return new SmartRegisterPaginatedAdapter(clientsProvider());
     }
-    @Override
-    protected DefaultOptionsProvider getDefaultOptionsProvider() {return null;}
 
     @Override
-    protected void setupViews() {}
+    protected DefaultOptionsProvider getDefaultOptionsProvider() {
+        return null;
+    }
 
     @Override
-    protected void onResumption(){}
+    protected void setupViews() {
+    }
 
     @Override
-    protected NavBarOptionsProvider getNavBarOptionsProvider() {return null;}
+    protected void onResumption() {
+    }
 
     @Override
-    protected SmartRegisterClientsProvider clientsProvider() {return null;}
+    protected NavBarOptionsProvider getNavBarOptionsProvider() {
+        return null;
+    }
 
     @Override
-    protected void onInitialization() {}
+    protected SmartRegisterClientsProvider clientsProvider() {
+        return null;
+    }
+
+    @Override
+    protected void onInitialization() {
+    }
 
     @Override
     public void startRegistration() {
     }
+
     @Override
     public void showFragmentDialog(DialogOptionModel dialogOptionModel, Object tag) {
         try {
             LoginActivity.setLanguage();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         super.showFragmentDialog(dialogOptionModel, tag);
     }
 
 
-    public DialogOption[] getEditOptions( HashMap<String,String> overridemap) {
+    public DialogOption[] getEditOptions(HashMap<String, String> overridemap) {
 
         return new DialogOption[]{
                 new OpenFormOption(getResources().getString(R.string.child_followup), "child_followup", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
@@ -133,7 +169,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
-            if (entityId != null || metaData != null){
+            /*if (entityId != null || metaData != null){
                 String data = null;
                 //check if there is previously saved data for the form
                 data = getPreviouslySavedDataForForm(formName, metaData, entityId);
@@ -150,18 +186,46 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 }
             }
 
-            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
-
-        }catch (Exception e){
+            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation
+            change the view disapears*/
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
+            if (form != null) {
+                Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                intent.putExtra("json", form.toString());
+                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     @Override
-    public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_GET_JSON) {
+            if (resultCode == RESULT_OK) {
+
+                String jsonString = data.getStringExtra("json");
+                Log.d("JSONResult", jsonString);
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+
+                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "Child_Photo");
+                refreshBaseFragment(true);
+            }
+        } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
+            BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (StringUtils.isNotBlank(res.getContents())) {
+                onQRCodeSucessfullyScanned(res.getContents());
+            } else Log.i("", "NO RESULT FOR QR CODE");
+        }
+    }
+
+    @Override
+    public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides) {
         // save the form
-        try{
+        try {
             FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
@@ -176,7 +240,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             //switch to forms list fragmentstregi
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
-        }catch (Exception e){
+        } catch (Exception e) {
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
             if (displayFormFragment != null) {
                 displayFormFragment.setFormPartialSaving(false);
@@ -186,8 +250,8 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         }
     }
 
-    public void switchToBaseFragment(final String data){
-        Log.v("we are here","switchtobasegragment");
+    public void switchToBaseFragment(final String data) {
+        Log.v("we are here", "switchtobasegragment");
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {
             @Override
@@ -211,6 +275,15 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         });
 
     }
+
+    public void refreshBaseFragment(final boolean result) {
+        SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
+        if (registerFragment != null && result) {
+            registerFragment.refreshListView();
+        }
+    }
+
+
     @Override
     public void onBackPressed() {
         if (currentPage != 0) {
@@ -241,22 +314,34 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     }
 
     public DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
-        return  (DisplayFormFragment)findFragmentByPosition(index);
+        return (DisplayFormFragment) findFragmentByPosition(index);
     }
 
-    public void retrieveAndSaveUnsubmittedFormData(){
-        if (currentActivityIsShowingForm()){
+    public void retrieveAndSaveUnsubmittedFormData() {
+        if (currentActivityIsShowingForm()) {
             DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
             formFragment.saveCurrentFormData();
         }
     }
 
-    private boolean currentActivityIsShowingForm(){
+    private boolean currentActivityIsShowingForm() {
         return currentPage != 0;
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+    }
+
+    public void startQrCodeScanner() {
+        BarcodeIntentIntegrator integ = new BarcodeIntentIntegrator(this);
+        integ.addExtra(Barcode.SCAN_MODE, Barcode.QR_MODE);
+        integ.initiateScan();
+    }
+
+    private void onQRCodeSucessfullyScanned(String qrCode) {
+        Log.i(getClass().getName(), "QR code: "+ qrCode);
+        //TODO Update qr code
     }
 }

@@ -1,37 +1,16 @@
 {
   "case_classification_rules": [
     {
-      "comment": "WOMAN: This rule checks whether a given case belongs to Woman register",
-      "rule": {
-        "type": "event",
-        "fields": [
-          {
-            "field":"eventType",
-            "field_value": "Woman TT enrollment",
-            "creates_case":["ec_woman"]
-          },
-          {
-            "field":"eventType",
-            "field_value": "Woman TT Follow Up",
-            "creates_case":["ec_woman"]
-          }
-        ]
-      }
-    },
-    {
       "comment": "Child: This rule checks whether a given case belongs to Child register",
       "rule": {
         "type": "event",
         "fields": [
           {
-            "field":"eventType",
-            "field_value": "Child Vaccination Enrollment",
-            "creates_case":["ec_child"]
-          },
-          {
-            "field":"eventType",
-            "field_value": "Child Vaccination Followup",
-            "creates_case":["ec_child"]
+            "field": "eventType",
+            "field_value": "Birth Registration",
+            "creates_case": [
+              "ec_child"
+            ]
           }
         ]
       }

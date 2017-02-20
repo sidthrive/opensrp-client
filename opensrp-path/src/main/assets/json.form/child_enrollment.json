@@ -1,0 +1,384 @@
+{
+  "count": "1",
+  "encounter_type": "Birth Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  },
+  "step1": {
+    "title": "Child Information",
+    "fields": [
+      {
+        "key": "Child_Photo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "choose_image",
+        "uploadButtonText": "Select a Photo of the Child"
+      },
+      {
+        "key": "ZEIR_ID",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "ZEIR_ID",
+        "type": "edit_text",
+        "hint": "ZEIR Child ID",
+        "read_only": true,
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
+        "key": "First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "First name",
+        "edit_type": "name"
+      },
+      {
+        "key": "Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the last name"
+        }
+      },
+      {
+        "key": "Sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex *",
+        "values": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Date of Birth *",
+        "expanded": true,
+        "duration":{
+          "label": "Age"
+        },
+        "min_date": "01-01-2013",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        }
+      },
+      {
+        "key": "Child_Register_Card_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Child_Register_Card_Number",
+        "type": "edit_text",
+        "hint": "Register card number"
+      },
+      {
+        "key": "Child_Birth_Certificate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Child_Birth_Certificate",
+        "type": "edit_text",
+        "hint": "Birth certificate number"
+      },
+      {
+        "key": "Mother_Guardian_First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Mother/guardian first name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the mother/guardian's first name"
+        }
+      },
+      {
+        "key": "Mother_Guardian_Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Mother/guardian last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the mother/guardian's last name"
+        }
+      },
+      {
+        "key": "Mother_Guardian_NRC",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Mother/guardian NRC",
+        "v_regex": {
+          "value": "([0-9]{6}/[0-9]{2}/[0-9])|\s*",
+          "err": "Number must take the format of ######/##/#"
+        }
+      },
+      {
+        "key": "Mother_Guardian_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Mother/guardian phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(09[5-7][0-9]{7})|\s*",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+        }
+      },
+      {
+        "key": "Father_Guardian_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Father/guardian name",
+        "edit_type": "name"
+      },
+      {
+        "key": "Father_Guardian_NRC",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Father/guardian NRC",
+        "v_regex": {
+          "value": "([0-9]{6}/[0-9]{2}/[0-9])|\s*",
+          "err": "Number must take the format of ######/##/#"
+        }
+      },
+      {
+        "key": "First_Health_Facility_Contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "hint": "Date first seen *",
+        "expanded": true,
+        "min_date": "01-01-2016",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Enter the date that the child was first seen at a health facility for immunization services"
+        }
+      },
+      {
+        "key": "Birth_Weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Birth weight (KGs) *",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid weight"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the child's birth weight"
+        }
+      },
+      {
+        "key": "Place_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Place of birth *",
+        "values": [
+          "Health facility",
+          "Home"
+        ],
+        "openmrs_choice_ids": {
+          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "Birth_Facility_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Birth facility *",
+        "tree": [
+          {
+            "name": "Node 1",
+            "level": "Level 1"
+          },
+          {
+            "name": "Node 2",
+            "level": "Level 1",
+            "nodes": [
+              {
+                "name": "Node 3",
+                "level": "Level 2",
+                "nodes": [
+                  {
+                    "name": "Node 5",
+                    "level": "Level 3"
+                  },
+                  {
+                    "name": "Node 6",
+                    "level": "Level 3"
+                  }
+                ]
+              },
+              {
+                "name": "Node 4",
+                "level": "Level 2"
+              }
+            ]
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the birth facility name"
+        },
+        "relevance":{
+          "step1:Place_Birth":{"type":"string","ex":"equalTo(Health facility)"}
+        }
+      },
+      {
+        "key": "Residential_Address",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address1",
+        "type": "edit_text",
+        "hint": "Residential address *",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the residential address"
+        }
+      },
+      {
+        "key": "Physical_Landmark",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
+        "type": "edit_text",
+        "hint": "Landmark",
+        "edit_type": "name"
+      },
+      {
+        "key": "PMTCT_Status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "HIV exposure",
+        "values": [
+          "CE",
+          "MSU",
+          "CNE"
+        ],
+        "openmrs_choice_ids": {
+          "CE": "",
+          "MSU": "",
+          "CNE": ""
+        }
+      },
+      {
+        "key": "CHW_Phone_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "CHW_Phone_Number",
+        "type": "edit_text",
+        "hint": "CHW's phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(09[5-7][0-9]{7})|\s*",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+        }
+      },
+      {
+        "key": "CHW_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "CHW_Name",
+        "type": "edit_text",
+        "hint": "CHW name",
+        "edit_type": "name"
+      }
+    ]
+  }
+}

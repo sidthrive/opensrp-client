@@ -100,7 +100,7 @@ public class ECSyncUpdater {
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
-            return 0;
+            return -1;
         }
     }
 
@@ -120,7 +120,7 @@ public class ECSyncUpdater {
     public void updateLastSyncTimeStamp(long lastSyncTimeStamp){
         Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
-    private long batchSave(JSONArray events, JSONArray clients) {
+    private long batchSave(JSONArray events, JSONArray clients) throws Exception{
         db.batchInsertClients(clients);
         return db.batchInsertEvents(events, getLastSyncTimeStamp());
     }

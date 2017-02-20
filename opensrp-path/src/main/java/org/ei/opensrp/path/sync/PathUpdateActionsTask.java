@@ -1,6 +1,7 @@
 package org.ei.opensrp.path.sync;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -9,10 +10,12 @@ import android.widget.Toast;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
+import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AllFormVersionSyncService;
 import org.ei.opensrp.service.FormSubmissionSyncService;
+import org.ei.opensrp.service.ImageUploadSyncService;
 import org.ei.opensrp.sync.AdditionalSyncService;
 import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.ClientProcessor;
@@ -58,6 +61,10 @@ public class PathUpdateActionsTask {
 
                 FetchStatus fetchStatusForForms = sync();
                 FetchStatus fetchStatusForActions = actionService.fetchNewActions();
+
+                startReplicationIntentService(context);
+                startImageUploadIntentService(context);
+
                 FetchStatus fetchStatusAdditional = additionalSyncService == null ? nothingFetched : additionalSyncService.sync();
 
                 if (org.ei.opensrp.Context.getInstance().configuration().shouldSyncForm()) {
@@ -93,6 +100,7 @@ public class PathUpdateActionsTask {
 
     private FetchStatus sync() {
         try {
+            FetchStatus fetchStatus = FetchStatus.fetched;
             ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
 
             // Retrieve database host from preferences
@@ -105,6 +113,10 @@ public class PathUpdateActionsTask {
                 int eCount = ecUpdater.fetchAllClientsAndEvents(AllConstants.SyncFilters.FILTER_PROVIDER, allSharedPreferences.fetchRegisteredANM());
 
                 if (eCount == 0) {
+                    fetchStatus = nothingFetched;
+                    break;
+                } else if (eCount < 0) {
+                    fetchStatus = fetchedFailed;
                     break;
                 }
 
@@ -113,11 +125,21 @@ public class PathUpdateActionsTask {
                 Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
             }
 
-            return FetchStatus.fetched;
+            return fetchStatus;
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
             return fetchedFailed;
         }
 
+    }
+
+    private void startReplicationIntentService(Context context) {
+        Intent serviceIntent = new Intent(context, PathReplicationIntentService.class);
+        context.startService(serviceIntent);
+    }
+
+    private void startImageUploadIntentService(Context context) {
+        Intent intent = new Intent(context,ImageUploadSyncService.class);
+        context.startService(intent);
     }
 }

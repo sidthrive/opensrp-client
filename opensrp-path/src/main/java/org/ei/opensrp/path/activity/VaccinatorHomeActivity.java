@@ -73,7 +73,6 @@ public class VaccinatorHomeActivity extends SecuredActivity {
         }
     };
 
-    private TextView womanRegisterClientCountView;
     private TextView childRegisterClientCountView;
     private TextView fieldRegisterClientCountMView;
     private TextView fieldRegisterClientCountDView;
@@ -95,24 +94,20 @@ public class VaccinatorHomeActivity extends SecuredActivity {
     }
 
     public void setupViews() {
-        ImageButton imgButtonChild=(ImageButton)findViewById(R.id.btn_child_register_new);
-        ImageButton imgButtonWoman=(ImageButton)findViewById(R.id.btn_woman_register);
-        ImageButton imgButtonField=(ImageButton)findViewById(R.id.btn_field_register);
-        if(onRegisterStartListener!=null) {
+        ImageButton imgButtonChild = (ImageButton) findViewById(R.id.btn_child_register_new);
+        ImageButton imgButtonField = (ImageButton) findViewById(R.id.btn_field_register);
+        if (onRegisterStartListener != null) {
             imgButtonField.setOnClickListener(onRegisterStartListener);
-            imgButtonWoman.setOnClickListener(onRegisterStartListener);
             imgButtonChild.setOnClickListener(onRegisterStartListener);
         }
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
         findViewById(R.id.btn_provider_profile).setOnClickListener(onButtonsClickListener);
 
-        womanRegisterClientCountView = (TextView) findViewById(R.id.txt_woman_register_client_count);
         childRegisterClientCountView = (TextView) findViewById(R.id.txt_child_register_client_count);
         fieldRegisterClientCountDView = (TextView) findViewById(R.id.txt_field_register_client_countd);
         fieldRegisterClientCountMView = (TextView) findViewById(R.id.txt_field_register_client_countm);
 
-        womanRegisterClientCountView.setText("0");
         childRegisterClientCountView.setText("0");
         fieldRegisterClientCountDView.setText("0 D");
         fieldRegisterClientCountMView.setText("0 M");
@@ -124,11 +119,13 @@ public class VaccinatorHomeActivity extends SecuredActivity {
         SYNC_COMPLETED.addListener(onSyncCompleteListener);
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
         ACTION_HANDLED.addListener(updateANMDetailsListener);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.path.R.mipmap.logo));
-        getSupportActionBar().setLogo(org.ei.opensrp.path.R.mipmap.logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.path.R.mipmap.logo));
+            getSupportActionBar().setLogo(org.ei.opensrp.path.R.mipmap.logo);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         LoginActivity.setLanguage();
     }
 
@@ -138,17 +135,7 @@ public class VaccinatorHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
-        //TODO: remove
-        HashMap<String, String> details = new HashMap<>();
-        details.put("first_name", "John");
-        details.put("last_name", "Doe");
-        details.put("gender", "male");
-        details.put("zeir", "231243");
-        details.put("dob", "06-03-1991");
-        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient("test", details, null);
-        commonPersonObjectClient.setColumnmaps(details);
-        ChildImmunizationActivity.launchActivity(this, commonPersonObjectClient);
-        //TODO: end remove
+
     }
 
     private void updateRegisterCounts() {
@@ -167,8 +154,6 @@ public class VaccinatorHomeActivity extends SecuredActivity {
             public void run() {
                 final String childCount = context().commonrepository("ec_child")
                         .rawQuery("SELECT COUNT(*) c FROM ec_child").get(0).get("c");
-                final String womanCount = context().commonrepository("ec_woman")
-                        .rawQuery("SELECT COUNT(*) c FROM ec_woman").get(0).get("c");
                 final String stockCountD = context().commonrepository("stock")
                         .rawQuery("SELECT COUNT(*) c FROM stock WHERE report='daily'").get(0).get("c");
                 final String stockCountM = context().commonrepository("stock")
@@ -179,7 +164,6 @@ public class VaccinatorHomeActivity extends SecuredActivity {
                 Runnable myRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        womanRegisterClientCountView.setText(womanCount);
                         childRegisterClientCountView.setText(childCount);
                         fieldRegisterClientCountDView.setText(stockCountD + " D");
                         fieldRegisterClientCountMView.setText(stockCountM + " M");
@@ -277,9 +261,6 @@ public class VaccinatorHomeActivity extends SecuredActivity {
                     navigationController.startChildSmartRegistry();
                     break;
 
-                case R.id.btn_woman_register:
-                    ((VaccinatorNavigationController) navigationController).startWomanSmartRegister();
-                    break;
             }
         }
     };
