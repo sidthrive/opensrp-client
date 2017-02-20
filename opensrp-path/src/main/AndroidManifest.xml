@@ -75,6 +75,7 @@
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
         <service android:name=".service.intent.PathReplicationIntentService" />
+        <service android:name=".service.intent.PullUniqueIdsIntentService" />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.vijay.jsonwizard.fileprovider"

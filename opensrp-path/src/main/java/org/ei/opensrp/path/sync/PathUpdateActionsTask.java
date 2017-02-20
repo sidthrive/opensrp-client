@@ -11,6 +11,7 @@ import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
+import org.ei.opensrp.path.service.intent.PullUniqueIdsIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AllFormVersionSyncService;
@@ -64,6 +65,7 @@ public class PathUpdateActionsTask {
 
                 startReplicationIntentService(context);
                 startImageUploadIntentService(context);
+                startPullUniqueIdsIntentService(context);
 
                 FetchStatus fetchStatusAdditional = additionalSyncService == null ? nothingFetched : additionalSyncService.sync();
 
@@ -140,6 +142,10 @@ public class PathUpdateActionsTask {
 
     private void startImageUploadIntentService(Context context) {
         Intent intent = new Intent(context,ImageUploadSyncService.class);
+        context.startService(intent);
+    }
+    private void startPullUniqueIdsIntentService(Context context) {
+        Intent intent = new Intent(context,PullUniqueIdsIntentService.class);
         context.startService(intent);
     }
 }
