@@ -1,13 +1,17 @@
 package org.ei.opensrp.repository;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.ei.opensrp.AllConstants.*;
+import static org.ei.opensrp.AllConstants.DEFAULT_LOCALE;
+import static org.ei.opensrp.AllConstants.DRISHTI_BASE_URL;
+import static org.ei.opensrp.AllConstants.ENCRYPTED_GROUP_ID_PREFIX;
+import static org.ei.opensrp.AllConstants.ENCRYPTED_PASSWORD_PREFIX;
+import static org.ei.opensrp.AllConstants.IS_SYNC_IN_PROGRESS_PREFERENCE_KEY;
+import static org.ei.opensrp.AllConstants.LANGUAGE_PREFERENCE_KEY;
+import static org.ei.opensrp.AllConstants.PIONEER_USER;
 import static org.ei.opensrp.util.Log.logError;
 import static org.ei.opensrp.util.Log.logInfo;
 
@@ -131,6 +135,12 @@ public class AllSharedPreferences {
             logError("Malformed Url: " + baseUrl);
         }
     }
+    public void updateANMPreferredName(String userName,String preferredName) {
+        preferences.edit().putString(userName, preferredName).commit();
+    }
 
+    public String getANMPreferredName(String userName){
+        return  preferences.getString(userName, "");
+    }
 
 }

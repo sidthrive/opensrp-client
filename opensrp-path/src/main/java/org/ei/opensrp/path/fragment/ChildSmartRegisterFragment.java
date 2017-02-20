@@ -43,6 +43,7 @@ import org.ei.opensrp.path.option.StatusSort;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.servicemode.VaccinationServiceModeOption;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -207,13 +208,23 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         viewParent.setVisibility(View.GONE);
 
         View qrCode = view.findViewById(R.id.scan_qr_code);
+        TextView nameInitials = (TextView)view.findViewById(R.id.name_inits);
         qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startQrCodeScanner();
             }
         });
-
+        AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
+        String preferredName=allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
+        String[] preferredNameArray = preferredName.split(" ");
+        String initials="";
+        if(preferredNameArray.length>1){
+            initials=String.valueOf(preferredNameArray[0].charAt(0))+String.valueOf(preferredNameArray[1].charAt(0));
+        }else{
+            initials=String.valueOf(preferredNameArray[0].charAt(0));
+        }
+        nameInitials.setText(initials);
 
     }
 
