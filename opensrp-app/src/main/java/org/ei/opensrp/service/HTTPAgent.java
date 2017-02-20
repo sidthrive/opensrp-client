@@ -203,6 +203,7 @@ public class HTTPAgent {
 
                 HttpPost httpost = new HttpPost(url);
 
+                Log.e(TAG, "httpImagePost: "+image.getFilepath() );
                 httpost.setHeader("Accept", "multipart/form-data");
                 File filetoupload = new File(image.getFilepath());
                 Log.v("file to upload", "" + filetoupload.length());
@@ -213,7 +214,7 @@ public class HTTPAgent {
                 entity.addPart("file-category", new StringBody(image.getFilecategory() != null ? image.getFilecategory() : "profilepic"));
                 ContentBody cbFile = new FileBody(uploadFile,"image/jpeg");
                 entity.addPart("file", cbFile);
-//                entity.addPart("filevector", new StringBody(image.getFilevector()));
+                entity.addPart("face-vector", new StringBody(image.getFilevector()));
                 httpost.setEntity(entity);
                 String authToken = null;
                 HttpResponse response = httpClient.postContent(httpost);

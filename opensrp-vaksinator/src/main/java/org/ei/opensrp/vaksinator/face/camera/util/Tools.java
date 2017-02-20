@@ -139,7 +139,6 @@ public class Tools {
 
             HashMap<String,String> details = new HashMap<>();
 
-            saveimagereference(bindobject, entityId, details);
 //            details.put("profilepic", photoPath);
             details.put("profilepic", thumbs_photo.toString());
 
@@ -148,22 +147,6 @@ public class Tools {
 //            HashMap<String,String> details = new HashMap<>();
 //            KIDetailActivity.details.put("profilepic",photoPath);
 
-//            Database Stored
-            DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
-            Long tsLong = System.currentTimeMillis()/1000;
-//            detailsRepository.add(entityId, "profilepic", photoPath, tsLong);
-            detailsRepository.add(entityId, "profilepic", thumbs_photo.toString(), tsLong);
-
-            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-            ProfileImage profileImage = new ProfileImage(
-                    UUID.randomUUID().toString(),
-                    anmId,
-                    entityId,
-                    "Image",
-                    details.get("profilepic"),
-                    ImageRepository.TYPE_Unsynced,
-                    "dp");
-            ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
             return true;
 
         } catch (FileNotFoundException e) {
@@ -383,14 +366,6 @@ public class Tools {
 //        return hash;
 //    }
 
-    public static void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
 
 
 }
