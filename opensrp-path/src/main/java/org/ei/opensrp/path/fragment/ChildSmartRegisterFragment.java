@@ -3,7 +3,6 @@ package org.ei.opensrp.path.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -64,8 +63,6 @@ import java.util.List;
 import java.util.Map;
 
 import util.GlobalSearchUtils;
-import util.barcode.Barcode;
-import util.barcode.BarcodeIntentIntegrator;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -139,7 +136,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             @Override
             public String searchHint() {
-                return Context.getInstance().getStringResource(R.string.search_hint);
+                return Context.getInstance().getStringResource(R.string.str_search_hint);
             }
         };
     }

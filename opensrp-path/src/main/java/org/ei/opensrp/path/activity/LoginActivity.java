@@ -8,17 +8,26 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -37,6 +46,7 @@ import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
 import org.ei.opensrp.view.activity.SettingsActivity;
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -76,7 +86,7 @@ public class LoginActivity extends Activity {
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
+            Configuration conf = res.getConfiguration();
             conf.locale = new Locale(preferredLocale);
             res.updateConfiguration(conf, dm);
         } catch (Exception e) {
@@ -86,8 +96,13 @@ public class LoginActivity extends Activity {
         setContentView(org.ei.opensrp.R.layout.login);
 
         getActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.black)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        }
 
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
+        positionViews();
         initializeLoginFields();
         initializeBuildDetails();
         setDoneActionHandlerOnPasswordField();
@@ -142,14 +157,20 @@ public class LoginActivity extends Activity {
         hideKeyboard();
         view.setClickable(false);
 
-        final String userName = userNameEditText.getText().toString();
-        final String password = passwordEditText.getText().toString();
+        final String userName = userNameEditText.getText().toString().trim();
+        final String password = passwordEditText.getText().toString().trim();
 
-        if (localLogin) {
-            localLogin(view, userName, password);
+        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
+            if (localLogin) {
+                localLogin(view, userName, password);
+            } else {
+                remoteLogin(view, userName, password);
+            }
         } else {
-            remoteLogin(view, userName, password);
+            showErrorDialog(getResources().getString(R.string.unauthorized));
+            view.setClickable(true);
         }
+
         android.util.Log.i(getClass().getName(), "Login result finished " + DateTime.now().toString());
     }
 
@@ -382,6 +403,33 @@ public class LoginActivity extends Activity {
             res.updateConfiguration(conf, dm);
             return ENGLISH_LANGUAGE;
         }
+    }
+
+    private void positionViews() {
+        final ScrollView canvasSV = (ScrollView) findViewById(R.id.canvasSV);
+        final RelativeLayout canvasRL = (RelativeLayout) findViewById(R.id.canvasRL);
+        final LinearLayout logoCanvasLL = (LinearLayout) findViewById(R.id.logoCanvasLL);
+        final LinearLayout credentialsCanvasLL = (LinearLayout) findViewById(R.id.credentialsCanvasLL);
+
+        canvasSV.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                canvasSV.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                int windowHeight = canvasSV.getHeight();
+                int topMargin = (windowHeight / 2)
+                        - (credentialsCanvasLL.getHeight() / 2)
+                        - logoCanvasLL.getHeight();
+                topMargin = topMargin / 2;
+
+                RelativeLayout.LayoutParams logoCanvasLP = (RelativeLayout.LayoutParams) logoCanvasLL.getLayoutParams();
+                logoCanvasLP.setMargins(0, topMargin, 0, 0);
+                logoCanvasLL.setLayoutParams(logoCanvasLP);
+
+                canvasRL.setMinimumHeight(windowHeight);
+            }
+        });
     }
 
 }
