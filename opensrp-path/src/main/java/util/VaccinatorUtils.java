@@ -173,7 +173,7 @@ public class VaccinatorUtils {
     public static void addVaccineDetail(final Context context, TableLayout table, final VaccineWrapper vaccineWrapper){
         TableRow tr = (TableRow) ((Activity) context).getLayoutInflater().inflate(R.layout.vaccinate_row_view, null);
         tr.setGravity(Gravity.CENTER_VERTICAL);
-        tr.setTag(vaccineWrapper.getVaccine().name());
+        tr.setTag(vaccineWrapper.getId());
 
         RelativeLayout relativeLayout = (RelativeLayout) tr.findViewById(R.id.vacc_status_layout);
         if(vaccineWrapper.isCompact()){
@@ -183,7 +183,12 @@ public class VaccinatorUtils {
         }
 
         TextView label = (TextView) tr.findViewById(R.id.vaccine);
-        label.setText(vaccineWrapper.getVaccineAsString());
+        List<Vaccine> vaccines = vaccineWrapper.vaccines();
+        if(vaccines.size() == 1) {
+            label.setText(vaccines.get(0).display());
+        } else if(vaccines.size() > 1){
+            label.setText(R.string.record_all);
+        }
 
         String vaccineDate = "";
         String color = "#ffffff";
@@ -246,8 +251,8 @@ public class VaccinatorUtils {
             }
         });
 
-        if(table.getChildCount() > 0 && StringUtils.isNotBlank(vaccineWrapper.getVaccineAsString()) && StringUtils.isNotBlank(vaccineWrapper.getPreviousVaccine())) {
-            if(!vaccineWrapper.getVaccineAsString().split("\\s+")[0].equals(vaccineWrapper.getPreviousVaccine().split("\\s+")[0])) {
+        if(table.getChildCount() > 0 && StringUtils.isNotBlank(vaccineWrapper.getId()) && StringUtils.isNotBlank(vaccineWrapper.getPreviousVaccineId())) {
+            if(!vaccineWrapper.getId().equals(vaccineWrapper.getId())) {
                 View view = new View(context);
                 view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, dpToPx(context, 10f)));
 

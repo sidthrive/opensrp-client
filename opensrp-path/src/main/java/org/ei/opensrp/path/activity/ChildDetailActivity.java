@@ -11,13 +11,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.EditFormSubmissionWrapper;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
+import org.ei.opensrp.repository.ImageRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Years;
@@ -37,6 +40,8 @@ import static util.Utils.getDataRow;
 import static util.Utils.getValue;
 import static util.Utils.hasAnyEmptyValue;
 import static util.Utils.nonEmptyValue;
+import static util.Utils.setProfiePic;
+import static util.Utils.setProfiePicFromPath;
 import static util.VaccinatorUtils.addStatusTag;
 import static util.VaccinatorUtils.addVaccineDetail;
 import static util.VaccinatorUtils.generateSchedule;
@@ -82,11 +87,11 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
         String metaData = new FieldOverrides(new JSONObject(overrideStringmap).toString()).getJSONString();
         org.ei.opensrp.util.Log.logDebug("fieldOverrides data is : " + metaData);
 
-        String data = VaccinateActionUtils.formData(context, clientobj.entityId(), formName, metaData);
-        VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = new VaccinateFormSubmissionWrapper(data, clientobj.entityId(), formName, metaData, "child");
+        //String data = VaccinateActionUtils.formData(context, clientobj.entityId(), formName, metaData);
+        VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = new VaccinateFormSubmissionWrapper(null, clientobj.entityId(), formName, metaData, "child");
 
-        String editData = VaccinateActionUtils.formData(context, clientobj.entityId(), registerFormName, null);
-        EditFormSubmissionWrapper editFormSubmissionWrapper = new EditFormSubmissionWrapper(editData, clientobj.entityId(), registerFormName, null, "child");
+        //String editData = VaccinateActionUtils.formData(context, clientobj.entityId(), registerFormName, null);
+        EditFormSubmissionWrapper editFormSubmissionWrapper = new EditFormSubmissionWrapper(null, clientobj.entityId(), registerFormName, null, "child");
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(EXTRA_VACCINATE_OBJECT, vaccinateFormSubmissionWrapper);
@@ -204,15 +209,24 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
                 table = (TableLayout) findViewById(R.id.child_vaccine_table3);
             }
 
+            Photo photo = new Photo();
+            ProfileImage profileImage = ((ImageRepository) org.ei.opensrp.Context.getInstance().imageRepository()).findByEntityId(client.entityId());
+            if (profileImage != null) {
+                photo.setFilePath(profileImage.getFilepath());
+            } else {
+                photo.setResourceId(defaultProfilePicResId(client));
+            }
+
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setStatus(m.get("status").toString());
-            vaccineWrapper.setVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
+            vaccineWrapper.addVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
             vaccineWrapper.setVaccineDate((DateTime) m.get("date"));
             vaccineWrapper.setAlert((Alert) m.get("alert"));
             vaccineWrapper.setPreviousVaccine(previousVaccine);
+            vaccineWrapper.setPhoto(photo);
             vaccineWrapper.setCompact(false);
 
-            vaccineWrapper.setPatientNumber(getValue(client.getColumnmaps(), "epi_card_number", false));
+            vaccineWrapper.setPatientNumber(getValue(client.getColumnmaps(), "program_client_id", false));
             vaccineWrapper.setPatientName(getValue(client.getColumnmaps(), "first_name", true) + " " + getValue(client.getColumnmaps(), "last_name", true));
 
             String existingAge = VaccinateActionUtils.retrieveExistingAge(vaccinateFormSubmissionWrapper);
@@ -221,7 +235,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
             }
 
             addVaccineDetail(this, table, vaccineWrapper);
-            previousVaccine = vaccineWrapper.getVaccineAsString();
+            previousVaccine = vaccineWrapper.getId();
             tables.add(table);
             i++;
         }
@@ -281,7 +295,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     private TableRow findRow(VaccineWrapper tag) {
-        return VaccinateActionUtils.findRow(tables, tag.getVaccine().name());
+        return VaccinateActionUtils.findRow(tables, tag.getId());
     }
 
     public VaccinateFormSubmissionWrapper getVaccinateFormSubmissionWrapper() {

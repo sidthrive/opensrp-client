@@ -24,7 +24,7 @@
             android:paddingBottom="2dp"
             android:paddingLeft="2dp"
             android:paddingTop="2dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitStart"
             android:src="@drawable/child_boy_infant" />
 
         <LinearLayout

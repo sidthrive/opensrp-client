@@ -26,4 +26,5 @@
 
     <color name="actionbar">#208CC5</color>
 
+    <color name="vaccinate_popup_light_grey">#F0F0F0</color>
 </resources>

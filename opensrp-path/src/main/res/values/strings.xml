@@ -114,4 +114,6 @@
     <string name="scan_qr_code">Scan QR code</string>
 
     <string name="zeir">ZEIR</string>
+
+    <string name="record_all">Record All</string>
 </resources>

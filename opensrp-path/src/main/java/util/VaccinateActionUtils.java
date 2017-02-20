@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.form.FormSubmission;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.path.R;
@@ -46,9 +47,9 @@ public class VaccinateActionUtils {
     public static String formData(Context context, String entityId, String formName, String metaData) {
         try {
             return FormUtils.getInstance(context).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(VaccinateActionUtils.class.getName(), "", e);
-            return  null;
+            return null;
         }
     }
 
@@ -181,7 +182,8 @@ public class VaccinateActionUtils {
                 }
             }
         } catch (Exception e) {
-            Log.e(VaccinateActionUtils.class.getName(), "", e);e.printStackTrace();
+            Log.e(VaccinateActionUtils.class.getName(), "", e);
+            e.printStackTrace();
         }
     }
 
@@ -232,39 +234,42 @@ public class VaccinateActionUtils {
         if (StringUtils.isNumeric(existingAge)) {
             age = Integer.valueOf(existingAge);
         }
-        switch (tag.getVaccine()) {
-            case penta1:
-            case pcv1:
-            case opv1:
-                if (age > 35)
-                    addHook = true;
-                break;
-            case penta2:
-            case pcv2:
-            case opv2:
-                if (age > 63)
-                    addHook = true;
-                break;
-            case penta3:
-            case pcv3:
-            case opv3:
-            case ipv:
-                if (age > 91)
-                    addHook = true;
-                break;
-            case measles1:
-                if (age > 250)
-                    addHook = true;
-                break;
-            case measles2:
-                if (age > 340)
-                    addHook = true;
-                break;
-            default:
-                addHook =true;
-                break;
-        }
 
+        for (VaccineRepo.Vaccine vaccine : tag.vaccines()) {
+            switch (vaccine) {
+                case penta1:
+                case pcv1:
+                case opv1:
+                    if (age > 35)
+                        addHook = true;
+                    break;
+                case penta2:
+                case pcv2:
+                case opv2:
+                    if (age > 63)
+                        addHook = true;
+                    break;
+                case penta3:
+                case pcv3:
+                case opv3:
+                case ipv:
+                    if (age > 91)
+                        addHook = true;
+                    break;
+                case measles1:
+                    if (age > 250)
+                        addHook = true;
+                    break;
+                case measles2:
+                    if (age > 340)
+                        addHook = true;
+                    break;
+                default:
+                    addHook = true;
+                    break;
+            }
+
+        }
         return addHook;
 
     }

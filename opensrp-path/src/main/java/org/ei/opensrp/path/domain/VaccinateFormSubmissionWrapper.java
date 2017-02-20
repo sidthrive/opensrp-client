@@ -30,7 +30,7 @@ public class VaccinateFormSubmissionWrapper implements Serializable {
 
     private String category;
 
-    private HashMap<VaccineRepo.Vaccine, VaccineWrapper> map;
+    private HashMap<String, VaccineWrapper> map;
 
     public VaccinateFormSubmissionWrapper(String formData, String entityId, String formName, String metaData, String category) {
         this.formData = formData;
@@ -42,21 +42,21 @@ public class VaccinateFormSubmissionWrapper implements Serializable {
 
     public void add(VaccineWrapper tag) {
         if (tag.getUpdatedVaccineDate() != null) {
-            map().put(tag.getVaccine(), tag);
+            map().put(tag.getId(), tag);
         }
     }
 
     public void remove(VaccineWrapper tag) {
-        map().remove(tag.getVaccine());
+        map().remove(tag.getId());
     }
 
     public int updates() {
         return map().size();
     }
 
-    public HashMap<VaccineRepo.Vaccine, VaccineWrapper> map() {
+    public HashMap<String, VaccineWrapper> map() {
         if (map == null) {
-            map = new HashMap<VaccineRepo.Vaccine, VaccineWrapper>();
+            map = new HashMap<String, VaccineWrapper>();
         }
         return map;
     }
@@ -81,37 +81,40 @@ public class VaccinateFormSubmissionWrapper implements Serializable {
             String vaccines = "";
             String vaccines2 = "";
 
-            for (Map.Entry<VaccineRepo.Vaccine, VaccineWrapper> entry : map().entrySet()) {
-                VaccineRepo.Vaccine vaccine = entry.getKey();
+            for (Map.Entry<String, VaccineWrapper> entry : map().entrySet()) {
+                String id = entry.getKey();
 
                 VaccineWrapper tag = entry.getValue();
                 String formatedDate = tag.getUpdatedVaccineDate().toString("yyyy-MM-dd");
 
-                String lastChar = vaccine.name().substring(vaccine.name().length() - 1);
+                for(VaccineRepo.Vaccine vaccine: tag.vaccines()) {
 
-                if (!tag.isToday()) {
-                    String fieldName = vaccine.name() + "_retro";
+                    String lastChar = vaccine.name().substring(vaccine.name().length() - 1);
 
-                    JSONObject parentJson = null;
-                    if (category.equals("child")) {
-                        parentJson = VaccinateActionUtils.find(encounterJson, "vaccines_group");
-                    } else if (category.equals("woman")) {
-                        parentJson = encounterJson;
-                    }
+                    if (!tag.isToday()) {
+                        String fieldName = vaccine.name() + "_retro";
 
-                    if(parentJson != null) {
-                        VaccinateActionUtils.updateJson(parentJson, fieldName, formatedDate);
-                        if (StringUtils.isNumeric(lastChar)) {
-                            VaccinateActionUtils.updateJson(parentJson, vaccine.name() + "_dose", lastChar);
+                        JSONObject parentJson = null;
+                        if (category.equals("child")) {
+                            parentJson = VaccinateActionUtils.find(encounterJson, "vaccines_group");
+                        } else if (category.equals("woman")) {
+                            parentJson = encounterJson;
                         }
-                        vaccines += vaccine.name() + " ";
+
+                        if (parentJson != null) {
+                            VaccinateActionUtils.updateJson(parentJson, fieldName, formatedDate);
+                            if (StringUtils.isNumeric(lastChar)) {
+                                VaccinateActionUtils.updateJson(parentJson, vaccine.name() + "_dose", lastChar);
+                            }
+                            vaccines += vaccine.name() + " ";
+                        }
+                    } else {
+                        VaccinateActionUtils.updateJson(encounterJson, vaccine.name(), formatedDate);
+                        if (StringUtils.isNumeric(lastChar)) {
+                            VaccinateActionUtils.updateJson(encounterJson, vaccine.name() + "_dose_today", lastChar);
+                        }
+                        vaccines2 += vaccine.name() + " ";
                     }
-                } else {
-                    VaccinateActionUtils.updateJson(encounterJson, vaccine.name(), formatedDate);
-                    if (StringUtils.isNumeric(lastChar)) {
-                        VaccinateActionUtils.updateJson(encounterJson, vaccine.name() + "_dose_today", lastChar);
-                    }
-                    vaccines2 += vaccine.name() + " ";
                 }
 
             }
