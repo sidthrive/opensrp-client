@@ -67,6 +67,8 @@
             android:name=".child.AnakDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
+        <activity android:name="org.ei.opensrp.view.activity.SettingsActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

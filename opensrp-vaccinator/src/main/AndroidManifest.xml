@@ -70,6 +70,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape" >
         </activity>
+        <activity android:name="org.ei.opensrp.view.activity.SettingsActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

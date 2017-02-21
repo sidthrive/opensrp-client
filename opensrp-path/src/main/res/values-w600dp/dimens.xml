@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="login_horizontal_margin">100dp</dimen>
+</resources>
