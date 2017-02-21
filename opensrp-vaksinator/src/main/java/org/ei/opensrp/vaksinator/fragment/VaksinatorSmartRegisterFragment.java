@@ -408,7 +408,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                     @Override
                     protected void onPostExecute(Object o) {
-                        getClientsAdapter().notifyDataSetChanged();
+//                        getClientsAdapter().notifyDataSetChanged();
                         getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                         filterandSortExecute();
                         super.onPostExecute(o);
