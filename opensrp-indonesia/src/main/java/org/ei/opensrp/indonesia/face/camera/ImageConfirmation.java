@@ -266,14 +266,6 @@ public class ImageConfirmation extends Activity {
 //        Log.e(TAG, "onCreate: Id "+selectedPersonName );
 //        Log.e(TAG, "onCreate: KiClient "+kiclient.getCaseId() );
 
-//      CommonRepository commonrepository = new CommonRepository("ibu", new String[]{"ibu.isClosed", "ibu.ancDate", "ibu.ancKe", "kartu_ibu.namalengkap", "kartu_ibu.umur", "kartu_ibu.namaSuami"}););
-//        CommonRepository commonrepository = new CommonRepository("ec_kartu_ibu",new String []{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur","ec_kartu_ibu.namaSuami"});
-//        Log.e(TAG, "onCreate: CommonRespository "+commonrepository );
-//        CommonPersonObject personinlist = commonrepository.findByCaseID(selectedPersonName);
-//        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("ec_kartu_ibu.namalengkap"));
-//        KIDetailActivity.kiclient = pClient;
-//        Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);
-
         Class<?> origin_class = this.getClass();
 
         Log.e(TAG, "onPreviewFrame: init"+origin_class.getSimpleName() );

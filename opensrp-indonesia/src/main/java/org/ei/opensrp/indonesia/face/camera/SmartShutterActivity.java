@@ -505,7 +505,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             faceProc = FacialProcessing.getInstance();
             faceProc.setRecognitionConfidence(Tools.CONFIDENCE_VALUE);
 
-            Tools tools = new Tools();
+//            Tools tools = new Tools();
             loadAlbum();
 
         } else if (!isDevCompat && !activityStartedOnce) {

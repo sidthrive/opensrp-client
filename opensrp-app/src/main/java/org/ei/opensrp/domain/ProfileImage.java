@@ -1,5 +1,7 @@
 package org.ei.opensrp.domain;
 
+import android.util.Log;
+
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 
@@ -13,6 +15,7 @@ public class ProfileImage {
     private String filepath;
     private String syncStatus;
     private String filecategory;
+    private String vectorid;
     private String filevector;
 
     public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory, String filevector) {
@@ -25,6 +28,24 @@ public class ProfileImage {
         this.filecategory = filecategory;
         this.filevector = filevector;
     }
+
+    public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory) {
+        this.imageid = imageid;
+        this.entityID = entityID;
+        this.anmId = anmId;
+        this.contenttype = contenttype;
+        this.filepath = filepath;
+        this.syncStatus = syncStatus;
+        this.filecategory = filecategory;
+    }
+
+    public ProfileImage(String vectorid,String entityID, String syncStatus) {
+        this.vectorid = vectorid;
+        this.entityID = entityID;
+        this.syncStatus = syncStatus;
+    }
+
+
     public ProfileImage(){}
 
     public String getFilecategory() {
@@ -92,6 +113,7 @@ public class ProfileImage {
 
 
     public String getFilevector() {
+        Log.e("TAG", "getFilevector: "+filevector );
         return filevector;
     }
 

@@ -3,7 +3,6 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -20,10 +19,10 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -48,27 +47,22 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
-    private final OpenSRPImageLoader mImageLoader;
     private Drawable iconPencilDrawable;
-    private final int txtColorBlack;
     private final AbsListView.LayoutParams clientViewLayoutParams;
 
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
     public KIClientsProvider(Context context,
-                                         View.OnClickListener onClickListener,
-                                         AlertService alertService) {
+                             View.OnClickListener onClickListener,
+                             AlertService alertService) {
         this.onClickListener = onClickListener;
-//        this.controller = controller;
         this.context = context;
         this.alertService = alertService;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         clientViewLayoutParams = new AbsListView.LayoutParams(MATCH_PARENT,
                 (int) context.getResources().getDimension(org.ei.opensrp.R.dimen.list_item_height));
-        txtColorBlack = context.getResources().getColor(org.ei.opensrp.R.color.text_black);
-        mImageLoader = BidanApplication.getInstance().getCachedImageLoaderInstance();
 
     }
 
@@ -133,9 +127,9 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
             kiview.setTag(smartRegisterClient);
         }
         else {
-
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
         }
+
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
         viewHolder.village_name.setText(pc.getDetails().get("address1")!=null?pc.getDetails().get("address1"):"");
@@ -156,7 +150,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
        //end profile image
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
@@ -198,7 +192,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         //anak
         AllCommonsRepository anakrep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add((pc.entityId()));
         List<CommonPersonObject> allchild = anakrep.findByRelational_IDs(list);
         for (int i = 0; i < allchild.size(); i++) {

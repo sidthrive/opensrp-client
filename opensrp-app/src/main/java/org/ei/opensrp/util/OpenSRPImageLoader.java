@@ -151,7 +151,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                 ImageContainer imgContainer = new ImageContainer(null, null, null, opensrpImageListener);
 
                 opensrpImageListener.onResponse(imgContainer, true);
-                return;
 
             } else {
                 //get image record from the db
@@ -231,7 +230,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                         } else
                             opensrpImageListener.onResponse(imgContainer, true);
                     }
-                    return;
                 }
                 /***
                  * ProfileImage not found on disk, we need to get it from the network, here we piggyback on Volley library functionality to retrieve the image from the
@@ -270,7 +268,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                         }
                     }
 
-                    return;
                 }
 
             } catch (Exception exc) {
@@ -541,7 +538,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
                     // TODO : fetch vector from imagebitmap
-                    profileImage.setFilevector("[ve, ct, or]");
+//                    profileImage.setFilevector();
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
                     imageRepo.add(profileImage);
                 }

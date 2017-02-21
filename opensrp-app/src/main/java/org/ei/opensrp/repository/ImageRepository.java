@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageRepository extends DrishtiRepository {
-    private static final String TAG=ImageRepository.class.getCanonicalName();
+    private static final String TAG = ImageRepository.class.getCanonicalName();
     private static final String Image_SQL = "CREATE TABLE ImageList(imageid VARCHAR PRIMARY KEY, anmId VARCHAR, entityID VARCHAR, contenttype VARCHAR, filepath VARCHAR, syncStatus VARCHAR, filecategory VARCHAR, filevector TEXT)";
     public static final String Image_TABLE_NAME = "ImageList";
     public static final String ID_COLUMN = "imageid";
@@ -27,8 +27,21 @@ public class ImageRepository extends DrishtiRepository {
     public static final String syncStatus_COLUMN = "syncStatus";
     public static final String filecategory_COLUMN = "filecategory";
 //    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN, filecategory_COLUMN};
+
     public static final String filevector_COLUMN = "filevector";
     public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN};
+    public static final String Vector_TABLE_NAME = "VectorList";
+    public static final String VID_COLUMN = "vectorID";
+    private static final String Vector_SQL = "CREATE TABLE VectorList("+ VID_COLUMN +" VARCHAR PRIMARY KEY, "+entityID_COLUMN+" VARCHAR, syncStatus VARCHAR )";
+    public static final String[] VectorImage_TABLE_COLUMNS = {
+            entityID_COLUMN,
+            filevector_COLUMN
+    };
+    public static final String[] Vector_TABLE_COLUMNS = {
+            VID_COLUMN,
+            entityID_COLUMN,
+            syncStatus_COLUMN
+    };
 
     public static final String TYPE_ANC = "ANC";
     public static final String TYPE_PNC = "PNC";
@@ -39,6 +52,8 @@ public class ImageRepository extends DrishtiRepository {
     @Override
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(Image_SQL);
+
+        database.execSQL(Vector_SQL);
     }
 
     public void add(ProfileImage Image) {
@@ -70,6 +85,8 @@ public class ImageRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
         values.put(syncStatus_COLUMN, TYPE_Synced);
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
+
+        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
     }
 
     private ContentValues createValuesFor(ProfileImage image, String type) {
@@ -86,7 +103,7 @@ public class ImageRepository extends DrishtiRepository {
     }
 
     private List<ProfileImage> readAll(Cursor cursor) {
-        List<ProfileImage> profileImages = new ArrayList<ProfileImage>();
+        List<ProfileImage> profileImages = new ArrayList<>();
 
         try {
             if (cursor != null && cursor.getCount()>0 && cursor.moveToFirst()) {
@@ -111,4 +128,35 @@ public class ImageRepository extends DrishtiRepository {
 //        SQLiteDatabase database = masterRepository.getWritableDatabase();
 //        database.update(MOTHER_TABLE_NAME, createValuesFor(mother, TYPE_ANC), ID_COLUMN + " = ?", new String[]{mother.caseId()});
 //    }
+
+
+    public List<ProfileImage> allVectorImages() {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, null, null, null, null, null, null);
+        return readAll(cursor);
+    }
+
+
+    public ProfileImage findVectorByEntityId(String entityId) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(Image_TABLE_NAME, Vector_TABLE_COLUMNS, entityID_COLUMN + " = ?", new String[]{entityId}, null, null, null, null);
+        List<ProfileImage> allcursor = readAll(cursor);
+        return (!allcursor.isEmpty()) ? allcursor.get(0) : null;
+    }
+
+    public List<ProfileImage> findVectorAllUnSynced() {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, syncStatus_COLUMN + " = ?", new String[]{TYPE_Unsynced}, null, null, null, null);
+        return readAll(cursor);
+    }
+
+    public void vector_close(String caseId) {
+        ContentValues values = new ContentValues();
+        values.put(syncStatus_COLUMN, TYPE_Synced);
+        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
+    }
+
+
+
+
 }

@@ -20,8 +20,13 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.indonesia.BidanHomeActivity;
+import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -35,8 +40,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import static org.ei.opensrp.util.Log.logError;
 
 /**
  * Created by wildan on 1/4/17.
@@ -45,9 +53,11 @@ public class Tools {
 
     private static final String TAG = Tools.class.getSimpleName();
     public static final int CONFIDENCE_VALUE = 58;
+    public static org.ei.opensrp.Context appContext;
     private Canvas canvas = null;
     SmartShutterActivity ss = new SmartShutterActivity();
     ClientsList cl = new ClientsList();
+    private static HashMap<String, String> hash;
 
     public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector) {
 
@@ -219,8 +229,9 @@ public class Tools {
     }
 
     public HashMap<String, String> retrieveHash(android.content.Context context) {
+        Log.e(TAG, "retrieveHash: "+"Fetch" );
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
-        HashMap<String, String> hash = new HashMap<String, String>();
+        HashMap<String, String> hash = new HashMap<>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
         return hash;
     }
@@ -384,5 +395,58 @@ public class Tools {
         }
     }
 
+    private ImageRepository imageRepo = null;
 
+    public Tools(){
+        Log.e(TAG, "Tools: 1" );
+        imageRepo=(ImageRepository) org.ei.opensrp.Context.imageRepository();
+    }
+
+    public Tools(org.ei.opensrp.Context appContext){
+        imageRepo=(ImageRepository)org.ei.opensrp.Context.imageRepository();
+        Tools.appContext = appContext;
+    }
+
+
+    public void vector_findAllUnsaved() {
+        hash = retrieveHash( appContext.applicationContext());
+
+        try {
+            List<ProfileImage> vectorImages = imageRepo.allVectorImages();
+            for(int i = 0; i< vectorImages.size();i++){
+
+                // save Hash
+                hash.put(Integer.toString(i), vectorImages.get(i).getEntityID());
+                saveHash(hash, appContext.applicationContext());
+
+                parseSaveVector(vectorImages.get(i).getFilevector());
+
+//                Toast.makeText(BidanApplication.getInstance(), i+1 +" to "+vectorImages.size()+" done", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            logError(TAG,e.getMessage());
+        }
+
+    }
+
+    private void parseSaveVector(String filevector) {
+        if (filevector != null ) {
+            String[] res = filevector.substring(1, filevector.length() - 1).split(",");
+
+            String[] newArr = Arrays.copyOfRange(res, 33, 332);
+
+            Log.e(TAG, "parseSaveVector:  " + Arrays.toString(newArr));
+
+        }
+
+
+    }
+
+
+//    String  DRISTHI_BASE_URL = appContext.applicationContext().configuration().dristhiBaseURL();
+//    String url = DRISTHI_BASE_URL+"multimedia-file?anm-id=user28";
+//
+    public void setVectorfromAPI() {
+//        Log.e(TAG, "setVectorfromAPI: "+ url );
+    }
 }

@@ -324,51 +324,51 @@ public class KIDetailActivity extends Activity {
             mImageView.setImageBitmap(mImageBitmap);
         }
     }
-    public static void saveStaticImageToDisk(String entityId, Bitmap image) {
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-
-        if (image != null) {
-            OutputStream os = null;
-            try {
-
-                if (entityId != null && !entityId.isEmpty()) {
-                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
-
-                    File outputFile = new File(absoluteFileName);
-                    os = new FileOutputStream(outputFile);
-                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
-                    if (compressFormat != null) {
-                        image.compress(compressFormat, 100, os);
-                    } else {
-                        throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-                                + absoluteFileName);
-                    }
-                    // insert into the db
-                    ProfileImage profileImage= new ProfileImage();
-                    profileImage.setImageid(UUID.randomUUID().toString());
-                    profileImage.setAnmId(anmId);
-                    profileImage.setEntityID(entityId);
-                    profileImage.setFilepath(absoluteFileName);
-                    profileImage.setFilecategory("profilepic");
-                    profileImage.setFilevector("[ve, ct, or]");
-                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-                    imageRepo.add(profileImage);
-                }
-
-            } catch (FileNotFoundException e) {
-                Log.e(TAG, "Failed to save static image to disk");
-            } finally {
-                if (os != null) {
-                    try {
-                        os.close();
-                    } catch (IOException e) {
-                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
-                    }
-                }
-            }
-        }
-    }
+//    public static void saveStaticImageToDisk(String entityId, Bitmap image) {
+//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+//
+//        if (image != null) {
+//            OutputStream os = null;
+//            try {
+//
+//                if (entityId != null && !entityId.isEmpty()) {
+//                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
+//
+//                    File outputFile = new File(absoluteFileName);
+//                    os = new FileOutputStream(outputFile);
+//                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
+//                    if (compressFormat != null) {
+//                        image.compress(compressFormat, 100, os);
+//                    } else {
+//                        throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+//                                + absoluteFileName);
+//                    }
+//                    // insert into the db
+//                    ProfileImage profileImage= new ProfileImage();
+//                    profileImage.setImageid(UUID.randomUUID().toString());
+//                    profileImage.setAnmId(anmId);
+//                    profileImage.setEntityID(entityId);
+//                    profileImage.setFilepath(absoluteFileName);
+//                    profileImage.setFilecategory("profilepic");
+//                    profileImage.setFilevector("[ve, ct, or]");
+//                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+//                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+//                    imageRepo.add(profileImage);
+//                }
+//
+//            } catch (FileNotFoundException e) {
+//                Log.e(TAG, "Failed to save static image to disk");
+//            } finally {
+//                if (os != null) {
+//                    try {
+//                        os.close();
+//                    } catch (IOException e) {
+//                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
