@@ -26,16 +26,16 @@
         <activity
             android:name=".activity.VaccinatorHomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoTitle" />
         <activity
             android:name=".activity.ChildSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarAndTitle" />
         <activity
             android:name=".activity.ChildDetailActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarAndTitle" />
         <activity
             android:name=".activity.FieldMonitorSmartRegisterActivity"

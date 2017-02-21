@@ -2,6 +2,8 @@ package org.ei.opensrp.path.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,11 +11,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,6 +43,7 @@ import org.ei.opensrp.path.option.StatusSort;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.servicemode.VaccinationServiceModeOption;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -82,10 +87,10 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             @Override
             public ServiceModeOption serviceMode() {
-                return new VaccinationServiceModeOption(null, "Vaccine", new int[]{
+                return new VaccinationServiceModeOption(null, "Linda Clinic", new int[]{
                         R.string.child_profile, R.string.birthdate_age, R.string.epi_number, R.string.child_contact_number,
-                        R.string.child_last_vaccine, R.string.child_next_vaacine
-                }, new int[]{6, 2, 2, 3, 4, 4});
+                        R.string.child_next_vaccine
+                }, new int[]{5, 1, 3, 3, 3});
             }
 
             @Override
@@ -100,7 +105,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             @Override
             public String nameInShortFormForTitle() {
-                return Context.getInstance().getStringResource(R.string.child_register_title);
+                return Context.getInstance().getStringResource(R.string.zeir);
             }
         };
     }
@@ -132,7 +137,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             @Override
             public String searchHint() {
-                return Context.getInstance().getStringResource(R.string.search_hint);
+                return Context.getInstance().getStringResource(R.string.str_search_hint);
             }
         };
     }
@@ -174,6 +179,20 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        this.getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        View view = inflater.inflate(R.layout.smart_register_activity_customized, container, false);
+        mView = view;
+        onInitialization();
+        setupViews(view);
+        onResumption();
+        return view;
+    }
+
+    @Override
     public void setupViews(View view) {
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
@@ -184,6 +203,29 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         setServiceModeViewDrawableRight(null);
         initializeQueries();
         updateSearchView();
+
+        View viewParent = (View) appliedSortView.getParent();
+        viewParent.setVisibility(View.GONE);
+
+        View qrCode = view.findViewById(R.id.scan_qr_code);
+        TextView nameInitials = (TextView)view.findViewById(R.id.name_inits);
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startQrCodeScanner();
+            }
+        });
+        AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
+        String preferredName=allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
+        String[] preferredNameArray = preferredName.split(" ");
+        String initials="";
+        if(preferredNameArray.length>1){
+            initials=String.valueOf(preferredNameArray[0].charAt(0))+String.valueOf(preferredNameArray[1].charAt(0));
+        }else{
+            initials=String.valueOf(preferredNameArray[0].charAt(0));
+        }
+        nameInitials.setText(initials);
+
     }
 
     public void initializeQueries() {
@@ -202,7 +244,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "last_name", "gender", "mother_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "vaccines_2", "bcg", "opv0", "pcv1", "opv1", "penta1", "pcv2", "opv2", "penta2", "pcv3", "opv3", "penta3", "ipv", "measles1", "measles2", "bcg_retro", "opv0_retro", "pcv1_retro", "opv1_retro", "penta1_retro", "pcv2_retro", "opv2_retro", "penta2_retro", "pcv3_retro", "opv3_retro", "penta3_retro", "ipv_retro", "measles1_retro", "measles2_retro"});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "last_name", "gender", "mother_first_name", "mother_last_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "vaccines_2", "bcg", "opv0", "pcv1", "opv1", "penta1", "pcv2", "opv2", "penta2", "pcv3", "opv3", "penta3", "ipv", "measles1", "measles2", "bcg_retro", "opv0_retro", "pcv1_retro", "opv1_retro", "penta1_retro", "pcv2_retro", "opv2_retro", "penta2_retro", "pcv3_retro", "opv3_retro", "penta3_retro", "ipv_retro", "measles1_retro", "measles2_retro"});
         mainSelect = queryBUilder.mainCondition("");
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
@@ -224,16 +266,16 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
             map.putAll(providerDetails());
 
             String formName = "child_followup";
-            String registerFormName =  "child_enrollment";
+            String registerFormName = "child_enrollment";
 
             switch (view.getId()) {
                 case R.id.child_profile_info_layout:
                     ChildDetailActivity.startDetailActivity(getActivity(), (CommonPersonObjectClient) view.getTag(), map, formName, registerFormName, ChildDetailActivity.class);
                     getActivity().finish();
                     break;
-                case R.id.child_next_visit_holder:
+                /*case R.id.child_next_visit_holder:
                     showFragmentDialog(new EditDialogOptionModel(map), view.getTag());
-                    break;
+                    break;*/
             }
         }
     }
@@ -368,7 +410,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         map.put("existing_first_name", getValue(client.getColumnmaps(), "first_name", true));
         map.put("existing_last_name", getValue(client.getColumnmaps(), "last_name", true));
         map.put("existing_gender", getValue(client.getColumnmaps(), "gender", true));
-        map.put("existing_mother_name", getValue(client.getColumnmaps(), "mother_name", true));
+        map.put("existing_mother_first_name", getValue(client.getColumnmaps(), "mother_first_name", true));
+        map.put("existing_mother_last_name", getValue(client.getColumnmaps(), "mother_last_name", true));
         map.put("existing_father_name", getValue(client.getColumnmaps(), "father_name", true));
         map.put("existing_birth_date", getValue(client.getColumnmaps(), "dob", false));
         map.put("existing_age", days + "");
@@ -506,9 +549,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         });
 
 
-        Button globalSearchButton = ((Button) mView.findViewById(org.ei.opensrp.R.id.global_search));
-        globalSearchButton.setVisibility(VISIBLE);
-
+        ImageButton globalSearchButton = ((ImageButton) mView.findViewById(R.id.global_search));
         globalSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -565,6 +606,10 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         }
         return null;
 
+    }
+
+    private void startQrCodeScanner() {
+        ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
 
 }

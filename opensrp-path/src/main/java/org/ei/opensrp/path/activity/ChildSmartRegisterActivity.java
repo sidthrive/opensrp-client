@@ -14,6 +14,7 @@ import android.util.Log;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.ei.opensrp.Context;
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
@@ -27,6 +28,7 @@ import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
+import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
@@ -39,10 +41,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import util.JsonFormUtils;
+import util.barcode.Barcode;
+import util.barcode.BarcodeIntentIntegrator;
+import util.barcode.BarcodeIntentResult;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -68,7 +74,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         formNames = this.buildFormNameList();
         mBaseFragment = new ChildSmartRegisterFragment();
@@ -98,7 +104,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
 
 
     public void onPageChanged(int page) {
-        setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -217,6 +223,11 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "Child_Photo");
                 refreshBaseFragment(true);
             }
+        } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
+            BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (StringUtils.isNotBlank(res.getContents())) {
+                onQRCodeSucessfullyScanned(res.getContents());
+            } else Log.i("", "NO RESULT FOR QR CODE");
         }
     }
 
@@ -332,4 +343,14 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         retrieveAndSaveUnsubmittedFormData();
     }
 
+    public void startQrCodeScanner() {
+        BarcodeIntentIntegrator integ = new BarcodeIntentIntegrator(this);
+        integ.addExtra(Barcode.SCAN_MODE, Barcode.QR_MODE);
+        integ.initiateScan();
+    }
+
+    private void onQRCodeSucessfullyScanned(String qrCode) {
+        Log.i(getClass().getName(), "QR code: "+ qrCode);
+        //TODO Update qr code
+    }
 }

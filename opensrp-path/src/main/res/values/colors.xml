@@ -13,4 +13,16 @@
     <color name="primary">#358CB7</color>
     <color name="primary_dark">#276C91</color>
     <color name="accent">#358CB7</color>
+
+    <color name="record_weight_bg_grey">#F2F2F2</color>
+    <color name="record_weight_grey">#A3A3A3</color>
+
+    <color name="due_vaccine_red">#C52929</color>
+    <color name="due_vaccine_blue">#3597C1</color>
+
+    <color name="status_bar_bg_dark_grey">#474747</color>
+    <color name="search_edit_bg_grey">#616161</color>
+    <color name="scan_qr_code_bg_grey">#4A4A4A</color>
+
+    <color name="actionbar">#208CC5</color>
 </resources>

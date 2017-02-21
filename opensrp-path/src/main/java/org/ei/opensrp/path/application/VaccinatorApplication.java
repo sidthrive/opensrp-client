@@ -85,7 +85,7 @@ public class VaccinatorApplication extends DrishtiApplication{
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("ec_child")){
-            String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name", "father_name", "mother_name", "contact_phone_number" };
+            String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name" };
             return ftsSearchFileds;
         }else if(tableName.equals("ec_woman")){
             String[] ftsSearchFileds =  { "program_client_id", "epi_card_number", "first_name", "last_name", "father_name", "husband_name", "contact_phone_number" };

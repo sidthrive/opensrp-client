@@ -334,11 +334,19 @@
           }
         },
         {
-          "column_name":"mother_name",
+          "column_name":"mother_first_name",
           "type":"Event",
           "json_mapping":{
             "field":"obs.fieldCode",
-            "formSubmissionField":"Mother_Guardian_Name"
+            "formSubmissionField":"Mother_Guardian_First_Name"
+          }
+        },
+        {
+          "column_name":"mother_last_name",
+          "type":"Event",
+          "json_mapping":{
+            "field":"obs.fieldCode",
+            "formSubmissionField":"Mother_Guardian_Last_Name"
           }
         },
         {
