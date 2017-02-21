@@ -377,7 +377,7 @@ public class ClientProcessor {
                     }
 
                     //special handler needed to process address,
-                    if (dataSegment != null && dataSegment.equalsIgnoreCase("adresses")) {
+                    if (dataSegment != null && dataSegment.equalsIgnoreCase("addresses")) {
                         Map<String, String> addressMap = getClientAddressAsMap(client);
                         if (addressMap.containsKey(fieldName)) {
                             contentValues.put(columnName, addressMap.get(fieldName).toString());
