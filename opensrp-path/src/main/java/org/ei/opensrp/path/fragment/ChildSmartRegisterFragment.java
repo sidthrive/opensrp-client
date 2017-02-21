@@ -1,9 +1,11 @@
 package org.ei.opensrp.path.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,12 +41,15 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.Client;
+import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
 import org.ei.opensrp.path.option.StatusSort;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.servicemode.VaccinationServiceModeOption;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -65,8 +70,6 @@ import java.util.List;
 import java.util.Map;
 
 import util.GlobalSearchUtils;
-import util.barcode.Barcode;
-import util.barcode.BarcodeIntentIntegrator;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -140,7 +143,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             @Override
             public String searchHint() {
-                return Context.getInstance().getStringResource(R.string.search_hint);
+                return Context.getInstance().getStringResource(R.string.str_search_hint);
             }
         };
     }
@@ -211,13 +214,25 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         viewParent.setVisibility(View.GONE);
 
         View qrCode = view.findViewById(R.id.scan_qr_code);
+        TextView nameInitials = (TextView)view.findViewById(R.id.name_inits);
         qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startQrCodeScanner();
             }
         });
-
+        AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
+        String preferredName=allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
+        if(!preferredName.isEmpty()) {
+            String[] preferredNameArray = preferredName.split(" ");
+            String initials = "";
+            if (preferredNameArray.length > 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
+            } else if (preferredNameArray.length == 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0));
+            }
+            nameInitials.setText(initials);
+        }
 
     }
 
@@ -277,9 +292,21 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
                     getActivity().finish();
                     break;
+                case R.id.record_weight:
+                    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                    Fragment prev = getActivity().getFragmentManager().findFragmentByTag(RecordWeightDialogFragment.DIALOG_TAG);
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+                    RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(getActivity(), null);
+                    recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
+
+                    break;
                 /*case R.id.child_next_visit_holder:
                     showFragmentDialog(new EditDialogOptionModel(map), view.getTag());
                     break;*/
+
             }
         }
     }

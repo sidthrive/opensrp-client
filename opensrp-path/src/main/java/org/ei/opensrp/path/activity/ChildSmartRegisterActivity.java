@@ -6,45 +6,43 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
-import org.ei.opensrp.clientandeventmodel.Client;
-import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
+import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
-import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
+import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,8 +54,8 @@ import util.barcode.BarcodeIntentResult;
 /**
  * Created by Ahmed on 13-Oct-15.
  */
-public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
-
+public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements WeightActionListener {
+private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -168,6 +166,12 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     public void startFormActivity(String formName, String entityId, String metaData) {
 //        Log.v("fieldoverride", metaData);
         try {
+            UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
+            String openmrsId=uniqueIdRepo.getNextUniqueId()!=null?uniqueIdRepo.getNextUniqueId().getOpenmrsId():"";
+            if(openmrsId.isEmpty()){
+                Toast.makeText(this,getString(R.string.no_openmrs_id),Toast.LENGTH_SHORT).show();
+                return;
+            }
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             /*if (entityId != null || metaData != null){
                 String data = null;
@@ -189,13 +193,24 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation
             change the view disapears*/
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            if (form != null) {
+            if (form != null ) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                //inject zeir id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for(int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIRD)){
+                        jsonObject.remove(JsonFormUtils.VALUE);
+                        jsonObject.put(JsonFormUtils.VALUE, openmrsId.replace("-",""));
+                        continue;
+                    }
+                }
                 intent.putExtra("json", form.toString());
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -212,7 +227,6 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
                 JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "Child_Photo");
-                refreshBaseFragment(true);
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -276,13 +290,6 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
 
     }
 
-    public void refreshBaseFragment(final boolean result) {
-        SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
-        if (registerFragment != null && result) {
-            registerFragment.refreshListView();
-        }
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -341,7 +348,17 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     }
 
     private void onQRCodeSucessfullyScanned(String qrCode) {
-        Log.i(getClass().getName(), "QR code: "+ qrCode);
+        Log.i(getClass().getName(), "QR code: " + qrCode);
         //TODO Update qr code
+    }
+
+    @Override
+    public void onWeightTakenToday(WeightWrapper tag) {
+
+    }
+
+    @Override
+    public void onWeightTakenEarlier(WeightWrapper tag) {
+
     }
 }

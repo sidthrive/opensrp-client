@@ -32,6 +32,7 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
+import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AlertService;
@@ -129,6 +130,8 @@ public class Context {
     private AllServicesProvided allServicesProvided;
     private AllCommonsRepository allCommonPersonObjectsRepository;
     private static ImageRepository imageRepository;
+    private static UniqueIdRepository uniqueIdRepository;
+
 
 
     private DrishtiService drishtiService;
@@ -505,6 +508,7 @@ public class Context {
             drishtireposotorylist.add(serviceProvidedRepository());
             drishtireposotorylist.add(formsVersionRepository());
             drishtireposotorylist.add(imageRepository());
+            drishtireposotorylist.add(uniqueIdRepository());
             drishtireposotorylist.add(detailsRepository());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
@@ -665,7 +669,12 @@ public class Context {
         }
         return imageRepository;
     }
-
+    public static UniqueIdRepository uniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = new UniqueIdRepository();
+        }
+        return uniqueIdRepository;
+    }
     public UserService userService() {
         if (userService == null) {
             Repository repo = initRepository();

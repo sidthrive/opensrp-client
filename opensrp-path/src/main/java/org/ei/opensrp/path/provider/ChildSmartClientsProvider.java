@@ -153,6 +153,9 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);
 
+        convertView.findViewById(R.id.record_weight).setTag(client);
+        convertView.findViewById(R.id.record_weight).setOnClickListener(onClickListener);
+
         convertView.setLayoutParams(clientViewLayoutParams);
 
     }

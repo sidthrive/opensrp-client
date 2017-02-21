@@ -84,23 +84,26 @@ public class VaccinatorUtils {
         String locationJson = context.anmLocationController().get();
         LocationTree locationTree = EntityUtils.fromJson(locationJson, LocationTree.class);
 
-        Map<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
-        Map<String, String> locations = new HashMap<>();
-        addToList(locations, locationMap, "country");
-        addToList(locations, locationMap, "province");
-        addToList(locations, locationMap, "city");
-        addToList(locations, locationMap, "town");
-        addToList(locations, locationMap, "uc");
-        addToList(locations, locationMap, "vaccination center");
-
         HashMap<String, String> map = new HashMap<>();
-        map.put("provider_uc", locations.get("uc"));
-        map.put("provider_town", locations.get("town"));
-        map.put("provider_city", locations.get("city"));
-        map.put("provider_province", locations.get("province"));
-        map.put("provider_location_id", locations.get("vaccination center"));
-        map.put("provider_location_name", locations.get("vaccination center"));
-        map.put("provider_id", context.anmService().fetchDetails().name());
+
+        if(locationTree != null) {
+            Map<String, TreeNode<String, Location>> locationMap = locationTree.getLocationsHierarchy();
+            Map<String, String> locations = new HashMap<>();
+            addToList(locations, locationMap, "country");
+            addToList(locations, locationMap, "province");
+            addToList(locations, locationMap, "city");
+            addToList(locations, locationMap, "town");
+            addToList(locations, locationMap, "uc");
+            addToList(locations, locationMap, "vaccination center");
+
+            map.put("provider_uc", locations.get("uc"));
+            map.put("provider_town", locations.get("town"));
+            map.put("provider_city", locations.get("city"));
+            map.put("provider_province", locations.get("province"));
+            map.put("provider_location_id", locations.get("vaccination center"));
+            map.put("provider_location_name", locations.get("vaccination center"));
+            map.put("provider_id", context.anmService().fetchDetails().name());
+        }
 
         try {
             JSONObject tm = new JSONObject(getPreference(context.applicationContext(), "team", "{}"));
