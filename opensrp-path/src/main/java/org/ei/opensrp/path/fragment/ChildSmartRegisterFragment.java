@@ -1,6 +1,9 @@
 package org.ei.opensrp.path.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -38,6 +41,8 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.Client;
+import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
 import org.ei.opensrp.path.option.StatusSort;
@@ -287,9 +292,21 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
                     getActivity().finish();
                     break;
+                case R.id.record_weight:
+                    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                    Fragment prev = getActivity().getFragmentManager().findFragmentByTag(RecordWeightDialogFragment.DIALOG_TAG);
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+                    RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(getActivity(), null);
+                    recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
+
+                    break;
                 /*case R.id.child_next_visit_holder:
                     showFragmentDialog(new EditDialogOptionModel(map), view.getTag());
                     break;*/
+
             }
         }
     }

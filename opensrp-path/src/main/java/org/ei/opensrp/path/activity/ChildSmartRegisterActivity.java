@@ -20,7 +20,9 @@ import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
+import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
@@ -52,7 +54,7 @@ import util.barcode.BarcodeIntentResult;
 /**
  * Created by Ahmed on 13-Oct-15.
  */
-public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements WeightActionListener {
 private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
@@ -208,7 +210,7 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -346,7 +348,17 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
     }
 
     private void onQRCodeSucessfullyScanned(String qrCode) {
-        Log.i(getClass().getName(), "QR code: "+ qrCode);
+        Log.i(getClass().getName(), "QR code: " + qrCode);
         //TODO Update qr code
+    }
+
+    @Override
+    public void onWeightTakenToday(WeightWrapper tag) {
+
+    }
+
+    @Override
+    public void onWeightTakenEarlier(WeightWrapper tag) {
+
     }
 }

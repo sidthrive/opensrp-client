@@ -3,6 +3,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="silver">#A9A9A9</color>
+    <color name="light_grey">#CCCCCC</color>
 
     <!-- Gender identity colors -->
     <color name="gender_neutral_dark_green">#219e05</color>
@@ -38,4 +39,5 @@
     <color name="actionbar">#208CC5</color>
 
     <color name="vaccinate_popup_light_grey">#F0F0F0</color>
+
 </resources>

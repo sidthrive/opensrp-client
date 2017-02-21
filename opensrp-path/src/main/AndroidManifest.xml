@@ -29,7 +29,7 @@
             android:name=".activity.VaccinatorHomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoTitle" />
+            android:theme="@style/PathAppTheme" />
         <activity
             android:name=".activity.ChildSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
