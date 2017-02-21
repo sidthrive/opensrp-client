@@ -114,4 +114,5 @@
     <string name="scan_qr_code">Scan QR code</string>
 
     <string name="zeir">ZEIR</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
 </resources>
