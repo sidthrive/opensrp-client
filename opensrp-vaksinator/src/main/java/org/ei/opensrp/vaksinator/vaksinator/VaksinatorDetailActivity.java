@@ -63,10 +63,10 @@ public class VaksinatorDetailActivity extends Activity {
         detailsRepository.updateDetails(controller);
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
-        CommonPersonObject childobject = childRepository.findByCaseID(controller.entityId());
+        CommonPersonObject controllers = childRepository.findByCaseID(controller.entityId());
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
+        final CommonPersonObject kiparent = kirep.findByCaseID(controllers.getColumnmaps().get("relational_id"));
 
         String DetailStart = timer.format(new Date());
         Map<String, String> Detail = new HashMap<String, String>();
@@ -116,6 +116,15 @@ public class VaksinatorDetailActivity extends Activity {
         TextView additionalDPT = (TextView) findViewById(R.id.additionalDPT);
         TextView additionalMeasles = (TextView) findViewById(R.id.additionalMeasles);
         final ImageView photo = (ImageView) findViewById(R.id.photo);
+
+        if(controller.getDetails().get("profilepic")!= null){
+            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
+            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+
+            }
+        }
 
         ImageButton backButton = (ImageButton) findViewById(R.id.btn_back_to_home);
         backButton.setOnClickListener(new View.OnClickListener() {
