@@ -2,10 +2,15 @@ package com.vijay.jsonwizard.presenters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -34,7 +39,11 @@ import com.vijay.jsonwizard.widgets.SpinnerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -50,6 +59,7 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
     private String mStepName;
     private JSONObject mStepDetails;
     private String mCurrentKey;
+    private String mCurrentPhotoPath;
     private JsonFormInteractor mJsonFormInteractor = JsonFormInteractor.getInstance();
 
     public void addFormElements() {
@@ -168,18 +178,10 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            // No need for null check on cursor
-            Cursor cursor = getView().getContext().getContentResolver()
-                    .query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String imagePath = cursor.getString(columnIndex);
-            getView().updateRelevantImageView(ImageUtils.loadBitmapFromFile(imagePath, ImageUtils.getDeviceWidth(getView().getContext()), dpToPixels(getView().getContext(), 200)), imagePath, mCurrentKey);
-            cursor.close();
+        if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK) {
+            String imagePath = mCurrentPhotoPath;
+            getView().updateRelevantImageView(ImageUtils.loadBitmapFromFile(getView().getContext(), imagePath, ImageUtils.getDeviceWidth(getView().getContext()), dpToPixels(getView().getContext(), 200)), imagePath, mCurrentKey);
+            //cursor.close();
         }
     }
 
@@ -188,11 +190,58 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
         String type = (String) v.getTag(R.id.type);
         if (JsonFormConstants.CHOOSE_IMAGE.equals(type)) {
             getView().hideKeyBoard();
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             mCurrentKey = key;
-            getView().startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getView().getContext().getPackageManager()) != null) {
+                File imageFile = null;
+                try {
+                    imageFile = createImageFile();
+                } catch (IOException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                }
+
+                if (imageFile != null) {
+                    Uri photoURI = FileProvider.getUriForFile(getView().getContext(),
+                            "com.vijay.jsonwizard.fileprovider",
+                            imageFile);
+
+                    // Grant permission to the default camera app
+                    PackageManager packageManager = getView().getContext().getPackageManager();
+                    Context applicationContext = getView().getContext().getApplicationContext();
+
+                    applicationContext.grantUriPermission(
+                            takePictureIntent.resolveActivity(packageManager).getPackageName(),
+                            photoURI,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+                    applicationContext.grantUriPermission(
+                            "com.vijay.jsonwizard",
+                            photoURI,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    getView().startActivityForResult(takePictureIntent, RESULT_LOAD_IMG);
+                }
+            }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getView().getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -225,7 +274,7 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
         String openMrsEntity = (String) parent.getTag(R.id.openmrs_entity);
         String openMrsEntityId = (String) parent.getTag(R.id.openmrs_entity_id);
         if (position >= 0) {
-            String value = (String) parent.getItemAtPosition(position + 1);
+            String value = (String) parent.getItemAtPosition(position);
             getView().writeValue(mStepName, parentKey, value, openMrsEntityParent, openMrsEntity,
                     openMrsEntityId);
         }

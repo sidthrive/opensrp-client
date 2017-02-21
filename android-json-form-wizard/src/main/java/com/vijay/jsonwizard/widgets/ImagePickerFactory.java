@@ -65,7 +65,7 @@ public class ImagePickerFactory implements FormWidgetFactory {
         Button uploadButton = new Button(context);
         if (!TextUtils.isEmpty(imagePath)) {
             imageView.setTag(R.id.imagePath, imagePath);
-            imageView.setImageBitmap(ImageUtils.loadBitmapFromFile(imagePath, ImageUtils.getDeviceWidth(context), dpToPixels(context, 200)));
+            imageView.setImageBitmap(ImageUtils.loadBitmapFromFile(context, imagePath, ImageUtils.getDeviceWidth(context), dpToPixels(context, 200)));
             if (jsonObject.has("read_only")) {
                 boolean readOnly = jsonObject.getBoolean("read_only");
                 uploadButton.setEnabled(!readOnly);

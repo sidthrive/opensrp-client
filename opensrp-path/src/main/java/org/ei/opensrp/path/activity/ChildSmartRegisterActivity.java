@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,21 +13,19 @@ import android.util.Log;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
+import org.ei.opensrp.Context;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
-import org.ei.opensrp.clientandeventmodel.Client;
-import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
-import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
+import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -39,6 +35,7 @@ import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -189,8 +186,20 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation
             change the view disapears*/
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
+            UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
             if (form != null) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                //inject zeir id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for(int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIRD)){
+                        jsonObject.remove(JsonFormUtils.VALUE);
+                        jsonObject.put(JsonFormUtils.VALUE, uniqueIdRepo.getNextUniqueId()!=null?uniqueIdRepo.getNextUniqueId().getOpenmrsId().replace("-",""):0);
+                        continue;
+                    }
+                }
                 intent.putExtra("json", form.toString());
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }

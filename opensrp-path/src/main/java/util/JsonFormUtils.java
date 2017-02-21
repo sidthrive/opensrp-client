@@ -57,14 +57,15 @@ public class JsonFormUtils {
 
     private static final String CONCEPT = "concept";
     private static final String ENCOUNTER = "encounter";
-    private static final String VALUE = "value";
+    public static final String VALUE = "value";
     private static final String VALUES = "values";
-    private static final String FIELDS = "fields";
-    private static final String KEY = "key";
+    public static final String FIELDS = "fields";
+    public static final String KEY = "key";
     private static final String ENTITY_ID = "entity_id";
     private static final String ENCOUNTER_TYPE = "encounter_type";
-    private static final String STEP1 = "step1";
+    public static final String STEP1 = "step1";
     private static final String METADATA = "metadata";
+    public static final String ZEIRD = "ZEIR_ID";
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -102,6 +103,10 @@ public class JsonFormUtils {
                 org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(c);
                 cloudantDataHandler.createClientDocument(client);
             }
+
+            String zeirId=c.getIdentifier(ZEIRD);
+            //mark zeir id as used
+            org.ei.opensrp.Context.uniqueIdRepository().close(zeirId);
 
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
