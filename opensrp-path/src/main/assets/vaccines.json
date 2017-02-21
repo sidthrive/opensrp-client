@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Birth",
+    "days_after_birth_due": 0,
+    "vaccines": [
+      {
+        "name": "OPV 0"
+      },
+      {
+        "name": "BCG"
+      }
+    ]
+  },
+  {
+    "name": "6 Weeks",
+    "days_after_birth_due": 42,
+    "vaccines": [
+      {
+        "name": "OPV 1"
+      },
+      {
+        "name": "Penta 1"
+      },
+      {
+        "name": "PCV 1"
+      },
+      {
+        "name": "Rota 1"
+      }
+    ]
+  },
+  {
+    "name": "10 Weeks",
+    "days_after_birth_due": 70,
+    "vaccines": [
+      {
+        "name": "OPV 2"
+      },
+      {
+        "name": "Penta 2"
+      },
+      {
+        "name": "PCV 2"
+      },
+      {
+        "name": "Rota 2"
+      }
+    ]
+  }
+]

@@ -16,7 +16,7 @@ import java.util.UUID;
 public class VaccineWrapper {
     private String id = UUID.randomUUID().toString();
     private Photo photo;
-    ;
+    private String name;
     private String status;
     private List<Vaccine> vaccines;
     private DateTime vaccineDate;
@@ -72,6 +72,14 @@ public class VaccineWrapper {
 
     public void setAlert(Alert alert) {
         this.alert = alert;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String getPreviousVaccineId() {

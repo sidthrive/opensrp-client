@@ -211,7 +211,9 @@
                         android:gravity="right"
                         android:textSize="@dimen/activity_sub_title_size" />
                 </RelativeLayout>
+
                 <LinearLayout
+                    android:id="@+id/vaccine_group_canvas_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

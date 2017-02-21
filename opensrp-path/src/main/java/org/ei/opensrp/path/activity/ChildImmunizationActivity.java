@@ -7,18 +7,28 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.toolbars.LocationSwitcherToolbar;
+import org.ei.opensrp.path.views.VaccineCard;
+import org.ei.opensrp.path.views.VaccineGroup;
 import org.ei.opensrp.repository.ImageRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,8 +43,10 @@ public class ChildImmunizationActivity extends BaseActivity
         implements LocationSwitcherToolbar.OnLocationChangeListener {
 
     private static final String TAG = "ChildImmunoActivity";
-    private static final String EXTA_CHILD_DETAILS = "child_details";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    private static final String VACCINES_FILE = "vaccines.json";
+    private static final String EXTRA_CHILD_DETAILS = "child_details";
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    private ArrayList<VaccineGroup> vaccineGroups;
 
     // Views
     private LocationSwitcherToolbar toolbar;
@@ -61,7 +73,7 @@ public class ChildImmunizationActivity extends BaseActivity
         // Get child details from bundled data
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
-            Serializable serializable = extras.getSerializable(EXTA_CHILD_DETAILS);
+            Serializable serializable = extras.getSerializable(EXTRA_CHILD_DETAILS);
             if (serializable != null && serializable instanceof CommonPersonObjectClient) {
                 childDetails = (CommonPersonObjectClient) serializable;
             }
@@ -84,6 +96,7 @@ public class ChildImmunizationActivity extends BaseActivity
         setTitle(updateActivityTitle());
         updateAgeViews();
         updateChildIdViews();
+        updateVaccinationViews();
     }
 
     private void updateProfilePicture(Gender gender) {
@@ -178,10 +191,51 @@ public class ChildImmunizationActivity extends BaseActivity
         return selectedColor;
     }
 
+    private void updateVaccinationViews() {
+        if (vaccineGroups == null) {
+            vaccineGroups = new ArrayList<>();
+            LinearLayout vaccineGroupCanvasLL = (LinearLayout) findViewById(R.id.vaccine_group_canvas_ll);
+            String supportedVaccinesString = readAssetContents(VACCINES_FILE);
+            try {
+                JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
+                for (int i = 0; i < supportedVaccines.length(); i++) {
+                    VaccineGroup curGroup = new VaccineGroup(this);
+                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails);
+                    curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
+                        @Override
+                        public void onClick(ArrayList<VaccineWrapper> dueVaccines) {
+                            //TODO: attach vaccination dialog here
+                        }
+                    });
+                    vaccineGroupCanvasLL.addView(curGroup);
+                    vaccineGroups.add(curGroup);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+    }
+
+    private String readAssetContents(String path) {
+        String fileContents = null;
+        try {
+            InputStream is = getAssets().open(path);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            fileContents = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            android.util.Log.e(TAG, ex.toString(), ex);
+        }
+
+        return fileContents;
+    }
+
     public static void launchActivity(Context fromContext, CommonPersonObjectClient childDetails) {
         Intent intent = new Intent(fromContext, ChildImmunizationActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
         intent.putExtras(bundle);
 
         fromContext.startActivity(intent);
