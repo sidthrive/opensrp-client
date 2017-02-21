@@ -10,11 +10,12 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.ei.opensrp.Context;
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
@@ -28,7 +29,6 @@ import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
@@ -41,7 +41,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,7 +53,7 @@ import util.barcode.BarcodeIntentResult;
  * Created by Ahmed on 13-Oct-15.
  */
 public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
-
+private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -165,6 +164,12 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     public void startFormActivity(String formName, String entityId, String metaData) {
 //        Log.v("fieldoverride", metaData);
         try {
+            UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
+            String openmrsId=uniqueIdRepo.getNextUniqueId()!=null?uniqueIdRepo.getNextUniqueId().getOpenmrsId():"";
+            if(openmrsId.isEmpty()){
+                Toast.makeText(this,getString(R.string.no_openmrs_id),Toast.LENGTH_SHORT).show();
+                return;
+            }
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             /*if (entityId != null || metaData != null){
                 String data = null;
@@ -186,8 +191,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation
             change the view disapears*/
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
-            if (form != null) {
+            if (form != null ) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                 //inject zeir id into the form
                 JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
@@ -196,7 +200,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                     if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIRD)){
                         jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, uniqueIdRepo.getNextUniqueId()!=null?uniqueIdRepo.getNextUniqueId().getOpenmrsId().replace("-",""):0);
+                        jsonObject.put(JsonFormUtils.VALUE, openmrsId.replace("-",""));
                         continue;
                     }
                 }
@@ -204,7 +208,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG,e.getMessage());
         }
 
     }

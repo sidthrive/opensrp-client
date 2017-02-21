@@ -125,4 +125,5 @@
     <string name="zeir">ZEIR</string>
 
     <string name="record_all">Record All</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
 </resources>

@@ -218,14 +218,16 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         });
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
         String preferredName=allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
-        String[] preferredNameArray = preferredName.split(" ");
-        String initials="";
-        if(preferredNameArray.length>1){
-            initials=String.valueOf(preferredNameArray[0].charAt(0))+String.valueOf(preferredNameArray[1].charAt(0));
-        }else{
-            initials=String.valueOf(preferredNameArray[0].charAt(0));
+        if(!preferredName.isEmpty()) {
+            String[] preferredNameArray = preferredName.split(" ");
+            String initials = "";
+            if (preferredNameArray.length > 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
+            } else if (preferredNameArray.length == 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0));
+            }
+            nameInitials.setText(initials);
         }
-        nameInitials.setText(initials);
 
     }
 
