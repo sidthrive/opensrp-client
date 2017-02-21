@@ -2,6 +2,9 @@ package org.ei.opensrp.path.application;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -13,6 +16,7 @@ import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
+import java.io.File;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
@@ -122,5 +126,13 @@ public class VaccinatorApplication extends DrishtiApplication{
                 && context.userService().getAllSharedPreferences() != null) {
             Crashlytics.setUserName(context.userService().getAllSharedPreferences().fetchRegisteredANM());
         }
+    }
+
+    private void grantPhotoDirectoryAccess() {
+        Uri uri  = FileProvider.getUriForFile(this,
+                "com.vijay.jsonwizard.fileprovider",
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+        grantUriPermission("com.vijay.jsonwizard", uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     }
 }

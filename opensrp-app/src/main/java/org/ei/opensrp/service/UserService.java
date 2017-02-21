@@ -42,6 +42,7 @@ import static org.ei.opensrp.AllConstants.*;
 import static org.ei.opensrp.event.Event.ON_LOGOUT;
 
 public class UserService {
+    private static final String TAG = UserService.class.getCanonicalName();
     private static final String KEYSTORE = "AndroidKeyStore";
     private static final String CIPHER = "RSA/ECB/PKCS1Padding";
     private static final String CIPHER_PROVIDER = "AndroidOpenSSL";
@@ -259,15 +260,28 @@ public class UserService {
         saveANMLocationTask.save(anmLocation);
     }
 
-    public void saveUserInfo(String userInfo) { saveUserInfoTask.save(userInfo); }
+    public void saveUserInfo(String userInfo) {
+       try{
+           JSONObject userInfoObject = new JSONObject(userInfo);
+           if (userInfoObject.has("preferredName")) {
+               String preferredName=userInfoObject.getString("preferredName");
+               String userName=userInfoObject.getString("username");
+               allSharedPreferences.updateANMPreferredName(userName,preferredName);
+           }
+       }catch(Exception e){
+        Log.e(TAG,e.getMessage());
+       }
+
+        saveUserInfoTask.save(userInfo);
+    }
 
     /**
-     * Saves the a user's groupId and password in {@link allSharedPreferences}. GroupId and password
+     * Saves the a user's groupId and password in . GroupId and password
      * are not saved if groupId could not be found in userInfo
      *
      * @param userName  The username you want to save the password and groupId
      * @param password  The user's password
-     * @param userInfo  The user's info from the {@link org.ei.opensrp.AllConstants.OPENSRP_AUTH_USER_URL_PATH}
+     * @param userInfo  The user's info from the
      *                  endpoint (should contain the {team}.{team}.{uuid} key)
      */
     public void saveUserGroup(String userName, String password, String userInfo) {
