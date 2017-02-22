@@ -15,10 +15,24 @@ import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -29,20 +43,30 @@ import org.ei.opensrp.indonesia.BidanHomeActivity;
 import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.repository.AllSettings;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.ei.opensrp.view.activity.LoginActivity;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import cz.msebera.android.httpclient.Header;
 
 import static org.ei.opensrp.util.Log.logError;
 
@@ -409,6 +433,7 @@ public class Tools {
 
 
     public void vector_findAllUnsaved() {
+        Log.e(TAG, "vector_findAllUnsaved: ");
         hash = retrieveHash( appContext.applicationContext());
 
         try {
@@ -424,7 +449,7 @@ public class Tools {
 //                Toast.makeText(BidanApplication.getInstance(), i+1 +" to "+vectorImages.size()+" done", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            logError(TAG,e.getMessage());
+            Log.e(TAG, "vector_findAllUnsaved: "+e.getMessage() );
         }
 
     }
@@ -447,6 +472,141 @@ public class Tools {
 //    String url = DRISTHI_BASE_URL+"multimedia-file?anm-id=user28";
 //
     public void setVectorfromAPI() {
-//        Log.e(TAG, "setVectorfromAPI: "+ url );
+        String  DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
+        String user = appContext.allSharedPreferences().fetchRegisteredANM();
+        String api_url =   DRISTHI_BASE_URL+ "/multimedia-file?anm-id="+user;
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+
+
+
+//        Log.e(TAG, "setVectorfromAPI: "+ appContext.allSettings().fetchANMPassword() );
+        client.setBasicAuth(appContext.allSharedPreferences().fetchRegisteredANM(),
+                appContext.allSettings().fetchANMPassword());
+
+        client.get(api_url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                try {
+                    JSONArray response = new JSONArray(new String(responseBody));
+
+                    for (int i=0; i<response.length(); i++){
+                        JSONObject jo = new JSONObject();
+                        Log.e(TAG, "onSuccess: "+jo.getString("caseId") );
+
+                    }
+
+
+//                    JsonElement response = new JsonElement() {
+//                    }
+//                    Log.e(TAG, "onSuccess: "+response );
+//
+//                    GsonBuilder builder = new GsonBuilder();
+//                    Gson gson = builder.create();
+//                    List<FaceVector> posts = Arrays.asList(gson.fromJson(response, FaceVector[].class));
+//                    List<FaceVector> faceVectors = gson.fromJson(response, new TypeToken<List<FaceVector>>(){}.getType());
+
+                    //                        JsonResponse jsonResponse = JsonParser.parseResponse(response);
+//                        String message = "Message: " + jsonResponse.getStatus().getMessage();
+//                        String value = "Value: " + jsonResponse.getStatus().getValue();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e(TAG, "onFailure: " );
+            }
+        });
+
+//        new GetFaceVector(api_url).execute();
+
+
+
+
     }
+
+    private class GetFaceVector extends AsyncTask<Void, Void, Void>{
+        String api_url;
+
+        public GetFaceVector(String api_url) {
+            this.api_url = api_url;
+        }
+
+        @Override
+        protected Void doInBackground(Void... args) {
+
+            HttpHandler sh = new HttpHandler();
+            //Request and Get response
+            String jsonStr = sh.makeServiceCall(api_url);
+            Log.e(TAG, "doInBackground: Response "+api_url+" "+jsonStr );
+
+            if (jsonStr != null){
+                try {
+                    JSONObject jsonObject  = new JSONObject(jsonStr);
+
+                    // Getting JSON Array node
+                    JSONArray jarr = jsonObject.getJSONArray("");
+
+                    // looping through All Contacts
+                    for (int i = 0; i < jarr.length(); i++) {
+                        JSONObject c = jarr.getJSONObject(i);
+
+                        String id = c.getString("caseId");
+                        String providerId = c.getString("providerId");
+                        String contentType = c.getString("contentType");
+                        String filePath = c.getString("filePath");
+                        String fileCategory = c.getString("fileCategory");
+
+                        // Attributes node is JSON Object
+                        JSONObject attributes = c.getJSONObject("attributes");
+                        String faceVector = attributes.getString("faceVector");
+
+                        // tmp hash map for single contact
+                        HashMap<String, String> contact = new HashMap<>();
+
+                        // adding each child node to HashMap key => value
+                        contact.put("id", id);
+//                        contact.put("name", name);
+
+                        // adding contact to contact list
+//                        contactList.add(contact);
+                    }
+                }catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Json parsing error: " + e.getMessage(),
+//                                    Toast.LENGTH_LONG)
+//                                    .show();
+//                        }
+//                    });
+
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(),
+//                                "Couldn't get json from server. Check LogCat for possible errors!",
+//                                Toast.LENGTH_LONG)
+//                                .show();
+//                    }
+//                });
+
+            }
+
+            return null;
+        }
+    }
+
 }

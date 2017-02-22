@@ -11,6 +11,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
+import org.ei.opensrp.indonesia.face.camera.util.MultimediaProcessor;
 import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
@@ -61,10 +62,16 @@ public class BidanHomeActivity extends SecuredActivity {
             updateRegisterCounts();
 
             Tools mtool = new Tools(context());
-//            mtool.appContext = context();
 
+//            try {
+//                MultimediaProcessor.getInstance(getApplicationContext()).processMultimediaClient();
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 //            mtool.findAllUnStored();
             mtool.setVectorfromAPI();
+
             mtool.vector_findAllUnsaved();
         }
     };

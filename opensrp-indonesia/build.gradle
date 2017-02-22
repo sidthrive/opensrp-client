@@ -23,7 +23,10 @@ dependencies {
         transitive = true;
     }
     compile files('libs/sd-sdk-facial-processing.jar')
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.google.code.gson:gson:2.8.0'
 }
+
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion

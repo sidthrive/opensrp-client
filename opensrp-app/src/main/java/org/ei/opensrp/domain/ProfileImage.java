@@ -17,6 +17,7 @@ public class ProfileImage {
     private String filecategory;
     private String vectorid;
     private String filevector;
+    private String fFaceVectorApi;
 
     public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory, String filevector) {
         this.imageid = imageid;
@@ -113,11 +114,24 @@ public class ProfileImage {
 
 
     public String getFilevector() {
-        Log.e("TAG", "getFilevector: "+filevector );
+//        filevector = "getFileVector";
+//        Log.e("TAG", "getFilevector: "+filevector );
         return filevector;
     }
 
     public void setFilevector(String filevector) {
         this.filevector = filevector;
+    }
+
+    public String getfFaceVectorApi(Context context) {
+
+        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replace("opensrp","openmrs");
+        String api_url = DRISTHI_BASE_URL+ "/multimedia-file?anm-id=user28";
+
+
+
+        fFaceVectorApi = api_url;
+
+        return fFaceVectorApi;
     }
 }

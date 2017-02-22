@@ -44,7 +44,7 @@ public class ClientProcessor {
     private static final String VALUES_KEY = "values";
 
 
-    Context mContext;
+    protected Context mContext;
 
     public ClientProcessor(Context context) {
         mContext = context;
@@ -74,7 +74,8 @@ public class ClientProcessor {
         String clientAlertsStr = getFileContents("ec_client_alerts.json");
 
         //this seems to be easy for now cloudant json to events model is crazy
-        List<JSONObject> eventsAndAlerts = handler.getUpdatedEventsAndAlerts(lastSyncDate);if (!eventsAndAlerts.isEmpty()) {
+        List<JSONObject> eventsAndAlerts = handler.getUpdatedEventsAndAlerts(lastSyncDate);
+        if (!eventsAndAlerts.isEmpty()) {
             for (JSONObject eventOrAlert : eventsAndAlerts) {
                 String type = eventOrAlert.has("type") ? eventOrAlert.getString("type") : null;
                 if (type.equals("Event")) {
@@ -618,7 +619,7 @@ public class ClientProcessor {
      * @return
      * @throws Exception
      */
-    private String getHumanReadableConceptResponse(String value, JSONObject jsonDocObject) throws Exception {
+    protected String getHumanReadableConceptResponse(String value, JSONObject jsonDocObject) throws Exception {
 
         JSONArray humanReadableValues = jsonDocObject.has("humanReadableValues") ? jsonDocObject.getJSONArray("humanReadableValues") : null;
 
@@ -778,7 +779,7 @@ public class ClientProcessor {
         return null;
     }
 
-    private String getFileContents(String fileName) {
+    protected String getFileContents(String fileName) {
         return AssetHandler.readFileFromAssetsFolder(fileName, mContext);
     }
 
@@ -826,11 +827,12 @@ public class ClientProcessor {
         this.mCloudantDataHandler = mCloudantDataHandler;
     }
 
-    private boolean isNullOrEmptyJSONObject(JSONObject jsonObject){
+    protected boolean isNullOrEmptyJSONObject(JSONObject jsonObject){
         return (jsonObject == null || jsonObject.length() == 0);
     }
 
     private boolean isNullOrEmptyJSONArray(JSONArray jsonArray){
         return (jsonArray == null || jsonArray.length() == 0);
     }
+
 }
