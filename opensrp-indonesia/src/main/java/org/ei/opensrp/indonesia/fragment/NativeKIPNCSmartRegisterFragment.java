@@ -365,7 +365,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_pnc.is_closed = 0 and keadaanIbu ='hidup' ";
+                mainCondition = " is_closed = 0 and keadaanIbu ='hidup' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -393,7 +393,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_pnc.is_closed = 0 and keadaanIbu ='hidup' ";
+                mainCondition = " is_closed = 0 and keadaanIbu ='hidup' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();

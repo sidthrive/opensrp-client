@@ -344,7 +344,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0' ";
+                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
 
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
@@ -371,7 +371,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0' ";
+                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
