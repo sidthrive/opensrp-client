@@ -13,8 +13,12 @@ import android.widget.TextView;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.db.VaccineRepo;
+import org.ei.opensrp.path.domain.Photo;
+import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -32,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import util.DateUtils;
+import util.ImageUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.convertDateFormat;
@@ -68,7 +73,8 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     public void getView(SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
-        fillValue((TextView) convertView.findViewById(R.id.child_zeir_id), pc.getColumnmaps(), "program_client_id", false);
+        String zeirId = getValue(pc.getColumnmaps(), "program_client_id", false);
+        fillValue((TextView) convertView.findViewById(R.id.child_zeir_id), zeirId);
         String childName = getValue(pc.getColumnmaps(), "first_name", true) + " " + getValue(pc, "last_name", true);
         String motherFirstName = getValue(pc.getColumnmaps(), "mother_first_name", true);
         if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
@@ -83,13 +89,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
         String gender = getValue(pc.getColumnmaps(), "gender", true);
-        if (gender.equalsIgnoreCase("male")) {
-            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_boy_infant);
-        } else if (gender.equalsIgnoreCase("female")) {
-            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_girl_infant);
-        } else if (gender.toLowerCase().contains("trans")) {
-            ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(R.drawable.child_transgender_inflant);
-        }
+        ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(ImageUtils.profileImageResourceByGender(gender));
 
         DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
         String duration = DateUtils.getDuration(dateTime);
@@ -153,7 +153,15 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);
 
-        convertView.findViewById(R.id.record_weight).setTag(client);
+        Photo photo = ImageUtils.profilePhotoByClient(pc);
+
+        WeightWrapper weightWrapper = new WeightWrapper();
+        weightWrapper.setPatientName(childName);
+        weightWrapper.setPatientNumber(zeirId);
+        weightWrapper.setPatientAge(duration);
+        weightWrapper.setPhoto(photo);
+        weightWrapper.setPmtctStatus(getValue(pc.getColumnmaps(), "pmtct_status", false));
+        convertView.findViewById(R.id.record_weight).setTag(weightWrapper);
         convertView.findViewById(R.id.record_weight).setOnClickListener(onClickListener);
 
         convertView.setLayoutParams(clientViewLayoutParams);

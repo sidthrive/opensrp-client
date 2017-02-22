@@ -353,12 +353,7 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
     }
 
     @Override
-    public void onWeightTakenToday(WeightWrapper tag) {
-
-    }
-
-    @Override
-    public void onWeightTakenEarlier(WeightWrapper tag) {
+    public void onWeightTaken(WeightWrapper tag) {
 
     }
 }

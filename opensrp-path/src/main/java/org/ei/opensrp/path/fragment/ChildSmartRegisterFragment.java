@@ -70,6 +70,7 @@ import java.util.List;
 import java.util.Map;
 
 import util.GlobalSearchUtils;
+import util.JsonFormUtils;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -214,7 +215,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         viewParent.setVisibility(View.GONE);
 
         View qrCode = view.findViewById(R.id.scan_qr_code);
-        TextView nameInitials = (TextView)view.findViewById(R.id.name_inits);
+        TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
         qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,8 +223,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
             }
         });
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
-        String preferredName=allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
-        if(!preferredName.isEmpty()) {
+        String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
+        if (!preferredName.isEmpty()) {
             String[] preferredNameArray = preferredName.split(" ");
             String initials = "";
             if (preferredNameArray.length > 1) {
@@ -252,7 +253,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "last_name", "gender", "mother_first_name", "mother_last_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "vaccines_2", "bcg", "opv0", "pcv1", "opv1", "penta1", "pcv2", "opv2", "penta2", "pcv3", "opv3", "penta3", "ipv", "measles1", "measles2", "bcg_retro", "opv0_retro", "pcv1_retro", "opv1_retro", "penta1_retro", "pcv2_retro", "opv2_retro", "penta2_retro", "pcv3_retro", "opv3_retro", "penta3_retro", "ipv_retro", "measles1_retro", "measles2_retro"});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "last_name", "gender", "mother_first_name", "mother_last_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "pmtct_status", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "vaccines_2", "bcg", "opv0", "pcv1", "opv1", "penta1", "pcv2", "opv2", "penta2", "pcv3", "opv3", "penta3", "ipv", "measles1", "measles2", "bcg_retro", "opv0_retro", "pcv1_retro", "opv1_retro", "penta1_retro", "pcv2_retro", "opv2_retro", "penta2_retro", "pcv3_retro", "opv3_retro", "penta3_retro", "ipv_retro", "measles1_retro", "measles2_retro"});
         mainSelect = queryBUilder.mainCondition("");
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
@@ -268,27 +269,15 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            HashMap<String, String> map = new HashMap<>();
-            map.putAll(followupOverrides(client));
-            map.putAll(providerDetails());
-
-            String formName = "child_followup";
-            String registerFormName = "child_enrollment";
 
             switch (view.getId()) {
                 case R.id.child_profile_info_layout:
-                    //ChildDetailActivity.startDetailActivity(getActivity(), (CommonPersonObjectClient) view.getTag(), map, formName, registerFormName, ChildDetailActivity.class);
+                    CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+                    HashMap<String, String> map = new HashMap<>();
+                    map.putAll(followupOverrides(client));
+                    map.putAll(providerDetails());
 
-                    HashMap<String, String> details = new HashMap<>();
-                    details.put("first_name", "John");
-                    details.put("last_name", "Doe");
-                    details.put("gender", "male");
-                    details.put("zeir", "231243");
-                    details.put("dob", "06-03-1991");
-                    CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient("test", details, null);
-                    commonPersonObjectClient.setColumnmaps(details);
-                    ChildImmunizationActivity.launchActivity(getActivity(), commonPersonObjectClient);
+                    ChildImmunizationActivity.launchActivity(getActivity(), client);
 
                     getActivity().finish();
                     break;
@@ -299,7 +288,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(getActivity(), null);
+                    WeightWrapper weightWrapper = (WeightWrapper) view.getTag();
+                    RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(getActivity(), weightWrapper);
                     recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
 
                     break;

@@ -147,7 +147,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
                     dobCalender.add(Calendar.DATE, vaccineData.getInt("days_after_birth_due"));
                     nameTV.setText(String.format(context.getString(R.string.due_),
                             vaccineData.getString("name"),
-                            READABLE_DATE_FORMAT.format(dobCalender)));
+                            READABLE_DATE_FORMAT.format(dobCalender.getTime())));
                     break;
             }
         } catch (JSONException e) {

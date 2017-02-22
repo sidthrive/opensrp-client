@@ -16,6 +16,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
+import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -104,7 +105,7 @@ public class JsonFormUtils {
                 cloudantDataHandler.createClientDocument(client);
             }
 
-            String zeirId=c.getIdentifier(ZEIRD);
+            String zeirId = c.getIdentifier(ZEIRD);
             //mark zeir id as used
             org.ei.opensrp.Context.uniqueIdRepository().close(zeirId);
 
@@ -376,9 +377,10 @@ public class JsonFormUtils {
         if (entityVal != null && entityVal.equals(entity)) {
             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
 
-            //FIXME hack unique identifiers
-            if(entityIdVal.equals("ZEIR_ID") && value.equals("0")){
-                value = generateRandomUUIDString();
+            if (entityIdVal.equals(ZEIRD) && StringUtils.isNotBlank(value) && !value.contains("-")) {
+                StringBuilder stringBuilder = new StringBuilder(value);
+                stringBuilder.insert(value.length() - 1, '-');
+                value = stringBuilder.toString();
             }
 
             pids.put(entityIdVal, value);

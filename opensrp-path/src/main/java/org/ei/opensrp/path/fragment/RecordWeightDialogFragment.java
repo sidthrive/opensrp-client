@@ -12,19 +12,23 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.activity.ChildDetailActivity;
-import org.ei.opensrp.path.activity.WomanDetailActivity;
-import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.joda.time.DateTime;
 
 import java.util.Calendar;
+
+import util.Utils;
 
 @SuppressLint("ValidFragment")
 public class RecordWeightDialogFragment extends DialogFragment {
@@ -36,7 +40,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
     private RecordWeightDialogFragment(Context context,
                                        WeightWrapper tag) {
         this.context = context;
-        if(tag == null){
+        if (tag == null) {
             tag = new WeightWrapper();
         }
         this.tag = tag;
@@ -80,35 +84,27 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
         final DatePicker earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
 
-        /*
-        TextView nameView = (TextView) dialogView.findViewById(R.id.name);
+
+        TextView nameView = (TextView) dialogView.findViewById(R.id.child_name);
         nameView.setText(tag.getPatientName());
-        TextView numberView = (TextView) dialogView.findViewById(R.id.number);
-        numberView.setText(tag.getPatientNumber());
 
-        LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
-
-        List<VaccineRepo.Vaccine> vaccines = tag.vaccines();
-        if (vaccines.size() == 1) {
-            VaccineRepo.Vaccine vaccine = tag.vaccines().get(0);
-
-            View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
-            TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
-            vaccineView.setText(vaccine.display());
-            CheckBox select = (CheckBox) vaccinationName.findViewById(R.id.select);
-            select.setVisibility(View.GONE);
-
-            vaccinationNameLayout.addView(vaccinationName);
-        } else if (vaccines.size() > 1) {
-            for (VaccineRepo.Vaccine vaccine : vaccines) {
-
-                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
-                TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
-                vaccineView.setText(vaccine.display());
-
-                vaccinationNameLayout.addView(vaccinationName);
-            }
+        TextView numberView = (TextView) dialogView.findViewById(R.id.child_zeir_id);
+        if (StringUtils.isNotBlank(tag.getPatientNumber())) {
+            numberView.setText(String.format("%s: %s", getString(R.string.label_zeir), tag.getPatientNumber()));
+        } else {
+            numberView.setText("");
         }
+
+        TextView ageView = (TextView) dialogView.findViewById(R.id.child_age);
+        if (StringUtils.isNotBlank(tag.getPatientAge())) {
+            ageView.setText(String.format("%s: %s", getString(R.string.age), tag.getPatientAge()));
+        } else {
+            ageView.setText("");
+        }
+
+        TextView pmtctStatusView = (TextView) dialogView.findViewById(R.id.pmtct_status);
+        pmtctStatusView.setText(tag.getPmtctStatus());
+
 
         Photo photo = tag.getPhoto();
         if (photo != null) {
@@ -119,14 +115,6 @@ public class RecordWeightDialogFragment extends DialogFragment {
                 Utils.setProfiePic(context, mImageView, photo.getResourceId(), null);
             }
         }
-
-
-
-        String color = tag.getColor();
-        Button status = (Button) dialogView.findViewById(R.id.status);
-        if (status != null) {
-            status.setBackgroundColor(StringUtils.isBlank(color) ? Color.WHITE : Color.parseColor(color));
-        } */
 
         final Button set = (Button) dialogView.findViewById(R.id.set);
         set.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +128,11 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
-                tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), false);
+                tag.setUpdatedWeightDate(new DateTime(calendar.getTime()), false);
 
                 //updateFormSubmission();
 
-                listener.onWeightTakenEarlier(tag);
+                listener.onWeightTaken(tag);
 
             }
         });
@@ -156,11 +144,11 @@ public class RecordWeightDialogFragment extends DialogFragment {
                 dismiss();
 
                 Calendar calendar = Calendar.getInstance();
-                tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), true);
+                tag.setUpdatedWeightDate(new DateTime(calendar.getTime()), true);
 
                 //updateFormSubmission();
 
-                listener.onWeightTakenToday(tag);
+                listener.onWeightTaken(tag);
 
             }
         });
@@ -170,6 +158,10 @@ public class RecordWeightDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 weightTakenEarlier.setVisibility(View.GONE);
+
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
                 earlierDatePicker.setVisibility(View.VISIBLE);
                 earlierDatePicker.requestFocus();
                 set.setVisibility(View.VISIBLE);
@@ -216,7 +208,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
         }
     }
 
-    private void formatEditWeightView(EditText editWeight, String userInput){
+    private void formatEditWeightView(EditText editWeight, String userInput) {
         StringBuilder stringBuilder = new StringBuilder(userInput);
 
         while (stringBuilder.length() > 2 && stringBuilder.charAt(0) == '0') {

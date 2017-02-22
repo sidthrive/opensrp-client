@@ -1,11 +1,15 @@
 package org.ei.opensrp.path.activity;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,10 +17,15 @@ import android.widget.TextView;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.repository.ImageRepository;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.opensrp.api.constants.Gender;
@@ -31,14 +40,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 import util.DateUtils;
+import util.ImageUtils;
 import util.Utils;
+
+import static util.Utils.getValue;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 16/02/2017.
  */
 
 public class ChildImmunizationActivity extends BaseActivity
-        implements LocationSwitcherToolbar.OnLocationChangeListener {
+        implements LocationSwitcherToolbar.OnLocationChangeListener, WeightActionListener {
 
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
@@ -95,6 +107,7 @@ public class ChildImmunizationActivity extends BaseActivity
         updateAgeViews();
         updateChildIdViews();
         updateVaccinationViews();
+        updateRecordWeightView();
     }
 
     private void updateProfilePicture(Gender gender) {
@@ -105,13 +118,7 @@ public class ChildImmunizationActivity extends BaseActivity
             if (photo != null) {
                 Utils.setProfiePicFromPath(this, profileImageIV, photo.getFilepath(), org.ei.opensrp.R.drawable.ic_pencil);
             } else {
-                int defaultProfileImg = R.drawable.child_transgender_inflant;
-                if (gender.equals(Gender.FEMALE)) {
-                    defaultProfileImg = R.drawable.child_girl_infant;
-                } else if (gender.equals(Gender.MALE)) {
-                    defaultProfileImg = R.drawable.child_boy_infant;
-                }
-
+                int defaultProfileImg = ImageUtils.profileImageResourceByGender(gender);
                 Utils.setProfiePic(this, profileImageIV, defaultProfileImg, org.ei.opensrp.R.drawable.ic_pencil);
             }
         }
@@ -123,7 +130,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (isDataOk()) {
             name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
                     + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
-            childId = Utils.getValue(childDetails.getColumnmaps(), "zeir", false);
+            childId = Utils.getValue(childDetails.getColumnmaps(), "program_client_id", false);
         }
 
         TextView nameTV = (TextView) findViewById(R.id.name_tv);
@@ -222,6 +229,50 @@ public class ChildImmunizationActivity extends BaseActivity
         }
     }
 
+    private void updateRecordWeightView() {
+        String childName = getValue(childDetails.getColumnmaps(), "first_name", true) + " " + getValue(childDetails, "last_name", true);
+        String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
+        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
+            childName = "B/o " + motherFirstName;
+        }
+
+        String zeirId = getValue(childDetails.getColumnmaps(), "program_client_id", false);
+
+        DateTime dateTime = new DateTime(getValue(childDetails.getColumnmaps(), "dob", false));
+        String duration = DateUtils.getDuration(dateTime);
+
+        Photo photo = ImageUtils.profilePhotoByClient(childDetails);
+
+        WeightWrapper weightWrapper = new WeightWrapper();
+        weightWrapper.setPatientName(childName);
+        weightWrapper.setPatientNumber(zeirId);
+        weightWrapper.setPatientAge(duration);
+        weightWrapper.setPhoto(photo);
+        weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
+
+        Button recordWeight = (Button) findViewById(R.id.record_weight);
+        recordWeight.setTag(weightWrapper);
+        recordWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showWeightDialog(view);
+            }
+        });
+    }
+
+    private void showWeightDialog(View view) {
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        Fragment prev = this.getFragmentManager().findFragmentByTag(RecordWeightDialogFragment.DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        WeightWrapper weightWrapper = (WeightWrapper) view.getTag();
+        RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(this, weightWrapper);
+        recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
+
+    }
+
     private String readAssetContents(String path) {
         String fileContents = null;
         try {
@@ -274,5 +325,15 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     protected int getToolbarId() {
         return LocationSwitcherToolbar.TOOLBAR_ID;
+    }
+
+    @Override
+    protected Class onBackActivity() {
+        return ChildSmartRegisterActivity.class;
+    }
+
+    @Override
+    public void onWeightTaken(WeightWrapper tag) {
+
     }
 }
