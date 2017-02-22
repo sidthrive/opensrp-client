@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.opensrp.api.constants.Gender;
@@ -33,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BaseToolbar toolbar;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,9 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(toolbar.getSupportedMenu(), menu);
+        toolbar.prepareMenu();
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -148,4 +152,12 @@ public abstract class BaseActivity extends AppCompatActivity
      * @return The id for the toolbar used
      */
     protected abstract int getToolbarId();
+
+    public Context getOpenSRPContext() {
+        return Context.getInstance().updateApplicationContext(this.getApplicationContext());
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
 }

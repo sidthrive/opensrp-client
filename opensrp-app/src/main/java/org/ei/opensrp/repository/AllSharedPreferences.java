@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
+import static org.ei.opensrp.AllConstants.CURRENT_LOCALITY;
 import static org.ei.opensrp.AllConstants.DEFAULT_LOCALE;
 import static org.ei.opensrp.AllConstants.DRISHTI_BASE_URL;
 import static org.ei.opensrp.AllConstants.ENCRYPTED_GROUP_ID_PREFIX;
@@ -53,6 +55,14 @@ public class AllSharedPreferences {
 
     public void savePioneerUser(String username) {
         preferences.edit().putString(PIONEER_USER, username).commit();
+    }
+
+    public String fetchCurrentLocality() {
+        return preferences.getString(CURRENT_LOCALITY, null);
+    }
+
+    public void saveCurrentLocality(String currentLocality) {
+        preferences.edit().putString(CURRENT_LOCALITY, currentLocality).commit();
     }
 
     public String fetchEncryptedGroupId(String username) {

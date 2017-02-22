@@ -25,5 +25,7 @@ public abstract class BaseToolbar extends Toolbar {
 
     public abstract int getSupportedMenu();
 
+    public abstract void prepareMenu();
+
     public abstract MenuItem onMenuItemSelected(MenuItem menuItem);
 }

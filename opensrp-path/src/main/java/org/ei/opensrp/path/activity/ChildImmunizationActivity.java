@@ -58,6 +58,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar = (LocationSwitcherToolbar) getToolbar();
+        toolbar.initLocationPicker(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,7 +258,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onLocationChanged(String newLocation) {
+    public void onLocationChanged(final ArrayList<String> newLocation) {
         // TODO: Do whatever needs to be done when the location is changed
     }
 
