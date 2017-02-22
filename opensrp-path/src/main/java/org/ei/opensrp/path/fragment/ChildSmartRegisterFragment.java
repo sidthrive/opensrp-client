@@ -97,7 +97,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 return new VaccinationServiceModeOption(null, "Linda Clinic", new int[]{
                         R.string.child_profile, R.string.birthdate_age, R.string.epi_number, R.string.child_contact_number,
                         R.string.child_next_vaccine
-                }, new int[]{5, 1, 3, 3, 3});
+                }, new int[]{5, 2, 2, 3, 3});
             }
 
             @Override

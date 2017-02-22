@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
@@ -43,6 +44,7 @@ import util.DateUtils;
 import util.ImageUtils;
 import util.Utils;
 
+import static util.Utils.fillValue;
 import static util.Utils.getValue;
 
 /**
@@ -237,9 +239,12 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "program_client_id", false);
-
-        DateTime dateTime = new DateTime(getValue(childDetails.getColumnmaps(), "dob", false));
-        String duration = DateUtils.getDuration(dateTime);
+        String duration = "";
+        String dobString = getValue(childDetails.getColumnmaps(), "dob", false);
+        if (StringUtils.isNotBlank(dobString)) {
+            DateTime dateTime = new DateTime(getValue(childDetails.getColumnmaps(), "dob", false));
+            duration = DateUtils.getDuration(dateTime);
+        }
 
         Photo photo = ImageUtils.profilePhotoByClient(childDetails);
 

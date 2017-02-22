@@ -10,6 +10,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Alert;
@@ -91,10 +92,14 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         String gender = getValue(pc.getColumnmaps(), "gender", true);
         ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(ImageUtils.profileImageResourceByGender(gender));
 
-        DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
-        String duration = DateUtils.getDuration(dateTime);
-        if (duration != null) {
-            fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
+        String dobString  = getValue(pc.getColumnmaps(), "dob", false);
+        String duration = "";
+        if(StringUtils.isNotBlank(dobString)) {
+            DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
+            duration = DateUtils.getDuration(dateTime);
+            if (duration != null) {
+                fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
+            }
         }
 
         fillValue((TextView) convertView.findViewById(R.id.child_card_number), pc.getColumnmaps(), "epi_card_number", false);
