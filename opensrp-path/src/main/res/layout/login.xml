@@ -29,12 +29,13 @@
                 android:textColor="#90c4dc" />
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/login_opensrp_logo_width"
+                android:layout_height="@dimen/login_opensrp_logo_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/logo" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_opensrp_logo" />
         </LinearLayout>
 
         <!-- Top section -->
@@ -46,17 +47,16 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/login_logo_height"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/logo" />
+                android:src="@drawable/ic_logo" />
 
             <TextView
                 android:id="@+id/login_build"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:textColor="#90c4dc" />
         </LinearLayout>
