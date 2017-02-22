@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:theme="@style/AppThemeNoTitle.AppBarOverlay">
 
-    <org.ei.opensrp.path.toolbars.LocationSwitcherToolbar
+    <org.ei.opensrp.path.toolbar.LocationSwitcherToolbar
         android:id="@+id/location_switching_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.toolbars;
+package org.ei.opensrp.path.toolbar;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

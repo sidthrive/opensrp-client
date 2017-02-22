@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.views;
+package org.ei.opensrp.path.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,20 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
-import org.ei.opensrp.path.db.VaccineRepo;
+import org.ei.opensrp.path.adapter.VaccineCardAdapter;
 import org.ei.opensrp.path.domain.VaccineWrapper;
-import org.joda.time.DateTime;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -75,6 +69,14 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         init(context);
     }
 
+    public CommonPersonObjectClient getChildDetails() {
+        return this.childDetails;
+    }
+
+    public JSONObject getVaccineData() {
+        return this.vaccineData;
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public VaccineGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -85,8 +87,8 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         this.context = context;
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.view_vaccine_group, this, true);
-        /*ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        setLayoutParams(layoutParams);*/
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        setLayoutParams(layoutParams);
         nameTV = (TextView) findViewById(R.id.name_tv);
         vaccinesGV = (GridView) findViewById(R.id.vaccines_gv);
         recordAllTV = (TextView) findViewById(R.id.record_all_tv);
@@ -171,7 +173,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         }
     }
 
-    private void toggleRecordAllTV() {
+    public void toggleRecordAllTV() {
         if (vaccineCardAdapter.getDueVaccines().size() > 0) {
             recordAllTV.setVisibility(VISIBLE);
         } else {
@@ -195,97 +197,6 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     @Override
     public void onStateChanged(VaccineCard.State newState) {
         updateViews();
-    }
-
-    private static class VaccineCardAdapter extends BaseAdapter {
-        private final Context context;
-        private HashMap<String, VaccineCard> vaccineCards;
-        private final VaccineGroup vaccineGroup;
-
-        public VaccineCardAdapter(Context context, VaccineGroup vaccineGroup) throws JSONException {
-            this.context = context;
-            this.vaccineGroup = vaccineGroup;
-            vaccineCards = new HashMap<>();
-        }
-
-        @Override
-        public int getCount() {
-            try {
-                return vaccineGroup.vaccineData.getJSONArray("vaccines").length();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return vaccineCards.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 231231 + position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            try {
-                JSONObject vaccineData = vaccineGroup.vaccineData.getJSONArray("vaccines")
-                        .getJSONObject(position);
-                String vaccineName = vaccineData.getString("name");
-                if (!vaccineCards.containsKey(vaccineName)) {
-                    Log.d(TAG, "Adding card to position " + position + " for " + vaccineGroup.nameTV.getText().toString());
-                    VaccineCard vaccineCard = new VaccineCard(context);
-                    vaccineCard.setOnVaccineStateChangeListener(vaccineGroup);
-                    vaccineCard.setOnClickListener(vaccineGroup);
-                    vaccineCard.setId((int) getItemId(position));
-                    VaccineWrapper vaccineWrapper = new VaccineWrapper();
-                    vaccineWrapper.setName(vaccineName);
-
-                    String dobString = Utils.getValue(vaccineGroup.childDetails.getColumnmaps(), "dob", false);
-                    Calendar dobCalender = Calendar.getInstance();
-                    dobCalender.setTime(ChildImmunizationActivity.DATE_FORMAT.parse(dobString));
-                    dobCalender.add(Calendar.DATE, vaccineGroup.vaccineData.getInt("days_after_birth_due"));
-                    vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
-                    // TODO: get date vaccination was done
-                    vaccineCard.setVaccineWrapper(vaccineWrapper);
-
-                    vaccineCards.put(vaccineName, vaccineCard);
-                    vaccineGroup.toggleRecordAllTV();
-                }
-
-                return vaccineCards.get(vaccineName);
-            } catch (JSONException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            } catch (ParseException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
-
-            return null;
-        }
-
-        public void update() {
-            if (vaccineCards != null) {
-                for (VaccineCard curCard : vaccineCards.values()) {
-                    if (curCard != null) curCard.updateState();
-                }
-            }
-        }
-
-        public ArrayList<VaccineWrapper> getDueVaccines() {
-            ArrayList<VaccineWrapper> dueVaccines = new ArrayList<>();
-            if (vaccineCards != null) {
-                for (VaccineCard curCard : vaccineCards.values()) {
-                    if (curCard != null && (curCard.getState().equals(VaccineCard.State.DUE)
-                            || curCard.getState().equals(VaccineCard.State.OVERDUE))) {
-                        dueVaccines.add(curCard.getVaccineWrapper());
-                    }
-                }
-            }
-
-            return dueVaccines;
-        }
     }
 
     public void setOnRecordAllClickListener(OnRecordAllClickListener onRecordAllClickListener) {

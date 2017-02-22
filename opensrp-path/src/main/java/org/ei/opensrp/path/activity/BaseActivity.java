@@ -8,15 +8,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.toolbars.BaseToolbar;
+import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.opensrp.api.constants.Gender;
 
 /**

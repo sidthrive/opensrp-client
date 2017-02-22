@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.views;
+package org.ei.opensrp.path.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

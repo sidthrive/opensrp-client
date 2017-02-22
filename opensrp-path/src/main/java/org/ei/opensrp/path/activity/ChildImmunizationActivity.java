@@ -14,13 +14,11 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.VaccineWrapper;
-import org.ei.opensrp.path.toolbars.LocationSwitcherToolbar;
-import org.ei.opensrp.path.views.VaccineCard;
-import org.ei.opensrp.path.views.VaccineGroup;
+import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.repository.ImageRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
 import java.io.IOException;
