@@ -201,16 +201,16 @@ public class ChildImmunizationActivity extends BaseActivity
                     curGroup.setData(supportedVaccines.getJSONObject(i), childDetails);
                     curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
                         @Override
-                        public void onClick(ArrayList<VaccineWrapper> dueVaccines) {
+                        public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
                             //TODO: attach vaccination dialog here
-                            // Remember to call curGroup.updateViews() after closing the dialog
+                            // Remember to call vaccineGroup.updateViews() after closing the dialog
                         }
                     });
                     curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
                         @Override
-                        public void onClick(VaccineWrapper vaccine) {
+                        public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
                             //TODO: attach vaccination dialog here
-                            // Remember to call curGroup.updateViews() after closing the dialog
+                            // Remember to call vaccineGroup.updateViews() after closing the dialog
                         }
                     });
                     vaccineGroupCanvasLL.addView(curGroup);

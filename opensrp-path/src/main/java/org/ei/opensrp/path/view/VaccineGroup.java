@@ -185,11 +185,11 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     public void onClick(View v) {
         if (v.equals(recordAllTV)) {
             if (onRecordAllClickListener != null && vaccineCardAdapter != null) {
-                onRecordAllClickListener.onClick(vaccineCardAdapter.getDueVaccines());
+                onRecordAllClickListener.onClick(this, vaccineCardAdapter.getDueVaccines());
             }
         } else if (v instanceof VaccineCard) {
             if (onVaccineClickedListener != null) {
-                onVaccineClickedListener.onClick(((VaccineCard) v).getVaccineWrapper());
+                onVaccineClickedListener.onClick(this, ((VaccineCard) v).getVaccineWrapper());
             }
         }
     }
@@ -208,10 +208,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     }
 
     public static interface OnRecordAllClickListener {
-        void onClick(ArrayList<VaccineWrapper> dueVaccines);
+        void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines);
     }
 
     public static interface OnVaccineClickedListener {
-        void onClick(VaccineWrapper vaccine);
+        void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
     }
 }
