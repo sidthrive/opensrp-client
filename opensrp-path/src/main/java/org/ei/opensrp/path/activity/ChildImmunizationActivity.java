@@ -205,6 +205,14 @@ public class ChildImmunizationActivity extends BaseActivity
                         @Override
                         public void onClick(ArrayList<VaccineWrapper> dueVaccines) {
                             //TODO: attach vaccination dialog here
+                            // Remember to call curGroup.updateViews() after closing the dialog
+                        }
+                    });
+                    curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
+                        @Override
+                        public void onClick(VaccineWrapper vaccine) {
+                            //TODO: attach vaccination dialog here
+                            // Remember to call curGroup.updateViews() after closing the dialog
                         }
                     });
                     vaccineGroupCanvasLL.addView(curGroup);

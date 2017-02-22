@@ -210,9 +210,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.equals(this)) {
-            recordVaccinated(Calendar.getInstance().getTime());
-        } else if (v.equals(undoB)) {
+        if (v.equals(undoB)) {
             undoVaccinationDate();
         }
     }

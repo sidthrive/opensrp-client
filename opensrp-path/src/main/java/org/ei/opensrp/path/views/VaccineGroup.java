@@ -51,6 +51,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     private CommonPersonObjectClient childDetails;
     private State state;
     private OnRecordAllClickListener onRecordAllClickListener;
+    private OnVaccineClickedListener onVaccineClickedListener;
     private SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
 
     private static enum State {
@@ -84,6 +85,8 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         this.context = context;
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.view_vaccine_group, this, true);
+        /*ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        setLayoutParams(layoutParams);*/
         nameTV = (TextView) findViewById(R.id.name_tv);
         vaccinesGV = (GridView) findViewById(R.id.vaccines_gv);
         recordAllTV = (TextView) findViewById(R.id.record_all_tv);
@@ -182,6 +185,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
             if (onRecordAllClickListener != null && vaccineCardAdapter != null) {
                 onRecordAllClickListener.onClick(vaccineCardAdapter.getDueVaccines());
             }
+        } else if (v instanceof VaccineCard) {
+            if (onVaccineClickedListener != null) {
+                onVaccineClickedListener.onClick(((VaccineCard) v).getVaccineWrapper());
+            }
         }
     }
 
@@ -227,9 +234,11 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
                 JSONObject vaccineData = vaccineGroup.vaccineData.getJSONArray("vaccines")
                         .getJSONObject(position);
                 String vaccineName = vaccineData.getString("name");
-                if(!vaccineCards.containsKey(vaccineName)) {
+                if (!vaccineCards.containsKey(vaccineName)) {
+                    Log.d(TAG, "Adding card to position " + position + " for " + vaccineGroup.nameTV.getText().toString());
                     VaccineCard vaccineCard = new VaccineCard(context);
                     vaccineCard.setOnVaccineStateChangeListener(vaccineGroup);
+                    vaccineCard.setOnClickListener(vaccineGroup);
                     vaccineCard.setId((int) getItemId(position));
                     VaccineWrapper vaccineWrapper = new VaccineWrapper();
                     vaccineWrapper.setName(vaccineName);
@@ -283,7 +292,15 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         this.onRecordAllClickListener = onRecordAllClickListener;
     }
 
+    public void setOnVaccineClickedListener(OnVaccineClickedListener onVaccineClickedListener) {
+        this.onVaccineClickedListener = onVaccineClickedListener;
+    }
+
     public static interface OnRecordAllClickListener {
         void onClick(ArrayList<VaccineWrapper> dueVaccines);
+    }
+
+    public static interface OnVaccineClickedListener {
+        void onClick(VaccineWrapper vaccine);
     }
 }
