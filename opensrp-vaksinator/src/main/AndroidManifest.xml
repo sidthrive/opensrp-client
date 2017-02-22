@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.ei.opensrp.vaksinator">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
     <application android:allowBackup="true"
         android:label="@string/app_name"
         android:name=".application.VaksinatorApplication"
@@ -46,6 +50,12 @@
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
+
+
+        <activity android:name=".face.camera.SmartShutterActivity" />
+        <activity android:name=".face.camera.ImageConfirmation" />
+        <activity android:name=".face.camera.ClientsList" />
+
     </application>
 
 </manifest>

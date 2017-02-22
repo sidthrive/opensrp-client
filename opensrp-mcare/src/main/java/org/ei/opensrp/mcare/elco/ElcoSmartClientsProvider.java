@@ -196,9 +196,19 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 }
 
             }
+        }
+        if(pc.getDetails().get("FWPSRDATE")!=null ){
+            if(pc.getDetails().get("FWPSRPREGSTS")==null){
+                try {
+                    Date regdate = format.parse(pc.getDetails().get("FWPSRDATE"));
 
+                    lastdate = regdate;
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    Log.e(getClass().getName(), "Exception", e);
+                }
 
-
+            }
         }
 
         //psrf_schedule_logic == 1 || FWPSRSTS ==2

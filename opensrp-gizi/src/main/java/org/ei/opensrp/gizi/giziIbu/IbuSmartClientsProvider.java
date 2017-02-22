@@ -20,6 +20,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
+import org.ei.opensrp.gizi.gizi.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -38,6 +39,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * Created by user on 2/12/15.
  */
 public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = IbuSmartClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -48,6 +50,9 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
+    private String bindobject;
+    private String entityid;
+
     public IbuSmartClientsProvider(Context context,
                                    View.OnClickListener onClickListener,
                                    AlertService alertService) {
@@ -99,6 +104,7 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
 //            viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -140,14 +146,26 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
                 : "-")+ context.getString(R.string.str_weeks));
         viewHolder.lila.setText(context.getString(R.string.lila)+": "+getDetails("hasilPemeriksaanLILA",pc) + " cm");
         viewHolder.hbLevel.setText(context.getString(R.string.hb_level)+": "+getDetails("laboratoriumPeriksaHbHasil",pc));
-        viewHolder.weight.setText(context.getString(R.string.str_weight)+" "+getDetails("bbKg",pc)+" "+context.getString(R.string.weight_unit));
+        viewHolder.weight.setText(context.getString(R.string.str_weight)+" "+getDetails("bbKg", pc)+" "+context.getString(R.string.weight_unit));
 
-        viewHolder.sistolik.setText(context.getString(R.string.sistolik)+": "+getDetails("tandaVitalTDSistolik",pc));
+        viewHolder.sistolik.setText(context.getString(R.string.sistolik)+": "+getDetails("tandaVitalTDSistolik", pc));
         viewHolder.diastolik.setText(context.getString(R.string.diastolik)+": "+getDetails("tandaVitalTDDiastolik",pc));
 
 
         viewHolder.vitaminA2.setText(context.getString(R.string.vitamin_a_pnc_2)+getDetails("vitaminA2jamPP",pc));
         viewHolder.vitaminA24.setText(context.getString(R.string.vitamin_a_pnc_24)+getDetails("vitaminA24jamPP",pc));
+
+        viewHolder.profilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
+//                bindobject = "anak";
+//                entityid = pc.entityId();
+//                android.util.Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(childview);
+
+            }
+        });
     }
     public SmartRegisterClients getClients() {
         return controller.getClients();

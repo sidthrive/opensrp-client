@@ -27,6 +27,11 @@ public class AllConstantsINA {
     // Flurry Bidan Testing 2
      public static final String FLURRY_KEY = "9RDM5TWW4HJ5QH8TNJ3P";
 
+    //    COLOR
+    public static final String RED_ORANGE = "#FE642E";
+    public static final String ORANGE_YELLOW = "#D7DF01";
+    public static final String YELLOW_GREEN = "#86B404";
+    public static final String GREEN = "#5FB404";
     // Flurry Key Bidan Prototype
    // public static final String FLURRY_KEY = "GVDTK3B4S92Y7D96NJ63";
 

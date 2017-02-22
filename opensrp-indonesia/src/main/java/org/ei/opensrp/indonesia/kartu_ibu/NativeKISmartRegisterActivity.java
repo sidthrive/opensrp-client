@@ -1,6 +1,4 @@
 package org.ei.opensrp.indonesia.kartu_ibu;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,9 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
@@ -19,8 +14,6 @@ import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.util.FormUtils;
@@ -35,19 +28,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANC_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_CLOSE;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_EDIT;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_REGISTRATION;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_PELAYANAN;
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */

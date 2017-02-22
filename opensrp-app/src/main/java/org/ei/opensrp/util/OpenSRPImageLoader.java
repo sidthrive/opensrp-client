@@ -151,7 +151,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                 ImageContainer imgContainer = new ImageContainer(null, null, null, opensrpImageListener);
 
                 opensrpImageListener.onResponse(imgContainer, true);
-                return;
 
             } else {
                 //get image record from the db
@@ -162,6 +161,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
+                    Log.e(TAG, "getImageByClientId: "+url);
                     get(url,opensrpImageListener);
 
                 }
@@ -224,13 +224,12 @@ public class OpenSRPImageLoader extends ImageLoader {
                     ImageContainer imgContainer = new ImageContainer(result, null, null, opensrpImageListener);
                     if (opensrpImageListener != null) {
                         if (opensrpImageListener.getHasImageViewTag()) {
-                            String imageId = opensrpImageListener.getImageView().getTag().toString();
+                            String imageId = opensrpImageListener.getImageView().getTag(R.id.entity_id).toString();
                             if (imageRecord.getEntityID().equalsIgnoreCase(imageId))
                                 opensrpImageListener.onResponse(imgContainer, true);
                         } else
                             opensrpImageListener.onResponse(imgContainer, true);
                     }
-                    return;
                 }
                 /***
                  * ProfileImage not found on disk, we need to get it from the network, here we piggyback on Volley library functionality to retrieve the image from the
@@ -246,6 +245,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 
                     // get this from the database based on imageId
                     String requestUrl = imageRecord.getImageUrl();
+                    Log.e(TAG, "onPostExecute: "+requestUrl );
 
                     // If the new requestUrl is null or the new requestUrl is different to the previous recycled requestUrl
                     if (requestUrl == null || !requestUrl.equals(recycledImageUrl)) {
@@ -268,7 +268,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                         }
                     }
 
-                    return;
                 }
 
             } catch (Exception exc) {
@@ -532,10 +531,15 @@ public class OpenSRPImageLoader extends ImageLoader {
                     // insert into the db
                     ProfileImage profileImage= new ProfileImage();
                     profileImage.setImageid(UUID.randomUUID().toString());
+                    // TODO : get anmID from ?
+                    profileImage.setAnmId("anmID");
                     profileImage.setEntityID(entityId);
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
+                    // TODO : fetch vector from imagebitmap
+//                    profileImage.setFilevector();
+//                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
                     imageRepo.add(profileImage);
                 }

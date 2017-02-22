@@ -1,5 +1,4 @@
 package org.ei.opensrp.indonesia;
-import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,10 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
+import org.ei.opensrp.indonesia.face.camera.util.MultimediaProcessor;
+import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
@@ -60,6 +60,20 @@ public class BidanHomeActivity extends SecuredActivity {
                 updateMenuItem.setActionView(null);
             }
             updateRegisterCounts();
+
+            Tools mtool = new Tools(context());
+
+//            try {
+//                MultimediaProcessor.getInstance(getApplicationContext()).processMultimediaClient();
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            mtool.findAllUnStored();
+            mtool.setVectorfromAPI();
+            mtool.parseSaveVector();
+
+//            mtool.vector_findAllUnsaved();
         }
     };
 
@@ -82,16 +96,12 @@ public class BidanHomeActivity extends SecuredActivity {
     private TextView kartuIbuPNCRegisterClientCountView;
     private TextView anakRegisterClientCountView;
     private TextView kohortKbCountView;
-    public static CommonPersonObjectController kicontroller;
-    public static CommonPersonObjectController anccontroller;
-    public static CommonPersonObjectController kbcontroller;
-    public static CommonPersonObjectController childcontroller;
-    public static CommonPersonObjectController pnccontroller;
+//    public static CommonPersonObjectController kicontroller;
+//    public static CommonPersonObjectController anccontroller;
+//    public static CommonPersonObjectController kbcontroller;
+//    public static CommonPersonObjectController childcontroller;
+//    public static CommonPersonObjectController pnccontroller;
     public static int kicount;
-    private int kbcount;
-    private int anccount;
-    private int pnccount;
-    private int childcount;
 
     @Override
     protected void onCreation() {
@@ -137,8 +147,7 @@ public class BidanHomeActivity extends SecuredActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         LoginActivity.setLanguage();
-//        getActionBar().setBackgroundDrawable(getReso
-// urces().getDrawable(R.color.action_bar_background));
+//        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_background));
     }
 
     @Override
@@ -168,22 +177,22 @@ public class BidanHomeActivity extends SecuredActivity {
 
         Cursor kbcountcursor = context().commonrepository("ec_kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_kartu_ibu_search", "ec_kartu_ibu_search.is_closed=0 and jenisKontrasepsi !='0'" ));
         kbcountcursor.moveToFirst();
-        kbcount= kbcountcursor.getInt(0);
+        int kbcount = kbcountcursor.getInt(0);
         kbcountcursor.close();
 
         Cursor anccountcursor = context().commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu_search", "ec_ibu_search.is_closed=0 "));
         anccountcursor.moveToFirst();
-        anccount= anccountcursor.getInt(0);
+        int anccount = anccountcursor.getInt(0);
         anccountcursor.close();
 
         Cursor pnccountcursor = context().commonrepository("ec_pnc").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_pnc_search", "ec_pnc_search.is_closed=0 and ec_pnc_search.keadaanIbu ='hidup'"));
         pnccountcursor.moveToFirst();
-        pnccount= pnccountcursor.getInt(0);
+        int pnccount = pnccountcursor.getInt(0);
         pnccountcursor.close();
 
         Cursor childcountcursor = context().commonrepository("anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
         childcountcursor.moveToFirst();
-        childcount= childcountcursor.getInt(0);
+        int childcount = childcountcursor.getInt(0);
         childcountcursor.close();
 
         ecRegisterClientCountView.setText(valueOf(kicount));

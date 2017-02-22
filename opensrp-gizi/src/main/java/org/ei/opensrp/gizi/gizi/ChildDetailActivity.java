@@ -30,6 +30,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.Log;
@@ -247,13 +248,15 @@ public class ChildDetailActivity extends Activity {
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
                 bindobject = "anak";
                 entityid = childclient.entityId();
+                android.util.Log.e(TAG, "onClick: " + entityid);
                 dispatchTakePictureIntent(childview);
 
             }
         });
+
 
     }
 
@@ -309,25 +312,31 @@ public class ChildDetailActivity extends Activity {
     static String entityid;
 
     private void dispatchTakePictureIntent(ImageView imageView) {
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
         mImageView = imageView;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                currentfile = photoFile;
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                currentfile = photoFile;
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+            startActivityForResult(takePictureIntent, 1);
+//            }
         }
     }
 
@@ -353,14 +362,6 @@ public class ChildDetailActivity extends Activity {
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
-    }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
