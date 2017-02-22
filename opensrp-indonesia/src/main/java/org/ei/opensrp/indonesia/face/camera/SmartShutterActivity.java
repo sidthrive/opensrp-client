@@ -122,6 +122,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
     long t_startCamera = 0;
     double t_stopCamera = 0;
     String str_origin_class;
+    private boolean updated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         setContentView(R.layout.activity_fr_main_face);
 
         Bundle extras = getIntent().getExtras();
+        updated = extras.getBoolean("org.sid.sidface.SmartShutterActivity.updated");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kidetail = extras.getParcelable("org.sid.sidface.ImageConfirmation.kidetail");
@@ -986,6 +988,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", identifyPerson);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) kidetail);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", str_origin_class);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.updated", updated);
+
         startActivityForResult(intent, 1);
     }
 

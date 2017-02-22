@@ -85,7 +85,7 @@ public class Tools {
     private String albumBuffer;
     private List<ProfileImage> list;
 
-    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector) {
+    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector, boolean updated) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
         File thumbs_photo = getOutputMediaFile(1, entityId);
@@ -122,13 +122,8 @@ public class Tools {
             tfos.close();
             Log.e(TAG, "Wrote Thumbs image to " + thumbs_photo);
 
-//            HashMap<String,String> details = new HashMap<>();
-            // SAVE DATA VECTOR ON DB
-//            details.put("profilepic", photoPath);
-//            details.put("profilepic", thumbs_photo.toString());
-
 //           FIXME File & Database Stored
-            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector));
+            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector), updated);
 
             return true;
 
@@ -254,7 +249,7 @@ public class Tools {
         editor.apply();
     }
 
-    public HashMap<String, String> retrieveHash(android.content.Context context) {
+    public static HashMap<String, String> retrieveHash(android.content.Context context) {
         Log.e(TAG, "retrieveHash: " + "Fetch");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
         HashMap<String, String> hash = new HashMap<>();
@@ -374,8 +369,14 @@ public class Tools {
         Log.e(TAG, "resetAlbum: " + "finish");
     }
 
-    public static void saveStaticImageToDisk(String entityId, Bitmap image, String faceVector) {
+    public static void saveStaticImageToDisk(String entityId, Bitmap image, String contentVector, boolean updated) {
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+
+        String[] res = contentVector.substring(1, contentVector.length() - 1).split(",");
+
+        Log.e(TAG, "saveStaticImageToDisk: "+res.length );
+        String[] faceVector = Arrays.copyOfRange(res, 32,332);
+        Log.e(TAG, "saveStaticImageToDisk: "+faceVector.length );
 
         if (image != null) {
             OutputStream os = null;
@@ -401,7 +402,7 @@ public class Tools {
                     profileImage.setContenttype("jpeg");
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
-                    profileImage.setFilevector(faceVector);
+                    profileImage.setFilevector(Arrays.toString(faceVector));
                     profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
                     imageRepo.add(profileImage);
@@ -466,34 +467,37 @@ public class Tools {
         int i = 0;
         for (ProfileImage pi : list) {
             i++;
+            String uid = pi.getEntityID();
             String filevector = pi.getFilevector();
             Log.e(TAG, "parseSaveVector: " + filevector);
+
+
+            if (!hash.containsKey(uid)) {
+                hash.put(Integer.toString(i), uid);
+                saveHash(hash, appContext.applicationContext());
+
+            }
 
             if (filevector != null) {
                 String[] res = filevector.substring(1, filevector.length() - 1).split(",");
 
-//            if (i == 0){
-//                String[] rangeHeader = res;
-//            }
-//            else {
-                String[] rangeHeader = Arrays.copyOfRange(res, 0, 31);
-//                String[] rangeHeader = rangeHeader;
-                rangeHeader[1] = String.valueOf(i);
-                rangeHeader[28] = String.valueOf(i);
-//            }
+//                String[] rangeHeader = Arrays.copyOfRange(res, 0, 31);
+//                rangeHeader[1] = String.valueOf(i);
+//                rangeHeader[28] = String.valueOf(i);
 
-                String[] rangeContent = Arrays.copyOfRange(res, 32, 331);
+//                String[] rangeContent = Arrays.copyOfRange(res, 32, 331);
 
-//            Log.e(TAG, "parseSaveVector:  " + Arrays.toString(newArr));
                 SharedPreferences settings = appContext.applicationContext().getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
 
                 if (settings.getString(FaceConstants.ALBUM_ARRAY, null) == null) {
                     albumBuffer = filevector;
                 } else {
-//                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
-                    albumBuffer = albumBuffer.substring(albumBuffer.length() + 2) + "," + rangeContent + "]";
+                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
+//                    albumBuffer = settings.getString(FaceConstants.ALBUM_ARRAY, null).substring(0, albumBuffer.length() - 1) + "," + filevector + "]";
                 }
+                Log.e(TAG, "parseSaveVector: "+hash.size() );
+                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
                 editor.putString("albumArray", albumBuffer);
                 editor.apply();
 
@@ -539,11 +543,6 @@ public class Tools {
 
                         // save Hash
 
-                        if (!hash.containsKey(uid)) {
-                            hash.put(Integer.toString(i), uid);
-                            saveHash(hash, appContext.applicationContext());
-
-                        }
                         // To AlbumArray
                         String faceVector = data.getJSONObject("attributes").getString("faceVector");
 

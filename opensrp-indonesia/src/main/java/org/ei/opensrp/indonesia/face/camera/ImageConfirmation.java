@@ -79,6 +79,7 @@ public class ImageConfirmation extends Activity {
     int angle;
     boolean switchCamera;
     private byte[] faceVector;
+    private boolean updated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,6 +247,7 @@ public class ImageConfirmation extends Activity {
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
+        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
 
     }
 
@@ -365,43 +367,20 @@ public class ImageConfirmation extends Activity {
     Save File and DB
      */
     private void saveAndClose(String entityId) {
-        Log.e(TAG, "saveAndClose: position"+ arrayPossition );
-//        int res = objFace.addPerson(arrayPossition);
-//        Log.e(TAG, "saveAndClose: " + res);
-//        Log.e(TAG, "saveAndClose: " );
+        Log.e(TAG, "saveAndClose: updated "+ updated );
 
         faceVector = objFace.serializeRecogntionAlbum();
 
-
-
         Log.e(TAG, "saveAndClose: " + Arrays.toString(faceVector));
-
-//        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
-//        saveAlbum();
 
         int result = objFace.addPerson(arrayPossition);
         clientList.put(entityId, Integer.toString(result));
 
-//        saveHash(clientList, getApplicationContext());
-
         byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
-
-        //
 
         SmartShutterActivity.faceProc.resetAlbum();
 
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer);
-//        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, faceVector);
-
-//        HashMap<String,String> details = new HashMap<>();
-
-//        details.put("profilepic",currentfile.getAbsolutePath());
-
-//        saveimagereference(bindobject,entityId, details);
-
-
-//        Tools.SavePictureToFile(ImageConfirmation.this, storedBitmap, entityId);
-//        resultIntent.putExtra("com.qualcomm.sdk.smartshutterappgit .SmartShutterActivity.thumbnail", thumbnail);
+        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer, updated);
 
         ImageConfirmation.this.finish();
 

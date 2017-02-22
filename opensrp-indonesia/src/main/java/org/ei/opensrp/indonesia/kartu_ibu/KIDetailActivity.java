@@ -18,6 +18,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,6 +58,9 @@ public class KIDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient kiclient;
+
+    private static HashMap<String, String> hash;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,14 +243,22 @@ public class KIDetailActivity extends Activity {
             }
         });
 
+        hash = Tools.retrieveHash(context.applicationContext());
+
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-                Log.e(TAG, "onClick: "+entityid );
-                dispatchTakePictureIntent(kiview);
+//                Log.e(TAG, "onClick: "+hash.size() );
+//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
+                if(hash.containsValue(entityid)){
+                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                    mode = "updated";
+
+                }
+                dispatchTakePictureIntent(kiview, mode);
 
             }
         });
@@ -271,10 +284,13 @@ public class KIDetailActivity extends Activity {
     static String bindobject;
     static String entityid;
 
-    private void dispatchTakePictureIntent(ImageView imageView) {
+    private void dispatchTakePictureIntent(ImageView imageView, String mode) {
         Log.e(TAG, "dispatchTakePictureIntent: "+"klik" );
         mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+        Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
+        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", true);
+
+
         //FIXME USE SmartShutterActivity INSTEAD
 //     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 
