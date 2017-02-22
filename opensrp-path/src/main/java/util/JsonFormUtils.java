@@ -16,6 +16,8 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
+import org.ei.opensrp.util.AssetHandler;
+import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -27,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.IDN;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,11 +68,13 @@ public class JsonFormUtils {
     private static final String ENCOUNTER_TYPE = "encounter_type";
     public static final String STEP1 = "step1";
     private static final String METADATA = "metadata";
-    public static final String ZEIRD = "ZEIR_ID";
+    public static final String ZEIR_ID = "ZEIR_ID";
+    public static final String M_ZEIR_ID = "M_ZEIR_ID";
+
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
-    public static void save(Context context, String jsonString, String providerId, String bindType, String imageKey) {
+    public static void save(Context context, String jsonString, String providerId, String bindType, String subBindType, String imageKey) {
         if (context == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(jsonString)) {
             return;
         }
@@ -95,6 +100,11 @@ public class JsonFormUtils {
             Client c = JsonFormUtils.createBaseClient(fields, entityId);
             Event e = JsonFormUtils.createEvent(fields, metadata, entityId, encounterType, providerId, bindType);
 
+            Client s = null;
+            if(StringUtils.isNotBlank(subBindType)) {
+                 s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+            }
+
             CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
             org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
@@ -104,7 +114,12 @@ public class JsonFormUtils {
                 cloudantDataHandler.createClientDocument(client);
             }
 
-            String zeirId=c.getIdentifier(ZEIRD);
+            if(s != null){
+                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(s);
+                cloudantDataHandler.createClientDocument(client);
+            }
+
+            String zeirId = c.getIdentifier(ZEIR_ID);
             //mark zeir id as used
             org.ei.opensrp.Context.uniqueIdRepository().close(zeirId);
 
@@ -182,14 +197,14 @@ public class JsonFormUtils {
 
     public static Client createBaseClient(JSONArray fields, String entityId) {
 
-        String firstName = getFieldValue(fields, FormEntityConstants.Person.first_name.entity(), FormEntityConstants.Person.first_name.name());
-        String middleName = getFieldValue(fields, FormEntityConstants.Person.middle_name.entity(), FormEntityConstants.Person.middle_name.name());
-        String lastName = getFieldValue(fields, FormEntityConstants.Person.last_name.entity(), FormEntityConstants.Person.last_name.name());
-        String bd = getFieldValue(fields, FormEntityConstants.Person.birthdate.entity(), FormEntityConstants.Person.birthdate.name());
+        String firstName = getFieldValue(fields, FormEntityConstants.Person.first_name);
+        String middleName = getFieldValue(fields, FormEntityConstants.Person.middle_name);
+        String lastName = getFieldValue(fields, FormEntityConstants.Person.last_name);
+        String bd = getFieldValue(fields, FormEntityConstants.Person.birthdate);
         DateTime birthdate = formatDate(bd, true);
-        String dd = getFieldValue(fields, FormEntityConstants.Person.deathdate.entity(), FormEntityConstants.Person.deathdate.name());
+        String dd = getFieldValue(fields, FormEntityConstants.Person.deathdate);
         DateTime deathdate = formatDate(dd, true);
-        String aproxbd = getFieldValue(fields, FormEntityConstants.Person.birthdate_estimated.entity(), FormEntityConstants.Person.birthdate_estimated.name());
+        String aproxbd = getFieldValue(fields, FormEntityConstants.Person.birthdate_estimated);
         Boolean birthdateApprox = false;
         if (!StringUtils.isEmpty(aproxbd) && NumberUtils.isNumber(aproxbd)) {
             int bde = 0;
@@ -200,7 +215,7 @@ public class JsonFormUtils {
             }
             birthdateApprox = bde > 0 ? true : false;
         }
-        String aproxdd = getFieldValue(fields, FormEntityConstants.Person.deathdate_estimated.entity(), FormEntityConstants.Person.deathdate_estimated.name());
+        String aproxdd = getFieldValue(fields, FormEntityConstants.Person.deathdate_estimated);
         Boolean deathdateApprox = false;
         if (!StringUtils.isEmpty(aproxdd) && NumberUtils.isNumber(aproxdd)) {
             int dde = 0;
@@ -211,7 +226,7 @@ public class JsonFormUtils {
             }
             deathdateApprox = dde > 0 ? true : false;
         }
-        String gender = getFieldValue(fields, FormEntityConstants.Person.gender.entity(), FormEntityConstants.Person.gender.name());
+        String gender = getFieldValue(fields, FormEntityConstants.Person.gender);
 
         List<Address> addresses = new ArrayList<>(extractAddresses(fields).values());
 
@@ -232,8 +247,8 @@ public class JsonFormUtils {
 
     public static Event createEvent(JSONArray fields, JSONObject metadata, String entityId, String encounterType, String providerId, String bindType) {
 
-        String encounterDateField = getFieldValue(fields, FormEntityConstants.Encounter.encounter_date.entity(), FormEntityConstants.Encounter.encounter_date.name());
-        String encounterLocation = getFieldValue(fields, FormEntityConstants.Encounter.location_id.entity(), FormEntityConstants.Encounter.location_id.name());
+        String encounterDateField = getFieldValue(fields, FormEntityConstants.Encounter.encounter_date);
+        String encounterLocation = getFieldValue(fields, FormEntityConstants.Encounter.location_id);
 
         Date encounterDate = new Date();
         if (StringUtils.isNotBlank(encounterDateField)) {
@@ -370,15 +385,21 @@ public class JsonFormUtils {
         if (StringUtils.isBlank(value)) {
             return;
         }
+
+        if (StringUtils.isNotBlank(getString(jsonObject, ENTITY_ID))) {
+            return;
+        }
+
         String entity = PERSON_INDENTIFIER;
         String entityVal = getString(jsonObject, OPENMRS_ENTITY);
 
         if (entityVal != null && entityVal.equals(entity)) {
             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
 
-            //FIXME hack unique identifiers
-            if(entityIdVal.equals("ZEIR_ID") && value.equals("0")){
-                value = generateRandomUUIDString();
+            if (entityIdVal.equals(ZEIR_ID) && StringUtils.isNotBlank(value) && !value.contains("-")) {
+                StringBuilder stringBuilder = new StringBuilder(value);
+                stringBuilder.insert(value.length() - 1, '-');
+                value = stringBuilder.toString();
             }
 
             pids.put(entityIdVal, value);
@@ -394,6 +415,11 @@ public class JsonFormUtils {
         if (StringUtils.isBlank(value)) {
             return;
         }
+
+        if (StringUtils.isNotBlank(getString(jsonObject, ENTITY_ID))) {
+            return;
+        }
+
         String entity = PERSON_ATTRIBUTE;
         String entityVal = getString(jsonObject, OPENMRS_ENTITY);
 
@@ -414,6 +440,10 @@ public class JsonFormUtils {
 
             String value = getString(jsonObject, VALUE);
             if (StringUtils.isBlank(value)) {
+                return;
+            }
+
+            if (StringUtils.isNotBlank(getString(jsonObject, ENTITY_ID))) {
                 return;
             }
 
@@ -492,18 +522,43 @@ public class JsonFormUtils {
         return null;
     }
 
-    private static String getFieldValue(JSONArray jsonArray, String entity, String entityId) {
+    private static String getFieldValue(JSONArray jsonArray, FormEntityConstants.Person person) {
         if (jsonArray == null || jsonArray.length() == 0) {
             return null;
         }
 
+        if (person == null) {
+            return null;
+        }
+
+        return value(jsonArray, person.entity(), person.entityId());
+    }
+
+    private static String getFieldValue(JSONArray jsonArray, FormEntityConstants.Encounter encounter) {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return null;
+        }
+
+        if (encounter == null) {
+            return null;
+        }
+
+        return value(jsonArray, encounter.entity(), encounter.entityId());
+    }
+
+    private static String value(JSONArray jsonArray, String entity, String entityId) {
+
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = getJSONObject(jsonArray, i);
+            if (StringUtils.isNotBlank(getString(jsonObject, ENTITY_ID))) {
+                continue;
+            }
             String entityVal = getString(jsonObject, OPENMRS_ENTITY);
             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
             if (entityVal != null && entityVal.equals(entity) && entityIdVal != null && entityIdVal.equals(entityId)) {
                 return getString(jsonObject, VALUE);
             }
+
         }
         return null;
     }
@@ -607,27 +662,30 @@ public class JsonFormUtils {
         }
     }
 
-/*    // TODO ADD Subform
-    public Client createSubformClient(SubformMap subf) throws ParseException {
-        String firstName = subf.getFieldValue(getFieldName(FormEntityConstants.Person.first_name, subf));
-        String gender = subf.getFieldValue(getFieldName(FormEntityConstants.Person.gender, subf));
-        String bb = subf.getFieldValue(getFieldName(FormEntityConstants.Person.birthdate, subf));
+    public static Client createSubformClient(Context context, JSONArray fields, Client parent, String bindType) throws ParseException {
 
-        Map<String, String> idents = extractIdentifiers(subf);
-        //these bunch of lines are making it impossible to create a child model since a child doesnt have a firstname but only gender
-//        if (StringUtils.isEmpty(firstName)
-//                && StringUtils.isEmpty(bb)
-//                && idents.size() < 1 && StringUtils.isEmpty(gender)) {//we need to ignore uuid of entity
-//            // if empty repeat group leave this entry and move to next
-//            return null;
-//        }
+        if(StringUtils.isBlank(bindType)){
+            return null;
+        }
 
-        String middleName = subf.getFieldValue(getFieldName(FormEntityConstants.Person.middle_name, subf));
-        String lastName = subf.getFieldValue(getFieldName(FormEntityConstants.Person.last_name, subf));
-        DateTime birthdate = new DateTime(bb).withTimeAtStartOfDay();
-        String dd = subf.getFieldValue(getFieldName(FormEntityConstants.Person.deathdate, subf));
-        DateTime deathdate = dd == null ? null : new DateTime(dd).withTimeAtStartOfDay();
-        String aproxbd = subf.getFieldValue(getFieldName(FormEntityConstants.Person.birthdate_estimated, subf));
+        String entityId = generateRandomUUIDString();
+        String firstName = getSubFormFieldValue(fields, FormEntityConstants.Person.first_name, bindType);
+        String gender = getSubFormFieldValue(fields, FormEntityConstants.Person.gender, bindType);
+        String bb = getSubFormFieldValue(fields, FormEntityConstants.Person.birthdate, bindType);
+
+        Map<String, String> idents = extractIdentifiers(fields, bindType);
+        String parentIdentifier = parent.getIdentifier(ZEIR_ID);
+        if (StringUtils.isNotBlank(parentIdentifier)) {
+            String identifier = parentIdentifier.concat("_").concat(bindType);
+            idents.put(M_ZEIR_ID, identifier);
+        }
+
+        String middleName = getSubFormFieldValue(fields, FormEntityConstants.Person.middle_name, bindType);
+        String lastName = getSubFormFieldValue(fields, FormEntityConstants.Person.last_name, bindType);
+        DateTime birthdate = formatDate(bb, true);
+        String dd = getSubFormFieldValue(fields, FormEntityConstants.Person.deathdate, bindType);
+        DateTime deathdate = formatDate(dd, true);
+        String aproxbd = getSubFormFieldValue(fields, FormEntityConstants.Person.birthdate_estimated, bindType);
         Boolean birthdateApprox = false;
         if (!StringUtils.isEmpty(aproxbd) && NumberUtils.isNumber(aproxbd)) {
             int bde = 0;
@@ -638,7 +696,7 @@ public class JsonFormUtils {
             }
             birthdateApprox = bde > 0 ? true : false;
         }
-        String aproxdd = subf.getFieldValue(getFieldName(FormEntityConstants.Person.deathdate_estimated, subf));
+        String aproxdd = getSubFormFieldValue(fields, FormEntityConstants.Person.deathdate_estimated, bindType);
         Boolean deathdateApprox = false;
         if (!StringUtils.isEmpty(aproxdd) && NumberUtils.isNumber(aproxdd)) {
             int dde = 0;
@@ -650,9 +708,9 @@ public class JsonFormUtils {
             deathdateApprox = dde > 0 ? true : false;
         }
 
-        List<Address> addresses = new ArrayList<>(extractAddressesForSubform(subf).values());
+        List<Address> addresses = new ArrayList<>(extractAddresses(fields, bindType).values());
 
-        Client c = (Client) new Client(subf.getFieldValue("id"))
+        Client c = (Client) new Client(entityId)
                 .withFirstName(firstName)
                 .withMiddleName(middleName)
                 .withLastName(lastName)
@@ -661,48 +719,208 @@ public class JsonFormUtils {
                 .withGender(gender).withDateCreated(new Date());
 
         c.withAddresses(addresses)
-                .withAttributes(extractAttributes(subf))
+                .withAttributes(extractAttributes(fields, bindType))
                 .withIdentifiers(idents);
 
 
-        addRelationship(subf, c);
+        addRelationship(context, c, parent);
 
         return c;
     }
 
-    Map<String, String> extractIdentifiers(SubformMap subf) {
+    private static Map<String, String> extractIdentifiers(JSONArray fields, String bindType) {
         Map<String, String> pids = new HashMap<>();
-        fillIdentifiers(pids, subf.fields());
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject jsonObject = getJSONObject(fields, i);
+            fillSubFormIdentifiers(pids, jsonObject, bindType);
+        }
         return pids;
     }
 
-    Map<String, Object> extractAttributes(SubformMap subf) {
+    private static Map<String, Object> extractAttributes(JSONArray fields, String bindType) {
         Map<String, Object> pattributes = new HashMap<>();
-        fillAttributes(pattributes, subf.fields());
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject jsonObject = getJSONObject(fields, i);
+            fillSubFormAttributes(pattributes, jsonObject, bindType);
+        }
         return pattributes;
     }
 
+    private static Map<String, Address> extractAddresses(JSONArray fields, String bindType) {
+        Map<String, Address> paddr = new HashMap<>();
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject jsonObject = getJSONObject(fields, i);
+            fillSubFormAddressFields(jsonObject, paddr, bindType);
+        }
+        return paddr;
+    }
 
-    private void addRelationship(SubformMap subformMap, Client client) {
+
+    private static void addRelationship(Context context, Client parent, Client child) {
         try {
-            String relationships = AssetHandler.readFileFromAssetsFolder(FormUtils.ecClientRelationships, mContext);
+            String relationships = AssetHandler.readFileFromAssetsFolder(FormUtils.ecClientRelationships, context);
             JSONArray jsonArray = null;
 
             jsonArray = new JSONArray(relationships);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject rObject = jsonArray.getJSONObject(i);
-                if (rObject.has("field")) {
-                    //is this a new child registration, add person relationships -mother
-                    if (subformMap.getField(rObject.getString("field")) != null) {
-
-                        client.addRelationship(rObject.getString("client_relationship"), subformMap.getField(rObject.getString("field")).value());
-
-                    }
+                if (rObject.has("field") && getString(rObject, "field").equals(ENTITY_ID)) {
+                    child.addRelationship(rObject.getString("client_relationship"), parent.getBaseEntityId());
+                }else{
+                    //TODO how to add other kind of relationships
                 }
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         }
-    } */
+    }
+
+    private static String getSubFormFieldValue(JSONArray jsonArray, FormEntityConstants.Person person, String bindType) {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return null;
+        }
+
+        if (person == null) {
+            return null;
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = getJSONObject(jsonArray, i);
+            String bind = getString(jsonObject, ENTITY_ID);
+            if (bind == null || !bind.equals(bindType)) {
+                continue;
+            }
+            String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+            String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+            if (entityVal != null && entityVal.equals(person.entity()) && entityIdVal != null && entityIdVal.equals(person.name())) {
+                return getString(jsonObject, VALUE);
+            }
+
+        }
+        return null;
+    }
+
+    private static void fillSubFormIdentifiers(Map<String, String> pids, JSONObject jsonObject, String bindType) {
+
+        String value = getString(jsonObject, VALUE);
+        if (StringUtils.isBlank(value)) {
+            return;
+        }
+
+        String bind = getString(jsonObject, ENTITY_ID);
+        if (bind == null || !bind.equals(bindType)) {
+            return;
+        }
+
+        String entity = PERSON_INDENTIFIER;
+        String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+
+        if (entityVal != null && entityVal.equals(entity)) {
+            String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+
+            if (entityIdVal.equals(ZEIR_ID) && StringUtils.isNotBlank(value) && !value.contains("-")) {
+                StringBuilder stringBuilder = new StringBuilder(value);
+                stringBuilder.insert(value.length() - 1, '-');
+                value = stringBuilder.toString();
+            }
+
+            pids.put(entityIdVal, value);
+        }
+    }
+
+    private static void fillSubFormAttributes(Map<String, Object> pattributes, JSONObject jsonObject, String bindType) {
+
+        String value = getString(jsonObject, VALUE);
+        if (StringUtils.isBlank(value)) {
+            return;
+        }
+
+        String bind = getString(jsonObject, ENTITY_ID);
+        if (bind == null || !bind.equals(bindType)) {
+            return;
+        }
+
+        String entity = PERSON_ATTRIBUTE;
+        String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+
+        if (entityVal != null && entityVal.equals(entity)) {
+            String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+            pattributes.put(entityIdVal, value);
+        }
+    }
+
+    private static void fillSubFormAddressFields(JSONObject jsonObject, Map<String, Address> addresses, String bindType) {
+
+        if (jsonObject == null) {
+            return;
+        }
+
+        try {
+            String value = getString(jsonObject, VALUE);
+            if (StringUtils.isBlank(value)) {
+                return;
+            }
+
+            String bind = getString(jsonObject, ENTITY_ID);
+            if (bind ==null || !bind.equals(bindType)) {
+                return;
+            }
+
+            String entity = PERSON_ADDRESS;
+            String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+
+            if (entityVal != null && entityVal.equalsIgnoreCase(entity)) {
+                String addressType = getString(jsonObject, OPENMRS_ENTITY_PARENT);
+                String addressField = getString(jsonObject, OPENMRS_ENTITY_ID);
+
+                Address ad = addresses.get(addressType);
+                if (ad == null) {
+                    ad = new Address(addressType, null, null, null, null, null, null, null, null);
+                }
+
+                if (addressField.equalsIgnoreCase("startDate") || addressField.equalsIgnoreCase("start_date")) {
+                    ad.setStartDate(DateUtil.parseDate(value));
+                } else if (addressField.equalsIgnoreCase("endDate") || addressField.equalsIgnoreCase("end_date")) {
+                    ad.setEndDate(DateUtil.parseDate(value));
+                } else if (addressField.equalsIgnoreCase("latitude")) {
+                    ad.setLatitude(value);
+                } else if (addressField.equalsIgnoreCase("longitute")) {
+                    ad.setLongitude(value);
+                } else if (addressField.equalsIgnoreCase("geopoint")) {
+                    // example geopoint 34.044494 -84.695704 4 76 = lat lon alt prec
+                    String geopoint = value;
+                    if (!StringUtils.isEmpty(geopoint)) {
+                        String[] g = geopoint.split(" ");
+                        ad.setLatitude(g[0]);
+                        ad.setLongitude(g[1]);
+                        ad.setGeopoint(geopoint);
+                    }
+                } else if (addressField.equalsIgnoreCase("postal_code") || addressField.equalsIgnoreCase("postalCode")) {
+                    ad.setPostalCode(value);
+                } else if (addressField.equalsIgnoreCase("sub_town") || addressField.equalsIgnoreCase("subTown")) {
+                    ad.setSubTown(value);
+                } else if (addressField.equalsIgnoreCase("town")) {
+                    ad.setTown(value);
+                } else if (addressField.equalsIgnoreCase("sub_district") || addressField.equalsIgnoreCase("subDistrict")) {
+                    ad.setSubDistrict(value);
+                } else if (addressField.equalsIgnoreCase("district") || addressField.equalsIgnoreCase("county")
+                        || addressField.equalsIgnoreCase("county_district") || addressField.equalsIgnoreCase("countyDistrict")) {
+                    ad.setCountyDistrict(value);
+                } else if (addressField.equalsIgnoreCase("city") || addressField.equalsIgnoreCase("village")
+                        || addressField.equalsIgnoreCase("cityVillage") || addressField.equalsIgnoreCase("city_village")) {
+                    ad.setCityVillage(value);
+                } else if (addressField.equalsIgnoreCase("state") || addressField.equalsIgnoreCase("state_province") || addressField.equalsIgnoreCase("stateProvince")) {
+                    ad.setStateProvince(value);
+                } else if (addressField.equalsIgnoreCase("country")) {
+                    ad.setCountry(value);
+                } else {
+                    ad.addAddressField(addressField, value);
+                }
+                addresses.put(addressType, ad);
+            }
+        } catch (ParseException e) {
+            Log.e(TAG, "", e);
+        }
+    }
 }

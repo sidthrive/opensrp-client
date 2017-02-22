@@ -17,10 +17,10 @@ public class WeightWrapper {
     private String patientName;
     private String patientNumber;
     private String patientAge;
+    private String pmtctStatus;
+
     private Float weight;
-
-    private DateTime updatedVaccineDate;
-
+    private DateTime updatedWeightDate;
     private boolean today;
 
     public String getId() {
@@ -43,21 +43,21 @@ public class WeightWrapper {
         this.patientNumber = patientNumber;
     }
 
-    public DateTime getUpdatedVaccineDate() {
-        return updatedVaccineDate;
+    public DateTime getUpdatedWeightDate() {
+        return updatedWeightDate;
     }
 
-    public void setUpdatedVaccineDate(DateTime updatedVaccineDate, boolean today) {
+    public void setUpdatedWeightDate(DateTime updatedWeightDate, boolean today) {
         this.today = today;
-        this.updatedVaccineDate = updatedVaccineDate;
+        this.updatedWeightDate = updatedWeightDate;
     }
 
     public boolean isToday() {
         return today;
     }
 
-    public String getUpdatedVaccineDateAsString() {
-        return updatedVaccineDate != null ? updatedVaccineDate.toString("yyyy-MM-dd") : "";
+    public String getUpdatedWeightDateAsString() {
+        return updatedWeightDate != null ? updatedWeightDate.toString("yyyy-MM-dd") : "";
     }
 
     public void setPhoto(Photo photo) {
@@ -82,5 +82,13 @@ public class WeightWrapper {
 
     public String getPatientAge() {
         return patientAge;
+    }
+
+    public void setPmtctStatus(String pmtctStatus) {
+        this.pmtctStatus = pmtctStatus;
+    }
+
+    public String getPmtctStatus() {
+        return pmtctStatus;
     }
 }

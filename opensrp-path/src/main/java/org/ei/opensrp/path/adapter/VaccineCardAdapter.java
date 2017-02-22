@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
@@ -71,10 +72,12 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setName(vaccineName);
 
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
-                Calendar dobCalender = Calendar.getInstance();
-                dobCalender.setTime(ChildImmunizationActivity.DATE_FORMAT.parse(dobString));
-                dobCalender.add(Calendar.DATE, vaccineGroup.getVaccineData().getInt("days_after_birth_due"));
-                vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
+                if(StringUtils.isNotBlank(dobString)) {
+                    Calendar dobCalender = Calendar.getInstance();
+                    dobCalender.setTime(ChildImmunizationActivity.DATE_FORMAT.parse(dobString));
+                    dobCalender.add(Calendar.DATE, vaccineGroup.getVaccineData().getInt("days_after_birth_due"));
+                    vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
+                }
                 // TODO: get date vaccination was done
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 

@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,7 +73,9 @@ public abstract class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            finish();
+            startActivity(new Intent(this, onBackActivity()));
+            overridePendingTransition(0, 0);
         }
     }
 
@@ -160,4 +163,10 @@ public abstract class BaseActivity extends AppCompatActivity
     public Menu getMenu() {
         return menu;
     }
+
+    /**
+     * The activity to go back to
+     * @return
+     */
+    protected abstract Class onBackActivity();
 }

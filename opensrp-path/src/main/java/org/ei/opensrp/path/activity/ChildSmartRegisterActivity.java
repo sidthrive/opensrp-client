@@ -200,7 +200,7 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
                 JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                 for(int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject=jsonArray.getJSONObject(i);
-                    if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIRD)){
+                    if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)){
                         jsonObject.remove(JsonFormUtils.VALUE);
                         jsonObject.put(JsonFormUtils.VALUE, openmrsId.replace("-",""));
                         continue;
@@ -226,7 +226,7 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "Child_Photo");
+                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "mother", "Child_Photo");
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -353,12 +353,7 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
     }
 
     @Override
-    public void onWeightTakenToday(WeightWrapper tag) {
-
-    }
-
-    @Override
-    public void onWeightTakenEarlier(WeightWrapper tag) {
+    public void onWeightTaken(WeightWrapper tag) {
 
     }
 }

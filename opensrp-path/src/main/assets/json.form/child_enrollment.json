@@ -170,8 +170,9 @@
       {
         "key": "Mother_Guardian_First_Name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "entity_id": "mother",
         "type": "edit_text",
         "hint": "Mother/guardian first name *",
         "edit_type": "name",
@@ -183,8 +184,9 @@
       {
         "key": "Mother_Guardian_Last_Name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "entity_id": "mother",
         "type": "edit_text",
         "hint": "Mother/guardian last name *",
         "edit_type": "name",
@@ -198,6 +200,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
+        "entity_id": "mother",
         "type": "date_picker",
         "hint": "Mother/Guardian's DOB *",
         "expanded": true,
@@ -214,8 +217,9 @@
       {
         "key": "Mother_Guardian_NRC",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "NRC_Number",
+        "entity_id": "mother",
         "type": "edit_text",
         "hint": "Mother/guardian NRC",
         "v_regex": {
@@ -226,8 +230,8 @@
       {
         "key": "Mother_Guardian_Number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Mother/guardian phone number",
         "v_numeric": {
@@ -252,8 +256,8 @@
       {
         "key": "Father_Guardian_NRC",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Father_NRC_Number",
         "type": "edit_text",
         "hint": "Father/guardian NRC",
         "v_regex": {

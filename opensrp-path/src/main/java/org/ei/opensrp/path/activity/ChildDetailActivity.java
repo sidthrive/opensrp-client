@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.db.VaccineRepo;
@@ -20,7 +19,6 @@ import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
-import org.ei.opensrp.repository.ImageRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Years;
@@ -33,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.ImageUtils;
 import util.VaccinateActionUtils;
 
 import static util.Utils.convertDateFormat;
@@ -40,8 +39,6 @@ import static util.Utils.getDataRow;
 import static util.Utils.getValue;
 import static util.Utils.hasAnyEmptyValue;
 import static util.Utils.nonEmptyValue;
-import static util.Utils.setProfiePic;
-import static util.Utils.setProfiePicFromPath;
 import static util.VaccinatorUtils.addStatusTag;
 import static util.VaccinatorUtils.addVaccineDetail;
 import static util.VaccinatorUtils.generateSchedule;
@@ -107,13 +104,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     @Override
     protected Integer defaultProfilePicResId(CommonPersonObjectClient client) {
         String gender = getValue(client, "gender", true);
-        if (gender.equalsIgnoreCase("female")) {
-            return R.drawable.child_girl_infant;
-        } else if (gender.toLowerCase().contains("trans")) {
-            return R.drawable.child_transgender_inflant;
-        }
-
-        return R.drawable.child_boy_infant;
+        return ImageUtils.profileImageResourceByGender(gender);
     }
 
     @Override
@@ -160,7 +151,8 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
         tr = getDataRow(this, "Birthdate (Age)", convertDateFormat(getValue(client.getColumnmaps(), "dob", false), "No DoB", true) + " (" + (months < 0 ? "" : (months + "")) + " months" + ")", "dob", null);
         dt.addView(tr);
 
-        tr = getDataRow(this, "Gender", getValue(client.getColumnmaps(), "gender", true), "gender", null);
+        String gender = getValue(client.getColumnmaps(), "gender", true);
+        tr = getDataRow(this, "Gender", gender, "gender", null);
         dt.addView(tr);
 
         tr = getDataRow(this, "Ethnicity", getValue(client, "ethnicity", true), "ethnicity", null);
@@ -209,13 +201,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
                 table = (TableLayout) findViewById(R.id.child_vaccine_table3);
             }
 
-            Photo photo = new Photo();
-            ProfileImage profileImage = ((ImageRepository) org.ei.opensrp.Context.getInstance().imageRepository()).findByEntityId(client.entityId());
-            if (profileImage != null) {
-                photo.setFilePath(profileImage.getFilepath());
-            } else {
-                photo.setResourceId(defaultProfilePicResId(client));
-            }
+            Photo photo = ImageUtils.profilePhotoByClient(client);
 
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setStatus(m.get("status").toString());
@@ -262,7 +248,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
         final EditFormSubmissionWrapper editFormSubmissionWrapper = retrieveEditFormSubmissionWrapper();
         Button edtBtn = (Button) findViewById(R.id.child_edit_btn);
         edtBtn.setTag(getString(R.string.edit));
-        edtBtn.setOnClickListener(new View.OnClickListener(){
+        edtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateEditView(view, tableLayouts, editFormSubmissionWrapper);

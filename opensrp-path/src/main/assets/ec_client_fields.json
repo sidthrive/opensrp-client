@@ -380,6 +380,14 @@
           }
         },
         {
+          "column_name":"pmtct_status",
+          "type":"Event",
+          "json_mapping":{
+            "field":"obs.fieldCode",
+            "formSubmissionField":"PMTCT_Status"
+          }
+        },
+        {
           "column_name":"provider_uc",
           "type":"Client",
           "json_mapping":{

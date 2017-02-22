@@ -7,8 +7,6 @@ import org.ei.opensrp.path.domain.WeightWrapper;
  */
 public interface WeightActionListener {
 
-    public void onWeightTakenToday(WeightWrapper tag);
-
-    public void onWeightTakenEarlier(WeightWrapper tag);
+    public void onWeightTaken(WeightWrapper tag);
 
 }
