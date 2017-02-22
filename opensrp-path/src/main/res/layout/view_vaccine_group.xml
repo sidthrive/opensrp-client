@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="20dp"
     android:paddingTop="20dp">
@@ -31,10 +31,11 @@
             android:textSize="@dimen/activity_sub_title_size" />
     </RelativeLayout>
 
-    <GridView
+    <org.ei.opensrp.path.view.ExpandableHeightGridView
         android:id="@+id/vaccines_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:isScrollContainer="false"
         android:columnWidth="@dimen/vaccine_card_width"
         android:gravity="center"
         android:horizontalSpacing="10dp"
