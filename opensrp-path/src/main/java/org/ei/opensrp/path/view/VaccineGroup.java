@@ -39,7 +39,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     private Context context;
     private TextView nameTV;
     private TextView recordAllTV;
-    private GridView vaccinesGV;
+    private ExpandableHeightGridView vaccinesGV;
     private VaccineCardAdapter vaccineCardAdapter;
     private JSONObject vaccineData;
     private CommonPersonObjectClient childDetails;
@@ -87,10 +87,12 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         this.context = context;
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.view_vaccine_group, this, true);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         setLayoutParams(layoutParams);
         nameTV = (TextView) findViewById(R.id.name_tv);
-        vaccinesGV = (GridView) findViewById(R.id.vaccines_gv);
+        vaccinesGV = (ExpandableHeightGridView) findViewById(R.id.vaccines_gv);
+        vaccinesGV.setExpanded(true);
         recordAllTV = (TextView) findViewById(R.id.record_all_tv);
         recordAllTV.setOnClickListener(this);
     }
