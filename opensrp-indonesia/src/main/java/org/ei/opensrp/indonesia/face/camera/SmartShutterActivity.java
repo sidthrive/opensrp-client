@@ -168,6 +168,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        loadAlbum();
     }
 
     @Override
@@ -223,6 +224,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
         if (isDevCompat) {
 
+//            loadAlbum();
             if (faceProc == null) {
                 faceProc = FacialProcessing.getInstance();
             }
@@ -276,7 +278,9 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                 faceArray = faceProc.getFaceData();
 
                 if (faceArray == null) {
-                    Log.e(TAG, "Face array is null");
+
+                    Log.e(TAG, "onPreviewFrame: "+ "No Face value" );
+
                 } else {
                     int surfaceWidth = mPreview.getWidth();
                     int surfaceHeight = mPreview.getHeight();
@@ -291,7 +295,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                         // Default name is the person is unknown
                         selectedPersonName = "Not Identified";
                         while (iter.hasNext()) {
-                            Log.e(TAG, "In");
+                            Log.e(TAG, "onPreviewFrame: "+"check Hash" );
                             HashMap.Entry<String, String> entry = iter.next();
                             if (entry.getValue().equals(selectedPersonId)) {
                                 selectedPersonName = entry.getKey();

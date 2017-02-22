@@ -82,6 +82,8 @@ public class Tools {
     SmartShutterActivity ss = new SmartShutterActivity();
     ClientsList cl = new ClientsList();
     private static HashMap<String, String> hash;
+    private String albumBuffer;
+    private List<ProfileImage> list;
 
     public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector) {
 
@@ -100,13 +102,13 @@ public class Tools {
             Log.e(TAG, "Wrote image to " + pictureFile);
 
             MediaScannerConnection.scanFile(context, new String[]{
-                    pictureFile.toString()}, null,
+                            pictureFile.toString()}, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
                         public void onScanCompleted(String path, Uri uri) {
                             Log.i("ExternalStorage", "Scanned " + path + ":");
                             Log.i("ExternalStorage", "-> uri=" + uri);
-                }
-            });
+                        }
+                    });
             String photoPath = pictureFile.toString();
             Log.e(TAG, "Photo Path = " + photoPath);
 
@@ -114,7 +116,7 @@ public class Tools {
             FileOutputStream tfos = new FileOutputStream(thumbs_photo);
             final int THUMBSIZE = FaceConstants.THUMBSIZE;
 
-            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath ),
+            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath),
                     THUMBSIZE, THUMBSIZE);
             ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, tfos);
             tfos.close();
@@ -143,8 +145,8 @@ public class Tools {
         // Mode 1 = Thumbs
 
         // Location use app_dir
-        String imgFolder = (mode == 0) ? DrishtiApplication.getAppDir():
-                DrishtiApplication.getAppDir()+File.separator+".thumbs";
+        String imgFolder = (mode == 0) ? DrishtiApplication.getAppDir() :
+                DrishtiApplication.getAppDir() + File.separator + ".thumbs";
 //        String imgFolder = (mode == 0) ? "OPENSRP_SID":"OPENSRP_SID"+File.separator+".thumbs";
 //        File mediaStorageDir = new File(
 //                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), imgFolder);
@@ -166,8 +168,8 @@ public class Tools {
     }
 
     public static void drawInfo(Rect rect, Bitmap mutableBitmap, float pixelDensity, String personName) {
-        Log.e(TAG, "drawInfo: rect "+rect );
-        Log.e(TAG, "drawInfo: bitmap"+mutableBitmap );
+        Log.e(TAG, "drawInfo: rect " + rect);
+        Log.e(TAG, "drawInfo: bitmap" + mutableBitmap);
 //        Rect rect = faceDatas[i].rect;
         // Extra padding around the faeRects
         rect.set(rect.left -= 20, rect.top -= 20, rect.right += 20, rect.bottom += 20);
@@ -215,9 +217,9 @@ public class Tools {
 
     public static void drawRectFace(Rect rect, Bitmap mutableBitmap, float pixelDensity) {
 
-        Log.e(TAG, "drawRectFace: rect "+ rect );
-        Log.e(TAG, "drawRectFace: bitmap "+ mutableBitmap );
-        Log.e(TAG, "drawRectFace: pixelDensity "+ pixelDensity );
+        Log.e(TAG, "drawRectFace: rect " + rect);
+        Log.e(TAG, "drawRectFace: bitmap " + mutableBitmap);
+        Log.e(TAG, "drawRectFace: pixelDensity " + pixelDensity);
 
         // Extra padding around the faceRects
         rect.set(rect.left -= 20, rect.top -= 20, rect.right += 20, rect.bottom += 20);
@@ -253,7 +255,7 @@ public class Tools {
     }
 
     public HashMap<String, String> retrieveHash(android.content.Context context) {
-        Log.e(TAG, "retrieveHash: "+"Fetch" );
+        Log.e(TAG, "retrieveHash: " + "Fetch");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
         HashMap<String, String> hash = new HashMap<>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
@@ -271,36 +273,36 @@ public class Tools {
     }
 
     public void loadAlbum() {
-//        Toast.makeText(this, "Load FacialActivity Album", Toast.LENGTH_SHORT).show();
-//        Log.e(TAG, "loadAlbum: ");
-//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-//        String arrayOfString = settings.getString("albumArray", null);
 
-//        byte[] albumArray;
-//        if (arrayOfString != null) {
-//            String[] splitStringArray = arrayOfString.substring(1,
-//                    arrayOfString.length() - 1).split(", ");
+        Log.e(TAG, "loadAlbum: ");
+        SharedPreferences settings = appContext.applicationContext().getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+        String arrayOfString = settings.getString("albumArray", null);
 //
-//            albumArray = new byte[splitStringArray.length];
-//            for (int i = 0; i < splitStringArray.length; i++) {
-//                albumArray[i] = Byte.parseByte(splitStringArray[i]);
-//            }
-//            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
-//            Log.e(TAG, "De-Serialized Album Success!");
-//        }
+        byte[] albumArray;
+        if (arrayOfString != null) {
+            String[] splitStringArray = arrayOfString.substring(1,
+                    arrayOfString.length() - 1).split(", ");
+
+            albumArray = new byte[splitStringArray.length];
+            for (int i = 0; i < splitStringArray.length; i++) {
+                albumArray[i] = Byte.parseByte(splitStringArray[i]);
+            }
+            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
+            Log.e(TAG, "De-Serialized Album Success!");
+        }
     }
 
-    public static void alertDialog(android.content.Context context, int opt){
+    public static void alertDialog(android.content.Context context, int opt) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         Tools tools = new Tools();
 //        alertDialog.setMessage(message);
         String message = "";
-        switch (opt){
-            case 0 :
+        switch (opt) {
+            case 0:
                 message = "Are you sure to empty The Album?";
 //                doEmpty;
                 break;
-            case 1 :
+            case 1:
                 message = "Are you sure to delete item";
                 break;
             default:
@@ -353,10 +355,10 @@ public class Tools {
 
     public void resetAlbum() {
 
-        Log.e(TAG, "resetAlbum: "+ "start" );
+        Log.e(TAG, "resetAlbum: " + "start");
         boolean result = SmartShutterActivity.faceProc.resetAlbum();
 
-        if (result){
+        if (result) {
             // Clear data
             // TODO: Null getApplication COntext
             HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
@@ -369,7 +371,7 @@ public class Tools {
             Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
 
         }
-        Log.e(TAG, "resetAlbum: "+ "finish" );
+        Log.e(TAG, "resetAlbum: " + "finish");
     }
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image, String faceVector) {
@@ -380,11 +382,11 @@ public class Tools {
             try {
 
                 if (entityId != null && !entityId.isEmpty()) {
-                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
+                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
 
                     File outputFile = new File(absoluteFileName);
                     os = new FileOutputStream(outputFile);
-                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
+                    Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
                     if (compressFormat != null) {
                         image.compress(compressFormat, 100, os);
                     } else {
@@ -392,7 +394,7 @@ public class Tools {
                                 + absoluteFileName);
                     }
                     // insert into the db local
-                    ProfileImage profileImage= new ProfileImage();
+                    ProfileImage profileImage = new ProfileImage();
                     profileImage.setImageid(UUID.randomUUID().toString());
                     profileImage.setAnmId(anmId);
                     profileImage.setEntityID(entityId);
@@ -421,46 +423,82 @@ public class Tools {
 
     private ImageRepository imageRepo = null;
 
-    public Tools(){
-        Log.e(TAG, "Tools: 1" );
-        imageRepo=(ImageRepository) org.ei.opensrp.Context.imageRepository();
+    public Tools() {
+        Log.e(TAG, "Tools: 1");
+        imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
     }
 
-    public Tools(org.ei.opensrp.Context appContext){
-        imageRepo=(ImageRepository)org.ei.opensrp.Context.imageRepository();
+    public Tools(org.ei.opensrp.Context appContext) {
+        imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
         Tools.appContext = appContext;
     }
 
 
     public void vector_findAllUnsaved() {
         Log.e(TAG, "vector_findAllUnsaved: ");
-        hash = retrieveHash( appContext.applicationContext());
+        hash = retrieveHash(appContext.applicationContext());
 
         try {
             List<ProfileImage> vectorImages = imageRepo.allVectorImages();
-            for(int i = 0; i< vectorImages.size();i++){
+            for (int i = 0; i < vectorImages.size(); i++) {
 
+                String uid = vectorImages.get(i).getEntityID();
                 // save Hash
-                hash.put(Integer.toString(i), vectorImages.get(i).getEntityID());
-                saveHash(hash, appContext.applicationContext());
+                if (!hash.containsKey(uid)) {
+                    hash.put(Integer.toString(i), uid);
+                    saveHash(hash, appContext.applicationContext());
 
-                parseSaveVector(vectorImages.get(i).getFilevector());
+//                    parseSaveVector(vectorImages.get(i).getFilevector());
+                }
 
 //                Toast.makeText(BidanApplication.getInstance(), i+1 +" to "+vectorImages.size()+" done", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.e(TAG, "vector_findAllUnsaved: "+e.getMessage() );
+            Log.e(TAG, "vector_findAllUnsaved: " + e.getMessage());
         }
 
     }
 
-    private void parseSaveVector(String filevector) {
-        if (filevector != null ) {
-            String[] res = filevector.substring(1, filevector.length() - 1).split(",");
+    public void parseSaveVector() {
 
-            String[] newArr = Arrays.copyOfRange(res, 33, 332);
+        list = imageRepo.allVectorImages();
 
-            Log.e(TAG, "parseSaveVector:  " + Arrays.toString(newArr));
+        int i = 0;
+        for (ProfileImage pi : list) {
+            i++;
+            String filevector = pi.getFilevector();
+            Log.e(TAG, "parseSaveVector: " + filevector);
+
+            if (filevector != null) {
+                String[] res = filevector.substring(1, filevector.length() - 1).split(",");
+
+//            if (i == 0){
+//                String[] rangeHeader = res;
+//            }
+//            else {
+                String[] rangeHeader = Arrays.copyOfRange(res, 0, 31);
+//                String[] rangeHeader = rangeHeader;
+                rangeHeader[1] = String.valueOf(i);
+                rangeHeader[28] = String.valueOf(i);
+//            }
+
+                String[] rangeContent = Arrays.copyOfRange(res, 32, 331);
+
+//            Log.e(TAG, "parseSaveVector:  " + Arrays.toString(newArr));
+                SharedPreferences settings = appContext.applicationContext().getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+
+                if (settings.getString(FaceConstants.ALBUM_ARRAY, null) == null) {
+                    albumBuffer = filevector;
+                } else {
+//                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
+                    albumBuffer = albumBuffer.substring(albumBuffer.length() + 2) + "," + rangeContent + "]";
+                }
+                editor.putString("albumArray", albumBuffer);
+                editor.apply();
+
+
+            }
 
         }
 
@@ -468,19 +506,18 @@ public class Tools {
     }
 
 
-//    String  DRISTHI_BASE_URL = appContext.applicationContext().configuration().dristhiBaseURL();
-//    String url = DRISTHI_BASE_URL+"multimedia-file?anm-id=user28";
-//
     public void setVectorfromAPI() {
-        String  DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
+
+        hash = retrieveHash(appContext.applicationContext());
+
+
+        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
-        String api_url =   DRISTHI_BASE_URL+ "/multimedia-file?anm-id="+user;
+        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
 
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams params = new RequestParams();
-
-
 
 //        Log.e(TAG, "setVectorfromAPI: "+ appContext.allSettings().fetchANMPassword() );
         client.setBasicAuth(appContext.allSharedPreferences().fetchRegisteredANM(),
@@ -490,29 +527,34 @@ public class Tools {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
+                FaceRepository faceRepo = null;
                 try {
                     JSONArray response = new JSONArray(new String(responseBody));
 
-                    for (int i=0; i<response.length(); i++){
-                        JSONObject jo = new JSONObject();
-                        Log.e(TAG, "onSuccess: "+jo.getString("caseId") );
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject data = response.getJSONObject(i);
+
+                        // To HashMap
+                        String uid = data.getString("caseId");
+
+                        // save Hash
+
+                        if (!hash.containsKey(uid)) {
+                            hash.put(Integer.toString(i), uid);
+                            saveHash(hash, appContext.applicationContext());
+
+                        }
+                        // To AlbumArray
+                        String faceVector = data.getJSONObject("attributes").getString("faceVector");
+
+                        imageRepo.updateByEntityId(uid, faceVector);
+
+//                        parseSaveVector(faceVector, i);
+
+//                        Log.e(TAG, "onSuccess: "+  data.getString("caseId"));
+//                        Log.e(TAG, "onSuccess: "+  data.getJSONObject("attributes").getString("faceVector"));
 
                     }
-
-
-//                    JsonElement response = new JsonElement() {
-//                    }
-//                    Log.e(TAG, "onSuccess: "+response );
-//
-//                    GsonBuilder builder = new GsonBuilder();
-//                    Gson gson = builder.create();
-//                    List<FaceVector> posts = Arrays.asList(gson.fromJson(response, FaceVector[].class));
-//                    List<FaceVector> faceVectors = gson.fromJson(response, new TypeToken<List<FaceVector>>(){}.getType());
-
-                    //                        JsonResponse jsonResponse = JsonParser.parseResponse(response);
-//                        String message = "Message: " + jsonResponse.getStatus().getMessage();
-//                        String value = "Value: " + jsonResponse.getStatus().getValue();
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -521,92 +563,11 @@ public class Tools {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: " );
+                Log.e(TAG, "onFailure: ");
             }
         });
 
-//        new GetFaceVector(api_url).execute();
 
-
-
-
-    }
-
-    private class GetFaceVector extends AsyncTask<Void, Void, Void>{
-        String api_url;
-
-        public GetFaceVector(String api_url) {
-            this.api_url = api_url;
-        }
-
-        @Override
-        protected Void doInBackground(Void... args) {
-
-            HttpHandler sh = new HttpHandler();
-            //Request and Get response
-            String jsonStr = sh.makeServiceCall(api_url);
-            Log.e(TAG, "doInBackground: Response "+api_url+" "+jsonStr );
-
-            if (jsonStr != null){
-                try {
-                    JSONObject jsonObject  = new JSONObject(jsonStr);
-
-                    // Getting JSON Array node
-                    JSONArray jarr = jsonObject.getJSONArray("");
-
-                    // looping through All Contacts
-                    for (int i = 0; i < jarr.length(); i++) {
-                        JSONObject c = jarr.getJSONObject(i);
-
-                        String id = c.getString("caseId");
-                        String providerId = c.getString("providerId");
-                        String contentType = c.getString("contentType");
-                        String filePath = c.getString("filePath");
-                        String fileCategory = c.getString("fileCategory");
-
-                        // Attributes node is JSON Object
-                        JSONObject attributes = c.getJSONObject("attributes");
-                        String faceVector = attributes.getString("faceVector");
-
-                        // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
-
-                        // adding each child node to HashMap key => value
-                        contact.put("id", id);
-//                        contact.put("name", name);
-
-                        // adding contact to contact list
-//                        contactList.add(contact);
-                    }
-                }catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Json parsing error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG)
-//                                    .show();
-//                        }
-//                    });
-
-                }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-//                });
-
-            }
-
-            return null;
-        }
     }
 
 }

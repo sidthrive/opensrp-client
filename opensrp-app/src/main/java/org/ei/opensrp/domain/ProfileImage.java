@@ -123,7 +123,7 @@ public class ProfileImage {
         this.filevector = filevector;
     }
 
-    public String getfFaceVectorApi(Context context) {
+    public String getfFaceVectorApi(Context context, String entityId) {
 
         String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replace("opensrp","openmrs");
         String api_url = DRISTHI_BASE_URL+ "/multimedia-file?anm-id=user28";

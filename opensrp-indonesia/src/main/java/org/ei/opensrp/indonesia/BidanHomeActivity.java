@@ -71,8 +71,9 @@ public class BidanHomeActivity extends SecuredActivity {
 //            }
 //            mtool.findAllUnStored();
             mtool.setVectorfromAPI();
+            mtool.parseSaveVector();
 
-            mtool.vector_findAllUnsaved();
+//            mtool.vector_findAllUnsaved();
         }
     };
 

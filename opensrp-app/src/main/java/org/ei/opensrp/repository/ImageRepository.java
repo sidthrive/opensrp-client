@@ -86,7 +86,7 @@ public class ImageRepository extends DrishtiRepository {
         values.put(syncStatus_COLUMN, TYPE_Synced);
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
 
-        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
+//        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
     }
 
     private ContentValues createValuesFor(ProfileImage image, String type) {
@@ -102,7 +102,7 @@ public class ImageRepository extends DrishtiRepository {
         return values;
     }
 
-    private List<ProfileImage> readAll(Cursor cursor) {
+    protected List<ProfileImage> readAll(Cursor cursor) {
         List<ProfileImage> profileImages = new ArrayList<>();
 
         try {
@@ -146,7 +146,7 @@ public class ImageRepository extends DrishtiRepository {
 
     public List<ProfileImage> findVectorAllUnSynced() {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, syncStatus_COLUMN + " = ?", new String[]{TYPE_Unsynced}, null, null, null, null);
+        Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, filevector_COLUMN + " = ?", null , null, null, null, null);
         return readAll(cursor);
     }
 
@@ -157,6 +157,14 @@ public class ImageRepository extends DrishtiRepository {
     }
 
 
+    public void updateByEntityId(String entityId, String faceVector) {
+//        SQLiteDatabase database = masterRepository.getReadableDatabase();
+//        Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, entityID_COLUMN + " = ?", new String[]{entityId}, null, null, null, null);
+//        List<ProfileImage> allcursor = readAll(cursor);
+//        return (!allcursor.isEmpty()) ? allcursor.get(0) : null;
 
-
-}
+        ContentValues values = new ContentValues();
+        values.put(filevector_COLUMN, faceVector);
+        Log.e(TAG, "updateByEntityId: "+values );
+        masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, "entityID" + " = ?", new String[]{entityId});
+    }}
