@@ -63,6 +63,7 @@ public class CloudantSyncHandler {
     private CountDownLatch countDownLatch;
 
     private String dbURL;
+    private String cloudantFilter;
 
     private static CloudantSyncHandler instance;
 
@@ -93,14 +94,15 @@ public class CloudantSyncHandler {
 
             // Replication Filter by provider
             String designDocumentId = this.replicationFilterSettings();
-            PullFilter pullFilter = null;
 
-            if (designDocumentId != null) {
-                String filterDoc = designDocumentId.split("/")[1];
-                HashMap<String, String> filterParams = new HashMap<String, String>();
-                filterParams.put(AllConstants.SyncFilters.FILTER_LOCATION_ID,locationAnmids);
-                pullFilter = new PullFilter(filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID), filterParams);
-            }
+            // Always fetch the filter
+            String filterDoc = designDocumentId.split("/")[1];
+            HashMap<String, String> filterParams = new HashMap<String, String>();
+            filterParams.put(AllConstants.SyncFilters.FILTER_LOCATION_ID,locationAnmids);
+            PullFilter pullFilter = new PullFilter(filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID), filterParams);
+            this.cloudantFilter = filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) +":"+ filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+            Log.d(LOG_TAG, "Filter fetched: " + filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) + ", locationId: " + filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID));
+
 
             this.reloadReplicationSettings(pullFilter);
 
@@ -151,7 +153,9 @@ public class CloudantSyncHandler {
         if (this.mPushReplicator != null) {
             this.mPushReplicator.start();
         } else {
-            throw new RuntimeException("Push replication not set up correctly");
+            Log.e(LOG_TAG, "Push replication is not set");
+            // If replicator is not set up, set a new replicator
+            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPushReplication();
         }
     }
 
@@ -161,8 +165,11 @@ public class CloudantSyncHandler {
     public void startPullReplication() {
         if (this.mPullReplicator != null) {
             this.mPullReplicator.start();
+            Log.d(LOG_TAG,this.cloudantFilter);
         } else {
-            throw new RuntimeException("Push replication not set up correctly");
+            Log.e(LOG_TAG, "Pull replication is not set");
+            // If replicator is not set up, set a new replicator
+            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPullReplication();
         }
     }
 
