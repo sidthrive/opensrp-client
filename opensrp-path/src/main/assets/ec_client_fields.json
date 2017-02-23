@@ -1,7 +1,7 @@
 {
   "bindobjects":[
     {
-      "name":"ec_woman",
+      "name":"ec_mother",
       "columns":[
         {
           "column_name":"base_entity_id",
@@ -14,7 +14,7 @@
           "column_name":"program_client_id",
           "type":"Client",
           "json_mapping":{
-            "field":"identifiers.Program Client ID"
+            "field":"identifiers.M_ZEIR_ID"
           }
         },
         {
@@ -310,6 +310,13 @@
           "type":"Client",
           "json_mapping":{
             "field":"identifiers.ZEIR_ID"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.mother"
           }
         },
         {

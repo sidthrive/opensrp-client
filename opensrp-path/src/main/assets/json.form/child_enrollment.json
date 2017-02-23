@@ -1,6 +1,9 @@
 {
   "count": "1",
   "encounter_type": "Birth Registration",
+  "mother":{
+    "encounter_type": "New Woman Registration"
+  },
   "entity_id": "",
   "metadata": {
     "start": {

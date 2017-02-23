@@ -87,11 +87,11 @@ public class FieldMonitorSmartClientsProvider implements SmartRegisterCLientsPro
 
     private ArrayList<HashMap<String, String>> getUsed(String startDate, String endDate){
         String sql = "select " +
-                "(select count(*) c from ec_woman where tt1 between  '" + startDate + "' and '" + endDate + "') tt1," +
-                "(select count(*) c from ec_woman where tt2 between '" + startDate + "' and '" + endDate + "') tt2," +
-                "(select count(*) c from ec_woman where tt3 between '" + startDate + "' and '" + endDate + "') tt3," +
-                "(select count(*) c from ec_woman where tt4 between '" + startDate + "' and '" + endDate + "') tt4," +
-                "(select count(*) c from ec_woman where tt5 between '" + startDate + "' and '" + endDate + "') tt5,"+
+                "(select count(*) c from ec_mother where tt1 between  '" + startDate + "' and '" + endDate + "') tt1," +
+                "(select count(*) c from ec_mother where tt2 between '" + startDate + "' and '" + endDate + "') tt2," +
+                "(select count(*) c from ec_mother where tt3 between '" + startDate + "' and '" + endDate + "') tt3," +
+                "(select count(*) c from ec_mother where tt4 between '" + startDate + "' and '" + endDate + "') tt4," +
+                "(select count(*) c from ec_mother where tt5 between '" + startDate + "' and '" + endDate + "') tt5,"+
                 "(select count(*) c from ec_child where bcg between '" + startDate + "' and '" + endDate + "') bcg," +
                 "(select count(*) c from ec_child where opv0 between '" + startDate + "' and '" + endDate + "') opv0," +
                 "(select count(*) c from ec_child where opv1 between '" + startDate + "' and '" + endDate + "') opv1," +

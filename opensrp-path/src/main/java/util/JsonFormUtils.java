@@ -18,6 +18,7 @@ import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
+import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -74,7 +75,7 @@ public class JsonFormUtils {
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
-    public static void save(Context context, String jsonString, String providerId, String bindType, String subBindType, String imageKey) {
+    public static void save(Context context, String jsonString, String providerId, String imageKey, String bindType, String subBindType) {
         if (context == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(jsonString)) {
             return;
         }
@@ -101,22 +102,44 @@ public class JsonFormUtils {
             Event e = JsonFormUtils.createEvent(fields, metadata, entityId, encounterType, providerId, bindType);
 
             Client s = null;
-            if(StringUtils.isNotBlank(subBindType)) {
-                 s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+
+            if (StringUtils.isNotBlank(subBindType)) {
+                s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+            }
+
+            Event se = null;
+            if (s != null && e != null) {
+                JSONObject subBindTypeJson = getJSONObject(jsonForm, subBindType);
+                if (subBindTypeJson != null) {
+                    String subBindTypeEncounter = getString(subBindTypeJson, ENCOUNTER_TYPE);
+                    if (StringUtils.isNotBlank(subBindTypeEncounter)) {
+                        se = JsonFormUtils.createSubFormEvent(null, metadata, e, s.getBaseEntityId(), subBindTypeEncounter, providerId, subBindType);
+
+                    }
+                }
             }
 
             CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
-            org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-            cloudantDataHandler.createEventDocument(event);
             if (c != null) {
                 org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(c);
                 cloudantDataHandler.createClientDocument(client);
             }
 
-            if(s != null){
+            if (e != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
+                cloudantDataHandler.createEventDocument(event);
+            }
+
+            if (s != null) {
                 org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(s);
                 cloudantDataHandler.createClientDocument(client);
+
+            }
+
+            if (se != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(se);
+                cloudantDataHandler.createEventDocument(event);
             }
 
             String zeirId = c.getIdentifier(ZEIR_ID);
@@ -664,7 +687,7 @@ public class JsonFormUtils {
 
     public static Client createSubformClient(Context context, JSONArray fields, Client parent, String bindType) throws ParseException {
 
-        if(StringUtils.isBlank(bindType)){
+        if (StringUtils.isBlank(bindType)) {
             return null;
         }
 
@@ -728,6 +751,60 @@ public class JsonFormUtils {
         return c;
     }
 
+    public static Event createSubFormEvent(JSONArray fields, JSONObject metadata, Event parent, String entityId, String encounterType, String providerId, String bindType) {
+
+
+        Event e = (Event) new Event()
+                .withBaseEntityId(entityId)//should be different for main and subform
+                .withEventDate(parent.getEventDate())
+                .withEventType(encounterType)
+                .withLocationId(parent.getLocationId())
+                .withProviderId(providerId)
+                .withEntityType(bindType)
+                .withFormSubmissionId(generateRandomUUIDString())
+                .withDateCreated(new Date());
+
+        if (fields != null && fields.length() != 0)
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject jsonObject = getJSONObject(fields, i);
+                String value = getString(jsonObject, VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    addObservation(e, jsonObject);
+                }
+            }
+
+        if (metadata != null) {
+            Iterator<?> keys = metadata.keys();
+
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                JSONObject jsonObject = getJSONObject(metadata, key);
+                String value = getString(jsonObject, VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+                    if (entityVal != null) {
+                        if (entityVal.equals(CONCEPT)) {
+                            addToJSONObject(jsonObject, KEY, key);
+                            addObservation(e, jsonObject);
+                        } else if (entityVal.equals(ENCOUNTER)) {
+                            String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+                            if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
+                                DateTime eDate = formatDate(value, false);
+                                if (eDate != null) {
+                                    e.setEventDate(eDate.toDate());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return e;
+
+    }
+
+
     private static Map<String, String> extractIdentifiers(JSONArray fields, String bindType) {
         Map<String, String> pids = new HashMap<>();
         for (int i = 0; i < fields.length(); i++) {
@@ -767,7 +844,7 @@ public class JsonFormUtils {
                 JSONObject rObject = jsonArray.getJSONObject(i);
                 if (rObject.has("field") && getString(rObject, "field").equals(ENTITY_ID)) {
                     child.addRelationship(rObject.getString("client_relationship"), parent.getBaseEntityId());
-                }else{
+                } else {
                     //TODO how to add other kind of relationships
                 }
             }
@@ -863,7 +940,7 @@ public class JsonFormUtils {
             }
 
             String bind = getString(jsonObject, ENTITY_ID);
-            if (bind ==null || !bind.equals(bindType)) {
+            if (bind == null || !bind.equals(bindType)) {
                 return;
             }
 
@@ -922,5 +999,55 @@ public class JsonFormUtils {
         } catch (ParseException e) {
             Log.e(TAG, "", e);
         }
+    }
+
+    public static JSONArray generateLocationHierarchyTree(org.ei.opensrp.Context context, boolean withOtherOption) {
+        JSONArray array = new JSONArray();
+        try {
+            JSONObject locationData = new JSONObject(context.anmLocationController().get());
+            if (locationData.has("locationsHierarchy")
+                    && locationData.getJSONObject("locationsHierarchy").has("map")) {
+                JSONObject map = locationData.getJSONObject("locationsHierarchy").getJSONObject("map");
+                Iterator<String> keys = map.keys();
+                while (keys.hasNext()) {
+                    String curKey = keys.next();
+                    getFormJsonData(array, map.getJSONObject(curKey));
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        if (withOtherOption) {
+            try {
+                JSONObject other = new JSONObject();
+                other.put("name", "Other");
+                other.put("level", "");
+                array.put(other);
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+        return array;
+    }
+
+    private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData) throws JSONException {
+        JSONObject jsonFormObject = new JSONObject();
+        jsonFormObject.put("name", openMrsLocationData.getJSONObject("node").getString("name"));
+        String level = "";
+        try {
+            level = openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0);
+        } catch (JSONException e) {
+        }
+        jsonFormObject.put("level", level);
+        JSONArray children = new JSONArray();
+        if (openMrsLocationData.has("children")) {
+            Iterator<String> childIterator = openMrsLocationData.getJSONObject("children").keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                getFormJsonData(children, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey));
+            }
+            jsonFormObject.put("nodes", children);
+        }
+        allLocationData.put(jsonFormObject);
     }
 }

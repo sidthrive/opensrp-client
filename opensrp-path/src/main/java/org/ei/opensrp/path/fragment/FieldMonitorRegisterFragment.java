@@ -184,11 +184,11 @@ public class FieldMonitorRegisterFragment extends SecuredNativeSmartRegisterCurs
     }//end of method
 
     private List<String> customColumnsDaily = new ArrayList<String>() {{
-        add("(select count(*) c from ec_woman where tt1 between t.date and t.date) tt1");
-        add("(select count(*) c from ec_woman where tt2 between t.date and t.date) tt2");
-        add("(select count(*) c from ec_woman where tt3 between t.date and t.date) tt3");
-        add("(select count(*) c from ec_woman where tt4 between t.date and t.date) tt4");
-        add("(select count(*) c from ec_woman where tt5 between t.date and t.date) tt5");
+        add("(select count(*) c from ec_mother where tt1 between t.date and t.date) tt1");
+        add("(select count(*) c from ec_mother where tt2 between t.date and t.date) tt2");
+        add("(select count(*) c from ec_mother where tt3 between t.date and t.date) tt3");
+        add("(select count(*) c from ec_mother where tt4 between t.date and t.date) tt4");
+        add("(select count(*) c from ec_mother where tt5 between t.date and t.date) tt5");
         add("(select count(*) c from ec_child where bcg between t.date and t.date) bcg");
         add("(select count(*) c from ec_child where opv0 between t.date and t.date) opv0");
         add("(select count(*) c from ec_child where opv1 between t.date and t.date) opv1");
@@ -206,11 +206,11 @@ public class FieldMonitorRegisterFragment extends SecuredNativeSmartRegisterCurs
     }};
 
     private List<String> customColumnsMonthly = new ArrayList<String>() {{
-        add("(select count(*) c from ec_woman where SUBSTR(tt1,1,7) = SUBSTR(t.date,1,7)) tt1");
-        add("(select count(*) c from ec_woman where SUBSTR(tt2,1,7) = SUBSTR(t.date,1,7)) tt2");
-        add("(select count(*) c from ec_woman where SUBSTR(tt3,1,7) = SUBSTR(t.date,1,7)) tt3");
-        add("(select count(*) c from ec_woman where SUBSTR(tt4,1,7) = SUBSTR(t.date,1,7)) tt4");
-        add("(select count(*) c from ec_woman where SUBSTR(tt5,1,7) = SUBSTR(t.date,1,7)) tt5");
+        add("(select count(*) c from ec_mother where SUBSTR(tt1,1,7) = SUBSTR(t.date,1,7)) tt1");
+        add("(select count(*) c from ec_mother where SUBSTR(tt2,1,7) = SUBSTR(t.date,1,7)) tt2");
+        add("(select count(*) c from ec_mother where SUBSTR(tt3,1,7) = SUBSTR(t.date,1,7)) tt3");
+        add("(select count(*) c from ec_mother where SUBSTR(tt4,1,7) = SUBSTR(t.date,1,7)) tt4");
+        add("(select count(*) c from ec_mother where SUBSTR(tt5,1,7) = SUBSTR(t.date,1,7)) tt5");
         add("(select count(*) c from ec_child where SUBSTR(bcg,1,7) = SUBSTR(t.date,1,7)) bcg");
         add("(select count(*) c from ec_child where SUBSTR(opv0,1,7) = SUBSTR(t.date,1,7)) opv0");
         add("(select count(*) c from ec_child where SUBSTR(opv1,1,7) = SUBSTR(t.date,1,7)) opv1");

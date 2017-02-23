@@ -96,7 +96,7 @@ public class FieldMonitorDailyDetailActivity extends DetailActivity {
         String endDate = date.toString("yyyy-MM-dd");
 
         String childTable = "ec_child";
-        String womanTable = "ec_woman";
+        String womanTable = "ec_mother";
 
         ((TextView)findViewById(R.id.reporting_period)).setText(date.toString("dd/MM/yyyy"));
 

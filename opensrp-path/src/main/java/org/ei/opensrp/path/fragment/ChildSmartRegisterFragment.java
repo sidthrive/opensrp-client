@@ -239,6 +239,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
     public void initializeQueries() {
         String tableName = "ec_child";
+        String parentTableName = "ec_mother";
 
         ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
                 clientActionHandler, context().alertService());
@@ -253,7 +254,28 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "last_name", "gender", "mother_first_name", "mother_last_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "pmtct_status", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "vaccines_2", "bcg", "opv0", "pcv1", "opv1", "penta1", "pcv2", "opv2", "penta2", "pcv3", "opv3", "penta3", "ipv", "measles1", "measles2", "bcg_retro", "opv0_retro", "pcv1_retro", "opv1_retro", "penta1_retro", "pcv2_retro", "opv2_retro", "penta2_retro", "pcv3_retro", "opv3_retro", "penta3_retro", "ipv_retro", "measles1_retro", "measles2_retro"});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{
+                tableName + ".relationalid",
+                tableName + ".details",
+                tableName + ".program_client_id",
+                tableName + ".relational_id",
+                tableName + ".first_name",
+                tableName + ".last_name",
+                tableName + ".gender",
+                parentTableName + ".first_name as mother_first_name",
+                parentTableName + ".last_name as mother_last_name",
+                tableName + ".father_name",
+                tableName + ".dob",
+                tableName + ".epi_card_number",
+                tableName + ".contact_phone_number",
+                tableName + ".pmtct_status",
+                tableName + ".provider_uc",
+                tableName + ".provider_town",
+                tableName + ".provider_id",
+                tableName + ".provider_location_id",
+                tableName + ".client_reg_date"
+        });
+        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
         mainSelect = queryBUilder.mainCondition("");
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
