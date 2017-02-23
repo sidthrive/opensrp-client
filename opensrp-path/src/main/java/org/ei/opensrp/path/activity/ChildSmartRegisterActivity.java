@@ -55,7 +55,7 @@ import util.barcode.BarcodeIntentResult;
  * Created by Ahmed on 13-Oct-15.
  */
 public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements WeightActionListener {
-private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
+    private static String TAG = ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -164,45 +164,27 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-//        Log.v("fieldoverride", metaData);
         try {
-            UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
-            String openmrsId=uniqueIdRepo.getNextUniqueId()!=null?uniqueIdRepo.getNextUniqueId().getOpenmrsId():"";
-            if(openmrsId.isEmpty()){
-                Toast.makeText(this,getString(R.string.no_openmrs_id),Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
-            /*if (entityId != null || metaData != null){
-                String data = null;
-                //check if there is previously saved data for the form
-                data = getPreviouslySavedDataForForm(formName, metaData, entityId);
-                if (data == null){
-                    data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
-                }
-
-                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
-                if (displayFormFragment != null) {
-                    displayFormFragment.setFormPartialSaving(false);
-                    displayFormFragment.setFormData(data);
-                    displayFormFragment.setRecordId(entityId);
-                    displayFormFragment.setFieldOverides(metaData);
+            if (StringUtils.isBlank(entityId)) {
+                UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
+                entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                if (entityId.isEmpty()) {
+                    Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
 
-            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation
-            change the view disapears*/
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            if (form != null ) {
+            if (form != null) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                 //inject zeir id into the form
                 JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
                 JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for(int i=0;i<jsonArray.length();i++){
-                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                    if(jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)){
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                         jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, openmrsId.replace("-",""));
+                        jsonObject.put(JsonFormUtils.VALUE, entityId.replace("-", ""));
                         continue;
                     }
                 }
@@ -349,7 +331,9 @@ private static String TAG=ChildSmartRegisterActivity.class.getCanonicalName();
 
     private void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(getClass().getName(), "QR code: " + qrCode);
-        //TODO Update qr code
+        if (StringUtils.isNotBlank(qrCode)) {
+            startFormActivity("child_enrollment", qrCode, null);
+        }
     }
 
     @Override
