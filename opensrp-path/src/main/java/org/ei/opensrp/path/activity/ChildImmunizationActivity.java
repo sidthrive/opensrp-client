@@ -61,7 +61,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String EXTRA_CHILD_DETAILS = "child_details";
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private ArrayList<VaccineGroup> vaccineGroups;
 
     // Views
@@ -83,6 +83,7 @@ public class ChildImmunizationActivity extends BaseActivity
                 Intent intent = new Intent(ChildImmunizationActivity.this, ChildSmartRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
         toolbar.setOnLocationChangeListener(this);
@@ -152,11 +153,13 @@ public class ChildImmunizationActivity extends BaseActivity
     private void updateAgeViews() {
         String dobString = "";
         String formattedAge = "";
+        String formattedDob = "";
         if (isDataOk()) {
             dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
             if (!TextUtils.isEmpty(dobString)) {
                 DateTime dateTime = new DateTime(dobString);
                 Date dob = dateTime.toDate();
+                formattedDob = DATE_FORMAT.format(dob);
                 long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
 
                 if (timeDiff >= 0) {
@@ -165,7 +168,7 @@ public class ChildImmunizationActivity extends BaseActivity
             }
         }
         TextView dobTV = (TextView) findViewById(R.id.dob_tv);
-        dobTV.setText(String.format("%s: %s", getString(R.string.birthdate), dobString));
+        dobTV.setText(String.format("%s: %s", getString(R.string.birthdate), formattedDob));
         TextView ageTV = (TextView) findViewById(R.id.age_tv);
         ageTV.setText(String.format("%s: %s", getString(R.string.age), formattedAge));
     }
