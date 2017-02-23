@@ -152,15 +152,12 @@ public class ChildImmunizationActivity extends BaseActivity
         if (isDataOk()) {
             dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
             if (!TextUtils.isEmpty(dobString)) {
-                try {
-                    Date dob = DATE_FORMAT.parse(dobString);
-                    long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
+                DateTime dateTime = new DateTime(dobString);
+                Date dob = dateTime.toDate();
+                long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
 
-                    if (timeDiff >= 0) {
-                        formattedAge = DateUtils.getDuration(timeDiff);
-                    }
-                } catch (ParseException e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
+                if (timeDiff >= 0) {
+                    formattedAge = DateUtils.getDuration(timeDiff);
                 }
             }
         }

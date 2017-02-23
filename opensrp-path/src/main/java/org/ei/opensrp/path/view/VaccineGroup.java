@@ -17,6 +17,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.adapter.VaccineCardAdapter;
 import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -113,25 +114,22 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         this.state = State.IN_PAST;
         if (this.vaccineData != null) {
             String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
-            try {
-                Date dob = ChildImmunizationActivity.DATE_FORMAT.parse(dobString);
-                Calendar today = Calendar.getInstance();
-                today.set(Calendar.HOUR, 0);
-                today.set(Calendar.MINUTE, 0);
-                today.set(Calendar.SECOND, 0);
-                today.set(Calendar.MILLISECOND, 0);
+            DateTime dateTime = new DateTime(dobString);
+            Date dob = dateTime.toDate();
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
 
-                long timeDiff = today.getTimeInMillis() - dob.getTime();
+            long timeDiff = today.getTimeInMillis() - dob.getTime();
 
-                if (timeDiff < today.getTimeInMillis()) {
-                    this.state = State.IN_PAST;
-                } else if (timeDiff > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    this.state = State.IN_FUTURE;
-                } else {
-                    this.state = State.CURRENT;
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (timeDiff < today.getTimeInMillis()) {
+                this.state = State.IN_PAST;
+            } else if (timeDiff > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
+                this.state = State.IN_FUTURE;
+            } else {
+                this.state = State.CURRENT;
             }
             updateStatusViews();
             updateVaccineCards();
@@ -151,7 +149,8 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                 case IN_FUTURE:
                     String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
                     Calendar dobCalender = Calendar.getInstance();
-                    dobCalender.setTime(ChildImmunizationActivity.DATE_FORMAT.parse(dobString));
+                    DateTime dateTime = new DateTime(dobString);
+                    dobCalender.setTime(dateTime.toDate());
                     dobCalender.add(Calendar.DATE, vaccineData.getInt("days_after_birth_due"));
                     nameTV.setText(String.format(context.getString(R.string.due_),
                             vaccineData.getString("name"),
@@ -159,8 +158,6 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                     break;
             }
         } catch (JSONException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }

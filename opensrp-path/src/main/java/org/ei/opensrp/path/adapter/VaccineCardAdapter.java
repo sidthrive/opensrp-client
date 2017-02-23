@@ -82,7 +82,8 @@ public class VaccineCardAdapter extends BaseAdapter {
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
                 if(StringUtils.isNotBlank(dobString)) {
                     Calendar dobCalender = Calendar.getInstance();
-                    dobCalender.setTime(ChildImmunizationActivity.DATE_FORMAT.parse(dobString));
+                    DateTime dateTime = new DateTime(dobString);
+                    dobCalender.setTime(dateTime.toDate());
                     dobCalender.add(Calendar.DATE, vaccineGroup.getVaccineData().getInt("days_after_birth_due"));
                     vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
                 }
@@ -103,8 +104,6 @@ public class VaccineCardAdapter extends BaseAdapter {
 
             return vaccineCards.get(vaccineName);
         } catch (JSONException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
 
