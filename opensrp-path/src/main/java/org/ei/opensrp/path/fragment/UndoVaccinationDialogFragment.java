@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.ei.opensrp.path.activity.ChildDetailActivity;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.activity.WomanDetailActivity;
@@ -53,14 +54,19 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
         numberView.setText(tag.getPatientNumber());
 
         TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccine);
-        vaccineView.setText(tag.vaccines().get(0).display());
+        VaccineRepo.Vaccine vaccine = tag.getVaccine();
+        if(vaccine !=null) {
+            vaccineView.setText(tag.getVaccine().display());
+        }else{
+            vaccineView.setText(tag.getName());
+        }
 
         Button vaccinateToday = (Button) dialogView.findViewById(R.id.yes_undo);
         vaccinateToday.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
-                updateFormSubmission();
+                //updateFormSubmission();
 
                 listener.onUndoVaccination(tag);
             }
@@ -79,9 +85,9 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
 
     private void updateFormSubmission() {
         VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = null;
-        if (tag.vaccines().get(0).category().equals("child") && listener instanceof ChildDetailActivity) {
+        if (tag.getVaccine().category().equals("child") && listener instanceof ChildDetailActivity) {
             vaccinateFormSubmissionWrapper = ((ChildDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        } else if (tag.vaccines().get(0).category().equals("woman") && listener instanceof WomanDetailActivity) {
+        } else if (tag.getVaccine().category().equals("woman") && listener instanceof WomanDetailActivity) {
             vaccinateFormSubmissionWrapper = ((WomanDetailActivity) listener).getVaccinateFormSubmissionWrapper();
         }
 

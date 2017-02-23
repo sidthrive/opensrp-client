@@ -84,40 +84,39 @@ public class VaccinateFormSubmissionWrapper implements Serializable {
             for (Map.Entry<String, VaccineWrapper> entry : map().entrySet()) {
                 String id = entry.getKey();
 
+
                 VaccineWrapper tag = entry.getValue();
                 String formatedDate = tag.getUpdatedVaccineDate().toString("yyyy-MM-dd");
 
-                for(VaccineRepo.Vaccine vaccine: tag.vaccines()) {
+                VaccineRepo.Vaccine vaccine = tag.getVaccine();
+                String lastChar = vaccine.name().substring(vaccine.name().length() - 1);
 
-                    String lastChar = vaccine.name().substring(vaccine.name().length() - 1);
+                if (!tag.isToday()) {
+                    String fieldName = vaccine.name() + "_retro";
 
-                    if (!tag.isToday()) {
-                        String fieldName = vaccine.name() + "_retro";
-
-                        JSONObject parentJson = null;
-                        if (category.equals("child")) {
-                            parentJson = VaccinateActionUtils.find(encounterJson, "vaccines_group");
-                        } else if (category.equals("woman")) {
-                            parentJson = encounterJson;
-                        }
-
-                        if (parentJson != null) {
-                            VaccinateActionUtils.updateJson(parentJson, fieldName, formatedDate);
-                            if (StringUtils.isNumeric(lastChar)) {
-                                VaccinateActionUtils.updateJson(parentJson, vaccine.name() + "_dose", lastChar);
-                            }
-                            vaccines += vaccine.name() + " ";
-                        }
-                    } else {
-                        VaccinateActionUtils.updateJson(encounterJson, vaccine.name(), formatedDate);
-                        if (StringUtils.isNumeric(lastChar)) {
-                            VaccinateActionUtils.updateJson(encounterJson, vaccine.name() + "_dose_today", lastChar);
-                        }
-                        vaccines2 += vaccine.name() + " ";
+                    JSONObject parentJson = null;
+                    if (category.equals("child")) {
+                        parentJson = VaccinateActionUtils.find(encounterJson, "vaccines_group");
+                    } else if (category.equals("woman")) {
+                        parentJson = encounterJson;
                     }
-                }
 
+                    if (parentJson != null) {
+                        VaccinateActionUtils.updateJson(parentJson, fieldName, formatedDate);
+                        if (StringUtils.isNumeric(lastChar)) {
+                            VaccinateActionUtils.updateJson(parentJson, vaccine.name() + "_dose", lastChar);
+                        }
+                        vaccines += vaccine.name() + " ";
+                    }
+                } else {
+                    VaccinateActionUtils.updateJson(encounterJson, vaccine.name(), formatedDate);
+                    if (StringUtils.isNumeric(lastChar)) {
+                        VaccinateActionUtils.updateJson(encounterJson, vaccine.name() + "_dose_today", lastChar);
+                    }
+                    vaccines2 += vaccine.name() + " ";
+                }
             }
+
 
             if (StringUtils.isNotBlank(vaccines)) {
                 vaccines.trim();

@@ -28,6 +28,7 @@ import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import static org.ei.opensrp.AllConstants.ENTITY_ID_PARAM;
@@ -147,7 +148,7 @@ public class VaccinateActionUtils {
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, tag);
+                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, Arrays.asList(tag), null);
                     vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
                 }
@@ -235,7 +236,7 @@ public class VaccinateActionUtils {
             age = Integer.valueOf(existingAge);
         }
 
-        for (VaccineRepo.Vaccine vaccine : tag.vaccines()) {
+        VaccineRepo.Vaccine vaccine = tag.getVaccine();
             switch (vaccine) {
                 case penta1:
                 case pcv1:
@@ -269,7 +270,6 @@ public class VaccinateActionUtils {
                     break;
             }
 
-        }
         return addHook;
 
     }

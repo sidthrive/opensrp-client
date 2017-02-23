@@ -211,6 +211,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.equals(undoB)) {
+            //TODO add undo listener
             undoVaccinationDate();
         }
     }

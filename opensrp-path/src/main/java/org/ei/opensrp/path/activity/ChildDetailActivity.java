@@ -205,7 +205,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
 
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setStatus(m.get("status").toString());
-            vaccineWrapper.addVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
+            vaccineWrapper.setVaccine((VaccineRepo.Vaccine) m.get("vaccine"));
             vaccineWrapper.setVaccineDate((DateTime) m.get("date"));
             vaccineWrapper.setAlert((Alert) m.get("alert"));
             vaccineWrapper.setPreviousVaccine(previousVaccine);
@@ -257,18 +257,22 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     @Override
-    public void onVaccinateToday(VaccineWrapper tag) {
-        TableRow tableRow = findRow(tag);
-        if (tableRow != null) {
-            VaccinateActionUtils.vaccinateToday(tableRow, tag);
+    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+        for (VaccineWrapper tag : tags) {
+            TableRow tableRow = findRow(tag);
+            if (tableRow != null) {
+                VaccinateActionUtils.vaccinateToday(tableRow, tag);
+            }
         }
     }
 
     @Override
-    public void onVaccinateEarlier(VaccineWrapper tag) {
-        TableRow tableRow = findRow(tag);
-        if (tableRow != null) {
-            VaccinateActionUtils.vaccinateEarlier(tableRow, tag);
+    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+        for (VaccineWrapper tag : tags) {
+            TableRow tableRow = findRow(tag);
+            if (tableRow != null) {
+                VaccinateActionUtils.vaccinateEarlier(tableRow, tag);
+            }
         }
     }
 
