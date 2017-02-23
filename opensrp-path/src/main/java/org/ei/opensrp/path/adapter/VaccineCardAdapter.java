@@ -92,7 +92,11 @@ public class VaccineCardAdapter extends BaseAdapter {
                 Photo photo = ImageUtils.profilePhotoByClient(vaccineGroup.getChildDetails());
                 vaccineWrapper.setPhoto(photo);
 
-                vaccineWrapper.setPatientNumber(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "program_client_id", false));
+                String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "program_client_id", false);
+                if(StringUtils.isNotBlank(zeirId)){
+                    zeirId = zeirId.replace("-", "");
+                }
+                vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 
                 // TODO: get date vaccination was done

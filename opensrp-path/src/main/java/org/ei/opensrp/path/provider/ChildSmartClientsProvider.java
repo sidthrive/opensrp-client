@@ -75,6 +75,9 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
         String zeirId = getValue(pc.getColumnmaps(), "program_client_id", false);
+        if(StringUtils.isNotBlank(zeirId)){
+            zeirId = zeirId.replace("-", "");
+        }
         fillValue((TextView) convertView.findViewById(R.id.child_zeir_id), zeirId);
         String childName = getValue(pc.getColumnmaps(), "first_name", true) + " " + getValue(pc, "last_name", true);
         String motherFirstName = getValue(pc.getColumnmaps(), "mother_first_name", true);

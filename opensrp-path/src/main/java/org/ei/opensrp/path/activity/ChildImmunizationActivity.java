@@ -138,6 +138,9 @@ public class ChildImmunizationActivity extends BaseActivity
             name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
                     + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
             childId = Utils.getValue(childDetails.getColumnmaps(), "program_client_id", false);
+            if(StringUtils.isNotBlank(childId)){
+                childId = childId.replace("-", "");
+            }
         }
 
         TextView nameTV = (TextView) findViewById(R.id.name_tv);
@@ -256,6 +259,9 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "program_client_id", false);
+        if(StringUtils.isNotBlank(zeirId)){
+            zeirId = zeirId.replace("-", "");
+        }
         String duration = "";
         String dobString = getValue(childDetails.getColumnmaps(), "dob", false);
         if (StringUtils.isNotBlank(dobString)) {
