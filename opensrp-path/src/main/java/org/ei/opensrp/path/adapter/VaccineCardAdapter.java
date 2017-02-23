@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
+import org.ei.opensrp.path.db.VaccineRepo;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
 import org.ei.opensrp.path.view.VaccineGroup;
@@ -20,7 +23,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import util.ImageUtils;
 import util.Utils;
+import util.VaccinateActionUtils;
+
+import static util.Utils.getValue;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
@@ -78,6 +85,14 @@ public class VaccineCardAdapter extends BaseAdapter {
                     dobCalender.add(Calendar.DATE, vaccineGroup.getVaccineData().getInt("days_after_birth_due"));
                     vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
                 }
+
+
+                Photo photo = ImageUtils.profilePhotoByClient(vaccineGroup.getChildDetails());
+                vaccineWrapper.setPhoto(photo);
+
+                vaccineWrapper.setPatientNumber(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "program_client_id", false));
+                vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
+
                 // TODO: get date vaccination was done
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 

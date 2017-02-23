@@ -18,7 +18,7 @@ public class VaccineWrapper {
     private Photo photo;
     private String name;
     private String status;
-    private List<Vaccine> vaccines;
+    private Vaccine vaccine;
     private DateTime vaccineDate;
     private Alert alert;
     private String previousVaccineId;
@@ -47,15 +47,12 @@ public class VaccineWrapper {
         this.status = status;
     }
 
-    public List<Vaccine> vaccines() {
-        if (vaccines == null) {
-            vaccines = new ArrayList<>();
-        }
-        return vaccines;
+    public void setVaccine(Vaccine vaccine) {
+        this.vaccine = vaccine;
     }
 
-    public void addVaccine(Vaccine vaccine) {
-        this.vaccines().add(vaccine);
+    public Vaccine getVaccine() {
+        return vaccine;
     }
 
     public DateTime getVaccineDate() {

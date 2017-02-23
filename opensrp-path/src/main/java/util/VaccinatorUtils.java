@@ -58,6 +58,7 @@ import org.opensrp.api.util.TreeNode;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -185,13 +186,9 @@ public class VaccinatorUtils {
             relativeLayout.setPadding(dpToPx(context, 0f), dpToPx(context, 10f), dpToPx(context, 0f), dpToPx(context, 10f));
         }
 
+
         TextView label = (TextView) tr.findViewById(R.id.vaccine);
-        List<Vaccine> vaccines = vaccineWrapper.vaccines();
-        if(vaccines.size() == 1) {
-            label.setText(vaccines.get(0).display());
-        } else if(vaccines.size() > 1){
-            label.setText(R.string.record_all);
-        }
+        label.setText(vaccineWrapper.getVaccine().display());
 
         String vaccineDate = "";
         String color = "#ffffff";
@@ -281,7 +278,7 @@ public class VaccinatorUtils {
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, vaccineWrapper);
+                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, Arrays.asList(vaccineWrapper), null);
                     vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
                 }

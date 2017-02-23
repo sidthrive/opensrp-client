@@ -1,6 +1,5 @@
 package org.ei.opensrp.path.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -22,6 +21,8 @@ import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
+import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
@@ -37,14 +38,15 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import util.DateUtils;
 import util.ImageUtils;
 import util.Utils;
 
-import static util.Utils.fillValue;
 import static util.Utils.getValue;
 
 /**
@@ -52,7 +54,7 @@ import static util.Utils.getValue;
  */
 
 public class ChildImmunizationActivity extends BaseActivity
-        implements LocationSwitcherToolbar.OnLocationChangeListener, WeightActionListener {
+        implements LocationSwitcherToolbar.OnLocationChangeListener, WeightActionListener, VaccinationActionListener {
 
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
@@ -212,15 +214,13 @@ public class ChildImmunizationActivity extends BaseActivity
                     curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
                         @Override
                         public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
-                            //TODO: attach vaccination dialog here
-                            // Remember to call vaccineGroup.updateViews() after closing the dialog
+                            addVaccinationDialogFragment(dueVaccines, vaccineGroup);
                         }
                     });
                     curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
                         @Override
                         public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
-                            //TODO: attach vaccination dialog here
-                            // Remember to call vaccineGroup.updateViews() after closing the dialog
+                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
                         }
                     });
                     vaccineGroupCanvasLL.addView(curGroup);
@@ -341,5 +341,37 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     public void onWeightTaken(WeightWrapper tag) {
 
+    }
+
+    @Override
+    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+        if (view != null && view instanceof VaccineGroup) {
+            VaccineGroup vaccineGroup = (VaccineGroup) view;
+            vaccineGroup.updateViews();
+        }
+    }
+
+    @Override
+    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+        if (view != null && view instanceof VaccineGroup) {
+            VaccineGroup vaccineGroup = (VaccineGroup) view;
+            vaccineGroup.updateViews();
+        }
+    }
+
+    @Override
+    public void onUndoVaccination(VaccineWrapper tag) {
+
+    }
+
+    public void addVaccinationDialogFragment(List<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        Fragment prev = this.getFragmentManager().findFragmentByTag(VaccinationDialogFragment.DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(this, vaccineWrappers, vaccineGroup);
+        vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
     }
 }
