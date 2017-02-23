@@ -97,7 +97,7 @@ public class FieldMonitorMonthlyDetailActivity extends DetailActivity {
         String endDate = new DateTime(date.getTime()).withDayOfMonth(1).plusMonths(1).minusDays(1).toString("yyyy-MM-dd");
 
         String childTable = "ec_child";
-        String womanTable = "ec_woman";
+        String womanTable = "ec_mother";
         String wastedDataReport = "daily";
 
         ((TextView)findViewById(R.id.reporting_period)).setText(new DateTime(date.getTime()).toString("MMMM (yyyy)"));

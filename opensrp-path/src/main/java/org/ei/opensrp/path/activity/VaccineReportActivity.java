@@ -115,13 +115,13 @@ public class VaccineReportActivity extends AppCompatActivity {
         }
 //select * from field where field.date like '2015-12%' and report=='monthly'
         String womanVaccineSQlForField = "select " +
-                "(select count(*) c from ec_woman where tt1 between '" + startDate + "' and '" + endDate + "' ) tt1," +
-                "(select count(*) c from ec_woman where tt2 between '" + startDate + "' and '" + endDate + "' ) tt2," +
-                "(select count(*) c from ec_woman where tt3 between '" + startDate + "' and '" + endDate + "' ) tt3," +
-                "(select count(*) c from ec_woman where tt4 between '" + startDate + "' and '" + endDate + "' ) tt4," +
-                "(select count(*) c from ec_woman where tt5 between '" + startDate + "' and '" + endDate + "' ) tt5 " +
-                "from ec_woman limit 1;";
-        List<CommonPersonObject> womanVaccineListForField = context().allCommonsRepositoryobjects("ec_woman").customQuery(womanVaccineSQlForField, new String[]{}, "ec_woman");
+                "(select count(*) c from ec_mother where tt1 between '" + startDate + "' and '" + endDate + "' ) tt1," +
+                "(select count(*) c from ec_mother where tt2 between '" + startDate + "' and '" + endDate + "' ) tt2," +
+                "(select count(*) c from ec_mother where tt3 between '" + startDate + "' and '" + endDate + "' ) tt3," +
+                "(select count(*) c from ec_mother where tt4 between '" + startDate + "' and '" + endDate + "' ) tt4," +
+                "(select count(*) c from ec_mother where tt5 between '" + startDate + "' and '" + endDate + "' ) tt5 " +
+                "from ec_mother limit 1;";
+        List<CommonPersonObject> womanVaccineListForField = context().allCommonsRepositoryobjects("ec_mother").customQuery(womanVaccineSQlForField, new String[]{}, "ec_mother");
         if (womanVaccineListForField.size() < 1) {
             womanVaccineObjectForField = null;
         } else {
@@ -171,13 +171,13 @@ public class VaccineReportActivity extends AppCompatActivity {
         // childVaccineForFieldObject=context().allCommonsRepositoryobjects("ec_child").customQuery(childVaccineForFieldSQL, new String[]{}, "ec_child").get(0);
 
         String pregnantWomanSQL = "select " +
-                "(select count(*) c from ec_woman where tt1 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt1," +
-                "(select count(*) c from ec_woman where tt2 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt2," +
-                "(select count(*) c from ec_woman where tt3 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt3," +
-                "(select count(*) c from ec_woman where tt4 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt4," +
-                "(select count(*) c from ec_woman where tt5 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt5 " +
-                "from ec_woman limit 1;    ";
-        List<CommonPersonObject> pregnantVaccineList = context().allCommonsRepositoryobjects("ec_woman").customQuery(pregnantWomanSQL, new String[]{}, "ec_woman");
+                "(select count(*) c from ec_mother where tt1 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt1," +
+                "(select count(*) c from ec_mother where tt2 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt2," +
+                "(select count(*) c from ec_mother where tt3 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt3," +
+                "(select count(*) c from ec_mother where tt4 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt4," +
+                "(select count(*) c from ec_mother where tt5 between '" + startDate + "' and '" + endDate + "' and pregnant='yes') tt5 " +
+                "from ec_mother limit 1;    ";
+        List<CommonPersonObject> pregnantVaccineList = context().allCommonsRepositoryobjects("ec_mother").customQuery(pregnantWomanSQL, new String[]{}, "ec_mother");
         if (pregnantVaccineList.size() < 1) {
 
             pregnantWomanObject = null;
@@ -195,7 +195,7 @@ public class VaccineReportActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        //  pregnantWomanObject=context().allCommonsRepositoryobjects("ec_woman").customQuery(pregnantWomanSQL, new String[]{}, "ec_woman").get(0);
+        //  pregnantWomanObject=context().allCommonsRepositoryobjects("ec_mother").customQuery(pregnantWomanSQL, new String[]{}, "ec_mother").get(0);
 
         Log.logDebug("Reached fieldVaccineObjectForField ");
     }

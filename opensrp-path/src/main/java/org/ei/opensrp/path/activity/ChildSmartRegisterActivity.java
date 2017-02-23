@@ -38,6 +38,7 @@ import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -175,6 +176,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             }
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
+            setLocationHierarchyQuestions(form);
             if (form != null) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                 //inject zeir id into the form
@@ -208,7 +210,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "ec_child", "mother", "Child_Photo");
+                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -339,5 +341,24 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     @Override
     public void onWeightTaken(WeightWrapper tag) {
 
+    }
+
+    private void setLocationHierarchyQuestions(JSONObject form) {
+        try {
+            JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
+            JSONArray treeWithoutOther = JsonFormUtils.generateLocationHierarchyTree(context(), false);
+            JSONArray treeWithOther = JsonFormUtils.generateLocationHierarchyTree(context(), true);
+
+            for (int i = 0; i < questions.length(); i++) {
+                if (questions.getJSONObject(i).getString("key").equals("Home_Facility")
+                        || questions.getJSONObject(i).getString("key").equals("Birth_Facility_Name")) {
+                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithoutOther.toString()));
+                } else if (questions.getJSONObject(i).getString("key").equals("Residential_Area")) {
+                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithOther.toString()));
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 }
