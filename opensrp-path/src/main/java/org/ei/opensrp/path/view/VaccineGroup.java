@@ -34,7 +34,8 @@ import util.Utils;
  * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
  */
 
-public class VaccineGroup extends LinearLayout implements View.OnClickListener, VaccineCard.OnVaccineStateChangeListener {
+public class VaccineGroup extends LinearLayout implements View.OnClickListener,
+        VaccineCard.OnVaccineStateChangeListener,VaccineCard.OnUndoButtonClickListener {
     private static final String TAG = "VaccineGroup";
     private Context context;
     private TextView nameTV;
@@ -46,6 +47,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
     private State state;
     private OnRecordAllClickListener onRecordAllClickListener;
     private OnVaccineClickedListener onVaccineClickedListener;
+    private OnVaccineUndoClickListener onVaccineUndoClickListener;
     private SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
 
     private static enum State {
@@ -101,6 +103,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         this.vaccineData = vaccineData;
         this.childDetails = childDetails;
         updateViews();
+    }
+
+    public void setOnVaccineUndoClickListener(OnVaccineUndoClickListener onVaccineUndoClickListener) {
+        this.onVaccineUndoClickListener = onVaccineUndoClickListener;
     }
 
     public void updateViews() {
@@ -201,6 +207,13 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
         updateViews();
     }
 
+    @Override
+    public void onUndoClick(VaccineCard vaccineCard) {
+        if (this.onVaccineUndoClickListener != null) {
+            this.onVaccineUndoClickListener.onUndoClick(this, vaccineCard.getVaccineWrapper());
+        }
+    }
+
     public void setOnRecordAllClickListener(OnRecordAllClickListener onRecordAllClickListener) {
         this.onRecordAllClickListener = onRecordAllClickListener;
     }
@@ -215,5 +228,9 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener, 
 
     public static interface OnVaccineClickedListener {
         void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
+    }
+
+    public static interface OnVaccineUndoClickListener {
+        void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
     }
 }

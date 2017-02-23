@@ -73,6 +73,7 @@ public class VaccineCardAdapter extends BaseAdapter {
             if (!vaccineCards.containsKey(vaccineName)) {
                 VaccineCard vaccineCard = new VaccineCard(context);
                 vaccineCard.setOnVaccineStateChangeListener(vaccineGroup);
+                vaccineCard.setOnUndoButtonClickListener(vaccineGroup);
                 vaccineCard.setOnClickListener(vaccineGroup);
                 vaccineCard.setId((int) getItemId(position));
                 VaccineWrapper vaccineWrapper = new VaccineWrapper();

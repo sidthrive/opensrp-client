@@ -246,7 +246,7 @@ public class VaccinatorUtils {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(context, vaccineWrapper);
+                UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(context, vaccineWrapper, null);
                 undoVaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
             }
         });

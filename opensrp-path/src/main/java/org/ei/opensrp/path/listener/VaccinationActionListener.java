@@ -1,6 +1,7 @@
 package org.ei.opensrp.path.listener;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import org.ei.opensrp.path.domain.VaccineWrapper;
 
@@ -15,5 +16,5 @@ public interface VaccinationActionListener {
 
     public void onVaccinateEarlier(List<VaccineWrapper> tags, View view);
 
-    public void onUndoVaccination(VaccineWrapper tag);
+    public void onUndoVaccination(VaccineWrapper tag, View view);
 }

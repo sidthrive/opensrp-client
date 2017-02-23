@@ -33,6 +33,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
     private Button undoB;
     private State state;
     private OnVaccineStateChangeListener onVaccineStateChangeListener;
+    private OnUndoButtonClickListener onUndoButtonClickListener;
     private VaccineWrapper vaccineWrapper;
 
     public static enum State {
@@ -211,9 +212,14 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.equals(undoB)) {
-            //TODO add undo listener
-            undoVaccinationDate();
+            if(onUndoButtonClickListener != null) {
+                onUndoButtonClickListener.onUndoClick(this);
+            }
         }
+    }
+
+    public void setOnUndoButtonClickListener(OnUndoButtonClickListener onUndoButtonClickListener) {
+        this.onUndoButtonClickListener = onUndoButtonClickListener;
     }
 
     private void recordVaccinated(Date date) {
@@ -230,5 +236,9 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
         if (onVaccineStateChangeListener != null) {
             onVaccineStateChangeListener.onStateChanged(this.state);
         }
+    }
+
+    public static interface OnUndoButtonClickListener {
+        void onUndoClick(VaccineCard vaccineCard);
     }
 }

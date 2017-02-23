@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -21,6 +22,7 @@ import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
+import org.ei.opensrp.path.fragment.UndoVaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
@@ -223,6 +225,12 @@ public class ChildImmunizationActivity extends BaseActivity
                             addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
                         }
                     });
+                    curGroup.setOnVaccineUndoClickListener(new VaccineGroup.OnVaccineUndoClickListener() {
+                        @Override
+                        public void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
+                            addVaccineUndoDialogFragment(vaccineGroup, vaccine);
+                        }
+                    });
                     vaccineGroupCanvasLL.addView(curGroup);
                     vaccineGroups.add(curGroup);
                 }
@@ -230,6 +238,17 @@ public class ChildImmunizationActivity extends BaseActivity
                 Log.e(TAG, Log.getStackTraceString(e));
             }
         }
+    }
+
+    private void addVaccineUndoDialogFragment(VaccineGroup vaccineGroup, VaccineWrapper vaccineWrapper) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag(VaccinationDialogFragment.DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(this, vaccineWrapper, vaccineGroup);
+        undoVaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
     }
 
     private void updateRecordWeightView() {
@@ -360,8 +379,14 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag) {
-
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
+        if (tag != null) {
+            tag.setUpdatedVaccineDate(null, false);
+        }
+        if (view != null && view instanceof VaccineGroup) {
+            VaccineGroup vaccineGroup = (VaccineGroup) view;
+            vaccineGroup.updateViews();
+        }
     }
 
     public void addVaccinationDialogFragment(List<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {

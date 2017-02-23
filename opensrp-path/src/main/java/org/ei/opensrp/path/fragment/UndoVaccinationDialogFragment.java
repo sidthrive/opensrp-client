@@ -23,19 +23,21 @@ import org.ei.opensrp.path.listener.VaccinationActionListener;
 public class UndoVaccinationDialogFragment extends DialogFragment {
     private final Context context;
     private final VaccineWrapper tag;
+    private final View viewGroup;
     private VaccinationActionListener listener;
     public static final String DIALOG_TAG = "UndoVaccinationDialogFragment";
 
     private UndoVaccinationDialogFragment(Context context,
-                                          VaccineWrapper tag) {
+                                          VaccineWrapper tag, View viewGroup) {
         this.context = context;
         this.tag = tag;
+        this.viewGroup = viewGroup;
     }
 
     public static UndoVaccinationDialogFragment newInstance(
             Context context,
-            VaccineWrapper tag) {
-        return new UndoVaccinationDialogFragment(context, tag);
+            VaccineWrapper tag, View viewGroup) {
+        return new UndoVaccinationDialogFragment(context, tag, viewGroup);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
                 dismiss();
                 //updateFormSubmission();
 
-                listener.onUndoVaccination(tag);
+                listener.onUndoVaccination(tag, viewGroup);
             }
         });
 

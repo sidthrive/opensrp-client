@@ -277,7 +277,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag) {
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
         TableRow tableRow = findRow(tag);
         if (tableRow != null) {
             VaccinateActionUtils.undoVaccination(this, tableRow, tag);
