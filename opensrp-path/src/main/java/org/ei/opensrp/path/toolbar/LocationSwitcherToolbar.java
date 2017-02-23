@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.BaseActivity;
 import org.ei.opensrp.path.fragment.LocationPickerDialogFragment;
+import org.ei.opensrp.path.view.LocationActionView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -90,7 +92,7 @@ public class LocationSwitcherToolbar extends BaseToolbar {
                 name = selectedLocation.get(selectedLocation.size() - 1);
             }
 
-            baseActivity.getMenu().findItem(R.id.location_switcher).setTitle(name);
+            ((LocationActionView) baseActivity.getMenu().findItem(R.id.location_switcher).getActionView()).setItemText(name);
         }
     }
 
@@ -116,26 +118,40 @@ public class LocationSwitcherToolbar extends BaseToolbar {
 
     @Override
     public void prepareMenu() {
+        if (baseActivity != null) {
+            LocationActionView locationActionView = new LocationActionView(baseActivity);
+            locationActionView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLocationPickerDialog();
+                }
+            });
+            baseActivity.getMenu().findItem(R.id.location_switcher).setActionView(locationActionView);
+        }
         updateMenu(getCurrentLocation());
     }
 
     @Override
     public MenuItem onMenuItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.location_switcher) {
-            if (locationPickerDialogFragment != null && baseActivity != null) {
-                FragmentTransaction ft = baseActivity.getFragmentManager().beginTransaction();
-                Fragment prev = baseActivity.getFragmentManager()
-                        .findFragmentByTag(LOCATION_DIALOG_TAG);
-
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                locationPickerDialogFragment.show(ft, LOCATION_DIALOG_TAG);
-            }
+            showLocationPickerDialog();
         }
         return menuItem;
+    }
+
+    private void showLocationPickerDialog() {
+        if (locationPickerDialogFragment != null && baseActivity != null) {
+            FragmentTransaction ft = baseActivity.getFragmentManager().beginTransaction();
+            Fragment prev = baseActivity.getFragmentManager()
+                    .findFragmentByTag(LOCATION_DIALOG_TAG);
+
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            locationPickerDialogFragment.show(ft, LOCATION_DIALOG_TAG);
+        }
     }
 
     public static interface OnLocationChangeListener {

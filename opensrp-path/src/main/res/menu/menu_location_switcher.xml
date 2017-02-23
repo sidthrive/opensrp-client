@@ -4,5 +4,5 @@
     <item
         android:id="@+id/location_switcher"
         app:showAsAction="always"
-        android:title="Default Location" />
+        android:title="" />
 </menu>
