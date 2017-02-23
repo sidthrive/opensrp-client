@@ -409,15 +409,16 @@ public class UserService {
      */
     private String decryptString(KeyStore.PrivateKeyEntry privateKeyEntry, String cipherText)
             throws Exception {
-        RSAPrivateKey privateKey = (RSAPrivateKey) privateKeyEntry.getPrivateKey();
 
         Cipher output;
         if(Build.VERSION.SDK_INT >= 23) {
-            output = Cipher.getInstance(CIPHER_PROVIDER);
+            output = Cipher.getInstance(CIPHER);
+            output.init(Cipher.DECRYPT_MODE, privateKeyEntry.getPrivateKey());
         } else {
             output = Cipher.getInstance(CIPHER, CIPHER_PROVIDER);
+            RSAPrivateKey privateKey = (RSAPrivateKey) privateKeyEntry.getPrivateKey();
+            output.init(Cipher.DECRYPT_MODE, privateKey);
         }
-        output.init(Cipher.DECRYPT_MODE, privateKey);
 
         CipherInputStream cipherInputStream = new CipherInputStream(
                 new ByteArrayInputStream(Base64.decode(cipherText, Base64.DEFAULT)), output);
@@ -450,7 +451,7 @@ public class UserService {
 
         Cipher input;
         if(Build.VERSION.SDK_INT >= 23) {
-            input = Cipher.getInstance(CIPHER_PROVIDER);
+            input = Cipher.getInstance(CIPHER);
         } else {
             input = Cipher.getInstance(CIPHER, CIPHER_PROVIDER);
         }
