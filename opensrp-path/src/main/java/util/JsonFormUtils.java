@@ -607,6 +607,56 @@ public class JsonFormUtils {
         }
     }
 
+    public static JSONArray generateLocationHierarchyTree(org.ei.opensrp.Context context, boolean withOtherOption) {
+        JSONArray array = new JSONArray();
+        try {
+            JSONObject locationData = new JSONObject(context.anmLocationController().get());
+            if (locationData.has("locationsHierarchy")
+                    && locationData.getJSONObject("locationsHierarchy").has("map")) {
+                JSONObject map = locationData.getJSONObject("locationsHierarchy").getJSONObject("map");
+                Iterator<String> keys = map.keys();
+                while (keys.hasNext()) {
+                    String curKey = keys.next();
+                    getFormJsonData(array, map.getJSONObject(curKey));
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        if (withOtherOption) {
+            try {
+                JSONObject other = new JSONObject();
+                other.put("name", "Other");
+                other.put("level", "");
+                array.put(other);
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+        return array;
+    }
+
+    private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData) throws JSONException {
+        JSONObject jsonFormObject = new JSONObject();
+        jsonFormObject.put("name", openMrsLocationData.getJSONObject("node").getString("name"));
+        String level = "";
+        try {
+            level = openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0);
+        } catch (JSONException e) {
+        }
+        jsonFormObject.put("level", level);
+        JSONArray children = new JSONArray();
+        if (openMrsLocationData.has("children")) {
+            Iterator<String> childIterator = openMrsLocationData.getJSONObject("children").keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                getFormJsonData(children, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey));
+            }
+            jsonFormObject.put("nodes", children);
+        }
+        allLocationData.put(jsonFormObject);
+    }
+
 /*    // TODO ADD Subform
     public Client createSubformClient(SubformMap subf) throws ParseException {
         String firstName = subf.getFieldValue(getFieldName(FormEntityConstants.Person.first_name, subf));
