@@ -70,8 +70,11 @@ public class BidanHomeActivity extends SecuredActivity {
 //                e.printStackTrace();
 //            }
 //            mtool.findAllUnStored();
-            mtool.setVectorfromAPI();
-            mtool.parseSaveVector();
+
+            // Fetch vector from API and stored to local db
+//            mtool.setVectorfromAPI();
+            // Fetch vector from local db and stored as buffer
+            mtool.parseSaveVector(context());
 
 //            mtool.vector_findAllUnsaved();
         }

@@ -5,38 +5,27 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.acra.util.ToastSender;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
-import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
-import util.ImageCache;
 import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -60,7 +49,7 @@ public class KIDetailActivity extends Activity {
     public static CommonPersonObjectClient kiclient;
 
     private static HashMap<String, String> hash;
-    private String mode;
+    private boolean updateMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,22 +232,21 @@ public class KIDetailActivity extends Activity {
             }
         });
 
-        hash = Tools.retrieveHash(context.applicationContext());
-
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-//                Log.e(TAG, "onClick: "+hash.size() );
-//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
-                if(hash.containsValue(entityid)){
-                    Log.e(TAG, "onClick: "+entityid+" updated" );
-                    mode = "updated";
-
+//                Log.e(TAG, "onClick: hash.size "+Tools.retrieveHash(getApplicationContext()).size() );
+//                Log.e(TAG, "onClick: hash.size "+hash.size() );
+//                Log.e(TAG, "onClick: id is exist ? "+hash.containsValue(entityid) );
+                if(Tools.retrieveHash(getApplicationContext()).containsValue(entityid)){
+//                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                    updateMode = true;
                 }
-                dispatchTakePictureIntent(kiview, mode);
+
+                dispatchTakePictureIntent(kiview, updateMode);
 
             }
         });
@@ -284,11 +272,14 @@ public class KIDetailActivity extends Activity {
     static String bindobject;
     static String entityid;
 
-    private void dispatchTakePictureIntent(ImageView imageView, String mode) {
-        Log.e(TAG, "dispatchTakePictureIntent: "+"klik" );
+    private void dispatchTakePictureIntent(ImageView imageView, boolean modeUpdate) {
+
+        Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
+
         mImageView = imageView;
+
         Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
-        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", true);
+        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
 
 
         //FIXME USE SmartShutterActivity INSTEAD

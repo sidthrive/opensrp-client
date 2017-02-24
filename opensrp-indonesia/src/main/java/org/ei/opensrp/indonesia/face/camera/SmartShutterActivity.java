@@ -976,14 +976,13 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
      * Function to take the raw YUV byte array and do the necessary conversions to save it.
      */
     private void savePicture(byte[] data) {
-        Log.e(TAG, "savePicture: "+entityId );
         Intent intent = new Intent(this, ImageConfirmation.class);
         // This is when smart shutter feature is not ON. Take the photo generally.
         if (data != null) {
-            intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation", data);
+            intent.putExtra("org.sid.sidface.ImageConfirmation", data);
         }
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera", switchCamera);
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation", displayAngle);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.switchCamera", switchCamera);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.orientation", displayAngle);
         intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityId);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", identifyPerson);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) kidetail);

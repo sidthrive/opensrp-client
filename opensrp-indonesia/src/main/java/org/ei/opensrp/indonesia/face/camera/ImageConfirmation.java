@@ -79,7 +79,7 @@ public class ImageConfirmation extends Activity {
     int angle;
     boolean switchCamera;
     private byte[] faceVector;
-    private boolean updated;
+    private boolean updated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,9 +240,9 @@ public class ImageConfirmation extends Activity {
      */
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
-        data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
-        angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
-        switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
+        data = getIntent().getByteArrayExtra("org.sid.sidface.ImageConfirmation");
+        angle = extras.getInt("org.sid.sidface.ImageConfirmation.orientation");
+        switchCamera = extras.getBoolean("org.sid.sidface.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
@@ -305,7 +305,10 @@ public class ImageConfirmation extends Activity {
                 Log.e(TAG, "onClick: " + identifyPerson);
                 Log.e(TAG, "onClick: " + entityId);
                 if (!identifyPerson) {
-                    saveAndClose(entityId);
+
+//                  saveAndClose(entityId);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
@@ -367,6 +370,7 @@ public class ImageConfirmation extends Activity {
     Save File and DB
      */
     private void saveAndClose(String entityId) {
+
         Log.e(TAG, "saveAndClose: updated "+ updated );
 
         faceVector = objFace.serializeRecogntionAlbum();
@@ -380,7 +384,9 @@ public class ImageConfirmation extends Activity {
 
         SmartShutterActivity.faceProc.resetAlbum();
 
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer, updated);
+//        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer, updated);
+        // TODO : change album buffer to String[]
+//        Tools.WritePictureToFile(storedBitmap, entityId, albumBuffer, updated);
 
         ImageConfirmation.this.finish();
 
