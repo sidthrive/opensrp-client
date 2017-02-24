@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -224,4 +225,9 @@ public class RecordWeightDialogFragment extends DialogFragment {
         Selection.setSelection(editWeight.getText(), stringBuilder.toString().length());
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+    }
 }

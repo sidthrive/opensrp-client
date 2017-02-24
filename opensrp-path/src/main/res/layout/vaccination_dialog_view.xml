@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:gravity="center_horizontal"
     android:orientation="horizontal">
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_shape">
 
@@ -25,7 +25,8 @@
                 android:layout_width="@dimen/client_profile_pic_dialog_width"
                 android:layout_height="@dimen/client_profile_pic_dialog_height"
                 android:layout_marginTop="20dp"
-                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/child_boy_infant" />
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -64,7 +65,7 @@
             <Button
                 android:id="@+id/vaccinate_today"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
@@ -80,7 +81,7 @@
             <Button
                 android:id="@+id/vaccinate_earlier"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"

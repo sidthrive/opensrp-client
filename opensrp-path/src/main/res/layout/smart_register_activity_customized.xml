@@ -30,7 +30,8 @@
         android:layout_height="@dimen/list_header_height"
         android:layout_marginLeft="@dimen/list_view_margin_left_and_right"
         android:layout_marginRight="@dimen/list_view_margin_left_and_right"
-        android:orientation="horizontal" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"/>
 
     <LinearLayout
         android:id="@+id/clients_lower_header_layout"

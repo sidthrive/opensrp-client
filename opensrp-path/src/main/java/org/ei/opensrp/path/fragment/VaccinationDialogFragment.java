@@ -5,13 +5,18 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -214,5 +219,18 @@ public class VaccinationDialogFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        Point size = new Point();
 
+        Display display = window.getWindowManager().getDefaultDisplay();
+        display.getSize(size);
+
+        int width = size.x;
+
+        window.setLayout((int) (width * 0.7), FrameLayout.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+    }
 }

@@ -124,10 +124,10 @@ public class ChildImmunizationActivity extends BaseActivity
             ProfileImage photo = ((ImageRepository) org.ei.opensrp.Context
                     .getInstance().imageRepository()).findByEntityId(childDetails.entityId());
             if (photo != null) {
-                Utils.setProfiePicFromPath(this, profileImageIV, photo.getFilepath(), org.ei.opensrp.R.drawable.ic_pencil);
+                Utils.setProfiePicFromPath(this, profileImageIV, photo.getFilepath(), null);
             } else {
                 int defaultProfileImg = ImageUtils.profileImageResourceByGender(gender);
-                Utils.setProfiePic(this, profileImageIV, defaultProfileImg, org.ei.opensrp.R.drawable.ic_pencil);
+                Utils.setProfiePic(this, profileImageIV, defaultProfileImg, null);
             }
         }
     }

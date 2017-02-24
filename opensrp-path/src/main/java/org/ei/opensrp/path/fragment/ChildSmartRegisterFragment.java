@@ -21,8 +21,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +54,8 @@ import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
+import org.ei.opensrp.view.customControls.FontVariant;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
@@ -210,6 +214,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         setServiceModeViewDrawableRight(null);
         initializeQueries();
         updateSearchView();
+        populateClientListHeaderView(view);
+
 
         View viewParent = (View) appliedSortView.getParent();
         viewParent.setVisibility(View.GONE);
@@ -349,6 +355,14 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             }
         });
+    }
+
+    private void populateClientListHeaderView(View view) {
+        LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.ei.opensrp.R.id.clients_header_layout);
+        clientsHeaderLayout.setVisibility(View.GONE);
+
+        LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
+        clientsView.addHeaderView(headerLayout);
     }
 
     private class EditDialogOptionModel implements DialogOptionModel {

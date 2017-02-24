@@ -21,10 +21,11 @@
             android:layout_width="@dimen/client_profile_pic_width"
             android:layout_height="@dimen/client_profile_pic_height"
             android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
             android:paddingBottom="2dp"
             android:paddingLeft="2dp"
             android:paddingTop="2dp"
-            android:scaleType="fitStart"
+            android:scaleType="centerCrop"
             android:src="@drawable/child_boy_infant" />
 
         <LinearLayout
@@ -118,7 +119,7 @@
             android:background="@drawable/record_weight_bg"
             android:text="Record&#10;weight"
             android:textAllCaps="false"
-            android:textColor="@color/record_weight_grey"
+            android:textColor="@color/text_black"
             android:textSize="16sp" />
 
     </LinearLayout>
