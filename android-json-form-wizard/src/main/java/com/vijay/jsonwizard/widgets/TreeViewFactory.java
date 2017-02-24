@@ -61,7 +61,7 @@ public class TreeViewFactory implements FormWidgetFactory {
                     }
                 }
             }
-
+            final String defaultValueString = jsonObject.optString("default");
 
             if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
                 editText.setText(jsonObject.optString("value"));
@@ -71,8 +71,17 @@ public class TreeViewFactory implements FormWidgetFactory {
                 }
             }
 
+            ArrayList<String> defaultValue = new ArrayList<>();
+            try {
+                JSONArray jsonArray = new JSONArray(defaultValueString);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    defaultValue.add(jsonArray.getString(i));
+                }
+            } catch (JSONException e){
+            }
+
             final TreeViewDialog treeViewDialog = new TreeViewDialog(context,
-                    jsonObject.getJSONArray("tree"));
+                    jsonObject.getJSONArray("tree"), defaultValue);
 
             treeViewDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
@@ -90,6 +99,7 @@ public class TreeViewFactory implements FormWidgetFactory {
                     ArrayList<String> value = treeViewDialog.getValue();
                     if (value != null && value.size() > 0) {
                         JSONArray array = new JSONArray(value);
+                        Log.d("TreeQ", array.toString());
                         editText.setText(array.toString());
                     }
                 }

@@ -234,6 +234,7 @@ public class UserService {
         loginWith(userName, password);
         saveAnmLocation(getUserLocation(userInfo));
         saveUserInfo(getUserData(userInfo));
+        saveDefaultLocationId(userName, getUserDefaultLocationId(userInfo));
     }
 
     public String getUserData(String userInfo) {
@@ -254,6 +255,24 @@ public class UserService {
             Log.v("Error : ", e.getMessage());
             return null;
         }
+    }
+
+    public void saveDefaultLocationId(String userName, String locationId) {
+        if (userName != null) {
+            allSharedPreferences.saveDefaultLocalityId(userName, locationId);
+        }
+    }
+
+    public String getUserDefaultLocationId(String userInfo) {
+        try {
+            JSONObject userLocationJSON = new JSONObject(userInfo);
+            return userLocationJSON.getJSONObject("team").getJSONObject("team")
+                    .getJSONObject("location").getString("uuid");
+        } catch (JSONException e) {
+            Log.v("Error : ", e.getMessage());
+        }
+
+        return null;
     }
 
     public void saveAnmLocation(String anmLocation) {

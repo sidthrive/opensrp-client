@@ -26,27 +26,27 @@ public class TreeViewDialog extends Dialog implements TreeNode.TreeNodeClickList
     private ArrayList<String> value;
     private TreeNode rootNode;
 
-    public TreeViewDialog(Context context, JSONArray structure) throws
+    public TreeViewDialog(Context context, JSONArray structure, ArrayList<String> defaultValue) throws
             JSONException {
         super(context);
         this.context = context;
-        init(structure);
+        init(structure, defaultValue);
     }
 
-    public TreeViewDialog(Context context, int theme, JSONArray structure) throws JSONException {
+    public TreeViewDialog(Context context, int theme, JSONArray structure, ArrayList<String> defaultValue) throws JSONException {
         super(context, theme);
         this.context = context;
-        init(structure);
+        init(structure, defaultValue);
     }
 
     protected TreeViewDialog(Context context, boolean cancelable, OnCancelListener
-            cancelListener, JSONArray structure, ArrayList<String> value) throws JSONException {
+            cancelListener, JSONArray structure, ArrayList<String> defaultValue) throws JSONException {
         super(context, cancelable, cancelListener);
         this.context = context;
-        init(structure);
+        init(structure, defaultValue);
     }
 
-    private void init(JSONArray nodes) throws JSONException {
+    private void init(JSONArray nodes, ArrayList<String> defaultValue) throws JSONException {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.dialog_tree_view);
         LinearLayout canvas = (LinearLayout) this.findViewById(R.id.canvas);
@@ -58,7 +58,7 @@ public class TreeViewDialog extends Dialog implements TreeNode.TreeNodeClickList
         rootObject.put(KEY_NAME, "");
         rootObject.put(KEY_LEVEL, "");
         rootObject.put(KEY_NODES, nodes);
-        rootNode = constructTreeView(rootObject, null);
+        rootNode = constructTreeView(rootObject, null, defaultValue);
 
         AndroidTreeView androidTreeView = new AndroidTreeView(context, rootNode);
         androidTreeView.setDefaultContainerStyle(R.style.TreeNodeStyle);
@@ -66,9 +66,10 @@ public class TreeViewDialog extends Dialog implements TreeNode.TreeNodeClickList
         canvas.addView(androidTreeView.getView());
     }
 
-    private TreeNode constructTreeView(JSONObject structure, TreeNode parent) throws
+    private TreeNode constructTreeView(JSONObject structure, TreeNode parent, ArrayList<String> defaultValue) throws
             JSONException {
-        TreeNode curNode = new TreeNode(structure.getString(KEY_NAME));
+        String name = structure.getString(KEY_NAME);
+        TreeNode curNode = new TreeNode(name);
         curNode.setClickListener(this);
         curNode.setViewHolder(new SelectableItemHolder(context, structure.getString(KEY_LEVEL)));
         if (parent == null) {
@@ -77,11 +78,14 @@ public class TreeViewDialog extends Dialog implements TreeNode.TreeNodeClickList
         if (structure.has(KEY_NODES)) {
             JSONArray options = structure.getJSONArray(KEY_NODES);
             for (int i = 0; i < options.length(); i++) {
-                constructTreeView(options.getJSONObject(i), curNode);
+                constructTreeView(options.getJSONObject(i), curNode, defaultValue);
             }
         }
 
         if (parent != null) {
+            if(parent.getLevel() == 0) {
+                setSelectedValue(curNode, 0, defaultValue);
+            }
             parent.addChild(curNode);
         }
 
@@ -117,28 +121,23 @@ public class TreeViewDialog extends Dialog implements TreeNode.TreeNodeClickList
         this.value = value;
     }
 
-    private void setSelectedValue(TreeNode treeNode) {
+    private static void setSelectedValue(TreeNode treeNode, int level, ArrayList<String> defaultValue) {
         if (treeNode != null) {
-            if (value != null) {
-                int level = treeNode.getLevel() - 1;
-                if (level >= 0 && level < value.size()) {
-                    String levelValue = value.get(level);
+            if (defaultValue != null) {
+                if (level >= 0 && level < defaultValue.size()) {
+                    String levelValue = defaultValue.get(level);
                     String nodeValue = (String) treeNode.getValue();
                     if (nodeValue != null && nodeValue.equals(levelValue)) {
-                        treeNode.setSelected(true);
                         treeNode.setExpanded(true);
                         List<TreeNode> children = treeNode.getChildren();
                         for (TreeNode curChild : children) {
-                            setSelectedValue(curChild);
+                            setSelectedValue(curChild, level + 1, defaultValue);
                         }
                         return;
                     }
-                } else if (level < 0) {
-                    treeNode.setSelected(true);
-                    treeNode.setExpanded(true);
                 }
             }
-            treeNode.setSelected(false);
+
             treeNode.setExpanded(false);
         }
     }

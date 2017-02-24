@@ -18,7 +18,6 @@ import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -30,7 +29,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.IDN;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1028,6 +1026,48 @@ public class JsonFormUtils {
             }
         }
         return array;
+    }
+
+    public static JSONArray generateDefaultLocationHierarchy(org.ei.opensrp.Context context) {
+        try {
+            String defaultLocationUuid = context.allSharedPreferences()
+                    .fetchDefaultLocalityId(context.allSharedPreferences().fetchRegisteredANM());
+            JSONObject locationData = new JSONObject(context.anmLocationController().get());
+            if (locationData.has("locationsHierarchy")
+                    && locationData.getJSONObject("locationsHierarchy").has("map")) {
+                JSONObject map = locationData.getJSONObject("locationsHierarchy").getJSONObject("map");
+                Iterator<String> keys = map.keys();
+                while (keys.hasNext()) {
+                    String curKey = keys.next();
+                    JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, map.getJSONObject(curKey), new JSONArray());
+                    if (curResult != null) {
+                        return curResult;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        return null;
+    }
+
+    private static JSONArray getDefaultLocationHierarchy(String defaultLocationUuid, JSONObject openMrsLocationData, JSONArray parents) throws JSONException {
+        parents.put(openMrsLocationData.getJSONObject("node").getString("name"));
+
+        if (openMrsLocationData.getJSONObject("node").getString("locationId").equals(defaultLocationUuid)) {
+            return parents;
+        }
+
+        if (openMrsLocationData.has("children")) {
+            Iterator<String> childIterator = openMrsLocationData.getJSONObject("children").keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey), new JSONArray(parents.toString()));
+                if (curResult != null) return curResult;
+            }
+        }
+
+        return null;
     }
 
     private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData) throws JSONException {

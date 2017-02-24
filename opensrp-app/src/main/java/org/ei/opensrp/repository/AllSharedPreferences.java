@@ -8,6 +8,7 @@ import java.util.Set;
 
 import static org.ei.opensrp.AllConstants.CURRENT_LOCALITY;
 import static org.ei.opensrp.AllConstants.DEFAULT_LOCALE;
+import static org.ei.opensrp.AllConstants.DEFAULT_LOCALITY_ID_PREFIX;
 import static org.ei.opensrp.AllConstants.DRISHTI_BASE_URL;
 import static org.ei.opensrp.AllConstants.ENCRYPTED_GROUP_ID_PREFIX;
 import static org.ei.opensrp.AllConstants.ENCRYPTED_PASSWORD_PREFIX;
@@ -55,6 +56,19 @@ public class AllSharedPreferences {
 
     public void savePioneerUser(String username) {
         preferences.edit().putString(PIONEER_USER, username).commit();
+    }
+
+    public void saveDefaultLocalityId(String username, String localityId) {
+        if (username != null) {
+            preferences.edit().putString(DEFAULT_LOCALITY_ID_PREFIX + username, localityId).commit();
+        }
+    }
+
+    public String fetchDefaultLocalityId(String username) {
+        if (username != null) {
+            return preferences.getString(DEFAULT_LOCALITY_ID_PREFIX + username, null);
+        }
+        return null;
     }
 
     public String fetchCurrentLocality() {

@@ -346,6 +346,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     private void setLocationHierarchyQuestions(JSONObject form) {
         try {
             JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
+            JSONArray defaultLocation = JsonFormUtils.generateDefaultLocationHierarchy(context());
             JSONArray treeWithoutOther = JsonFormUtils.generateLocationHierarchyTree(context(), false);
             JSONArray treeWithOther = JsonFormUtils.generateLocationHierarchyTree(context(), true);
 
@@ -353,8 +354,14 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
                 if (questions.getJSONObject(i).getString("key").equals("Home_Facility")
                         || questions.getJSONObject(i).getString("key").equals("Birth_Facility_Name")) {
                     questions.getJSONObject(i).put("tree", new JSONArray(treeWithoutOther.toString()));
+                    if (defaultLocation != null) {
+                        questions.getJSONObject(i).put("default", defaultLocation.toString());
+                    }
                 } else if (questions.getJSONObject(i).getString("key").equals("Residential_Area")) {
                     questions.getJSONObject(i).put("tree", new JSONArray(treeWithOther.toString()));
+                    if (defaultLocation != null) {
+                        questions.getJSONObject(i).put("default", defaultLocation.toString());
+                    }
                 }
             }
         } catch (JSONException e) {
