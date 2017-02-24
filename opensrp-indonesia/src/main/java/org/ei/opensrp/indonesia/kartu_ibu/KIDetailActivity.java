@@ -241,7 +241,7 @@ public class KIDetailActivity extends Activity {
 //                Log.e(TAG, "onClick: hash.size "+Tools.retrieveHash(getApplicationContext()).size() );
 //                Log.e(TAG, "onClick: hash.size "+hash.size() );
 //                Log.e(TAG, "onClick: id is exist ? "+hash.containsValue(entityid) );
-                if(Tools.retrieveHash(getApplicationContext()).containsValue(entityid)){
+                if(Tools.retrieveHash(getApplicationContext()).containsKey(entityid)){
 //                    Log.e(TAG, "onClick: "+entityid+" updated" );
                     updateMode = true;
                 }

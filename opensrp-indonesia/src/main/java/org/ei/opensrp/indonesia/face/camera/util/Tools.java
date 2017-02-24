@@ -39,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -146,17 +147,20 @@ public class Tools {
     private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated) {
 
         // insert into the db local
+        if (!updated) {
+            profileImage.setImageid(UUID.randomUUID().toString());
+            profileImage.setAnmId(anmId);
+            profileImage.setEntityID(entityId);
+            profileImage.setContenttype("jpeg");
+            profileImage.setFilepath(absoluteFileName);
+            profileImage.setFilecategory("profilepic");
+            profileImage.setFilevector(faceVector);
+            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
 
-        profileImage.setImageid(UUID.randomUUID().toString());
-        profileImage.setAnmId(anmId);
-        profileImage.setEntityID(entityId);
-        profileImage.setContenttype("jpeg");
-        profileImage.setFilepath(absoluteFileName);
-        profileImage.setFilecategory("profilepic");
-        profileImage.setFilevector(faceVector);
-        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-
-        imageRepo.add(profileImage);
+            imageRepo.add(profileImage);
+        } else {
+            imageRepo.updateByEntityId(entityId, faceVector);
+        }
 
     }
 
@@ -315,28 +319,33 @@ public class Tools {
     /**
      * Save Vector array to xml
      */
-    public void saveAlbum() {
-//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
+    public static void saveAlbum(String albumBuffer, android.content.Context context) {
+        Log.e(TAG, "saveAlbum: "+"start" );
 //		saveCloud(albumBuffer);
-//        Log.e(TAG, "Size of byte Array =" + albumBuffer.length);
-//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putString("albumArray", Arrays.toString(albumBuffer));
-//        editor.apply();
+        SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("albumArray", albumBuffer);
+        editor.apply();
+        Log.e(TAG, "saveAlbum: "+"end" );
     }
 
-    public void loadAlbum() {
+    public static void loadAlbum(android.content.Context context) {
 
-        Log.e(TAG, "loadAlbum: ");
-        SharedPreferences settings = appContext.applicationContext().getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+        Log.e(TAG, "loadAlbum: "+ "start");
+        SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString("albumArray", null);
 //
+        Log.e(TAG, "loadAlbum: "+arrayOfString );
         byte[] albumArray;
+
         if (arrayOfString != null) {
             String[] splitStringArray = arrayOfString.substring(1,
                     arrayOfString.length() - 1).split(", ");
 
             albumArray = new byte[splitStringArray.length];
+
+            Log.e(TAG, "loadAlbum: length"+ albumArray.length );
+
             for (int i = 0; i < splitStringArray.length; i++) {
                 albumArray[i] = Byte.parseByte(splitStringArray[i]);
             }
@@ -401,7 +410,7 @@ public class Tools {
             HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
             hashMap.clear();
             saveHash(hashMap, cl.getApplicationContext());
-            saveAlbum();
+//            saveAlbum();
 
             Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
         } else {
@@ -539,9 +548,9 @@ public class Tools {
             String filevector = pi.getFilevector();
             Log.e(TAG, "parseSaveVector: " + filevector);
 
-            // Skip if already existing
+            // Skip if already exist
 
-            if (!hash.containsValue(uid)) {
+            if (!hash.containsKey(uid)) {
                 hash.put(Integer.toString(i), uid);
                 saveHash(hash, appContext.applicationContext());
 
@@ -575,31 +584,50 @@ public class Tools {
 
     public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
 
-        Log.e(TAG, "saveAndClose: updated "+ updated );
-
+//        Log.e(TAG, "saveAndClose: updated "+ updated );
         byte[] faceVector = objFace.serializeRecogntionAlbum();
 
-        int result = objFace.addPerson(arrayPossition);
+        Log.e(TAG, "saveAndClose: length"+faceVector.length ); // 32
 
-        Log.e(TAG, "saveAndClose: "+ result );
+        if (!updated) {
 
-        hash = retrieveHash(context);
+            int result = objFace.addPerson(arrayPossition);
 
-        hash.put(entityId, Integer.toString(result));
+            Log.e(TAG, "saveAndClose: " + result);
+
+            hash = retrieveHash(context);
+
+            hash.put(entityId, Integer.toString(result));
 //
-        saveHash(hash, context);
+            // Save Hash
+            saveHash(hash, context);
 
-        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
 
-        String albumBufferArr = Arrays.toString(albumBuffer);
+//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
+            Log.e(TAG, "saveAndClose: " + faceVector.length);
+            saveAlbum(Arrays.toString(faceVector), context);
 
-        String[] faceVectorContent = albumBufferArr.substring(1,  albumBufferArr.length() - 1).split(", ");
+            String albumBufferArr = Arrays.toString(faceVector);
 
-        faceVectorContent = Arrays.copyOfRange(faceVectorContent, 32, 332);
+            String[] faceVectorContent = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
 
-        SmartShutterActivity.faceProc.resetAlbum();
+            // Get Face Vector Contnt Only by removing Header
+            faceVectorContent = Arrays.copyOfRange(faceVectorContent, 32, 332);
 
-        WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
+            WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
+
+            // Reset Album to get Single Face Vector
+            SmartShutterActivity.faceProc.resetAlbum();
+
+        } else {
+            int result = objFace.updatePerson(Integer.parseInt(hash.get(entityId)), 0);
+            if (result == 0) {
+                Log.e(TAG, "saveAndClose: "+"success" );
+            } else {
+                Log.e(TAG, "saveAndClose: "+ "Maximum Reached Limit for Face" );
+            }
+            saveAlbum(Arrays.toString(faceVector), context);
+        }
 
         new ImageConfirmation().finish();
 

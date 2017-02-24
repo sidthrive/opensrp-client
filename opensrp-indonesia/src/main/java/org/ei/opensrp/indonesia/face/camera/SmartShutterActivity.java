@@ -170,7 +170,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        loadAlbum();
+        Tools.loadAlbum(getApplicationContext());
     }
 
     @Override
@@ -512,7 +512,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             faceProc.setRecognitionConfidence(Tools.CONFIDENCE_VALUE);
 
 //            Tools tools = new Tools();
-            loadAlbum();
+//            Tools.loadAlbum(getApplicationContext());
 
         } else if (!isDevCompat && !activityStartedOnce) {
             Log.e(TAG, "Feature is NOT supported");

@@ -198,7 +198,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
-        initializeQueries();
+        initializeQueries(getCriteria());
     }
     private String filterStringForAll(){
         return "";
@@ -216,7 +216,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         return "Select Count(*) from ec_kartu_ibu";
     }
 
-    public void initializeQueries(){
+    public void initializeQueries(String s){
         try {
             Log.e(TAG, "initializeQueries: " );
         KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context().alertService());
@@ -227,8 +227,13 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ec_kartu_ibu");
        // countqueryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
-        mainCondition = " is_closed = 0 ";
-        joinTable = "";
+
+            if (s != null) {
+                mainCondition = "is_closed = 0 AND object_id LIKE '%"+ s +"%'";
+            } else {
+                mainCondition = "is_closed = 0 ";
+            }
+            joinTable = "";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
         super.CountExecute();
 
@@ -308,17 +313,17 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
 
     private String KiSortByNameAZ() {
-        return " namalengkap ASC";
+        return "namalengkap ASC";
     }
     private String KiSortByNameZA() {
-        return " namalengkap DESC";
+            return "namalengkap DESC";
     }
 
     private String KiSortByAge() {
-        return " umur DESC";
+        return "umur DESC";
     }
     private String KiSortByNoIbu() {
-        return " noIbu ASC";
+        return "noIbu ASC";
     }
 
     private String KiSortByEdd() {
@@ -373,7 +378,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
-            initializeQueries();
+            initializeQueries("");
         }
    //     updateSearchView();
 //
@@ -425,7 +430,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " is_closed = 0 ";
+                mainCondition = "is_closed = 0 ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
@@ -472,6 +477,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     public void setCriteria(String criteria) {
         this.criteria = criteria;
+    }
+
+    public static String getCriteria() {
+        return criteria;
     }
 
     //    WD

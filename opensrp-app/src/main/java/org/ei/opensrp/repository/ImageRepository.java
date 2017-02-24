@@ -167,4 +167,5 @@ public class ImageRepository extends DrishtiRepository {
         values.put(filevector_COLUMN, faceVector);
         Log.e(TAG, "updateByEntityId: "+values );
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, "entityID" + " = ?", new String[]{entityId});
+        close(entityId);
     }}
