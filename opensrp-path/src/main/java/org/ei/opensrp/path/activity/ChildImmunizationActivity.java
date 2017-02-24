@@ -19,6 +19,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.Photo;
+import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
@@ -27,6 +28,7 @@ import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.ExpandableHeightGridView;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.repository.ImageRepository;
 import org.joda.time.DateTime;
@@ -61,6 +63,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String EXTRA_CHILD_DETAILS = "child_details";
+    private static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private ArrayList<VaccineGroup> vaccineGroups;
 
@@ -69,6 +72,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
     // Data
     private CommonPersonObjectClient childDetails;
+    private RegisterClickables registerClickables;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,11 @@ public class ChildImmunizationActivity extends BaseActivity
             if (serializable != null && serializable instanceof CommonPersonObjectClient) {
                 childDetails = (CommonPersonObjectClient) serializable;
             }
+
+            serializable = extras.getSerializable(EXTRA_REGISTER_CLICKABLES);
+            if (serializable != null && serializable instanceof RegisterClickables) {
+                registerClickables = (RegisterClickables) serializable;
+            }
         }
     }
 
@@ -118,6 +127,12 @@ public class ChildImmunizationActivity extends BaseActivity
         updateRecordWeightView();
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        performRegisterActions();
+    }
+
     private void updateProfilePicture(Gender gender) {
         if (isDataOk()) {
             ImageView profileImageIV = (ImageView) findViewById(R.id.profile_image_iv);
@@ -139,7 +154,7 @@ public class ChildImmunizationActivity extends BaseActivity
             name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
                     + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
             childId = Utils.getValue(childDetails.getColumnmaps(), "program_client_id", false);
-            if(StringUtils.isNotBlank(childId)){
+            if (StringUtils.isNotBlank(childId)) {
                 childId = childId.replace("-", "");
             }
         }
@@ -262,7 +277,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "program_client_id", false);
-        if(StringUtils.isNotBlank(zeirId)){
+        if (StringUtils.isNotBlank(zeirId)) {
             zeirId = zeirId.replace("-", "");
         }
         String duration = "";
@@ -281,14 +296,15 @@ public class ChildImmunizationActivity extends BaseActivity
         weightWrapper.setPhoto(photo);
         weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
 
-        Button recordWeight = (Button) findViewById(R.id.record_weight);
-        recordWeight.setTag(weightWrapper);
-        recordWeight.setOnClickListener(new View.OnClickListener() {
+        Button recordWeightButton = (Button) findViewById(R.id.record_weight);
+        recordWeightButton.setTag(weightWrapper);
+        recordWeightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showWeightDialog(view);
             }
         });
+
     }
 
     private void showWeightDialog(View view) {
@@ -320,10 +336,11 @@ public class ChildImmunizationActivity extends BaseActivity
         return fileContents;
     }
 
-    public static void launchActivity(Context fromContext, CommonPersonObjectClient childDetails) {
+    public static void launchActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
         Intent intent = new Intent(fromContext, ChildImmunizationActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
         intent.putExtras(bundle);
 
         fromContext.startActivity(intent);
@@ -404,5 +421,27 @@ public class ChildImmunizationActivity extends BaseActivity
         ft.addToBackStack(null);
         VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(this, vaccineWrappers, vaccineGroup);
         vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
+    }
+
+    public void performRegisterActions() {
+        if (this.registerClickables != null) {
+            if (this.registerClickables.isRecordWeight()) {
+                Button recordWeightButton = (Button) findViewById(R.id.record_weight);
+                recordWeightButton.performClick();
+            } else if (this.registerClickables.isRecordAll()) {
+                // TODO get the right vaccineCard/recordAll
+                if (vaccineGroups != null) {
+                    final VaccineGroup vaccineGroup = vaccineGroups.get(0);
+                    ExpandableHeightGridView gridView = vaccineGroup.getGridView();
+                    gridView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView recordAllTV = (TextView) vaccineGroup.findViewById(R.id.record_all_tv);
+                            recordAllTV.performClick();
+                        }
+                    });
+                }
+            }
+        }
     }
 }

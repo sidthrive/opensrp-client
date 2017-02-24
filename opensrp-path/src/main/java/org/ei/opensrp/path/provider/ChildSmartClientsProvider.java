@@ -161,16 +161,11 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);
 
-        Photo photo = ImageUtils.profilePhotoByClient(pc);
-
-        WeightWrapper weightWrapper = new WeightWrapper();
-        weightWrapper.setPatientName(childName);
-        weightWrapper.setPatientNumber(zeirId);
-        weightWrapper.setPatientAge(duration);
-        weightWrapper.setPhoto(photo);
-        weightWrapper.setPmtctStatus(getValue(pc.getColumnmaps(), "pmtct_status", false));
-        convertView.findViewById(R.id.record_weight).setTag(weightWrapper);
+        convertView.findViewById(R.id.record_weight).setTag(client);
         convertView.findViewById(R.id.record_weight).setOnClickListener(onClickListener);
+
+        convertView.findViewById(R.id.record_vaccination).setTag(client);
+        convertView.findViewById(R.id.record_vaccination).setOnClickListener(onClickListener);
 
         convertView.setLayoutParams(clientViewLayoutParams);
 
