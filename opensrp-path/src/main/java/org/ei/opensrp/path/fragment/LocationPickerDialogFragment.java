@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +13,25 @@ import android.widget.LinearLayout;
 
 import com.google.common.base.Strings;
 
+import org.ei.opensrp.Context;
+import org.ei.opensrp.path.activity.BaseActivity;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.view.activity.SecuredActivity;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.opensrp.api.domain.Location;
 import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import atv.holder.SelectableItemHolder;
 import atv.model.TreeNode;
 import atv.view.AndroidTreeView;
+import util.JsonFormUtils;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
 
@@ -33,15 +41,52 @@ import static org.ei.opensrp.util.StringUtil.humanize;
 
 @SuppressLint("ValidFragment")
 public class LocationPickerDialogFragment extends DialogFragment implements TreeNode.TreeNodeClickListener {
+    private static final String TAG = "LocPickerFragment";
+    private Context openSrpContext;
     private final Activity parent;
     private final String locationJSONString;
     private AndroidTreeView tView;
     private ArrayList<String> value;
+    private ArrayList<String> defaultValue;
     private LocationSwitcherToolbar.OnLocationChangeListener onLocationChangeListener;
 
-    public LocationPickerDialogFragment(Activity parent, String locationJSONString) {
+    public LocationPickerDialogFragment(Activity parent, Context context, String locationJSONString) {
         this.parent = parent;
+        openSrpContext = context;
         this.locationJSONString = locationJSONString;
+        defaultValue = new ArrayList<>();
+        JSONArray rawDefaultLocation = JsonFormUtils
+                .generateDefaultLocationHierarchy(openSrpContext);
+
+        if (rawDefaultLocation != null) {
+            try {
+                for (int i = 0; i < rawDefaultLocation.length(); i++) {
+                    defaultValue.add(rawDefaultLocation.getString(i));
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+
+        String currentLocality = openSrpContext.allSharedPreferences().fetchCurrentLocality();
+        if (currentLocality != null) {
+            try {
+                JSONArray locationArray = new JSONArray(currentLocality);
+                ArrayList<String> result = new ArrayList<>();
+                for (int i = 0; i < locationArray.length(); i++) {
+                    result.add(locationArray.getString(i));
+                }
+                value = result;
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+
+        if (value == null || value.size() == 0) {
+            if (defaultValue != null) {
+                value = new ArrayList<>(defaultValue);
+            }
+        }
     }
 
     @Override
@@ -64,6 +109,9 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
 
         // creating the tree
         locationTreeToTreNode(root, locationMap);
+        for (TreeNode curNode : root.getChildren()) {
+            setSelectedValue(curNode, 0, value);
+        }
 
         tView = new AndroidTreeView(getActivity(), root);
         tView.setDefaultContainerStyle(org.ei.opensrp.R.style.TreeNodeStyle);
@@ -72,6 +120,16 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
         // tView.getSelected().get(1).
         dialogView.addView(tView.getView());
         return dialogView;
+    }
+
+    private void saveCurrentLocation() {
+        if (parent != null && parent instanceof BaseActivity) {
+            String locality = null;
+            if (this.value != null) {
+                locality = new JSONArray(this.value).toString();
+            }
+            openSrpContext.allSharedPreferences().saveCurrentLocality(locality);
+        }
     }
 
     public void setOnLocationChangeListener(LocationSwitcherToolbar.OnLocationChangeListener onLocationChangeListener) {
@@ -111,16 +169,46 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
             Collections.reverse(reversedValue);
             this.value = reversedValue;
             dismiss();
-            if(this.onLocationChangeListener != null) {
+            saveCurrentLocation();
+            if (this.onLocationChangeListener != null) {
                 onLocationChangeListener.onLocationChanged(this.value);
             }
         }
+    }
+
+    public ArrayList<String> getValue() {
+        if (this.value != null) {
+            return new ArrayList<>(this.value);
+        }
+
+        return null;
     }
 
     private static void retrieveValue(TreeNode node, ArrayList<String> value) {
         if (node.getParent() != null) {
             value.add((String) node.getValue());
             retrieveValue(node.getParent(), value);
+        }
+    }
+
+    private static void setSelectedValue(TreeNode treeNode, int level, ArrayList<String> defaultValue) {
+        if (treeNode != null) {
+            if (defaultValue != null) {
+                if (level >= 0 && level < defaultValue.size()) {
+                    String levelValue = defaultValue.get(level);
+                    String nodeValue = (String) treeNode.getValue();
+                    if (nodeValue != null && nodeValue.equals(levelValue)) {
+                        treeNode.setExpanded(true);
+                        List<TreeNode> children = treeNode.getChildren();
+                        for (TreeNode curChild : children) {
+                            setSelectedValue(curChild, level + 1, defaultValue);
+                        }
+                        return;
+                    }
+                }
+            }
+
+            treeNode.setExpanded(false);
         }
     }
 }

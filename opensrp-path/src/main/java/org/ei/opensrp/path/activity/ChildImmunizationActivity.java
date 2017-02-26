@@ -1,6 +1,5 @@
 package org.ei.opensrp.path.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -37,7 +36,6 @@ import org.opensrp.api.constants.Gender;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,7 +74,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar = (LocationSwitcherToolbar) getToolbar();
-        toolbar.initLocationPicker(this);
+        toolbar.init(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

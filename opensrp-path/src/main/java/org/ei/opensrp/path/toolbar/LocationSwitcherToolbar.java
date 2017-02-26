@@ -47,41 +47,15 @@ public class LocationSwitcherToolbar extends BaseToolbar {
         super(context, attrs, defStyleAttr);
     }
 
-    public void initLocationPicker(BaseActivity baseActivity) {
+    public void init(BaseActivity baseActivity) {
         this.baseActivity = baseActivity;
-        if (baseActivity != null) {
-            locationPickerDialogFragment = new LocationPickerDialogFragment(baseActivity,
-                    baseActivity.getOpenSRPContext().anmLocationController().get());
-            locationPickerDialogFragment.setOnLocationChangeListener(new OnLocationChangeListener() {
-                @Override
-                public void onLocationChanged(ArrayList<String> newLocation) {
-                    updateCurrentLocation(newLocation);
-                    if (onLocationChangeListener != null) {
-                        onLocationChangeListener.onLocationChanged(newLocation);
-                    }
-                }
-            });
-        }
     }
 
     public ArrayList<String> getCurrentLocation() {
-        if (baseActivity != null) {
-            String currentLocality = baseActivity.getOpenSRPContext().allSharedPreferences()
-                    .fetchCurrentLocality();
-            if (currentLocality != null) {
-                try {
-                    JSONArray locationArray = new JSONArray(currentLocality);
-                    ArrayList<String> result = new ArrayList<>();
-                    for (int i = 0; i < locationArray.length(); i++) {
-                        result.add(locationArray.getString(i));
-                    }
-
-                    return result;
-                } catch (JSONException e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
-                }
-            }
+        if (locationPickerDialogFragment != null) {
+            return locationPickerDialogFragment.getValue();
         }
+
         return null;
     }
 
@@ -92,18 +66,8 @@ public class LocationSwitcherToolbar extends BaseToolbar {
                 name = selectedLocation.get(selectedLocation.size() - 1);
             }
 
-            ((LocationActionView) baseActivity.getMenu().findItem(R.id.location_switcher).getActionView()).setItemText(name);
-        }
-    }
-
-    private void updateCurrentLocation(ArrayList<String> newLocation) {
-        if (baseActivity != null) {
-            String locality = null;
-            if (newLocation != null) {
-                locality = new JSONArray(newLocation).toString();
-            }
-            baseActivity.getOpenSRPContext().allSharedPreferences().saveCurrentLocality(locality);
-            updateMenu(newLocation);
+            ((LocationActionView) baseActivity.getMenu().findItem(R.id.location_switcher)
+                    .getActionView()).setItemText(name);
         }
     }
 
@@ -119,6 +83,19 @@ public class LocationSwitcherToolbar extends BaseToolbar {
     @Override
     public void prepareMenu() {
         if (baseActivity != null) {
+            locationPickerDialogFragment = new LocationPickerDialogFragment(baseActivity,
+                    baseActivity.getOpenSRPContext(),
+                    baseActivity.getOpenSRPContext().anmLocationController().get());
+            locationPickerDialogFragment.setOnLocationChangeListener(new OnLocationChangeListener() {
+                @Override
+                public void onLocationChanged(ArrayList<String> newLocation) {
+                    updateMenu(newLocation);
+                    if (onLocationChangeListener != null) {
+                        onLocationChangeListener.onLocationChanged(newLocation);
+                    }
+                }
+            });
+
             LocationActionView locationActionView = new LocationActionView(baseActivity);
             locationActionView.setOnClickListener(new OnClickListener() {
                 @Override
