@@ -230,4 +230,8 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
     public static interface OnVaccineUndoClickListener {
         void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
     }
+
+    public ExpandableHeightGridView getGridView(){
+        return vaccinesGV;
+    }
 }

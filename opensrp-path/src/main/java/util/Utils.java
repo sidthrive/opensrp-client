@@ -428,9 +428,9 @@ public class Utils {
         }
     }
 
-    public static void setProfiePic(Context context, ImageView mImageView, String entityId, Object watermark){
+    public static void setProfiePic(Context context, ImageView mImageView, String entityId, Object watermark) {
         ProfileImage photo = ((ImageRepository) org.ei.opensrp.Context.getInstance().imageRepository()).findByEntityId(entityId);
-        if(photo != null){
+        if (photo != null) {
             setProfiePicFromPath(context, mImageView, photo.getFilepath(), watermark);
         }
     }
@@ -438,10 +438,9 @@ public class Utils {
     public static void setProfiePicFromPath(Context context, ImageView mImageView, String photoPath, Object watermark) {
         mImageView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         if (watermark == null) {
-            Picasso.with(context).load(new File(photoPath)).resize(mImageView.getMeasuredWidth(), mImageView.getMeasuredHeight()).into(mImageView);
+            Picasso.with(context).load(new File(photoPath)).into(mImageView);
         } else {
             Picasso.with(context).load(new File(photoPath))
-                    .resize(mImageView.getMeasuredWidth(), mImageView.getMeasuredHeight())
                     .transform(new WatermarkTransformation(watermark))
                     .into(mImageView);
         }
@@ -450,10 +449,9 @@ public class Utils {
     public static void setProfiePic(Context context, ImageView mImageView, int photoResId, Object watermark) {
         mImageView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         if (watermark == null) {
-            Picasso.with(context).load(photoResId).resize(mImageView.getMeasuredWidth(), mImageView.getMeasuredHeight()).into(mImageView);
+            Picasso.with(context).load(photoResId).into(mImageView);
         } else {
             Picasso.with(context).load(photoResId)
-                    .resize(mImageView.getMeasuredWidth(), mImageView.getMeasuredHeight())
                     .transform(new WatermarkTransformation(watermark))
                     .into(mImageView);
         }

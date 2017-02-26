@@ -5,13 +5,19 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,9 +87,9 @@ public class VaccinationDialogFragment extends DialogFragment {
 
             VaccineWrapper vaccineWrapper = tags.get(0);
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-            if(vaccine != null) {
+            if (vaccine != null) {
                 vaccineView.setText(vaccine.display());
-            }else {
+            } else {
                 vaccineView.setText(vaccineWrapper.getName());
             }
             CheckBox select = (CheckBox) vaccinationName.findViewById(R.id.select);
@@ -97,9 +103,9 @@ public class VaccinationDialogFragment extends DialogFragment {
                 TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
                 VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-                if(vaccineWrapper.getVaccine() != null) {
+                if (vaccineWrapper.getVaccine() != null) {
                     vaccineView.setText(vaccine.display());
-                }else {
+                } else {
                     vaccineView.setText(vaccineWrapper.getName());
                 }
 
@@ -137,7 +143,7 @@ public class VaccinationDialogFragment extends DialogFragment {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
-                for(VaccineWrapper tag: tags) {
+                for (VaccineWrapper tag : tags) {
                     tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), false);
                 }
                 //updateFormSubmission();
@@ -154,7 +160,7 @@ public class VaccinationDialogFragment extends DialogFragment {
                 dismiss();
 
                 Calendar calendar = Calendar.getInstance();
-                for(VaccineWrapper tag: tags) {
+                for (VaccineWrapper tag : tags) {
                     tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), true);
                 }
                 //updateFormSubmission();
@@ -214,5 +220,26 @@ public class VaccinationDialogFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                Window window = getDialog().getWindow();
+                Point size = new Point();
+
+                Display display = window.getWindowManager().getDefaultDisplay();
+                display.getSize(size);
+
+                int width = size.x;
+
+                window.setLayout((int) (width * 0.7), FrameLayout.LayoutParams.WRAP_CONTENT);
+                window.setGravity(Gravity.CENTER);
+            }
+        });
+    }
 }

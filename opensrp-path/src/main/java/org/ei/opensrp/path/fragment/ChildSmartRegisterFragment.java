@@ -21,8 +21,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +43,7 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.Client;
+import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.option.BasicSearchOption;
@@ -52,6 +55,8 @@ import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
+import org.ei.opensrp.view.customControls.FontVariant;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
@@ -210,6 +215,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         setServiceModeViewDrawableRight(null);
         initializeQueries();
         updateSearchView();
+        populateClientListHeaderView(view);
+
 
         View viewParent = (View) appliedSortView.getParent();
         viewParent.setVisibility(View.GONE);
@@ -291,33 +298,33 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            HashMap<String, String> map = new HashMap<>();
+            map.putAll(followupOverrides(client));
+            map.putAll(providerDetails());
+
+            RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
                 case R.id.child_profile_info_layout:
-                    CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-                    HashMap<String, String> map = new HashMap<>();
-                    map.putAll(followupOverrides(client));
-                    map.putAll(providerDetails());
 
-                    ChildImmunizationActivity.launchActivity(getActivity(), client);
-
+                    ChildImmunizationActivity.launchActivity(getActivity(), client, null);
                     getActivity().finish();
+
                     break;
                 case R.id.record_weight:
-                    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                    Fragment prev = getActivity().getFragmentManager().findFragmentByTag(RecordWeightDialogFragment.DIALOG_TAG);
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
-                    WeightWrapper weightWrapper = (WeightWrapper) view.getTag();
-                    RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(getActivity(), weightWrapper);
-                    recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
+                    registerClickables.setRecordWeight(true);
+                    ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    getActivity().finish();
 
                     break;
-                /*case R.id.child_next_visit_holder:
-                    showFragmentDialog(new EditDialogOptionModel(map), view.getTag());
-                    break;*/
+
+                case R.id.record_vaccination:
+                    registerClickables.setRecordAll(true);
+                    ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    getActivity().finish();
+
+                    break;
 
             }
         }
@@ -349,6 +356,14 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
             }
         });
+    }
+
+    private void populateClientListHeaderView(View view) {
+        LinearLayout clientsHeaderLayout = (LinearLayout) view.findViewById(org.ei.opensrp.R.id.clients_header_layout);
+        clientsHeaderLayout.setVisibility(View.GONE);
+
+        LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
+        clientsView.addHeaderView(headerLayout);
     }
 
     private class EditDialogOptionModel implements DialogOptionModel {

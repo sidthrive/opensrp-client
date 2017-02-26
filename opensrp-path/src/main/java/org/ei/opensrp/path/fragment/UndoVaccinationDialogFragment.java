@@ -4,11 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.path.activity.ChildDetailActivity;
@@ -57,9 +63,9 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
 
         TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccine);
         VaccineRepo.Vaccine vaccine = tag.getVaccine();
-        if(vaccine !=null) {
+        if (vaccine != null) {
             vaccineView.setText(tag.getVaccine().display());
-        }else{
+        } else {
             vaccineView.setText(tag.getName());
         }
 
@@ -111,5 +117,29 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement VaccinationActionListener");
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                Window window = getDialog().getWindow();
+                Point size = new Point();
+
+                Display display = window.getWindowManager().getDefaultDisplay();
+                display.getSize(size);
+
+                int width = size.x;
+
+                window.setLayout((int) (width * 0.7), FrameLayout.LayoutParams.WRAP_CONTENT);
+                window.setGravity(Gravity.CENTER);
+            }
+        });
+
     }
 }

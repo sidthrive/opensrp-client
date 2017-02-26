@@ -20,9 +20,7 @@ import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
-import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
-import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
@@ -55,7 +53,7 @@ import util.barcode.BarcodeIntentResult;
 /**
  * Created by Ahmed on 13-Oct-15.
  */
-public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements WeightActionListener {
+public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
     private static String TAG = ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
@@ -336,11 +334,6 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         if (StringUtils.isNotBlank(qrCode)) {
             startFormActivity("child_enrollment", qrCode, null);
         }
-    }
-
-    @Override
-    public void onWeightTaken(WeightWrapper tag) {
-
     }
 
     private void setLocationHierarchyQuestions(JSONObject form) {

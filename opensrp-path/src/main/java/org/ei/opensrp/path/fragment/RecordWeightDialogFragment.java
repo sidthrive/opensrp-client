@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -12,10 +13,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -83,7 +86,6 @@ public class RecordWeightDialogFragment extends DialogFragment {
         });
 
         final DatePicker earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
-
 
         TextView nameView = (TextView) dialogView.findViewById(R.id.child_name);
         nameView.setText(tag.getPatientName());
@@ -176,7 +178,6 @@ public class RecordWeightDialogFragment extends DialogFragment {
             }
         });
 
-
         return dialogView;
     }
 
@@ -224,4 +225,18 @@ public class RecordWeightDialogFragment extends DialogFragment {
         Selection.setSelection(editWeight.getText(), stringBuilder.toString().length());
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
+            }
+        });
+
+    }
 }
