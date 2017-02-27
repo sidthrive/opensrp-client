@@ -324,7 +324,7 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
     }
 
 
-    private void goBack() {
+    protected void goBack() {
         getActivity().finish();
     }
 

@@ -7,6 +7,8 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -274,6 +276,14 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
             nameInitials.setText(initials);
         }
 
+    }
+
+    @Override
+    protected void goBack() {
+        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        if (!drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.openDrawer(GravityCompat.START);
+        }
     }
 
     private void updateLocationText(CustomFontTextView clinicSelection, ArrayList<String> newLocation) {

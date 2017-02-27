@@ -56,7 +56,7 @@ import util.JsonFormUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "BaseActvity";
+    private static final String TAG = "BaseActivity";
     private BaseToolbar toolbar;
     private Menu menu;
     private static final int REQUEST_CODE_GET_JSON = 3432;
@@ -141,7 +141,7 @@ public abstract class BaseActivity extends AppCompatActivity
             if (initialsArray.length > 0) {
                 initials = initialsArray[0].substring(0, 1);
                 if (initialsArray.length > 1) {
-                    initials = initials + initialsArray[initialsArray.length - 1].substring(0, 1);
+                    initials = initials + initialsArray[1].substring(0, 1);
                 }
             }
 
