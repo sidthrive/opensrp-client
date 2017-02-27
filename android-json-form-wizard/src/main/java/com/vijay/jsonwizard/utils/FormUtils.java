@@ -1,10 +1,6 @@
 package com.vijay.jsonwizard.utils;
 
 import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,7 +22,7 @@ public class FormUtils {
     public static final int MATCH_PARENT = -1;
     public static final int WRAP_CONTENT = -2;
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-    public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyy-MM-dd'T'HH:mm:ssZ");
+    public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final String METADATA_PROPERTY = "metadata";
     private static final String START_JAVAROSA_PROPERTY = "start";
     private static final String END_JAVAROSA_PROPERTY = "end";
