@@ -134,8 +134,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private void updateProfilePicture(Gender gender) {
         if (isDataOk()) {
             ImageView profileImageIV = (ImageView) findViewById(R.id.profile_image_iv);
-            ProfileImage photo = ((ImageRepository) org.ei.opensrp.Context
-                    .getInstance().imageRepository()).findByEntityId(childDetails.entityId());
+            ProfileImage photo = ((ImageRepository) getOpenSRPContext().imageRepository()).findByEntityId(childDetails.entityId());
             if (photo != null) {
                 Utils.setProfiePicFromPath(this, profileImageIV, photo.getFilepath(), null);
             } else {

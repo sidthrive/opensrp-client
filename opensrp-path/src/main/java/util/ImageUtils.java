@@ -6,7 +6,6 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.util.StringUtil;
 import org.opensrp.api.constants.Gender;
 
 import static util.Utils.getValue;

@@ -27,9 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.crashlytics.android.Crashlytics;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.LoginResponse;
@@ -46,7 +43,6 @@ import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
 import org.ei.opensrp.view.activity.SettingsActivity;
 import org.joda.time.DateTime;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -144,7 +140,7 @@ public class LoginActivity extends Activity {
         super.onResume();
 
         if (!context.IsUserLoggedOut()) {
-            goToHome();
+            goToHome(false);
         }
     }
 
@@ -210,7 +206,7 @@ public class LoginActivity extends Activity {
         tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
             public void onEvent(LoginResponse loginResponse) {
                 if (loginResponse == SUCCESS) {
-                    if(context.userService().isUserInPioneerGroup(userName)) {
+                    if (context.userService().isUserInPioneerGroup(userName)) {
                         remoteLoginWith(userName, password, loginResponse.payload());
                     } else {// Valid user from wrong group trying to log in
                         showErrorDialog(getResources().getString(R.string.unauthorized_group));
@@ -333,7 +329,7 @@ public class LoginActivity extends Activity {
 
     private void localLoginWith(String userName, String password) {
         context.userService().localLogin(userName, password);
-        goToHome();
+        goToHome(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -346,13 +342,15 @@ public class LoginActivity extends Activity {
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
         context.userService().remoteLogin(userName, password, userInfo);
-        goToHome();
+        goToHome(true);
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
 
-    private void goToHome() {
+    private void goToHome(boolean remote) {
         VaccinatorApplication.setCrashlyticsUser(context);
-        startActivity(new Intent(this, VaccinatorHomeActivity.class));
+        Intent intent = new Intent(this, ChildSmartRegisterActivity.class);
+        intent.putExtra(BaseRegisterActivity.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
         finish();
     }
 
