@@ -1,0 +1,47 @@
+package org.ei.opensrp.path.activity;
+
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.View;
+
+import org.ei.opensrp.path.R;
+import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
+
+/**
+ * Base activity class for path regiters views
+ * Created by keyman.
+ */
+public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+            }
+        };
+
+        drawer.setDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
+    }
+
+}
+

@@ -19,7 +19,7 @@
 
     <string name="search_hint">Search Register</string>
     <string name="birthdate">DOB</string>
-    <string name="age">AGE</string>
+    <string name="age">Age</string>
     <string name="uc">UC</string>
     <string name="town">Town</string>
     <string name="address">Address</string>
