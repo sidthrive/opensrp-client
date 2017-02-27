@@ -237,14 +237,14 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 if (pc.getDetails().get("WomanREGDATE") != null) {
                     Log.v("is here", "2");
                     LocalDate regdate = LocalDate.fromDateFields(format.parse(pc.getDetails().get("WomanREGDATE")));
-                    if (DateUtil.dayDifference(regdate, DateUtil.today()) == 0) {
+//                    if (DateUtil.dayDifference(regdate, DateUtil.today()) == 0) {
                         Log.v("is here", "1");
                         psrfdue.setBackgroundColor(context.getResources().getColor(R.color.alert_upcoming_yellow));
                         psrfdue.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
                         psrfdue.setOnClickListener(onClickListener);
                         psrfdue.setTag(smartRegisterClient);
                         psrfdue.setText(pc.getDetails().get("WomanREGDATE"));
-                    }
+//                    }
                 }
                 if(pc.getDetails().get("FWPSRDATE")!=null){
                     psrfdue.setText(pc.getDetails().get("FWPSRDATE"));
