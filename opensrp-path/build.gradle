@@ -67,11 +67,11 @@ android {
 }
 
 dependencies {
-    compile(project(':android-json-form-wizard')) {
+    compile(project(':android-json-form-wizard'))
+    compile(project(':opensrp-app')) {
         exclude group: 'com.github.johnkil.print', module: 'print'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
     }
-    compile project(':opensrp-app')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:support-v4:22.1.1'

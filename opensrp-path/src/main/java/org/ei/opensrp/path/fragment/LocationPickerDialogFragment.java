@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.common.base.Strings;
+import com.unnamed.b.atv.model.TreeNode;
+import com.unnamed.b.atv.view.AndroidTreeView;
+import com.vijay.jsonwizard.customviews.SelectableItemHolder;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.path.activity.BaseActivity;
@@ -28,9 +31,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import atv.holder.SelectableItemHolder;
-import atv.model.TreeNode;
-import atv.view.AndroidTreeView;
 import util.JsonFormUtils;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -137,8 +137,8 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
     }
 
     public TreeNode createNode(String locationLevel, String locationName) {
-        TreeNode node = new TreeNode(locationName, locationLevel).setViewHolder(
-                new SelectableItemHolder(getActivity(), locationLevel + ": "));
+        TreeNode node = new TreeNode(locationName).setViewHolder(
+                new SelectableItemHolder(getActivity(), locationLevel));
         node.setSelectable(false);
         node.setClickListener(this);
         return node;
