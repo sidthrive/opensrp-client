@@ -205,17 +205,13 @@
         "openmrs_entity_id": "birthdate",
         "entity_id": "mother",
         "type": "date_picker",
-        "hint": "Mother/Guardian's DOB *",
+        "hint": "Mother/Guardian's DOB",
         "expanded": true,
         "duration":{
           "label": "Age"
         },
         "min_date": "01-01-1900",
-        "max_date": "today-3650",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the mother/guardian's DOB"
-        }
+        "max_date": "today-3650"
       },
       {
         "key": "Mother_Guardian_NRC",
