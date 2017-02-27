@@ -157,8 +157,7 @@
         android:background="@drawable/transparent_gray_background"
         android:gravity="center"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="Linda Clinic" />
+        android:paddingRight="15dp" />
 
     <ImageView
         android:layout_width="@dimen/smart_register_nav_bar_separator"

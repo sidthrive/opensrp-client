@@ -51,6 +51,7 @@ import org.ei.opensrp.path.option.DateSort;
 import org.ei.opensrp.path.option.StatusSort;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.servicemode.VaccinationServiceModeOption;
+import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -86,6 +87,7 @@ import static util.VaccinatorUtils.providerDetails;
 
 public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
+    private LocationPickerDialogFragment locationPickerDialogFragment;
 
 
     @Override
@@ -221,6 +223,36 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         View viewParent = (View) appliedSortView.getParent();
         viewParent.setVisibility(View.GONE);
 
+        final CustomFontTextView clinicSelection = (CustomFontTextView) view.findViewById(R.id.clinic_selection);
+
+        locationPickerDialogFragment = new LocationPickerDialogFragment(getActivity(),
+                context(),
+                context().anmLocationController().get());
+        locationPickerDialogFragment.setOnLocationChangeListener(new LocationSwitcherToolbar.OnLocationChangeListener() {
+            @Override
+            public void onLocationChanged(ArrayList<String> newLocation) {
+               updateLocationText(clinicSelection, newLocation);
+            }
+        });
+        updateLocationText(clinicSelection, locationPickerDialogFragment.getValue());
+
+        clinicSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                Fragment prev = getActivity().getFragmentManager()
+                        .findFragmentByTag(DIALOG_TAG);
+
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                locationPickerDialogFragment.show(ft, DIALOG_TAG);
+            }
+        });
+
+
         View qrCode = view.findViewById(R.id.scan_qr_code);
         TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
         qrCode.setOnClickListener(new View.OnClickListener() {
@@ -242,6 +274,15 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
             nameInitials.setText(initials);
         }
 
+    }
+
+    private void updateLocationText(CustomFontTextView clinicSelection, ArrayList<String> newLocation) {
+        String lastName = getActivity().getString(R.string.select_location);
+        if(newLocation != null && newLocation.size() > 0) {
+            lastName = newLocation.get(newLocation.size() - 1);
+        }
+
+        clinicSelection.setText(lastName);
     }
 
     public void initializeQueries() {
