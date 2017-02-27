@@ -48,7 +48,7 @@
                     <ImageView
                         android:layout_width="@dimen/immun_pencil_card_height"
                         android:layout_height="@dimen/immun_pencil_card_height"
-                        android:src="@drawable/icon_edit"/>
+                        android:src="@drawable/ic_icon_edit"/>
                 </FrameLayout>
 
                 <LinearLayout

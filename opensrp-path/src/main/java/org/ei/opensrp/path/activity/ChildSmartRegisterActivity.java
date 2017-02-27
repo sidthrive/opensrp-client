@@ -28,7 +28,6 @@ import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
@@ -53,7 +52,7 @@ import util.barcode.BarcodeIntentResult;
 /**
  * Created by Ahmed on 13-Oct-15.
  */
-public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private static String TAG = ChildSmartRegisterActivity.class.getCanonicalName();
 
     @Bind(R.id.view_pager)
@@ -71,7 +70,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
