@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
         android:background="@null"
         android:src="@drawable/ic_action_check" />
 
@@ -19,10 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:gravity="center_horizontal"
         android:layout_toRightOf="@id/status_iv"
         android:background="@null"
-        android:textSize="17sp"
+        android:textSize="16sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="abc"
         android:textColor="@color/silver" />
 
     <Button
