@@ -1,18 +1,13 @@
 package org.ei.opensrp.path.domain;
 
-import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.joda.time.DateTime;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by keyman on 16/11/2016.
  */
 public class WeightWrapper {
-    private String id = UUID.randomUUID().toString();
+    private String id;
+    private String gender;
     private Photo photo;
     private String patientName;
     private String patientNumber;
@@ -25,6 +20,10 @@ public class WeightWrapper {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPatientName() {
@@ -90,5 +89,13 @@ public class WeightWrapper {
 
     public String getPmtctStatus() {
         return pmtctStatus;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

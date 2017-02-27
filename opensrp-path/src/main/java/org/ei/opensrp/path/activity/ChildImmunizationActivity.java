@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
@@ -29,7 +28,8 @@ import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.ExpandableHeightGridView;
 import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,13 +134,11 @@ public class ChildImmunizationActivity extends BaseActivity
     private void updateProfilePicture(Gender gender) {
         if (isDataOk()) {
             ImageView profileImageIV = (ImageView) findViewById(R.id.profile_image_iv);
-            ProfileImage photo = ((ImageRepository) org.ei.opensrp.Context
-                    .getInstance().imageRepository()).findByEntityId(childDetails.entityId());
-            if (photo != null) {
-                Utils.setProfiePicFromPath(this, profileImageIV, photo.getFilepath(), null);
-            } else {
-                int defaultProfileImg = ImageUtils.profileImageResourceByGender(gender);
-                Utils.setProfiePic(this, profileImageIV, defaultProfileImg, null);
+
+            if(childDetails.entityId()!=null){//image already in local storage most likey ):
+                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+                profileImageIV.setTag(org.ei.opensrp.R.id.entity_id, childDetails.entityId());
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childDetails.entityId(), OpenSRPImageLoader.getStaticImageListener((ImageView) profileImageIV, ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
             }
         }
     }
@@ -269,6 +267,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateRecordWeightView() {
         String childName = getValue(childDetails.getColumnmaps(), "first_name", true) + " " + getValue(childDetails, "last_name", true);
+        String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
         String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
         if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
             childName = "B/o " + motherFirstName;
@@ -288,6 +287,8 @@ public class ChildImmunizationActivity extends BaseActivity
         Photo photo = ImageUtils.profilePhotoByClient(childDetails);
 
         WeightWrapper weightWrapper = new WeightWrapper();
+        weightWrapper.setId(childDetails.entityId());
+        weightWrapper.setGender(gender);
         weightWrapper.setPatientName(childName);
         weightWrapper.setPatientNumber(zeirId);
         weightWrapper.setPatientAge(duration);

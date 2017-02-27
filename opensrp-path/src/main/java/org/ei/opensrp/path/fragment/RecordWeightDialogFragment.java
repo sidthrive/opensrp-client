@@ -8,12 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,11 +25,13 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.listener.WeightActionListener;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 
 import java.util.Calendar;
 
-import util.Utils;
+import util.ImageUtils;
 
 @SuppressLint("ValidFragment")
 public class RecordWeightDialogFragment extends DialogFragment {
@@ -109,12 +109,13 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
 
         Photo photo = tag.getPhoto();
-        if (photo != null) {
+        if (tag.getId() != null) {
             ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
-            if (StringUtils.isNotBlank(photo.getFilePath())) {
-                Utils.setProfiePicFromPath(context, mImageView, photo.getFilePath(), null);
-            } else if (photo.getResourceId() > 0) {
-                Utils.setProfiePic(context, mImageView, photo.getResourceId(), null);
+
+            if(tag.getId()!=null){//image already in local storage most likey ):
+                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+                mImageView.setTag(org.ei.opensrp.R.id.entity_id,tag.getId());
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tag.getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tag.getGender()), ImageUtils.profileImageResourceByGender(tag.getGender())));
             }
         }
 

@@ -1,8 +1,6 @@
 package org.ei.opensrp.path.provider;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +11,10 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
-import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.db.VaccineRepo;
-import org.ei.opensrp.path.domain.Photo;
-import org.ei.opensrp.path.domain.WeightWrapper;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.service.AlertService;
-import org.ei.opensrp.util.StringUtil;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -29,26 +22,13 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Months;
-import org.joda.time.Years;
-
-import java.util.List;
-import java.util.Map;
 
 import util.DateUtils;
 import util.ImageUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static util.Utils.convertDateFormat;
 import static util.Utils.fillValue;
 import static util.Utils.getValue;
-import static util.Utils.hasAnyEmptyValue;
-import static util.Utils.nonEmptyValue;
-import static util.Utils.setProfiePic;
-import static util.Utils.toDate;
-import static util.VaccinatorUtils.generateSchedule;
-import static util.VaccinatorUtils.nextVaccineDue;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -156,7 +136,11 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             }
         } */
 
-        setProfiePic(convertView.getContext(), (ImageView) convertView.findViewById(R.id.child_profilepic), client.entityId(), null);
+        if(client.entityId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            convertView.findViewById(R.id.child_profilepic).setTag(org.ei.opensrp.R.id.entity_id,pc.getCaseId());
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener((ImageView)convertView.findViewById(R.id.child_profilepic), ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
+        }
 
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);

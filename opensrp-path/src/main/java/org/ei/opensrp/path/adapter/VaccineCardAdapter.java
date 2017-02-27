@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.path.activity.ChildImmunizationActivity;
-import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
@@ -18,14 +15,12 @@ import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 import util.ImageUtils;
 import util.Utils;
-import util.VaccinateActionUtils;
 
 import static util.Utils.getValue;
 
@@ -77,6 +72,8 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineCard.setOnClickListener(vaccineGroup);
                 vaccineCard.setId((int) getItemId(position));
                 VaccineWrapper vaccineWrapper = new VaccineWrapper();
+                vaccineWrapper.setId(vaccineGroup.getChildDetails().entityId());
+                vaccineWrapper.setGender(vaccineGroup.getChildDetails().getDetails().get("gender"));
                 vaccineWrapper.setName(vaccineName);
 
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);

@@ -1,22 +1,17 @@
 package org.ei.opensrp.path.domain;
 
-import com.vijay.jsonwizard.widgets.LabelFactory;
-
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.joda.time.DateTime;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by keyman on 16/11/2016.
  */
 public class VaccineWrapper {
-    private String id = UUID.randomUUID().toString();
+    private String id;
     private Photo photo;
     private String name;
+    private String gender;
     private String status;
     private Vaccine vaccine;
     private DateTime vaccineDate;
@@ -37,6 +32,10 @@ public class VaccineWrapper {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getStatus() {
@@ -163,5 +162,11 @@ public class VaccineWrapper {
     public Photo getPhoto() {
         return photo;
     }
+    public String getGender() {
+        return gender;
+    }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
