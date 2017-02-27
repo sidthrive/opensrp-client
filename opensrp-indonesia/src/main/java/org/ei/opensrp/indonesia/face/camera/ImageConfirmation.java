@@ -107,7 +107,7 @@ public class ImageConfirmation extends Activity {
 //        Retrieve data from Local Storage
         clientList = SmartShutterActivity.retrieveHash(getApplicationContext());
 
-        boolean result = objFace.setBitmap(storedBitmap);
+        boolean setBitmapResult = objFace.setBitmap(storedBitmap);
         faceDatas = objFace.getFaceData();
 
         int imageViewSurfaceWidth = storedBitmap.getWidth();
@@ -125,7 +125,7 @@ public class ImageConfirmation extends Activity {
         objFace.normalizeCoordinates(imageViewSurfaceWidth, imageViewSurfaceHeight);
 
         // Set Bitmap Success
-        if(result){
+        if(setBitmapResult){
 //            Log.e(TAG, "onCreate: SetBitmap objFace "+"Success" );
 
             // Face Data Exist
@@ -196,16 +196,22 @@ public class ImageConfirmation extends Activity {
                         confirmationView.setImageBitmap(mutableBitmap);
 
                     } // end if-else mode Identify {True or False}
+
                 } // end for count ic_faces
+
             } else {
+
                 Log.e(TAG, "onCreate: faceDatas "+"Null" );
                 Toast.makeText(ImageConfirmation.this, "No Face Detected", Toast.LENGTH_SHORT).show();
                 Intent resultIntent = new Intent();
                 setResult(RESULT_CANCELED, resultIntent);
                 ImageConfirmation.this.finish();
             }
+
         } else {
+
             Log.e(TAG, "onCreate: SetBitmap objFace"+"Failed" );
+
         }
 
 //        confirmationView.setImageBitmap(storedBitmap);            // Setting the view with the bitmap image that came in.
@@ -215,7 +221,7 @@ public class ImageConfirmation extends Activity {
     }
 
     private void showPersonInfo(int recognitionConfidence) {
-        Log.e(TAG, "onCreate: Similar face found " +
+        Log.e(TAG, "showPersonInfo: Similar face found " +
                 Integer.toString(recognitionConfidence));
 
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
@@ -304,6 +310,7 @@ public class ImageConfirmation extends Activity {
             public void onClick(View arg0) {
                 Log.e(TAG, "onClick: " + identifyPerson);
                 Log.e(TAG, "onClick: " + entityId);
+
                 if (!identifyPerson) {
 
 //                  saveAndClose(entityId);

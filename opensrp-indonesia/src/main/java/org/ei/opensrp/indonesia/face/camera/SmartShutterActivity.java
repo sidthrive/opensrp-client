@@ -170,6 +170,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
         Tools.loadAlbum(getApplicationContext());
     }
 

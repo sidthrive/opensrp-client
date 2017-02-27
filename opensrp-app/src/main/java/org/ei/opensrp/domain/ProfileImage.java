@@ -115,7 +115,7 @@ public class ProfileImage {
 
     public String getFilevector() {
 //        filevector = "getFileVector";
-//        Log.e("TAG", "getFilevector: "+filevector );
+        Log.e("TAG", "getFilevector: "+filevector );
         return filevector;
     }
 
