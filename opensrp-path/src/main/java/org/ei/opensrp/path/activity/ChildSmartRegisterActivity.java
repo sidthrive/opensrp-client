@@ -163,7 +163,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (StringUtils.isBlank(entityId)) {
-                UniqueIdRepository uniqueIdRepo = Context.getInstance().uniqueIdRepository();
+                UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
                 entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
                 if (entityId.isEmpty()) {
                     Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
@@ -223,7 +223,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
-            org.ei.opensrp.Context context = org.ei.opensrp.Context.getInstance();
+            org.ei.opensrp.Context context = context();
             ZiggyService ziggyService = context.ziggyService();
             ziggyService.saveForm(getParams(submission), submission.instance());
 
