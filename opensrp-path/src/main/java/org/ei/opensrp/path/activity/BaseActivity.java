@@ -103,9 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finish();
-            startActivity(new Intent(this, onBackActivity()));
-            overridePendingTransition(0, 0);
+            super.onBackPressed();
         }
     }
 

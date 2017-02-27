@@ -360,21 +360,15 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 case R.id.child_profile_info_layout:
 
                     ChildImmunizationActivity.launchActivity(getActivity(), client, null);
-                    getActivity().finish();
-
                     break;
                 case R.id.record_weight:
                     registerClickables.setRecordWeight(true);
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
-                    getActivity().finish();
-
                     break;
 
                 case R.id.record_vaccination:
                     registerClickables.setRecordAll(true);
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
-                    getActivity().finish();
-
                     break;
 
             }

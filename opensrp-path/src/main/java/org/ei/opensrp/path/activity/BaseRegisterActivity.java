@@ -29,6 +29,7 @@ import org.ei.opensrp.view.activity.SettingsActivity;
 public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String IS_REMOTE_LOGIN = "is_remote_login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,21 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle extras = this.getIntent().getExtras();
+        if (extras != null) {
+            boolean isRemote = extras.getBoolean(IS_REMOTE_LOGIN);
+            if (isRemote) {
+                updateFromServer();
+            }
+        }
+    }
+
+    public void updateFromServer() {
+        PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
+                this, context().actionService(), context().formSubmissionSyncService(),
+                new SyncProgressIndicator(), context().allFormVersionSyncService());
+        pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 
     @Override
@@ -143,7 +159,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }

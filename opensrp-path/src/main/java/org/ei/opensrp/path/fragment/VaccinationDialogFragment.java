@@ -23,20 +23,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailActivity;
+import org.ei.opensrp.path.activity.WomanDetailActivity;
 import org.ei.opensrp.path.db.VaccineRepo;
-import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
-import org.ei.opensrp.path.activity.WomanDetailActivity;
-import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 
 import java.util.Calendar;
 import java.util.List;
 
-import util.Utils;
+import util.ImageUtils;
 
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends DialogFragment {
@@ -113,13 +114,12 @@ public class VaccinationDialogFragment extends DialogFragment {
             }
         }
 
-        Photo photo = tags.get(0).getPhoto();
-        if (photo != null) {
+        if (tags.get(0).getId() != null) {
             ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
-            if (StringUtils.isNotBlank(photo.getFilePath())) {
-                Utils.setProfiePicFromPath(context, mImageView, photo.getFilePath(), null);
-            } else if (photo.getResourceId() > 0) {
-                Utils.setProfiePic(context, mImageView, photo.getResourceId(), null);
+            if(tags.get(0).getId()!=null){//image already in local storage most likey ):
+                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+                mImageView.setTag(org.ei.opensrp.R.id.entity_id,tags.get(0).getId());
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tags.get(0).getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tags.get(0).getGender()), ImageUtils.profileImageResourceByGender(tags.get(0).getGender())));
             }
         }
 
