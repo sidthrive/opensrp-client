@@ -4,6 +4,7 @@
     <color name="black">#000000</color>
     <color name="silver">#A9A9A9</color>
     <color name="light_grey">#CCCCCC</color>
+    <color name="dark_grey">#999999</color>
 
     <!-- Gender identity colors -->
     <color name="gender_neutral_dark_green">#219e05</color>
