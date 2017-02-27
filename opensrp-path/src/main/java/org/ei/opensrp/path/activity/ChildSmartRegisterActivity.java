@@ -36,7 +36,6 @@ import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -174,7 +173,7 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
             }
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            setLocationHierarchyQuestions(form);
+            JsonFormUtils.addChildRegLocHierarchyQuestions(form, context());
             if (form != null) {
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                 //inject zeir id into the form
@@ -336,29 +335,4 @@ public class ChildSmartRegisterActivity extends SecuredNativeSmartRegisterActivi
         }
     }
 
-    private void setLocationHierarchyQuestions(JSONObject form) {
-        try {
-            JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
-            JSONArray defaultLocation = JsonFormUtils.generateDefaultLocationHierarchy(context());
-            JSONArray treeWithoutOther = JsonFormUtils.generateLocationHierarchyTree(context(), false);
-            JSONArray treeWithOther = JsonFormUtils.generateLocationHierarchyTree(context(), true);
-
-            for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString("key").equals("Home_Facility")
-                        || questions.getJSONObject(i).getString("key").equals("Birth_Facility_Name")) {
-                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithoutOther.toString()));
-                    if (defaultLocation != null) {
-                        questions.getJSONObject(i).put("default", defaultLocation.toString());
-                    }
-                } else if (questions.getJSONObject(i).getString("key").equals("Residential_Area")) {
-                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithOther.toString()));
-                    if (defaultLocation != null) {
-                        questions.getJSONObject(i).put("default", defaultLocation.toString());
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-    }
 }

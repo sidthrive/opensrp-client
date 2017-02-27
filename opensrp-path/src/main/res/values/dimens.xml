@@ -90,7 +90,7 @@
     <dimen name="client_profile_pic_dialog_width">100dp</dimen>
     <dimen name="client_profile_pic_dialog_height">100dp</dimen>
 
-    <dimen name="vaccine_card_width">145dp</dimen>
+    <dimen name="vaccine_card_width">182dp</dimen>
     <dimen name="login_logo_height">100dp</dimen>
     <dimen name="login_opensrp_logo_height">14dp</dimen>
     <dimen name="login_opensrp_logo_width">80dp</dimen>
