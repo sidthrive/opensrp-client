@@ -17,7 +17,10 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
+import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.domain.form.FormSubmission;
+import org.ei.opensrp.event.Event;
+import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
@@ -89,6 +92,14 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             }
         });
 
+        Event.ON_DATA_FETCHED.addListener(onDataFetchedListener);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Event.ON_DATA_FETCHED.removeListener(onDataFetchedListener);
     }
 
     private String[] buildFormNameList() {
@@ -331,6 +342,20 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         Log.i(getClass().getName(), "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
             startFormActivity("child_enrollment", qrCode, null);
+        }
+    }
+
+    private Listener<FetchStatus> onDataFetchedListener = new Listener<FetchStatus>() {
+        @Override
+        public void onEvent(FetchStatus fetchStatus) {
+            refreshList(fetchStatus);
+        }
+    };
+
+    private void refreshList(FetchStatus fetchStatus) {
+        SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
+        if (registerFragment != null) {
+            registerFragment.refreshListView();
         }
     }
 
