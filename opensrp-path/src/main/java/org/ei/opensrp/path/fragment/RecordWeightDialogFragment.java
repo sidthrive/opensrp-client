@@ -68,7 +68,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.record_weight_dialog_view, container, false);
 
         final EditText editWeight = (EditText) dialogView.findViewById(R.id.edit_weight);
-        formatEditWeightView(editWeight, "");
+        //formatEditWeightView(editWeight, "");
         editWeight.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
             }

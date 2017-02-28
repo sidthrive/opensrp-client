@@ -104,7 +104,7 @@ public class PathUpdateActionsTask {
 
     private FetchStatus sync() {
         try {
-            FetchStatus fetchStatus = FetchStatus.fetched;
+            int totalCount = 0;
             ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
 
             // Retrieve database host from preferences
@@ -115,12 +115,9 @@ public class PathUpdateActionsTask {
                 long startSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
 
                 int eCount = ecUpdater.fetchAllClientsAndEvents(AllConstants.SyncFilters.FILTER_PROVIDER, allSharedPreferences.fetchRegisteredANM());
+                totalCount += eCount;
 
-                if (eCount == 0) {
-                    fetchStatus = nothingFetched;
-                    break;
-                } else if (eCount < 0) {
-                    fetchStatus = fetchedFailed;
+                if (eCount == 0 || eCount < 0) {
                     break;
                 }
 
@@ -129,7 +126,13 @@ public class PathUpdateActionsTask {
                 Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
             }
 
-            return fetchStatus;
+            if (totalCount == 0) {
+                return nothingFetched;
+            } else if (totalCount < 0) {
+                return fetchedFailed;
+            } else {
+                return fetched;
+            }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
             return fetchedFailed;
@@ -143,11 +146,12 @@ public class PathUpdateActionsTask {
     }
 
     private void startImageUploadIntentService(Context context) {
-        Intent intent = new Intent(context,ImageUploadSyncService.class);
+        Intent intent = new Intent(context, ImageUploadSyncService.class);
         context.startService(intent);
     }
+
     private void startPullUniqueIdsIntentService(Context context) {
-        Intent intent = new Intent(context,PullUniqueIdsIntentService.class);
+        Intent intent = new Intent(context, PullUniqueIdsIntentService.class);
         context.startService(intent);
     }
 }
