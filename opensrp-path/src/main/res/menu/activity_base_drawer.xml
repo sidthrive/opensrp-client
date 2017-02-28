@@ -10,10 +10,10 @@
             android:id="@+id/nav_record_vaccination_out_catchment"
             android:icon="@drawable/ic_action_out_catchment"
             android:title="Record out of catchment vaccination" />
-        <item
+        <!--item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_action_settings"
-            android:title="Settings" />
+            android:title="Settings" /-->
         <item
             android:id="@+id/nav_sync"
             android:icon="@drawable/ic_action_sync"

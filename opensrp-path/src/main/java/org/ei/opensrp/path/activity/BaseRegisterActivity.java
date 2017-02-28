@@ -166,10 +166,10 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             startFormActivity("child_enrollment", null, null);
         } else if (id == R.id.nav_record_vaccination_out_catchment) {
 
-        } else if (id == R.id.nav_settings) {
+        }/* else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_sync) {
+        }*/ else if (id == R.id.nav_sync) {
             isSyncing = true;
             toggleIsSyncing();
             PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
