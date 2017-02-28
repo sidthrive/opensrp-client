@@ -49,6 +49,15 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
     private ArrayList<String> value;
     private ArrayList<String> defaultValue;
     private LocationSwitcherToolbar.OnLocationChangeListener onLocationChangeListener;
+    private static final ArrayList<String> allowedLevels;
+    static {
+        allowedLevels = new ArrayList<>();
+        allowedLevels.add("Country");
+        allowedLevels.add("Province");
+        allowedLevels.add("District");
+        allowedLevels.add("Health Facility");
+        allowedLevels.add("Zone");
+    }
 
     public LocationPickerDialogFragment(Activity parent, Context context, String locationJSONString) {
         this.parent = parent;
@@ -56,7 +65,7 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
         this.locationJSONString = locationJSONString;
         defaultValue = new ArrayList<>();
         JSONArray rawDefaultLocation = JsonFormUtils
-                .generateDefaultLocationHierarchy(openSrpContext);
+                .generateDefaultLocationHierarchy(openSrpContext, allowedLevels);
 
         if (rawDefaultLocation != null) {
             try {
@@ -138,7 +147,7 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
 
     public TreeNode createNode(String locationLevel, String locationName) {
         TreeNode node = new TreeNode(locationName).setViewHolder(
-                new SelectableItemHolder(getActivity(), locationLevel));
+                new SelectableItemHolder(getActivity(), ""));
         node.setSelectable(false);
         node.setClickListener(this);
         return node;

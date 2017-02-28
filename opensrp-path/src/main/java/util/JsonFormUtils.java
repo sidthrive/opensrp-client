@@ -1002,7 +1002,7 @@ public class JsonFormUtils {
         }
     }
 
-    public static JSONArray generateLocationHierarchyTree(org.ei.opensrp.Context context, boolean withOtherOption) {
+    public static JSONArray generateLocationHierarchyTree(org.ei.opensrp.Context context, boolean withOtherOption, ArrayList<String> allowedLevels) {
         JSONArray array = new JSONArray();
         try {
             JSONObject locationData = new JSONObject(context.anmLocationController().get());
@@ -1012,7 +1012,7 @@ public class JsonFormUtils {
                 Iterator<String> keys = map.keys();
                 while (keys.hasNext()) {
                     String curKey = keys.next();
-                    getFormJsonData(array, map.getJSONObject(curKey));
+                    getFormJsonData(array, map.getJSONObject(curKey), allowedLevels);
                 }
             }
         } catch (JSONException e) {
@@ -1031,7 +1031,7 @@ public class JsonFormUtils {
         return array;
     }
 
-    public static JSONArray generateDefaultLocationHierarchy(org.ei.opensrp.Context context) {
+    public static JSONArray generateDefaultLocationHierarchy(org.ei.opensrp.Context context, ArrayList<String> allowedLevels) {
         try {
             String defaultLocationUuid = context.allSharedPreferences()
                     .fetchDefaultLocalityId(context.allSharedPreferences().fetchRegisteredANM());
@@ -1042,7 +1042,7 @@ public class JsonFormUtils {
                 Iterator<String> keys = map.keys();
                 while (keys.hasNext()) {
                     String curKey = keys.next();
-                    JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, map.getJSONObject(curKey), new JSONArray());
+                    JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, map.getJSONObject(curKey), new JSONArray(), allowedLevels);
                     if (curResult != null) {
                         return curResult;
                     }
@@ -1054,8 +1054,10 @@ public class JsonFormUtils {
         return null;
     }
 
-    private static JSONArray getDefaultLocationHierarchy(String defaultLocationUuid, JSONObject openMrsLocationData, JSONArray parents) throws JSONException {
-        parents.put(openMrsLocationData.getJSONObject("node").getString("name"));
+    private static JSONArray getDefaultLocationHierarchy(String defaultLocationUuid, JSONObject openMrsLocationData, JSONArray parents, ArrayList<String> allowedLevels) throws JSONException {
+        if(allowedLevels.contains(openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0))) {
+            parents.put(openMrsLocationData.getJSONObject("node").getString("name"));
+        }
 
         if (openMrsLocationData.getJSONObject("node").getString("locationId").equals(defaultLocationUuid)) {
             return parents;
@@ -1065,7 +1067,7 @@ public class JsonFormUtils {
             Iterator<String> childIterator = openMrsLocationData.getJSONObject("children").keys();
             while (childIterator.hasNext()) {
                 String curChildKey = childIterator.next();
-                JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey), new JSONArray(parents.toString()));
+                JSONArray curResult = getDefaultLocationHierarchy(defaultLocationUuid, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey), new JSONArray(parents.toString()), allowedLevels);
                 if (curResult != null) return curResult;
             }
         }
@@ -1073,7 +1075,7 @@ public class JsonFormUtils {
         return null;
     }
 
-    private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData) throws JSONException {
+    private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData, ArrayList<String> allowedLevels) throws JSONException {
         JSONObject jsonFormObject = new JSONObject();
         jsonFormObject.put("name", openMrsLocationData.getJSONObject("node").getString("name"));
         String level = "";
@@ -1081,35 +1083,57 @@ public class JsonFormUtils {
             level = openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0);
         } catch (JSONException e) {
         }
-        jsonFormObject.put("level", level);
+        jsonFormObject.put("level", "");
         JSONArray children = new JSONArray();
         if (openMrsLocationData.has("children")) {
             Iterator<String> childIterator = openMrsLocationData.getJSONObject("children").keys();
             while (childIterator.hasNext()) {
                 String curChildKey = childIterator.next();
-                getFormJsonData(children, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey));
+                getFormJsonData(children, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey), allowedLevels);
             }
-            jsonFormObject.put("nodes", children);
+            if(allowedLevels.contains(level)) {
+                jsonFormObject.put("nodes", children);
+            } else {
+                for(int i = 0; i < children.length(); i++) {
+                    allLocationData.put(children.getJSONObject(i));
+                }
+            }
         }
-        allLocationData.put(jsonFormObject);
+        if(allowedLevels.contains(level)) {
+            allLocationData.put(jsonFormObject);
+        }
     }
 
     public static void addChildRegLocHierarchyQuestions(JSONObject form, org.ei.opensrp.Context context) {
         try {
             JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
-            JSONArray defaultLocation = generateDefaultLocationHierarchy(context);
-            JSONArray treeWithoutOther = generateLocationHierarchyTree(context, false);
-            JSONArray treeWithOther = generateLocationHierarchyTree(context, true);
+            ArrayList<String> allLevels = new ArrayList<>();
+            allLevels.add("Country");
+            allLevels.add("Province");
+            allLevels.add("District");
+            allLevels.add("Health Facility");
+            allLevels.add("Zone");
+
+            ArrayList<String> healthFacilities = new ArrayList<>();
+            healthFacilities.add("Country");
+            healthFacilities.add("Province");
+            healthFacilities.add("District");
+            healthFacilities.add("Health Facility");
+
+            JSONArray defaultLocation = generateDefaultLocationHierarchy(context, allLevels);
+            JSONArray defaultFacility = generateDefaultLocationHierarchy(context, healthFacilities);
+            JSONArray upToFacilities = generateLocationHierarchyTree(context, false, healthFacilities);
+            JSONArray entireTree = generateLocationHierarchyTree(context, true, allLevels);
 
             for (int i = 0; i < questions.length(); i++) {
                 if (questions.getJSONObject(i).getString("key").equals("Home_Facility")
                         || questions.getJSONObject(i).getString("key").equals("Birth_Facility_Name")) {
-                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithoutOther.toString()));
-                    if (defaultLocation != null) {
-                        questions.getJSONObject(i).put("default", defaultLocation.toString());
+                    questions.getJSONObject(i).put("tree", new JSONArray(upToFacilities.toString()));
+                    if (defaultFacility != null) {
+                        questions.getJSONObject(i).put("default", defaultFacility.toString());
                     }
                 } else if (questions.getJSONObject(i).getString("key").equals("Residential_Area")) {
-                    questions.getJSONObject(i).put("tree", new JSONArray(treeWithOther.toString()));
+                    questions.getJSONObject(i).put("tree", new JSONArray(entireTree.toString()));
                     if (defaultLocation != null) {
                         questions.getJSONObject(i).put("default", defaultLocation.toString());
                     }
