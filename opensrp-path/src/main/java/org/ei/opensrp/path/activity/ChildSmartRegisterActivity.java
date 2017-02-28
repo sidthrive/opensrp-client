@@ -354,7 +354,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     private void refreshList(FetchStatus fetchStatus) {
         SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
-        if (registerFragment != null) {
+        if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
             registerFragment.refreshListView();
         }
     }
