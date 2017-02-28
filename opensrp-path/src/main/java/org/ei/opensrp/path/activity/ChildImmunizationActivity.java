@@ -116,6 +116,12 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void updateViews() {
+        ((LinearLayout)findViewById(R.id.profile_name_layout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChildImmunizationActivity.launchDetailActivity(ChildImmunizationActivity.this,childDetails,null);
+            }
+        });
         // TODO: update all views using child data
         updateGenderViews();
         setTitle(updateActivityTitle());
@@ -338,6 +344,15 @@ public class ChildImmunizationActivity extends BaseActivity
 
     public static void launchActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
         Intent intent = new Intent(fromContext, ChildImmunizationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
+        intent.putExtras(bundle);
+
+        fromContext.startActivity(intent);
+    }
+    public static void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
+        Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
         bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
