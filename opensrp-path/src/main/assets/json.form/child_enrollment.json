@@ -270,7 +270,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of Birth *",
+        "hint": "Child's date of Birth *",
         "expanded": true,
         "duration":{
           "label": "Age"
