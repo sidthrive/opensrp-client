@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageView
+    <View
         android:layout_width="@dimen/smart_register_nav_bar_separator"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
-        android:scaleType="fitXY"
-        android:src="@drawable/separator" />
+        android:background="@drawable/vertical_separator_male"/>
 
     <TextView
         android:id="@+id/item_text"
