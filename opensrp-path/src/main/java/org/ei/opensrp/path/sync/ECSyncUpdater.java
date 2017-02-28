@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import util.Utils;
@@ -27,6 +28,7 @@ public class ECSyncUpdater {
     public static final String SEARCH_URL = "/rest/event/sync";
 
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
+    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     private ECSQLiteHelper db;
     private Context context;
@@ -120,6 +122,15 @@ public class ECSyncUpdater {
     public void updateLastSyncTimeStamp(long lastSyncTimeStamp){
         Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
+
+    public long getLastCheckTimeStamp(){
+        return Long.parseLong(Utils.getPreference(context, LAST_CHECK_TIMESTAMP, "0"));
+    }
+
+    public void updateLastCheckTimeStamp(long lastSyncTimeStamp){
+        Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
+    }
+
     private long batchSave(JSONArray events, JSONArray clients) throws Exception{
         db.batchInsertClients(clients);
         return db.batchInsertEvents(events, getLastSyncTimeStamp());

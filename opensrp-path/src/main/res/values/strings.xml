@@ -131,4 +131,8 @@
     <string name="today">today</string>
     <string name="select_location">Select Location</string>
     <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="syncing">Syncing...</string>
+    <string name="sync_">Sync%1$s</string>
+    <string name="last_sync">(last %1$s)</string>
+    <string name="now">now</string>
 </resources>

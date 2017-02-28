@@ -1,11 +1,14 @@
 package org.ei.opensrp.path.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,13 +17,23 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
+import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.activity.SettingsActivity;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Seconds;
+
+import java.util.Calendar;
 
 /**
  * Base activity class for path regiters views
@@ -30,6 +43,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String IS_REMOTE_LOGIN = "is_remote_login";
+    private AfterFetchListener afterFetchListener;
+    private boolean isSyncing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +53,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
+        BaseActivityToggle toggle = new BaseActivityToggle(this, drawer,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
             public void onDrawerClosed(View view) {
@@ -52,11 +67,19 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         };
 
         drawer.setDrawerListener(toggle);
-        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        toggleIsSyncing();
+
+        afterFetchListener = new AfterFetchListener() {
+            @Override
+            public void afterFetch(FetchStatus fetchStatus) {
+                isSyncing = false;
+                toggleIsSyncing();
+            }
+        };
 
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
@@ -147,17 +170,83 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_sync) {
+            isSyncing = true;
+            toggleIsSyncing();
             PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
                     this, context().actionService(),
                     context().formSubmissionSyncService(),
                     new SyncProgressIndicator(),
                     context().allFormVersionSyncService());
-            pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
+            pathUpdateActionsTask.updateFromServer(afterFetchListener);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void toggleIsSyncing() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null && navigationView.getMenu() != null) {
+            MenuItem syncMenuItem = navigationView.getMenu().findItem(R.id.nav_sync);
+            if (syncMenuItem != null) {
+                if (isSyncing) {
+                    syncMenuItem.setTitle(R.string.syncing);
+                } else {
+                    String lastSync = getLastSyncTime();
+
+                    if (!TextUtils.isEmpty(lastSync)) {
+                        lastSync = " " + String.format(getString(R.string.last_sync), lastSync);
+                    }
+                    syncMenuItem.setTitle(String.format(getString(R.string.sync_), lastSync));
+                }
+            }
+        }
+    }
+
+    private String getLastSyncTime() {
+        String lastSync = "";
+        long milliseconds = ECSyncUpdater.getInstance(this).getLastCheckTimeStamp();
+        if (milliseconds > 0) {
+            DateTime lastSyncTime = new DateTime(milliseconds);
+            DateTime now = new DateTime(Calendar.getInstance());
+            Minutes minutes = Minutes.minutesBetween(lastSyncTime, now);
+            if (minutes.getMinutes() < 1) {
+                Seconds seconds = Seconds.secondsBetween(lastSyncTime, now);
+                lastSync = seconds.getSeconds()+"s";
+            } else if (minutes.getMinutes() >= 1 && minutes.getMinutes() < 60) {
+                lastSync = minutes.getMinutes() + "m";
+            } else if (minutes.getMinutes() >= 60 && minutes.getMinutes() < 1440) {
+                Hours hours = Hours.hoursBetween(lastSyncTime, now);
+                lastSync = hours.getHours() + "h";
+            } else {
+                Days days = Days.daysBetween(lastSyncTime, now);
+                lastSync = days.getDays() + "d";
+            }
+        }
+        return lastSync;
+    }
+
+    private class BaseActivityToggle extends ActionBarDrawerToggle {
+
+        public BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        public BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            toggleIsSyncing();
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            super.onDrawerClosed(drawerView);
+        }
     }
 
 

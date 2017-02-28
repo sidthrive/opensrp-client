@@ -24,6 +24,8 @@ import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
 
+import java.util.Calendar;
+
 import static org.ei.opensrp.domain.FetchStatus.fetched;
 import static org.ei.opensrp.domain.FetchStatus.fetchedFailed;
 import static org.ei.opensrp.domain.FetchStatus.nothingFetched;
@@ -108,7 +110,7 @@ public class PathUpdateActionsTask {
             // Retrieve database host from preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
+            ecUpdater.updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
             while (true) {
                 long startSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
 
