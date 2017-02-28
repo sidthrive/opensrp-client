@@ -743,6 +743,9 @@ public class JsonFormUtils {
                 .withAttributes(extractAttributes(fields, bindType))
                 .withIdentifiers(idents);
 
+        if(addresses.isEmpty()){
+            c.withAddresses(parent.getAddresses());
+        }
 
         addRelationship(context, c, parent);
 

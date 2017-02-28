@@ -14,14 +14,6 @@
         android:layout_height="50dp"
         android:layout_centerVertical="true">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/transparent_gray_background"
-            android:scaleType="center"
-            android:src="@drawable/ic_menu_white_24dp" />
-
         <TextView
             android:id="@+id/name_inits"
             android:layout_width="47dp"
