@@ -45,6 +45,7 @@
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:id="@+id/child_name"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -61,28 +62,31 @@
 
                         <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:id="@+id/child_zeir_id"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EIR"
-                            android:textColor="@color/button_material_dark"
+                            android:textColor="@color/client_list_grey"
                             android:textSize="22sp" />
 
                         <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:id="@+id/child_age"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:text="Age"
-                            android:textColor="@color/button_material_dark"
+                            android:textColor="@color/client_list_grey"
                             android:textSize="22sp" />
                     </LinearLayout>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:id="@+id/pmtct_status"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="pmtct_status"
-                        android:textColor="@color/button_material_dark"
+                        android:textColor="@color/client_list_grey"
                         android:textSize="22sp" />
 
                 </LinearLayout>
@@ -96,7 +100,7 @@
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/record_weight"
-                style="@style/CustomFontTextViewStyle.ListView.Normal"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -153,6 +157,7 @@
                     android:paddingTop="20dp"
                     android:text="Weight taken today"
                     android:textAllCaps="false"
+                    android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -168,7 +173,8 @@
                     android:paddingTop="20dp"
                     android:text="Weight taken earlier"
                     android:textAllCaps="false"
-                    android:textColor="@color/silver"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/client_list_grey"
                     android:textSize="22sp" />
             </LinearLayout>
 
@@ -199,7 +205,8 @@
                     android:layout_weight="1"
                     android:text="Cancel"
                     android:textAllCaps="false"
-                    android:textColor="@color/silver"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/client_list_grey"
                     android:textSize="22sp" />
 
                 <Button
@@ -210,7 +217,8 @@
                     android:layout_weight="1"
                     android:text="Set"
                     android:textAllCaps="false"
-                    android:textColor="@color/silver"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/client_list_grey"
                     android:textSize="22sp"
                     android:visibility="gone" />
 

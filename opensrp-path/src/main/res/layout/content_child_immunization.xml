@@ -56,11 +56,12 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="10dp"
                     android:paddingRight="20dp">
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:id="@+id/name_tv"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -73,16 +74,18 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:id="@+id/child_id_tv"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EIR"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/activity_sub_title_size" />
 
-                        <TextView
+                        <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:id="@+id/age_tv"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -98,8 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="135dp"
             android:layout_marginTop="@dimen/card_category_horizontal_margin"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -116,11 +119,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="10dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp">
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="WEIGHT-FOR-AGE"
@@ -145,7 +149,7 @@
                             android:paddingTop="16dp"
                             android:text="Record weight"
                             android:textAllCaps="false"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/text_black"
                             android:textSize="19sp" />
 
@@ -175,12 +179,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="10dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp">
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:id="@+id/child_siblings_tv"
+                        style="@style/CustomFontTextViewStyle.ClientList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="HER SIBLINGS"
@@ -216,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp">
 
@@ -224,7 +229,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
+                        style="@style/CustomFontTextViewStyle.ClientList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -233,8 +239,9 @@
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/activity_sub_title_size" />
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:id="@+id/dob_tv"
+                        style="@style/CustomFontTextViewStyle.ClientList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

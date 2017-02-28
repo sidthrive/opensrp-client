@@ -15,19 +15,19 @@
         android:background="@null"
         android:src="@drawable/ic_action_check" />
 
-    <TextView
+    <org.ei.opensrp.view.customControls.CustomFontTextView
         android:id="@+id/name_tv"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:gravity="center_horizontal"
         android:layout_toRightOf="@id/status_iv"
         android:background="@null"
-        android:textSize="16sp"
-        android:paddingLeft="10dp"
+        android:gravity="center_horizontal"
         android:paddingRight="10dp"
         android:text="abc"
-        android:textColor="@color/silver" />
+        android:textColor="@color/client_list_grey"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/undo_b"

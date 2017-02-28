@@ -31,6 +31,7 @@
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/name"
+                style="@style/CustomFontTextViewStyle.ClientList.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -41,10 +42,11 @@
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/number"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="number"
-                android:textColor="@color/text_black"
+                android:textColor="@color/client_list_grey"
                 android:textSize="24sp" />
 
             <View
@@ -75,6 +77,7 @@
                 android:paddingTop="20dp"
                 android:text="Vaccination done today"
                 android:textAllCaps="false"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
@@ -91,6 +94,7 @@
                 android:paddingTop="20dp"
                 android:text="Vaccination done earlier"
                 android:textAllCaps="false"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/silver"
                 android:textSize="22sp" />
 
@@ -120,6 +124,7 @@
                     android:layout_weight="1"
                     android:text="Cancel"
                     android:textAllCaps="false"
+                    android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/silver"
                     android:textSize="22sp" />
 
@@ -131,6 +136,7 @@
                     android:layout_weight="1"
                     android:text="Set"
                     android:textAllCaps="false"
+                    android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/silver"
                     android:textSize="22sp"
                     android:visibility="gone" />
