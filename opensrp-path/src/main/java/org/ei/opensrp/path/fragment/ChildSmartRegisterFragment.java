@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -89,6 +90,7 @@ import static util.VaccinatorUtils.providerDetails;
 
 public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
+    private  CustomFontTextView clinicSelection;
     private LocationPickerDialogFragment locationPickerDialogFragment;
 
 
@@ -192,6 +194,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
         }
 
+        updateLocationText(clinicSelection, locationPickerDialogFragment.getValue());
     }
 
     @Override
@@ -225,7 +228,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         View viewParent = (View) appliedSortView.getParent();
         viewParent.setVisibility(View.GONE);
 
-        final CustomFontTextView clinicSelection = (CustomFontTextView) view.findViewById(R.id.clinic_selection);
+        clinicSelection = (CustomFontTextView) view.findViewById(R.id.clinic_selection);
 
         locationPickerDialogFragment = new LocationPickerDialogFragment(getActivity(),
                 context(),
@@ -236,7 +239,6 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                updateLocationText(clinicSelection, newLocation);
             }
         });
-        updateLocationText(clinicSelection, locationPickerDialogFragment.getValue());
 
         clinicSelection.setOnClickListener(new View.OnClickListener() {
             @Override

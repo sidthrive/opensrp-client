@@ -49,14 +49,11 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
     private ArrayList<String> value;
     private ArrayList<String> defaultValue;
     private LocationSwitcherToolbar.OnLocationChangeListener onLocationChangeListener;
-    private static final ArrayList<String> allowedLevels;
+    private static final ArrayList<String> ALLOWED_LEVELS;
     static {
-        allowedLevels = new ArrayList<>();
-        allowedLevels.add("Country");
-        allowedLevels.add("Province");
-        allowedLevels.add("District");
-        allowedLevels.add("Health Facility");
-        allowedLevels.add("Zone");
+        ALLOWED_LEVELS = new ArrayList<>();
+        ALLOWED_LEVELS.add("Health Facility");
+        ALLOWED_LEVELS.add("Zone");
     }
 
     public LocationPickerDialogFragment(Activity parent, Context context, String locationJSONString) {
@@ -65,7 +62,7 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
         this.locationJSONString = locationJSONString;
         defaultValue = new ArrayList<>();
         JSONArray rawDefaultLocation = JsonFormUtils
-                .generateDefaultLocationHierarchy(openSrpContext, allowedLevels);
+                .generateDefaultLocationHierarchy(openSrpContext, ALLOWED_LEVELS);
 
         if (rawDefaultLocation != null) {
             try {
@@ -154,16 +151,21 @@ public class LocationPickerDialogFragment extends DialogFragment implements Tree
     }
 
     public void locationTreeToTreNode(TreeNode node, Map<String, org.opensrp.api.util.TreeNode<String, Location>> location) {
-
         for (Map.Entry<String, org.opensrp.api.util.TreeNode<String, Location>> entry : location.entrySet()) {
             String locationTag = entry.getValue().getNode().getTags().iterator().next();
             TreeNode tree = createNode(
                     Strings.isNullOrEmpty(locationTag) ? "-" : humanize(locationTag),
                     humanize(entry.getValue().getLabel()));
-            node.addChild(tree);
-            tree.setClickListener(this);
-            if (entry.getValue().getChildren() != null) {
-                locationTreeToTreNode(tree, entry.getValue().getChildren());
+            if(ALLOWED_LEVELS.contains(locationTag)) {
+                node.addChild(tree);
+                tree.setClickListener(this);
+                if (entry.getValue().getChildren() != null) {
+                    locationTreeToTreNode(tree, entry.getValue().getChildren());
+                }
+            } else {
+                if (entry.getValue().getChildren() != null) {
+                    locationTreeToTreNode(node, entry.getValue().getChildren());
+                }
             }
         }
     }
