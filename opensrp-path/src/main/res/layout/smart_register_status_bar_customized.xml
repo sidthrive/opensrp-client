@@ -26,8 +26,8 @@
             android:ellipsize="end"
             android:hint="@string/str_search_hint"
             android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/light_grey"
+            android:textColorHint="@color/light_grey"
             android:textSize="18sp" />
 
         <ImageButton
@@ -42,11 +42,11 @@
 
 
     <FrameLayout
+        android:id="@+id/scan_qr_code"
         style="?android:attr/buttonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
-        android:id="@+id/scan_qr_code"
         android:layout_marginRight="15dp"
         android:layout_weight="1"
         android:background="@drawable/scan_qr_code_bg">
@@ -66,7 +66,7 @@
             android:minWidth="0dp"
             android:text="@string/scan_qr_code"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/light_grey"
             android:textSize="18sp" />
     </FrameLayout>
 
