@@ -67,15 +67,16 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(getContentView());
         toolbar = (BaseToolbar) findViewById(getToolbarId());
         setSupportActionBar(toolbar);
+        if(getDrawerLayoutId() == R.id.toolbar) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
@@ -107,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
-    private void initViews() {
+    public void initViews() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Button logoutButton = (Button) navigationView.findViewById(R.id.logout_b);
         logoutButton.setOnClickListener(new View.OnClickListener() {

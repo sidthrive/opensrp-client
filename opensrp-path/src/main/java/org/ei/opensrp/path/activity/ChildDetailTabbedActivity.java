@@ -87,6 +87,10 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 //        getMenuInflater().inflate(R.menu.menu_simple_tabs, menu);
 //        return true;
 //    }
+    @Override
+    public void initViews(){
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
