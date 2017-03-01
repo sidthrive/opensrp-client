@@ -1,5 +1,6 @@
-<model><instance>
-  <EC_Kunjungan_Gizi_NewStructure-mapped_O encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201701280130">
+<model>
+  <instance>
+  <EC_Kunjungan_Gizi_NewStructure-mapped_O encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201703011047">
     <formhub>
       <uuid/>
     </formhub>
@@ -40,15 +41,15 @@
     <generated_note_name_42/>
     <generated_note_name_43/>
     <generated_note_name_44/>
+    <tanggal_lahir openmrs_entity="person" openmrs_entity_id="birthdate"/>
     <jenis_kelamin openmrs_entity="person" openmrs_entity_id="gender"/>
     <tanggal_penimbangan openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
     <kunjungan_sebelumnya openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-    <tanggal_lahir openmrs_entity="person" openmrs_entity_id="birthdate"/>
     <preload_umur openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0</preload_umur>
     <preload_history_tinggi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0:0</preload_history_tinggi>
     <umur openmrs_entity="concept" openmrs_entity_id="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
     <generated_note_name_56/>
-    <berat_preload openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0:0</berat_preload>
+    <berat_preload openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0</berat_preload>
     <berat_badan openmrs_entity="concept" openmrs_entity_id="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
     <history_berat openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
     <tinggi_badan openmrs_entity="concept" openmrs_entity_id="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
@@ -68,4 +69,5 @@
       <instanceID/>
     </meta>
   </EC_Kunjungan_Gizi_NewStructure-mapped_O>
-</instance></model>
+  </instance>
+</model>
