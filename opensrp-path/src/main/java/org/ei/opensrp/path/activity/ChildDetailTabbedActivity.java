@@ -45,9 +45,15 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     //////////////////////////////////////////////////
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
-    private static final String EXTRA_CHILD_DETAILS = "child_details";
+    public static final String EXTRA_CHILD_DETAILS = "child_details";
     private static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private child_registration_data_fragment child_data_fragment;
+    private child_under_five_fragment child_under_five_Fragment;
+
+    public CommonPersonObjectClient getChildDetails() {
+        return childDetails;
+    }
 
     // Data
     private CommonPersonObjectClient childDetails;
@@ -59,8 +65,12 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_detail_activity_simple_tabs);
 
+        child_data_fragment = new child_registration_data_fragment();
 
+        child_data_fragment.setArguments(this.getIntent().getExtras());
 
+        child_under_five_Fragment = new child_under_five_fragment();
+        child_under_five_Fragment.setArguments(savedInstanceState);
 
 
         detailtoolbar = (Toolbar) findViewById(R.id.child_detail_toolbar);
@@ -169,8 +179,9 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new child_registration_data_fragment(), "Registration Data");
-        adapter.addFragment(new child_under_five_fragment(), "Under Five History");
+
+        adapter.addFragment(child_data_fragment, "Registration Data");
+        adapter.addFragment(child_under_five_Fragment, "Under Five History");
         viewPager.setAdapter(adapter);
     }
     private void updateGenderViews() {
@@ -216,6 +227,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
