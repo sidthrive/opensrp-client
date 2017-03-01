@@ -113,9 +113,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"
-            app:tabTextColor="@color/text_black"
             app:tabSelectedTextColor="@color/female_dark_pink"
             app:tabIndicatorColor="@color/female_dark_pink"
+            app:tabTextAppearance="@style/CustomFontTextViewStyle"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>

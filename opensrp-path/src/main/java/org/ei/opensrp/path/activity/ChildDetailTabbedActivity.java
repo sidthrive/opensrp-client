@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.RegisterClickables;
+import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
+import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.joda.time.DateTime;
@@ -72,7 +74,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void initiallization(Bundle savedInstanceState) {
@@ -167,8 +169,8 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new OneFragment(), "Registration Data");
-//        adapter.addFragment(new TwoFragment(), "Under Five History");
+        adapter.addFragment(new child_registration_data_fragment(), "Registration Data");
+        adapter.addFragment(new child_under_five_fragment(), "Under Five History");
         viewPager.setAdapter(adapter);
     }
     private void updateGenderViews() {
