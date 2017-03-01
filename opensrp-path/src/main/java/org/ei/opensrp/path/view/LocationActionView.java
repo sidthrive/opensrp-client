@@ -5,12 +5,13 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 23/02/2017.
@@ -18,8 +19,7 @@ import org.ei.opensrp.path.R;
 
 public class LocationActionView extends LinearLayout {
     private Context context;
-    private TextView itemText;
-    private ImageView imageSeparator;
+    private CustomFontTextView itemText;
 
     public LocationActionView(Context context) {
         super(context);
@@ -49,13 +49,8 @@ public class LocationActionView extends LinearLayout {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         setLayoutParams(layoutParams);
 
-        itemText = (TextView) findViewById(R.id.item_text);
-        imageSeparator = (ImageView) findViewById(R.id.immunization_separator);
+        itemText = (CustomFontTextView) findViewById(R.id.item_text);
         setClickable(true);
-    }
-
-    public void updateSeparatorView(int viewResource) {
-        imageSeparator.setImageDrawable(context.getResources().getDrawable(viewResource));
     }
 
     public void setItemText(String text) {

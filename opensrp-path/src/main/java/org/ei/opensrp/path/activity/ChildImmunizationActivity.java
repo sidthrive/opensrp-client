@@ -104,16 +104,8 @@ public class ChildImmunizationActivity extends BaseActivity
                 registerClickables = (RegisterClickables) serializable;
             }
         }
-        int toolbarResource = 0;
-        if (childDetails != null) {
-            String gender = Utils.getValue(childDetails.getColumnmaps(), "gender", false);
-            if(gender.equalsIgnoreCase("female")) {
-                toolbarResource = R.drawable.separator_girl;
-            } else if (gender.equalsIgnoreCase("male")) {
-                toolbarResource = R.drawable.separator_boy;
-            }
-        }
-        toolbar.init(this, toolbarResource);
+
+        toolbar.init(this);
     }
 
     @Override
@@ -129,7 +121,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private void updateViews() {
         // TODO: update all views using child data
         updateGenderViews();
-        setTitle(updateActivityTitle());
+        toolbar.setTitle(updateActivityTitle());
         updateAgeViews();
         updateChildIdViews();
         updateVaccinationViews();
@@ -214,21 +206,20 @@ public class ChildImmunizationActivity extends BaseActivity
         int[] selectedColor = super.updateGenderViews(gender);
 
         String identifier = getString(R.string.neutral_sex_id);
-        int toolbarSeparatorResource = 0;
+        int toolbarResource = 0;
         if (gender.equals(Gender.FEMALE)) {
+            toolbarResource = R.drawable.vertical_separator_female;
             identifier = getString(R.string.female_sex_id);
-            toolbarSeparatorResource = R.drawable.separator_girl;
         } else if (gender.equals(Gender.MALE)) {
+            toolbarResource = R.drawable.vertical_separator_male;
             identifier = getString(R.string.male_sex_id);
-            toolbarSeparatorResource = R.drawable.separator_boy;
         }
+        toolbar.updateSeparatorView(toolbarResource);
 
         TextView childSiblingsTV = (TextView) findViewById(R.id.child_siblings_tv);
         childSiblingsTV.setText(
                 String.format(getString(R.string.child_siblings), identifier).toUpperCase());
-
         updateProfilePicture(gender);
-        toolbar.updateSeparatorView(toolbarSeparatorResource);
 
         return selectedColor;
     }

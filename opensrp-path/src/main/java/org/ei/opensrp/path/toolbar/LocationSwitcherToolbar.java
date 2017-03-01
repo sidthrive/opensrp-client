@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.toolbar;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -12,15 +13,16 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.BaseActivity;
 import org.ei.opensrp.path.fragment.LocationPickerDialogFragment;
 import org.ei.opensrp.path.view.LocationActionView;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
 
 import java.util.ArrayList;
 
 /**
  * To use this toolbar in your activity, include the following line as the first child in your
  * activity's main {@link android.support.design.widget.CoordinatorLayout}
- * <p>
+ * <p/>
  * <include layout="@layout/toolbar_location_switcher" />
- * <p>
+ * <p/>
  * Created by Jason Rogena - jrogena@ona.io on 17/02/2017.
  */
 
@@ -31,7 +33,8 @@ public class LocationSwitcherToolbar extends BaseToolbar {
     private OnLocationChangeListener onLocationChangeListener;
     private LocationPickerDialogFragment locationPickerDialogFragment;
     private static final String LOCATION_DIALOG_TAG = "locationDialogTAG";
-    int separatorResource;
+    private String title;
+    private int separatorResourceId;
 
     public LocationSwitcherToolbar(Context context) {
         super(context);
@@ -45,9 +48,8 @@ public class LocationSwitcherToolbar extends BaseToolbar {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(BaseActivity baseActivity, int separatorResource) {
+    public void init(BaseActivity baseActivity) {
         this.baseActivity = baseActivity;
-        this.separatorResource = separatorResource;
     }
 
     public ArrayList<String> getCurrentLocation() {
@@ -56,6 +58,10 @@ public class LocationSwitcherToolbar extends BaseToolbar {
         }
 
         return null;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     private void updateMenu(ArrayList<String> selectedLocation) {
@@ -102,8 +108,11 @@ public class LocationSwitcherToolbar extends BaseToolbar {
                     showLocationPickerDialog();
                 }
             });
-            locationActionView.updateSeparatorView(separatorResource);
+            CustomFontTextView titleTV = (CustomFontTextView) baseActivity.findViewById(R.id.title);
+            View separatorV = baseActivity.findViewById(R.id.separator_v);
+            titleTV.setText(title);
             baseActivity.getMenu().findItem(R.id.location_switcher).setActionView(locationActionView);
+            separatorV.setBackgroundDrawable(baseActivity.getResources().getDrawable(separatorResourceId));
         }
         updateMenu(getCurrentLocation());
     }
@@ -117,11 +126,7 @@ public class LocationSwitcherToolbar extends BaseToolbar {
     }
 
     public void updateSeparatorView(int newView) {
-        if (baseActivity.getMenu() != null
-                && baseActivity.getMenu().getItem(R.id.location_switcher) != null) {
-            ((LocationActionView)baseActivity.getMenu().getItem(R.id.location_switcher)
-                    .getActionView()).updateSeparatorView(newView);
-        }
+        separatorResourceId = newView;
     }
 
     private void showLocationPickerDialog() {
