@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
@@ -25,8 +28,12 @@ import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,7 +53,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_BAYI_KUN
  * Created by Dimas Ciputra on 4/7/15.
  */
 public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     public static final String TAG = "AnakActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -66,7 +73,15 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        FlurryFacade.logEvent("anak_dashboard");
+
+        String KIStart = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("start", KIStart);
+        FlurryAgent.logEvent("Anak_dashboard", KI, true);
+
+        formNames = this.buildFormNameList();
+        mBaseFragment = new NativeKIANCSmartRegisterFragment();
+
     formNames = this.buildFormNameList();
         mBaseFragment = new NativeKIAnakSmartRegisterFragment();
 
@@ -151,11 +166,21 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+        //  FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
+
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -245,6 +270,10 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KIEnd = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("end", KIEnd);
+        FlurryAgent.logEvent("Anak_dashboard",KI, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

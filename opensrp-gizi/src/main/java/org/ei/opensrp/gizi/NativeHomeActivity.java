@@ -107,7 +107,7 @@ public class NativeHomeActivity extends SecuredActivity {
         String HomeStart = timer.format(new Date());
         Map<String, String> Home = new HashMap<String, String>();
         Home.put("start", HomeStart);
-//        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
+        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
 
     }
 
