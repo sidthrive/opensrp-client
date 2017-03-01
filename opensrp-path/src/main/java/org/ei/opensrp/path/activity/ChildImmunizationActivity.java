@@ -78,7 +78,6 @@ public class ChildImmunizationActivity extends BaseActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar = (LocationSwitcherToolbar) getToolbar();
-        toolbar.init(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +88,8 @@ public class ChildImmunizationActivity extends BaseActivity
             }
         });
         toolbar.setOnLocationChangeListener(this);
+//       View view= toolbar.findViewById(R.id.immunization_separator);
+//        view.setBackground(R.drawable.vertical_seperator_female);
 
         // Get child details from bundled data
         Bundle extras = this.getIntent().getExtras();
@@ -103,6 +104,16 @@ public class ChildImmunizationActivity extends BaseActivity
                 registerClickables = (RegisterClickables) serializable;
             }
         }
+        int toolbarResource = 0;
+        if (childDetails != null) {
+            String gender = Utils.getValue(childDetails.getColumnmaps(), "gender", false);
+            if(gender.equalsIgnoreCase("female")) {
+                toolbarResource = R.drawable.separator_girl;
+            } else if (gender.equalsIgnoreCase("male")) {
+                toolbarResource = R.drawable.separator_boy;
+            }
+        }
+        toolbar.init(this, toolbarResource);
     }
 
     @Override
@@ -203,10 +214,13 @@ public class ChildImmunizationActivity extends BaseActivity
         int[] selectedColor = super.updateGenderViews(gender);
 
         String identifier = getString(R.string.neutral_sex_id);
+        int toolbarSeparatorResource = 0;
         if (gender.equals(Gender.FEMALE)) {
             identifier = getString(R.string.female_sex_id);
+            toolbarSeparatorResource = R.drawable.separator_girl;
         } else if (gender.equals(Gender.MALE)) {
             identifier = getString(R.string.male_sex_id);
+            toolbarSeparatorResource = R.drawable.separator_boy;
         }
 
         TextView childSiblingsTV = (TextView) findViewById(R.id.child_siblings_tv);
@@ -214,6 +228,7 @@ public class ChildImmunizationActivity extends BaseActivity
                 String.format(getString(R.string.child_siblings), identifier).toUpperCase());
 
         updateProfilePicture(gender);
+        toolbar.updateSeparatorView(toolbarSeparatorResource);
 
         return selectedColor;
     }

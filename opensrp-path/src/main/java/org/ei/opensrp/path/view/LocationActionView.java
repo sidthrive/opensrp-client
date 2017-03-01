@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import org.ei.opensrp.path.R;
 public class LocationActionView extends LinearLayout {
     private Context context;
     private TextView itemText;
+    private ImageView imageSeparator;
 
     public LocationActionView(Context context) {
         super(context);
@@ -48,7 +50,12 @@ public class LocationActionView extends LinearLayout {
         setLayoutParams(layoutParams);
 
         itemText = (TextView) findViewById(R.id.item_text);
+        imageSeparator = (ImageView) findViewById(R.id.immunization_separator);
         setClickable(true);
+    }
+
+    public void updateSeparatorView(int viewResource) {
+        imageSeparator.setImageDrawable(context.getResources().getDrawable(viewResource));
     }
 
     public void setItemText(String text) {

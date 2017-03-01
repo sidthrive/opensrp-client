@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -13,8 +12,6 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.BaseActivity;
 import org.ei.opensrp.path.fragment.LocationPickerDialogFragment;
 import org.ei.opensrp.path.view.LocationActionView;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -34,6 +31,7 @@ public class LocationSwitcherToolbar extends BaseToolbar {
     private OnLocationChangeListener onLocationChangeListener;
     private LocationPickerDialogFragment locationPickerDialogFragment;
     private static final String LOCATION_DIALOG_TAG = "locationDialogTAG";
+    int separatorResource;
 
     public LocationSwitcherToolbar(Context context) {
         super(context);
@@ -47,8 +45,9 @@ public class LocationSwitcherToolbar extends BaseToolbar {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(BaseActivity baseActivity) {
+    public void init(BaseActivity baseActivity, int separatorResource) {
         this.baseActivity = baseActivity;
+        this.separatorResource = separatorResource;
     }
 
     public ArrayList<String> getCurrentLocation() {
@@ -103,6 +102,7 @@ public class LocationSwitcherToolbar extends BaseToolbar {
                     showLocationPickerDialog();
                 }
             });
+            locationActionView.updateSeparatorView(separatorResource);
             baseActivity.getMenu().findItem(R.id.location_switcher).setActionView(locationActionView);
         }
         updateMenu(getCurrentLocation());
@@ -114,6 +114,14 @@ public class LocationSwitcherToolbar extends BaseToolbar {
             showLocationPickerDialog();
         }
         return menuItem;
+    }
+
+    public void updateSeparatorView(int newView) {
+        if (baseActivity.getMenu() != null
+                && baseActivity.getMenu().getItem(R.id.location_switcher) != null) {
+            ((LocationActionView)baseActivity.getMenu().getItem(R.id.location_switcher)
+                    .getActionView()).updateSeparatorView(newView);
+        }
     }
 
     private void showLocationPickerDialog() {
