@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
@@ -55,6 +57,7 @@ public class ANCDetailActivity extends Activity {
     private static String showbgm;
     private static ImageFetcher mImageFetcher;
 
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
 
     public static CommonPersonObjectClient ancclient;
@@ -63,6 +66,11 @@ public class ANCDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.anc_detail_activity);
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<String, String>();
+        Detail.put("start", DetailStart);
+        FlurryAgent.logEvent("ANC_detail_view",Detail, true );
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -165,6 +173,10 @@ public class ANCDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(ANCDetailActivity.this, NativeKIANCSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> Detail = new HashMap<String, String>();
+                Detail.put("end", DetailEnd);
+                FlurryAgent.logEvent("ANC_detail_view", Detail, true);
             }
         });
 

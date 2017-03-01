@@ -53,7 +53,6 @@ public class VaksinatorDetailActivity extends Activity {
     private static ImageFetcher mImageFetcher;
 
     //image retrieving
-
     public static CommonPersonObjectClient controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

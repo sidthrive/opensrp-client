@@ -78,7 +78,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 Map<String, String> Gizi = new HashMap<String, String>();
                 Gizi.put("start", GiziStart);
                 FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
-       // FlurryFacade.logEvent("Gizi_dashboard");
+      //  FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
         mBaseFragment = new GiziSmartRegisterFragment();
@@ -163,7 +163,11 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             if(formName.equals("registrasi_gizi")) {
                 saveuniqueid();
             }
-
+            //end capture flurry log for FS
+            String end = timer.format(new Date());
+            Map<String, String> FS = new HashMap<String, String>();
+            FS.put("end", end);
+            FlurryAgent.logEvent(formName,FS, true);
         }catch (Exception e){
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
@@ -172,6 +176,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
             e.printStackTrace();
         }
+
       //  KMSCalculation();
     }
 
@@ -247,7 +252,11 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+       // FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -373,10 +382,10 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
-  /*      String GiziEnd = timer.format(new Date());
+        String GiziEnd = timer.format(new Date());
         Map<String, String> Gizi = new HashMap<String, String>();
         Gizi.put("end", GiziEnd);
-        FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );*/
+        FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

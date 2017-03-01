@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class FlurryFacade {
 
-    //vaksinator key prot 2.1
-   // private static final String flurry_key = "BY3JJQHCK9GXQTV6SNTM";
+    //vaksinator EC prototype 1
+    private static final String flurry_key = "QQNP4YT9BYBD8289J2BD";
 
-    //testing key
-    private static final String flurry_key = "QRQZ6KSKBWYNKJ5ZPDNR";
+    /*//testing key
+    private static final String flurry_key = "QRQZ6KSKBWYNKJ5ZPDNR";*/
 
     public static void logEvent(String event) {
         FlurryAgent.logEvent(event);
