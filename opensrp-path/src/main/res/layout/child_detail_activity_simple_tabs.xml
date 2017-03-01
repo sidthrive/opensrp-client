@@ -10,16 +10,15 @@
         android:background="#FAFAFA">
 
         <org.ei.opensrp.path.toolbar.LocationSwitcherToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/child_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/female_dark_pink"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fafafa">
+          >
 
             <LinearLayout
                 android:orientation="horizontal"

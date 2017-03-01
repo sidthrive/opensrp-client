@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.joda.time.DateTime;
+import org.opensrp.api.constants.Gender;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -33,7 +36,7 @@ import util.Utils;
 
 public class ChildDetailTabbedActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    private Toolbar detailtoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -53,18 +56,18 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_detail_activity_simple_tabs);
-        initiallization(savedInstanceState);
 
 
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.showOverflowMenu();
-        setSupportActionBar(toolbar);
+
+        detailtoolbar = (Toolbar) findViewById(R.id.child_detail_toolbar);
+        detailtoolbar.showOverflowMenu();
+        setSupportActionBar(detailtoolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().
-
+        initiallization(savedInstanceState);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -82,11 +85,11 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         }
         profileWidget();
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_simple_tabs, menu);
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
+        return true;
+    }
     @Override
     public void initViews(){
 
@@ -118,7 +121,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 
     @Override
     protected int getToolbarId() {
-        return R.id.toolbar;
+        return R.id.child_detail_toolbar;
     }
 
     @Override
@@ -159,6 +162,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         profileage.setText(String.format("%s: %s", getString(R.string.age), formattedAge));
         profileZeirID.setText(String.format("%s: %s", getString(R.string.label_zeir), childId));
         profilename.setText(name);
+        updateGenderViews();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -166,6 +170,23 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 //        adapter.addFragment(new OneFragment(), "Registration Data");
 //        adapter.addFragment(new TwoFragment(), "Under Five History");
         viewPager.setAdapter(adapter);
+    }
+    private void updateGenderViews() {
+        Gender gender = Gender.UNKNOWN;
+        if (isDataOk()) {
+            String genderString = Utils.getValue(childDetails, "gender", false);
+            if (genderString != null && genderString.toLowerCase().equals("female")) {
+                gender = Gender.FEMALE;
+            } else if (genderString != null && genderString.toLowerCase().equals("male")) {
+                gender = Gender.MALE;
+            }
+        }
+       int [] colors = updateGenderViews(gender);
+        int darkShade = colors[0];
+        int normalShade = colors[1];
+        int lightSade = colors[2];
+        detailtoolbar.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
+
     }
     private boolean isDataOk() {
         return childDetails != null && childDetails.getDetails() != null;

@@ -67,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(getContentView());
         toolbar = (BaseToolbar) findViewById(getToolbarId());
         setSupportActionBar(toolbar);
-        if(getDrawerLayoutId() == R.id.toolbar) {
+        if(getToolbarId() != R.id.child_detail_toolbar) {
             DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
