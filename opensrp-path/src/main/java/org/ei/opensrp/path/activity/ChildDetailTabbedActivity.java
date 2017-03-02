@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,11 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.RegisterClickables;
@@ -22,7 +28,11 @@ import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.util.FormUtils;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
 import java.io.Serializable;
@@ -33,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 
 import util.DateUtils;
+import util.JsonFormUtils;
 import util.Utils;
 
 
@@ -41,7 +52,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     private Toolbar detailtoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private static final int REQUEST_CODE_GET_JSON = 3432;
     //////////////////////////////////////////////////
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
@@ -110,15 +121,55 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.registration_data:
+                startFormActivity("child_enrollment", childDetails.entityId(), null);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
+            case R.id.immunization_data:
+                viewPager.setCurrentItem(1);
+                child_under_five_Fragment.loadview(true);
+                return  true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        Context context = Context.getInstance();
+        try {
+            if (StringUtils.isBlank(entityId)) {
+                UniqueIdRepository uniqueIdRepo = context.uniqueIdRepository();
+                entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                if (entityId.isEmpty()) {
+                    Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
+            JsonFormUtils.addChildRegLocHierarchyQuestions(form,context);
+            if (form != null) {
+                Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                //inject zeir id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                        jsonObject.remove(JsonFormUtils.VALUE);
+                        jsonObject.put(JsonFormUtils.VALUE, entityId.replace("-", ""));
+                        continue;
+                    }
+                }
+                intent.putExtra("json", form.toString());
+                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
     }
 
     @Override
@@ -227,6 +278,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+
 
 
         @Override

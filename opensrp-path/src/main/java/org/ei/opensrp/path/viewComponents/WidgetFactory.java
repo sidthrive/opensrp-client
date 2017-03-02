@@ -3,6 +3,7 @@ package org.ei.opensrp.path.viewComponents;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -39,21 +40,27 @@ public class WidgetFactory {
 
         return weightwidget;
     }
-    public View createImmunizationWidget(LayoutInflater inflater, ViewGroup container, ArrayList<String> vaccines){
+    public View createImmunizationWidget(LayoutInflater inflater, ViewGroup container, ArrayList<String> vaccines,boolean editmode){
 
         View immunization_widget = inflater.inflate(R.layout.immunization_widget, container, false);
         TableLayout immunizationholder = (TableLayout)immunization_widget.findViewById(R.id.immunizationholder);
         for(int i = 0 ;i<vaccines.size();i++){
-            immunizationholder.addView(createImmunizationRow(inflater,container,vaccines.get(i)));
+            immunizationholder.addView(createImmunizationRow(inflater,container,vaccines.get(i),editmode));
         }
 
         return immunization_widget;
     }
-    public View createImmunizationRow(LayoutInflater inflater, ViewGroup container, String vaccines){
+    public View createImmunizationRow(LayoutInflater inflater, ViewGroup container, String vaccines,boolean editmode){
 
         View vaccineRow = inflater.inflate(R.layout.vaccinate_row_view, container, false);
 //        TableLayout tableLayout = (TableLayout)vaccineRow.findViewById(R.id.weightvalues);
         TextView vaccinename = (TextView)vaccineRow.findViewById(R.id.vaccine);
+        Button undobutton = (Button)vaccineRow.findViewById(R.id.undo);
+        if(editmode) {
+            undobutton.setVisibility(View.VISIBLE);
+        }else{
+            undobutton.setVisibility(View.GONE);
+        }
         vaccinename.setText(vaccines);
 
         return vaccineRow;
