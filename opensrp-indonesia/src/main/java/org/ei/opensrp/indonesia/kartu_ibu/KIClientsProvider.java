@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -19,6 +20,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -222,6 +224,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         convertView.setLayoutParams(clientViewLayoutParams);
       //  return convertView;
+
     }
 
     

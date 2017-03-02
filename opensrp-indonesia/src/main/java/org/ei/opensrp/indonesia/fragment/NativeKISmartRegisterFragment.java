@@ -176,6 +176,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //            clientProvider = new HouseHoldSmartClientsProvider(
 //                    getActivity(),clientActionHandler , context.alertService());
 //        }
+
+        Log.e(TAG, "clientsProvider: " );
         return null;
     }
 

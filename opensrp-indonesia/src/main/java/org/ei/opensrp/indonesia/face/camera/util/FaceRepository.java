@@ -10,6 +10,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.face.camera.ImageConfirmation;
 import org.ei.opensrp.repository.DrishtiRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.repository.Repository;
 
 import java.util.List;
 
@@ -19,7 +20,16 @@ import java.util.List;
 public class FaceRepository extends ImageRepository {
 
     private static String TAG = FaceRepository.class.getSimpleName();
+    static FaceRepository faceRepository;
 
+    public DrishtiRepository faceRepository() {
+        Log.e(TAG, "faceRepository: "+faceRepository );
+        if (faceRepository == null) {
+            faceRepository = new FaceRepository();
+        }
+        Log.e(TAG, "faceRepository: "+faceRepository );
+        return faceRepository;
+    }
 
     public List<ProfileImage> allVectorImages() {
         Log.e(TAG, "allVectorImages: "+masterRepository);
@@ -65,9 +75,12 @@ public class FaceRepository extends ImageRepository {
     public void updateByEntityIdNull(String entityId, String faceVector) {
         ContentValues values = new ContentValues();
         values.put(filevector_COLUMN, faceVector);
-        Log.e(TAG, "updateByEntityId: "+values );
-        masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, "entityID" + " = ? && faceVector == null ", new String[]{entityId});
-        close(entityId);
+        Log.e(TAG, "updateByEntityIdNull: "+values );
+        Log.e(TAG, "updateByEntityIdNull: "+masterRepository );
+//        masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, "entityID" + " = ? && faceVector == null ", new String[]{entityId});
+//        close(entityId);
 
     }
+
+
 }

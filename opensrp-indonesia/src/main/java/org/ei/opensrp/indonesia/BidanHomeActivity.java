@@ -11,7 +11,6 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
-import org.ei.opensrp.indonesia.face.camera.util.MultimediaProcessor;
 import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
@@ -73,10 +72,10 @@ public class BidanHomeActivity extends SecuredActivity {
 
             // Fetch vector from API and stored to local db
 //            mtool.setVectorfromAPI(context());
-            mtool.setVectorfromAPI(getApplicationContext());
+            Tools.setVectorfromAPI(getApplicationContext());
 
             // Fetch vector from local db and stored as buffer
-            mtool.parseSaveVector(context());
+            mtool.parseSavedVector(context());
 
 //            mtool.vector_findAllUnsaved();
         }

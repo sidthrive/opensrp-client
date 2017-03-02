@@ -215,7 +215,6 @@ public class HTTPAgent {
                 ContentBody cbFile = new FileBody(uploadFile,"image/jpeg");
                 entity.addPart("file", cbFile);
                 entity.addPart("face-vector", new StringBody(image.getFilevector()));
-                Log.e(TAG, "httpImagePost: "+allSharedPreferences.getPreference("locationId") );
                 entity.addPart("locationId", new StringBody(allSharedPreferences.getPreference("locationId")));
                 httpost.setEntity(entity);
                 String authToken = null;

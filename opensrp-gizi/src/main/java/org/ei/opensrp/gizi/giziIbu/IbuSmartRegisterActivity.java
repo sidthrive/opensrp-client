@@ -69,7 +69,7 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
         String GiziStart = timer.format(new Date());
                 Map<String, String> Gizi = new HashMap<String, String>();
                 Gizi.put("start", GiziStart);
-                FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
+//                FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
        // FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();

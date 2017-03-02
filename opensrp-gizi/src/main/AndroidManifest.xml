@@ -57,8 +57,8 @@
             android:screenOrientation="landscape"/>
 
 
-        <activity android:name=".face.camera.SmartShutterActivity" />
-        <activity android:name=".face.camera.ImageConfirmation" />
+        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
         <activity android:name=".face.camera.ClientsList" />
 
     </application>

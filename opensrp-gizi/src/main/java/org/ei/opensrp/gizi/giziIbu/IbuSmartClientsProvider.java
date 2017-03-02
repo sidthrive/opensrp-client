@@ -23,6 +23,8 @@ import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 import org.ei.opensrp.gizi.gizi.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -71,6 +73,7 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
     @Override
     public void getView(SmartRegisterClient smartRegisterClient, View convertView) {
         ViewHolder viewHolder;
+        CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
 
         if(convertView.getTag() == null || !(convertView.getTag() instanceof  ViewHolder)){
             viewHolder = new ViewHolder();
@@ -102,8 +105,18 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 //            viewHolder.antihelminticLogo = (ImageView)convertView.findViewById(R.id.antihelminticSymbol);
 //            viewHolder.antihelminticText = (TextView)convertView.findViewById(R.id.antihelminticText);
 
-            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
+//            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
 //            viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
+            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
+
+            final ImageView kiview = (ImageView)convertView.findViewById(R.id.profilepic);
+            if (pc.getDetails().get("profilepic") != null) {
+//                KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+                kiview.setTag(smartRegisterClient);
+            }
+            else {
+                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+            }
 
             convertView.setTag(viewHolder);
         } else {
@@ -115,7 +128,6 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.profilelayout.setOnClickListener(onClickListener);
         viewHolder.profilelayout.setTag(smartRegisterClient);
 
-        CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
         // IMPORTANT : data has 2 type: columnMaps and details
 
         AllCommonsRepository allancRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");// get all data from ec_ibu table
@@ -154,6 +166,13 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 
         viewHolder.vitaminA2.setText(context.getString(R.string.vitamin_a_pnc_2)+getDetails("vitaminA2jamPP",pc));
         viewHolder.vitaminA24.setText(context.getString(R.string.vitamin_a_pnc_24)+getDetails("vitaminA24jamPP",pc));
+        //start profile image
+        viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+        }
+        //end profile image
 
         viewHolder.profilepic.setOnClickListener(new View.OnClickListener() {
             @Override

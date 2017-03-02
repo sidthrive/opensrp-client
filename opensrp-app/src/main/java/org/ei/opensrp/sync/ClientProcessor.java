@@ -79,7 +79,6 @@ public class ClientProcessor {
             for (JSONObject eventOrAlert : eventsAndAlerts) {
                 String type = eventOrAlert.has("type") ? eventOrAlert.getString("type") : null;
                 if (type.equals("Event")) {
-
                     JSONObject clientClassificationJson = new JSONObject(clientClassificationStr);
                     if(isNullOrEmptyJSONObject(clientClassificationJson)){
                         continue;

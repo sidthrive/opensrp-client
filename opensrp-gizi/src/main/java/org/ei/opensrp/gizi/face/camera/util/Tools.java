@@ -14,6 +14,8 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
