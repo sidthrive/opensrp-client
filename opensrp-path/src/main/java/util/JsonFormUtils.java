@@ -13,6 +13,7 @@ import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.clientandeventmodel.FormEntityConstants;
 import org.ei.opensrp.clientandeventmodel.Obs;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
@@ -47,11 +48,11 @@ import id.zelory.compressor.Compressor;
 public class JsonFormUtils {
     private static final String TAG = "JsonFormUtils";
 
-    private static final String OPENMRS_ENTITY = "openmrs_entity";
-    private static final String OPENMRS_ENTITY_ID = "openmrs_entity_id";
-    private static final String OPENMRS_ENTITY_PARENT = "openmrs_entity_parent";
-    private static final String OPENMRS_CHOICE_IDS = "openmrs_choice_ids";
-    private static final String OPENMRS_DATA_TYPE = "openmrs_data_type";
+    public static final String OPENMRS_ENTITY = "openmrs_entity";
+    public static final String OPENMRS_ENTITY_ID = "openmrs_entity_id";
+    public static final String OPENMRS_ENTITY_PARENT = "openmrs_entity_parent";
+    public static final String OPENMRS_CHOICE_IDS = "openmrs_choice_ids";
+    public static final String OPENMRS_DATA_TYPE = "openmrs_data_type";
 
     private static final String PERSON_ATTRIBUTE = "person_attribute";
     private static final String PERSON_INDENTIFIER = "person_identifier";
@@ -142,7 +143,7 @@ public class JsonFormUtils {
 
             String zeirId = c.getIdentifier(ZEIR_ID);
             //mark zeir id as used
-            org.ei.opensrp.Context.uniqueIdRepository().close(zeirId);
+            org.ei.opensrp.Context.getInstance().uniqueIdRepository().close(zeirId);
 
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
@@ -198,7 +199,7 @@ public class JsonFormUtils {
                 profileImage.setFilepath(absoluteFileName);
                 profileImage.setFilecategory("profilepic");
                 profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+                ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.getInstance().imageRepository();
                 imageRepo.add(profileImage);
             }
 
@@ -743,7 +744,7 @@ public class JsonFormUtils {
                 .withAttributes(extractAttributes(fields, bindType))
                 .withIdentifiers(idents);
 
-        if(addresses.isEmpty()){
+        if (addresses.isEmpty()) {
             c.withAddresses(parent.getAddresses());
         }
 
@@ -1055,7 +1056,7 @@ public class JsonFormUtils {
     }
 
     private static JSONArray getDefaultLocationHierarchy(String defaultLocationUuid, JSONObject openMrsLocationData, JSONArray parents, ArrayList<String> allowedLevels) throws JSONException {
-        if(allowedLevels.contains(openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0))) {
+        if (allowedLevels.contains(openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0))) {
             parents.put(openMrsLocationData.getJSONObject("node").getString("name"));
         }
 
@@ -1091,15 +1092,15 @@ public class JsonFormUtils {
                 String curChildKey = childIterator.next();
                 getFormJsonData(children, openMrsLocationData.getJSONObject("children").getJSONObject(curChildKey), allowedLevels);
             }
-            if(allowedLevels.contains(level)) {
+            if (allowedLevels.contains(level)) {
                 jsonFormObject.put("nodes", children);
             } else {
-                for(int i = 0; i < children.length(); i++) {
+                for (int i = 0; i < children.length(); i++) {
                     allLocationData.put(children.getJSONObject(i));
                 }
             }
         }
-        if(allowedLevels.contains(level)) {
+        if (allowedLevels.contains(level)) {
             allLocationData.put(jsonFormObject);
         }
     }
@@ -1141,6 +1142,41 @@ public class JsonFormUtils {
             }
         } catch (JSONException e) {
             //Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    public static void createWeightEvent(Context context, Weight weight, String eventType, String entityType, JSONArray fields) {
+        try {
+            Event e = (Event) new Event()
+                    .withBaseEntityId(weight.getBaseEntityId())
+                    .withEventDate(weight.getDate())
+                    .withEventType(eventType)
+                    .withLocationId(null)
+                    .withProviderId(weight.getAnmId())
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+            List<Object> vall = new ArrayList<>();
+            vall.add(weight.getKg());
+
+            if (fields != null && fields.length() != 0)
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject jsonObject = getJSONObject(fields, i);
+                    String value = getString(jsonObject, VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        addObservation(e, jsonObject);
+                    }
+                }
+
+            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+
+            if (e != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
+                cloudantDataHandler.createEventDocument(event);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
         }
     }
 }

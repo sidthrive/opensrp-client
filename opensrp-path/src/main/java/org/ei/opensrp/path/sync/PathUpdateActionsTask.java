@@ -12,6 +12,7 @@ import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.path.service.intent.PullUniqueIdsIntentService;
+import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AllFormVersionSyncService;
@@ -65,6 +66,7 @@ public class PathUpdateActionsTask {
                 FetchStatus fetchStatusForForms = sync();
                 FetchStatus fetchStatusForActions = actionService.fetchNewActions();
 
+                startWeightIntentService(context);
                 startReplicationIntentService(context);
                 startImageUploadIntentService(context);
                 startPullUniqueIdsIntentService(context);
@@ -85,7 +87,6 @@ public class PathUpdateActionsTask {
                         return fetched;
                     }
                 }
-
 
                 if (fetchStatusForActions == fetched || fetchStatusForForms == fetched || fetchStatusAdditional == fetched)
                     return fetched;
@@ -152,6 +153,11 @@ public class PathUpdateActionsTask {
 
     private void startPullUniqueIdsIntentService(Context context) {
         Intent intent = new Intent(context, PullUniqueIdsIntentService.class);
+        context.startService(intent);
+    }
+
+    private void startWeightIntentService(Context context) {
+        Intent intent = new Intent(context, WeightIntentService.class);
         context.startService(intent);
     }
 }

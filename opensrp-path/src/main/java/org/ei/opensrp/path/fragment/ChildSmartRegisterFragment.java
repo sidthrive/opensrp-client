@@ -88,9 +88,9 @@ import static util.Utils.getValue;
 import static util.Utils.nonEmptyValue;
 import static util.VaccinatorUtils.providerDetails;
 
-public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-    private  CustomFontTextView clinicSelection;
+    private CustomFontTextView clinicSelection;
     private LocationPickerDialogFragment locationPickerDialogFragment;
 
 
@@ -236,7 +236,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         locationPickerDialogFragment.setOnLocationChangeListener(new LocationSwitcherToolbar.OnLocationChangeListener() {
             @Override
             public void onLocationChanged(ArrayList<String> newLocation) {
-               updateLocationText(clinicSelection, newLocation);
+                updateLocationText(clinicSelection, newLocation);
             }
         });
 
@@ -290,7 +290,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
     private void updateLocationText(CustomFontTextView clinicSelection, ArrayList<String> newLocation) {
         String lastName = getActivity().getString(R.string.select_location);
-        if(newLocation != null && newLocation.size() > 0) {
+        if (newLocation != null && newLocation.size() > 0) {
             lastName = newLocation.get(newLocation.size() - 1);
         }
 
@@ -352,10 +352,6 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         @Override
         public void onClick(View view) {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            HashMap<String, String> map = new HashMap<>();
-            map.putAll(followupOverrides(client));
-            map.putAll(providerDetails());
-
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {

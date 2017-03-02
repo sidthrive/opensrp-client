@@ -154,7 +154,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 
             } else {
                 //get image record from the db
-                ImageRepository imageRepo = (ImageRepository)org.ei.opensrp.Context.imageRepository();
+                ImageRepository imageRepo = (ImageRepository)org.ei.opensrp.Context.getInstance().imageRepository();
                 ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
                 if(imageRecord!=null) {
                     get(imageRecord, opensrpImageListener);
@@ -534,7 +534,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
-                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.getInstance().imageRepository();
                     imageRepo.add(profileImage);
                 }
 
