@@ -62,6 +62,7 @@
             <fe1_fe3/>
             <resiko_terdeksi_pertama_kali openmrs_entity="concept" openmrs_entity_id="163519AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <komplikasi_dalam_kehamilan openmrs_entity="concept" openmrs_entity_id="1576AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <komplikasi_lain openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1576AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <treatment openmrs_entity="concept" openmrs_entity_id="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <treatment_text openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <rujukan openmrs_entity="concept" openmrs_entity_id="1788AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
