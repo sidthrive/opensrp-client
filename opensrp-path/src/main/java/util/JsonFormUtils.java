@@ -20,7 +20,6 @@ import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -223,9 +222,9 @@ public class JsonFormUtils {
         String middleName = getFieldValue(fields, FormEntityConstants.Person.middle_name);
         String lastName = getFieldValue(fields, FormEntityConstants.Person.last_name);
         String bd = getFieldValue(fields, FormEntityConstants.Person.birthdate);
-        DateTime birthdate = formatDate(bd, true);
+        Date birthdate = formatDate(bd, true);
         String dd = getFieldValue(fields, FormEntityConstants.Person.deathdate);
-        DateTime deathdate = formatDate(dd, true);
+        Date deathdate = formatDate(dd, true);
         String aproxbd = getFieldValue(fields, FormEntityConstants.Person.birthdate_estimated);
         Boolean birthdateApprox = false;
         if (!StringUtils.isEmpty(aproxbd) && NumberUtils.isNumber(aproxbd)) {
@@ -256,8 +255,8 @@ public class JsonFormUtils {
                 .withFirstName(firstName)
                 .withMiddleName(middleName)
                 .withLastName(lastName)
-                .withBirthdate((birthdate != null ? birthdate.toDate() : null), birthdateApprox)
-                .withDeathdate(deathdate != null ? deathdate.toDate() : null, deathdateApprox)
+                .withBirthdate((birthdate != null ? birthdate : null), birthdateApprox)
+                .withDeathdate(deathdate != null ? deathdate : null, deathdateApprox)
                 .withGender(gender).withDateCreated(new Date());
 
         c.withAddresses(addresses)
@@ -274,9 +273,9 @@ public class JsonFormUtils {
 
         Date encounterDate = new Date();
         if (StringUtils.isNotBlank(encounterDateField)) {
-            DateTime dateTime = formatDate(encounterDateField, false);
+            Date dateTime = formatDate(encounterDateField, false);
             if (dateTime != null) {
-                encounterDate = dateTime.toDate();
+                encounterDate = dateTime;
             }
         }
 
@@ -314,9 +313,9 @@ public class JsonFormUtils {
                         } else if (entityVal.equals(ENCOUNTER)) {
                             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
                             if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
-                                DateTime eDate = formatDate(value, false);
+                                Date eDate = formatDate(value, false);
                                 if (eDate != null) {
-                                    e.setEventDate(eDate.toDate());
+                                    e.setEventDate(eDate);
                                 }
                             }
                         }
@@ -652,16 +651,13 @@ public class JsonFormUtils {
         }
     }
 
-    private static DateTime formatDate(String dateString, boolean startOfToday) {
+    private static Date formatDate(String dateString, boolean startOfToday) {
         try {
             if (StringUtils.isBlank(dateString)) {
                 return null;
             }
-            DateTime date = new DateTime(FORM_DATE.parse(dateString));
-            if (startOfToday) {
-                date.withTimeAtStartOfDay();
-            }
-            return date;
+
+            return FORM_DATE.parse(dateString);
         } catch (ParseException e) {
             Log.e(TAG, "", e);
             return null;
@@ -704,9 +700,9 @@ public class JsonFormUtils {
 
         String middleName = getSubFormFieldValue(fields, FormEntityConstants.Person.middle_name, bindType);
         String lastName = getSubFormFieldValue(fields, FormEntityConstants.Person.last_name, bindType);
-        DateTime birthdate = formatDate(bb, true);
+        Date birthdate = formatDate(bb, true);
         String dd = getSubFormFieldValue(fields, FormEntityConstants.Person.deathdate, bindType);
-        DateTime deathdate = formatDate(dd, true);
+        Date deathdate = formatDate(dd, true);
         String aproxbd = getSubFormFieldValue(fields, FormEntityConstants.Person.birthdate_estimated, bindType);
         Boolean birthdateApprox = false;
         if (!StringUtils.isEmpty(aproxbd) && NumberUtils.isNumber(aproxbd)) {
@@ -736,8 +732,8 @@ public class JsonFormUtils {
                 .withFirstName(firstName)
                 .withMiddleName(middleName)
                 .withLastName(lastName)
-                .withBirthdate(new DateTime(birthdate).toDate(), birthdateApprox)
-                .withDeathdate(new DateTime(deathdate).toDate(), deathdateApprox)
+                .withBirthdate(birthdate, birthdateApprox)
+                .withDeathdate(deathdate, deathdateApprox)
                 .withGender(gender).withDateCreated(new Date());
 
         c.withAddresses(addresses)
@@ -791,9 +787,9 @@ public class JsonFormUtils {
                         } else if (entityVal.equals(ENCOUNTER)) {
                             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
                             if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
-                                DateTime eDate = formatDate(value, false);
+                                Date eDate = formatDate(value, false);
                                 if (eDate != null) {
-                                    e.setEventDate(eDate.toDate());
+                                    e.setEventDate(eDate);
                                 }
                             }
                         }

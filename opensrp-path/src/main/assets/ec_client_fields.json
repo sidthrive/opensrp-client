@@ -11,7 +11,7 @@
           }
         },
         {
-          "column_name":"program_client_id",
+          "column_name":"zeir_id",
           "type":"Client",
           "json_mapping":{
             "field":"identifiers.M_ZEIR_ID"
@@ -306,7 +306,7 @@
           }
         },
         {
-          "column_name":"program_client_id",
+          "column_name":"zeir_id",
           "type":"Client",
           "json_mapping":{
             "field":"identifiers.ZEIR_ID"

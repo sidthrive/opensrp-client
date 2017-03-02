@@ -149,7 +149,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                         new CursorCommonObjectSort(getResources().getString(R.string.woman_alphabetical_sort), "first_name"),
                         new DateSort("Age", "dob"),
                         new StatusSort("Due Status"),
-                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "program_client_id")
+                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "zeir_id")
                 };
             }
 
@@ -317,7 +317,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
                 tableName + ".details",
-                tableName + ".program_client_id",
+                tableName + ".zeir_id",
                 tableName + ".relational_id",
                 tableName + ".first_name",
                 tableName + ".last_name",
@@ -374,31 +374,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     }
 
     public void updateSearchView() {
-        getSearchView().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-                if (cs.toString().equalsIgnoreCase("")) {
-                    filters = "";
-                } else {
-                    filters = cs.toString();
-                }
-                joinTable = "";
-                mainCondition = "";
-                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                CountExecute();
-                filterandSortExecute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        getSearchView().removeTextChangedListener(textWatcher);
+        getSearchView().addTextChangedListener(textWatcher);
     }
 
     private void populateClientListHeaderView(View view) {
@@ -498,8 +475,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 + ", Town: " + getValue(client.getColumnmaps(), "town", true)
                 + ", City: " + getValue(client, "city_village", true)
                 + ", Province: " + getValue(client, "province", true));
-        map.put("existing_program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
-        map.put("program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
+        map.put("existing_zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
+        map.put("zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
 
         int days = 0;
         try {
@@ -533,8 +510,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 ", City: " + client.getAddress("usual_residence").getCityVillage() +
                 " - " + client.getAddress("usual_residence").getAddressField("landmark"));
 
-        map.put("existing_program_client_id", client.getIdentifier("Program Client ID"));
-        map.put("program_client_id", client.getIdentifier("Program Client ID"));
+        map.put("existing_zeir_id", client.getIdentifier("Program Client ID"));
+        map.put("zeir_id", client.getIdentifier("Program Client ID"));
 
         map.put("existing_first_name", client.getFirstName());
         map.put("existing_last_name", client.getLastName());
@@ -712,5 +689,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private void startQrCodeScanner() {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
+
+
 
 }

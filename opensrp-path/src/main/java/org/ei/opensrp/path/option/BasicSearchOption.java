@@ -46,12 +46,12 @@ public class BasicSearchOption implements FilterOption {
                 && currentclient.getDetails().get("first_name").toLowerCase().contains(filter.toLowerCase())) {
             return true;
         }
-        if(currentclient.getDetails().get("program_client_id") != null
-                && currentclient.getDetails().get("program_client_id").equalsIgnoreCase(filter)) {
+        if(currentclient.getDetails().get("zeir_id") != null
+                && currentclient.getDetails().get("zeir_id").equalsIgnoreCase(filter)) {
             return true;
         }
-        if(currentclient.getDetails().get("existing_program_client_id") != null
-                && currentclient.getDetails().get("existing_program_client_id").equalsIgnoreCase(filter)) {
+        if(currentclient.getDetails().get("existing_zeir_id") != null
+                && currentclient.getDetails().get("existing_zeir_id").equalsIgnoreCase(filter)) {
             return true;
         }
         if(currentclient.getDetails().get("epi_card_number") != null
