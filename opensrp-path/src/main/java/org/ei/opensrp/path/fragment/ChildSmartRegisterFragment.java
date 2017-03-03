@@ -384,6 +384,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
         LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
         clientsView.addHeaderView(headerLayout);
+        clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
     }
 
     private class EditDialogOptionModel implements DialogOptionModel {

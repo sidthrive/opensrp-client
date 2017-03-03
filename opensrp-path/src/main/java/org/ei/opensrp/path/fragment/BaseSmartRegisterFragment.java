@@ -1,9 +1,17 @@
 package org.ei.opensrp.path.fragment;
 
+import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
+import org.ei.opensrp.commonregistry.CommonPersonObject;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
+import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
+import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 
@@ -60,12 +68,68 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         }
     };
 
-    public void filter(String filterString, String joinTableString, String mainConditionString) {
+    public void openVaccineCard(final String filterString) {
+
+        showProgressView();
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final CommonPersonObjectClient client = filterForClient(filterString);
+                if (client != null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideProgressView();
+                            ChildImmunizationActivity.launchActivity(getActivity(), client, null);
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideProgressView();
+                        }
+                    });
+                }
+
+            }
+        }).start();
+
+    }
+
+    private void filter(String filterString, String joinTableString, String mainConditionString) {
         filters = filterString;
         joinTable = joinTableString;
         mainCondition = mainConditionString;
         getSearchCancelView().setVisibility(isEmpty(filterString) ? INVISIBLE : VISIBLE);
         CountExecute();
         filterandSortExecute();
+    }
+
+    private CommonPersonObjectClient filterForClient(String filterString) {
+        try {
+            String query = "";
+
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+            query = sqb.addCondition(" WHERE " + getTablename() + ".zeir_id = " + filterString);
+            query = sqb.Endquery(sqb.addlimitandOffset(query, 1, 0));
+
+            Cursor cursor = commonRepository().RawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0) {
+                CommonPersonObject personinlist = commonRepository().readAllcommonforCursorAdapter(cursor);
+                final CommonPersonObjectClient client = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
+                client.setColumnmaps(personinlist.getColumnmaps());
+                return client;
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        }
+        return null;
     }
 }

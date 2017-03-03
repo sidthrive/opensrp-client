@@ -135,4 +135,6 @@
     <string name="sync_">Sync%1$s</string>
     <string name="last_sync">(last %1$s)</string>
     <string name="now">now</string>
+
+    <string name="no_record">No Record(s) Found!</string>
 </resources>

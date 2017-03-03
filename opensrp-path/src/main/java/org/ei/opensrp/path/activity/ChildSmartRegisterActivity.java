@@ -366,7 +366,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private void filterList(String filterString) {
         BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
         if (registerFragment != null) {
-            registerFragment.filter(filterString, "", "");
+            registerFragment.openVaccineCard(filterString);
         }
     }
 
