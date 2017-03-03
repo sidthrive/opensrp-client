@@ -111,6 +111,8 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
 
     private CommonPersonObjectClient filterForClient(String filterString) {
+        Cursor cursor = null;
+        CommonPersonObjectClient client = null;
         try {
             String query = "";
 
@@ -118,18 +120,22 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
             query = sqb.addCondition(" WHERE " + getTablename() + ".zeir_id = " + filterString);
             query = sqb.Endquery(sqb.addlimitandOffset(query, 1, 0));
 
-            Cursor cursor = commonRepository().RawCustomQueryForAdapter(query);
+            cursor = commonRepository().RawCustomQueryForAdapter(query);
             cursor.moveToFirst();
 
             if (cursor.getCount() > 0) {
                 CommonPersonObject personinlist = commonRepository().readAllcommonforCursorAdapter(cursor);
-                final CommonPersonObjectClient client = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
+                client = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
                 client.setColumnmaps(personinlist.getColumnmaps());
-                return client;
             }
+
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if(cursor != null){
+                cursor.close();
+            }
         }
-        return null;
+        return client;
     }
 }

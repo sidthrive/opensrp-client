@@ -102,7 +102,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
         TextView ageView = (TextView) dialogView.findViewById(R.id.child_age);
         if (StringUtils.isNotBlank(tag.getPatientAge())) {
-            ageView.setText(String.format("%s: %s", getString(R.string.birthdate_age), tag.getPatientAge()));
+            ageView.setText(String.format("%s: %s", getString(R.string.age), tag.getPatientAge()));
         } else {
             ageView.setText("");
         }

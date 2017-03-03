@@ -72,7 +72,7 @@ public class WeightRepository extends DrishtiRepository {
         Long time = calendar.getTimeInMillis();
 
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, DATE + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
+        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
         return readAllWeights(cursor);
     }
 

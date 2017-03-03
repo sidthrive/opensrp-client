@@ -80,7 +80,7 @@ public class VaccinationDialogFragment extends DialogFragment {
         TextView numberView = (TextView) dialogView.findViewById(R.id.number);
         numberView.setText(tags.get(0).getPatientNumber());
 
-        LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
+        final LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
 
         if (tags.size() == 1) {
             View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
@@ -112,13 +112,19 @@ public class VaccinationDialogFragment extends DialogFragment {
 
                 vaccinationNameLayout.addView(vaccinationName);
             }
+
+            Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
+            vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
+
+            Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
+            vaccinateEarlier.setText(vaccinateEarlier.getText().toString().replace("Vaccination", "Vaccinations"));
         }
 
         if (tags.get(0).getId() != null) {
             ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
-            if(tags.get(0).getId()!=null){//image already in local storage most likey ):
+            if (tags.get(0).getId() != null) {//image already in local storage most likey ):
                 //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-                mImageView.setTag(org.ei.opensrp.R.id.entity_id,tags.get(0).getId());
+                mImageView.setTag(org.ei.opensrp.R.id.entity_id, tags.get(0).getId());
                 DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tags.get(0).getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tags.get(0).getGender()), ImageUtils.profileImageResourceByGender(tags.get(0).getGender())));
             }
         }
@@ -143,10 +149,22 @@ public class VaccinationDialogFragment extends DialogFragment {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
-                for (VaccineWrapper tag : tags) {
-                    tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), false);
-                }
-                //updateFormSubmission();
+                DateTime dateTime = new DateTime(calendar.getTime());
+                if (tags.size() == 1) {
+                    tags.get(0).setUpdatedVaccineDate(dateTime, false);
+                } else
+                    for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
+                        View chilView = vaccinationNameLayout.getChildAt(i);
+                        CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+                        if (selectChild.isChecked()) {
+                            TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                            String checkedName = childVaccineView.getText().toString();
+                            VaccineWrapper tag = searchWrapperByName(checkedName);
+                            if (tag != null) {
+                                tag.setUpdatedVaccineDate(dateTime, false);
+                            }
+                        }
+                    }
 
                 listener.onVaccinateEarlier(tags, viewGroup);
 
@@ -160,10 +178,22 @@ public class VaccinationDialogFragment extends DialogFragment {
                 dismiss();
 
                 Calendar calendar = Calendar.getInstance();
-                for (VaccineWrapper tag : tags) {
-                    tag.setUpdatedVaccineDate(new DateTime(calendar.getTime()), true);
-                }
-                //updateFormSubmission();
+                DateTime dateTime = new DateTime(calendar.getTime());
+                if (tags.size() == 1) {
+                    tags.get(0).setUpdatedVaccineDate(dateTime, true);
+                } else
+                    for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
+                        View chilView = vaccinationNameLayout.getChildAt(i);
+                        CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+                        if (selectChild.isChecked()) {
+                            TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                            String checkedName = childVaccineView.getText().toString();
+                            VaccineWrapper tag = searchWrapperByName(checkedName);
+                            if (tag != null) {
+                                tag.setUpdatedVaccineDate(dateTime, true);
+                            }
+                        }
+                    }
 
                 listener.onVaccinateToday(tags, viewGroup);
 
@@ -188,23 +218,20 @@ public class VaccinationDialogFragment extends DialogFragment {
             }
         });
 
+        for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
+            View chilView = vaccinationNameLayout.getChildAt(i);
+            chilView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CheckBox childSelect = (CheckBox) view.findViewById(R.id.select);
+                    childSelect.toggle();
+                }
+            });
+        }
+
 
         return dialogView;
     }
-
-    private void updateFormSubmission() {
-        VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = null;
-        if (tags.get(0).getVaccine().category().equals("child") && listener instanceof ChildDetailActivity) {
-            vaccinateFormSubmissionWrapper = ((ChildDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        } else if (tags.get(0).getVaccine().category().equals("woman") && listener instanceof WomanDetailActivity) {
-            vaccinateFormSubmissionWrapper = ((WomanDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        }
-
-        if (vaccinateFormSubmissionWrapper != null) {
-            //vaccinateFormSubmissionWrapper.add(tag);
-        }
-    }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -241,5 +268,24 @@ public class VaccinationDialogFragment extends DialogFragment {
                 window.setGravity(Gravity.CENTER);
             }
         });
+    }
+
+    private VaccineWrapper searchWrapperByName(String name) {
+        if (tags == null || tags.isEmpty()) {
+            return null;
+        }
+
+        for (VaccineWrapper tag : tags) {
+            if (tag.getVaccine() != null) {
+                if (tag.getVaccine().display().equals(name)) {
+                    return tag;
+                }
+            } else {
+                if (tag.getName().equals(name)) {
+                    return tag;
+                }
+            }
+        }
+        return null;
     }
 }

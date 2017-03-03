@@ -14,14 +14,16 @@
         android:backgroundTint="@color/white"
         android:buttonTint="@color/light_blue"
         android:checked="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:scaleX="1.5"
+        android:scaleY="1.5" />
 
     <org.ei.opensrp.view.customControls.CustomFontTextView
         android:id="@+id/vaccine"
-        style="@style/CustomFontTextViewStyle.ListView.Medium"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="vaccine"
         android:textColor="@color/text_black"
-        android:textSize="35sp" />
+        android:textSize="30sp" />
 </LinearLayout>
