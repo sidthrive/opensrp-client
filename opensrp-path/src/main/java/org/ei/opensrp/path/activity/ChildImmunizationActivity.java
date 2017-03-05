@@ -362,7 +362,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onLocationChanged(final ArrayList<String> newLocation) {
+    public void onLocationChanged(final String newLocation) {
         // TODO: Do whatever needs to be done when the location is changed
     }
 

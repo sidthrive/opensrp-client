@@ -5,55 +5,66 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.view.customControls.CustomFontTextView;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 23/02/2017.
  */
 
 public class LocationActionView extends LinearLayout {
-    private Context context;
-    private CustomFontTextView itemText;
+    private static final String TAG = "LocationActionView";
+    private final Context context;
+    private final org.ei.opensrp.Context openSrpContext;
+    private LocationPickerView itemText;
 
-    public LocationActionView(Context context) {
+    public LocationActionView(Context context, org.ei.opensrp.Context openSrpContext) {
         super(context);
-        init(context);
+        this.context = context;
+        this.openSrpContext = openSrpContext;
+        init();
     }
 
-    public LocationActionView(Context context, AttributeSet attrs) {
+    public LocationActionView(Context context, org.ei.opensrp.Context openSrpContext, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        this.context = context;
+        this.openSrpContext = openSrpContext;
+        init();
     }
 
-    public LocationActionView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LocationActionView(Context context, org.ei.opensrp.Context openSrpContext, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        this.context = context;
+        this.openSrpContext = openSrpContext;
+        init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public LocationActionView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public LocationActionView(Context context, org.ei.opensrp.Context openSrpContext,
+                              AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        this.context = context;
+        this.openSrpContext = openSrpContext;
+        init();
     }
 
-    private void init(Context context) {
-        this.context = context;
+    private void init() {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.action_location_switcher, this, true);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         setLayoutParams(layoutParams);
 
-        itemText = (CustomFontTextView) findViewById(R.id.item_text);
-        setClickable(true);
+        itemText = (LocationPickerView) findViewById(R.id.item_text);
+        itemText.init(openSrpContext);
     }
 
-    public void setItemText(String text) {
-        itemText.setText(text);
+    public String getSelectedItem() {
+        return itemText.getSelectedItem();
+    }
+
+    public LocationPickerView getLocationPickerView() {
+        return itemText;
     }
 }

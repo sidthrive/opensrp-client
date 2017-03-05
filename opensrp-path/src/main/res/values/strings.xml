@@ -135,4 +135,8 @@
     <string name="sync_">Sync%1$s</string>
     <string name="last_sync">(last %1$s)</string>
     <string name="now">now</string>
+    <string name="ic_health_facility">&#xe0b9;</string>
+    <string name="ic_zone">&#xe052;</string>
+    <string name="service_location">Service Location</string>
+    <string name="ic_check">&#xe038;</string>
 </resources>
