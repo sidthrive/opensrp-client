@@ -22,6 +22,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
@@ -122,7 +123,8 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.registration_data:
-                startFormActivity("child_enrollment", childDetails.entityId(), null);
+                String formmetadata = getmetaDataForEditForm();
+                startFormActivity("child_enrollment", childDetails.entityId(), formmetadata);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
             case R.id.immunization_data:
@@ -136,6 +138,63 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 
         }
     }
+
+    private String getmetaDataForEditForm() {
+        Context context = Context.getInstance();
+        try{
+        JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
+        JsonFormUtils.addChildRegLocHierarchyQuestions(form, context);
+        if (form != null) {
+            Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+            //inject zeir id into the form
+            JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("First_Name")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"first_name",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Last_Name")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"last_name",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Sex")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"gender",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"ZEIR_ID",true).replace("-", ""));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Child_Register_Card_Number")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"epi_card_number",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_First_Name")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"mother_first_name",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Last_Name")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true));
+                }
+                if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Last_Name")) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true));
+                }
+            }
+//            intent.putExtra("json", form.toString());
+//            startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+            return form.toString();
+        }
+    } catch (Exception e) {
+        Log.e(TAG, e.getMessage());
+    }
+
+    return "";
+    }
+
     public void startFormActivity(String formName, String entityId, String metaData) {
         Context context = Context.getInstance();
         try {
@@ -163,7 +222,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
                         continue;
                     }
                 }
-                intent.putExtra("json", form.toString());
+                intent.putExtra("json", metaData);
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
