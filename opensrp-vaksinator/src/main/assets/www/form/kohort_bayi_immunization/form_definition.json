@@ -40,7 +40,7 @@
             },
             {
                 "name": "antipiretik",
-                "bind": "/model/instance/Baby_Immunization_openmrs/bcg",
+                "bind": "/model/instance/Baby_Immunization_openmrs/getAntipyretic",
                 "shouldLoadValue": true
             },
             {

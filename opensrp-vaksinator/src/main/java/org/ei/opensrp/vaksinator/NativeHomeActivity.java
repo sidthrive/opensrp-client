@@ -117,7 +117,7 @@ public class NativeHomeActivity extends SecuredActivity {
        // findViewById(R.id.btn_tt_register).setVisibility(View.INVISIBLE);
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
-        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
+//        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
 
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_vaksinator_register_client_count);
         ibuRegisterClientCountView = (TextView) findViewById(R.id.txt_TT_vaksinator_register_client_count);
@@ -308,12 +308,12 @@ public class NativeHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
-                case R.id.btn_videos:
+//                case R.id.btn_videos:
 //                    navigationController.startVideos();
-                    break;
+//                    break;
             }
         }
     };
