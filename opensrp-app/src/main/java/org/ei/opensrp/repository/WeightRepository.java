@@ -25,18 +25,21 @@ import static org.apache.commons.lang3.ArrayUtils.addAll;
 
 public class WeightRepository extends DrishtiRepository {
     private static final String TAG = WeightRepository.class.getCanonicalName();
-    private static final String WEIGHT_SQL = "CREATE TABLE weight(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,syncStatus VARCHAR,updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP )";
-    public static final String WEIGHT_TABLE_NAME = "weight";
+    private static final String WEIGHT_SQL = "CREATE TABLE weights (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL)";
+    public static final String WEIGHT_TABLE_NAME = "weights";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String KG = "kg";
     private static final String DATE = "date";
     private static final String ANMID = "anmid";
-    private static final String SYNC_STATUS = "syncStatus";
+    private static final String LOCATIONID = "location_id";
+    private static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, KG, DATE, ANMID, SYNC_STATUS, UPDATED_AT_COLUMN};
+    public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, KG, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + WEIGHT_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
+    private static final String SYNC_STATUS_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + SYNC_STATUS + "_index ON " + WEIGHT_TABLE_NAME + "(" + SYNC_STATUS + " COLLATE NOCASE);";
+    private static final String UPDATED_AT_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + WEIGHT_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
 
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
@@ -45,6 +48,8 @@ public class WeightRepository extends DrishtiRepository {
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(WEIGHT_SQL);
         database.execSQL(BASE_ENTITY_ID_INDEX);
+        database.execSQL(SYNC_STATUS_INDEX);
+        database.execSQL(UPDATED_AT_INDEX);
     }
 
     public void add(Weight weight) {
@@ -53,6 +58,11 @@ public class WeightRepository extends DrishtiRepository {
         }
         if (StringUtils.isBlank(weight.getSyncStatus())) {
             weight.setSyncStatus(TYPE_Unsynced);
+        }
+
+
+        if (weight.getUpdatedAt() == null) {
+            weight.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         }
 
         SQLiteDatabase database = masterRepository.getWritableDatabase();
@@ -110,10 +120,13 @@ public class WeightRepository extends DrishtiRepository {
         while (!cursor.isAfterLast()) {
             weights.add(
                     new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)), cursor.getFloat(cursor.getColumnIndex(KG)),
+                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                            cursor.getFloat(cursor.getColumnIndex(KG)),
                             new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
-                            cursor.getString(cursor.getColumnIndex(ANMID)), cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                            new Date(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)))
+                            cursor.getString(cursor.getColumnIndex(ANMID)),
+                            cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                            cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                            cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
                     ));
 
             cursor.moveToNext();
@@ -130,8 +143,9 @@ public class WeightRepository extends DrishtiRepository {
         values.put(KG, weight.getKg());
         values.put(DATE, weight.getDate() != null ? weight.getDate().getTime() : null);
         values.put(ANMID, weight.getAnmId());
+        values.put(LOCATIONID, weight.getLocationId());
         values.put(SYNC_STATUS, weight.getSyncStatus());
-        values.put(UPDATED_AT_COLUMN, weight.getUpdatedAt() != null ? weight.getUpdatedAt().getTime() : null);
+        values.put(UPDATED_AT_COLUMN, weight.getUpdatedAt() != null ? weight.getUpdatedAt() : null);
         return values;
     }
 }

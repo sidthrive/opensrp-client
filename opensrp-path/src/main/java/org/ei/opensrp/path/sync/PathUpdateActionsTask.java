@@ -12,6 +12,7 @@ import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.path.service.intent.PullUniqueIdsIntentService;
+import org.ei.opensrp.path.service.intent.VaccineIntentService;
 import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.ActionService;
@@ -66,10 +67,15 @@ public class PathUpdateActionsTask {
                 FetchStatus fetchStatusForForms = sync();
                 FetchStatus fetchStatusForActions = actionService.fetchNewActions();
 
-                startWeightIntentService(context);
-                startReplicationIntentService(context);
-                startImageUploadIntentService(context);
                 startPullUniqueIdsIntentService(context);
+
+                startVaccineIntentService(context);
+                startWeightIntentService(context);
+
+                startReplicationIntentService(context);
+
+                startImageUploadIntentService(context);
+
 
                 FetchStatus fetchStatusAdditional = additionalSyncService == null ? nothingFetched : additionalSyncService.sync();
 
@@ -158,6 +164,11 @@ public class PathUpdateActionsTask {
 
     private void startWeightIntentService(Context context) {
         Intent intent = new Intent(context, WeightIntentService.class);
+        context.startService(intent);
+    }
+
+    private void startVaccineIntentService(Context context) {
+        Intent intent = new Intent(context, VaccineIntentService.class);
         context.startService(intent);
     }
 }

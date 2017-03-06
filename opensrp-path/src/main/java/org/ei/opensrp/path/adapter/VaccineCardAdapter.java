@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
@@ -18,11 +19,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import util.ImageUtils;
 import util.Utils;
 
 import static util.Utils.getValue;
+import static util.Utils.writePreference;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
@@ -77,7 +80,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setName(vaccineName);
 
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
-                if(StringUtils.isNotBlank(dobString)) {
+                if (StringUtils.isNotBlank(dobString)) {
                     Calendar dobCalender = Calendar.getInstance();
                     DateTime dateTime = new DateTime(dobString);
                     dobCalender.setTime(dateTime.toDate());
@@ -93,7 +96,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 
-                // TODO: get date vaccination was done
+                updateWrapper(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 
                 vaccineCards.put(vaccineName, vaccineCard);
@@ -128,5 +131,18 @@ public class VaccineCardAdapter extends BaseAdapter {
         }
 
         return dueVaccines;
+    }
+
+    private void updateWrapper(VaccineWrapper tag) {
+        List<Vaccine> vaccineList = vaccineGroup.getVaccineList();
+        if (!vaccineList.isEmpty()) {
+            for (Vaccine vaccine : vaccineList) {
+                if (tag.getName().equals(vaccine.getName()) && vaccine.getDate() != null) {
+                    tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
+                    tag.setDbKey(vaccine.getId());
+                }
+            }
+        }
+
     }
 }

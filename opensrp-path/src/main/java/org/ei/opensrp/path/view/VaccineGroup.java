@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.adapter.VaccineCardAdapter;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +38,7 @@ import util.Utils;
  */
 
 public class VaccineGroup extends LinearLayout implements View.OnClickListener,
-        VaccineCard.OnVaccineStateChangeListener,VaccineCard.OnUndoButtonClickListener {
+        VaccineCard.OnVaccineStateChangeListener, VaccineCard.OnUndoButtonClickListener {
     private static final String TAG = "VaccineGroup";
     private Context context;
     private TextView nameTV;
@@ -45,6 +47,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
     private VaccineCardAdapter vaccineCardAdapter;
     private JSONObject vaccineData;
     private CommonPersonObjectClient childDetails;
+    private List<Vaccine> vaccineList;
     private State state;
     private OnRecordAllClickListener onRecordAllClickListener;
     private OnVaccineClickedListener onVaccineClickedListener;
@@ -80,6 +83,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         return this.vaccineData;
     }
 
+    public List<Vaccine> getVaccineList() {
+        return this.vaccineList;
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public VaccineGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -100,9 +107,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         recordAllTV.setOnClickListener(this);
     }
 
-    public void setData(JSONObject vaccineData, CommonPersonObjectClient childDetails) {
+    public void setData(JSONObject vaccineData, CommonPersonObjectClient childDetails, List<Vaccine> vaccines) {
         this.vaccineData = vaccineData;
         this.childDetails = childDetails;
+        this.vaccineList = vaccines;
         updateViews();
     }
 
@@ -231,7 +239,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
     }
 
-    public ExpandableHeightGridView getGridView(){
+    public ExpandableHeightGridView getGridView() {
         return vaccinesGV;
     }
 }
