@@ -53,7 +53,7 @@ public class GiziNavigationController extends org.ei.opensrp.view.controller.Nav
     @Override
     public void startReports() {
 //        activity.startActivity(new Intent(activity, ReportsActivity.class));
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://dho-report.sid-indonesia.org")));
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(activity.getApplicationContext().getString(R.string.dho_site))));
     }
 
 }

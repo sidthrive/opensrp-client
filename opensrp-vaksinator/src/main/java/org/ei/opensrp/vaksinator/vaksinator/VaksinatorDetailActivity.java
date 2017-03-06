@@ -207,7 +207,7 @@ public class VaksinatorDetailActivity extends Activity {
                                                         .get("beratLahir"))/1000)
                                                         + " kg"
                                     : "-"));
-        antipiretik.setText(": " + (controller.getDetails().get("getAntypiretic") != null ? controller.getDetails().get("getAntypiretic") : "-"));
+        antipiretik.setText(": " + (controller.getDetails().get("antipiretik") != null ? yesNo(controller.getDetails().get("antipiretik").toLowerCase().contains("y")) : "-"));
 
         hb1Under7.setText(": " + (hasDate(controller,"hb0")
                 ? controller.getDetails().get("hb0")
