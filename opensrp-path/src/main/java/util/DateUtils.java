@@ -4,6 +4,7 @@ import android.support.v4.util.TimeUtils;
 
 import org.joda.time.DateTime;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,7 +14,20 @@ public class DateUtils {
 
     public static String getDuration(DateTime dateTime) {
         if (dateTime != null) {
-            long timeDiff = Math.abs(dateTime.getMillis() - DateTime.now().getMillis());
+            Calendar dateCalendar = Calendar.getInstance();
+            dateCalendar.setTime(dateTime.toDate());
+            dateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            dateCalendar.set(Calendar.MINUTE, 0);
+            dateCalendar.set(Calendar.SECOND, 0);
+            dateCalendar.set(Calendar.MILLISECOND, 0);
+
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+
+            long timeDiff = Math.abs(dateCalendar.getTimeInMillis() - today.getTimeInMillis());
             return getDuration(timeDiff);
         }
         return null;
@@ -33,9 +47,14 @@ public class DateUtils {
             // Represent in weeks and days
             int weeks = (int) Math.floor((float) timeDiff /
                     TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS));
-            int days = Math.round((float) (timeDiff -
+            int days = (int) Math.floor((float) (timeDiff -
                     TimeUnit.MILLISECONDS.convert(weeks * 7, TimeUnit.DAYS)) /
                     TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+
+            if (days >= 7) {
+                days = 0;
+                weeks++;
+            }
 
             duration = weeks + "w";
             if (days > 0) {
@@ -46,21 +65,36 @@ public class DateUtils {
             // Represent in months and weeks
             int months = (int) Math.floor((float) timeDiff /
                     TimeUnit.MILLISECONDS.convert(30, TimeUnit.DAYS));
-            int weeks = Math.round((float) (timeDiff - TimeUnit.MILLISECONDS.convert(
+            int weeks = (int) Math.floor((float) (timeDiff - TimeUnit.MILLISECONDS.convert(
                     months * 30, TimeUnit.DAYS)) /
                     TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS));
 
-            duration = months + "m";
-            if (weeks > 0) {
-                duration += " " + weeks + "w";
+            if (weeks >= 4) {
+                weeks = 0;
+                months++;
+            }
+
+            if(months < 12) {
+                duration = months + "m";
+                if (weeks > 0 && months < 12) {
+                    duration += " " + weeks + "w";
+                }
+            }
+            else if (months >= 12) {
+                duration = "1y";
             }
         } else {
             // Represent in years and months
             int years = (int) Math.floor((float) timeDiff
                     / TimeUnit.MILLISECONDS.convert(365, TimeUnit.DAYS));
-            int months = Math.round((float) (timeDiff -
+            int months = (int) Math.floor((float) (timeDiff -
                     TimeUnit.MILLISECONDS.convert(years * 365, TimeUnit.DAYS)) /
                     TimeUnit.MILLISECONDS.convert(30, TimeUnit.DAYS));
+
+            if (months >= 12) {
+                months = 0;
+                years++;
+            }
 
             duration = years + "y";
             if (months > 0) {
