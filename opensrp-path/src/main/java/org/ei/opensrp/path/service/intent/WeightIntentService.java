@@ -4,30 +4,15 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
-import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.domain.Weight;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.WeightRepository;
-import org.ei.opensrp.util.FileUtilities;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import util.JsonFormUtils;
-import util.PathConstants;
 
 
 /**

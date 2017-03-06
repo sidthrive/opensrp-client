@@ -13,7 +13,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.repository.DrishtiRepository;
-import org.ei.opensrp.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

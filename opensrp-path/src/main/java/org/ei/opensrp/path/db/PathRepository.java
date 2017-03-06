@@ -2,18 +2,16 @@ package org.ei.opensrp.path.db;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.repository.DrishtiRepository;
+import org.ei.opensrp.repository.Repository;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,53 +26,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import util.JsonFormUtils;
+import util.PathConstants;
 import util.Utils;
 
-public class ECSQLiteHelper extends SQLiteOpenHelper {
+public class PathRepository extends Repository {
 
+    SQLiteDatabase database;
 
-    private static final String DATABASE_NAME = "opensrp.db";
-    private static final int DATABASE_VERSION = 1;
-    private SQLiteDatabase database;
-
-    public ECSQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public PathRepository(Context context, DrishtiRepository... repositories) {
+        super(context, PathConstants.DATABASE_NAME,PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(),repositories);
+    }
+    public PathRepository(Context context) {
+        super(context, PathConstants.DATABASE_NAME,PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(),org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
     }
 
-    private SQLiteDatabase getDatabase() {
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
-        return database;
-    }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        this.database = database;
+        super.onCreate(database);
+        this.database=database;
         createTable(Table.client, client_column.values());
         createTable(Table.address, address_column.values());
         createTable(Table.event, event_column.values());
         createTable(Table.obs, obs_column.values());
+        UniqueIdRepository.createTable(database);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(ECSQLiteHelper.class.getName(),
+        Log.w(PathRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         //db.execSQL("DROP TABLE IF EXISTS " + SmsTarseelTables.unsubmitted_outbound);
     }
 
-	/*public void open() throws SQLException {
-        if(database == null){
-			database = super.getWritableDatabase();
-		}
-	}*/
-
-	/*public void close() {
-        super.close();
-	}*/
+	
 
 
     private void insert(Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
@@ -116,7 +102,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
         String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
         Log.i("", sql);
-        getDatabase().execSQL(sql);
+        database.execSQL(sql);
     }
 
     public void insert(Client client) {
@@ -155,7 +141,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
         long lastServerVersion = 0l;
 
-        getDatabase().beginTransaction();
+        database.beginTransaction();
 
         for (int i = 0; i < array.length(); i++) {
             Object o = array.get(i);
@@ -171,8 +157,8 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
             }
         }
 
-        getDatabase().setTransactionSuccessful();
-        getDatabase().endTransaction();
+        database.setTransactionSuccessful();
+        database.endTransaction();
         return lastServerVersion;
     }
 
@@ -183,7 +169,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
         long lastServerVersion = serverVersion;
 
-        getDatabase().beginTransaction();
+        database.beginTransaction();
 
         for (int i = 0; i < array.length(); i++) {
             Object o = array.get(i);
@@ -199,8 +185,8 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
             }
         }
 
-        getDatabase().setTransactionSuccessful();
-        getDatabase().endTransaction();
+        database.setTransactionSuccessful();
+        database.endTransaction();
         return lastServerVersion;
     }
 
@@ -220,7 +206,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
     public List<JSONObject> getEvents(long startServerVersion, long lastServerVersion) throws JSONException, ParseException {
         List<JSONObject> list = new ArrayList<JSONObject>();
         try {
-            Cursor cursor = getDatabase().rawQuery("SELECT * FROM " + Table.event.name() +
+            Cursor cursor = database.rawQuery("SELECT * FROM " + Table.event.name() +
                     " WHERE " + event_column.serverVersion.name() + " > " + startServerVersion +
                     " AND " + event_column.serverVersion.name() + " <= " + lastServerVersion +
                     " ORDER BY " + event_column.serverVersion.name()
@@ -232,7 +218,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
                 }
 
                 JSONArray olist = new JSONArray();
-                Cursor cursorObs = getDatabase().rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
+                Cursor cursorObs = database.rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
                 while (cursorObs.moveToNext()) {
                     JSONObject o = new JSONObject();
                     for (Column oc : Table.obs.columns()) {
@@ -261,7 +247,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
 
     public JSONObject getClient(String baseEntityId) {
         try {
-            Cursor cursor = getDatabase().rawQuery("SELECT * FROM " + Table.client.name() +
+            Cursor cursor = database.rawQuery("SELECT * FROM " + Table.client.name() +
                     " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
             if (cursor.moveToNext()) {
                 JSONObject cl = new JSONObject();
@@ -270,7 +256,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
                 }
 
                 JSONArray alist = new JSONArray();
-                Cursor ares = getDatabase().rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
+                Cursor ares = database.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
                 while (ares.moveToNext()) {
                     JSONObject a = new JSONObject();
                     for (Column cc : Table.address.columns()) {
@@ -319,8 +305,8 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
         String create_tb = "CREATE TABLE " + table.name() + " ( " + cl + " )";
         String create_id = "CREATE INDEX " + table.name() + "_index ON " + table.name() + " (" + indl + "); ";
 
-        getDatabase().execSQL(create_tb);
-        getDatabase().execSQL(create_id);
+        database.execSQL(create_tb);
+        database.execSQL(create_id);
     }
 
     private Object getValue(Cursor cur, Column c) throws JSONException, ParseException {
@@ -390,7 +376,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<HashMap<String, String>> rawQuery(String query) {
-        Cursor cursor = getDatabase().rawQuery(query, null);
+        Cursor cursor = database.rawQuery(query, null);
         ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -403,7 +389,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
                 maplist.add(map);
             } while (cursor.moveToNext());
         }
-        getDatabase().close();
+        database.close();
         // return contact list
         return maplist;
     }

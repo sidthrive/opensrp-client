@@ -32,7 +32,6 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
@@ -81,6 +80,7 @@ import org.ei.opensrp.sync.SaveANMLocationTask;
 import org.ei.opensrp.sync.SaveUserInfoTask;
 import org.ei.opensrp.util.Cache;
 import org.ei.opensrp.util.Session;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.ANCClients;
 import org.ei.opensrp.view.contract.ECClients;
 import org.ei.opensrp.view.contract.FPClients;
@@ -131,7 +131,6 @@ public class Context {
     private AllServicesProvided allServicesProvided;
     private AllCommonsRepository allCommonPersonObjectsRepository;
     private ImageRepository imageRepository;
-    private UniqueIdRepository uniqueIdRepository;
     private WeightRepository weightRepository;
 
 
@@ -492,38 +491,69 @@ public class Context {
         return httpAgent;
     }
 
-    protected Repository initRepository() {
+    public Repository initRepository() {
         if(configuration().appName().equals(AllConstants.APP_NAME_INDONESIA)) {
             return null;
         }
         if (repository == null) {
-            assignbindtypes();
-            ArrayList<DrishtiRepository> drishtireposotorylist = new ArrayList<DrishtiRepository>();
-            drishtireposotorylist.add(settingsRepository());
-            drishtireposotorylist.add(alertRepository());
-            drishtireposotorylist.add(eligibleCoupleRepository());
-            drishtireposotorylist.add(childRepository());
-            drishtireposotorylist.add(timelineEventRepository());
-            drishtireposotorylist.add(motherRepository());
-            drishtireposotorylist.add(reportRepository());
-            drishtireposotorylist.add(formDataRepository());
-            drishtireposotorylist.add(serviceProvidedRepository());
-            drishtireposotorylist.add(formsVersionRepository());
-            drishtireposotorylist.add(imageRepository());
-            drishtireposotorylist.add(uniqueIdRepository());
-            drishtireposotorylist.add(weightRepository());
-            drishtireposotorylist.add(detailsRepository());
-            for(int i = 0;i < bindtypes.size();i++){
-                drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
-            }
+            ArrayList<DrishtiRepository> drishtireposotorylist = sharedRepositories();
             DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-            if(commonFtsObject != null){
-                repository = new Repository(this.applicationContext, session(), this.commonFtsObject, drishtireposotoryarray);
-            }else {
-                repository = new Repository(this.applicationContext, session(), drishtireposotoryarray);
-            }
+           // if(commonFtsObject != null){
+                //repository = new Repository(this.applicationContext, session(), this.commonFtsObject, drishtireposotoryarray);
+           // }else {
+                repository = DrishtiApplication.getInstance().getRepository();
+           // }
         }
         return repository;
+    }
+
+
+
+    public ArrayList<DrishtiRepository> sharedRepositories(){
+        assignbindtypes();
+        ArrayList<DrishtiRepository> drishtireposotorylist = new ArrayList<DrishtiRepository>();
+        drishtireposotorylist.add(settingsRepository());
+        drishtireposotorylist.add(alertRepository());
+        drishtireposotorylist.add(eligibleCoupleRepository());
+        drishtireposotorylist.add(childRepository());
+        drishtireposotorylist.add(timelineEventRepository());
+        drishtireposotorylist.add(motherRepository());
+        drishtireposotorylist.add(reportRepository());
+        drishtireposotorylist.add(formDataRepository());
+        drishtireposotorylist.add(serviceProvidedRepository());
+        drishtireposotorylist.add(formsVersionRepository());
+        drishtireposotorylist.add(imageRepository());
+        drishtireposotorylist.add(weightRepository());
+        drishtireposotorylist.add(detailsRepository());
+        for(int i = 0;i < bindtypes.size();i++){
+            drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
+        }
+        return drishtireposotorylist;
+
+    }
+
+    public DrishtiRepository[] sharedRepositoriesArray(){
+        assignbindtypes();
+        ArrayList<DrishtiRepository> drishtireposotorylist = new ArrayList<DrishtiRepository>();
+        drishtireposotorylist.add(settingsRepository());
+        drishtireposotorylist.add(alertRepository());
+        drishtireposotorylist.add(eligibleCoupleRepository());
+        drishtireposotorylist.add(childRepository());
+        drishtireposotorylist.add(timelineEventRepository());
+        drishtireposotorylist.add(motherRepository());
+        drishtireposotorylist.add(reportRepository());
+        drishtireposotorylist.add(formDataRepository());
+        drishtireposotorylist.add(serviceProvidedRepository());
+        drishtireposotorylist.add(formsVersionRepository());
+        drishtireposotorylist.add(imageRepository());
+        drishtireposotorylist.add(weightRepository());
+        drishtireposotorylist.add(detailsRepository());
+        for(int i = 0;i < bindtypes.size();i++){
+            drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
+        }
+        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
+        return drishtireposotoryarray;
+
     }
 
     public AllEligibleCouples allEligibleCouples() {
@@ -672,12 +702,7 @@ public class Context {
         }
         return imageRepository;
     }
-    public UniqueIdRepository uniqueIdRepository() {
-        if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository();
-        }
-        return uniqueIdRepository;
-    }
+
     public WeightRepository weightRepository() {
         if (weightRepository == null) {
             weightRepository = new WeightRepository();
@@ -686,8 +711,8 @@ public class Context {
     }
     public UserService userService() {
         if (userService == null) {
-            Repository repo = initRepository();
-            userService = new UserService(repo, allSettings(), allSharedPreferences(), httpAgent(), session(), configuration(), saveANMLocationTask(),saveUserInfoTask());
+            //Repository repo = initRepository();
+            userService = new UserService(repository, allSettings(), allSharedPreferences(), httpAgent(), session(), configuration(), saveANMLocationTask(),saveUserInfoTask());
         }
         return userService;
     }
@@ -1014,6 +1039,11 @@ public class Context {
 
     public Context updateCommonFtsObject(CommonFtsObject commonFtsObject){
         this.commonFtsObject = commonFtsObject;
+        return this;
+    }
+
+    public Context updateRepository(Repository repository){
+        this.repository = repository;
         return this;
     }
 

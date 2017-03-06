@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.path.db.UniqueIdRepository;
 import org.ei.opensrp.util.FileUtilities;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +35,7 @@ public class PullUniqueIdsIntentService extends IntentService {
     public PullUniqueIdsIntentService() {
 
         super("PullUniqueOpenMRSUniqueIdsService");
-        uniqueIdRepo=org.ei.opensrp.Context.getInstance().uniqueIdRepository();
+        uniqueIdRepo=new UniqueIdRepository(this);
 
     }
 

@@ -3,15 +3,18 @@ package org.ei.opensrp.view.activity;
 import android.app.Application;
 import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.R;
+import org.ei.opensrp.repository.DrishtiRepository;
+import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.util.BitmapImageCache;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.util.Session;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -21,14 +24,18 @@ public abstract class DrishtiApplication extends Application {
     protected Locale locale = null;
     protected Context context;
     private static BitmapImageCache memoryImageCache;
-    private static DrishtiApplication mInstance;
+    protected static DrishtiApplication mInstance;
     private static OpenSRPImageLoader cachedImageLoader;
+    private static Session session;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance=this;
+        context = Context.getInstance();
+        //context.initRepository();
     }
+
     public static synchronized DrishtiApplication getInstance() {
         return mInstance;
     }
@@ -40,6 +47,13 @@ public abstract class DrishtiApplication extends Application {
     protected void attachBaseContext(android.content.Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    public  Repository getRepository() {
+        ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
+        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
+        Repository repository = new Repository(getInstance().getApplicationContext(), session(), drishtireposotoryarray);
+        return repository;
     }
 
 
@@ -62,5 +76,12 @@ public abstract class DrishtiApplication extends Application {
         }
 
         return cachedImageLoader;
+    }
+
+    public static Session session() {
+        if (session == null) {
+            session = new Session();
+        }
+        return session;
     }
 }

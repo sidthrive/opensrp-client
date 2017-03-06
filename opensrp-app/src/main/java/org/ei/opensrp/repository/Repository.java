@@ -6,8 +6,10 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.util.Session;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.util.LinkedHashSet;
@@ -15,7 +17,7 @@ import java.util.Set;
 
 public class Repository extends SQLiteOpenHelper {
     private DrishtiRepository[] repositories;
-    private File databasePath;
+    private File databasePath= new File(DrishtiApplication.getAppDir()+"/databases/drishti.db");
     private Context context;
     private String dbName;
     private Session session;
@@ -26,7 +28,7 @@ public class Repository extends SQLiteOpenHelper {
         this.repositories = repositories;
         this.context = context;
         this.session = session;
-        this.dbName = session != null ? session.repositoryName() : "drishti.db";
+        this.dbName = session != null ? session.repositoryName() : AllConstants.DATABASE_NAME;
         this.databasePath = context != null ? context.getDatabasePath(dbName) : new File("/data/data/org.ei.opensrp.indonesia/databases/drishti.db");
 
         SQLiteDatabase.loadLibs(context);
@@ -37,6 +39,19 @@ public class Repository extends SQLiteOpenHelper {
 
     public Repository(Context context, Session session, CommonFtsObject commonFtsObject, DrishtiRepository... repositories) {
         this(context, session, repositories);
+        this.commonFtsObject = commonFtsObject;
+    }
+
+    public Repository(Context context,String dbName,int version,Session session, CommonFtsObject commonFtsObject,DrishtiRepository... repositories) {
+        super(context,dbName, null, version);
+        this.dbName=dbName;
+        this.repositories = repositories;
+        this.context = context;
+        this.session=session;
+        SQLiteDatabase.loadLibs(context);
+        for (DrishtiRepository repository : repositories) {
+            repository.updateMasterRepository(this);
+        }
         this.commonFtsObject = commonFtsObject;
     }
 

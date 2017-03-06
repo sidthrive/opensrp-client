@@ -22,12 +22,12 @@ import org.ei.opensrp.event.Event;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
+import org.ei.opensrp.path.db.UniqueIdRepository;
 import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
@@ -173,7 +173,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (StringUtils.isBlank(entityId)) {
-                UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
+                UniqueIdRepository uniqueIdRepo = new UniqueIdRepository(this);
                 entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
                 if (entityId.isEmpty()) {
                     Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();

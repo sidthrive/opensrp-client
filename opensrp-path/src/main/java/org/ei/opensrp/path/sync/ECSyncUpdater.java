@@ -3,23 +3,14 @@ package org.ei.opensrp.path.sync;
 import android.content.Context;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.domain.Response;
-import org.ei.opensrp.path.db.Client;
-import org.ei.opensrp.path.db.ECSQLiteHelper;
-import org.ei.opensrp.path.db.Event;
-import org.ei.opensrp.path.db.FilterType;
-import org.ei.opensrp.path.db.Query;
+import org.ei.opensrp.path.db.PathRepository;
 import org.ei.opensrp.service.HTTPAgent;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import util.Utils;
@@ -30,7 +21,7 @@ public class ECSyncUpdater {
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
     public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
-    private ECSQLiteHelper db;
+    private PathRepository db;
     private Context context;
 
     private static ECSyncUpdater instance;
@@ -44,7 +35,7 @@ public class ECSyncUpdater {
 
     public ECSyncUpdater(Context context) {
         this.context = context;
-        db = new ECSQLiteHelper(context);
+        db = new PathRepository(context);
     }
 
 
