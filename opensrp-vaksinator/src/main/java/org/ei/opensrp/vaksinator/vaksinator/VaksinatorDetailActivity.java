@@ -118,15 +118,6 @@ public class VaksinatorDetailActivity extends Activity {
         TextView additionalMeasles = (TextView) findViewById(R.id.additionalMeasles);
         final ImageView photo = (ImageView) findViewById(R.id.photo);
 
-        if(controller.getDetails().get("profilepic")!= null){
-            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
-            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
-
-            }
-        }
-
         ImageButton backButton = (ImageButton) findViewById(R.id.btn_back_to_home);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,6 +230,22 @@ public class VaksinatorDetailActivity extends Activity {
         additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
         additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
 
+        if(controller.getDetails().get("profilepic")!= null){
+            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
+            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+
+            }
+        }
+        else {
+            if (controller.getDetails().get("gender").equalsIgnoreCase("male") ) {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+            } else {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+            }
+        }
+
         /*if(controller.getDetails().get("profilepic")!= null){
             setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
         }
@@ -287,13 +294,13 @@ public class VaksinatorDetailActivity extends Activity {
     static String entityid;
 
     private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
         mImageView = imageView;
         Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
 //        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 //        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -338,7 +345,6 @@ public class VaksinatorDetailActivity extends Activity {
             mImageView.setImageBitmap(bitmap);
         }
     }
-
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
@@ -372,6 +378,7 @@ public class VaksinatorDetailActivity extends Activity {
 
 
     }
+
     private boolean isComplete(){
         return (controller.getDetails().get("hb0") != null &&
                 controller.getDetails().get("bcg") != null &&
