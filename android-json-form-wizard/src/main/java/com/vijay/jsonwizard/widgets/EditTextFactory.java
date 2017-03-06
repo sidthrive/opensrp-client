@@ -18,7 +18,9 @@ import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.validators.edittext.MaxLengthValidator;
+import com.vijay.jsonwizard.validators.edittext.MaxNumericValidator;
 import com.vijay.jsonwizard.validators.edittext.MinLengthValidator;
+import com.vijay.jsonwizard.validators.edittext.MinNumericValidator;
 import com.vijay.jsonwizard.validators.edittext.RequiredValidator;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 
@@ -131,6 +133,18 @@ public class EditTextFactory implements FormWidgetFactory {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     editText.addValidator(new RegexpValidator(numericObject.getString("err"),
                             "[0-9]*\\.?[0-9]*"));
+
+                    if(jsonObject.has("v_min")) {
+                        JSONObject minValidation = jsonObject.getJSONObject("v_min");
+                        editText.addValidator(new MinNumericValidator(minValidation.getString("err"),
+                                Double.parseDouble(minValidation.getString("value"))));
+                    }
+
+                    if(jsonObject.has("v_max")) {
+                        JSONObject minValidation = jsonObject.getJSONObject("v_min");
+                        editText.addValidator(new MaxNumericValidator(minValidation.getString("err"),
+                                Double.parseDouble(minValidation.getString("value"))));
+                    }
                 }
             }
         }

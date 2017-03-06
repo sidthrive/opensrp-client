@@ -275,7 +275,7 @@
         "duration":{
           "label": "Age"
         },
-        "min_date": "01-01-2013",
+        "min_date": "today-1825",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -291,7 +291,7 @@
         "type": "date_picker",
         "hint": "Date first seen *",
         "expanded": true,
-        "min_date": "01-01-2016",
+        "min_date": "today-1825",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -306,6 +306,10 @@
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Birth weight (KGs) *",
+        "v_min": {
+          "value":"0.1",
+          "err":"Weight must be greater than 0"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Enter a valid weight"
