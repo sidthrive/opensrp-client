@@ -355,6 +355,7 @@ public class ChildDetailActivity extends Activity {
 
             Long tsLong = System.currentTimeMillis()/1000;
             DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
             detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
 
             BitmapFactory.Options options = new BitmapFactory.Options();
