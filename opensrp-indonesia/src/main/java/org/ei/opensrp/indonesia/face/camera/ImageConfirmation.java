@@ -276,8 +276,8 @@ public class ImageConfirmation extends Activity {
 
         Class<?> origin_class = this.getClass();
 
-        Log.e(TAG, "onPreviewFrame: init"+origin_class.getSimpleName() );
-        Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+        Log.e(TAG, "showDetailUser: "+ origin_class.getSimpleName() );
+        Log.e(TAG, "showDetailUser: "+ str_origin_class);
 
         if(str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())){
             origin_class = NativeKISmartRegisterActivity.class;

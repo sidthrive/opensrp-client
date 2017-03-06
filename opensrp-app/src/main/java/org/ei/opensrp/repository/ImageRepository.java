@@ -13,11 +13,13 @@ import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ImageRepository extends DrishtiRepository {
     private static final String TAG = ImageRepository.class.getCanonicalName();
-    private static final String Image_SQL = "CREATE TABLE ImageList(imageid VARCHAR PRIMARY KEY, anmId VARCHAR, entityID VARCHAR, contenttype VARCHAR, filepath VARCHAR, syncStatus VARCHAR, filecategory VARCHAR, filevector TEXT)";
+    private static final String Image_SQL = "CREATE TABLE ImageList(imageid VARCHAR PRIMARY KEY, anmId VARCHAR, entityID VARCHAR, contenttype VARCHAR, filepath VARCHAR, syncStatus VARCHAR, filecategory VARCHAR, filevector TEXT, bfrStatus VARCHAR)";
     public static final String Image_TABLE_NAME = "ImageList";
     public static final String ID_COLUMN = "imageid";
     public static final String anm_ID_COLUMN = "anmId";
@@ -25,11 +27,12 @@ public class ImageRepository extends DrishtiRepository {
     private static final String contenttype_COLUMN = "contenttype";
     public static final String filepath_COLUMN = "filepath";
     public static final String syncStatus_COLUMN = "syncStatus";
+    public static final String bfrStatus_COLUMN = "bfrStatus";
     public static final String filecategory_COLUMN = "filecategory";
 //    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN, filecategory_COLUMN};
 
     public static final String filevector_COLUMN = "filevector";
-    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN};
+    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN, bfrStatus_COLUMN};
     public static final String Vector_TABLE_NAME = "VectorList";
     public static final String VID_COLUMN = "filevector";
     private static final String Vector_SQL = "CREATE TABLE VectorList("+ entityID_COLUMN +" VARCHAR PRIMARY KEY, "+ VID_COLUMN +" TEXT, syncStatus VARCHAR )";
@@ -49,6 +52,9 @@ public class ImageRepository extends DrishtiRepository {
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
 
+    public static String TYPE_Unbuffered = "Unbuffered";
+    public static String TYPE_Buffered = "Buffered";
+
     @Override
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(Image_SQL);
@@ -56,9 +62,15 @@ public class ImageRepository extends DrishtiRepository {
         database.execSQL(Vector_SQL);
     }
 
-    public void add(ProfileImage Image) {
+    public void add(ProfileImage Image, String entityId) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
-        database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
+//        database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
+
+        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+        if (id == -1) {
+            database.update(Image_TABLE_NAME, createValuesFor(Image, TYPE_ANC), entityID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+        }
+
         database.close();
     }
 
@@ -157,16 +169,25 @@ public class ImageRepository extends DrishtiRepository {
         Log.e(TAG, "insertOrUpdate: "+"start" );
         SQLiteDatabase db = masterRepository.getReadableDatabase();
         ContentValues values = new ContentValues();
+
+//        ProfileImage profileImage= new ProfileImage();
+//        profileImage.setImageid(UUID.randomUUID().toString());
+
+//        values.put(ID_COLUMN, UUID.randomUUID().toString());
+
+        values.put(ID_COLUMN, entityId);
         values.put(entityID_COLUMN, entityId);
         values.put(filevector_COLUMN, faceVector);
         values.put(syncStatus_COLUMN, TYPE_Unsynced);
+        values.put(bfrStatus_COLUMN, TYPE_Unbuffered);
 //        db.insertWithOnConflict(Vector_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE );
 //        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, "entityID" + " = ? AND filevector is null or filevector =?", new String[]{entityId, ""});
 
-        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
-        if (id == -1)
-        {
-            db.update(Vector_TABLE_NAME, values, entityID_COLUMN + "=?" , new String[]    {String.valueOf(entityId)});
+//        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
+        long id = db.insertWithOnConflict(Image_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        if (id == -1) {
+//            db.update(Vector_TABLE_NAME, values, entityID_COLUMN + "=?" , new String[]{String.valueOf(entityId)});
+            db.update(Image_TABLE_NAME, values, entityID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
         }
 
         close(entityId);
@@ -175,7 +196,10 @@ public class ImageRepository extends DrishtiRepository {
 
     public List<ProfileImage> getAllVectorImages() {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, syncStatus_COLUMN + " IS NOT NULL", null, null, null, null, null);
+//        Cursor cursor = database.rawQuery("SELECT * FROM "+Vector_TABLE_NAME, null);
+//        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, syncStatus_COLUMN + " IS NOT NULL", null, null, null, null, null);
+//        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, null, null, null, null, null);
+        Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, null, null, null, null, null);
         return readAll(cursor);
     }
 

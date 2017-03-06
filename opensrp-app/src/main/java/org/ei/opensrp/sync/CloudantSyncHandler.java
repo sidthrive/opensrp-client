@@ -63,6 +63,7 @@ public class CloudantSyncHandler {
     private CountDownLatch countDownLatch;
 
     private String dbURL;
+    private String pulldbURL;
     private String cloudantFilter;
 
     private static CloudantSyncHandler instance;
@@ -86,12 +87,14 @@ public class CloudantSyncHandler {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
 
-           // String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+            // String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
 
             String port = AllConstants.CloudantSync.COUCHDB_PORT;
             String databaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME;
+            String pullDatabaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME+"_"+locationAnmids.toLowerCase().replace(' ', '_').replace(".","");
             dbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(databaseName);
-
+            pulldbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(pullDatabaseName);
+            Log.d(LOG_TAG,"Pull Database: "+pulldbURL);
             // Replication Filter by provider
             String designDocumentId = this.replicationFilterSettings();
 
@@ -101,7 +104,7 @@ public class CloudantSyncHandler {
             filterParams.put(AllConstants.SyncFilters.FILTER_LOCATION_ID,locationAnmids);
             PullFilter pullFilter = new PullFilter(filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID), filterParams);
             this.cloudantFilter = filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) +":"+ filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID);
-            Log.d(LOG_TAG, "Filter fetched: " + filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) + ", locationId: " + filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID));
+            //Log.d(LOG_TAG, "Filter fetched: " + filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) + ", locationId: " + filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID));
 
 
             this.reloadReplicationSettings(pullFilter);
@@ -165,7 +168,7 @@ public class CloudantSyncHandler {
     public void startPullReplication() {
         if (this.mPullReplicator != null) {
             this.mPullReplicator.start();
-            Log.d(LOG_TAG,this.cloudantFilter);
+            Log.d(LOG_TAG, this.cloudantFilter);
         } else {
             Log.e(LOG_TAG, "Pull replication is not set");
             // If replicator is not set up, set a new replicator
@@ -182,16 +185,17 @@ public class CloudantSyncHandler {
 
         // Set up the new replicator objects
         URI uri = this.createServerURI();
+        URI pullUri = this.createPullURI();
 
         CloudantDataHandler mCloudantDataHandler = CloudantDataHandler.getInstance(mContext);
         Datastore mDatastore = mCloudantDataHandler.getDatastore();
 
-        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(uri);
+        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
         ReplicatorBuilder.Push mPushBuilder = ReplicatorBuilder.push().from(mDatastore).to(uri);
 
-        if (pullFilter != null) {
-            mPullBuilder.filter(pullFilter);
-        }
+        //if (pullFilter != null) {
+        //   mPullBuilder.filter(pullFilter);
+        //}
 
         String username = AllConstants.CloudantSync.COUCH_DATABASE_USER;
         String password = AllConstants.CloudantSync.COUCH_DATABASE_PASS;
@@ -220,6 +224,11 @@ public class CloudantSyncHandler {
     private URI createServerURI() throws URISyntaxException {
         // We recommend always using HTTPS to talk to Cloudant.
         return new URI(dbURL);
+    }
+
+    private URI createPullURI() throws URISyntaxException {
+        // We recommend always using HTTPS to talk to Cloudant.
+        return new URI(pulldbURL);
     }
 
     //

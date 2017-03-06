@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
@@ -74,6 +73,7 @@ public class Tools {
 //    private static FaceRepository faceRepo = (FaceRepository) Context.faceRepository();
 
     String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
+    private byte[] allFileVector;
 
 
 //    FaceRepository faceRepo = (FaceRepository) faceRepository();
@@ -176,7 +176,7 @@ public class Tools {
             profileImage.setFilevector(faceVector);
             profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
 
-            imageRepo.add(profileImage);
+            imageRepo.add(profileImage, entityId);
         } else {
             imageRepo.updateByEntityId(entityId, faceVector);
         }
@@ -330,10 +330,11 @@ public class Tools {
      * @return hash
      */
     public static HashMap<String, String> retrieveHash(android.content.Context context) {
-        Log.e(TAG, "retrieveHash: " + "Fetch");
+        Log.e(TAG, "retrieveHash: " + "start");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
         HashMap<String, String> hash = new HashMap<>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
+        Log.e(TAG, "retrieveHash: " + "end"+hash.size());
         return hash;
     }
 
@@ -345,7 +346,7 @@ public class Tools {
 //		saveCloud(albumBuffer);
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("albumArray", albumBuffer);
+        editor.putString(FaceConstants.ALBUM_ARRAY, albumBuffer);
         editor.apply();
         Log.e(TAG, "saveAlbum: "+"end" );
     }
@@ -356,7 +357,7 @@ public class Tools {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString(FaceConstants.ALBUM_ARRAY, null);
 //
-//        Log.e(TAG, "loadAlbum: "+arrayOfString );
+        Log.e(TAG, "loadAlbum: "+arrayOfString );
         byte[] albumArray;
 
 //        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length()) );
@@ -385,7 +386,7 @@ public class Tools {
                 Log.e(TAG, "De-Serialized Album Success!");
 //            }
         } else {
-            Log.e(TAG, "loadAlbum: "+"is it ur first record ? if no , there is problem happen." );
+            Log.e(TAG, "loadAlbum: "+"is it your first record ? if no, there is problem happen."+arrayOfString);
         }
     }
 
@@ -502,7 +503,7 @@ public class Tools {
                     profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
 
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-                    imageRepo.add(profileImage);
+                    imageRepo.add(profileImage, entityId);
                 }
 
             } catch (FileNotFoundException e) {
@@ -626,8 +627,13 @@ public class Tools {
 //        Helper Face
 //        Bitmap helperImage = BitmapFactory.decodeResource( context.applicationContext().getResources(), R.drawable.h9);//OK
 
-        Log.e(TAG, "parseSavedVector: "+ list.size() );
+//        Log.e(TAG, "parseSavedVector: "+ Arrays.toString(list.toArray()));
+//        Log.e(TAG, "parseSavedVector: "+ list.size() );
 
+//        for (ProfileImage pi : list){
+//            Log.e(TAG, "parseSavedVector: "+pi.getEntityID() );
+//        }
+//
         if (list.size() != 0) {
             if (SmartShutterActivity.faceProc == null) {
                 SmartShutterActivity.faceProc = FacialProcessing.getInstance();
@@ -635,19 +641,117 @@ public class Tools {
 
             FacialProcessing objFace = SmartShutterActivity.faceProc;
 
-            Log.e(TAG, "parseSavedVector: list size " + list.size() );
-
-
             boolean resSetBitmap = objFace.setBitmap(helperImage);
 
             FaceData[] faceData = objFace.getFaceData();
+            byte[] initContentBuffered = null;
 
             if(resSetBitmap){
-                Log.e(TAG, "parseSavedVector: before"+ Arrays.toString(objFace.serializeRecogntionAlbum()));
-                loadAlbum(context.applicationContext().getApplicationContext());
-                objFace.addPerson(0);
+//                Log.e(TAG, "parseSavedVector: before"+ Arrays.toString(objFace.serializeRecogntionAlbum()));
 
-                Log.e(TAG, "parseSavedVector: after"+ Arrays.toString(objFace.serializeRecogntionAlbum()));
+                for (int i=0; i<list.size(); i++) {
+
+                    Log.e(TAG, "loadAlbum: start"+ i );
+                    loadAlbum(context.applicationContext().getApplicationContext());
+                    Log.e(TAG, "parseSavedVector: after "+ i+ " - "+  Arrays.toString(objFace.serializeRecogntionAlbum()) );
+
+                    // Get vector fromm Existing buffer
+                    byte[] initBuffered = objFace.serializeRecogntionAlbum();
+                    Log.e(TAG, "parseSavedVector: initBuffered"+ initBuffered.length);
+
+                    // Get Init Vector Content
+                    initContentBuffered = Arrays.copyOfRange(initBuffered, 32, initBuffered.length);
+
+                    String fileVector = list.get(i).getFilevector();
+                    String uid = list.get(i).getEntityID();
+
+
+
+                    // FIXME : ADDED PERSON TO GET NEW HEADER
+                    objFace.addPerson(0); // adding new vector of helper image, length and content has changed
+
+                    byte[] newBuffered = objFace.serializeRecogntionAlbum();
+
+                    Log.e(TAG, "parseSavedVector: len after add new "+newBuffered.length );
+
+                    String albumBufferArr = Arrays.toString(newBuffered);
+
+                    // Remove Last 300th byte[] array ( Helper Vector Content), copy new Array of header:
+                    // NEW HEADER + CONTENT
+                    byte[] tempHeaderBuffered = Arrays.copyOfRange(newBuffered, 0, newBuffered.length - 300);
+
+                    Log.e(TAG, "parseSavedVector: len new "+newBuffered.length );
+                    Log.e(TAG, "parseSavedVector: len temp "+tempHeaderBuffered.length );
+
+                    Log.e(TAG, "parseSavedVector: len new byte "+ Arrays.toString(newBuffered));
+                    Log.e(TAG, "parseSavedVector: len temp byte "+ Arrays.toString(tempHeaderBuffered));
+
+                    byte[] tempAddBuffered = null;
+
+                    if (fileVector != null) {
+//                        parseArray(fileVector);
+
+                        String[] splitStringArray = fileVector.substring(1,
+                                fileVector.length() - 1).split(", ");
+
+                        byte[] tempFileVector = new byte[splitStringArray.length];
+                        Log.e(TAG, "parseSavedVector: Parsing Data from DB len"+ splitStringArray.length );
+                        for (int j = 0; j < splitStringArray.length; j++) {
+                            tempFileVector[j] = Byte.parseByte(splitStringArray[j]);
+                        }
+
+
+                        // Vector = Recent Number of Vector Header + DB content
+                        // TODO
+//                        tempAddBuffered = ArrayUtils.addAll(tempBuffered, tempFileVector );
+                        tempAddBuffered = ArrayUtils.addAll(initContentBuffered, tempFileVector );
+//                        tempAddBuffered = ArrayUtils.addAll(ArrayUtils.addAll(), tempFileVector );
+                        Log.e(TAG, "parseSavedVector: initcontent "+initContentBuffered.length );
+                        Log.e(TAG, "parseSavedVector: konten semuanya "+tempAddBuffered.length );
+
+
+                        // OK
+                        tempFileVector[0] = Byte.parseByte(String.valueOf(i));
+                        allFileVector = ArrayUtils.addAll(allFileVector, tempFileVector);
+                        Log.e(TAG, "parseSavedVector: length "+ allFileVector.length  );
+
+                    }
+
+
+                    tempAddBuffered = ArrayUtils.addAll(tempHeaderBuffered, tempAddBuffered );
+
+                    Log.e(TAG, "parseSavedVector: "+hash.size() );
+                    if (!hash.containsKey(uid)) {
+                        hash.put(uid, String.valueOf(i));
+                        saveHash(hash, appContext.applicationContext().getApplicationContext());
+
+                        saveAlbum(Arrays.toString(tempAddBuffered), appContext.applicationContext().getApplicationContext());
+
+//                    tempAddBuffered = ArrayUtils.addAll(tempAddBuffered, tempAddBuffered, tempAddBuffered );
+
+                        Log.e(TAG, "parseSavedVector: hash tempBuffer len of " + uid + " - " + tempAddBuffered.length);
+
+                    } else {
+                        Log.e(TAG, "parseSavedVector: hash "+ "Already Recorded");
+                    }
+
+//                    int offset = 300;
+//                    byte[] tempBuffered =  Arrays.copyOfRange(newBuffered, offset, newBuffered.length);
+
+                    String[] newBufferedVector = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
+
+                    // Get Face Vector Content Only by removing Header
+                    newBufferedVector = Arrays.copyOfRange(newBufferedVector, newBuffered.length-300, newBuffered.length);
+
+//                    String[] albumBufferArr = ArrayUtils.addAll(oldBuffer, faceVector);
+
+
+                    Log.e(TAG, "parseSavedVector: after add " + Arrays.toString(objFace.serializeRecogntionAlbum()));
+
+                    SmartShutterActivity.faceProc.resetAlbum();
+//                    Log.e(TAG, "parseSavedVector: after reset " + Arrays.toString(objFace.serializeRecogntionAlbum()));
+
+                } // End for loop local db
 
             } else {
                 Log.e(TAG, "parseSavedVector: "+"setBitmap helper failed!." );

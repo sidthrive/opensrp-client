@@ -530,7 +530,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     }
                     // insert into the db
                     ProfileImage profileImage= new ProfileImage();
-                    profileImage.setImageid(UUID.randomUUID().toString());
+//                    profileImage.setImageid(UUID.randomUUID().toString());
                     // TODO : get anmID from ?
                     profileImage.setAnmId("anmID");
                     profileImage.setEntityID(entityId);
@@ -541,7 +541,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 //                    profileImage.setFilevector();
 //                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-                    imageRepo.add(profileImage);
+                    imageRepo.add(profileImage, entityId);
                 }
 
             } catch (FileNotFoundException e) {

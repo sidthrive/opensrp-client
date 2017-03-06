@@ -353,7 +353,7 @@ public class HouseHoldDetailActivity extends Activity {
         Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
         ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage, entityId);
         DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
         detailsRepository.add(entityid, "profilepic",details.get("profilepic"), (new Date()).getTime());
 //                householdclient.entityId();
@@ -363,7 +363,7 @@ public class HouseHoldDetailActivity extends Activity {
         Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
         ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("nidImage"), ImageRepository.TYPE_Unsynced,"nidImage");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage, entityId);
         DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
         detailsRepository.add(entityid, "nidImage", details.get("nidImage"), (new Date()).getTime());
         try {
