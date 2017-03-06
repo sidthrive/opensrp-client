@@ -80,10 +80,10 @@
             </div>
         </fieldset>
     </fieldset>
-    <label class="question non-select ">
+    <label class="question or-branch pre-init non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/nomor_telpon_hp:label">Nomor Telpon/Hp</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/nomor_telpon_hp:label">Landline/Cell Phone Number</span>
-        <input type="text" name="/kunjungan_anc_reviewed_anc_visit/nomor_telpon_hp" data-relevant="selected( /kunjungan_anc_reviewed_anc_visit/nomortelpon ,'Ya')" data-type-xml="string"/>
+        <input type="text" name="/kunjungan_anc_reviewed_anc_visit/nomor_telpon_hp" data-relevant=" /kunjungan_anc_reviewed_anc_visit/nomortelpon ='Ya'" data-type-xml="string"/>
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:label">Tanggal kunjungan ANC</span>
@@ -92,6 +92,7 @@
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:hint">Diisi dengan tanggal periksa Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:hint">Fill in the date of check-up</span>
         <input type="date" name="/kunjungan_anc_reviewed_anc_visit/anc_date" required="required" data-constraint=".&gt; /kunjungan_anc_reviewed_anc_visit/hpht " data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note non-select ">
@@ -132,6 +133,7 @@
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/generated_note_name_38:label">-</span>
         <input type="text" name="/kunjungan_anc_reviewed_anc_visit/generated_note_name_38" data-type-xml="string" readonly="readonly"/>
     </label>
+
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
@@ -229,7 +231,6 @@
         <input type="number" name="/kunjungan_anc_reviewed_anc_visit/bb_kg" data-constraint=".&gt;0 and .&lt;200" data-type-xml="decimal" step="any"/>
         <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/bb_kg:jr:constraintMsg">Nilai yang dimasukkan tidak memenuhi syarat, mohon periksa kembali</span>
         <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_anc_reviewed_anc_visit/bb_kg:jr:constraintMsg">The entered value doesn't meet the criteria, please check it again</span>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/td_sistolik:label">TD (Sistolik)</span>
@@ -325,24 +326,22 @@
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap:label">Kepala Janin Terhadap PAP</span>
                 <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap:label">Head of fetus towards Pelvic Inlet</span>
-
                 <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap:hint">Menunjukkan apakah kepala janin sudah masuk Pintu Atas Panggul atau tidak</span>
                 <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap:hint">Indicating whether fetus head has gotten into the pelvic inlet</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" value="masuk"  data-relevant=" /kunjungan_anc_reviewed_anc_visit/usia_klinis &gt;=20" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" value="masuk" data-relevant=" /kunjungan_anc_reviewed_anc_visit/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap/masuk:label">Masuk (M)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap/masuk:label">Fetus head enters pelvic inlet</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" value="belum_masuk"  data-relevant=" /kunjungan_anc_reviewed_anc_visit/usia_klinis &gt;=20" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap" value="belum_masuk" data-relevant=" /kunjungan_anc_reviewed_anc_visit/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap/belum_masuk:label">Belum Masuk (BM)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/kepala_terhadap_janin_pap/belum_masuk:label">Fetus head doesn't enter pelvic inlet</span>
                 </label>
             </div>
         </fieldset>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
     <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/generated_note_name_54:label">Taksiran Berat Janin:
@@ -425,8 +424,9 @@
         </fieldset>
     </fieldset>
     <label class="question or-appearance-minimal ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:label">Status Imunisasi TT Saat ini</span>
-        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:label">Recent TT immunization status</span>
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:label">Status Imunisasi TT</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:label">TT immunization status</span>
+
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:hint">Menunjukkan status imunisasi TT yang diberikan kepada Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt:hint">Indicating status of TT immunization that mother has received</span>
         <select name="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt" data-name="/kunjungan_anc_reviewed_anc_visit/status_imunisasi_tt"  data-type-xml="select1">
@@ -533,7 +533,6 @@
             </div>
         </fieldset>
     </fieldset>
-
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
@@ -626,10 +625,10 @@
             </div>
         </fieldset>
     </fieldset>
-    <label class="question or-branch pre-init non-select or-appearance-multiline ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain:label">Komplikasi Lain</span>
-        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain:label">Other Complication</span>
-        <textarea name="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain" data-relevant=" /kunjungan_anc_reviewed_anc_visit/komplikasi_dalam_kehamilan  = 'lain_lain'" data-type-xml="string"></textarea>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain:label">Other complication</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain:label">-</span>
+        <input type="text" name="/kunjungan_anc_reviewed_anc_visit/komplikasi_lain" data-relevant=" /kunjungan_anc_reviewed_anc_visit/komplikasi_dalam_kehamilan ='lain_lain'" data-type-xml="string"/>
     </label>
     <label class="question or-appearance-minimal ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/resiko_terdeksi_pertama_kali:label">Resiko terdeteksi pertama kali oleh</span>
