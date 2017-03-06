@@ -23,16 +23,17 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/immun_child_card_height"
                 android:layout_margin="10dp"
                 android:background="@drawable/border">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/immun_child_card_height"
+                    android:layout_height="@dimen/immun_child_card_height"
+                    android:id="@+id/profile_image_iv"
                     android:src="@drawable/child_boy_infant"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -79,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp">
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
