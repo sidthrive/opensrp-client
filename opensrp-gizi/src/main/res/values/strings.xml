@@ -312,6 +312,7 @@
     <string name="test_register">Test Register</string>
     <string name="test">Test</string>
     <string name="hh_register_title_in_short">HH</string>
+    <string name="dho_site">"http://dho-report.sid-indonesia.org"</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
