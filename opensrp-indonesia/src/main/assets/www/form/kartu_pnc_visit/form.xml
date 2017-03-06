@@ -66,7 +66,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:hint">Tanggal dilakukannya kunjungan nifas</span>
         <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:hint">Date of post-partum check-up</span>
-        <input type="date" name="/PNC_visit_reviewed/tanggal_kunjungan" required="required" data-constraint=".&gt; /PNC_visit_reviewed/tanggal_lahir_anak " data-type-xml="date"/>
+        <input type="date" name="/PNC_visit_reviewed/tanggal_kunjungan" required="required"  data-type-xml="date"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note non-select ">
@@ -405,19 +405,19 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:label">2 Jam PP</span>
-                <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:label">2 hour post partum</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:label">Vitamin A 2 Jam PP</span>
+                <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:label">>Vitamin A 2 hour post partum</span>
                 <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:hint">Tulis tanggal minumnya</span>
                 <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP:hint">Enter date of receiving vitamin A</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/PNC_visit_reviewed/vitaminA2jamPP" data-name="/PNC_visit_reviewed/vitaminA2jamPP" value="Ya" data-type-xml="select1"/>
+                    <input type="radio" name="/PNC_visit_reviewed/vitaminA2jamPP" data-name="/PNC_visit_reviewed/vitaminA2jamPP" data-relevant=" /PNC_visit_reviewed/hari_ke__kf ='1'" value="Ya" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP/Ya:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP/Ya:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/PNC_visit_reviewed/vitaminA2jamPP" data-name="/PNC_visit_reviewed/vitaminA2jamPP" value="Tidak" data-type-xml="select1"/>
+                    <input type="radio" name="/PNC_visit_reviewed/vitaminA2jamPP" data-name="/PNC_visit_reviewed/vitaminA2jamPP" data-relevant=" /PNC_visit_reviewed/hari_ke__kf ='1'" value="Tidak" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP/Tidak:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/PNC_visit_reviewed/vitaminA2jamPP/Tidak:label">No</span>
                 </label>
@@ -427,19 +427,19 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:label">24 Jam PP</span>
-                <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:label">24 hour post partum</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:label">Vitamin A 24 Jam PP</span>
+                <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:label">>Vitamin A 24 hour post partum</span>
                 <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:hint">Tulis tanggal minumnya</span>
                 <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP:hint">Enter date of receiving vitamin A</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/PNC_visit_reviewed/vitaminA24jamPP" data-name="/PNC_visit_reviewed/vitaminA24jamPP" value="Ya" data-type-xml="select1"/>
+                    <input type="radio" name="/PNC_visit_reviewed/vitaminA24jamPP" data-name="/PNC_visit_reviewed/vitaminA24jamPP" value="Ya" data-relevant=" /PNC_visit_reviewed/hari_ke__kf ='1'" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP/Ya:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP/Ya:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/PNC_visit_reviewed/vitaminA24jamPP" data-name="/PNC_visit_reviewed/vitaminA24jamPP" value="Tidak" data-type-xml="select1"/>
+                    <input type="radio" name="/PNC_visit_reviewed/vitaminA24jamPP" data-name="/PNC_visit_reviewed/vitaminA24jamPP" value="Tidak" data-relevant=" /PNC_visit_reviewed/hari_ke__kf ='1'" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP/Tidak:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/PNC_visit_reviewed/vitaminA24jamPP/Tidak:label">No</span>
                 </label>
@@ -449,7 +449,7 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/ProgramIntegration:label">-</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/ProgramIntegration:label">Integrasi Program</span>
                 <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/ProgramIntegration:label">Do you provide Program Integration for post-partum mother?</span>
                 <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/ProgramIntegration:hint">Menunjukan detail Integrasi Program yang diberikan kepada ibu nifas</span>
                 <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/ProgramIntegration:hint">Indicating details of Program Integration provided to post-partum mother</span>
