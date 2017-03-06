@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
         }
         setContentView(org.ei.opensrp.R.layout.login);
         ImageView loginglogo = (ImageView)findViewById(R.id.login_logo);
-        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.login_logo));
+        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.opensrp_indonesia_vaccine_logo));
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         initializeLoginFields();
         initializeBuildDetails();
