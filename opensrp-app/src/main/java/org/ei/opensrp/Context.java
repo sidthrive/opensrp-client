@@ -33,6 +33,7 @@ import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
 import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
@@ -133,6 +134,7 @@ public class Context {
     private ImageRepository imageRepository;
     private UniqueIdRepository uniqueIdRepository;
     private WeightRepository weightRepository;
+    private VaccineRepository vaccineRepository;
 
 
 
@@ -512,6 +514,7 @@ public class Context {
             drishtireposotorylist.add(imageRepository());
             drishtireposotorylist.add(uniqueIdRepository());
             drishtireposotorylist.add(weightRepository());
+            drishtireposotorylist.add(vaccineRepository());
             drishtireposotorylist.add(detailsRepository());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
@@ -683,6 +686,12 @@ public class Context {
             weightRepository = new WeightRepository();
         }
         return weightRepository;
+    }
+    public VaccineRepository vaccineRepository() {
+        if (vaccineRepository == null) {
+            vaccineRepository = new VaccineRepository();
+        }
+        return vaccineRepository;
     }
     public UserService userService() {
         if (userService == null) {

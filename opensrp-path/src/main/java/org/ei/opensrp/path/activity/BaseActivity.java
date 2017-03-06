@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
@@ -60,13 +61,13 @@ import util.JsonFormUtils;
  * Base activity class for all other PATH activity classes. Implements:
  * - A uniform navigation bar that is launched by swiping from the left
  * - Support for specifying which {@link BaseToolbar} to use
- * <p>
+ * <p/>
  * This activity requires that the base view for any child activity be {@link DrawerLayout}
  * Make sure include the navigation view as the last element in the activity's root DrawerLayout
  * like this:
- * <p>
+ * <p/>
  * <include layout="@layout/nav_view_base"/>
- * <p>
+ * <p/>
  * Created by Jason Rogena - jrogena@ona.io on 16/02/2017.
  */
 public abstract class BaseActivity extends AppCompatActivity
@@ -132,7 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity
             Minutes minutes = Minutes.minutesBetween(lastSyncTime, now);
             if (minutes.getMinutes() < 1) {
                 Seconds seconds = Seconds.secondsBetween(lastSyncTime, now);
-                lastSync = seconds.getSeconds()+"s";
+                lastSync = seconds.getSeconds() + "s";
             } else if (minutes.getMinutes() >= 1 && minutes.getMinutes() < 60) {
                 lastSync = minutes.getMinutes() + "m";
             } else if (minutes.getMinutes() >= 60 && minutes.getMinutes() < 1440) {
@@ -306,7 +307,7 @@ public abstract class BaseActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -382,6 +383,12 @@ public abstract class BaseActivity extends AppCompatActivity
         @Override
         public void onDrawerClosed(View drawerView) {
             super.onDrawerClosed(drawerView);
+        }
+    }
+
+    public void processInThread(Runnable runnable) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            new Thread(runnable).start();
         }
     }
 }
