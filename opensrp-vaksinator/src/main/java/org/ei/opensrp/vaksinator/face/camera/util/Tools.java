@@ -142,6 +142,13 @@ public class Tools {
 //            details.put("profilepic", photoPath);
             details.put("profilepic", thumbs_photo.toString());
 
+            DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
+            Long tsLong = System.currentTimeMillis()/1000;
+//            detailsRepository.add(entityId, "profilepic", photoPath, tsLong);
+            detailsRepository.add(entityId, "profilepic", thumbs_photo.toString(), tsLong);
+
+            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+
 
 //            KIDetailActivity.details = new HashMap<>();
 //            HashMap<String,String> details = new HashMap<>();

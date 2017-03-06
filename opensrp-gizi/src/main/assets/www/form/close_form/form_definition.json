@@ -3,47 +3,66 @@
   "form": {
     "bind_type":"anak",
     "ec_bind_type":"ec_anak",
-    "default_bind_path": "/model/instance/penutupan_anak_reviewed/",
+    "default_bind_path": "/model/instance/penutupan_anak_mapped/",
     "fields": [
       {
         "name": "id",
         "shouldLoadValue": true
       },
       {
+        "name": "existing_location",
+        "bind": "/model/instance/penutupan_anak_mapped/existing_location",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "desa_anak",
+        "bind": "/model/instance/penutupan_anak_mapped/Village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "dusun_anak",
+        "bind": "/model/instance/penutupan_anak_mapped/Sub-village",
+        "shouldLoadValue": true
+      },
+      {
         "name": "closeReason",
-        "bind": "/model/instance/penutupan_anak_reviewed/close_reason"
+        "bind": "/model/instance/penutupan_anak_mapped/close_reason"
       },
       {
         "name": "childDeathCause",
-        "bind": "/model/instance/penutupan_anak_reviewed/child_death_cause"
+        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause"
       },
       {
         "name": "childDeathCauseOther",
-        "bind": "/model/instance/penutupan_anak_reviewed/child_death_cause_other"
+        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause_other"
       },
       {
         "name": "placeOfDeath",
-        "bind": "/model/instance/penutupan_anak_reviewed/place_of_death"
+        "bind": "/model/instance/penutupan_anak_mapped/place_of_death"
       },
       {
         "name": "prereferralManagement",
-        "bind": "/model/instance/penutupan_anak_reviewed/prereferral_management"
+        "bind": "/model/instance/penutupan_anak_mapped/prereferral_management"
       },
       {
         "name": "referred",
-        "bind": "/model/instance/penutupan_anak_reviewed/referred"
+        "bind": "/model/instance/penutupan_anak_mapped/referred"
       },
       {
         "name": "referralLocation",
-        "bind": "/model/instance/penutupan_anak_reviewed/referral_location"
+        "bind": "/model/instance/penutupan_anak_mapped/referral_location"
       },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/penutupan_anak_reviewed/today"
+        "bind": "/model/instance/penutupan_anak_mapped/today"
       },
       {
         "name": "confirmChildClose",
-        "bind": "/model/instance/penutupan_anak_reviewed/confirm_child_close"
+        "bind": "/model/instance/penutupan_anak_mapped/confirm_child_close"
       },
       {
         "name": "isClosed",
