@@ -113,9 +113,8 @@ public class KmsHandler  implements FormSubmissionHandler {
             KmsPerson data = new KmsPerson(!gender.toLowerCase().contains("em"), dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya);
             KmsCalc calculator = new KmsCalc();
             ////System.out.println("tanggal penimbangan = "+submission.getFieldValue("tanggalPenimbangan")+", "+lastVisitDate);
-            int satu = Integer.parseInt(history_umur[history_umur.length-2])/30;
-            int dua = Integer.parseInt(history_umur[history_umur.length-1])/30;
-            String duat = history_berat.length <= 2  ? "-" : dua - satu >=2 ? "-" :calculator.cek2T(data);
+
+            String duat = history_berat.length <= 2  ? "-" : (Integer.parseInt(history_umur[history_umur.length-1])/30) - (Integer.parseInt(history_umur[history_umur.length-2])/30) >=2 ? "-" :calculator.cek2T(data);
             String status = history_berat.length <= 2 ? "No" : calculator.cekWeightStatus(data);
 
             detailsRepository.add(entityID, "bgm", calculator.cekBGM(data), tsLong);
@@ -149,8 +148,15 @@ public class KmsHandler  implements FormSubmissionHandler {
             result[0]=result[0]+","+temp[i].split(":")[0];
             result[1]=result[1]+","+temp[i].split(":")[1];
         }
+
         result[0]=result[0].substring(1,result[0].length());
         result[1]=result[1].substring(1,result[1].length());
+
+        if(result[0].length()>2 && result[1].length()>2){
+            result[0] = result[0].substring(0,2).equals("0,")? result[0].substring(2,result[0].length()):result[0];
+            result[1] = result[1].substring(0,2).equals("0,")? result[1].substring(2,result[1].length()):result[1];
+        }
+
         return result;
     }
 }
