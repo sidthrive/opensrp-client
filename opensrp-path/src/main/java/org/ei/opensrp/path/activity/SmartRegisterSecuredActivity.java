@@ -260,9 +260,9 @@ public abstract class SmartRegisterSecuredActivity extends SecuredActivity {
             public void run() {
                 SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
                 if (registerFragment != null && data != null) {
-                    String id = data.getFieldValue("program_client_id");
+                    String id = data.getFieldValue("zeir_id");
                     if (StringUtils.isBlank(id)){
-                        id = data.getFieldValue("existing_program_client_id");
+                        id = data.getFieldValue("existing_zeir_id");
                     }
                     registerFragment.getSearchView().setText(id);
                     // FIXME path_conflict

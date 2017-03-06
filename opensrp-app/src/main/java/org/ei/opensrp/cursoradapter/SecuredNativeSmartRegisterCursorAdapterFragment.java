@@ -514,6 +514,15 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
         }
     }
 
+    public void hideProgressView(){
+        if(clientsProgressView.getVisibility() == VISIBLE) {
+            clientsProgressView.setVisibility(INVISIBLE);
+        }
+        if(clientsView.getVisibility() == INVISIBLE) {
+            clientsView.setVisibility(VISIBLE);
+        }
+    }
+
     private String filterandSortQuery(){
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -626,12 +635,7 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(clientsProgressView.getVisibility() == VISIBLE) {
-                                    clientsProgressView.setVisibility(INVISIBLE);
-                                }
-                                if(clientsView.getVisibility() == INVISIBLE) {
-                                    clientsView.setVisibility(VISIBLE);
-                                }
+                                hideProgressView();
                             };
                         });
 

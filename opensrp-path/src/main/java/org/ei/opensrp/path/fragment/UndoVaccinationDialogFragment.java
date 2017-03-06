@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ei.opensrp.path.activity.ChildDetailActivity;
@@ -24,6 +25,10 @@ import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.activity.WomanDetailActivity;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
+
+import util.ImageUtils;
 
 @SuppressLint("ValidFragment")
 public class UndoVaccinationDialogFragment extends DialogFragment {
@@ -67,6 +72,16 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
             vaccineView.setText(tag.getVaccine().display());
         } else {
             vaccineView.setText(tag.getName());
+        }
+
+
+        if (tag.getId() != null) {
+            ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
+            if (tag.getId() != null) {//image already in local storage most likey ):
+                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+                mImageView.setTag(org.ei.opensrp.R.id.entity_id, tag.getId());
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tag.getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tag.getGender()), ImageUtils.profileImageResourceByGender(tag.getGender())));
+            }
         }
 
         Button vaccinateToday = (Button) dialogView.findViewById(R.id.yes_undo);

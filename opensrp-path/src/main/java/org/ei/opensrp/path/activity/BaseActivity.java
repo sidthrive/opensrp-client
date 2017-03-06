@@ -298,7 +298,7 @@ public abstract class BaseActivity extends AppCompatActivity
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                         jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId.replace("-", ""));
+                        jsonObject.put(JsonFormUtils.VALUE, entityId);
                         continue;
                     }
                 }

@@ -35,7 +35,7 @@ public class PullUniqueIdsIntentService extends IntentService {
     public PullUniqueIdsIntentService() {
 
         super("PullUniqueOpenMRSUniqueIdsService");
-        uniqueIdRepo=org.ei.opensrp.Context.uniqueIdRepository();
+        uniqueIdRepo=org.ei.opensrp.Context.getInstance().uniqueIdRepository();
 
     }
 

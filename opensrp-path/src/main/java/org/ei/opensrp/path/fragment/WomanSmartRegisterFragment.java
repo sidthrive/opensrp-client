@@ -103,7 +103,7 @@ public class WomanSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                         new CursorCommonObjectSort(getResources().getString(R.string.woman_alphabetical_sort), "first_name"),
                         new DateSort("Age", "dob"),
                         new StatusSort("Due Status"),
-                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "program_client_id")
+                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "zeir_id")
                 };
             }
 
@@ -177,7 +177,7 @@ public class WomanSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "program_client_id", "first_name", "husband_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "vaccines", "vaccines_2", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "last_name", "gender", "marriage", "town", "union_council", "address1", "address", "reminders_approval", "final_edd", "final_ga", "tt1_retro", "tt2_retro", "tt3_retro", "tt4_retro", "tt1", "tt2", "tt3", "tt4", "tt5", "date", "pregnant"});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"relationalid", "details", "zeir_id", "first_name", "husband_name", "father_name", "dob", "epi_card_number", "contact_phone_number", "vaccines", "vaccines_2", "provider_uc", "provider_town", "provider_id", "provider_location_id", "client_reg_date", "last_name", "gender", "marriage", "town", "union_council", "address1", "address", "reminders_approval", "final_edd", "final_ga", "tt1_retro", "tt2_retro", "tt3_retro", "tt4_retro", "tt1", "tt2", "tt3", "tt4", "tt5", "date", "pregnant"});
         mainSelect = queryBUilder.mainCondition("");
         Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
 
@@ -314,8 +314,8 @@ public class WomanSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 +", Town: "+ getValue(client.getColumnmaps(), "town", true)
                 +", City: "+ getValue(client, "city_village", true)
                 +", Province: "+ getValue(client, "province", true));
-        map.put("existing_program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
-        map.put("program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
+        map.put("existing_zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
+        map.put("zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
 
         map.put("existing_first_name", getValue(client.getColumnmaps(), "first_name", true));
         map.put("existing_father_name", getValue(client.getColumnmaps(), "father_name", true));
@@ -347,8 +347,8 @@ public class WomanSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 ", City: "+client.getAddress("usual_residence").getCityVillage()+
                 " - "+client.getAddress("usual_residence").getAddressField("landmark"));
 
-        map.put("existing_program_client_id", client.getIdentifier("Program Client ID"));
-        map.put("program_client_id", client.getIdentifier("Program Client ID"));
+        map.put("existing_zeir_id", client.getIdentifier("Program Client ID"));
+        map.put("zeir_id", client.getIdentifier("Program Client ID"));
 
         map.put("existing_first_name", client.getFirstName());
         map.put("existing_birth_date", client.getBirthdate().toString("yyyy-MM-dd"));

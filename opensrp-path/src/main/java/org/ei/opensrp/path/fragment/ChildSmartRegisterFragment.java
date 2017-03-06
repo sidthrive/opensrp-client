@@ -89,7 +89,7 @@ import static util.Utils.getValue;
 import static util.Utils.nonEmptyValue;
 import static util.VaccinatorUtils.providerDetails;
 
-public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private  LocationPickerView clinicSelection;
 
@@ -148,7 +148,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                         new CursorCommonObjectSort(getResources().getString(R.string.woman_alphabetical_sort), "first_name"),
                         new DateSort("Age", "dob"),
                         new StatusSort("Due Status"),
-                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "program_client_id")
+                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "zeir_id")
                 };
             }
 
@@ -286,7 +286,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
                 tableName + ".details",
-                tableName + ".program_client_id",
+                tableName + ".zeir_id",
                 tableName + ".relational_id",
                 tableName + ".first_name",
                 tableName + ".last_name",
@@ -321,10 +321,6 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         @Override
         public void onClick(View view) {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            HashMap<String, String> map = new HashMap<>();
-            map.putAll(followupOverrides(client));
-            map.putAll(providerDetails());
-
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
@@ -347,31 +343,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     }
 
     public void updateSearchView() {
-        getSearchView().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-                if (cs.toString().equalsIgnoreCase("")) {
-                    filters = "";
-                } else {
-                    filters = cs.toString();
-                }
-                joinTable = "";
-                mainCondition = "";
-                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                CountExecute();
-                filterandSortExecute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        getSearchView().removeTextChangedListener(textWatcher);
+        getSearchView().addTextChangedListener(textWatcher);
     }
 
     private void populateClientListHeaderView(View view) {
@@ -380,6 +353,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
         LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
         clientsView.addHeaderView(headerLayout);
+        clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
     }
 
     private class EditDialogOptionModel implements DialogOptionModel {
@@ -471,8 +445,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 + ", Town: " + getValue(client.getColumnmaps(), "town", true)
                 + ", City: " + getValue(client, "city_village", true)
                 + ", Province: " + getValue(client, "province", true));
-        map.put("existing_program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
-        map.put("program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
+        map.put("existing_zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
+        map.put("zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
 
         int days = 0;
         try {
@@ -506,8 +480,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 ", City: " + client.getAddress("usual_residence").getCityVillage() +
                 " - " + client.getAddress("usual_residence").getAddressField("landmark"));
 
-        map.put("existing_program_client_id", client.getIdentifier("Program Client ID"));
-        map.put("program_client_id", client.getIdentifier("Program Client ID"));
+        map.put("existing_zeir_id", client.getIdentifier("Program Client ID"));
+        map.put("zeir_id", client.getIdentifier("Program Client ID"));
 
         map.put("existing_first_name", client.getFirstName());
         map.put("existing_last_name", client.getLastName());
@@ -685,5 +659,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     private void startQrCodeScanner() {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
+
+
 
 }

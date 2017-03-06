@@ -89,10 +89,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 Photo photo = ImageUtils.profilePhotoByClient(vaccineGroup.getChildDetails());
                 vaccineWrapper.setPhoto(photo);
 
-                String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "program_client_id", false);
-                if(StringUtils.isNotBlank(zeirId)){
-                    zeirId = zeirId.replace("-", "");
-                }
+                String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "zeir_id", false);
                 vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 

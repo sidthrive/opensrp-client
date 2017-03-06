@@ -117,7 +117,7 @@ public class WomanDetailActivity extends DetailActivity implements VaccinationAc
         if (client == null) {
             return "";
         }
-        return nonEmptyValue(client.getColumnmaps(), true, false, "existing_program_client_id", "program_client_id");
+        return nonEmptyValue(client.getColumnmaps(), true, false, "existing_zeir_id", "zeir_id");
     }
 
     @Override

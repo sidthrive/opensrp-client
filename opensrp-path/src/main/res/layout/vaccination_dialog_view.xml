@@ -24,6 +24,7 @@
                 android:id="@+id/child_profilepic"
                 android:layout_width="@dimen/client_profile_pic_dialog_width"
                 android:layout_height="@dimen/client_profile_pic_dialog_height"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
@@ -35,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:paddingLeft="0dp"
                 android:text="name"
                 android:textColor="@color/text_black"
                 android:textSize="30sp" />
@@ -45,6 +47,7 @@
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="0dp"
                 android:text="number"
                 android:textColor="@color/client_list_grey"
                 android:textSize="24sp" />
@@ -62,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <Button
                 android:id="@+id/vaccinate_today"
@@ -122,6 +125,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     android:text="Cancel"
                     android:textAllCaps="false"
                     android:textAppearance="?android:textAppearanceSmall"
@@ -134,6 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     android:text="Set"
                     android:textAllCaps="false"
                     android:textAppearance="?android:textAppearanceSmall"

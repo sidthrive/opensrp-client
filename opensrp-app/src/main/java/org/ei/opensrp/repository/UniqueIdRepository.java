@@ -30,7 +30,6 @@ public class UniqueIdRepository extends DrishtiRepository {
 
     public static String STATUS_USED = "used";
     public static String STATUS_NOT_USED = "not_used";
-    private static UniqueIdRepository instance;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -42,13 +41,6 @@ public class UniqueIdRepository extends DrishtiRepository {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
         database.insert(UniqueIds_TABLE_NAME, null, createValuesFor(uniqueId));
         database.close();
-    }
-
-    public static UniqueIdRepository getInstance() {
-        if (instance == null) {
-            instance = new UniqueIdRepository();
-        }
-        return instance;
     }
 
     /**

@@ -121,7 +121,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
         if (client == null) {
             return "";
         }
-        return nonEmptyValue(client.getColumnmaps(), true, false, "existing_program_client_id", "program_client_id");
+        return nonEmptyValue(client.getColumnmaps(), true, false, "existing_zeir_id", "zeir_id");
     }
 
     @Override
@@ -212,7 +212,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
             vaccineWrapper.setPhoto(photo);
             vaccineWrapper.setCompact(false);
 
-            vaccineWrapper.setPatientNumber(getValue(client.getColumnmaps(), "program_client_id", false));
+            vaccineWrapper.setPatientNumber(getValue(client.getColumnmaps(), "zeir_id", false));
             vaccineWrapper.setPatientName(getValue(client.getColumnmaps(), "first_name", true) + " " + getValue(client.getColumnmaps(), "last_name", true));
 
             String existingAge = VaccinateActionUtils.retrieveExistingAge(vaccinateFormSubmissionWrapper);

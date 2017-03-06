@@ -68,6 +68,9 @@ public class RecordWeightDialogFragment extends DialogFragment {
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.record_weight_dialog_view, container, false);
 
         final EditText editWeight = (EditText) dialogView.findViewById(R.id.edit_weight);
+        if (tag.getWeight() != null) {
+            editWeight.setText(tag.getWeight().toString());
+        }
         //formatEditWeightView(editWeight, "");
         editWeight.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -99,7 +102,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
         TextView ageView = (TextView) dialogView.findViewById(R.id.child_age);
         if (StringUtils.isNotBlank(tag.getPatientAge())) {
-            ageView.setText(String.format("%s: %s", getString(R.string.birthdate_age), tag.getPatientAge()));
+            ageView.setText(String.format("%s: %s", getString(R.string.age), tag.getPatientAge()));
         } else {
             ageView.setText("");
         }
@@ -107,14 +110,12 @@ public class RecordWeightDialogFragment extends DialogFragment {
         TextView pmtctStatusView = (TextView) dialogView.findViewById(R.id.pmtct_status);
         pmtctStatusView.setText(tag.getPmtctStatus());
 
-
-        Photo photo = tag.getPhoto();
         if (tag.getId() != null) {
             ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
 
-            if(tag.getId()!=null){//image already in local storage most likey ):
+            if (tag.getId() != null) {//image already in local storage most likey ):
                 //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-                mImageView.setTag(org.ei.opensrp.R.id.entity_id,tag.getId());
+                mImageView.setTag(org.ei.opensrp.R.id.entity_id, tag.getId());
                 DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tag.getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tag.getGender()), ImageUtils.profileImageResourceByGender(tag.getGender())));
             }
         }
@@ -123,6 +124,11 @@ public class RecordWeightDialogFragment extends DialogFragment {
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String weightString = editWeight.getText().toString();
+                if (StringUtils.isBlank(weightString) || Float.valueOf(weightString) <= 0f) {
+                    return;
+                }
+
                 dismiss();
 
                 int day = earlierDatePicker.getDayOfMonth();
@@ -133,7 +139,8 @@ public class RecordWeightDialogFragment extends DialogFragment {
                 calendar.set(year, month, day);
                 tag.setUpdatedWeightDate(new DateTime(calendar.getTime()), false);
 
-                //updateFormSubmission();
+                Float weight = Float.valueOf(weightString);
+                tag.setWeight(weight);
 
                 listener.onWeightTaken(tag);
 
@@ -144,12 +151,18 @@ public class RecordWeightDialogFragment extends DialogFragment {
         weightTakenToday.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String weightString = editWeight.getText().toString();
+                if (StringUtils.isBlank(weightString) || Float.valueOf(weightString) <= 0f) {
+                    return;
+                }
+
                 dismiss();
 
                 Calendar calendar = Calendar.getInstance();
                 tag.setUpdatedWeightDate(new DateTime(calendar.getTime()), true);
 
-                //updateFormSubmission();
+                Float weight = Float.valueOf(weightString);
+                tag.setWeight(weight);
 
                 listener.onWeightTaken(tag);
 
@@ -181,20 +194,6 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
         return dialogView;
     }
-
-    private void updateFormSubmission() {
-        /*VaccinateFormSubmissionWrapper vaccinateFormSubmissionWrapper = null;
-        if (tag.vaccines().get(0).category().equals("child") && listener instanceof ChildDetailActivity) {
-            vaccinateFormSubmissionWrapper = ((ChildDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        } else if (tag.vaccines().get(0).category().equals("woman") && listener instanceof WomanDetailActivity) {
-            vaccinateFormSubmissionWrapper = ((WomanDetailActivity) listener).getVaccinateFormSubmissionWrapper();
-        }
-
-        if (vaccinateFormSubmissionWrapper != null) {
-            vaccinateFormSubmissionWrapper.add(tag);
-        }*/
-    }
-
 
     @Override
     public void onAttach(Activity activity) {

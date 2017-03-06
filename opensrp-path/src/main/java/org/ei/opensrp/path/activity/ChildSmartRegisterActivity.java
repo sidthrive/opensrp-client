@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.domain.form.FormSubmission;
@@ -23,6 +22,7 @@ import org.ei.opensrp.event.Event;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
+import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -35,7 +35,6 @@ import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
-import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -193,7 +192,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                         jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId.replace("-", ""));
+                        jsonObject.put(JsonFormUtils.VALUE, entityId);
                         continue;
                     }
                 }
@@ -262,10 +261,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             @Override
             public void run() {
                 mPager.setCurrentItem(0, false);
-                SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
-                if (registerFragment != null && data != null) {
-                    registerFragment.refreshListView();
-                }
+                refreshList(data);
 
                 //hack reset the form
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
@@ -341,7 +337,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(getClass().getName(), "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
-            startFormActivity("child_enrollment", qrCode, null);
+            filterList(qrCode);
         }
     }
 
@@ -353,9 +349,24 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     };
 
     private void refreshList(FetchStatus fetchStatus) {
-        SecuredNativeSmartRegisterFragment registerFragment = (SecuredNativeSmartRegisterFragment) findFragmentByPosition(0);
+        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
         if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
             registerFragment.refreshListView();
+        }
+    }
+
+    private void refreshList(String data) {
+        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+        if (registerFragment != null && data != null) {
+            registerFragment.refreshListView();
+        }
+
+    }
+
+    private void filterList(String filterString) {
+        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+        if (registerFragment != null) {
+            registerFragment.openVaccineCard(filterString);
         }
     }
 

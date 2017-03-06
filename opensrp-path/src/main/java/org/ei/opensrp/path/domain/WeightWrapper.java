@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
  */
 public class WeightWrapper {
     private String id;
+    private Long dbKey;
     private String gender;
     private Photo photo;
     private String patientName;
@@ -24,6 +25,14 @@ public class WeightWrapper {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getDbKey() {
+        return dbKey;
+    }
+
+    public void setDbKey(Long dbKey) {
+        this.dbKey = dbKey;
     }
 
     public String getPatientName() {
