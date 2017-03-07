@@ -82,7 +82,10 @@ public class SpinnerFactory implements FormWidgetFactory {
         }
 
         if (values != null) {
-            spinner.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, values));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.simple_list_item_1, values);
+
+            spinner.setAdapter(adapter);
+
             spinner.setSelection(indexToSelect + 1, true);
             spinner.setOnItemSelectedListener(listener);
         }
