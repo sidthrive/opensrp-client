@@ -146,7 +146,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "ZEIR_ID",
         "type": "edit_text",
-        "hint": "ZEIR Child ID",
+        "hint": "Child's ZEIR ID",
         "read_only": true,
         "value": "0",
         "v_numeric": {
@@ -160,7 +160,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Child_Register_Card_Number",
         "type": "edit_text",
-        "hint": "Register card number"
+        "hint": "Child's register card number"
       },
       {
         "key": "Child_Birth_Certificate",
@@ -168,7 +168,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Child_Birth_Certificate",
         "type": "edit_text",
-        "hint": "Birth certificate number"
+        "hint": "Child's birth certificate number"
       },
       {
         "key": "Mother_Guardian_First_Name",
