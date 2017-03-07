@@ -3,8 +3,11 @@ package org.ei.opensrp.path.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +47,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +72,8 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int REQUEST_CODE_GET_JSON = 3432;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    public static Gender gender;
     //////////////////////////////////////////////////
     private static final String TAG = "ChildImmunoActivity";
     private static final String VACCINES_FILE = "vaccines.json";
@@ -74,6 +82,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private child_registration_data_fragment child_data_fragment;
     private child_under_five_fragment child_under_five_Fragment;
+    private File currentfile;
 
     public CommonPersonObjectClient getChildDetails() {
         return childDetails;
@@ -295,6 +304,17 @@ public class ChildDetailTabbedActivity extends BaseActivity {
                 JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         }
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+//            Bundle extras = data.getExtras();
+//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
+//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
+            String imageLocation = currentfile.getAbsolutePath();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+
+            JsonFormUtils.saveImage(this, allSharedPreferences.fetchRegisteredANM(), childDetails.entityId(), imageLocation);
+            updateProfilePicture(gender);
+        }
     }
 
     @Override
@@ -363,6 +383,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         updateProfilePicture(gender);
     }
     private void updateProfilePicture(Gender gender) {
+        this.gender = gender;
         if (isDataOk()) {
             ImageView profileImageIV = (ImageView) findViewById(R.id.profile_image_iv);
 
@@ -372,6 +393,12 @@ public class ChildDetailTabbedActivity extends BaseActivity {
                 DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childDetails.entityId(), OpenSRPImageLoader.getStaticImageListener((ImageView) profileImageIV, ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
 
             }
+            profileImageIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dispatchTakePictureIntent();
+                }
+            });
         }
     }
 
@@ -381,6 +408,43 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         adapter.addFragment(child_data_fragment, "Registration Data");
         adapter.addFragment(child_under_five_Fragment, "Under Five History");
         viewPager.setAdapter(adapter);
+    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                currentfile = photoFile;
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
     }
     private void updateGenderViews() {
         Gender gender = Gender.UNKNOWN;
