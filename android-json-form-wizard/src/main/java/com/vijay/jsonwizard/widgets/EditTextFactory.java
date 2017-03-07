@@ -3,7 +3,6 @@ package com.vijay.jsonwizard.widgets;
 import android.content.Context;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +41,7 @@ public class EditTextFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
         String relevance = jsonObject.optString("relevance");
+        String constraints = jsonObject.optString("constraints");
 
         int minLength = MIN_LENGTH;
         int maxLength= MAX_LENGTH;
@@ -162,8 +162,15 @@ public class EditTextFactory implements FormWidgetFactory {
         editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
         if (relevance != null && context instanceof JsonApi) {
             editText.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(editText);
+            ((JsonApi) context).addSkipLogicView(editText);
         }
+
+        if (constraints != null && context instanceof JsonApi) {
+            editText.setTag(R.id.constraints, constraints);
+            editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
+            ((JsonApi) context).addConstrainedView(editText);
+        }
+
         views.add(editText);
         return views;
     }

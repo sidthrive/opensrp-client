@@ -1,7 +1,6 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -69,7 +68,7 @@ public class RadioButtonFactory implements FormWidgetFactory {
             views.add(radioButton);
             if (relevance != null && context instanceof JsonApi) {
                 radioButton.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(radioButton);
+                ((JsonApi) context).addSkipLogicView(radioButton);
             }
         }
         return views;

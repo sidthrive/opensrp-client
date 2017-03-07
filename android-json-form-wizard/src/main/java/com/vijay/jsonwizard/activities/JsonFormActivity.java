@@ -5,28 +5,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.R;
-import com.vijay.jsonwizard.comparers.Comparer;
-import com.vijay.jsonwizard.comparers.EqualToComparer;
-import com.vijay.jsonwizard.comparers.GreaterThanComparer;
-import com.vijay.jsonwizard.comparers.GreaterThanEqualToComparer;
-import com.vijay.jsonwizard.comparers.LessThanComparer;
-import com.vijay.jsonwizard.comparers.LessThanEqualToComparer;
-import com.vijay.jsonwizard.comparers.NotEqualToComparer;
-import com.vijay.jsonwizard.comparers.RegexComparer;
+import com.vijay.jsonwizard.comparisons.Comparison;
+import com.vijay.jsonwizard.comparisons.EqualToComparison;
+import com.vijay.jsonwizard.comparisons.GreaterThanComparison;
+import com.vijay.jsonwizard.comparisons.GreaterThanEqualToComparison;
+import com.vijay.jsonwizard.comparisons.LessThanComparison;
+import com.vijay.jsonwizard.comparisons.LessThanEqualToComparison;
+import com.vijay.jsonwizard.comparisons.NotEqualToComparison;
+import com.vijay.jsonwizard.comparisons.RegexComparison;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
-import com.vijay.jsonwizard.views.JsonFormFragmentView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +41,10 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     private JSONObject          mJSONObject;
     private PropertyManager propertyManager;
-    private ArrayList<View> watchedViews;
+    private ArrayList<View> skipLogicViews;
+    private ArrayList<View> constrainedViews;
     private String functionRegex;
-    private HashMap<String, Comparer> comparers;
+    private HashMap<String, Comparison> comparisons;
 
     public void init(String json) {
         try {
@@ -64,7 +64,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         setContentView(R.layout.activity_json_form);
         mToolbar = (Toolbar) findViewById(R.id.tb_top);
         setSupportActionBar(mToolbar);
-        watchedViews = new ArrayList<>();
+        skipLogicViews = new ArrayList<>();
         if (savedInstanceState == null) {
             init(getIntent().getStringExtra("json"));
             getSupportFragmentManager().beginTransaction()
@@ -106,6 +106,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                     item.put("openmrs_entity", openMrsEntity);
                     item.put("openmrs_entity_id", openMrsEntityId);
                     refreshSkipLogic();
+                    refreshConstraints();
                     return;
                 }
             }
@@ -131,6 +132,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put("value", value);
                             refreshSkipLogic();
+                            refreshConstraints();
                             return;
                         }
                     }
@@ -184,19 +186,29 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
-    public void clearWatchedViews() {
-        watchedViews = new ArrayList<>();
+    public void clearSkipLogicViews() {
+        skipLogicViews = new ArrayList<>();
     }
 
     @Override
-    public void addWatchedView(View view) {
-        watchedViews.add(view);
+    public void clearConstrainedViews() {
+        constrainedViews = new ArrayList<>();
+    }
+
+    @Override
+    public void addSkipLogicView(View view) {
+        skipLogicViews.add(view);
+    }
+
+    @Override
+    public void addConstrainedView(View view) {
+        constrainedViews.add(view);
     }
 
     @Override
     public void refreshSkipLogic() {
-        initComparers();
-        for (View curView : watchedViews) {
+        initComparisons();
+        for (View curView : skipLogicViews) {
             String relevanceTag = (String) curView.getTag(R.id.relevance);
             if (relevanceTag != null && relevanceTag.length() > 0) {
                 try {
@@ -233,6 +245,44 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         }
     }
 
+    /**
+     * This method checks if all views being watched for constraints enforce those constraints
+     * This library currently only supports constraints on views that store the value in {@link MaterialEditText}
+     * ie TreeViews, DatePickers, and EditTexts
+     */
+    @Override
+    public void refreshConstraints() {
+        initComparisons();
+        for (View curView : constrainedViews) {
+            String constraintTag = (String) curView.getTag(R.id.constraints);
+            if (constraintTag != null && constraintTag.length() > 0) {
+                try {
+                    JSONArray constraint = new JSONArray(constraintTag);
+                    String errorMessage = null;
+                    for (int i = 0; i < constraint.length(); i++) {
+                        JSONObject curConstraint = constraint.getJSONObject(i);
+                        String addressString = (String) curView.getTag(R.id.address);
+                        String[] address = addressString.split(":");
+                        if (address.length == 2) {
+                            String value = getValueFromAddress(address);
+                            errorMessage = enforceConstraint(value, curConstraint);
+                            if (errorMessage != null) break;
+                        }
+                    }
+
+                    if (errorMessage != null) {
+                        if (curView instanceof MaterialEditText) {
+                            ((MaterialEditText) curView).setText(null);
+                            ((MaterialEditText) curView).setError(errorMessage);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private String getValueFromAddress(String[] address) throws Exception {
         String result = null;
         if(address != null && address.length == 2) {
@@ -247,38 +297,38 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         return result;
     }
 
-    private void initComparers() {
-        if (functionRegex == null || comparers == null) {
+    private void initComparisons() {
+        if (comparisons == null) {
             functionRegex = "";
-            comparers = new HashMap<>();
+            comparisons = new HashMap<>();
 
-            LessThanComparer lessThanComparison = new LessThanComparer();
+            LessThanComparison lessThanComparison = new LessThanComparison();
             functionRegex += lessThanComparison.getFunctionName();
-            comparers.put(lessThanComparison.getFunctionName(), lessThanComparison);
+            comparisons.put(lessThanComparison.getFunctionName(), lessThanComparison);
 
-            LessThanEqualToComparer lessThanEqualToComparison = new LessThanEqualToComparer();
+            LessThanEqualToComparison lessThanEqualToComparison = new LessThanEqualToComparison();
             functionRegex += "|" + lessThanEqualToComparison.getFunctionName();
-            comparers.put(lessThanEqualToComparison.getFunctionName(), lessThanEqualToComparison);
+            comparisons.put(lessThanEqualToComparison.getFunctionName(), lessThanEqualToComparison);
 
-            EqualToComparer equalToComparison = new EqualToComparer();
+            EqualToComparison equalToComparison = new EqualToComparison();
             functionRegex += "|" + equalToComparison.getFunctionName();
-            comparers.put(equalToComparison.getFunctionName(), equalToComparison);
+            comparisons.put(equalToComparison.getFunctionName(), equalToComparison);
 
-            NotEqualToComparer notEqualToComparer = new NotEqualToComparer();
+            NotEqualToComparison notEqualToComparer = new NotEqualToComparison();
             functionRegex += "|" + notEqualToComparer.getFunctionName();
-            comparers.put(notEqualToComparer.getFunctionName(), notEqualToComparer);
+            comparisons.put(notEqualToComparer.getFunctionName(), notEqualToComparer);
 
-            GreaterThanComparer greaterThanComparison = new GreaterThanComparer();
+            GreaterThanComparison greaterThanComparison = new GreaterThanComparison();
             functionRegex += "|" + greaterThanComparison.getFunctionName();
-            comparers.put(greaterThanComparison.getFunctionName(), greaterThanComparison);
+            comparisons.put(greaterThanComparison.getFunctionName(), greaterThanComparison);
 
-            GreaterThanEqualToComparer greaterThanEqualToComparison = new GreaterThanEqualToComparer();
+            GreaterThanEqualToComparison greaterThanEqualToComparison = new GreaterThanEqualToComparison();
             functionRegex += "|" + greaterThanEqualToComparison.getFunctionName();
-            comparers.put(greaterThanEqualToComparison.getFunctionName(), greaterThanEqualToComparison);
+            comparisons.put(greaterThanEqualToComparison.getFunctionName(), greaterThanEqualToComparison);
 
-            RegexComparer regexComparison = new RegexComparer();
+            RegexComparison regexComparison = new RegexComparison();
             functionRegex += "|" + regexComparison.getFunctionName();
-            comparers.put(regexComparison.getFunctionName(), regexComparison);
+            comparisons.put(regexComparison.getFunctionName(), regexComparison);
         }
     }
 
@@ -291,9 +341,41 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         if (matcher.find()) {
             String functionName = matcher.group(1);
             String b = matcher.group(2);
-            return comparers.get(functionName).compare(value, type, b);
+            return comparisons.get(functionName).compare(value, type, b);
         }
 
         return false;
+    }
+
+    /**
+     * This method checks whether a constraint has been enforced and returns an error message if not
+     * The error message should be displayable to the user
+     *
+     * @param value         The value to be checked
+     * @param constraint    The constraint expression to use
+     * @return  An error message if constraint has not been enfored or NULL if constraint enforced
+     * @throws Exception
+     */
+    private String enforceConstraint(String value, JSONObject constraint) throws Exception {
+        String type = constraint.getString("type").toLowerCase();
+        String ex = constraint.getString("ex");
+        String errorMessage = constraint.getString("err");
+        Pattern pattern = Pattern.compile("(" + functionRegex + ")\\((.*)\\)");
+        Matcher matcher = pattern.matcher(ex);
+        if (matcher.find()) {
+            String functionName = matcher.group(1);
+            String addressForBString = matcher.group(2);
+            String[] addressForB = addressForBString.split(":");
+            if(addressForB.length == 2) {
+                String b = getValueFromAddress(addressForB);
+                if(TextUtils.isEmpty(b)
+                        || TextUtils.isEmpty(value)
+                        || comparisons.get(functionName).compare(value, type, b)) {
+                    return null;
+                }
+            }
+        }
+
+        return errorMessage;
     }
 }

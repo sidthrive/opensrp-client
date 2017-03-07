@@ -1,7 +1,6 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -68,7 +67,7 @@ public class CheckBoxFactory implements FormWidgetFactory {
             views.add(checkBox);
             if (relevance != null && context instanceof JsonApi) {
                 checkBox.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(checkBox);
+                ((JsonApi) context).addSkipLogicView(checkBox);
             }
         }
         return views;

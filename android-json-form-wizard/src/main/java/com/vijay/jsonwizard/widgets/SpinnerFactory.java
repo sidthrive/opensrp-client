@@ -89,7 +89,7 @@ public class SpinnerFactory implements FormWidgetFactory {
         views.add(spinner);
         if (relevance != null && context instanceof JsonApi) {
             spinner.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(spinner);
+            ((JsonApi) context).addSkipLogicView(spinner);
         }
         return views;
     }

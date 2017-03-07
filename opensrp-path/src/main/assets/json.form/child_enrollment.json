@@ -1,7 +1,7 @@
 {
   "count": "1",
   "encounter_type": "Birth Registration",
-  "mother":{
+  "mother": {
     "encounter_type": "New Woman Registration"
   },
   "entity_id": "",
@@ -207,7 +207,7 @@
         "type": "date_picker",
         "hint": "Mother/Guardian's DOB",
         "expanded": true,
-        "duration":{
+        "duration": {
           "label": "Age"
         },
         "min_date": "01-01-1900",
@@ -272,7 +272,7 @@
         "type": "date_picker",
         "hint": "Child's date of Birth *",
         "expanded": true,
-        "duration":{
+        "duration": {
           "label": "Age"
         },
         "min_date": "today-1825",
@@ -296,7 +296,14 @@
         "v_required": {
           "value": "true",
           "err": "Enter the date that the child was first seen at a health facility for immunization services"
-        }
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(step1:Date_Birth)",
+            "err": "Date first seen can't occur before date of birth"
+          }
+        ]
       },
       {
         "key": "Birth_Weight",
@@ -307,8 +314,8 @@
         "type": "edit_text",
         "hint": "Birth weight (KGs) *",
         "v_min": {
-          "value":"0.1",
-          "err":"Weight must be greater than 0"
+          "value": "0.1",
+          "err": "Weight must be greater than 0"
         },
         "v_numeric": {
           "value": "true",
@@ -378,8 +385,11 @@
           "value": true,
           "err": "Please enter the birth facility name"
         },
-        "relevance":{
-          "step1:Place_Birth":{"type":"string","ex":"equalTo(Health facility)"}
+        "relevance": {
+          "step1:Place_Birth": {
+            "type": "string",
+            "ex": "equalTo(Health facility)"
+          }
         }
       },
       {
@@ -437,8 +447,11 @@
           "value": true,
           "err": "Please specify the residential area"
         },
-        "relevance":{
-          "step1:Residential_Area":{"type":"string","ex":"equalTo([\"Other\"])"}
+        "relevance": {
+          "step1:Residential_Area": {
+            "type": "string",
+            "ex": "equalTo([\"Other\"])"
+          }
         }
       },
       {

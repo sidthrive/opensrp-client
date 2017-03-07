@@ -46,7 +46,7 @@ public class ImagePickerFactory implements FormWidgetFactory {
         imageView.setTag(R.id.type, jsonObject.getString("type"));
         if (relevance != null && context instanceof JsonApi) {
             imageView.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(imageView);
+            ((JsonApi) context).addSkipLogicView(imageView);
         }
 
         JSONObject requiredObject = jsonObject.optJSONObject("v_required");
@@ -85,7 +85,7 @@ public class ImagePickerFactory implements FormWidgetFactory {
         views.add(uploadButton);
         if (relevance != null && context instanceof JsonApi) {
             uploadButton.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(uploadButton);
+            ((JsonApi) context).addSkipLogicView(uploadButton);
         }
         return views;
     }

@@ -70,9 +70,11 @@ public class JsonFormFragment extends MvpFragment<JsonFormFragmentPresenter, Jso
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mJsonApi.clearWatchedViews();
+        mJsonApi.clearSkipLogicViews();
+        mJsonApi.clearConstrainedViews();
         presenter.addFormElements();
         mJsonApi.refreshSkipLogic();
+        mJsonApi.refreshConstraints();
     }
 
     @Override

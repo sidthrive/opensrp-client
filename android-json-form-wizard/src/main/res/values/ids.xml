@@ -2,6 +2,7 @@
 <resources>
     <item type="id" name="label"/>
     <item type="id" name="key"/>
+    <item type="id" name="address"/>
     <item type="id" name="type"/>
     <item type="id" name="childKey"/>
     <item type="id" name="imagePath"/>
@@ -12,4 +13,5 @@
     <item type='id' name="openmrs_entity"/>
     <item type='id' name="openmrs_entity_id"/>
     <item type="id" name="relevance" />
+    <item type="id" name="constraints" />
 </resources>
