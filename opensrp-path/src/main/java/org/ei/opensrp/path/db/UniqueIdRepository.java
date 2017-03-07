@@ -76,19 +76,23 @@ public class UniqueIdRepository extends PathRepository {
 
     public Long countUnUsedIds() {
         long count = 0;
+        Cursor cursor=null;
         try {
             SQLiteDatabase database = this.getWritableDatabase();
 
-            Cursor cursor = database.rawQuery("SELECT COUNT (*) FROM " + UniqueIds_TABLE_NAME + " WHERE " + STATUS_COLUMN + "=?",
+             cursor = database.rawQuery("SELECT COUNT (*) FROM " + UniqueIds_TABLE_NAME + " WHERE " + STATUS_COLUMN + "=?",
                     new String[]{String.valueOf(STATUS_NOT_USED)});
             if (null != cursor)
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     count = cursor.getInt(0);
                 }
-            cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
+        } finally {
+            if(cursor!=null)
+            cursor.close();
         }
         return count;
     }

@@ -29,13 +29,12 @@ import util.PathConstants;
  */
 public class PullUniqueIdsIntentService extends IntentService {
     private static final String TAG = PullUniqueIdsIntentService.class.getCanonicalName();
-    private final UniqueIdRepository uniqueIdRepo;
+    private  UniqueIdRepository uniqueIdRepo;
 
 
     public PullUniqueIdsIntentService() {
 
         super("PullUniqueOpenMRSUniqueIdsService");
-        uniqueIdRepo=new UniqueIdRepository(this);
 
     }
 
@@ -154,5 +153,11 @@ public class PullUniqueIdsIntentService extends IntentService {
             }
             uniqueIdRepo.bulkInserOpenmrsIds(ids);
         }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        uniqueIdRepo=new UniqueIdRepository(getApplicationContext());
+        return super.onStartCommand(intent, flags, startId);
     }
 }

@@ -10,7 +10,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.repository.DrishtiRepository;
 import org.ei.opensrp.repository.Repository;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -31,13 +30,10 @@ import util.Utils;
 
 public class PathRepository extends Repository {
 
-    SQLiteDatabase database;
+    private static final String TAG=PathRepository.class.getCanonicalName();
 
-    public PathRepository(Context context, DrishtiRepository... repositories) {
-        super(context, PathConstants.DATABASE_NAME,PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(),repositories);
-    }
     public PathRepository(Context context) {
-        super(context, PathConstants.DATABASE_NAME,PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(),org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
+        super(context, PathConstants.DATABASE_NAME, PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(), org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
     }
 
 
@@ -45,10 +41,10 @@ public class PathRepository extends Repository {
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         this.database=database;
-        createTable(Table.client, client_column.values());
-        createTable(Table.address, address_column.values());
-        createTable(Table.event, event_column.values());
-        createTable(Table.obs, obs_column.values());
+        createTable(database,Table.client, client_column.values());
+        createTable(database,Table.address, address_column.values());
+        createTable(database,Table.event, event_column.values());
+        createTable(database,Table.obs, obs_column.values());
         UniqueIdRepository.createTable(database);
     }
 
@@ -63,11 +59,11 @@ public class PathRepository extends Repository {
 	
 
 
-    private void insert(Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
-        insert(cls, table, cols, null, null, o);
+    private void insert(SQLiteDatabase db,Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
+        insert(db, cls, table, cols, null, null, o);
     }
 
-    private void insert(Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
+    private void insert(SQLiteDatabase db,Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
         Map<Column, Object> fm = new HashMap<Column, Object>();
 
         for (Column c : cols) {
@@ -102,32 +98,32 @@ public class PathRepository extends Repository {
 
         String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
         Log.i("", sql);
-        database.execSQL(sql);
+        db.execSQL(sql);
     }
 
-    public void insert(Client client) {
+    public void insert(SQLiteDatabase db,Client client) {
         try {
-            JSONObject jsonClient = getClient(client.getBaseEntityId());
+            JSONObject jsonClient = getClient(db,client.getBaseEntityId());
             if (jsonClient != null) {
                 return;
             }
-            insert(Client.class, Table.client, client_column.values(), client);
+            insert(db,Client.class, Table.client, client_column.values(), client);
             for (Address a : client.getAddresses()) {
-                insert(Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a);
+                insert(db,Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
         }
     }
 
-    public void insert(Event event) {
+    public void insert(SQLiteDatabase db,Event event) {
         try {
             if(StringUtils.isBlank(event.getFormSubmissionId())){
                 event.setFormSubmissionId(generateRandomUUIDString());
             }
-            insert(Event.class, Table.event, event_column.values(), event);
+            insert(db,Event.class, Table.event, event_column.values(), event);
             for (Obs o : event.getObs()) {
-                insert(Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
+                insert(db,Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
@@ -141,7 +137,7 @@ public class PathRepository extends Repository {
 
         long lastServerVersion = 0l;
 
-        database.beginTransaction();
+        getWritableDatabase().beginTransaction();
 
         for (int i = 0; i < array.length(); i++) {
             Object o = array.get(i);
@@ -149,7 +145,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Client c = convert(jo, Client.class);
                 if (c != null) {
-                    insert(c);
+                    insert(getWritableDatabase(),c);
                     if (c.getServerVersion() > 01) {
                         lastServerVersion = c.getServerVersion();
                     }
@@ -157,8 +153,8 @@ public class PathRepository extends Repository {
             }
         }
 
-        database.setTransactionSuccessful();
-        database.endTransaction();
+        getWritableDatabase().setTransactionSuccessful();
+        getWritableDatabase().endTransaction();
         return lastServerVersion;
     }
 
@@ -169,7 +165,7 @@ public class PathRepository extends Repository {
 
         long lastServerVersion = serverVersion;
 
-        database.beginTransaction();
+        getWritableDatabase().beginTransaction();
 
         for (int i = 0; i < array.length(); i++) {
             Object o = array.get(i);
@@ -177,7 +173,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Event e = convert(jo, Event.class);
                 if (e != null) {
-                    insert(e);
+                    insert(getWritableDatabase(),e);
                     if (e.getServerVersion() > 01) {
                         lastServerVersion = e.getServerVersion();
                     }
@@ -185,8 +181,8 @@ public class PathRepository extends Repository {
             }
         }
 
-        database.setTransactionSuccessful();
-        database.endTransaction();
+        getWritableDatabase().setTransactionSuccessful();
+        getWritableDatabase().endTransaction();
         return lastServerVersion;
     }
 
@@ -203,10 +199,20 @@ public class PathRepository extends Repository {
         }
     }
 
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        if(database==null || !database.isOpen()){
+            database=super.getWritableDatabase(VaccinatorApplication.getInstance().getPassword());
+        }
+        return database ;
+    }
+
+
     public List<JSONObject> getEvents(long startServerVersion, long lastServerVersion) throws JSONException, ParseException {
         List<JSONObject> list = new ArrayList<JSONObject>();
+        Cursor cursor=null;
         try {
-            Cursor cursor = database.rawQuery("SELECT * FROM " + Table.event.name() +
+             cursor = getWritableDatabase().rawQuery("SELECT * FROM " + Table.event.name() +
                     " WHERE " + event_column.serverVersion.name() + " > " + startServerVersion +
                     " AND " + event_column.serverVersion.name() + " <= " + lastServerVersion +
                     " ORDER BY " + event_column.serverVersion.name()
@@ -218,7 +224,9 @@ public class PathRepository extends Repository {
                 }
 
                 JSONArray olist = new JSONArray();
-                Cursor cursorObs = database.rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
+                Cursor cursorObs=null;
+               try{
+                    cursorObs = getWritableDatabase().rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
                 while (cursorObs.moveToNext()) {
                     JSONObject o = new JSONObject();
                     for (Column oc : Table.obs.columns()) {
@@ -228,12 +236,17 @@ public class PathRepository extends Repository {
                     }
                     olist.put(o);
                 }
-
+            }catch(Exception e){
+                Log.e(TAG,e.getMessage());
+            }finally {
+                if(cursorObs!=null)
+                    cursorObs.close();
+            }
                 ev.put("obs", olist);
 
                 if (ev.has(event_column.baseEntityId.name())) {
                     String baseEntityId = ev.getString(event_column.baseEntityId.name());
-                    JSONObject cl = getClient(baseEntityId);
+                    JSONObject cl = getClient(getWritableDatabase(),baseEntityId);
                     ev.put("client", cl);
                 }
                 Log.i(getClass().getName(), "Event Retrieved: " + ev.toString());
@@ -241,13 +254,16 @@ public class PathRepository extends Repository {
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
+        }finally {
+            cursor.close();
         }
         return list;
     }
 
-    public JSONObject getClient(String baseEntityId) {
+    public JSONObject getClient(SQLiteDatabase db,String baseEntityId) {
+        Cursor cursor=null;
         try {
-            Cursor cursor = database.rawQuery("SELECT * FROM " + Table.client.name() +
+             cursor = db.rawQuery("SELECT * FROM " + Table.client.name() +
                     " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
             if (cursor.moveToNext()) {
                 JSONObject cl = new JSONObject();
@@ -256,7 +272,9 @@ public class PathRepository extends Repository {
                 }
 
                 JSONArray alist = new JSONArray();
-                Cursor ares = database.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
+                Cursor ares=null;
+              try{
+                   ares = db.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
                 while (ares.moveToNext()) {
                     JSONObject a = new JSONObject();
                     for (Column cc : Table.address.columns()) {
@@ -267,6 +285,13 @@ public class PathRepository extends Repository {
                     alist.put(a);
                 }
 
+              }catch(Exception e){
+                  Log.e(TAG,e.getMessage());
+              }finally {
+                  if(ares!=null)
+                  ares.close();
+              }
+
                 cl.put("addresses", alist);
                 Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
 
@@ -274,6 +299,9 @@ public class PathRepository extends Repository {
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
+        }finally{
+            if(cursor!=null)
+            cursor.close();
         }
         return null;
     }
@@ -291,7 +319,7 @@ public class PathRepository extends Repository {
         return str;
     }
 
-    private void createTable(Table table, Column[] columns) {
+    private void createTable(SQLiteDatabase db,Table table, Column[] columns) {
         String cl = "";
         String indl = "";
         for (Column cc : columns) {
@@ -305,8 +333,8 @@ public class PathRepository extends Repository {
         String create_tb = "CREATE TABLE " + table.name() + " ( " + cl + " )";
         String create_id = "CREATE INDEX " + table.name() + "_index ON " + table.name() + " (" + indl + "); ";
 
-        database.execSQL(create_tb);
-        database.execSQL(create_id);
+        db.execSQL(create_tb);
+        db.execSQL(create_id);
     }
 
     private Object getValue(Cursor cur, Column c) throws JSONException, ParseException {
@@ -375,8 +403,11 @@ public class PathRepository extends Repository {
         }
     }
 
-    public ArrayList<HashMap<String, String>> rawQuery(String query) {
-        Cursor cursor = database.rawQuery(query, null);
+    public ArrayList<HashMap<String, String>> rawQuery(SQLiteDatabase db,String query) {
+        Cursor cursor =null;
+       try{
+            cursor = db.rawQuery(query, null);
+
         ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -389,9 +420,16 @@ public class PathRepository extends Repository {
                 maplist.add(map);
             } while (cursor.moveToNext());
         }
-        database.close();
+        db.close();
         // return contact list
         return maplist;
+       }catch (Exception e){
+           Log.e(TAG,e.getMessage());
+       }finally{
+           if(cursor!=null)
+           cursor.close();
+       }
+        return null;
     }
 
 

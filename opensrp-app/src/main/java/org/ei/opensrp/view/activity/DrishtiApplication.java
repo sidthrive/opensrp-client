@@ -27,6 +27,7 @@ public abstract class DrishtiApplication extends Application {
     protected static DrishtiApplication mInstance;
     private static OpenSRPImageLoader cachedImageLoader;
     private static Session session;
+    private static String password;
 
     @Override
     public void onCreate() {
@@ -48,11 +49,13 @@ public abstract class DrishtiApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
+    protected static Repository repository;
     public  Repository getRepository() {
         ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
         DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-        Repository repository = new Repository(getInstance().getApplicationContext(), session(), drishtireposotoryarray);
+        if(repository==null) {
+            repository = new Repository(getInstance().getApplicationContext(), null, drishtireposotoryarray);
+        }
         return repository;
     }
 
@@ -78,10 +81,11 @@ public abstract class DrishtiApplication extends Application {
         return cachedImageLoader;
     }
 
-    public static Session session() {
-        if (session == null) {
-            session = new Session();
-        }
-        return session;
+
+    public void setPassword(String password){
+        this.password=password;
+    }
+    public String getPassword(){
+        return password;
     }
 }

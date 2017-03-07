@@ -14,12 +14,10 @@ import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.PathRepository;
 import org.ei.opensrp.path.receiver.ConfigSyncReceiver;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
-import org.ei.opensrp.repository.DrishtiRepository;
 import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
@@ -150,9 +148,11 @@ public class VaccinatorApplication extends DrishtiApplication{
 
    @Override
     public Repository getRepository() {
-        ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
-        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-        Repository repository = new PathRepository(getInstance().getApplicationContext(), drishtireposotoryarray);
+//        ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
+//        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
+       if(repository==null) {
+           repository = new PathRepository(getInstance().getApplicationContext());
+       }
         return repository;
     }
 }
