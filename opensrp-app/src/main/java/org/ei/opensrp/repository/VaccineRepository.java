@@ -29,7 +29,6 @@ public class VaccineRepository extends DrishtiRepository {
     public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + VACCINE_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
-    private static final String SYNC_STATUS_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + SYNC_STATUS + "_index ON " + VACCINE_TABLE_NAME + "(" + SYNC_STATUS + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + VACCINE_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
 
     public static String TYPE_Unsynced = "Unsynced";
@@ -39,7 +38,6 @@ public class VaccineRepository extends DrishtiRepository {
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(VACCINE_SQL);
         database.execSQL(BASE_ENTITY_ID_INDEX);
-        database.execSQL(SYNC_STATUS_INDEX);
         database.execSQL(UPDATED_AT_INDEX);
     }
 
@@ -76,20 +74,10 @@ public class VaccineRepository extends DrishtiRepository {
         return readAllVaccines(cursor);
     }
 
-    public List<Vaccine> findUnSyncedByEntityId(String entityId) {
+    public List<Vaccine> findByEntityId(String entityId) {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, TYPE_Unsynced}, null, null, null, null);
+        Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? ORDER BY " + UPDATED_AT_COLUMN, new String[]{entityId}, null, null, null, null);
         return readAllVaccines(cursor);
-    }
-
-    public Vaccine findUnSyncedByEntityId(String entityId, String name) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + NAME + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, name, TYPE_Unsynced}, null, null, null, null);
-        List<Vaccine> vaccines = readAllVaccines(cursor);
-        if (!vaccines.isEmpty()) {
-            return vaccines.get(0);
-        }
-        return null;
     }
 
     public Vaccine find(Long caseId) {

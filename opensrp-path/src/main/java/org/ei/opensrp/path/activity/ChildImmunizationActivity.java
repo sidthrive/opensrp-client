@@ -133,7 +133,7 @@ public class ChildImmunizationActivity extends BaseActivity
         weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
 
         VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
-        vaccineList = vaccineRepository.findUnSyncedByEntityId(childDetails.entityId());
+        vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
 
         updateGenderViews();
         toolbar.setTitle(updateActivityTitle());

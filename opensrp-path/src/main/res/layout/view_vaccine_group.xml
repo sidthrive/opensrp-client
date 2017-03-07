@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="@string/record_all"
-            android:textColor="@color/primary"
+            android:textColor="@color/light_blue"
             android:textSize="@dimen/activity_sub_title_size" />
     </RelativeLayout>
 
