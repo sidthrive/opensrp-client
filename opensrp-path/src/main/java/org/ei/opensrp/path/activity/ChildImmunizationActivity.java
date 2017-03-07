@@ -448,18 +448,14 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
         if (tags != null && !tags.isEmpty()) {
-            for (VaccineWrapper tag : tags) {
-                saveVaccine(tag, view);
-            }
+            saveVaccine(tags, view);
         }
     }
 
     @Override
     public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
         if (tags != null && !tags.isEmpty()) {
-            for (VaccineWrapper tag : tags) {
-                saveVaccine(tag, view);
-            }
+            saveVaccine(tags, view);
         }
     }
 
@@ -470,18 +466,19 @@ public class ChildImmunizationActivity extends BaseActivity
             if (tag.getDbKey() != null) {
                 final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
                 final Long dbKey = tag.getDbKey();
+                tag.setUpdatedVaccineDate(null, false);
+                tag.setRecordedDate(null);
+                tag.setDbKey(null);
+
 
                 processInThread(new Runnable() {
                     @Override
                     public void run() {
                         vaccineRepository.deleteVaccine(dbKey);
-                        tag.setUpdatedVaccineDate(null, false);
-                        tag.setDbKey(null);
-                        updateVaccineGroupViews(view);
                     }
                 });
 
-
+                updateVaccineGroupViews(view);
             }
         }
     }
@@ -519,33 +516,42 @@ public class ChildImmunizationActivity extends BaseActivity
         }
     }
 
-    private void saveVaccine(final VaccineWrapper tag, final View view) {
+    private void saveVaccine(final List<VaccineWrapper> tags, final View view) {
         final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
-        Vaccine vaccine = new Vaccine();
-        if (tag.getDbKey() != null) {
-            vaccine = vaccineRepository.find(tag.getDbKey());
-        }
-        vaccine.setBaseEntityId(childDetails.entityId());
-        vaccine.setName(tag.getName());
-        vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
-        vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+        final List<Vaccine> toSave = new ArrayList<>();
 
-        String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
-        if (StringUtils.isNumeric(lastChar)) {
-            vaccine.setCalculation(Integer.valueOf(lastChar));
-        } else {
-            vaccine.setCalculation(-1);
+        for (VaccineWrapper tag : tags) {
+            Vaccine vaccine = new Vaccine();
+            if (tag.getDbKey() != null) {
+                vaccine = vaccineRepository.find(tag.getDbKey());
+            }
+            vaccine.setBaseEntityId(childDetails.entityId());
+            vaccine.setName(tag.getName());
+            vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
+            vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+
+            String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
+            if (StringUtils.isNumeric(lastChar)) {
+                vaccine.setCalculation(Integer.valueOf(lastChar));
+            } else {
+                vaccine.setCalculation(-1);
+            }
+            toSave.add(vaccine);
         }
 
-        final Vaccine vaccineToSave = vaccine;
         processInThread(new Runnable() {
             @Override
             public void run() {
-                vaccineRepository.add(vaccineToSave);
-                tag.setDbKey(vaccineToSave.getId());
-                updateVaccineGroupViews(view);
+                if (!toSave.isEmpty()) {
+                    for (Vaccine vaccine : toSave) {
+                        vaccineRepository.add(vaccine);
+                        updateTagsDbKey(tags, vaccine);
+                    }
+                }
             }
         });
+
+        updateVaccineGroupViews(view);
     }
 
     private void updateVaccineGroupViews(View view) {
@@ -565,5 +571,16 @@ public class ChildImmunizationActivity extends BaseActivity
                 }
             });
         }
+    }
+
+    private void updateTagsDbKey(List<VaccineWrapper> tags, Vaccine vaccine) {
+        if (!tags.isEmpty()) {
+            for (VaccineWrapper tag : tags) {
+                if (tag.getName().equals(vaccine.getName())) {
+                    tag.setDbKey(vaccine.getId());
+                }
+            }
+        }
+
     }
 }

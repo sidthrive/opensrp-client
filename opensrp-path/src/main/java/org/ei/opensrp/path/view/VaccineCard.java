@@ -198,7 +198,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
 
     private Date getDateDone() {
         if (vaccineWrapper != null) {
-            DateTime dateDone = vaccineWrapper.getUpdatedVaccineDate();
+            DateTime dateDone = vaccineWrapper.getRecordedDate();
             if (dateDone != null) return dateDone.toDate();
         }
 
@@ -220,22 +220,6 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
 
     public void setOnUndoButtonClickListener(OnUndoButtonClickListener onUndoButtonClickListener) {
         this.onUndoButtonClickListener = onUndoButtonClickListener;
-    }
-
-    private void recordVaccinated(Date date) {
-        vaccineWrapper.setUpdatedVaccineDate(new DateTime(date), true);
-        updateState();
-        if (onVaccineStateChangeListener != null) {
-            onVaccineStateChangeListener.onStateChanged(this.state);
-        }
-    }
-
-    private void undoVaccinationDate() {
-        vaccineWrapper.setUpdatedVaccineDate(null, false);
-        updateState();
-        if (onVaccineStateChangeListener != null) {
-            onVaccineStateChangeListener.onStateChanged(this.state);
-        }
     }
 
     public static interface OnUndoButtonClickListener {
