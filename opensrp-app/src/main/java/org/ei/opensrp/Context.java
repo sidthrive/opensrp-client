@@ -529,6 +529,7 @@ public class Context {
         drishtireposotorylist.add(imageRepository());
         drishtireposotorylist.add(weightRepository());
         drishtireposotorylist.add(detailsRepository());
+        drishtireposotorylist.add(vaccineRepository());
         for(int i = 0;i < bindtypes.size();i++){
             drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
         }
