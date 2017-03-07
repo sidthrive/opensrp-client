@@ -13,6 +13,7 @@ import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.clientandeventmodel.FormEntityConstants;
 import org.ei.opensrp.clientandeventmodel.Obs;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.db.UniqueIdRepository;
 import org.ei.opensrp.repository.ImageRepository;
@@ -1148,14 +1149,43 @@ public class JsonFormUtils {
                     .withBaseEntityId(weight.getBaseEntityId())
                     .withEventDate(weight.getDate())
                     .withEventType(eventType)
-                    .withLocationId(null)
+                    .withLocationId(weight.getLocationId())
                     .withProviderId(weight.getAnmId())
                     .withEntityType(entityType)
                     .withFormSubmissionId(generateRandomUUIDString())
                     .withDateCreated(new Date());
 
-            List<Object> vall = new ArrayList<>();
-            vall.add(weight.getKg());
+            if (fields != null && fields.length() != 0)
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject jsonObject = getJSONObject(fields, i);
+                    String value = getString(jsonObject, VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        addObservation(e, jsonObject);
+                    }
+                }
+
+            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+
+            if (e != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
+                cloudantDataHandler.createEventDocument(event);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        }
+    }
+
+    public static void createVaccineEvent(Context context, Vaccine vaccine, String eventType, String entityType, JSONArray fields) {
+        try {
+            Event e = (Event) new Event()
+                    .withBaseEntityId(vaccine.getBaseEntityId())
+                    .withEventDate(vaccine.getDate())
+                    .withEventType(eventType)
+                    .withLocationId(vaccine.getLocationId())
+                    .withProviderId(vaccine.getAnmId())
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(generateRandomUUIDString())
+                    .withDateCreated(new Date());
 
             if (fields != null && fields.length() != 0)
                 for (int i = 0; i < fields.length(); i++) {

@@ -200,7 +200,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
 
     }
@@ -366,7 +366,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private void filterList(String filterString) {
         BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
         if (registerFragment != null) {
-            registerFragment.filter(filterString, "", "");
+            registerFragment.openVaccineCard(filterString);
         }
     }
 

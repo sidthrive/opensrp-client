@@ -69,5 +69,13 @@
             android:layout_gravity="center"
             android:visibility="visible" />
 
+        <TextView android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_record"
+            android:padding="32dp"
+            android:gravity="center"
+            android:visibility="gone" />
+
     </FrameLayout>
 </LinearLayout>

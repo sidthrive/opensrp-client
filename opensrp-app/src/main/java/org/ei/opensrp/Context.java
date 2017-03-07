@@ -32,6 +32,8 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
+
+import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
@@ -132,6 +134,7 @@ public class Context {
     private AllCommonsRepository allCommonPersonObjectsRepository;
     private ImageRepository imageRepository;
     private WeightRepository weightRepository;
+    private VaccineRepository vaccineRepository;
 
 
 
@@ -497,6 +500,7 @@ public class Context {
         }
         if (repository == null) {
             ArrayList<DrishtiRepository> drishtireposotorylist = sharedRepositories();
+
             DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
            // if(commonFtsObject != null){
                 //repository = new Repository(this.applicationContext, session(), this.commonFtsObject, drishtireposotoryarray);
@@ -708,6 +712,12 @@ public class Context {
             weightRepository = new WeightRepository();
         }
         return weightRepository;
+    }
+    public VaccineRepository vaccineRepository() {
+        if (vaccineRepository == null) {
+            vaccineRepository = new VaccineRepository();
+        }
+        return vaccineRepository;
     }
     public UserService userService() {
         if (userService == null) {

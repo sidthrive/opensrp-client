@@ -25,7 +25,7 @@ public class WeightIntentService extends IntentService {
 
     public WeightIntentService() {
 
-        super("PullUniqueOpenMRSUniqueIdsService");
+        super("WeightService");
         weightRepository = Context.getInstance().weightRepository();
 
     }
@@ -58,7 +58,7 @@ public class WeightIntentService extends IntentService {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
 
 

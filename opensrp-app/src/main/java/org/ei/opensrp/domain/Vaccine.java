@@ -6,23 +6,25 @@ import java.util.Date;
 /**
  * Created by keyman on 3/1/17.
  */
-public class Weight {
+public class Vaccine {
     Long id;
     String baseEntityId;
-    Float kg;
+    String name;
+    Integer calculation;
     Date date;
     String anmId;
     String locationId;
     String syncStatus;
     Long updatedAt;
 
-    public Weight() {
+    public Vaccine() {
     }
 
-    public Weight(Long id, String baseEntityId, Float kg, Date date, String anmId, String locationId, String syncStatus, Long updatedAt) {
+    public Vaccine(Long id, String baseEntityId, String name, Integer calculation, Date date, String anmId, String locationId, String syncStatus, Long updatedAt) {
         this.id = id;
         this.baseEntityId = baseEntityId;
-        this.kg = kg;
+        this.name = name;
+        this.calculation = calculation;
         this.date = date;
         this.anmId = anmId;
         this.locationId = locationId;
@@ -46,12 +48,20 @@ public class Weight {
         this.baseEntityId = baseEntityId;
     }
 
-    public Float getKg() {
-        return kg;
+    public String getName() {
+        return name;
     }
 
-    public void setKg(Float kg) {
-        this.kg = kg;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCalculation() {
+        return calculation;
+    }
+
+    public void setCalculation(Integer calculation) {
+        this.calculation = calculation;
     }
 
     public Date getDate() {

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.Photo;
@@ -30,6 +33,7 @@ import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.ExpandableHeightGridView;
 import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -74,6 +78,8 @@ public class ChildImmunizationActivity extends BaseActivity
     // Data
     private CommonPersonObjectClient childDetails;
     private RegisterClickables registerClickables;
+    private List<Vaccine> vaccineList;
+    private Weight weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +129,12 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateViews() {
         // TODO: update all views using child data
+        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+        weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
+
+        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        vaccineList = vaccineRepository.findUnSyncedByEntityId(childDetails.entityId());
+
         updateGenderViews();
         toolbar.setTitle(updateActivityTitle());
         updateAgeViews();
@@ -233,7 +245,7 @@ public class ChildImmunizationActivity extends BaseActivity
                 JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
                 for (int i = 0; i < supportedVaccines.length(); i++) {
                     VaccineGroup curGroup = new VaccineGroup(this);
-                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails);
+                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails, vaccineList);
                     curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
                         @Override
                         public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
@@ -263,13 +275,13 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void addVaccineUndoDialogFragment(VaccineGroup vaccineGroup, VaccineWrapper vaccineWrapper) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag(VaccinationDialogFragment.DIALOG_TAG);
+        Fragment prev = getFragmentManager().findFragmentByTag(UndoVaccinationDialogFragment.DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
         UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(this, vaccineWrapper, vaccineGroup);
-        undoVaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
+        undoVaccinationDialogFragment.show(ft, UndoVaccinationDialogFragment.DIALOG_TAG);
     }
 
     private void updateRecordWeightView() {
@@ -299,8 +311,7 @@ public class ChildImmunizationActivity extends BaseActivity
         weightWrapper.setPatientAge(duration);
         weightWrapper.setPhoto(photo);
         weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
-        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
-        Weight weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
+
         if (weight != null) {
             weightWrapper.setWeight(weight.getKg());
             weightWrapper.setDbKey(weight.getId());
@@ -376,7 +387,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onLocationChanged(final ArrayList<String> newLocation) {
+    public void onLocationChanged(final String newLocation) {
         // TODO: Do whatever needs to be done when the location is changed
     }
 
@@ -401,47 +412,77 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onWeightTaken(WeightWrapper tag) {
-        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
-        Weight weight = new Weight();
-        if (tag.getDbKey() != null) {
-            weight = weightRepository.find(tag.getDbKey());
-        }
-        weight.setBaseEntityId(childDetails.entityId());
-        weight.setKg(tag.getWeight());
-        weight.setDate(tag.getUpdatedWeightDate().toDate());
-        weight.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
-        getOpenSRPContext().weightRepository().add(weight);
+    public void onWeightTaken(final WeightWrapper tag) {
+        if (tag != null) {
+            final WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            Weight weight = new Weight();
+            if (tag.getDbKey() != null) {
+                weight = weightRepository.find(tag.getDbKey());
+            }
+            weight.setBaseEntityId(childDetails.entityId());
+            weight.setKg(tag.getWeight());
+            weight.setDate(tag.getUpdatedWeightDate().toDate());
+            weight.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
 
-        tag.setDbKey(weight.getId());
-        updateRecordWeightView(tag);
+            final Handler handler = new Handler(Looper.getMainLooper());
+
+            final Weight weightToSave = weight;
+            processInThread(new Runnable() {
+                @Override
+                public void run() {
+                    weightRepository.add(weightToSave);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            tag.setDbKey(weightToSave.getId());
+                            updateRecordWeightView(tag);
+                        }
+                    });
+                }
+            });
+        }
 
     }
 
     @Override
     public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
-        if (view != null && view instanceof VaccineGroup) {
-            VaccineGroup vaccineGroup = (VaccineGroup) view;
-            vaccineGroup.updateViews();
+        if (tags != null && !tags.isEmpty()) {
+            for (VaccineWrapper tag : tags) {
+                saveVaccine(tag, view);
+            }
         }
     }
 
     @Override
     public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
-        if (view != null && view instanceof VaccineGroup) {
-            VaccineGroup vaccineGroup = (VaccineGroup) view;
-            vaccineGroup.updateViews();
+        if (tags != null && !tags.isEmpty()) {
+            for (VaccineWrapper tag : tags) {
+                saveVaccine(tag, view);
+            }
         }
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag, View view) {
+    public void onUndoVaccination(final VaccineWrapper tag, final View view) {
         if (tag != null) {
-            tag.setUpdatedVaccineDate(null, false);
-        }
-        if (view != null && view instanceof VaccineGroup) {
-            VaccineGroup vaccineGroup = (VaccineGroup) view;
-            vaccineGroup.updateViews();
+
+            if (tag.getDbKey() != null) {
+                final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                final Long dbKey = tag.getDbKey();
+
+                processInThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        vaccineRepository.deleteVaccine(dbKey);
+                        tag.setUpdatedVaccineDate(null, false);
+                        tag.setDbKey(null);
+                        updateVaccineGroupViews(view);
+                    }
+                });
+
+
+            }
         }
     }
 
@@ -475,6 +516,54 @@ public class ChildImmunizationActivity extends BaseActivity
                     });
                 }
             }
+        }
+    }
+
+    private void saveVaccine(final VaccineWrapper tag, final View view) {
+        final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        Vaccine vaccine = new Vaccine();
+        if (tag.getDbKey() != null) {
+            vaccine = vaccineRepository.find(tag.getDbKey());
+        }
+        vaccine.setBaseEntityId(childDetails.entityId());
+        vaccine.setName(tag.getName());
+        vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
+        vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+
+        String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
+        if (StringUtils.isNumeric(lastChar)) {
+            vaccine.setCalculation(Integer.valueOf(lastChar));
+        } else {
+            vaccine.setCalculation(-1);
+        }
+
+        final Vaccine vaccineToSave = vaccine;
+        processInThread(new Runnable() {
+            @Override
+            public void run() {
+                vaccineRepository.add(vaccineToSave);
+                tag.setDbKey(vaccineToSave.getId());
+                updateVaccineGroupViews(view);
+            }
+        });
+    }
+
+    private void updateVaccineGroupViews(View view) {
+        if (view == null || !(view instanceof VaccineGroup)) {
+            return;
+        }
+        final VaccineGroup vaccineGroup = (VaccineGroup) view;
+
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            vaccineGroup.updateViews();
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    vaccineGroup.updateViews();
+                }
+            });
         }
     }
 }

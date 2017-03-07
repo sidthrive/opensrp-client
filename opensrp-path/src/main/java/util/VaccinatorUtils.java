@@ -241,13 +241,13 @@ public class VaccinatorUtils {
             @Override
             public void onClick(View view) {
                 FragmentTransaction ft = ((Activity) context).getFragmentManager().beginTransaction();
-                Fragment prev = ((Activity) context).getFragmentManager().findFragmentByTag(VaccinationDialogFragment.DIALOG_TAG);
+                Fragment prev = ((Activity) context).getFragmentManager().findFragmentByTag(UndoVaccinationDialogFragment.DIALOG_TAG);
                 if (prev != null) {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
                 UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(context, vaccineWrapper, null);
-                undoVaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
+                undoVaccinationDialogFragment.show(ft, UndoVaccinationDialogFragment.DIALOG_TAG);
             }
         });
 

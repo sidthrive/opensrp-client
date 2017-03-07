@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -102,7 +101,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
 
         TextView ageView = (TextView) dialogView.findViewById(R.id.child_age);
         if (StringUtils.isNotBlank(tag.getPatientAge())) {
-            ageView.setText(String.format("%s: %s", getString(R.string.birthdate_age), tag.getPatientAge()));
+            ageView.setText(String.format("%s: %s", getString(R.string.age), tag.getPatientAge()));
         } else {
             ageView.setText("");
         }

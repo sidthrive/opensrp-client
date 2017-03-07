@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
  */
 public class VaccineWrapper {
     private String id;
+    private Long dbKey;
     private Photo photo;
     private String name;
     private String gender;
@@ -36,6 +37,14 @@ public class VaccineWrapper {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getDbKey() {
+        return dbKey;
+    }
+
+    public void setDbKey(Long dbKey) {
+        this.dbKey = dbKey;
     }
 
     public String getStatus() {
@@ -162,6 +171,7 @@ public class VaccineWrapper {
     public Photo getPhoto() {
         return photo;
     }
+
     public String getGender() {
         return gender;
     }
