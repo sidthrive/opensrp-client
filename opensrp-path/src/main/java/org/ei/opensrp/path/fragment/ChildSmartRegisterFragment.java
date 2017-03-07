@@ -271,7 +271,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         String parentTableName = "ec_mother";
 
         ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
-                clientActionHandler, context().alertService());
+                clientActionHandler, context().alertService(), context().vaccineRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
