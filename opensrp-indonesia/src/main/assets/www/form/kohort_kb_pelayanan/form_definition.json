@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/tambah_kb_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/tambah_kb_reviewed/end"
+      },
+      {
         "name": "existing_location",
         "bind": "/model/instance/tambah_kb_reviewed/existing_location",
         "shouldLoadValue": true

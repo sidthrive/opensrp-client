@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/end"
+      },
+      {
         "name": "kiId",
         "shouldLoadValue": true,
         "source": "ibu.kartu_ibu.id"
