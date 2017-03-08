@@ -8,21 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.adapter.VaccineCardAdapter;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +35,7 @@ import util.Utils;
  */
 
 public class VaccineGroup extends LinearLayout implements View.OnClickListener,
-        VaccineCard.OnVaccineStateChangeListener, VaccineCard.OnUndoButtonClickListener {
+        VaccineCard.OnVaccineStateChangeListener {
     private static final String TAG = "VaccineGroup";
     private Context context;
     private TextView nameTV;
@@ -204,6 +201,11 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
             if (onVaccineClickedListener != null) {
                 onVaccineClickedListener.onClick(this, ((VaccineCard) v).getVaccineWrapper());
             }
+        } else if (v.getId() == R.id.undo_b) {
+            if (v.getParent().getParent() instanceof VaccineCard) {
+                VaccineCard vaccineCard = (VaccineCard) v.getParent().getParent();
+                onUndoClick(vaccineCard);
+            }
         }
     }
 
@@ -212,7 +214,6 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         updateViews();
     }
 
-    @Override
     public void onUndoClick(VaccineCard vaccineCard) {
         if (this.onVaccineUndoClickListener != null) {
             this.onVaccineUndoClickListener.onUndoClick(this, vaccineCard.getVaccineWrapper());
@@ -239,7 +240,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine);
     }
 
-    public ExpandableHeightGridView getGridView() {
-        return vaccinesGV;
+    public ArrayList<VaccineWrapper> getDueVaccines() {
+        if (vaccineCardAdapter != null) {
+            return vaccineCardAdapter.getDueVaccines();
+        }
+        return new ArrayList<VaccineWrapper>();
     }
 }
