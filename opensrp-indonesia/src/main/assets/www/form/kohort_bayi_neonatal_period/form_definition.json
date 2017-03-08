@@ -24,6 +24,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "tanggalLahirAnak",
+        "bind": "/model/instance/kunjungan_neonatal_reviewed/tanggal_lahir",
+        "shouldLoadValue": true
+      },
+      {
         "name":"kunjunganNeonatal",
         "bind":"/model/instance/kunjungan_neonatal_reviewed/neonatal"
       },
