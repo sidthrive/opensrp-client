@@ -85,7 +85,7 @@
     <span class="required">*</span>
     <span lang="Bahasa" class="or-hint active" data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_penimbangan:hint">Tanggal dilakukan penimbangan</span>
     <span lang="en" class="or-hint " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_penimbangan:hint">date of weighing</span>
-    <input type="date" name="/EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_penimbangan" data-required="true()" data-constraint=".&gt;= /EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_lahir " data-type-xml="date"/>
+    <input type="date" name="/EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_penimbangan" required="required" data-constraint=".&gt;= /EC_Kunjungan_Gizi_NewStructure-mapped_O/tanggal_lahir " data-type-xml="date"/>
     <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
   </label>
@@ -104,7 +104,7 @@
     <span class="required">*</span>
     <span lang="Bahasa" class="or-hint active" data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_badan:hint">Berat badan bayi/balita (kg)</span>
     <span lang="en" class="or-hint " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_badan:hint">weight of baby/ child in Kg</span>
-    <input type="number" name="/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_badan" data-required="true()" data-constraint=".&gt;0 and .&lt;50" data-type-xml="decimal" step="any"/>
+    <input type="number" name="/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_badan" required="required" data-constraint=".&gt;0 and .&lt;50" data-type-xml="decimal" step="any"/>
     <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
   </label>
