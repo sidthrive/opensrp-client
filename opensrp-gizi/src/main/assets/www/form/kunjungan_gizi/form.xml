@@ -93,9 +93,9 @@
     <span lang="Bahasa" class="question-label active" data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:label">Umur :
       <span class="or-output" data-value=" /EC_Kunjungan_Gizi_NewStructure-mapped_O/umur "></span>
     </span>
-    <span lang="en" class="question-label " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:label">Age (Months)</span>
-    <span lang="Bahasa" class="or-hint active" data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:hint">Umur bayi/balita dalam bulan</span>
-    <span lang="en" class="or-hint " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:hint">age of baby/child in month</span>
+    <span lang="en" class="question-label " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:label">Age (Days)</span>
+    <span lang="Bahasa" class="or-hint active" data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:hint">Umur bayi/balita dalam hari</span>
+    <span lang="en" class="or-hint " data-itext-id="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56:hint">age of baby/child in day unit</span>
     <input type="text" name="/EC_Kunjungan_Gizi_NewStructure-mapped_O/generated_note_name_56" data-type-xml="string" readonly="readonly"/>
   </label>
   <label class="question non-select ">
