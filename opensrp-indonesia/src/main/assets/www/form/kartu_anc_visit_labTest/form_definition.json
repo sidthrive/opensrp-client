@@ -49,24 +49,48 @@
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_anemia"
       },
       {
+        "name": "treatmentAnemiaTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_anemia_txt"
+      },
+      {
         "name": "laboratoriumProteinUria",
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria"
+      },
+      {
+        "name": "treatmentProturinTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_proturin_txt"
       },
       {
         "name": "laboratoriumGulaDarah",
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_gula_darah"
       },
       {
+        "name": "treatmentDiabetesTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_diabetes_txt"
+      },
+      {
         "name": "laboratoriumThalasemia",
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_thalasemia"
+      },
+      {
+        "name": "treatmentThalasemiaTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_thalasemia_txt"
       },
       {
         "name": "laboratoriumSifilis",
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_sifilis"
       },
       {
+        "name": "treatmentSifilisTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_sifilis_txt"
+      },
+      {
         "name": "laboratoriumHbsAg",
         "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/laboratorium_hbsag"
+      },
+      {
+        "name": "treatmentHbsagTxt",
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/treatment_hbsag_txt"
       },
       {
         "name": "highRiskPregnancyAnemia",

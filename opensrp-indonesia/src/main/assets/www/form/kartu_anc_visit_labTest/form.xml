@@ -1,26 +1,26 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" id="kunjungan_anc_Lab_test">
-    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSLT sheet created by Enketo LLC.-->
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="kunjungan_anc_Lab_test">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 id="form-title">Kunjungan ANC Lab Test</h3>
+    <h3 dir="auto" id="form-title">Kunjungan ANC Lab Test</h3>
     <select id="form-languages" data-default-lang="Bahasa">
-        <option value="Bahasa">Bahasa</option>
-        <option value="en">English</option>
+        <option value="Bahasa" data-dir="ltr">Bahasa</option>
+        <option value="en" data-dir="ltr">English</option>
     </select>
-    <label class="note non-select ">
+    <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_13:label">Desa :
             <span class="or-output" data-value=" /kunjungan_anc_reviewed_Lab_test/Village "></span>
         </span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_13:label">-</span>
         <input type="text" name="/kunjungan_anc_reviewed_Lab_test/generated_note_name_13" data-type-xml="string" readonly="readonly"/>
     </label>
-    <label class="note non-select ">
+    <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_14:label">Dusun :
             <span class="or-output" data-value=" /kunjungan_anc_reviewed_Lab_test/Sub-village "></span>
         </span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_14:label">-</span>
         <input type="text" name="/kunjungan_anc_reviewed_Lab_test/generated_note_name_14" data-type-xml="string" readonly="readonly"/>
     </label>
-    <fieldset class="question or-appearance-yes ">
+    <fieldset class="question simple-select or-appearance-yes ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/lokasi_periksa:label">Lokasi Periksa</span>
@@ -66,9 +66,10 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:hint">Diisi dengan tanggal periksa Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kunjungan_anc_reviewed_Lab_test/reference_date" required="required" data-type-xml="date"/>
+        <input type="date" name="/kunjungan_anc_reviewed_Lab_test/reference_date" data-required="true()" data-type-xml="date"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <label class="note non-select ">
+    <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_26:label">Pemeriksaan Laboratorium</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_26:label">Laboratorium check-up</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_26:hint">Menunjukan apakah Ibu melakukan pemeriksaan laboratorium terkait Hb, Protein Uria, Gula Darah, Thalasemia dan Sifilis</span>
@@ -76,15 +77,15 @@
         <input type="text" name="/kunjungan_anc_reviewed_Lab_test/generated_note_name_26" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:jr:constraintMsg">Nilai yang dimasukkan tidak memenuhi syarat, mohon periksa kembali</span>
-        <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:jr:constraintMsg">The entered value doesn't meet the criteria, please check it again</span>
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:label">Hasil periksa Hb</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:label">Result of chek Hb</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:hint">Hasil pemeriksaan Hb Ibu dari laboratorium</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:hint">Result of mother's Hb test from laboratorium</span>
         <input type="number" name="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil" data-constraint=".&gt;0 and .&lt;1000" data-type-xml="decimal" step="any"/>
+        <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:jr:constraintMsg">Nilai yang dimasukkan tidak memenuhi syarat, mohon periksa kembali</span>
+        <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil:jr:constraintMsg">The entered value doesn't meet the criteria, please check it again</span>
     </label>
-    <fieldset class="question ">
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_anemia:label">Anemia?</span>
@@ -106,7 +107,12 @@
             </div>
         </fieldset>
     </fieldset>
-    <fieldset class="question ">
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_anemia_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_anemia_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_anemia_txt" data-type-xml="string"/>
+    </label>
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria:label">Protein Uria</span>
@@ -116,19 +122,24 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" data-name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" value="positif" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/positif:label">Positif</span>
-                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/positif:label">Positif</span>
+                    <input type="radio" name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" data-name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" value="Ya" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/Ya:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/Ya:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" data-name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" value="negatif" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/negatif:label">Negatif</span>
-                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/negatif:label">Negatif</span>
+                    <input type="radio" name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" data-name="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria" value="Tidak" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/Tidak:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_protein_uria/Tidak:label">No</span>
                 </label>
             </div>
         </fieldset>
     </fieldset>
-    <fieldset class="question ">
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_proturin_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_proturin_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_proturin_txt" data-type-xml="string"/>
+    </label>
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_gula_darah:label">Gula Darah</span>
@@ -150,7 +161,12 @@
             </div>
         </fieldset>
     </fieldset>
-    <fieldset class="question ">
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_diabetes_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_diabetes_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_diabetes_txt" data-type-xml="string"/>
+    </label>
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_thalasemia:label">Thalasemia</span>
@@ -172,7 +188,12 @@
             </div>
         </fieldset>
     </fieldset>
-    <fieldset class="question ">
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_thalasemia_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_thalasemia_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_thalasemia_txt" data-type-xml="string"/>
+    </label>
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_sifilis:label">Sifilis</span>
@@ -194,7 +215,12 @@
             </div>
         </fieldset>
     </fieldset>
-    <fieldset class="question ">
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_sifilis_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_sifilis_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_sifilis_txt" data-type-xml="string"/>
+    </label>
+    <fieldset class="question simple-select ">
         <fieldset>
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/laboratorium_hbsag:label">HbsAg</span>
@@ -216,6 +242,11 @@
             </div>
         </fieldset>
     </fieldset>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_hbsag_txt:label">Deskripsikan penanganan yang diberikan</span>
+        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/treatment_hbsag_txt:label">Describe the treatment you give to the patient</span>
+        <input type="text" name="/kunjungan_anc_reviewed_Lab_test/treatment_hbsag_txt" data-type-xml="string"/>
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/kunjungan_anc_reviewed_Lab_test/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
@@ -256,7 +287,7 @@
             <input type="hidden" name="/kunjungan_anc_reviewed_Lab_test/kecamatan" data-calculate=" /kunjungan_anc_reviewed_Lab_test/Sub-district " data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_anemia" data-calculate="if ( /kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil  &lt; 7, 'yes', 'no')" data-type-xml="string"/>
+            <input type="hidden" name="/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_anemia" data-calculate="if ( /kunjungan_anc_reviewed_Lab_test/laboratorium_periksa_hb_hasil  &lt; 11, 'yes', 'no')" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
             <input type="hidden" name="/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_diabetes" data-calculate="if( /kunjungan_anc_reviewed_Lab_test/laboratorium_gula_darah  = '&gt;_140_mg_dl', 'yes', 'no')" data-type-xml="string"/>
