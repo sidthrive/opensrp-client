@@ -56,7 +56,7 @@ public class child_registration_data_fragment extends Fragment {
 
 
         layout.addView(wd.createTableRow(inflater,container,"Catchment Area", "Linda"));
-        layout.addView(wd.createTableRow(inflater,container,"ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"ZEIR_ID",false)));
+        layout.addView(wd.createTableRow(inflater,container,"ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"program_client_id",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child Register Card Number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
         layout.addView(wd.createTableRow(inflater,container,"Birth Certificate Number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
         layout.addView(wd.createTableRow(inflater,container,"First Name",Utils.getValue(childDetails.getColumnmaps(),"first_name",true)));
@@ -97,14 +97,6 @@ public class child_registration_data_fragment extends Fragment {
 
 
 
-    public View createTableRow(LayoutInflater inflater, ViewGroup container, String labelString, String valueString){
-        View rows = inflater.inflate(R.layout.tablerows, container, false);
-        TextView label = (TextView)rows.findViewById(R.id.label);
-        TextView value = (TextView)rows.findViewById(R.id.value);
 
-        label.setText(labelString);
-        value.setText(valueString);
-        return rows;
-    }
 
 }

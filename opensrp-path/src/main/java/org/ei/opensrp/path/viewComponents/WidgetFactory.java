@@ -44,8 +44,12 @@ public class WidgetFactory {
 
         View immunization_widget = inflater.inflate(R.layout.immunization_widget, container, false);
         TableLayout immunizationholder = (TableLayout)immunization_widget.findViewById(R.id.immunizationholder);
+        TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layoutParams.
+//        immunizationholder.setPadding(10,10,10,10);
+        layoutParams.setMargins(10, 10, 10, 10);
         for(int i = 0 ;i<vaccines.size();i++){
-            immunizationholder.addView(createImmunizationRow(inflater,container,vaccines.get(i),editmode));
+            immunizationholder.addView(createImmunizationRow(inflater,container,vaccines.get(i),editmode),layoutParams);
         }
 
         return immunization_widget;
@@ -53,6 +57,7 @@ public class WidgetFactory {
     public View createImmunizationRow(LayoutInflater inflater, ViewGroup container, String vaccines,boolean editmode){
 
         View vaccineRow = inflater.inflate(R.layout.vaccinate_row_view, container, false);
+
 //        TableLayout tableLayout = (TableLayout)vaccineRow.findViewById(R.id.weightvalues);
         TextView vaccinename = (TextView)vaccineRow.findViewById(R.id.vaccine);
         Button undobutton = (Button)vaccineRow.findViewById(R.id.undo);
