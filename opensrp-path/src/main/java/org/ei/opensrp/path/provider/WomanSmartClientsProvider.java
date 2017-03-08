@@ -66,7 +66,7 @@ public class WomanSmartClientsProvider implements SmartRegisterCLientsProviderFo
     public void getView(SmartRegisterClient client, View convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
-        fillValue((TextView)convertView.findViewById(R.id.woman_id), pc.getColumnmaps(), "program_client_id", false);
+        fillValue((TextView)convertView.findViewById(R.id.woman_id), pc.getColumnmaps(), "zeir_id", false);
 
         fillValue((TextView) convertView.findViewById(R.id.woman_name), getValue(pc.getColumnmaps(), "first_name", true));
         fillValue((TextView) convertView.findViewById(R.id.woman_husbandname), getValue(pc.getColumnmaps(), "husband_name", true));

@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -54,6 +55,7 @@ import org.ei.opensrp.path.option.StatusSort;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.servicemode.VaccinationServiceModeOption;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -87,10 +89,9 @@ import static util.Utils.getValue;
 import static util.Utils.nonEmptyValue;
 import static util.VaccinatorUtils.providerDetails;
 
-public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-    private LocationPickerDialogFragment locationPickerDialogFragment;
-
+    private  LocationPickerView clinicSelection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -147,7 +148,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                         new CursorCommonObjectSort(getResources().getString(R.string.woman_alphabetical_sort), "first_name"),
                         new DateSort("Age", "dob"),
                         new StatusSort("Due Status"),
-                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "program_client_id")
+                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "zeir_id")
                 };
             }
 
@@ -192,6 +193,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
         }
 
+        updateLocationText(clinicSelection, clinicSelection.getSelectedItem());
     }
 
     @Override
@@ -225,34 +227,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         View viewParent = (View) appliedSortView.getParent();
         viewParent.setVisibility(View.GONE);
 
-        final CustomFontTextView clinicSelection = (CustomFontTextView) view.findViewById(R.id.clinic_selection);
-
-        locationPickerDialogFragment = new LocationPickerDialogFragment(getActivity(),
-                context(),
-                context().anmLocationController().get());
-        locationPickerDialogFragment.setOnLocationChangeListener(new LocationSwitcherToolbar.OnLocationChangeListener() {
-            @Override
-            public void onLocationChanged(ArrayList<String> newLocation) {
-               updateLocationText(clinicSelection, newLocation);
-            }
-        });
-        updateLocationText(clinicSelection, locationPickerDialogFragment.getValue());
-
-        clinicSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                Fragment prev = getActivity().getFragmentManager()
-                        .findFragmentByTag(DIALOG_TAG);
-
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                locationPickerDialogFragment.show(ft, DIALOG_TAG);
-            }
-        });
+        clinicSelection = (LocationPickerView) view.findViewById(R.id.clinic_selection);
+        clinicSelection.init(context());
 
 
         View qrCode = view.findViewById(R.id.scan_qr_code);
@@ -286,13 +262,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         }
     }
 
-    private void updateLocationText(CustomFontTextView clinicSelection, ArrayList<String> newLocation) {
-        String lastName = getActivity().getString(R.string.select_location);
-        if(newLocation != null && newLocation.size() > 0) {
-            lastName = newLocation.get(newLocation.size() - 1);
-        }
-
-        clinicSelection.setText(lastName);
+    private void updateLocationText(CustomFontTextView clinicSelection, String newLocation) {
+        clinicSelection.setText(newLocation);
     }
 
     public void initializeQueries() {
@@ -300,7 +271,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         String parentTableName = "ec_mother";
 
         ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
-                clientActionHandler, context().alertService());
+                clientActionHandler, context().alertService(), context().vaccineRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -315,7 +286,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
                 tableName + ".relationalid",
                 tableName + ".details",
-                tableName + ".program_client_id",
+                tableName + ".zeir_id",
                 tableName + ".relational_id",
                 tableName + ".first_name",
                 tableName + ".last_name",
@@ -350,10 +321,6 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
         @Override
         public void onClick(View view) {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            HashMap<String, String> map = new HashMap<>();
-            map.putAll(followupOverrides(client));
-            map.putAll(providerDetails());
-
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
@@ -376,31 +343,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     }
 
     public void updateSearchView() {
-        getSearchView().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-                if (cs.toString().equalsIgnoreCase("")) {
-                    filters = "";
-                } else {
-                    filters = cs.toString();
-                }
-                joinTable = "";
-                mainCondition = "";
-                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                CountExecute();
-                filterandSortExecute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        getSearchView().removeTextChangedListener(textWatcher);
+        getSearchView().addTextChangedListener(textWatcher);
     }
 
     private void populateClientListHeaderView(View view) {
@@ -409,6 +353,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
 
         LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
         clientsView.addHeaderView(headerLayout);
+        clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
     }
 
     private class EditDialogOptionModel implements DialogOptionModel {
@@ -500,8 +445,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 + ", Town: " + getValue(client.getColumnmaps(), "town", true)
                 + ", City: " + getValue(client, "city_village", true)
                 + ", Province: " + getValue(client, "province", true));
-        map.put("existing_program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
-        map.put("program_client_id", getValue(client.getColumnmaps(), "program_client_id", false));
+        map.put("existing_zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
+        map.put("zeir_id", getValue(client.getColumnmaps(), "zeir_id", false));
 
         int days = 0;
         try {
@@ -535,8 +480,8 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
                 ", City: " + client.getAddress("usual_residence").getCityVillage() +
                 " - " + client.getAddress("usual_residence").getAddressField("landmark"));
 
-        map.put("existing_program_client_id", client.getIdentifier("Program Client ID"));
-        map.put("program_client_id", client.getIdentifier("Program Client ID"));
+        map.put("existing_zeir_id", client.getIdentifier("Program Client ID"));
+        map.put("zeir_id", client.getIdentifier("Program Client ID"));
 
         map.put("existing_first_name", client.getFirstName());
         map.put("existing_last_name", client.getLastName());
@@ -714,5 +659,7 @@ public class ChildSmartRegisterFragment extends SecuredNativeSmartRegisterCursor
     private void startQrCodeScanner() {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
+
+
 
 }

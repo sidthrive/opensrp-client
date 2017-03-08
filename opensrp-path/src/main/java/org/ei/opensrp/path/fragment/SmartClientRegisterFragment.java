@@ -70,7 +70,7 @@ public abstract class SmartClientRegisterFragment extends SecuredNativeSmartRegi
                         new CursorCommonObjectSort(getResources().getString(R.string.woman_alphabetical_sort), "first_name"),
                         new DateSort("Age", "dob"),
                         new StatusSort("Due Status"),
-                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "program_client_id")
+                        new CursorCommonObjectSort(getResources().getString(R.string.id_sort), "zeir_id")
                 };
             }
 
@@ -185,8 +185,8 @@ public abstract class SmartClientRegisterFragment extends SecuredNativeSmartRegi
             }
 
             HashMap<String,String> map = new HashMap<>();
-            map.put("existing_program_client_id", qrCode);
-            map.put("program_client_id", qrCode);
+            map.put("existing_zeir_id", qrCode);
+            map.put("zeir_id", qrCode);
             Map<String, String> m = customFieldOverrides();
             if(m != null){
                 map.putAll(m);

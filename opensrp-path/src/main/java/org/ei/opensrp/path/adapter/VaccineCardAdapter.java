@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
@@ -17,7 +18,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import util.ImageUtils;
 import util.Utils;
@@ -68,8 +72,8 @@ public class VaccineCardAdapter extends BaseAdapter {
             if (!vaccineCards.containsKey(vaccineName)) {
                 VaccineCard vaccineCard = new VaccineCard(context);
                 vaccineCard.setOnVaccineStateChangeListener(vaccineGroup);
-                vaccineCard.setOnUndoButtonClickListener(vaccineGroup);
                 vaccineCard.setOnClickListener(vaccineGroup);
+                vaccineCard.getUndoB().setOnClickListener(vaccineGroup);
                 vaccineCard.setId((int) getItemId(position));
                 VaccineWrapper vaccineWrapper = new VaccineWrapper();
                 vaccineWrapper.setId(vaccineGroup.getChildDetails().entityId());
@@ -77,7 +81,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setName(vaccineName);
 
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
-                if(StringUtils.isNotBlank(dobString)) {
+                if (StringUtils.isNotBlank(dobString)) {
                     Calendar dobCalender = Calendar.getInstance();
                     DateTime dateTime = new DateTime(dobString);
                     dobCalender.setTime(dateTime.toDate());
@@ -89,14 +93,11 @@ public class VaccineCardAdapter extends BaseAdapter {
                 Photo photo = ImageUtils.profilePhotoByClient(vaccineGroup.getChildDetails());
                 vaccineWrapper.setPhoto(photo);
 
-                String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "program_client_id", false);
-                if(StringUtils.isNotBlank(zeirId)){
-                    zeirId = zeirId.replace("-", "");
-                }
+                String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "zeir_id", false);
                 vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 
-                // TODO: get date vaccination was done
+                updateWrapper(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 
                 vaccineCards.put(vaccineName, vaccineCard);
@@ -131,5 +132,24 @@ public class VaccineCardAdapter extends BaseAdapter {
         }
 
         return dueVaccines;
+    }
+
+    private void updateWrapper(VaccineWrapper tag) {
+        List<Vaccine> vaccineList = vaccineGroup.getVaccineList();
+        if (!vaccineList.isEmpty()) {
+            for (Vaccine vaccine : vaccineList) {
+                if (tag.getName().equals(vaccine.getName()) && vaccine.getDate() != null) {
+                    long diff = vaccine.getUpdatedAt() - vaccine.getDate().getTime();
+                    if (diff > 0 && TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1) {
+                        tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
+                    } else {
+                        tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), true);
+                    }
+                    tag.setRecordedDate(new DateTime(new Date(vaccine.getUpdatedAt())));
+                    tag.setDbKey(vaccine.getId());
+                }
+            }
+        }
+
     }
 }

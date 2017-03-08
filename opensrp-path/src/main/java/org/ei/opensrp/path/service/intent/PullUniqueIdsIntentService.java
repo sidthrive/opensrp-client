@@ -35,7 +35,7 @@ public class PullUniqueIdsIntentService extends IntentService {
     public PullUniqueIdsIntentService() {
 
         super("PullUniqueOpenMRSUniqueIdsService");
-        uniqueIdRepo=org.ei.opensrp.Context.uniqueIdRepository();
+        uniqueIdRepo=org.ei.opensrp.Context.getInstance().uniqueIdRepository();
 
     }
 
@@ -99,7 +99,7 @@ public class PullUniqueIdsIntentService extends IntentService {
 
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
 
 

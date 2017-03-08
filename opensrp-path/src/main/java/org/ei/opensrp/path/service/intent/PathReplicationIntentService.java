@@ -55,7 +55,7 @@ public class PathReplicationIntentService extends IntentService {
             status = true;
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
             status = false;
         }
 

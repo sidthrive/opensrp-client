@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
-public class child_under_five_fragment extends Fragment {
+public class child_under_five_fragment extends Fragment implements VaccinationActionListener {
 
     private LayoutInflater inflater;
     private ViewGroup container;
@@ -101,4 +104,18 @@ public class child_under_five_fragment extends Fragment {
         fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccines,true));
     }
 
+    @Override
+    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+
+    }
+
+    @Override
+    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+
+    }
+
+    @Override
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
+
+    }
 }

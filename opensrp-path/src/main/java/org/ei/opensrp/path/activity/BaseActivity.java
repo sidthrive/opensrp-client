@@ -1,16 +1,21 @@
 package org.ei.opensrp.path.activity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -25,19 +30,31 @@ import android.widget.Toast;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.ei.opensrp.Context;
+import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.UniqueIdRepository;
-import org.ei.opensrp.sync.SyncAfterFetchListener;
+import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.activity.SettingsActivity;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Seconds;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import util.JsonFormUtils;
 
@@ -45,13 +62,13 @@ import util.JsonFormUtils;
  * Base activity class for all other PATH activity classes. Implements:
  * - A uniform navigation bar that is launched by swiping from the left
  * - Support for specifying which {@link BaseToolbar} to use
- * <p>
+ * <p/>
  * This activity requires that the base view for any child activity be {@link DrawerLayout}
  * Make sure include the navigation view as the last element in the activity's root DrawerLayout
  * like this:
- * <p>
+ * <p/>
  * <include layout="@layout/nav_view_base"/>
- * <p>
+ * <p/>
  * Created by Jason Rogena - jrogena@ona.io on 16/02/2017.
  */
 public abstract class BaseActivity extends AppCompatActivity
@@ -60,6 +77,9 @@ public abstract class BaseActivity extends AppCompatActivity
     private BaseToolbar toolbar;
     private Menu menu;
     private static final int REQUEST_CODE_GET_JSON = 3432;
+    private AfterFetchListener afterFetchListener;
+    private boolean isSyncing;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +87,71 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(getContentView());
         toolbar = (BaseToolbar) findViewById(getToolbarId());
         setSupportActionBar(toolbar);
-        if(getToolbarId() != R.id.child_detail_toolbar) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
+        if (getToolbarId() != R.id.child_detail_toolbar) {
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
+        BaseActivityToggle toggle = new BaseActivityToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggleIsSyncing();
+         }
+
+        afterFetchListener = new AfterFetchListener() {
+            @Override
+            public void afterFetch(FetchStatus fetchStatus) {
+                isSyncing = false;
+                toggleIsSyncing();
+            }
+        };
+
+        initializeProgressDialog();
+    }
+
+    private void toggleIsSyncing() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null && navigationView.getMenu() != null) {
+            MenuItem syncMenuItem = navigationView.getMenu().findItem(R.id.nav_sync);
+            if (syncMenuItem != null) {
+                if (isSyncing) {
+                    syncMenuItem.setTitle(R.string.syncing);
+                } else {
+                    String lastSync = getLastSyncTime();
+
+                    if (!TextUtils.isEmpty(lastSync)) {
+                        lastSync = " " + String.format(getString(R.string.last_sync), lastSync);
+                    }
+                    syncMenuItem.setTitle(String.format(getString(R.string.sync_), lastSync));
+                }
+            }
         }
+    }
+
+    private String getLastSyncTime() {
+        String lastSync = "";
+        long milliseconds = ECSyncUpdater.getInstance(this).getLastCheckTimeStamp();
+        if (milliseconds > 0) {
+            DateTime lastSyncTime = new DateTime(milliseconds);
+            DateTime now = new DateTime(Calendar.getInstance());
+            Minutes minutes = Minutes.minutesBetween(lastSyncTime, now);
+            if (minutes.getMinutes() < 1) {
+                Seconds seconds = Seconds.secondsBetween(lastSyncTime, now);
+                lastSync = seconds.getSeconds() + "s";
+            } else if (minutes.getMinutes() >= 1 && minutes.getMinutes() < 60) {
+                lastSync = minutes.getMinutes() + "m";
+            } else if (minutes.getMinutes() >= 60 && minutes.getMinutes() < 1440) {
+                Hours hours = Hours.hoursBetween(lastSyncTime, now);
+                lastSync = hours.getHours() + "h";
+            } else {
+                Days days = Days.daysBetween(lastSyncTime, now);
+                lastSync = days.getDays() + "d";
+            }
+        }
+        return lastSync;
     }
 
     @Override
@@ -161,16 +236,18 @@ public abstract class BaseActivity extends AppCompatActivity
             startChildRegistration();
         } else if (id == R.id.nav_record_vaccination_out_catchment) {
 
-        } else if (id == R.id.nav_settings) {
+        }/* else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_sync) {
+        }*/ else if (id == R.id.nav_sync) {
+            isSyncing = true;
+            toggleIsSyncing();
             PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
                     this, getOpenSRPContext().actionService(),
                     getOpenSRPContext().formSubmissionSyncService(),
                     new SyncProgressIndicator(),
                     getOpenSRPContext().allFormVersionSyncService());
-            pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
+            pathUpdateActionsTask.updateFromServer(afterFetchListener);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
@@ -229,7 +306,7 @@ public abstract class BaseActivity extends AppCompatActivity
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                         jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId.replace("-", ""));
+                        jsonObject.put(JsonFormUtils.VALUE, entityId);
                         continue;
                     }
                 }
@@ -237,7 +314,7 @@ public abstract class BaseActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -293,4 +370,51 @@ public abstract class BaseActivity extends AppCompatActivity
      * @return
      */
     protected abstract Class onBackActivity();
+
+    private class BaseActivityToggle extends ActionBarDrawerToggle {
+
+        public BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        public BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            toggleIsSyncing();
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            super.onDrawerClosed(drawerView);
+        }
+    }
+
+    public void processInThread(Runnable runnable) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            new Thread(runnable).start();
+        }
+    }
+
+    private void initializeProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle(getString(R.string.saving_dialog_title));
+        progressDialog.setMessage(getString(R.string.saving_dialog_message));
+    }
+
+    protected  void showProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.show();
+        }
+    }
+
+    protected  void hideProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
 }

@@ -51,7 +51,7 @@ public class FormUtils {
         textView.setLayoutParams(layoutParams);
         if (relevance != null && context instanceof JsonApi) {
             textView.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(textView);
+            ((JsonApi) context).addSkipLogicView(textView);
         }
         return textView;
     }

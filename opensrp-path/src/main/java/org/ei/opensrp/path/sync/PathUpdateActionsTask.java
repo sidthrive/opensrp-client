@@ -12,6 +12,8 @@ import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.service.intent.PathReplicationIntentService;
 import org.ei.opensrp.path.service.intent.PullUniqueIdsIntentService;
+import org.ei.opensrp.path.service.intent.VaccineIntentService;
+import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AllFormVersionSyncService;
@@ -23,6 +25,8 @@ import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
+
+import java.util.Calendar;
 
 import static org.ei.opensrp.domain.FetchStatus.fetched;
 import static org.ei.opensrp.domain.FetchStatus.fetchedFailed;
@@ -63,9 +67,15 @@ public class PathUpdateActionsTask {
                 FetchStatus fetchStatusForForms = sync();
                 FetchStatus fetchStatusForActions = actionService.fetchNewActions();
 
-                startReplicationIntentService(context);
-                startImageUploadIntentService(context);
                 startPullUniqueIdsIntentService(context);
+
+                startVaccineIntentService(context);
+                startWeightIntentService(context);
+
+                startReplicationIntentService(context);
+
+                startImageUploadIntentService(context);
+
 
                 FetchStatus fetchStatusAdditional = additionalSyncService == null ? nothingFetched : additionalSyncService.sync();
 
@@ -84,7 +94,6 @@ public class PathUpdateActionsTask {
                     }
                 }
 
-
                 if (fetchStatusForActions == fetched || fetchStatusForForms == fetched || fetchStatusAdditional == fetched)
                     return fetched;
 
@@ -102,23 +111,20 @@ public class PathUpdateActionsTask {
 
     private FetchStatus sync() {
         try {
-            FetchStatus fetchStatus = FetchStatus.fetched;
+            int totalCount = 0;
             ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
 
             // Retrieve database host from preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
+            ecUpdater.updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
             while (true) {
                 long startSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
 
                 int eCount = ecUpdater.fetchAllClientsAndEvents(AllConstants.SyncFilters.FILTER_PROVIDER, allSharedPreferences.fetchRegisteredANM());
+                totalCount += eCount;
 
-                if (eCount == 0) {
-                    fetchStatus = nothingFetched;
-                    break;
-                } else if (eCount < 0) {
-                    fetchStatus = fetchedFailed;
+                if (eCount == 0 || eCount < 0) {
                     break;
                 }
 
@@ -127,7 +133,13 @@ public class PathUpdateActionsTask {
                 Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
             }
 
-            return fetchStatus;
+            if (totalCount == 0) {
+                return nothingFetched;
+            } else if (totalCount < 0) {
+                return fetchedFailed;
+            } else {
+                return fetched;
+            }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
             return fetchedFailed;
@@ -141,11 +153,22 @@ public class PathUpdateActionsTask {
     }
 
     private void startImageUploadIntentService(Context context) {
-        Intent intent = new Intent(context,ImageUploadSyncService.class);
+        Intent intent = new Intent(context, ImageUploadSyncService.class);
         context.startService(intent);
     }
+
     private void startPullUniqueIdsIntentService(Context context) {
-        Intent intent = new Intent(context,PullUniqueIdsIntentService.class);
+        Intent intent = new Intent(context, PullUniqueIdsIntentService.class);
+        context.startService(intent);
+    }
+
+    private void startWeightIntentService(Context context) {
+        Intent intent = new Intent(context, WeightIntentService.class);
+        context.startService(intent);
+    }
+
+    private void startVaccineIntentService(Context context) {
+        Intent intent = new Intent(context, VaccineIntentService.class);
         context.startService(intent);
     }
 }

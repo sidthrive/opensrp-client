@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp">
 
-        <TextView
+        <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/name_tv"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -20,14 +21,15 @@
             android:textColor="@color/text_black"
             android:textSize="@dimen/activity_sub_title_size" />
 
-        <TextView
+        <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/record_all_tv"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="@string/record_all"
-            android:textColor="@color/primary"
+            android:textColor="@color/light_blue"
             android:textSize="@dimen/activity_sub_title_size" />
     </RelativeLayout>
 

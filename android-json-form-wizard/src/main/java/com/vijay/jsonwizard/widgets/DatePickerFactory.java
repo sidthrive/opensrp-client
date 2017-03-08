@@ -55,6 +55,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             String openMrsEntity = jsonObject.getString("openmrs_entity");
             String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
             String relevance = jsonObject.optString("relevance");
+            String constraints = jsonObject.optString("constraints");
 
             final RelativeLayout dateViewRelativeLayout = (RelativeLayout) LayoutInflater
                     .from(context).inflate(R.layout.item_date_picker, null);
@@ -64,7 +65,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             duration.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
             duration.setTag(R.id.openmrs_entity, openMrsEntity);
             duration.setTag(R.id.openmrs_entity_id, openMrsEntityId);
-            if(jsonObject.has("duration")) {
+            if (jsonObject.has("duration")) {
                 duration.setTag(R.id.label, jsonObject.getJSONObject("duration").getString("label"));
             }
 
@@ -76,7 +77,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             editText.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
             editText.setTag(R.id.openmrs_entity, openMrsEntity);
             editText.setTag(R.id.openmrs_entity_id, openMrsEntityId);
-            if(jsonObject.has("v_required")) {
+            if (jsonObject.has("v_required")) {
                 JSONObject requiredObject = jsonObject.optJSONObject("v_required");
                 String requiredValue = requiredObject.getString("value");
                 if (!TextUtils.isEmpty(requiredValue)) {
@@ -92,7 +93,7 @@ public class DatePickerFactory implements FormWidgetFactory {
                     boolean readOnly = jsonObject.getBoolean("read_only");
                     editText.setEnabled(!readOnly);
                 }
-            } else if(jsonObject.has("default")) {
+            } else if (jsonObject.has("default")) {
                 updateDateText(editText, duration,
                         DATE_FORMAT.format(getDate(jsonObject.getString("default")).getTime()));
             }
@@ -127,7 +128,7 @@ public class DatePickerFactory implements FormWidgetFactory {
                 public void onShow(DialogInterface dialog) {
                     InputMethodManager inputManager = (InputMethodManager) context
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(((Activity)context).getCurrentFocus().getWindowToken(),
+                    inputManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus().getWindowToken(),
                             HIDE_NOT_ALWAYS);
                 }
             });
@@ -160,7 +161,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus) {
+                    if (hasFocus) {
                         showDatePickerDialog(context, datePickerDialog, editText);
                     }
                 }
@@ -186,10 +187,16 @@ public class DatePickerFactory implements FormWidgetFactory {
             views.add(dateViewRelativeLayout);
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(editText);
+                ((JsonApi) context).addSkipLogicView(editText);
 
                 duration.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(duration);
+                ((JsonApi) context).addSkipLogicView(duration);
+            }
+
+            if (constraints != null && context instanceof JsonApi) {
+                editText.setTag(R.id.constraints, constraints);
+                editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
+                ((JsonApi) context).addConstrainedView(editText);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,7 +220,16 @@ public class DatePickerFactory implements FormWidgetFactory {
     private static String getDuration(String date) {
         if (!TextUtils.isEmpty(date)) {
             Calendar calendar = getDate(date);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
             Calendar now = Calendar.getInstance();
+            now.set(Calendar.HOUR_OF_DAY, 0);
+            now.set(Calendar.MINUTE, 0);
+            now.set(Calendar.SECOND, 0);
+            now.set(Calendar.MILLISECOND, 0);
 
             long timeDiff = Math.abs(now.getTimeInMillis() - calendar.getTimeInMillis());
             StringBuilder builder = new StringBuilder();
@@ -229,9 +245,14 @@ public class DatePickerFactory implements FormWidgetFactory {
                 // Represent in weeks and days
                 int weeks = (int) Math.floor((float) timeDiff /
                         TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS));
-                int days = Math.round((float) (timeDiff -
+                int days = (int) Math.floor((float) (timeDiff -
                         TimeUnit.MILLISECONDS.convert(weeks * 7, TimeUnit.DAYS)) /
-                            TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+                        TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+
+                if (days >= 7) {
+                    days = 0;
+                    weeks++;
+                }
 
                 duration = weeks + "w";
                 if (days > 0) {
@@ -242,21 +263,36 @@ public class DatePickerFactory implements FormWidgetFactory {
                 // Represent in months and weeks
                 int months = (int) Math.floor((float) timeDiff /
                         TimeUnit.MILLISECONDS.convert(30, TimeUnit.DAYS));
-                int weeks = Math.round((float) (timeDiff - TimeUnit.MILLISECONDS.convert(
+                int weeks = (int) Math.floor((float) (timeDiff - TimeUnit.MILLISECONDS.convert(
                         months * 30, TimeUnit.DAYS)) /
-                            TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS));
+                        TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS));
 
-                duration = months + "m";
-                if (weeks > 0) {
-                    duration += " " + weeks + "w";
+                if (weeks >= 4) {
+                    weeks = 0;
+                    months++;
+                }
+
+                if(months < 12) {
+                    duration = months + "m";
+                    if (weeks > 0 && months < 12) {
+                        duration += " " + weeks + "w";
+                    }
+                }
+                else if (months >= 12) {
+                    duration = "1y";
                 }
             } else {
                 // Represent in years and months
                 int years = (int) Math.floor((float) timeDiff
                         / TimeUnit.MILLISECONDS.convert(365, TimeUnit.DAYS));
-                int months = Math.round((float) (timeDiff -
+                int months = (int) Math.floor((float) (timeDiff -
                         TimeUnit.MILLISECONDS.convert(years * 365, TimeUnit.DAYS)) /
-                            TimeUnit.MILLISECONDS.convert(30, TimeUnit.DAYS));
+                        TimeUnit.MILLISECONDS.convert(30, TimeUnit.DAYS));
+
+                if (months >= 12) {
+                    months = 0;
+                    years++;
+                }
 
                 duration = years + "y";
                 if (months > 0) {
@@ -287,8 +323,8 @@ public class DatePickerFactory implements FormWidgetFactory {
      * today-1, today+10
      *
      * @param dayString The string to be converted to a date
-     * @return  The calendar object corresponding to the day, or object corresponding to today's
-     *          date if an error occurred
+     * @return The calendar object corresponding to the day, or object corresponding to today's
+     * date if an error occurred
      */
     private static Calendar getDate(String dayString) {
         Calendar calendarDate = Calendar.getInstance();

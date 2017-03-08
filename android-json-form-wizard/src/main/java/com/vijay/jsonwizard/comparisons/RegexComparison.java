@@ -1,9 +1,9 @@
-package com.vijay.jsonwizard.comparers;
+package com.vijay.jsonwizard.comparisons;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexComparer extends Comparer {
+public class RegexComparison extends Comparison {
     @Override
     public boolean compare(String a, String type, String b) {
         try {

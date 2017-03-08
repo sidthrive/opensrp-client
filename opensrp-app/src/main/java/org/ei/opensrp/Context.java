@@ -33,6 +33,8 @@ import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
 import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AlertService;
@@ -129,8 +131,10 @@ public class Context {
     private AllReports allReports;
     private AllServicesProvided allServicesProvided;
     private AllCommonsRepository allCommonPersonObjectsRepository;
-    private static ImageRepository imageRepository;
-    private static UniqueIdRepository uniqueIdRepository;
+    private ImageRepository imageRepository;
+    private UniqueIdRepository uniqueIdRepository;
+    private WeightRepository weightRepository;
+    private VaccineRepository vaccineRepository;
 
 
 
@@ -509,6 +513,8 @@ public class Context {
             drishtireposotorylist.add(formsVersionRepository());
             drishtireposotorylist.add(imageRepository());
             drishtireposotorylist.add(uniqueIdRepository());
+            drishtireposotorylist.add(weightRepository());
+            drishtireposotorylist.add(vaccineRepository());
             drishtireposotorylist.add(detailsRepository());
             for(int i = 0;i < bindtypes.size();i++){
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
@@ -663,17 +669,29 @@ public class Context {
         }
         return formsVersionRepository;
     }
-    public static DrishtiRepository imageRepository() {
+    public ImageRepository imageRepository() {
         if (imageRepository == null) {
             imageRepository = new ImageRepository();
         }
         return imageRepository;
     }
-    public static UniqueIdRepository uniqueIdRepository() {
+    public UniqueIdRepository uniqueIdRepository() {
         if (uniqueIdRepository == null) {
             uniqueIdRepository = new UniqueIdRepository();
         }
         return uniqueIdRepository;
+    }
+    public WeightRepository weightRepository() {
+        if (weightRepository == null) {
+            weightRepository = new WeightRepository();
+        }
+        return weightRepository;
+    }
+    public VaccineRepository vaccineRepository() {
+        if (vaccineRepository == null) {
+            vaccineRepository = new VaccineRepository();
+        }
+        return vaccineRepository;
     }
     public UserService userService() {
         if (userService == null) {

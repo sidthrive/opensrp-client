@@ -5,36 +5,36 @@
     android:layout_height="wrap_content"
     android:background="@color/client_list_header_dark_grey"
     android:orientation="horizontal"
-    android:weightSum="16">
+    android:weightSum="10">
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="1dp"
-        android:layout_weight="6.5"
+        android:layout_weight="4.4"
         android:orientation="horizontal">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/child_header"
-            style="@style/CustomFontTextViewStyle.Header.Black"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/child_profile"
             android:textAllCaps="true"
-            android:textColor="@color/client_list_header_text_color"
+            android:textColor="@color/client_list_grey"
             android:textSize="16sp" />
 
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/child_age_header"
-            style="@style/CustomFontTextViewStyle.Header.Black"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="7dp"
             android:text="@string/birthdate_age"
             android:textAllCaps="true"
-            android:textColor="@color/client_list_header_text_color"
+            android:textColor="@color/client_list_grey"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -43,16 +43,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="1dp"
-        android:layout_weight="3">
+        android:layout_weight="1.8">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/child_zeir_id_header"
-            style="@style/CustomFontTextViewStyle.Header.Black"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/epi_number"
             android:textAllCaps="true"
-            android:textColor="@color/client_list_header_text_color"
+            android:textColor="@color/client_list_grey"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -62,17 +62,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="1dp"
-        android:layout_weight="3">
+        android:layout_weight="1.7">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/child_weight_header"
-            style="@style/CustomFontTextViewStyle.Header.Black"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/child_contact_number"
             android:textAllCaps="true"
-            android:textColor="@color/client_list_header_text_color"
+            android:textColor="@color/client_list_grey"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -80,17 +80,17 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3.5">
+        android:layout_weight="2">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/child_due_header"
-            style="@style/CustomFontTextViewStyle.Header.Black"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/child_next_vaccine"
             android:textAllCaps="true"
-            android:textColor="@color/client_list_header_text_color"
+            android:textColor="@color/client_list_grey"
             android:textSize="16sp" />
     </RelativeLayout>
 </LinearLayout>

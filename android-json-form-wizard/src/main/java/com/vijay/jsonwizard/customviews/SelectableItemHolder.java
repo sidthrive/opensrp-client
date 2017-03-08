@@ -1,6 +1,7 @@
 package com.vijay.jsonwizard.customviews;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -44,7 +45,11 @@ public class SelectableItemHolder extends TreeNode.BaseNodeViewHolder<String> {
 
         this.treeNode = node;
         tvValue = (TextView) view.findViewById(R.id.node_value);
-        tvValue.setText(levelLabel + ": " + value);
+        if(TextUtils.isEmpty(levelLabel)) {
+            tvValue.setText(value);
+        } else {
+            tvValue.setText(levelLabel + ": " + value);
+        }
         tvValue.setTextSize(context.getResources().getDimension(R.dimen.tree_widget_text_size));
         arrowView = (PrintView) view.findViewById(R.id.arrowview);
         arrowView.setIconFont("fonts/material/fonts/material-icon-font.ttf");

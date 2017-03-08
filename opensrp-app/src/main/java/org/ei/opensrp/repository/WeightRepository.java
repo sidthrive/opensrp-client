@@ -7,156 +7,145 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.UniqueId;
+import org.ei.opensrp.domain.Weight;
 
+import java.net.IDN;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.String.format;
+import static org.apache.commons.lang3.ArrayUtils.addAll;
+
 public class WeightRepository extends DrishtiRepository {
     private static final String TAG = WeightRepository.class.getCanonicalName();
-    private static final String UniqueIds_SQL = "CREATE TABLE unique_ids(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,openmrs_id VARCHAR NOT NULL,status VARCHAR NULL, used_by VARCHAR NULL,synced_by VARCHAR NULL,created_at DATETIME NULL,updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP )";
-    public static final String UniqueIds_TABLE_NAME = "unique_ids";
+    private static final String WEIGHT_SQL = "CREATE TABLE weights (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL)";
+    public static final String WEIGHT_TABLE_NAME = "weights";
     public static final String ID_COLUMN = "_id";
-    public static final String OPENMRS_ID_COLUMN = "openmrs_id";
-    public static final String STATUS_COLUMN = "status";
-    private static final String USED_BY_COLUMN = "used_by";
-    private static final String SYNCED_BY_COLUMN = "synced_by";
-    public static final String CREATED_AT_COLUMN = "created_at";
+    public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String KG = "kg";
+    private static final String DATE = "date";
+    private static final String ANMID = "anmid";
+    private static final String LOCATIONID = "location_id";
+    private static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    public static final String[] UniqueIds_TABLE_COLUMNS = {ID_COLUMN, OPENMRS_ID_COLUMN, STATUS_COLUMN, USED_BY_COLUMN, SYNCED_BY_COLUMN, CREATED_AT_COLUMN, UPDATED_AT_COLUMN};
+    public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, KG, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
-    public static String STATUS_USED = "used";
-    public static String STATUS_NOT_USED = "not_used";
-    private static WeightRepository instance;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + WEIGHT_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
+    private static final String SYNC_STATUS_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + SYNC_STATUS + "_index ON " + WEIGHT_TABLE_NAME + "(" + SYNC_STATUS + " COLLATE NOCASE);";
+    private static final String UPDATED_AT_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + WEIGHT_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
+
+    public static String TYPE_Unsynced = "Unsynced";
+    public static String TYPE_Synced = "Synced";
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
-        database.execSQL(UniqueIds_SQL);
+        database.execSQL(WEIGHT_SQL);
+        database.execSQL(BASE_ENTITY_ID_INDEX);
+        database.execSQL(SYNC_STATUS_INDEX);
+        database.execSQL(UPDATED_AT_INDEX);
     }
 
-    public void add(UniqueId uniqueId) {
+    public void add(Weight weight) {
+        if (weight == null) {
+            return;
+        }
+        if (StringUtils.isBlank(weight.getSyncStatus())) {
+            weight.setSyncStatus(TYPE_Unsynced);
+        }
+
+
+        if (weight.getUpdatedAt() == null) {
+            weight.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
+        }
+
         SQLiteDatabase database = masterRepository.getWritableDatabase();
-        database.insert(UniqueIds_TABLE_NAME, null, createValuesFor(uniqueId));
+        if (weight.getId() == null) {
+            weight.setId(database.insert(WEIGHT_TABLE_NAME, null, createValuesFor(weight)));
+        } else {
+            String idSelection = ID_COLUMN + " = ?";
+            database.update(WEIGHT_TABLE_NAME, createValuesFor(weight), idSelection, new String[]{weight.getId().toString()});
+        }
         database.close();
     }
 
-    public static WeightRepository getInstance() {
-        if (instance == null) {
-            instance = new WeightRepository();
-        }
-        return instance;
-    }
+    public List<Weight> findUnSyncedBeforeTime(int hours) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -hours);
 
-    /**
-     * inserts ids in bulk to the db in a transaction since normally, each time db.insert() is used, SQLite creates a transaction (and resulting journal file in the filesystem), which slows things down.
-     *
-     * @param ids
-     */
-    public void bulkInserOpenmrsIds(List<String> ids) {
-        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        Long time = calendar.getTimeInMillis();
 
-        try {
-            String userName = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-
-            database.beginTransaction();
-            for (String id : ids) {
-                ContentValues values = new ContentValues();
-                values.put(OPENMRS_ID_COLUMN, id);
-                values.put(STATUS_COLUMN, STATUS_NOT_USED);
-                values.put(SYNCED_BY_COLUMN, userName);
-                values.put(CREATED_AT_COLUMN, dateFormat.format(new Date()));
-                database.insert(UniqueIds_TABLE_NAME, null, values);
-            }
-            database.setTransactionSuccessful();
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        } finally {
-            database.endTransaction();
-        }
-    }
-
-    public Long countUnUsedIds() {
-        long count = 0;
-        try {
-            SQLiteDatabase database = masterRepository.getWritableDatabase();
-
-            Cursor cursor = database.rawQuery("SELECT COUNT (*) FROM " + UniqueIds_TABLE_NAME + " WHERE " + STATUS_COLUMN + "=?",
-                    new String[]{String.valueOf(STATUS_NOT_USED)});
-            if (null != cursor)
-                if (cursor.getCount() > 0) {
-                    cursor.moveToFirst();
-                    count = cursor.getInt(0);
-                }
-            cursor.close();
-        } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
-        }
-        return count;
-    }
-
-    /**
-     * get next available unique id
-     *
-     * @return
-     */
-    public UniqueId getNextUniqueId() {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(UniqueIds_TABLE_NAME, UniqueIds_TABLE_COLUMNS, STATUS_COLUMN + " = ?", new String[]{STATUS_NOT_USED}, null, null, CREATED_AT_COLUMN + " ASC", "1");
-        List<UniqueId> ids = readAll(cursor);
-        return ids.isEmpty()?null:ids.get(0);
+        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
+        return readAllWeights(cursor);
     }
 
-    /**
-     * mark and openmrsid as used
-     *
-     * @param openmrsId
-     */
-    public void close(String openmrsId) {
-        String userName = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        if(!openmrsId.contains("-")){
-            openmrsId = formatId(openmrsId);
+    public Weight findUnSyncedByEntityId(String entityId) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, TYPE_Unsynced}, null, null, null, null);
+        List<Weight> weights = readAllWeights(cursor);
+        if (!weights.isEmpty()) {
+            return weights.get(0);
         }
-        ContentValues values = new ContentValues();
-        values.put(STATUS_COLUMN, STATUS_USED);
-        values.put(USED_BY_COLUMN, userName);
-        masterRepository.getWritableDatabase().update(UniqueIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ?", new String[]{openmrsId});
+
+        return null;
     }
-    private String formatId(String openmrsId) {
-        int lastIndex=openmrsId.length()-1;
-        String tail = openmrsId.substring(lastIndex);
-        return openmrsId.substring(0, lastIndex) + "-"+tail;
+
+    public Weight find(Long caseId) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
+        List<Weight> weights = readAllWeights(cursor);
+        if (!weights.isEmpty()) {
+            return weights.get(0);
+        }
+
+        return null;
     }
-    private ContentValues createValuesFor(UniqueId uniqueId) {
+
+    public void close(Long caseId) {
         ContentValues values = new ContentValues();
-        values.put(ID_COLUMN, uniqueId.getId());
-        values.put(OPENMRS_ID_COLUMN, uniqueId.getOpenmrsId());
-        values.put(STATUS_COLUMN, uniqueId.getStatus());
-        values.put(USED_BY_COLUMN, uniqueId.getUsedBy());
-        values.put(CREATED_AT_COLUMN, dateFormat.format(uniqueId.getCreatedAt()));
+        values.put(SYNC_STATUS, TYPE_Synced);
+        masterRepository.getWritableDatabase().update(WEIGHT_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
+    }
+
+    private List<Weight> readAllWeights(Cursor cursor) {
+        cursor.moveToFirst();
+        List<Weight> weights = new ArrayList<Weight>();
+        while (!cursor.isAfterLast()) {
+            weights.add(
+                    new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
+                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                            cursor.getFloat(cursor.getColumnIndex(KG)),
+                            new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                            cursor.getString(cursor.getColumnIndex(ANMID)),
+                            cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                            cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                            cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
+                    ));
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return weights;
+    }
+
+
+    private ContentValues createValuesFor(Weight weight) {
+        ContentValues values = new ContentValues();
+        values.put(ID_COLUMN, weight.getId());
+        values.put(BASE_ENTITY_ID, weight.getBaseEntityId());
+        values.put(KG, weight.getKg());
+        values.put(DATE, weight.getDate() != null ? weight.getDate().getTime() : null);
+        values.put(ANMID, weight.getAnmId());
+        values.put(LOCATIONID, weight.getLocationId());
+        values.put(SYNC_STATUS, weight.getSyncStatus());
+        values.put(UPDATED_AT_COLUMN, weight.getUpdatedAt() != null ? weight.getUpdatedAt() : null);
         return values;
     }
-
-    private List<UniqueId> readAll(Cursor cursor) {
-        List<UniqueId> UniqueIds = new ArrayList<UniqueId>();
-
-        try {
-            cursor.moveToFirst();
-            while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
-
-                UniqueIds.add(new UniqueId(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), new Date(cursor.getLong(4))));
-
-                cursor.moveToNext();
-            }
-            cursor.close();
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-        return UniqueIds;
-    }
-
-
 }

@@ -4,11 +4,14 @@ import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.joda.time.DateTime;
 
+import java.util.Date;
+
 /**
  * Created by keyman on 16/11/2016.
  */
 public class VaccineWrapper {
     private String id;
+    private Long dbKey;
     private Photo photo;
     private String name;
     private String gender;
@@ -27,6 +30,7 @@ public class VaccineWrapper {
     private String patientNumber;
 
     private DateTime updatedVaccineDate;
+    private DateTime recordedDate;
 
     private boolean today;
 
@@ -36,6 +40,14 @@ public class VaccineWrapper {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getDbKey() {
+        return dbKey;
+    }
+
+    public void setDbKey(Long dbKey) {
+        this.dbKey = dbKey;
     }
 
     public String getStatus() {
@@ -141,6 +153,11 @@ public class VaccineWrapper {
     public void setUpdatedVaccineDate(DateTime updatedVaccineDate, boolean today) {
         this.today = today;
         this.updatedVaccineDate = updatedVaccineDate;
+        if (!isToday()) {
+            this.recordedDate = new DateTime(new Date());
+        } else {
+            this.recordedDate = updatedVaccineDate;
+        }
     }
 
     public boolean isToday() {
@@ -162,11 +179,20 @@ public class VaccineWrapper {
     public Photo getPhoto() {
         return photo;
     }
+
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setRecordedDate(DateTime recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
+    public DateTime getRecordedDate() {
+        return recordedDate;
     }
 }
