@@ -697,7 +697,7 @@ public class Tools {
                         byte[] tempFileVector = new byte[splitStringArray.length];
                         Log.e(TAG, "parseSavedVector: Parsing Data from DB len"+ splitStringArray.length );
                         for (int j = 0; j < splitStringArray.length; j++) {
-                            tempFileVector[j] = Byte.parseByte(splitStringArray[j]);
+                            tempFileVector[j] = Byte.parseByte(splitStringArray[j].trim());
                         }
 
 

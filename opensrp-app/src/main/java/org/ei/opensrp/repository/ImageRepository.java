@@ -62,6 +62,7 @@ public class ImageRepository extends DrishtiRepository {
         database.execSQL(Vector_SQL);
     }
 
+    // If no record yet insert new, if exist just update
     public void add(ProfileImage Image, String entityId) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
 //        database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
