@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +54,7 @@ import util.DateUtils;
 import util.ImageUtils;
 import util.Utils;
 
+import static util.Utils.getName;
 import static util.Utils.getValue;
 
 /**
@@ -167,8 +166,7 @@ public class ChildImmunizationActivity extends BaseActivity
         String name = "";
         String childId = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
             childId = Utils.getValue(childDetails.getColumnmaps(), "zeir_id", false);
         }
 
@@ -287,11 +285,11 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateRecordWeightView() {
 
-        String childName = getValue(childDetails.getColumnmaps(), "first_name", true) + " " + getValue(childDetails, "last_name", true);
+        String childName = constructChildName();
         String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
         String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
-        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
-            childName = "B/o " + motherFirstName;
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
@@ -322,15 +320,18 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void updateRecordWeightView(WeightWrapper weightWrapper) {
-        Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-        if (weightWrapper.getDbKey() != null) {
-            recordWeightButton.setBackgroundResource(R.drawable.record_weight_update_bg);
-            recordWeightButton.setTextColor(Color.WHITE);
-            recordWeightButton.setText("Update weight");
+        View recordWeight = findViewById(R.id.record_weight);
+        if (weightWrapper.getDbKey() != null && weightWrapper.getWeight() != null) {
+            String weight = weightWrapper.getWeight().toString();
+            TextView recordWeightText = (TextView) findViewById(R.id.record_weight_text);
+            recordWeightText.setText(weight.trim() + " kg");
+
+            ImageView recordWeightCheck = (ImageView) findViewById(R.id.record_weight_check);
+            recordWeightCheck.setVisibility(View.VISIBLE);
         }
 
-        recordWeightButton.setTag(weightWrapper);
-        recordWeightButton.setOnClickListener(new View.OnClickListener() {
+        recordWeight.setTag(weightWrapper);
+        recordWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showWeightDialog(view);
@@ -381,10 +382,9 @@ public class ChildImmunizationActivity extends BaseActivity
     private String updateActivityTitle() {
         String name = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
         }
-        return String.format("%s > %s", getString(R.string.app_name), name);
+        return String.format("%s > %s", getString(R.string.app_name), name.trim());
     }
 
     @Override
@@ -477,8 +477,8 @@ public class ChildImmunizationActivity extends BaseActivity
     public void performRegisterActions() {
         if (this.registerClickables != null) {
             if (this.registerClickables.isRecordWeight()) {
-                Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-                recordWeightButton.performClick();
+                View recordWeight = findViewById(R.id.record_weight);
+                recordWeight.performClick();
             } else if (this.registerClickables.isRecordAll()) {
                 performRecordAllClick(0);
             }
@@ -585,6 +585,12 @@ public class ChildImmunizationActivity extends BaseActivity
             return null;
         }
 
+    }
+
+    private String constructChildName() {
+        String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
+        String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+        return getName(firstName, lastName);
     }
 
 }
