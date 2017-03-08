@@ -302,7 +302,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
                 System.out.println("start form activity / temp = " + temp);
                 if(temp==null)
                     i--;
-                if (temp.equals(name)) {
+                else if (temp.equals(name)) {
                     System.out.println("equals");
                     i--;
                 } else {
