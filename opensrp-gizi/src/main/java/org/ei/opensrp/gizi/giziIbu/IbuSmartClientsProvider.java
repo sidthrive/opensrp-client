@@ -149,7 +149,7 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.namaLengkap.setText(getColumnMaps("namalengkap", pc));
         viewHolder.namaSuami.setText(getColumnMaps("namaSuami", pc));
         viewHolder.dusun.setText(getDetails("posyandu", pc));
-        viewHolder.tanggalLahir.setText(getDetails("tanggalLahir",pc).substring(0, 10));
+        viewHolder.tanggalLahir.setText(getDetails("tanggalLahir",pc).length()>10?getDetails("tanggalLahir",pc).substring(0,10) : "-");
         viewHolder.umur.setText(getDetails("umur",pc) + " "+context.getString(R.string.years_unit));
 
         viewHolder.lastANCVisit.setText(context.getString(R.string.kunjunganTerakhir) + ": " + getDetails("ancDate", pc));

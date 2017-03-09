@@ -3,6 +3,7 @@ package org.ei.opensrp.vaksinator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 
 import org.ei.opensrp.vaksinator.imunisasiTT.TTSmartRegisterActivity;
@@ -43,6 +44,11 @@ public class TestNavigationController extends org.ei.opensrp.view.controller.Nav
     @Override
     public void startANCSmartRegistry() {
         activity.startActivity(new Intent(activity, VaksinatorSmartRegisterActivity.class));
+    }
+
+    @Override
+    public void startReports(){
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(activity.getApplicationContext().getString(R.string.dho_site))));
     }
 
 }

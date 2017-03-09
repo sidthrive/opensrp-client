@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.acra.util.ToastSender;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -21,11 +23,22 @@ import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
+import util.ImageCache;
 import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -44,18 +57,27 @@ public class KIDetailActivity extends Activity {
     private static String showbgm;
     private static ImageFetcher mImageFetcher;
 
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
 
     public static CommonPersonObjectClient kiclient;
 
     private static HashMap<String, String> hash;
     private boolean updateMode = false;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.ki_detail_activity);
+
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<String, String>();
+        Detail.put("start", DetailStart);
+        FlurryAgent.logEvent("KI_detail_view",Detail, true );
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -126,6 +148,11 @@ public class KIDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(KIDetailActivity.this, NativeKISmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> Detail = new HashMap<String, String>();
+                Detail.put("end", DetailEnd);
+                FlurryAgent.logEvent("KI_detail_view", Detail, true);
             }
         });
 
@@ -232,21 +259,22 @@ public class KIDetailActivity extends Activity {
             }
         });
 
+        hash = Tools.retrieveHash(context.applicationContext());
+
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-//                Log.e(TAG, "onClick: hash.size "+Tools.retrieveHash(getApplicationContext()).size() );
-//                Log.e(TAG, "onClick: hash.size "+hash.size() );
-//                Log.e(TAG, "onClick: id is exist ? "+hash.containsValue(entityid) );
-                if(Tools.retrieveHash(getApplicationContext()).containsKey(entityid)){
-//                    Log.e(TAG, "onClick: "+entityid+" updated" );
-                    updateMode = true;
-                }
+//                Log.e(TAG, "onClick: "+hash.size() );
+//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
+                if(hash.containsValue(entityid)){
+                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                    mode = "updated";
 
-                dispatchTakePictureIntent(kiview, updateMode);
+                }
+                dispatchTakePictureIntent(kiview, mode);
 
             }
         });
@@ -277,7 +305,6 @@ public class KIDetailActivity extends Activity {
         Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
 
         mImageView = imageView;
-
         Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
         takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
 

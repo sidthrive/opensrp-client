@@ -15,7 +15,12 @@
                 "shouldLoadValue": true
             },
             {
-                "name": "tanggalRencanaPersalinan",
+                "name": "htp",
+                "bind": "/model/instance/rencana_persalinan_reviewed/htp",
+                "shouldLoadValue": true
+            },
+            {
+                "name": "tanggalKunjunganRencanaPersalinan",
                 "bind": "/model/instance/rencana_persalinan_reviewed/tanggal"
 			},
             {

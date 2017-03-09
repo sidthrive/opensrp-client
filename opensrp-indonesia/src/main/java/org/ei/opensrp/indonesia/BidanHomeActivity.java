@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
@@ -27,6 +29,9 @@ import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -95,6 +100,7 @@ public class BidanHomeActivity extends SecuredActivity {
         }
     };
 
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private TextView ecRegisterClientCountView;
     private TextView kartuIbuANCRegisterClientCountView;
     private TextView kartuIbuPNCRegisterClientCountView;
@@ -110,7 +116,12 @@ public class BidanHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
-        FlurryFacade.logEvent("home_dashboard");
+        /*FlurryFacade.logEvent("home_dashboard");*/
+        String HomeStart = timer.format(new Date());
+        Map<String, String> Home = new HashMap<String, String>();
+        Home.put("start", HomeStart);
+        FlurryAgent.logEvent("home_dashboard",Home, true );
+
         setContentView(R.layout.smart_registers_home_bidan);
         navigationController = new NavigationControllerINA(this,anmController);
         setupViews();
@@ -319,6 +330,10 @@ public class BidanHomeActivity extends SecuredActivity {
                    navigationController.startPNCSmartRegistry();
                    break;
             }
+            String HomeEnd = timer.format(new Date());
+            Map<String, String> Home = new HashMap<String, String>();
+            Home.put("end", HomeEnd);
+            FlurryAgent.logEvent("home_dashboard",Home, true);
         }
     };
 

@@ -1,6 +1,9 @@
 package org.ei.opensrp.gizi.gizi;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -78,7 +81,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 Map<String, String> Gizi = new HashMap<String, String>();
                 Gizi.put("start", GiziStart);
                 FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
-       // FlurryFacade.logEvent("Gizi_dashboard");
+      //  FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
         mBaseFragment = new GiziSmartRegisterFragment();
@@ -163,7 +166,11 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             if(formName.equals("registrasi_gizi")) {
                 saveuniqueid();
             }
-
+            //end capture flurry log for FS
+            String end = timer.format(new Date());
+            Map<String, String> FS = new HashMap<String, String>();
+            FS.put("end", end);
+            FlurryAgent.logEvent(formName,FS, true);
         }catch (Exception e){
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
@@ -172,6 +179,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
             e.printStackTrace();
         }
+
       //  KMSCalculation();
     }
 
@@ -223,7 +231,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 combined.put(key, uniqueId.get(key));
             }
 
-            System.out.println("injection string: "+combined.toString());
+            System.out.println("injection string: " + combined.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -245,10 +253,42 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         }
     }
 
+    public static boolean out;
+
     @Override
-    public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+    public void startFormActivity(final String formName, final String entityId, final String metaData) {
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName, FS, true);
+
+        if(formName.equals("kunjungan_gizi")) {
+            final int choice = new java.util.Random().nextInt(3);
+            CharSequence[] selections = selections(choice, entityId);
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(GiziSmartRegisterActivity.this);
+            builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
+            builder.setItems(selections, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // the user clicked on colors[which]
+                    if (which == choice) {
+                        activatingForm(formName,entityId,metaData);
+                    }
+                }
+            });
+            builder.show();
+        }
+        else{
+            activatingForm(formName,entityId,metaData);
+        }
+
 //        Log.v("fieldoverride", metaData);
+
+
+    }
+
+    private void activatingForm(String formName, String entityId, String metaData){
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -272,7 +312,39 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    private CharSequence[] selections(int choice, String entityId){
+        String name = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak").findByCaseID(entityId).getColumnmaps().get("namaBayi");
+        System.out.println("start form activity / nama = " + name);
+        CharSequence selections[] = new CharSequence[]{name, name, name};
+
+        selections[choice] = (CharSequence) name;
+
+        String query = "SELECT namaBayi FROM ec_anak where ec_anak.is_closed = 0";
+        Cursor cursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(query);
+        cursor.moveToFirst();
+
+        for (int i = 0; i < selections.length; i++) {
+            if (i != choice) {
+                cursor.move(new java.util.Random().nextInt(cursor.getCount()));
+                String temp = cursor.getString(cursor.getColumnIndex("namaBayi"));
+                System.out.println("start form activity / temp = " + temp);
+                if(temp==null)
+                    i--;
+                else if (temp.equals(name)) {
+                    System.out.println("equals");
+                    i--;
+                } else {
+                    selections[i] = (CharSequence) temp;
+                    System.out.println("char sequence of temp = " + selections[i]);
+                }
+                cursor.moveToFirst();
+            }
+        }
+        cursor.close();
+
+        return selections;
     }
 
     /*@Override
@@ -373,10 +445,10 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
-  /*      String GiziEnd = timer.format(new Date());
+        String GiziEnd = timer.format(new Date());
         Map<String, String> Gizi = new HashMap<String, String>();
         Gizi.put("end", GiziEnd);
-        FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );*/
+        FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

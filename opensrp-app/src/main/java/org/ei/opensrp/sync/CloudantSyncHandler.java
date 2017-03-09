@@ -94,7 +94,8 @@ public class CloudantSyncHandler {
             String pullDatabaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME+"_"+locationAnmids.toLowerCase().replace(' ', '_').replace(".","");
             dbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(databaseName);
             pulldbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(pullDatabaseName);
-            Log.d(LOG_TAG,"Pull Database: "+pulldbURL);
+            Log.d(LOG_TAG, "Pull Url: " +pulldbURL);
+
             // Replication Filter by provider
             String designDocumentId = this.replicationFilterSettings();
 
@@ -185,17 +186,13 @@ public class CloudantSyncHandler {
 
         // Set up the new replicator objects
         URI uri = this.createServerURI();
-        URI pullUri = this.createPullURI();
+        URI pullUri = this.createPullServerURI();
 
         CloudantDataHandler mCloudantDataHandler = CloudantDataHandler.getInstance(mContext);
         Datastore mDatastore = mCloudantDataHandler.getDatastore();
 
         ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
         ReplicatorBuilder.Push mPushBuilder = ReplicatorBuilder.push().from(mDatastore).to(uri);
-
-        //if (pullFilter != null) {
-        //   mPullBuilder.filter(pullFilter);
-        //}
 
         String username = AllConstants.CloudantSync.COUCH_DATABASE_USER;
         String password = AllConstants.CloudantSync.COUCH_DATABASE_PASS;
@@ -225,8 +222,7 @@ public class CloudantSyncHandler {
         // We recommend always using HTTPS to talk to Cloudant.
         return new URI(dbURL);
     }
-
-    private URI createPullURI() throws URISyntaxException {
+    private URI createPullServerURI() throws URISyntaxException {
         // We recommend always using HTTPS to talk to Cloudant.
         return new URI(pulldbURL);
     }

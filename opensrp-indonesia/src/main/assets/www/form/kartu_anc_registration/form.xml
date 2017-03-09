@@ -71,6 +71,13 @@
             </div>
         </fieldset>
     </fieldset>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/anc_registration/Lokasi_periksa_other:label">Lainnya</span>
+        <span lang="en" class="question-label " data-itext-id="/anc_registration/Lokasi_periksa_other:label">Other</span>
+        <span lang="Bahasa" class="or-hint active" data-itext-id="/anc_registration/Lokasi_periksa_other:hint">Lainnya</span>
+        <span lang="en" class="or-hint " data-itext-id="/anc_registration/Lokasi_periksa_other:hint">Write other location</span>
+        <input type="text" name="/anc_registration/Lokasi_periksa_other" data-relevant=" /anc_registration/Lokasi_periksa_other  = 'lainya'" data-type-xml="string"/>
+    </label>
     <fieldset class="question ">
         <fieldset>
             <legend>
@@ -92,13 +99,7 @@
             </div>
         </fieldset>
     </fieldset>
-    <label class="question non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/anc_registration/Lokasi_periksa_other:label">Lainnya</span>
-        <span lang="en" class="question-label " data-itext-id="/anc_registration/Lokasi_periksa_other:label">Other</span>
-        <span lang="Bahasa" class="or-hint active" data-itext-id="/anc_registration/Lokasi_periksa_other:hint">Lainnya</span>
-        <span lang="en" class="or-hint " data-itext-id="/anc_registration/Lokasi_periksa_other:hint">Write other location</span>
-        <input type="text" name="/anc_registration/Lokasi_periksa_other" data-type-xml="string"/>
-    </label>
+
     <fieldset class="question ">
         <fieldset>
             <legend>
@@ -213,10 +214,10 @@
         <span lang="en" class="or-constraint-msg " data-itext-id="/anc_registration/bb_kg:jr:constraintMsg">Weight can not be less than zero</span>
         <span lang="Bahasa" class="question-label active" data-itext-id="/anc_registration/bb_kg:label">BB (Kg)</span>
         <span lang="en" class="question-label " data-itext-id="/anc_registration/bb_kg:label">Weight</span>
-        <span class="required">*</span>
+
         <span lang="Bahasa" class="or-hint active" data-itext-id="/anc_registration/bb_kg:hint">Menunjukkan berat badan Ibu sebelum kehamilan (kg)</span>
         <span lang="en" class="or-hint " data-itext-id="/anc_registration/bb_kg:hint">Indicating mother's weight before being pregnant (kg)</span>
-        <input type="number" name="/anc_registration/bb_kg" required="required" data-constraint=".&gt;0 and .&lt;150" data-type-xml="decimal" step="any"/>
+        <input type="number" name="/anc_registration/bb_kg" data-constraint=".&gt;0 and .&lt;150" data-type-xml="decimal" step="any"/>
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/anc_registration/tb_cm:jr:constraintMsg">Tinggi badan tidak boleh kurang dari nol</span>

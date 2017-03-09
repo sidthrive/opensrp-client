@@ -17,8 +17,12 @@ public class FlurryFacade {
 //    private static final String flurry_key = "3VPFC3PXZQ43PND539DR";
 
     //flurry key gizi 2.1
-    private static final String flurry_key = "HTV5HBKKNCNCCBWT338M";
-        public static void logEvent(String event) {
+    //        private static final String flurry_key = "HTV5HBKKNCNCCBWT338M";
+
+    //flurry key Gizi EC prototype 1
+    private static final String flurry_key = "SQD6SRG84PZ94DM3BM38";
+
+    public static void logEvent(String event) {
         FlurryAgent.logEvent(event);
     }
 

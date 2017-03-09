@@ -11,8 +11,7 @@ public class KICommonObjectFilterOption implements CursorFilterOption {
     @Override
     public String filter() {
 
-
-        return " and anak.details LIKE '%"+criteria+"%'";
+        return " and ec_anak.relational_id IN (SELECT DISTINCT base_entity_id FROM ec_details WHERE value MATCH '"+criteria+"')";
     }
 
 

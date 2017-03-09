@@ -73,9 +73,9 @@ public class ChildDetailActivity extends Activity {
         Context context = Context.getInstance();
         setContentView(R.layout.gizi_detail_activity);
         String DetailStart = timer.format(new Date());
-          /*      Map<String, String> Detail = new HashMap<String, String>();
+                Map<String, String> Detail = new HashMap<String, String>();
                 Detail.put("start", DetailStart);
-                FlurryAgent.logEvent("gizi_detail_view",Detail, true );*/
+                FlurryAgent.logEvent("gizi_detail_view",Detail, true );
 
         final ImageView childview = (ImageView)findViewById(R.id.detail_profilepic);
         //header
@@ -355,6 +355,7 @@ public class ChildDetailActivity extends Activity {
 
             Long tsLong = System.currentTimeMillis()/1000;
             DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
             detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
 
             BitmapFactory.Options options = new BitmapFactory.Options();
