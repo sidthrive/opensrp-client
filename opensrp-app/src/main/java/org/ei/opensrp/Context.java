@@ -33,8 +33,6 @@ import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
 
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AlertService;
@@ -133,9 +131,6 @@ public class Context {
     private AllServicesProvided allServicesProvided;
     private AllCommonsRepository allCommonPersonObjectsRepository;
     private ImageRepository imageRepository;
-    private WeightRepository weightRepository;
-    private VaccineRepository vaccineRepository;
-
 
 
     private DrishtiService drishtiService;
@@ -499,14 +494,7 @@ public class Context {
             return null;
         }
         if (repository == null) {
-            ArrayList<DrishtiRepository> drishtireposotorylist = sharedRepositories();
-
-            DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-           // if(commonFtsObject != null){
-                //repository = new Repository(this.applicationContext, session(), this.commonFtsObject, drishtireposotoryarray);
-           // }else {
                 repository = DrishtiApplication.getInstance().getRepository();
-           // }
         }
         return repository;
     }
@@ -527,9 +515,7 @@ public class Context {
         drishtireposotorylist.add(serviceProvidedRepository());
         drishtireposotorylist.add(formsVersionRepository());
         drishtireposotorylist.add(imageRepository());
-        drishtireposotorylist.add(weightRepository());
         drishtireposotorylist.add(detailsRepository());
-        drishtireposotorylist.add(vaccineRepository());
         for(int i = 0;i < bindtypes.size();i++){
             drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
         }
@@ -538,27 +524,9 @@ public class Context {
     }
 
     public DrishtiRepository[] sharedRepositoriesArray(){
-        assignbindtypes();
-        ArrayList<DrishtiRepository> drishtireposotorylist = new ArrayList<DrishtiRepository>();
-        drishtireposotorylist.add(settingsRepository());
-        drishtireposotorylist.add(alertRepository());
-        drishtireposotorylist.add(eligibleCoupleRepository());
-        drishtireposotorylist.add(childRepository());
-        drishtireposotorylist.add(timelineEventRepository());
-        drishtireposotorylist.add(motherRepository());
-        drishtireposotorylist.add(reportRepository());
-        drishtireposotorylist.add(formDataRepository());
-        drishtireposotorylist.add(serviceProvidedRepository());
-        drishtireposotorylist.add(formsVersionRepository());
-        drishtireposotorylist.add(imageRepository());
-        drishtireposotorylist.add(weightRepository());
-        drishtireposotorylist.add(detailsRepository());
-        for(int i = 0;i < bindtypes.size();i++){
-            drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
-        }
-        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
+        ArrayList<DrishtiRepository> drishtiRepositories = sharedRepositories();
+        DrishtiRepository[] drishtireposotoryarray = drishtiRepositories.toArray(new DrishtiRepository[drishtiRepositories.size()]);
         return drishtireposotoryarray;
-
     }
 
     public AllEligibleCouples allEligibleCouples() {
@@ -708,18 +676,6 @@ public class Context {
         return imageRepository;
     }
 
-    public WeightRepository weightRepository() {
-        if (weightRepository == null) {
-            weightRepository = new WeightRepository();
-        }
-        return weightRepository;
-    }
-    public VaccineRepository vaccineRepository() {
-        if (vaccineRepository == null) {
-            vaccineRepository = new VaccineRepository();
-        }
-        return vaccineRepository;
-    }
     public UserService userService() {
         if (userService == null) {
             //Repository repo = initRepository();

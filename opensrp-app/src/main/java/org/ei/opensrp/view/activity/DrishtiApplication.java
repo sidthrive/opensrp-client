@@ -26,15 +26,13 @@ public abstract class DrishtiApplication extends Application {
     private static BitmapImageCache memoryImageCache;
     protected static DrishtiApplication mInstance;
     private static OpenSRPImageLoader cachedImageLoader;
-    private static Session session;
-    private static String password;
+    private String password;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance=this;
         context = Context.getInstance();
-        //context.initRepository();
     }
 
     public static synchronized DrishtiApplication getInstance() {
@@ -49,7 +47,7 @@ public abstract class DrishtiApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-    protected static Repository repository;
+    protected Repository repository;
     public  Repository getRepository() {
         ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
         DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);

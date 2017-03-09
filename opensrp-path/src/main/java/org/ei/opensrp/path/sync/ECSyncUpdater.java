@@ -4,7 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import org.ei.opensrp.domain.Response;
-import org.ei.opensrp.path.db.PathRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.PathRepository;
 import org.ei.opensrp.service.HTTPAgent;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -35,7 +36,7 @@ public class ECSyncUpdater {
 
     public ECSyncUpdater(Context context) {
         this.context = context;
-        db = new PathRepository(context);
+        db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
     }
 
 

@@ -21,6 +21,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -33,8 +34,8 @@ import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.ExpandableHeightGridView;
 import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -129,10 +130,10 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateViews() {
         // TODO: update all views using child data
-        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+        WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
         weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
 
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findUnSyncedByEntityId(childDetails.entityId());
 
         updateGenderViews();
@@ -414,7 +415,7 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     public void onWeightTaken(final WeightWrapper tag) {
         if (tag != null) {
-            final WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            final WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
             Weight weight = new Weight();
             if (tag.getDbKey() != null) {
                 weight = weightRepository.find(tag.getDbKey());
@@ -468,7 +469,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 final Long dbKey = tag.getDbKey();
 
                 processInThread(new Runnable() {
@@ -520,7 +521,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void saveVaccine(final VaccineWrapper tag, final View view) {
-        final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         Vaccine vaccine = new Vaccine();
         if (tag.getDbKey() != null) {
             vaccine = vaccineRepository.find(tag.getDbKey());

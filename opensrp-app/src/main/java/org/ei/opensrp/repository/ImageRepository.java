@@ -94,7 +94,9 @@ public class ImageRepository extends DrishtiRepository {
         } catch (Exception e) {
             Log.e(TAG,e.getMessage());
         } finally {
-            cursor.close();
+            if(cursor != null) {
+                cursor.close();
+            }
         }
         return profileImages;
     }

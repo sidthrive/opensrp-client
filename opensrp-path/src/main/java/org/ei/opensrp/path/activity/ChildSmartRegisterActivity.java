@@ -22,7 +22,8 @@ import org.ei.opensrp.event.Event;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
-import org.ei.opensrp.path.db.UniqueIdRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
@@ -173,7 +174,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (StringUtils.isBlank(entityId)) {
-                UniqueIdRepository uniqueIdRepo = new UniqueIdRepository(this);
+                UniqueIdRepository uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
                 entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
                 if (entityId.isEmpty()) {
                     Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();

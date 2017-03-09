@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.path.db.UniqueIdRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.util.FileUtilities;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ import util.PathConstants;
  */
 public class PullUniqueIdsIntentService extends IntentService {
     private static final String TAG = PullUniqueIdsIntentService.class.getCanonicalName();
-    private  UniqueIdRepository uniqueIdRepo;
+    private UniqueIdRepository uniqueIdRepo;
 
 
     public PullUniqueIdsIntentService() {
@@ -44,20 +45,19 @@ public class PullUniqueIdsIntentService extends IntentService {
         try {
             int numberToGenerate = 0;
 
-            if(uniqueIdRepo.countUnUsedIds()==0){// first time pull no ids at all
-                numberToGenerate=PathConstants.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
-            }
-            else if(uniqueIdRepo.countUnUsedIds()<=250){ //maintain a minimum of 250 else skip this pull
-                numberToGenerate=PathConstants.OPENMRS_UNIQUE_ID_BATCH_SIZE;
-            }else{
+            if (uniqueIdRepo.countUnUsedIds() == 0) {// first time pull no ids at all
+                numberToGenerate = PathConstants.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
+            } else if (uniqueIdRepo.countUnUsedIds() <= 250) { //maintain a minimum of 250 else skip this pull
+                numberToGenerate = PathConstants.OPENMRS_UNIQUE_ID_BATCH_SIZE;
+            } else {
                 return;
             }
 
-                String userName = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+            String userName = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
             String password = Context.getInstance().allSettings().fetchANMPassword();
 
-            String localUrlString = PathConstants.openmrsUrl() + PathConstants.OPENMRS_IDGEN_URL + "?source="+PathConstants.OPENMRS_UNIQUE_ID_SOURCE+"&numberToGenerate=" + numberToGenerate + "&username=" + userName + "&password=" + password;
-           // Convert the incoming data string to a URL.
+            String localUrlString = PathConstants.openmrsUrl() + PathConstants.OPENMRS_IDGEN_URL + "?source=" + PathConstants.OPENMRS_UNIQUE_ID_SOURCE + "&numberToGenerate=" + numberToGenerate + "&username=" + userName + "&password=" + password;
+            // Convert the incoming data string to a URL.
             localURL = new URL(localUrlString);
              /*
              * Tries to open a connection to the URL. If an IO error occurs, this throws an
@@ -76,7 +76,6 @@ public class PullUniqueIdsIntentService extends IntentService {
                 localHttpURLConnection.setRequestProperty("User-Agent", FileUtilities.getUserAgent(Context.getInstance().applicationContext()));
 
 
-
                 // Gets a response code from the RSS server
                 int responseCode = localHttpURLConnection.getResponseCode();
 
@@ -89,7 +88,7 @@ public class PullUniqueIdsIntentService extends IntentService {
 
                         break;
                     default:
-                        Log.e(TAG, "Error when fetching unique ids from openmrs server "+localUrlString+" Response code"+responseCode);
+                        Log.e(TAG, "Error when fetching unique ids from openmrs server " + localUrlString + " Response code" + responseCode);
 
                 }
 
@@ -103,12 +102,13 @@ public class PullUniqueIdsIntentService extends IntentService {
 
 
     }
+
     /**
      * @param connection object; note: before calling this function,
-     *   ensure that the connection is already be open, and any writes to
-     *   the connection's output stream should have already been completed.
+     *                   ensure that the connection is already be open, and any writes to
+     *                   the connection's output stream should have already been completed.
      * @return String containing the body of the connection response or
-     *   null if the input stream could not be read correctly
+     * null if the input stream could not be read correctly
      */
     private String readInputStreamToString(HttpURLConnection connection) {
         String result = null;
@@ -123,17 +123,14 @@ public class PullUniqueIdsIntentService extends IntentService {
                 sb.append(inputLine);
             }
             result = sb.toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.i(TAG, "Error reading InputStream");
             result = null;
-        }
-        finally {
+        } finally {
             if (is != null) {
                 try {
                     is.close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     Log.i(TAG, "Error closing InputStream");
                 }
             }
@@ -142,13 +139,13 @@ public class PullUniqueIdsIntentService extends IntentService {
         return result;
     }
 
-    private void parseResponse(HttpURLConnection connection) throws Exception{
-        String response=readInputStreamToString(connection);
-        JSONObject responseJson= new JSONObject(response);
-        JSONArray jsonArray= responseJson.getJSONArray("identifiers");
-        if(jsonArray!=null && jsonArray.length()>0){
-            List<String> ids= new ArrayList<String>();
-            for(int i=0;i<jsonArray.length();i++){
+    private void parseResponse(HttpURLConnection connection) throws Exception {
+        String response = readInputStreamToString(connection);
+        JSONObject responseJson = new JSONObject(response);
+        JSONArray jsonArray = responseJson.getJSONArray("identifiers");
+        if (jsonArray != null && jsonArray.length() > 0) {
+            List<String> ids = new ArrayList<String>();
+            for (int i = 0; i < jsonArray.length(); i++) {
                 ids.add(jsonArray.getString(i));
             }
             uniqueIdRepo.bulkInserOpenmrsIds(ids);
@@ -157,7 +154,7 @@ public class PullUniqueIdsIntentService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        uniqueIdRepo=new UniqueIdRepository(getApplicationContext());
+        uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
         return super.onStartCommand(intent, flags, startId);
     }
 }

@@ -6,7 +6,9 @@ import android.util.Log;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Vaccine;
-import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,14 +23,11 @@ import util.JsonFormUtils;
  */
 public class VaccineIntentService extends IntentService {
     private static final String TAG = VaccineIntentService.class.getCanonicalName();
-    private final VaccineRepository vaccineRepository;
+    private VaccineRepository vaccineRepository;
 
 
     public VaccineIntentService() {
-
         super("VaccineService");
-        vaccineRepository = Context.getInstance().vaccineRepository();
-
     }
 
     @Override
@@ -100,5 +99,11 @@ public class VaccineIntentService extends IntentService {
                 return "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
         return "";
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+        return super.onStartCommand(intent, flags, startId);
     }
 }

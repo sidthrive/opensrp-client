@@ -22,8 +22,6 @@ public class Repository extends SQLiteOpenHelper {
     private String dbName;
     private Session session;
     private CommonFtsObject commonFtsObject;
-    protected static SQLiteDatabase database;
-
 
     public Repository(Context context, Session session, DrishtiRepository... repositories) {
         super(context, session.repositoryName(), null, 1);
@@ -104,17 +102,14 @@ public class Repository extends SQLiteOpenHelper {
         if (password() == null) {
             throw new RuntimeException("Password has not been set!");
         }
-        return super.getReadableDatabase(password());
+        return getReadableDatabase(password());
     }
 
     public SQLiteDatabase getWritableDatabase() {
         if (password() == null) {
             throw new RuntimeException("Password has not been set!");
         }
-        if(database==null || !database.isOpen()){
-            database=super.getWritableDatabase(password());
-        }
-        return database;
+        return getWritableDatabase(password());
     }
 
     public boolean canUseThisPassword(String password) {
@@ -136,4 +131,5 @@ public class Repository extends SQLiteOpenHelper {
         context.deleteDatabase(dbName);
         context.getDatabasePath(dbName).delete();
     }
+
 }

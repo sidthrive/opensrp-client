@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.db;
+package org.ei.opensrp.path.repository;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +10,12 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.Address;
+import org.ei.opensrp.path.db.Client;
+import org.ei.opensrp.path.db.Column;
+import org.ei.opensrp.path.db.ColumnAttribute;
+import org.ei.opensrp.path.db.Event;
+import org.ei.opensrp.path.db.Obs;
 import org.ei.opensrp.repository.Repository;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -30,22 +36,24 @@ import util.Utils;
 
 public class PathRepository extends Repository {
 
-    private static final String TAG=PathRepository.class.getCanonicalName();
+    private static final String TAG = PathRepository.class.getCanonicalName();
+    protected SQLiteDatabase readableDatabase;
+    protected SQLiteDatabase writableDatabase;
 
     public PathRepository(Context context) {
         super(context, PathConstants.DATABASE_NAME, PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(), org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
-        this.database=database;
-        createTable(database,Table.client, client_column.values());
-        createTable(database,Table.address, address_column.values());
-        createTable(database,Table.event, event_column.values());
-        createTable(database,Table.obs, obs_column.values());
+        createTable(database, Table.client, client_column.values());
+        createTable(database, Table.address, address_column.values());
+        createTable(database, Table.event, event_column.values());
+        createTable(database, Table.obs, obs_column.values());
         UniqueIdRepository.createTable(database);
+        WeightRepository.createTable(database);
+        VaccineRepository.createTable(database);
     }
 
     @Override
@@ -56,14 +64,56 @@ public class PathRepository extends Repository {
         //db.execSQL("DROP TABLE IF EXISTS " + SmsTarseelTables.unsubmitted_outbound);
     }
 
-	
+    @Override
+    public SQLiteDatabase getReadableDatabase() {
+        return getReadableDatabase(VaccinatorApplication.getInstance().getPassword());
+    }
 
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        return getWritableDatabase(VaccinatorApplication.getInstance().getPassword());
+    }
 
-    private void insert(SQLiteDatabase db,Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
+    @Override
+    public synchronized SQLiteDatabase getReadableDatabase(String password) {
+        if (readableDatabase == null || !readableDatabase.isOpen()) {
+            if (readableDatabase != null) {
+                readableDatabase.close();
+            }
+            readableDatabase = super.getReadableDatabase(password);
+        }
+        return readableDatabase;
+
+    }
+
+    @Override
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
+            if (writableDatabase != null) {
+                writableDatabase.close();
+            }
+            writableDatabase = super.getWritableDatabase(password);
+        }
+        return writableDatabase;
+    }
+
+    @Override
+    public synchronized void close() {
+        if (readableDatabase != null) {
+            readableDatabase.close();
+        }
+
+        if (writableDatabase != null) {
+            writableDatabase.close();
+        }
+        super.close();
+    }
+
+    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
         insert(db, cls, table, cols, null, null, o);
     }
 
-    private void insert(SQLiteDatabase db,Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
+    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
         Map<Column, Object> fm = new HashMap<Column, Object>();
 
         for (Column c : cols) {
@@ -101,29 +151,29 @@ public class PathRepository extends Repository {
         db.execSQL(sql);
     }
 
-    public void insert(SQLiteDatabase db,Client client) {
+    public void insert(SQLiteDatabase db, Client client) {
         try {
-            JSONObject jsonClient = getClient(db,client.getBaseEntityId());
+            JSONObject jsonClient = getClient(db, client.getBaseEntityId());
             if (jsonClient != null) {
                 return;
             }
-            insert(db,Client.class, Table.client, client_column.values(), client);
+            insert(db, Client.class, Table.client, client_column.values(), client);
             for (Address a : client.getAddresses()) {
-                insert(db,Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a);
+                insert(db, Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
         }
     }
 
-    public void insert(SQLiteDatabase db,Event event) {
+    public void insert(SQLiteDatabase db, Event event) {
         try {
-            if(StringUtils.isBlank(event.getFormSubmissionId())){
+            if (StringUtils.isBlank(event.getFormSubmissionId())) {
                 event.setFormSubmissionId(generateRandomUUIDString());
             }
-            insert(db,Event.class, Table.event, event_column.values(), event);
+            insert(db, Event.class, Table.event, event_column.values(), event);
             for (Obs o : event.getObs()) {
-                insert(db,Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
+                insert(db, Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
@@ -145,7 +195,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Client c = convert(jo, Client.class);
                 if (c != null) {
-                    insert(getWritableDatabase(),c);
+                    insert(getWritableDatabase(), c);
                     if (c.getServerVersion() > 01) {
                         lastServerVersion = c.getServerVersion();
                     }
@@ -173,7 +223,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Event e = convert(jo, Event.class);
                 if (e != null) {
-                    insert(getWritableDatabase(),e);
+                    insert(getWritableDatabase(), e);
                     if (e.getServerVersion() > 01) {
                         lastServerVersion = e.getServerVersion();
                     }
@@ -199,20 +249,11 @@ public class PathRepository extends Repository {
         }
     }
 
-    @Override
-    public SQLiteDatabase getWritableDatabase() {
-        if(database==null || !database.isOpen()){
-            database=super.getWritableDatabase(VaccinatorApplication.getInstance().getPassword());
-        }
-        return database ;
-    }
-
-
     public List<JSONObject> getEvents(long startServerVersion, long lastServerVersion) throws JSONException, ParseException {
         List<JSONObject> list = new ArrayList<JSONObject>();
-        Cursor cursor=null;
+        Cursor cursor = null;
         try {
-             cursor = getWritableDatabase().rawQuery("SELECT * FROM " + Table.event.name() +
+            cursor = getWritableDatabase().rawQuery("SELECT * FROM " + Table.event.name() +
                     " WHERE " + event_column.serverVersion.name() + " > " + startServerVersion +
                     " AND " + event_column.serverVersion.name() + " <= " + lastServerVersion +
                     " ORDER BY " + event_column.serverVersion.name()
@@ -224,29 +265,29 @@ public class PathRepository extends Repository {
                 }
 
                 JSONArray olist = new JSONArray();
-                Cursor cursorObs=null;
-               try{
+                Cursor cursorObs = null;
+                try {
                     cursorObs = getWritableDatabase().rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
-                while (cursorObs.moveToNext()) {
-                    JSONObject o = new JSONObject();
-                    for (Column oc : Table.obs.columns()) {
-                        if (!oc.name().equalsIgnoreCase(event_column.formSubmissionId.name())) {//skip reference column
-                            o.put(oc.name(), getValue(cursorObs, oc));
+                    while (cursorObs.moveToNext()) {
+                        JSONObject o = new JSONObject();
+                        for (Column oc : Table.obs.columns()) {
+                            if (!oc.name().equalsIgnoreCase(event_column.formSubmissionId.name())) {//skip reference column
+                                o.put(oc.name(), getValue(cursorObs, oc));
+                            }
                         }
+                        olist.put(o);
                     }
-                    olist.put(o);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                } finally {
+                    if (cursorObs != null)
+                        cursorObs.close();
                 }
-            }catch(Exception e){
-                Log.e(TAG,e.getMessage());
-            }finally {
-                if(cursorObs!=null)
-                    cursorObs.close();
-            }
                 ev.put("obs", olist);
 
                 if (ev.has(event_column.baseEntityId.name())) {
                     String baseEntityId = ev.getString(event_column.baseEntityId.name());
-                    JSONObject cl = getClient(getWritableDatabase(),baseEntityId);
+                    JSONObject cl = getClient(getWritableDatabase(), baseEntityId);
                     ev.put("client", cl);
                 }
                 Log.i(getClass().getName(), "Event Retrieved: " + ev.toString());
@@ -254,16 +295,17 @@ public class PathRepository extends Repository {
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
-        }finally {
-            cursor.close();
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
         return list;
     }
 
-    public JSONObject getClient(SQLiteDatabase db,String baseEntityId) {
-        Cursor cursor=null;
+    public JSONObject getClient(SQLiteDatabase db, String baseEntityId) {
+        Cursor cursor = null;
         try {
-             cursor = db.rawQuery("SELECT * FROM " + Table.client.name() +
+            cursor = db.rawQuery("SELECT * FROM " + Table.client.name() +
                     " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
             if (cursor.moveToNext()) {
                 JSONObject cl = new JSONObject();
@@ -272,25 +314,25 @@ public class PathRepository extends Repository {
                 }
 
                 JSONArray alist = new JSONArray();
-                Cursor ares=null;
-              try{
-                   ares = db.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
-                while (ares.moveToNext()) {
-                    JSONObject a = new JSONObject();
-                    for (Column cc : Table.address.columns()) {
-                        if (!cc.name().equalsIgnoreCase(client_column.baseEntityId.name())) {//skip reference column
-                            a.put(cc.name(), getValue(ares, cc));
+                Cursor ares = null;
+                try {
+                    ares = db.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
+                    while (ares.moveToNext()) {
+                        JSONObject a = new JSONObject();
+                        for (Column cc : Table.address.columns()) {
+                            if (!cc.name().equalsIgnoreCase(client_column.baseEntityId.name())) {//skip reference column
+                                a.put(cc.name(), getValue(ares, cc));
+                            }
                         }
+                        alist.put(a);
                     }
-                    alist.put(a);
-                }
 
-              }catch(Exception e){
-                  Log.e(TAG,e.getMessage());
-              }finally {
-                  if(ares!=null)
-                  ares.close();
-              }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                } finally {
+                    if (ares != null)
+                        ares.close();
+                }
 
                 cl.put("addresses", alist);
                 Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
@@ -299,9 +341,9 @@ public class PathRepository extends Repository {
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
-        }finally{
-            if(cursor!=null)
-            cursor.close();
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
         return null;
     }
@@ -319,7 +361,7 @@ public class PathRepository extends Repository {
         return str;
     }
 
-    private void createTable(SQLiteDatabase db,Table table, Column[] columns) {
+    private void createTable(SQLiteDatabase db, Table table, Column[] columns) {
         String cl = "";
         String indl = "";
         for (Column cc : columns) {
@@ -403,32 +445,32 @@ public class PathRepository extends Repository {
         }
     }
 
-    public ArrayList<HashMap<String, String>> rawQuery(SQLiteDatabase db,String query) {
-        Cursor cursor =null;
-       try{
+    public ArrayList<HashMap<String, String>> rawQuery(SQLiteDatabase db, String query) {
+        Cursor cursor = null;
+        try {
             cursor = db.rawQuery(query, null);
 
-        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                for (int i = 0; i < cursor.getColumnCount(); i++) {
-                    map.put(cursor.getColumnName(i), cursor.getString(i));
-                }
+            ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    for (int i = 0; i < cursor.getColumnCount(); i++) {
+                        map.put(cursor.getColumnName(i), cursor.getString(i));
+                    }
 
-                maplist.add(map);
-            } while (cursor.moveToNext());
+                    maplist.add(map);
+                } while (cursor.moveToNext());
+            }
+            db.close();
+            // return contact list
+            return maplist;
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
-        db.close();
-        // return contact list
-        return maplist;
-       }catch (Exception e){
-           Log.e(TAG,e.getMessage());
-       }finally{
-           if(cursor!=null)
-           cursor.close();
-       }
         return null;
     }
 

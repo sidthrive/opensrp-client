@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.db;
+package org.ei.opensrp.path.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UniqueIdRepository extends PathRepository {
+public class UniqueIdRepository extends BaseRepository {
     private static final String TAG = UniqueIdRepository.class.getCanonicalName();
     private static final String UniqueIds_SQL = "CREATE TABLE unique_ids(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,openmrs_id VARCHAR NOT NULL,status VARCHAR NULL, used_by VARCHAR NULL,synced_by VARCHAR NULL,created_at DATETIME NULL,updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP )";
     public static final String UniqueIds_TABLE_NAME = "unique_ids";
@@ -32,8 +32,9 @@ public class UniqueIdRepository extends PathRepository {
     public static String STATUS_NOT_USED = "not_used";
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public UniqueIdRepository(android.content.Context context) {
-        super(context);
+
+    public UniqueIdRepository(PathRepository pathRepository) {
+        super(pathRepository);
     }
 
     protected static void createTable(SQLiteDatabase database) {
@@ -41,7 +42,7 @@ public class UniqueIdRepository extends PathRepository {
     }
 
     public void add(UniqueId uniqueId) {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = getPathRepository().getWritableDatabase();
         database.insert(UniqueIds_TABLE_NAME, null, createValuesFor(uniqueId));
         database.close();
     }
@@ -52,7 +53,7 @@ public class UniqueIdRepository extends PathRepository {
      * @param ids
      */
     public void bulkInserOpenmrsIds(List<String> ids) {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = getPathRepository().getWritableDatabase();
 
         try {
             String userName = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
@@ -68,7 +69,7 @@ public class UniqueIdRepository extends PathRepository {
             }
             database.setTransactionSuccessful();
         } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         } finally {
             database.endTransaction();
         }
@@ -76,11 +77,9 @@ public class UniqueIdRepository extends PathRepository {
 
     public Long countUnUsedIds() {
         long count = 0;
-        Cursor cursor=null;
+        Cursor cursor = null;
         try {
-            SQLiteDatabase database = this.getWritableDatabase();
-
-             cursor = database.rawQuery("SELECT COUNT (*) FROM " + UniqueIds_TABLE_NAME + " WHERE " + STATUS_COLUMN + "=?",
+            cursor = getPathRepository().getWritableDatabase().rawQuery("SELECT COUNT (*) FROM " + UniqueIds_TABLE_NAME + " WHERE " + STATUS_COLUMN + "=?",
                     new String[]{String.valueOf(STATUS_NOT_USED)});
             if (null != cursor)
                 if (cursor.getCount() > 0) {
@@ -89,10 +88,10 @@ public class UniqueIdRepository extends PathRepository {
                 }
 
         } catch (SQLException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         } finally {
-            if(cursor!=null)
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
         return count;
     }
@@ -103,10 +102,20 @@ public class UniqueIdRepository extends PathRepository {
      * @return
      */
     public UniqueId getNextUniqueId() {
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(UniqueIds_TABLE_NAME, UniqueIds_TABLE_COLUMNS, STATUS_COLUMN + " = ?", new String[]{STATUS_NOT_USED}, null, null, CREATED_AT_COLUMN + " ASC", "1");
-        List<UniqueId> ids = readAll(cursor);
-        return ids.isEmpty() ? null : ids.get(0);
+        UniqueId uniqueId = null;
+        Cursor cursor = null;
+        try {
+            cursor = getPathRepository().getReadableDatabase().query(UniqueIds_TABLE_NAME, UniqueIds_TABLE_COLUMNS, STATUS_COLUMN + " = ?", new String[]{STATUS_NOT_USED}, null, null, CREATED_AT_COLUMN + " ASC", "1");
+            List<UniqueId> ids = readAll(cursor);
+            uniqueId = ids.isEmpty() ? null : ids.get(0);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return uniqueId;
     }
 
     /**
@@ -122,7 +131,7 @@ public class UniqueIdRepository extends PathRepository {
         ContentValues values = new ContentValues();
         values.put(STATUS_COLUMN, STATUS_USED);
         values.put(USED_BY_COLUMN, userName);
-        this.getWritableDatabase().update(UniqueIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ?", new String[]{openmrsId});
+        getPathRepository().getWritableDatabase().update(UniqueIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ?", new String[]{openmrsId});
     }
 
     private String formatId(String openmrsId) {
@@ -143,8 +152,7 @@ public class UniqueIdRepository extends PathRepository {
 
     private List<UniqueId> readAll(Cursor cursor) {
         List<UniqueId> UniqueIds = new ArrayList<UniqueId>();
-
-        try {
+        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
             cursor.moveToFirst();
             while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
 
@@ -152,9 +160,6 @@ public class UniqueIdRepository extends PathRepository {
 
                 cursor.moveToNext();
             }
-            cursor.close();
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
         }
         return UniqueIds;
     }
