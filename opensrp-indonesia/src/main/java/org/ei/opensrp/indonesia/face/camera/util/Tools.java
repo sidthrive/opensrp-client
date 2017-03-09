@@ -715,6 +715,8 @@ public class Tools {
                         allFileVector = ArrayUtils.addAll(allFileVector, tempFileVector);
                         Log.e(TAG, "parseSavedVector: length "+ allFileVector.length  );
 
+                    } else {
+                        Log.e(TAG, "parseSavedVector: Filevector Null" );
                     }
 
 
