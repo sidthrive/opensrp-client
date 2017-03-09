@@ -60,7 +60,7 @@
     <string name="ec_register_male_child">Laki-Laki\n{0}</string>
     <string name="ec_register_female_child">Perempuan\n{0}</string>
     <string name="ec_register_no_fp">No FP</string>
-    <string name="dho_site">"http://dho-report.sid-indonesia.org"</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="status_delivery">Delivery:</string>
     <string name="str_lmp">LMP:</string>
