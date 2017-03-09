@@ -15,6 +15,11 @@
                 "source": "ibu.kartu_ibu.id"
             },
             {
+                "name": "cityVillage",
+                "bind": "/model/instance/penutupan_pnc_reviewed/Village",
+                "shouldLoadValue": true
+            },
+            {
                 "name":"pncCloseReason",
                 "bind":"/model/instance/penutupan_pnc_reviewed/pnc_close_reason"
             },
