@@ -10,6 +10,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "cityVillage",
+        "bind": "/model/instance/penutupan_anak_reviewed/Village",
+        "shouldLoadValue": true
+      },
+      {
         "name": "closeReason",
         "bind": "/model/instance/penutupan_anak_reviewed/close_reason"
       },
