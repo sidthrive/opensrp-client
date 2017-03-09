@@ -98,7 +98,7 @@ public class NativeHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_gizi_home);
         //  FlurryFacade.logEvent("gizi_home_dashboard");
-        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this,anmController);
+        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
