@@ -2,6 +2,7 @@ package org.ei.opensrp.path.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +52,9 @@ import org.opensrp.api.constants.Gender;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -470,7 +474,25 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         detailtoolbar.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
         tabLayout.setTabTextColors(getResources().getColor(R.color.dark_grey),getResources().getColor(normalShade));
 //        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(normalShade));
-
+        try {
+            Field field = TabLayout.class.getDeclaredField("mTabStrip");
+            field.setAccessible(true);
+            Object ob = field.get(tabLayout);
+            Class<?> c = Class.forName("android.support.design.widget.TabLayout$SlidingTabStrip");
+            Method method = c.getDeclaredMethod("setSelectedIndicatorColor", int.class);
+            method.setAccessible(true);
+            method.invoke(ob, getResources().getColor(normalShade));//now its ok
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
