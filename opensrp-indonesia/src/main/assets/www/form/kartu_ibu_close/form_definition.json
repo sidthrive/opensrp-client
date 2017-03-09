@@ -10,6 +10,11 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "cityVillage",
+                "bind": "/model/instance/penutupan_ibu_reviewed/Village",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "closeReason",
                 "bind": "/model/instance/penutupan_ibu_reviewed/close_reason"
             },
