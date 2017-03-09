@@ -7,14 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
+import org.ei.opensrp.repository.VaccineRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class child_under_five_fragment extends Fragment implements VaccinationActionListener {
@@ -22,6 +28,10 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
     private LayoutInflater inflater;
     private ViewGroup container;
     private LinearLayout fragmentcontainer;
+    private List<Vaccine> vaccineList;
+    private CommonPersonObjectClient childDetails;
+    private Map<String,String> detailmaps;
+
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -37,6 +47,12 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
                              Bundle savedInstanceState) {
         this.inflater = inflater;
         this.container = container;
+        if (this.getArguments() != null) {
+            Serializable serializable = getArguments().getSerializable(ChildDetailTabbedActivity.EXTRA_CHILD_DETAILS);
+            if (serializable != null && serializable instanceof CommonPersonObjectClient) {
+                childDetails = (CommonPersonObjectClient) serializable;
+            }
+        }
         View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
          fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
@@ -66,8 +82,13 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
         vaccines.add("Penta 5");
         vaccines.add("Measles 1");
         vaccines.add("Measles 2");
+
+        VaccineRepository vaccineRepository = ((ChildDetailTabbedActivity)getActivity()).getOpenSRPContext().vaccineRepository();
+        vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+
+
         fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
-        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccines,false));
+        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
 
 
         // Inflate the layout for this fragment
@@ -101,7 +122,7 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
         vaccines.add("Measles 1");
         vaccines.add("Measles 2");
         fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
-        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccines,true));
+        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
     }
 
     @Override

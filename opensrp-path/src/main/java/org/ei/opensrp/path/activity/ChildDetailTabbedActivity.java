@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -104,7 +105,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         child_data_fragment.setArguments(this.getIntent().getExtras());
 
         child_under_five_Fragment = new child_under_five_fragment();
-        child_under_five_Fragment.setArguments(savedInstanceState);
+        child_under_five_Fragment.setArguments(this.getIntent().getExtras());
 
 
         detailtoolbar = (Toolbar) findViewById(R.id.child_detail_toolbar);
@@ -112,12 +113,13 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         setSupportActionBar(detailtoolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        getSupportActionBar().
         initiallization(savedInstanceState);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -466,6 +468,10 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         int normalShade = colors[1];
         int lightSade = colors[2];
         detailtoolbar.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
+        tabLayout.setTabTextColors(getResources().getColor(R.color.dark_grey),getResources().getColor(normalShade));
+//        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(normalShade));
+
+
 
     }
     private boolean isDataOk() {

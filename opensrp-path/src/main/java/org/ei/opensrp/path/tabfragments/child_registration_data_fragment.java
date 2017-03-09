@@ -16,6 +16,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class child_registration_data_fragment extends Fragment {
         layout.addView(wd.createTableRow(inflater,container,"First Name",Utils.getValue(childDetails.getColumnmaps(),"first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Last Name",Utils.getValue(childDetails.getColumnmaps(),"last_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Sex",Utils.getValue(childDetails.getColumnmaps(),"gender",true)));
-        layout.addView(wd.createTableRow(inflater,container,"DOB",Utils.getValue(childDetails.getColumnmaps(),"dob",true)));
+        layout.addView(wd.createTableRow(inflater,container,"DOB",ChildDetailTabbedActivity.DATE_FORMAT.format( new DateTime(Utils.getValue(childDetails.getColumnmaps(),"dob",true)).toDate())));
         layout.addView(wd.createTableRow(inflater,container,"Date First Seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
         layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(childDetails.getColumnmaps(),"Birth_Weight",true)));
 

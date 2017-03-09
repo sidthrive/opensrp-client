@@ -24,7 +24,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/immun_child_card_height"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/border">
 
                 <ImageView
@@ -43,34 +43,38 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp">
 
-                    <TextView
+                    <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
                         android:text="Joyce Mwansa"
                         android:id="@+id/name"
-                        android:textColor="#0D0D0D" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/activity_title_size" />
+
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <TextView
+                        <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:id="@+id/idforclient"
-                            android:textColor="#999999"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/activity_sub_title_size"
                             android:text="ZEIR: 5425428" />
 
-                        <TextView
+                        <org.ei.opensrp.view.customControls.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:text="Age: 6w 4d"
                             android:id="@+id/ageforclient"
-                            android:textColor="#999999"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/activity_sub_title_size"
                             android:layout_marginLeft="5dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -117,7 +121,7 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/female_dark_pink"
             app:tabIndicatorColor="@color/female_dark_pink"
-            app:tabTextAppearance="@style/CustomFontTextViewStyle"
+            app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>

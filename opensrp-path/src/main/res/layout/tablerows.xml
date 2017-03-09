@@ -12,22 +12,25 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp">
 
-            <TextView
+            <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:textColor="@color/dark_grey"
                 android:text="Catchment area"
                 android:id="@+id/label"
                 android:layout_weight="1" />
 
-            <TextView
+            <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:text="Linda"
                 android:id="@+id/value"
                 android:layout_weight="1"
-                android:textColor="#000" />
+                android:textColor="@color/text_black" />
         </TableRow>
 
 

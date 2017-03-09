@@ -100,4 +100,10 @@
     <style name="CustomFontTextViewStyle.ClientList.Thin" parent="CustomFontTextViewStyle">
         <item name="fontVariant">thin</item>
     </style>
+
+    <style name="CustomFontTextViewStyle.tabIndicator" parent="CustomFontTextViewStyle.ClientList.Bold">
+        <item name="fontVariant">medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
 </resources>
