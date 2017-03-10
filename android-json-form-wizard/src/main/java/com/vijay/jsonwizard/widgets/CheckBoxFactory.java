@@ -1,7 +1,6 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,7 +32,7 @@ public class CheckBoxFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
         String relevance = jsonObject.optString("relevance");
-        views.add(getTextViewWith(context, 16, jsonObject.getString("label"), jsonObject.getString("key"),
+        views.add(getTextViewWith(context, 20, jsonObject.getString("label"), jsonObject.getString("key"),
                 jsonObject.getString("type"), openMrsEntityParent, openMrsEntity, openMrsEntityId,
                 relevance,
                 getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, 0), FONT_BOLD_PATH));
@@ -68,7 +67,7 @@ public class CheckBoxFactory implements FormWidgetFactory {
             views.add(checkBox);
             if (relevance != null && context instanceof JsonApi) {
                 checkBox.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(checkBox);
+                ((JsonApi) context).addSkipLogicView(checkBox);
             }
         }
         return views;

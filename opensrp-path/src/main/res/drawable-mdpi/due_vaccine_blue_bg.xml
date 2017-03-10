@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <gradient
         android:angle="0"
-        android:endColor="@color/vaccine_blue_bg_st"
-        android:startColor="@color/vaccine_blue_bg_end" />
+        android:endColor="@color/vaccine_blue_bg_end"
+        android:startColor="@color/vaccine_blue_bg_st" />
     <stroke
         android:width="0.3dp"
         android:color="@color/vaccine_blue_bg_stk" />

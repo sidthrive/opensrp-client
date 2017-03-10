@@ -18,14 +18,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import util.ImageUtils;
 import util.Utils;
 
+import static util.Utils.getName;
 import static util.Utils.getValue;
-import static util.Utils.writePreference;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
@@ -71,8 +73,8 @@ public class VaccineCardAdapter extends BaseAdapter {
             if (!vaccineCards.containsKey(vaccineName)) {
                 VaccineCard vaccineCard = new VaccineCard(context);
                 vaccineCard.setOnVaccineStateChangeListener(vaccineGroup);
-                vaccineCard.setOnUndoButtonClickListener(vaccineGroup);
                 vaccineCard.setOnClickListener(vaccineGroup);
+                vaccineCard.getUndoB().setOnClickListener(vaccineGroup);
                 vaccineCard.setId((int) getItemId(position));
                 VaccineWrapper vaccineWrapper = new VaccineWrapper();
                 vaccineWrapper.setId(vaccineGroup.getChildDetails().entityId());
@@ -94,7 +96,11 @@ public class VaccineCardAdapter extends BaseAdapter {
 
                 String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "zeir_id", false);
                 vaccineWrapper.setPatientNumber(zeirId);
-                vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
+
+                String firstName =getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true);
+                String lastName = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true);
+                String childName =  getName(firstName, lastName);
+                vaccineWrapper.setPatientName(childName.trim());
 
                 updateWrapper(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
@@ -138,7 +144,13 @@ public class VaccineCardAdapter extends BaseAdapter {
         if (!vaccineList.isEmpty()) {
             for (Vaccine vaccine : vaccineList) {
                 if (tag.getName().equals(vaccine.getName()) && vaccine.getDate() != null) {
-                    tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
+                    long diff = vaccine.getUpdatedAt() - vaccine.getDate().getTime();
+                    if (diff > 0 && TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1) {
+                        tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
+                    } else {
+                        tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), true);
+                    }
+                    tag.setRecordedDate(new DateTime(new Date(vaccine.getUpdatedAt())));
                     tag.setDbKey(vaccine.getId());
                 }
             }

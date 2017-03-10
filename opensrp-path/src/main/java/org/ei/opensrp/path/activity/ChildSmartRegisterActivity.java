@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -27,21 +29,18 @@ import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
-import org.ei.opensrp.view.dialog.OpenFormOption;
-import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -104,10 +103,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     private String[] buildFormNameList() {
         List<String> formNames = new ArrayList<String>();
-        formNames.add("child_enrollment");
-        formNames.add("child_followup");
-        formNames.add("offsite_child_followup");
-
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -162,14 +157,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         super.showFragmentDialog(dialogOptionModel, tag);
     }
 
-
-    public DialogOption[] getEditOptions(HashMap<String, String> overridemap) {
-
-        return new DialogOption[]{
-                new OpenFormOption(getResources().getString(R.string.child_followup), "child_followup", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
-        };
-    }
-
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
@@ -183,22 +170,25 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             }
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            JsonFormUtils.addChildRegLocHierarchyQuestions(form, context());
-            if (form != null) {
-                Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-                //inject zeir id into the form
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                        jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId);
-                        continue;
+            if(mBaseFragment instanceof ChildSmartRegisterFragment) {
+                LocationPickerView locationPickerView = ((ChildSmartRegisterFragment) mBaseFragment).getLocationPickerView();
+                JsonFormUtils.addChildRegLocHierarchyQuestions(form, locationPickerView.getSelectedItem(), context());
+                if (form != null) {
+                    Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                    //inject zeir id into the form
+                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                            jsonObject.remove(JsonFormUtils.VALUE);
+                            jsonObject.put(JsonFormUtils.VALUE, entityId);
+                            continue;
+                        }
                     }
+                    intent.putExtra("json", form.toString());
+                    startActivityForResult(intent, REQUEST_CODE_GET_JSON);
                 }
-                intent.putExtra("json", form.toString());
-                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -217,7 +207,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.save(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -246,12 +236,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
         } catch (Exception e) {
-            DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
-            if (displayFormFragment != null) {
-                displayFormFragment.setFormPartialSaving(false);
-                displayFormFragment.hideTranslucentProgressDialog();
-            }
-            e.printStackTrace();
+           Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -263,21 +248,9 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             public void run() {
                 mPager.setCurrentItem(0, false);
                 refreshList(data);
-
-                //hack reset the form
-                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
-                if (displayFormFragment != null) {
-                    displayFormFragment.setFormPartialSaving(false);
-                    displayFormFragment.hideTranslucentProgressDialog();
-                    displayFormFragment.setFormData(null);
-                }
-
-                displayFormFragment.setRecordId(null);
             }
         });
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -308,17 +281,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
     }
 
-    public DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
-        return (DisplayFormFragment) findFragmentByPosition(index);
-    }
-
-    public void retrieveAndSaveUnsubmittedFormData() {
-        if (currentActivityIsShowingForm()) {
-            DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
-            formFragment.saveCurrentFormData();
-        }
-    }
-
     private boolean currentActivityIsShowingForm() {
         return currentPage != 0;
     }
@@ -326,7 +288,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        retrieveAndSaveUnsubmittedFormData();
     }
 
     public void startQrCodeScanner() {
@@ -349,11 +310,25 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         }
     };
 
-    private void refreshList(FetchStatus fetchStatus) {
-        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
-        if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
-            registerFragment.refreshListView();
+    private void refreshList(final FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+            if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                registerFragment.refreshListView();
+            }
+        } else {
+            Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+                    if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                        registerFragment.refreshListView();
+                    }
+                }
+            });
         }
+
     }
 
     private void refreshList(String data) {

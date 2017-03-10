@@ -1,6 +1,10 @@
-package com.vijay.jsonwizard.comparers;
+package com.vijay.jsonwizard.comparisons;
 
-public class LessThanEqualToComparer extends Comparer {
+import com.vijay.jsonwizard.widgets.DatePickerFactory;
+
+import java.util.Date;
+
+public class LessThanEqualToComparison extends Comparison {
     @Override
     public boolean compare(String a, String type, String b) {
         try {
@@ -12,6 +16,12 @@ public class LessThanEqualToComparer extends Comparer {
                     if (a == null) a = DEFAULT_NUMERIC;
                     if (b == null) b = DEFAULT_NUMERIC;
                     return Double.valueOf(a) <= Double.valueOf(b);
+                case TYPE_DATE:
+                    if (a == null) a = DEFAULT_DATE;
+                    if (b == null) b = DEFAULT_DATE;
+                    Date dateA = DatePickerFactory.DATE_FORMAT.parse(a);
+                    Date dateB = DatePickerFactory.DATE_FORMAT.parse(b);
+                    return dateA.getTime() <= dateB.getTime();
             }
         } catch (Exception e) {
             e.printStackTrace();

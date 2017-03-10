@@ -6,6 +6,7 @@
     android:textSize="@dimen/default_text_size"
     app:met_floatingLabel="highlight"
     app:met_floatingLabelText=""
+    app:met_floatingLabelTextSize="@dimen/default_text_size"
     app:met_primaryColor="?colorAccent"
     app:met_singleLineEllipsis="true"
     />

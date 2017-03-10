@@ -1,7 +1,6 @@
 package org.ei.opensrp.path.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
@@ -15,18 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
-import org.ei.opensrp.sync.AfterFetchListener;
-import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.activity.SettingsActivity;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
@@ -43,7 +39,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String IS_REMOTE_LOGIN = "is_remote_login";
-    private AfterFetchListener afterFetchListener;
+    private PathAfterFetchListener pathAfterFetchListener;
     private boolean isSyncing;
 
     @Override
@@ -73,7 +69,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         navigationView.setNavigationItemSelectedListener(this);
         toggleIsSyncing();
 
-        afterFetchListener = new AfterFetchListener() {
+        pathAfterFetchListener = new PathAfterFetchListener() {
             @Override
             public void afterFetch(FetchStatus fetchStatus) {
                 isSyncing = false;
@@ -86,6 +82,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             boolean isRemote = extras.getBoolean(IS_REMOTE_LOGIN);
             if (isRemote) {
                 updateFromServer();
+                isSyncing = true;
+                toggleIsSyncing();
             }
         }
     }
@@ -94,7 +92,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
                 this, context().actionService(), context().formSubmissionSyncService(),
                 new SyncProgressIndicator(), context().allFormVersionSyncService());
-        pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
+        pathUpdateActionsTask.updateFromServer(pathAfterFetchListener);
     }
 
     @Override
@@ -177,7 +175,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                     context().formSubmissionSyncService(),
                     new SyncProgressIndicator(),
                     context().allFormVersionSyncService());
-            pathUpdateActionsTask.updateFromServer(afterFetchListener);
+            pathUpdateActionsTask.updateFromServer(pathAfterFetchListener);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -213,7 +211,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             Minutes minutes = Minutes.minutesBetween(lastSyncTime, now);
             if (minutes.getMinutes() < 1) {
                 Seconds seconds = Seconds.secondsBetween(lastSyncTime, now);
-                lastSync = seconds.getSeconds()+"s";
+                lastSync = seconds.getSeconds() + "s";
             } else if (minutes.getMinutes() >= 1 && minutes.getMinutes() < 60) {
                 lastSync = minutes.getMinutes() + "m";
             } else if (minutes.getMinutes() >= 60 && minutes.getMinutes() < 1440) {
@@ -248,7 +246,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             super.onDrawerClosed(drawerView);
         }
     }
-
 
 }
 

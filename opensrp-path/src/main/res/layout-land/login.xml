@@ -97,7 +97,7 @@
 
             <EditText
                 android:id="@+id/login_passwordText"
-                android:inputType="textNoSuggestions|textFilter|textVisiblePassword"
+                android:inputType="textNoSuggestions|textPassword"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="8"

@@ -1,10 +1,14 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.interfaces.CommonListener;
@@ -46,7 +50,7 @@ public class ImagePickerFactory implements FormWidgetFactory {
         imageView.setTag(R.id.type, jsonObject.getString("type"));
         if (relevance != null && context instanceof JsonApi) {
             imageView.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(imageView);
+            ((JsonApi) context).addSkipLogicView(imageView);
         }
 
         JSONObject requiredObject = jsonObject.optJSONObject("v_required");
@@ -82,12 +86,24 @@ public class ImagePickerFactory implements FormWidgetFactory {
         uploadButton.setTag(R.id.openmrs_entity, openMrsEntity);
         uploadButton.setTag(R.id.openmrs_entity_id, openMrsEntityId);
         uploadButton.setTag(R.id.type, jsonObject.getString("type"));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, 0, dp2px(context, 20));
+        uploadButton.setLayoutParams(params);
+
         views.add(uploadButton);
         if (relevance != null && context instanceof JsonApi) {
             uploadButton.setTag(R.id.relevance, relevance);
-            ((JsonApi) context).addWatchedView(uploadButton);
+            ((JsonApi) context).addSkipLogicView(uploadButton);
         }
         return views;
+    }
+
+    public static int dp2px(Context context, float dp) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return Math.round(px);
     }
 
     public static ValidationStatus validate(JsonFormFragmentView formFragmentView,

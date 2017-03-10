@@ -30,9 +30,15 @@ public interface JsonApi {
 
     void onFormFinish();
 
-    void clearWatchedViews();
+    void clearSkipLogicViews();
 
-    void addWatchedView(View view);
+    void clearConstrainedViews();
+
+    void addSkipLogicView(View view);
+
+    void addConstrainedView(View view);
 
     void refreshSkipLogic();
+
+    void refreshConstraints();
 }

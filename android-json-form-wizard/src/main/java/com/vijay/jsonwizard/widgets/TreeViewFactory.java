@@ -42,6 +42,7 @@ public class TreeViewFactory implements FormWidgetFactory {
             String openMrsEntity = jsonObject.getString("openmrs_entity");
             String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
             String relevance = jsonObject.optString("relevance");
+            String constraints = jsonObject.optString("constraints");
 
             final MaterialEditText editText = (MaterialEditText) LayoutInflater.from(context).inflate(
                     R.layout.item_edit_text, null);
@@ -132,8 +133,14 @@ public class TreeViewFactory implements FormWidgetFactory {
             editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(editText);
+                ((JsonApi) context).addSkipLogicView(editText);
             }
+            if (constraints != null && context instanceof JsonApi) {
+                editText.setTag(R.id.constraints, constraints);
+                editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
+                ((JsonApi) context).addConstrainedView(editText);
+            }
+
             views.add(editText);
         } catch (Exception e) {
             e.printStackTrace();

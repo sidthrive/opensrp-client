@@ -20,7 +20,6 @@ import org.ei.opensrp.service.AllFormVersionSyncService;
 import org.ei.opensrp.service.FormSubmissionSyncService;
 import org.ei.opensrp.service.ImageUploadSyncService;
 import org.ei.opensrp.sync.AdditionalSyncService;
-import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
@@ -40,6 +39,7 @@ public class PathUpdateActionsTask {
     private FormSubmissionSyncService formSubmissionSyncService;
     private AllFormVersionSyncService allFormVersionSyncService;
     private AdditionalSyncService additionalSyncService;
+    private PathAfterFetchListener pathAfterFetchListener;
 
     public PathUpdateActionsTask(Context context, ActionService actionService, FormSubmissionSyncService formSubmissionSyncService, ProgressIndicator progressIndicator,
                                  AllFormVersionSyncService allFormVersionSyncService) {
@@ -55,7 +55,8 @@ public class PathUpdateActionsTask {
         this.additionalSyncService = additionalSyncService;
     }
 
-    public void updateFromServer(final AfterFetchListener afterFetchListener) {
+    public void updateFromServer(final PathAfterFetchListener pathAfterFetchListener) {
+        this.pathAfterFetchListener = pathAfterFetchListener;
         if (org.ei.opensrp.Context.getInstance().IsUserLoggedOut()) {
             logInfo("Not updating from server as user is not logged in.");
             return;
@@ -104,7 +105,7 @@ public class PathUpdateActionsTask {
                 if (result != null && context != null && result != nothingFetched) {
                     Toast.makeText(context, result.displayValue(), Toast.LENGTH_SHORT).show();
                 }
-                afterFetchListener.afterFetch(result);
+                pathAfterFetchListener.afterFetch(result);
             }
         });
     }
@@ -131,6 +132,7 @@ public class PathUpdateActionsTask {
                 long lastSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
                 ClientProcessor.getInstance(context).processClient(ecUpdater.allEvents(startSyncTimeStamp, lastSyncTimeStamp));
                 Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
+                pathAfterFetchListener.partialFetch(fetched);
             }
 
             if (totalCount == 0) {

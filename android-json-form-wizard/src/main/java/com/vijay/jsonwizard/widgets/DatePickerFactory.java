@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v4.util.TimeUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -56,6 +55,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             String openMrsEntity = jsonObject.getString("openmrs_entity");
             String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
             String relevance = jsonObject.optString("relevance");
+            String constraints = jsonObject.optString("constraints");
 
             final RelativeLayout dateViewRelativeLayout = (RelativeLayout) LayoutInflater
                     .from(context).inflate(R.layout.item_date_picker, null);
@@ -187,10 +187,16 @@ public class DatePickerFactory implements FormWidgetFactory {
             views.add(dateViewRelativeLayout);
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(editText);
+                ((JsonApi) context).addSkipLogicView(editText);
 
                 duration.setTag(R.id.relevance, relevance);
-                ((JsonApi) context).addWatchedView(duration);
+                ((JsonApi) context).addSkipLogicView(duration);
+            }
+
+            if (constraints != null && context instanceof JsonApi) {
+                editText.setTag(R.id.constraints, constraints);
+                editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
+                ((JsonApi) context).addConstrainedView(editText);
             }
         } catch (Exception e) {
             e.printStackTrace();
