@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
  */
 
-public class VaccineCard extends LinearLayout implements View.OnClickListener {
+public class VaccineCard extends LinearLayout {
     private static final String TAG = "VaccineCard";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM");
     private Context context;
@@ -33,7 +32,6 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
     private Button undoB;
     private State state;
     private OnVaccineStateChangeListener onVaccineStateChangeListener;
-    private OnUndoButtonClickListener onUndoButtonClickListener;
     private VaccineWrapper vaccineWrapper;
 
     public static enum State {
@@ -72,9 +70,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
         statusIV = (ImageView) findViewById(R.id.status_iv);
         nameTV = (TextView) findViewById(R.id.name_tv);
         undoB = (Button) findViewById(R.id.undo_b);
-        undoB.setOnClickListener(this);
-        setOnClickListener(this);
-    }
+     }
 
     public void setVaccineWrapper(VaccineWrapper vaccineWrapper) {
         this.vaccineWrapper = vaccineWrapper;
@@ -209,20 +205,7 @@ public class VaccineCard extends LinearLayout implements View.OnClickListener {
         void onStateChanged(final State newState);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.equals(undoB)) {
-            if(onUndoButtonClickListener != null) {
-                onUndoButtonClickListener.onUndoClick(this);
-            }
-        }
-    }
-
-    public void setOnUndoButtonClickListener(OnUndoButtonClickListener onUndoButtonClickListener) {
-        this.onUndoButtonClickListener = onUndoButtonClickListener;
-    }
-
-    public static interface OnUndoButtonClickListener {
-        void onUndoClick(VaccineCard vaccineCard);
+    public Button getUndoB() {
+        return undoB;
     }
 }

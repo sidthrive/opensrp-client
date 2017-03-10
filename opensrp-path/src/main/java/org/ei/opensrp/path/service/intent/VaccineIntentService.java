@@ -42,7 +42,7 @@ public class VaccineIntentService extends IntentService {
 
 
         try {
-            List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(0);
+            List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(24);
             if (!vaccines.isEmpty()) {
                 for (Vaccine vaccine : vaccines) {
                     String eventType = "Vaccination";

@@ -140,4 +140,7 @@
     <string name="service_location">Service Location</string>
     <string name="ic_check">&#xe038;</string>
     <string name="no_record">No Record(s) Found!</string>
+
+    <string name="saving_dialog_title">Saving…</string>
+    <string name="saving_dialog_message">Please wait</string>
 </resources>

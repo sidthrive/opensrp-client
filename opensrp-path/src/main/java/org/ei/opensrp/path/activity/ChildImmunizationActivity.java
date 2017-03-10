@@ -4,14 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +30,6 @@ import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
-import org.ei.opensrp.path.view.ExpandableHeightGridView;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
@@ -57,6 +55,7 @@ import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
 
+import static util.Utils.getName;
 import static util.Utils.getValue;
 
 /**
@@ -71,6 +70,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private static final String EXTRA_CHILD_DETAILS = "child_details";
     private static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
     private ArrayList<VaccineGroup> vaccineGroups;
 
     // Views
@@ -167,8 +167,7 @@ public class ChildImmunizationActivity extends BaseActivity
         String name = "";
         String childId = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
             childId = Utils.getValue(childDetails.getColumnmaps(), "zeir_id", false);
         }
 
@@ -276,22 +275,22 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void addVaccineUndoDialogFragment(VaccineGroup vaccineGroup, VaccineWrapper vaccineWrapper) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag(UndoVaccinationDialogFragment.DIALOG_TAG);
+        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
         UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(this, vaccineWrapper, vaccineGroup);
-        undoVaccinationDialogFragment.show(ft, UndoVaccinationDialogFragment.DIALOG_TAG);
+        undoVaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 
     private void updateRecordWeightView() {
 
-        String childName = getValue(childDetails.getColumnmaps(), "first_name", true) + " " + getValue(childDetails, "last_name", true);
+        String childName = constructChildName();
         String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
         String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
-        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
-            childName = "B/o " + motherFirstName;
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
@@ -322,15 +321,18 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void updateRecordWeightView(WeightWrapper weightWrapper) {
-        Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-        if (weightWrapper.getDbKey() != null) {
-            recordWeightButton.setBackgroundResource(R.drawable.record_weight_update_bg);
-            recordWeightButton.setTextColor(Color.WHITE);
-            recordWeightButton.setText("Update weight");
+        View recordWeight = findViewById(R.id.record_weight);
+        if (weightWrapper.getDbKey() != null && weightWrapper.getWeight() != null) {
+            String weight = weightWrapper.getWeight().toString();
+            TextView recordWeightText = (TextView) findViewById(R.id.record_weight_text);
+            recordWeightText.setText(weight.trim() + " kg");
+
+            ImageView recordWeightCheck = (ImageView) findViewById(R.id.record_weight_check);
+            recordWeightCheck.setVisibility(View.VISIBLE);
         }
 
-        recordWeightButton.setTag(weightWrapper);
-        recordWeightButton.setOnClickListener(new View.OnClickListener() {
+        recordWeight.setTag(weightWrapper);
+        recordWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showWeightDialog(view);
@@ -341,14 +343,14 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void showWeightDialog(View view) {
         FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-        Fragment prev = this.getFragmentManager().findFragmentByTag(RecordWeightDialogFragment.DIALOG_TAG);
+        Fragment prev = this.getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
         WeightWrapper weightWrapper = (WeightWrapper) view.getTag();
         RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(this, weightWrapper);
-        recordWeightDialogFragment.show(ft, RecordWeightDialogFragment.DIALOG_TAG);
+        recordWeightDialogFragment.show(ft, DIALOG_TAG);
 
     }
 
@@ -381,10 +383,9 @@ public class ChildImmunizationActivity extends BaseActivity
     private String updateActivityTitle() {
         String name = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
         }
-        return String.format("%s > %s", getString(R.string.app_name), name);
+        return String.format("%s > %s", getString(R.string.app_name), name.trim());
     }
 
     @Override
@@ -413,9 +414,9 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onWeightTaken(final WeightWrapper tag) {
+    public void onWeightTaken(WeightWrapper tag) {
         if (tag != null) {
-            final WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            WeightRepository weightRepository = getOpenSRPContext().weightRepository();
             Weight weight = new Weight();
             if (tag.getDbKey() != null) {
                 weight = weightRepository.find(tag.getDbKey());
@@ -431,25 +432,11 @@ public class ChildImmunizationActivity extends BaseActivity
                 e.printStackTrace();
             }
 
-            final Handler handler = new Handler(Looper.getMainLooper());
+            weightRepository.add(weight);
 
-            final Weight weightToSave = weight;
-            processInThread(new Runnable() {
-                @Override
-                public void run() {
-                    weightRepository.add(weightToSave);
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            tag.setDbKey(weightToSave.getId());
-                            updateRecordWeightView(tag);
-                        }
-                    });
-                }
-            });
+            tag.setDbKey(weight.getId());
+            updateRecordWeightView(tag);
         }
-
     }
 
     @Override
@@ -467,24 +454,17 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onUndoVaccination(final VaccineWrapper tag, final View view) {
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
-                final Long dbKey = tag.getDbKey();
+                VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                Long dbKey = tag.getDbKey();
                 tag.setUpdatedVaccineDate(null, false);
                 tag.setRecordedDate(null);
                 tag.setDbKey(null);
 
-
-                processInThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        vaccineRepository.deleteVaccine(dbKey);
-                    }
-                });
-
+                vaccineRepository.deleteVaccine(dbKey);
                 updateVaccineGroupViews(view);
             }
         }
@@ -492,79 +472,84 @@ public class ChildImmunizationActivity extends BaseActivity
 
     public void addVaccinationDialogFragment(List<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
         FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-        Fragment prev = this.getFragmentManager().findFragmentByTag(VaccinationDialogFragment.DIALOG_TAG);
+        Fragment prev = this.getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
         VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(this, vaccineWrappers, vaccineGroup);
-        vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
+        vaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 
     public void performRegisterActions() {
         if (this.registerClickables != null) {
             if (this.registerClickables.isRecordWeight()) {
-                Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-                recordWeightButton.performClick();
+                View recordWeight = findViewById(R.id.record_weight);
+                recordWeight.performClick();
             } else if (this.registerClickables.isRecordAll()) {
-                // TODO get the right vaccineCard/recordAll
-                if (vaccineGroups != null) {
-                    final VaccineGroup vaccineGroup = vaccineGroups.get(0);
-                    ExpandableHeightGridView gridView = vaccineGroup.getGridView();
-                    gridView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            TextView recordAllTV = (TextView) vaccineGroup.findViewById(R.id.record_all_tv);
-                            recordAllTV.performClick();
-                        }
-                    });
-                }
+                performRecordAllClick(0);
             }
         }
     }
 
-    private void saveVaccine(final List<VaccineWrapper> tags, final View view) {
-        final VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
-        final List<Vaccine> toSave = new ArrayList<>();
-
-        for (VaccineWrapper tag : tags) {
-            Vaccine vaccine = new Vaccine();
-            if (tag.getDbKey() != null) {
-                vaccine = vaccineRepository.find(tag.getDbKey());
-            }
-            vaccine.setBaseEntityId(childDetails.entityId());
-            vaccine.setName(tag.getName());
-            vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
-            vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
-            try {
-                vaccine.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
-                        toolbar.getCurrentLocation()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
-            if (StringUtils.isNumeric(lastChar)) {
-                vaccine.setCalculation(Integer.valueOf(lastChar));
-            } else {
-                vaccine.setCalculation(-1);
-            }
-            toSave.add(vaccine);
-        }
-
-        processInThread(new Runnable() {
-            @Override
-            public void run() {
-                if (!toSave.isEmpty()) {
-                    for (Vaccine vaccine : toSave) {
-                        vaccineRepository.add(vaccine);
-                        updateTagsDbKey(tags, vaccine);
+    private void performRecordAllClick(final int index) {
+        if (vaccineGroups != null && vaccineGroups.size() > index) {
+            final VaccineGroup vaccineGroup = vaccineGroups.get(index);
+            vaccineGroup.post(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<VaccineWrapper> vaccineWrappers = vaccineGroup.getDueVaccines();
+                    if (!vaccineWrappers.isEmpty()) {
+                        TextView recordAllTV = (TextView) vaccineGroup.findViewById(R.id.record_all_tv);
+                        recordAllTV.performClick();
+                    } else {
+                        performRecordAllClick(index + 1);
                     }
                 }
-            }
-        });
+            });
+        }
+    }
 
-        updateVaccineGroupViews(view);
+    private void saveVaccine(List<VaccineWrapper> tags, final View view) {
+        if (tags.isEmpty()) {
+            return;
+        } else if (tags.size() == 1) {
+            saveVaccine(tags.get(0));
+            updateVaccineGroupViews(view);
+        } else {
+            VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
+            SaveVaccinesTask backgroundTask = new SaveVaccinesTask();
+            backgroundTask.setView(view);
+            backgroundTask.execute(arrayTags);
+        }
+    }
+
+    private void saveVaccine(VaccineWrapper tag) {
+        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+
+        Vaccine vaccine = new Vaccine();
+        if (tag.getDbKey() != null) {
+            vaccine = vaccineRepository.find(tag.getDbKey());
+        }
+        vaccine.setBaseEntityId(childDetails.entityId());
+        vaccine.setName(tag.getName());
+        vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
+        vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+        try {
+            vaccine.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                    toolbar.getCurrentLocation()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
+        if (StringUtils.isNumeric(lastChar)) {
+            vaccine.setCalculation(Integer.valueOf(lastChar));
+        } else {
+            vaccine.setCalculation(-1);
+        }
+        vaccineRepository.add(vaccine);
+        tag.setDbKey(vaccine.getId());
     }
 
     private void updateVaccineGroupViews(View view) {
@@ -586,14 +571,39 @@ public class ChildImmunizationActivity extends BaseActivity
         }
     }
 
-    private void updateTagsDbKey(List<VaccineWrapper> tags, Vaccine vaccine) {
-        if (!tags.isEmpty()) {
-            for (VaccineWrapper tag : tags) {
-                if (tag.getName().equals(vaccine.getName())) {
-                    tag.setDbKey(vaccine.getId());
-                }
+    private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Void> {
+
+        private View view;
+
+        public void setView(View view) {
+            this.view = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            hideProgressDialog();
+            updateVaccineGroupViews(view);
+        }
+
+        @Override
+        protected Void doInBackground(VaccineWrapper... vaccineWrappers) {
+            for (VaccineWrapper tag : vaccineWrappers) {
+                saveVaccine(tag);
             }
+            return null;
         }
 
     }
+
+    private String constructChildName() {
+        String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
+        String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+        return getName(firstName, lastName);
+    }
+
 }

@@ -1,6 +1,7 @@
 package org.ei.opensrp.path.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -79,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private static final int REQUEST_CODE_GET_JSON = 3432;
     private AfterFetchListener afterFetchListener;
     private boolean isSyncing;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,8 @@ public abstract class BaseActivity extends AppCompatActivity
                 toggleIsSyncing();
             }
         };
+
+        initializeProgressDialog();
     }
 
     private void toggleIsSyncing() {
@@ -394,6 +398,25 @@ public abstract class BaseActivity extends AppCompatActivity
     public void processInThread(Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             new Thread(runnable).start();
+        }
+    }
+
+    private void initializeProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle(getString(R.string.saving_dialog_title));
+        progressDialog.setMessage(getString(R.string.saving_dialog_message));
+    }
+
+    protected  void showProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.show();
+        }
+    }
+
+    protected  void hideProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 }
