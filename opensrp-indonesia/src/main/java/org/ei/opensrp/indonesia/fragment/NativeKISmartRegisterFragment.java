@@ -202,6 +202,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //        list.setBackgroundColor(Color.RED);
         initializeQueries(getCriteria());
     }
+
     private String filterStringForAll(){
         return "";
     }

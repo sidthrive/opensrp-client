@@ -161,7 +161,8 @@ public class OpenSRPImageLoader extends ImageLoader {
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
-                    Log.e(TAG, "getImageByClientId: "+url);
+//                    Log.e(TAG, "getImageByClientId: "+url);
+                    Log.e(TAG, "getImageByClientId: Image Not Found "+ entityId);
                     get(url,opensrpImageListener);
 
                 }

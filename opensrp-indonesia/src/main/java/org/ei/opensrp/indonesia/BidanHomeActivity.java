@@ -4,6 +4,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,8 +80,10 @@ public class BidanHomeActivity extends SecuredActivity {
 //            mtool.setVectorfromAPI(context());
             Tools.setVectorfromAPI(getApplicationContext());
 
+            Tools.setVectorsBuffered();
+
             // Fetch vector from local db and stored as buffer
-            mtool.parseSavedVector(context());
+//            mtool.parseSavedVector(context());
 
 //            mtool.vector_findAllUnsaved();
         }
@@ -123,7 +126,7 @@ public class BidanHomeActivity extends SecuredActivity {
         FlurryAgent.logEvent("home_dashboard",Home, true );
 
         setContentView(R.layout.smart_registers_home_bidan);
-        navigationController = new NavigationControllerINA(this,anmController);
+        navigationController = new NavigationControllerINA(this, anmController);
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -250,6 +253,7 @@ public class BidanHomeActivity extends SecuredActivity {
                 return true;
             case R.id.help:
                 //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
+                helpMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -352,4 +356,11 @@ public class BidanHomeActivity extends SecuredActivity {
             }
         }
     };
+
+
+    public void helpMenu(){
+        Toast.makeText(getApplicationContext(), String.valueOf(1), Toast.LENGTH_LONG).show();
+
+    }
+
 }

@@ -272,9 +272,10 @@ public class KIDetailActivity extends Activity {
                 if(hash.containsValue(entityid)){
                     Log.e(TAG, "onClick: "+entityid+" updated" );
                     mode = "updated";
+                    updateMode = true;
 
                 }
-                dispatchTakePictureIntent(kiview, mode);
+                dispatchTakePictureIntent(kiview, updateMode);
 
             }
         });

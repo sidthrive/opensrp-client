@@ -334,7 +334,7 @@ public class Tools {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
         HashMap<String, String> hash = new HashMap<>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
-        Log.e(TAG, "retrieveHash: " + "end"+hash.size());
+        Log.e(TAG, "retrieveHash: " + "end "+hash.size());
         return hash;
     }
 
@@ -443,14 +443,17 @@ public class Tools {
         if (result) {
             // Clear data
             // TODO: Null getApplication COntext
-            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
+//            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
+            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(appContext.applicationContext().getApplicationContext());
             hashMap.clear();
-            saveHash(hashMap, cl.getApplicationContext());
+//            saveHash(hashMap, cl.getApplicationContext());
+            saveHash(hashMap, appContext.applicationContext().getApplicationContext());
 //            saveAlbum();
 
-            Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
+//            Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext.applicationContext().getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext.applicationContext().getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
 
         }
         Log.e(TAG, "resetAlbum: " + "finish");
@@ -544,7 +547,7 @@ public class Tools {
         client.get(api_url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.e(TAG, "onSuccess: " );
+                Log.e(TAG, "onSuccess: "+ statusCode );
                 insertOrUpdate(responseBody);
             }
 
@@ -648,8 +651,10 @@ public class Tools {
 
             if(resSetBitmap){
 //                Log.e(TAG, "parseSavedVector: before"+ Arrays.toString(objFace.serializeRecogntionAlbum()));
+                resetAlbum();
 
                 for (int i=0; i<list.size(); i++) {
+
 
                     Log.e(TAG, "loadAlbum: start"+ i );
                     loadAlbum(context.applicationContext().getApplicationContext());
@@ -932,6 +937,54 @@ public class Tools {
             i++;
             if (i == list.size()) break;
         }
+
+
+    }
+
+    public static void setVectorsBuffered() {
+
+        List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
+
+        hash = retrieveHash(appContext.applicationContext().getApplicationContext());
+        Log.e(TAG, "setVectorsBuffered: hash size "+ hash.size()  );
+
+        String[] albumBuffered = new String[0];
+
+        int i = 0;
+        for (ProfileImage profileImage : vectorList){
+
+            if (profileImage.getFilevector() != null) {
+
+                String[] vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
+                vectorFace[0] = String.valueOf(i);
+
+
+                albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
+                hash.put(profileImage.getEntityID(), String.valueOf(i));
+
+//            Log.e(TAG, "setVectorsBuffered: "+ profileImage.getFilevector() );
+//            Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(vectorFace));
+
+            } else {
+                Log.e(TAG, "setVectorsBuffered: Profile Image Null" );
+            }
+            i++;
+
+        }
+
+        String headerOne = "76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0";
+
+        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
+        albumBuffered = ArrayUtils.addAll(headerOne.split(", "), albumBuffered);
+//        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
+//        Log.e(TAG, "setVectorsBuffered: "+ albumBuffered.length );
+
+//        if (!hash.containsKey()){
+//
+//        }
+        Log.e(TAG, "setVectorsBuffered: hash size"+ hash.size() );
+        saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
+        saveHash(hash, appContext.applicationContext());
 
 
     }

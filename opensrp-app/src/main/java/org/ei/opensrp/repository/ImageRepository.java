@@ -63,13 +63,18 @@ public class ImageRepository extends DrishtiRepository {
     }
 
     // If no record yet insert new, if exist just update
-    public void add(ProfileImage Image, String entityId) {
+    public void add(ProfileImage profileImage, String entityId) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
-//        database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
+//        database.insert(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC));
 
-        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+        Log.e(TAG, "add: "+profileImage.getEntityID());
+        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+//        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_NONE);
+        Log.e(TAG, "add: Id"+ id );
         if (id == -1) {
-            database.update(Image_TABLE_NAME, createValuesFor(Image, TYPE_ANC), entityID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+            database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+        } else {
+            Log.e(TAG, "add: "+"Insert New Success" );
         }
 
         database.close();
@@ -104,7 +109,8 @@ public class ImageRepository extends DrishtiRepository {
 
     private ContentValues createValuesFor(ProfileImage image, String type) {
         ContentValues values = new ContentValues();
-        values.put(ID_COLUMN, image.getImageid());
+//        values.put(ID_COLUMN, image.getImageid());
+        values.put(ID_COLUMN, image.getEntityID());
         values.put(anm_ID_COLUMN, image.getAnmId());
         values.put(contenttype_COLUMN, image.getContenttype());
         values.put(entityID_COLUMN, image.getEntityID());
@@ -167,7 +173,7 @@ public class ImageRepository extends DrishtiRepository {
     }
 
     public void insertOrUpdate(String entityId, String faceVector) {
-        Log.e(TAG, "insertOrUpdate: "+"start" );
+        Log.e(TAG, "insertOrUpdate: "+"start "+entityId );
         SQLiteDatabase db = masterRepository.getReadableDatabase();
         ContentValues values = new ContentValues();
 
@@ -179,13 +185,14 @@ public class ImageRepository extends DrishtiRepository {
         values.put(ID_COLUMN, entityId);
         values.put(entityID_COLUMN, entityId);
         values.put(filevector_COLUMN, faceVector);
-        values.put(syncStatus_COLUMN, TYPE_Unsynced);
+//        values.put(syncStatus_COLUMN, TYPE_Unsynced);
         values.put(bfrStatus_COLUMN, TYPE_Unbuffered);
 //        db.insertWithOnConflict(Vector_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE );
 //        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, "entityID" + " = ? AND filevector is null or filevector =?", new String[]{entityId, ""});
 
 //        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
         long id = db.insertWithOnConflict(Image_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.e(TAG, "insertOrUpdate: id "+ id );
         if (id == -1) {
 //            db.update(Vector_TABLE_NAME, values, entityID_COLUMN + "=?" , new String[]{String.valueOf(entityId)});
             db.update(Image_TABLE_NAME, values, entityID_COLUMN + "=?", new String[]{String.valueOf(entityId)});

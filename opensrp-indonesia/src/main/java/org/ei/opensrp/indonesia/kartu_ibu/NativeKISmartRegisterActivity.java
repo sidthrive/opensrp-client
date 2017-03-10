@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonPersonObject;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
@@ -44,8 +47,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANC_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_CLOSE;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_REGISTRATION;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_PELAYANAN;
+
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
@@ -94,9 +100,17 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 nf.setCriteria(base_id);
                 mBaseFragment = new NativeKISmartRegisterFragment();
 
+//                CommonPersonObject cpo = new CommonPersonObject(base_id, null, null, null);
+//                CommonPersonObjectClient pc = new CommonPersonObjectClient(base_id, null, null);
+//                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+//                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
+
                 Log.e(TAG, "onCreate: " + base_id);
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                // TODO : get name by base_id
                 builder.setTitle("Is it Right Clients ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
                 builder.setMessage("Process Time : " + proc_time + " s");
                 builder.setNegativeButton("CANCEL", listener);
                 builder.setPositiveButton("YES", null);
@@ -326,8 +340,8 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
         formNames.add(KARTU_IBU_REGISTRATION);
-        formNames.add("kohort_kb_pelayanan");
-        formNames.add("kartu_anc_registration");
+        formNames.add(KOHORT_KB_PELAYANAN);
+        formNames.add(KARTU_IBU_ANC_REGISTRATION);
         formNames.add(ANAK_BAYI_REGISTRATION);
         formNames.add(KARTU_IBU_CLOSE);
 
