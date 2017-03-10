@@ -96,7 +96,7 @@ public class VaccinatorApplication extends DrishtiApplication{
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("ec_child") || tableName.equals("ec_mother")) {
-            String[] sortFields = {"first_name", "dob", "zeir_id"};
+            String[] sortFields = {"first_name", "dob", "zeir_id", "last_interacted_with"};
             return sortFields;
         }
         return null;

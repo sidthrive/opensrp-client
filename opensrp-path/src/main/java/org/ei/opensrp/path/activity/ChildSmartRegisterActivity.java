@@ -34,15 +34,12 @@ import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
-import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -105,10 +102,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     private String[] buildFormNameList() {
         List<String> formNames = new ArrayList<String>();
-        formNames.add("child_enrollment");
-        formNames.add("child_followup");
-        formNames.add("offsite_child_followup");
-
         return formNames.toArray(new String[formNames.size()]);
     }
 
@@ -161,14 +154,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
         }
         super.showFragmentDialog(dialogOptionModel, tag);
-    }
-
-
-    public DialogOption[] getEditOptions(HashMap<String, String> overridemap) {
-
-        return new DialogOption[]{
-                new OpenFormOption(getResources().getString(R.string.child_followup), "child_followup", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
-        };
     }
 
     @Override
