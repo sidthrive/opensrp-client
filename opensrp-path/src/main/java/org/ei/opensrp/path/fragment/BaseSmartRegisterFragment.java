@@ -1,16 +1,20 @@
 package org.ei.opensrp.path.fragment;
 
+import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
+import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.activity.BaseRegisterActivity;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -20,7 +24,6 @@ import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
-
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -39,7 +42,6 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     @Override
     protected void onInitialization() {
-
     }
 
     @Override
@@ -49,7 +51,6 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     @Override
     protected void onCreation() {
-
     }
 
     protected TextWatcher textWatcher = new TextWatcher() {
@@ -132,10 +133,24 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         } finally {
-            if(cursor != null){
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return client;
+    }
+
+    @Override
+    public void showProgressView() {
+        if (clientsProgressView.getVisibility() == INVISIBLE) {
+            clientsProgressView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideProgressView() {
+        if (clientsProgressView.getVisibility() == VISIBLE) {
+            clientsProgressView.setVisibility(INVISIBLE);
+        }
     }
 }

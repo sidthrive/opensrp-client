@@ -33,6 +33,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
@@ -78,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private BaseToolbar toolbar;
     private Menu menu;
     private static final int REQUEST_CODE_GET_JSON = 3432;
-    private AfterFetchListener afterFetchListener;
+    private PathAfterFetchListener pathAfterFetchListener;
     private boolean isSyncing;
     private ProgressDialog progressDialog;
 
@@ -99,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         toggleIsSyncing();
 
-        afterFetchListener = new AfterFetchListener() {
+        pathAfterFetchListener = new PathAfterFetchListener() {
             @Override
             public void afterFetch(FetchStatus fetchStatus) {
                 isSyncing = false;
@@ -245,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity
                     getOpenSRPContext().formSubmissionSyncService(),
                     new SyncProgressIndicator(),
                     getOpenSRPContext().allFormVersionSyncService());
-            pathUpdateActionsTask.updateFromServer(afterFetchListener);
+            pathUpdateActionsTask.updateFromServer(pathAfterFetchListener);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());

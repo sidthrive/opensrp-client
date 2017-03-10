@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -35,7 +37,6 @@ import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.OpenFormOption;
-import org.ei.opensrp.view.fragment.DisplayFormFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -249,12 +250,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
         } catch (Exception e) {
-            DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
-            if (displayFormFragment != null) {
-                displayFormFragment.setFormPartialSaving(false);
-                displayFormFragment.hideTranslucentProgressDialog();
-            }
-            e.printStackTrace();
+           Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -266,21 +262,9 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             public void run() {
                 mPager.setCurrentItem(0, false);
                 refreshList(data);
-
-                //hack reset the form
-                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(prevPageIndex);
-                if (displayFormFragment != null) {
-                    displayFormFragment.setFormPartialSaving(false);
-                    displayFormFragment.hideTranslucentProgressDialog();
-                    displayFormFragment.setFormData(null);
-                }
-
-                displayFormFragment.setRecordId(null);
             }
         });
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -311,17 +295,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
     }
 
-    public DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
-        return (DisplayFormFragment) findFragmentByPosition(index);
-    }
-
-    public void retrieveAndSaveUnsubmittedFormData() {
-        if (currentActivityIsShowingForm()) {
-            DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
-            formFragment.saveCurrentFormData();
-        }
-    }
-
     private boolean currentActivityIsShowingForm() {
         return currentPage != 0;
     }
@@ -329,7 +302,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        retrieveAndSaveUnsubmittedFormData();
     }
 
     public void startQrCodeScanner() {
@@ -352,11 +324,25 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         }
     };
 
-    private void refreshList(FetchStatus fetchStatus) {
-        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
-        if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
-            registerFragment.refreshListView();
+    private void refreshList(final FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+            if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                registerFragment.refreshListView();
+            }
+        } else {
+            Handler handler = new android.os.Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+                    if (registerFragment != null && fetchStatus.equals(FetchStatus.fetched)) {
+                        registerFragment.refreshListView();
+                    }
+                }
+            });
         }
+
     }
 
     private void refreshList(String data) {
