@@ -25,6 +25,7 @@ import org.ei.opensrp.path.adapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.UniqueIdRepository;
@@ -182,22 +183,25 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             }
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            JsonFormUtils.addChildRegLocHierarchyQuestions(form, context());
-            if (form != null) {
-                Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-                //inject zeir id into the form
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                        jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId);
-                        continue;
+            if(mBaseFragment instanceof ChildSmartRegisterFragment) {
+                LocationPickerView locationPickerView = ((ChildSmartRegisterFragment) mBaseFragment).getLocationPickerView();
+                JsonFormUtils.addChildRegLocHierarchyQuestions(form, locationPickerView.getSelectedItem(), context());
+                if (form != null) {
+                    Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                    //inject zeir id into the form
+                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                            jsonObject.remove(JsonFormUtils.VALUE);
+                            jsonObject.put(JsonFormUtils.VALUE, entityId);
+                            continue;
+                        }
                     }
+                    intent.putExtra("json", form.toString());
+                    startActivityForResult(intent, REQUEST_CODE_GET_JSON);
                 }
-                intent.putExtra("json", form.toString());
-                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -216,7 +220,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.save(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);

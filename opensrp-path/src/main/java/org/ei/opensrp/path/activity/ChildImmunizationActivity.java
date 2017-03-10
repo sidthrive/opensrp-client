@@ -54,6 +54,7 @@ import java.util.List;
 
 import util.DateUtils;
 import util.ImageUtils;
+import util.JsonFormUtils;
 import util.Utils;
 
 import static util.Utils.getValue;
@@ -423,6 +424,12 @@ public class ChildImmunizationActivity extends BaseActivity
             weight.setKg(tag.getWeight());
             weight.setDate(tag.getUpdatedWeightDate().toDate());
             weight.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+            try {
+                weight.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                        toolbar.getCurrentLocation()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -529,6 +536,12 @@ public class ChildImmunizationActivity extends BaseActivity
             vaccine.setName(tag.getName());
             vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
             vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+            try {
+                vaccine.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                        toolbar.getCurrentLocation()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
             if (StringUtils.isNumeric(lastChar)) {

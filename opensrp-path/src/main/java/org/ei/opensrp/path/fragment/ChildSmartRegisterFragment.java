@@ -266,6 +266,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         clinicSelection.setText(newLocation);
     }
 
+    public LocationPickerView getLocationPickerView() {
+        return clinicSelection;
+    }
+
     public void initializeQueries() {
         String tableName = "ec_child";
         String parentTableName = "ec_mother";

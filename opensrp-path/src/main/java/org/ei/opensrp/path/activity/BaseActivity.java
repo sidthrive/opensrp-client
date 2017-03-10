@@ -34,6 +34,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
+import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.sync.AfterFetchListener;
@@ -289,22 +290,26 @@ public abstract class BaseActivity extends AppCompatActivity
             }
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
-            JsonFormUtils.addChildRegLocHierarchyQuestions(form, getOpenSRPContext());
-            if (form != null) {
-                Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-                //inject zeir id into the form
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                        jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId);
-                        continue;
+            if (toolbar instanceof LocationSwitcherToolbar) {
+                LocationSwitcherToolbar locationSwitcherToolbar = (LocationSwitcherToolbar) toolbar;
+                JsonFormUtils.addChildRegLocHierarchyQuestions(form,
+                        locationSwitcherToolbar.getCurrentLocation(), getOpenSRPContext());
+                if (form != null) {
+                    Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
+                    //inject zeir id into the form
+                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                            jsonObject.remove(JsonFormUtils.VALUE);
+                            jsonObject.put(JsonFormUtils.VALUE, entityId);
+                            continue;
+                        }
                     }
+                    intent.putExtra("json", form.toString());
+                    startActivityForResult(intent, REQUEST_CODE_GET_JSON);
                 }
-                intent.putExtra("json", form.toString());
-                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -319,7 +324,7 @@ public abstract class BaseActivity extends AppCompatActivity
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+            JsonFormUtils.save(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
