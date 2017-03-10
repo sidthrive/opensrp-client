@@ -124,7 +124,7 @@
 
     <string name="zeir">ZEIR</string>
 
-    <string name="record_all">Record All</string>
+    <string name="record_all">Record all</string>
     <string name="record_">Record %1$s</string>
     <string name="record_due_">Record %1$s - due %2$s</string>
     <string name="due_">%1$s: due %2$s</string>

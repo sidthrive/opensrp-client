@@ -38,6 +38,8 @@
         android:background="@drawable/undo_background"
         android:text="Undo"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>
