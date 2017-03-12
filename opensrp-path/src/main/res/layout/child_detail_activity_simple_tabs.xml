@@ -14,7 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:theme="@style/AppThemeNoActionBarAndTitleWithEditButton"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/title"
+                style="@style/CustomFontTextViewStyle.NavBar.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+        </org.ei.opensrp.path.toolbar.LocationSwitcherToolbar>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

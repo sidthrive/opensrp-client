@@ -102,6 +102,13 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = this.getIntent().getExtras();
+        if (extras != null) {
+            Serializable serializable = extras.getSerializable(EXTRA_CHILD_DETAILS);
+            if (serializable != null && serializable instanceof CommonPersonObjectClient) {
+                childDetails = (CommonPersonObjectClient) serializable;
+            }
+        }
         setContentView(R.layout.child_detail_activity_simple_tabs);
 
         child_data_fragment = new child_registration_data_fragment();
@@ -113,7 +120,15 @@ public class ChildDetailTabbedActivity extends BaseActivity {
 
 
         detailtoolbar = (Toolbar) findViewById(R.id.child_detail_toolbar);
+
+        ((TextView)detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
+
+        detailtoolbar.setNavigationIcon(R.drawable.back_button);
+//        detailtoolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.ic_menu));
+
+
         detailtoolbar.showOverflowMenu();
+
         setSupportActionBar(detailtoolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,18 +138,20 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        detailtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        detailtoolbar.setTitle(updateActivityTitle());
+
 
         tabLayout.setupWithViewPager(viewPager);
     }
 
     private void initiallization(Bundle savedInstanceState) {
-        Bundle extras = this.getIntent().getExtras();
-        if (extras != null) {
-            Serializable serializable = extras.getSerializable(EXTRA_CHILD_DETAILS);
-            if (serializable != null && serializable instanceof CommonPersonObjectClient) {
-                childDetails = (CommonPersonObjectClient) serializable;
-            }
-        }
+
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailmaps  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
         profileWidget();
@@ -393,6 +410,14 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         }
         updateProfilePicture(gender);
     }
+    private String updateActivityTitle() {
+        String name = "";
+        if (isDataOk()) {
+            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
+                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+        }
+        return String.format("%s's %s",  name,"Health Details");
+    }
     private void updateProfilePicture(Gender gender) {
         this.gender = gender;
         if (isDataOk()) {
@@ -420,6 +445,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         adapter.addFragment(child_under_five_Fragment, "Under Five History");
         viewPager.setAdapter(adapter);
     }
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent

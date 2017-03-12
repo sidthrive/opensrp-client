@@ -43,7 +43,7 @@
         <activity
             android:name=".activity.ChildDetailTabbedActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarAndTitle" />
+            android:theme="@style/AppThemeNoActionBarAndTitleWithEditButton" />
         <activity
             android:name=".activity.FieldMonitorSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
