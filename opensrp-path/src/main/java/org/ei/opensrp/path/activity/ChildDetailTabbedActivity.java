@@ -84,7 +84,7 @@ public class ChildDetailTabbedActivity extends BaseActivity {
     private static final String VACCINES_FILE = "vaccines.json";
     public static final String EXTRA_CHILD_DETAILS = "child_details";
     private static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private child_registration_data_fragment child_data_fragment;
     private child_under_five_fragment child_under_five_Fragment;
     private File currentfile;

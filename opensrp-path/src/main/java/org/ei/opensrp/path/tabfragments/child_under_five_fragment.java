@@ -2,6 +2,7 @@ package org.ei.opensrp.path.tabfragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,17 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
+import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.VaccineRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +38,8 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
     private List<Vaccine> vaccineList;
     private CommonPersonObjectClient childDetails;
     private Map<String,String> detailmaps;
+    private ArrayList<VaccineGroup> vaccineGroups;
+    private static final String VACCINES_FILE = "vaccines.json";
 
 
     public child_under_five_fragment() {
@@ -122,8 +131,66 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
         vaccines.add("Measles 1");
         vaccines.add("Measles 2");
         fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
+//        updateVaccinationViews(fragmentcontainer);
         fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
+
+
+
     }
+    private void updateVaccinationViews(ViewGroup v) {
+        if (vaccineGroups == null) {
+            vaccineGroups = new ArrayList<>();
+            LinearLayout vaccineGroupCanvasLL = new LinearLayout(getActivity());
+            vaccineGroupCanvasLL.setOrientation(LinearLayout.VERTICAL);
+            v.addView(vaccineGroupCanvasLL,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            String supportedVaccinesString = readAssetContents(VACCINES_FILE);
+            try {
+                JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
+                for (int i = 0; i < supportedVaccines.length(); i++) {
+                    VaccineGroup curGroup = new VaccineGroup(getActivity());
+                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails, vaccineList);
+                    curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
+                        @Override
+                        public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
+//                            addVaccinationDialogFragment(dueVaccines, vaccineGroup);
+                        }
+                    });
+                    curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
+                        @Override
+                        public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
+//                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
+                        }
+                    });
+                    curGroup.setOnVaccineUndoClickListener(new VaccineGroup.OnVaccineUndoClickListener() {
+                        @Override
+                        public void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
+//                            addVaccineUndoDialogFragment(vaccineGroup, vaccine);
+                        }
+                    });
+                    vaccineGroupCanvasLL.addView(curGroup);
+                    vaccineGroups.add(curGroup);
+                }
+            } catch (JSONException e) {
+//                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+    }
+    private String readAssetContents(String path) {
+        String fileContents = null;
+        try {
+            InputStream is = getActivity().getAssets().open(path);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            fileContents = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+//            android.util.Log.e(TAG, ex.toString(), ex);
+        }
+
+        return fileContents;
+    }
+
 
     @Override
     public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
