@@ -22,6 +22,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -118,6 +119,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         toolbar.init(this);
+        setLastModified(false);
     }
 
     @Override
@@ -438,6 +440,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
             tag.setDbKey(weight.getId());
             updateRecordWeightView(tag);
+            setLastModified(true);
         }
     }
 
@@ -552,6 +555,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
+        setLastModified(true);
     }
 
     private void updateVaccineGroupViews(View view) {
@@ -610,13 +614,27 @@ public class ChildImmunizationActivity extends BaseActivity
 
     @Override
     public void finish() {
-        String tableName = "ec_child";
-        AllCommonsRepository allCommonsRepository = getOpenSRPContext().allCommonsRepositoryobjects(tableName);
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("last_interacted_with", (new Date()).getTime());
-        allCommonsRepository.update(tableName, contentValues, childDetails.entityId());
-        allCommonsRepository.updateSearch(childDetails.entityId());
+        if(isLastModified()) {
+            String tableName = "ec_child";
+            AllCommonsRepository allCommonsRepository = getOpenSRPContext().allCommonsRepositoryobjects(tableName);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("last_interacted_with", (new Date()).getTime());
+            allCommonsRepository.update(tableName, contentValues, childDetails.entityId());
+            allCommonsRepository.updateSearch(childDetails.entityId());
+        }
         super.finish();
+    }
+
+    private boolean isLastModified(){
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        return application.isLastModified();
+    }
+
+    private void setLastModified(boolean lastModified) {
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        if(lastModified != application.isLastModified()) {
+            application.setLastModified(lastModified);
+        }
     }
 
 }
