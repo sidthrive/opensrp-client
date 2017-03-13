@@ -181,6 +181,9 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                             jsonObject.remove(JsonFormUtils.VALUE);
+                            if(StringUtils.isNotBlank(entityId)) {
+                                entityId = entityId.replace("-", "");
+                            }
                             jsonObject.put(JsonFormUtils.VALUE, entityId);
                             continue;
                         }
