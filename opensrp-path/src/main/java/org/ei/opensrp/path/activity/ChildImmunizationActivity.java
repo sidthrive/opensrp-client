@@ -518,6 +518,10 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void saveVaccine(VaccineWrapper tag) {
+        if(tag.getUpdatedVaccineDate() == null){
+            return;
+        }
+
         VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
 
         Vaccine vaccine = new Vaccine();

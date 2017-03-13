@@ -46,5 +46,23 @@
         "name": "Rota 2"
       }
     ]
+  },
+  {
+    "name": "9 Months",
+    "days_after_birth_due": 2,
+    "vaccines": [
+      {
+        "name": "Measles / MR"
+      }
+    ]
+  },
+  {
+    "name": "18 Months",
+    "days_after_birth_due": 3,
+    "vaccines": [
+      {
+        "name": "Measles 2 / MR 2"
+      }
+    ]
   }
 ]
