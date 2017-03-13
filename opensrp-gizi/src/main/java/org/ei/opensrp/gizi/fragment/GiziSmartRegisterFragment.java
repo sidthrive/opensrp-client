@@ -154,6 +154,8 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_age),KiSortByAgeASC()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_age_reverse),KiSortByAgeDESC()),
                 };
             }
 
@@ -258,7 +260,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //<<<<<<< HEAD
 //                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "registrasi_gizi")
 //=======
-                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context().anmLocationController().get(), "registrasi_jurim")
+                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context().anmLocationController().get(), "registrasi_gizi")
 //>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
                 .show(ft, locationDialogTAG);
     }
@@ -313,6 +315,12 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
     private String KiSortByNameZA() {
         return " namaBayi DESC";
+    }
+    private String KiSortByAgeASC() {
+        return " tanggalLahirAnak DESC";
+    }
+    private String KiSortByAgeDESC() {
+        return " tanggalLahirAnak ASC";
     }
 
     private String KiSortByAge() {
