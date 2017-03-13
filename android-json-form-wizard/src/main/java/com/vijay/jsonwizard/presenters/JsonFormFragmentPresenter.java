@@ -114,6 +114,7 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
 
     public ValidationStatus writeValuesAndValidate(LinearLayout mainView) {
         int childCount = mainView.getChildCount();
+        ValidationStatus firstError = null;
         for (int i = 0; i < childCount; i++) {
             View childAt = mainView.getChildAt(i);
             String key = (String) childAt.getTag(R.id.key);
@@ -121,9 +122,9 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
             String openMrsEntity = (String) childAt.getTag(R.id.openmrs_entity);
             String openMrsEntityId = (String) childAt.getTag(R.id.openmrs_entity_id);
 
-            ValidationStatus validationStatus = validate(getView(), childAt, true);
-            if (!validationStatus.isValid()) {
-                return validationStatus;
+            ValidationStatus validationStatus = validate(getView(), childAt, firstError == null);
+            if (firstError == null && !validationStatus.isValid()) {
+                firstError = validationStatus;
             }
 
             if (childAt instanceof MaterialEditText) {
@@ -151,7 +152,12 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
                 }
             } else if (childAt instanceof MaterialSpinner) {}
         }
-        return new ValidationStatus(true, null, null, null);
+
+        if (firstError == null) {
+            return new ValidationStatus(true, null, null, null);
+        } else {
+            return firstError;
+        }
     }
 
     public static ValidationStatus validate(JsonFormFragmentView formFragmentView, View childAt, boolean requestFocus) {
