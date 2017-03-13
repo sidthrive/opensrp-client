@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
+ * Created by raihan on 13/03/2017.
  */
 
 public class ImmunizationRowCard extends LinearLayout {
@@ -139,11 +139,11 @@ public class ImmunizationRowCard extends LinearLayout {
             case NOT_DUE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
                 statusIV.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-                if(editmode) {
-                    undoB.setVisibility(VISIBLE);
-                }else{
-                    undoB.setVisibility(INVISIBLE);
-                }
+//                if(editmode) {
+//                    undoB.setVisibility(VISIBLE);
+//                }else{
+                undoB.setVisibility(INVISIBLE);
+//                }
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());

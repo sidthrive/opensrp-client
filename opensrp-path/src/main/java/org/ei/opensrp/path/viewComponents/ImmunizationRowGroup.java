@@ -32,9 +32,8 @@ import java.util.concurrent.TimeUnit;
 import util.Utils;
 
 /**
- * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
+ * Created by raihan on 13/03/2017.
  */
-
 public class ImmunizationRowGroup extends LinearLayout implements View.OnClickListener,
         ImmunizationRowCard.OnVaccineStateChangeListener {
     private static final String TAG = "VaccineGroup";

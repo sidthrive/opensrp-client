@@ -28,7 +28,7 @@ import util.Utils;
 import static util.Utils.getValue;
 
 /**
- * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
+ * Created by raihan on 13/03/2017.
  */
 public class ImmunizationRowAdapter extends BaseAdapter {
     private static final String TAG = "VaccineCardAdapter";

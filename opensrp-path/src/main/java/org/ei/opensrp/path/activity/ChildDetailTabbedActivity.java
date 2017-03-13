@@ -5,8 +5,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -32,6 +35,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -40,9 +44,11 @@ import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -71,7 +77,9 @@ import util.JsonFormUtils;
 import util.Utils;
 import util.barcode.BarcodeIntentIntegrator;
 import util.barcode.BarcodeIntentResult;
-
+/**
+ * Created by raihan on 1/03/2017.
+ */
 
 public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener {
 
@@ -531,12 +539,16 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     @Override
     public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
-
+        if (tags != null && !tags.isEmpty()) {
+            saveVaccine(tags, view);
+        }
     }
 
     @Override
     public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
-
+        if (tags != null && !tags.isEmpty()) {
+            saveVaccine(tags, view);
+        }
     }
 
     @Override
@@ -573,4 +585,85 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             return mFragmentTitleList.get(position);
         }
     }
+    private void saveVaccine(List<VaccineWrapper> tags, final View view) {
+        if (tags.isEmpty()) {
+            return;
+        } else if (tags.size() == 1) {
+            saveVaccine(tags.get(0));
+            updateVaccineGroupViews(view);
+        } else {
+            VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
+            SaveVaccinesTask backgroundTask = new SaveVaccinesTask();
+            backgroundTask.setView(view);
+            backgroundTask.execute(arrayTags);
+        }
+    }
+    private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Void> {
+
+        private View view;
+
+        public void setView(View view) {
+            this.view = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            hideProgressDialog();
+            updateVaccineGroupViews(view);
+        }
+
+        @Override
+        protected Void doInBackground(VaccineWrapper... vaccineWrappers) {
+            for (VaccineWrapper tag : vaccineWrappers) {
+                saveVaccine(tag);
+            }
+            return null;
+        }
+
+    }
+    private void updateVaccineGroupViews(View view) {
+        if (view == null || !(view instanceof ImmunizationRowGroup)) {
+            return;
+        }
+        final ImmunizationRowGroup vaccineGroup = (ImmunizationRowGroup) view;
+
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            vaccineGroup.updateViews();
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    vaccineGroup.updateViews();
+                }
+            });
+        }
+    }
+    private void saveVaccine(VaccineWrapper tag) {
+        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+
+        Vaccine vaccine = new Vaccine();
+        if (tag.getDbKey() != null) {
+            vaccine = vaccineRepository.find(tag.getDbKey());
+        }
+        vaccine.setBaseEntityId(childDetails.entityId());
+        vaccine.setName(tag.getName());
+        vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
+        vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+
+        String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
+        if (StringUtils.isNumeric(lastChar)) {
+            vaccine.setCalculation(Integer.valueOf(lastChar));
+        } else {
+            vaccine.setCalculation(-1);
+        }
+        vaccineRepository.add(vaccine);
+        tag.setDbKey(vaccine.getId());
+    }
+
 }

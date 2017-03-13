@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/undo_background"
-        android:text="Undo"
+        android:text="Edit"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
 
