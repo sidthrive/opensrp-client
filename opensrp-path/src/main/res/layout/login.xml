@@ -97,7 +97,7 @@
                 android:background="@drawable/rounded_corner_edittext"
                 android:ems="10"
                 android:hint="@string/passwordEditText"
-                android:inputType="textNoSuggestions|textFilter|textVisiblePassword"
+                android:inputType="textPassword"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
                 android:textColor="#666666"
