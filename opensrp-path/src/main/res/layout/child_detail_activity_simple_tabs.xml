@@ -134,6 +134,7 @@
             app:tabSelectedTextColor="@color/female_dark_pink"
             app:tabIndicatorColor="@color/female_dark_pink"
             app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator"
+            app:tabIndicatorHeight="6dp"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>
