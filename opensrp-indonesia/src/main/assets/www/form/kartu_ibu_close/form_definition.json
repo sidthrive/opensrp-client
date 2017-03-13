@@ -15,6 +15,11 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "existing_location",
+                "bind": "/model/instance/penutupan_ibu_reviewed/existing_location",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "closeReason",
                 "bind": "/model/instance/penutupan_ibu_reviewed/close_reason"
             },
