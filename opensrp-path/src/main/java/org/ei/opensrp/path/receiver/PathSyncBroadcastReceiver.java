@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import org.ei.opensrp.domain.FetchStatus;
+import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -23,7 +25,7 @@ public class PathSyncBroadcastReceiver extends BroadcastReceiver {
                 new SyncProgressIndicator(),
                 org.ei.opensrp.Context.getInstance().allFormVersionSyncService());
 
-        pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
+        pathUpdateActionsTask.updateFromServer(new PathAfterFetchListener());
     }
 }
 

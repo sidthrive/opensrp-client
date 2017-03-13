@@ -2,6 +2,7 @@ package org.ei.opensrp.path.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,10 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -116,6 +119,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         toolbar.init(this);
+        setLastModified(false);
     }
 
     @Override
@@ -436,6 +440,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
             tag.setDbKey(weight.getId());
             updateRecordWeightView(tag);
+            setLastModified(true);
         }
     }
 
@@ -550,6 +555,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
+        setLastModified(true);
     }
 
     private void updateVaccineGroupViews(View view) {
@@ -604,6 +610,31 @@ public class ChildImmunizationActivity extends BaseActivity
         String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
         String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
         return getName(firstName, lastName).trim();
+    }
+
+    @Override
+    public void finish() {
+        if(isLastModified()) {
+            String tableName = "ec_child";
+            AllCommonsRepository allCommonsRepository = getOpenSRPContext().allCommonsRepositoryobjects(tableName);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("last_interacted_with", (new Date()).getTime());
+            allCommonsRepository.update(tableName, contentValues, childDetails.entityId());
+            allCommonsRepository.updateSearch(childDetails.entityId());
+        }
+        super.finish();
+    }
+
+    private boolean isLastModified(){
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        return application.isLastModified();
+    }
+
+    private void setLastModified(boolean lastModified) {
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        if(lastModified != application.isLastModified()) {
+            application.setLastModified(lastModified);
+        }
     }
 
 }

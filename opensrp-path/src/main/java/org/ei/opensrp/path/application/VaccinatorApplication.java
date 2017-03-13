@@ -29,6 +29,7 @@ import static org.ei.opensrp.util.Log.logInfo;
 public class VaccinatorApplication extends DrishtiApplication{
     private Locale locale = null;
     private Context context;
+    private boolean lastModified;
 
     @Override
     public void onCreate() {
@@ -96,7 +97,7 @@ public class VaccinatorApplication extends DrishtiApplication{
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("ec_child") || tableName.equals("ec_mother")) {
-            String[] sortFields = {"first_name", "dob", "zeir_id"};
+            String[] sortFields = {"first_name", "dob", "zeir_id", "last_interacted_with"};
             return sortFields;
         }
         return null;
@@ -134,5 +135,13 @@ public class VaccinatorApplication extends DrishtiApplication{
                 getExternalFilesDir(Environment.DIRECTORY_PICTURES));
         grantUriPermission("com.vijay.jsonwizard", uri,
                 Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+    }
+
+    public boolean isLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(boolean lastModified) {
+        this.lastModified = lastModified;
     }
 }
