@@ -294,6 +294,8 @@
     <string name="str_child_illness_ari">ari</string>
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
+    <string name="sort_by_age">Age (0y to 5 yrs)</string>
+    <string name="sort_by_age_reverse">Age (5 to 0 yrs)</string>
 
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
