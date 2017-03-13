@@ -20,6 +20,11 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "existing_location",
+                "bind": "/model/instance/penutupan_anc_reviewed/existing_location",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "desa",
                 "bind": "/model/instance/penutupan_anc_reviewed/desa"
             },

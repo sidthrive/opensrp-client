@@ -170,16 +170,19 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
             else if (anc_isclosed == 1) {
                 AllCommonsRepository pncrep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_pnc");
                 final CommonPersonObject pncparent = pncrep.findByCaseID(pc.entityId());
-                short pnc_isclosed = pncparent.getClosed();
-                if (pnc_isclosed == 0) {
-                    detailsRepository.updateDetails(pncparent);
+                if(pncparent != null) {
+                    short pnc_isclosed = pncparent.getClosed();
+                    if (pnc_isclosed == 0) {
+                        detailsRepository.updateDetails(pncparent);
                   /*  checkMonth("delivered",viewHolder.edd_due);*/
-                    viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
-                    String deliver = context.getString(R.string.delivered);
-                    viewHolder.edd_due.setText(deliver);
-                    checkLastVisit(pc.getDetails().get("PNCDate"),context.getString(R.string.pnc_ke) + " "+pc.getDetails().get("hariKeKF"),context.getString(R.string.service_pnc),
-                            viewHolder.anc_status_layout,viewHolder.date_status,viewHolder.visit_status);
+                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+                        String deliver = context.getString(R.string.delivered);
+                        viewHolder.edd_due.setText(deliver);
+                        checkLastVisit(pc.getDetails().get("PNCDate"), context.getString(R.string.pnc_ke) + " " + pc.getDetails().get("hariKeKF"), context.getString(R.string.service_pnc),
+                                viewHolder.anc_status_layout, viewHolder.date_status, viewHolder.visit_status);
+                    }
                 }
+
             }
         }
         //last check if mother in PF (KB) service
