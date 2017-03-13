@@ -97,4 +97,5 @@
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="loc_picker_dialog_width">280dp</dimen>
     <dimen name="loc_picker_text_min_width">130dp</dimen>
+    <dimen name="vaccine_horizontal_spacing">20dp</dimen>
 </resources>
