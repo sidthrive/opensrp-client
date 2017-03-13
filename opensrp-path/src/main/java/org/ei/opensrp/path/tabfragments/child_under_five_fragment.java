@@ -1,20 +1,25 @@
 package org.ei.opensrp.path.tabfragments;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.json.JSONArray;
@@ -30,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class child_under_five_fragment extends Fragment implements VaccinationActionListener {
+public class child_under_five_fragment extends Fragment  {
 
     private LayoutInflater inflater;
     private ViewGroup container;
@@ -38,9 +43,9 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
     private List<Vaccine> vaccineList;
     private CommonPersonObjectClient childDetails;
     private Map<String,String> detailmaps;
-    private ArrayList<VaccineGroup> vaccineGroups;
+    private ArrayList<ImmunizationRowGroup> vaccineGroups;
     private static final String VACCINES_FILE = "vaccines.json";
-
+    private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -68,36 +73,12 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        HashMap<String,String> weightmap = new HashMap<String, String>();
-        weightmap.put("9 m","8.4");
-        weightmap.put("8 m","7.5 Kg");
-        weightmap.put("7 m","6.7 Kg");
-        weightmap.put("6 m","5.6 Kg");
-        weightmap.put("5 m","5.0 Kg");
-        WidgetFactory wd = new WidgetFactory();
-
-        ArrayList<String> vaccines = new ArrayList<String>();
-        vaccines.add("BCG");
-        vaccines.add("OPV1");
-        vaccines.add("OPV2");
-        vaccines.add("OPV3");
-        vaccines.add("PCV1");
-        vaccines.add("PCV2");
-        vaccines.add("PCV3");
-        vaccines.add("Penta 1");
-        vaccines.add("Penta 2");
-        vaccines.add("Penta 3");
-        vaccines.add("Penta 4");
-        vaccines.add("Penta 5");
-        vaccines.add("Measles 1");
-        vaccines.add("Measles 2");
 
         VaccineRepository vaccineRepository = ((ChildDetailTabbedActivity)getActivity()).getOpenSRPContext().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
 
-
-        fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
-        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
+        loadview(false);
+//        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
 
 
         // Inflate the layout for this fragment
@@ -115,65 +96,67 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
         weightmap.put("5 m","5.0 Kg");
         WidgetFactory wd = new WidgetFactory();
 
-        ArrayList<String> vaccines = new ArrayList<String>();
-        vaccines.add("BCG");
-        vaccines.add("OPV1");
-        vaccines.add("OPV2");
-        vaccines.add("OPV3");
-        vaccines.add("PCV1");
-        vaccines.add("PCV2");
-        vaccines.add("PCV3");
-        vaccines.add("Penta 1");
-        vaccines.add("Penta 2");
-        vaccines.add("Penta 3");
-        vaccines.add("Penta 4");
-        vaccines.add("Penta 5");
-        vaccines.add("Measles 1");
-        vaccines.add("Measles 2");
         fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
-//        updateVaccinationViews(fragmentcontainer);
-        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
+//        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
+        updateVaccinationViews(fragmentcontainer,editmode);
+//        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
 
 
 
     }
-    private void updateVaccinationViews(ViewGroup v) {
-        if (vaccineGroups == null) {
+    private void updateVaccinationViews(ViewGroup v,boolean editmode) {
+        if (vaccineGroups != null) {
+            vaccineGroups.clear();
+        }
+
             vaccineGroups = new ArrayList<>();
             LinearLayout vaccineGroupCanvasLL = new LinearLayout(getActivity());
             vaccineGroupCanvasLL.setOrientation(LinearLayout.VERTICAL);
             v.addView(vaccineGroupCanvasLL,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            String supportedVaccinesString = readAssetContents(VACCINES_FILE);
+            TextView  title = new TextView(getActivity());
+            title.setAllCaps(true);
+            title.setTextAppearance(getActivity(),  android.R.style.TextAppearance_Large);
+            title.setText("Immunizations");
+            vaccineGroupCanvasLL.addView(title);
+
+        String supportedVaccinesString = readAssetContents(VACCINES_FILE);
             try {
                 JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
                 for (int i = 0; i < supportedVaccines.length(); i++) {
-                    VaccineGroup curGroup = new VaccineGroup(getActivity());
+                    ImmunizationRowGroup curGroup = new ImmunizationRowGroup(getActivity(),editmode);
                     curGroup.setData(supportedVaccines.getJSONObject(i), childDetails, vaccineList);
-                    curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
+                    curGroup.setOnVaccineUndoClickListener(new ImmunizationRowGroup.OnVaccineUndoClickListener() {
                         @Override
-                        public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
-//                            addVaccinationDialogFragment(dueVaccines, vaccineGroup);
+                        public void onUndoClick(ImmunizationRowGroup vaccineGroup, VaccineWrapper vaccine) {
+                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
+
                         }
                     });
-                    curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
-                        @Override
-                        public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
-//                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
-                        }
-                    });
-                    curGroup.setOnVaccineUndoClickListener(new VaccineGroup.OnVaccineUndoClickListener() {
-                        @Override
-                        public void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
-//                            addVaccineUndoDialogFragment(vaccineGroup, vaccine);
-                        }
-                    });
+//                    curGroup.setOnRecordAllClickListener(new VaccineGroup.OnRecordAllClickListener() {
+//                        @Override
+//                        public void onClick(VaccineGroup vaccineGroup, ArrayList<VaccineWrapper> dueVaccines) {
+////                            addVaccinationDialogFragment(dueVaccines, vaccineGroup);
+//                        }
+//                    });
+//                    curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
+//                        @Override
+//                        public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
+////                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
+//                        }
+//                    });
+//                    curGroup.setOnVaccineUndoClickListener(new VaccineGroup.OnVaccineUndoClickListener() {
+//                        @Override
+//                        public void onUndoClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
+////                            addVaccineUndoDialogFragment(vaccineGroup, vaccine);
+//                        }
+//                    });
                     vaccineGroupCanvasLL.addView(curGroup);
                     vaccineGroups.add(curGroup);
                 }
             } catch (JSONException e) {
 //                Log.e(TAG, Log.getStackTraceString(e));
             }
-        }
+
     }
     private String readAssetContents(String path) {
         String fileContents = null;
@@ -192,18 +175,14 @@ public class child_under_five_fragment extends Fragment implements VaccinationAc
     }
 
 
-    @Override
-    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
-
-    }
-
-    @Override
-    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
-
-    }
-
-    @Override
-    public void onUndoVaccination(VaccineWrapper tag, View view) {
-
+    public void addVaccinationDialogFragment(List<VaccineWrapper> vaccineWrappers, ImmunizationRowGroup vaccineGroup) {
+        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+        android.app.Fragment prev =  getActivity().getFragmentManager().findFragmentByTag(DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(getActivity(), vaccineWrappers, vaccineGroup);
+        vaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 }

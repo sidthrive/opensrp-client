@@ -34,6 +34,8 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.RegisterClickables;
+import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
@@ -71,7 +73,8 @@ import util.barcode.BarcodeIntentIntegrator;
 import util.barcode.BarcodeIntentResult;
 
 
-public class ChildDetailTabbedActivity extends BaseActivity {
+public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener {
+
 
     private Toolbar detailtoolbar;
     private TabLayout tabLayout;
@@ -526,6 +529,20 @@ public class ChildDetailTabbedActivity extends BaseActivity {
         return childDetails != null && childDetails.getDetails() != null;
     }
 
+    @Override
+    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+
+    }
+
+    @Override
+    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+
+    }
+
+    @Override
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
+
+    }
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
