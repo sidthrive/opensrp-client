@@ -356,8 +356,7 @@ public class Tools {
         Log.e(TAG, "loadAlbum: "+ "start");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString(FaceConstants.ALBUM_ARRAY, null);
-//
-        Log.e(TAG, "loadAlbum: "+arrayOfString );
+//        Log.e(TAG, "loadAlbum: "+arrayOfString );
         byte[] albumArray;
 
 //        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length()) );
@@ -373,13 +372,14 @@ public class Tools {
 
                 albumArray = new byte[splitStringArray.length];
 
-                Log.e(TAG, "loadAlbum: length" + albumArray.length);
+//                Log.e(TAG, "loadAlbum: length " + albumArray.length);
 
                 for (int i = 0; i < splitStringArray.length; i++) {
                     albumArray[i] = Byte.parseByte(splitStringArray[i]);
                 }
 
 //            User-space exception detected! if Data length not match
+            Log.e(TAG, "loadAlbum: panjang array = "+ albumArray.length );
 
                 SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
 
@@ -458,6 +458,230 @@ public class Tools {
         }
         Log.e(TAG, "resetAlbum: " + "finish");
     }
+    /**
+     * Fetch data from API (json
+     */
+    public static void setVectorfromAPI(final android.content.Context context) {
+//        AllSharedPreferences allSharedPreferences;
+
+        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
+        String user = appContext.allSharedPreferences().fetchRegisteredANM();
+        String location = appContext.allSharedPreferences().getPreference("locationId");
+        String pwd = appContext.allSettings().fetchANMPassword();
+        //TODO : cange to based locationId
+//        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
+        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.setBasicAuth(user, pwd);
+
+//        client.get(api_url, new JsonHttpResponseHandler(){
+//        });
+
+        client.get(api_url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e(TAG, "onSuccess: "+ statusCode );
+                insertOrUpdate(responseBody);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e(TAG, "onFailure: "+api_url);
+            }
+        });
+
+
+    }
+
+    private static void insertOrUpdate(byte[] responseBody) {
+
+        try {
+            JSONArray response = new JSONArray(new String(responseBody));
+
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject data = response.getJSONObject(i);
+
+                String uid = data.getString("caseId");
+                String anmId = data.getString("providerId");
+//                        String uid = data.getString("caseId");
+
+                // To AlbumArray
+                String faceVector = data.getJSONObject("attributes").getString("faceVector");
+
+                // Update Table ImageList on existing record based on entityId where faceVector== null
+                ProfileImage profileImage= new ProfileImage();
+//                profileImage.setImageid(UUID.randomUUID().toString());
+                // TODO : get anmID from ?
+                profileImage.setAnmId(anmId);
+                profileImage.setEntityID(uid);
+//                profileImage.setFilepath(null);
+//                profileImage.setFilecategory("profilepic");
+//                profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
+
+                // TODO : fetch vector from imagebitmap
+                profileImage.setFilevector(faceVector);
+//                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
+//                ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+
+//                imageRepo.add(profileImage);
+//                imageRepo.updateByEntityIdNull(uid, faceVector);
+//                imageRepo.insertOrUpdate(uid, faceVector);
+//                        faceRepo.updateByEntityIdNull(uid, faceVector);
+
+                imageRepo.insertOrUpdate(profileImage, uid);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Method to Parse String
+     * @param arrayOfString
+     * @return
+     */
+    private String[] parseArray(String arrayOfString) {
+
+        return arrayOfString.substring(1,
+                arrayOfString.length() - 1).split(", ");
+    }
+
+    /**
+     * Save to Buffer from Local DB
+     *
+     * @param context
+     */
+
+    public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
+
+        byte[] faceVector;
+
+        if (!updated) {
+
+//            Log.e(TAG, "saveAndClose: "+ "updated : false" );
+            int result = objFace.addPerson(arrayPossition);
+            faceVector = objFace.serializeRecogntionAlbum();
+
+//            Log.e(TAG, "saveAndClose: length "+ faceVector.length ); // 32
+//
+//            Log.e(TAG, "saveAndClose: " + result);
+
+            hash = retrieveHash(context);
+
+            hash.put(entityId, Integer.toString(result));
+//
+            // Save Hash
+            saveHash(hash, context);
+
+//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
+
+            Log.e(TAG, "saveAndClose: " + faceVector.length);
+
+            saveAlbum(Arrays.toString(faceVector), context);
+
+            String albumBufferArr = Arrays.toString(faceVector);
+
+            String[] faceVectorContent = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
+
+            // Get Face Vector Contnt Only by removing Header
+            faceVectorContent = Arrays.copyOfRange(faceVectorContent, faceVector.length-300, faceVector.length);
+
+            WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
+
+            // Reset Album to get Single Face Vector
+//            SmartShutterActivity.faceProc.resetAlbum();
+
+        } else {
+
+            int update_result = objFace.updatePerson(Integer.parseInt(hash.get(entityId)), 0);
+
+            if (update_result == 0) {
+
+                Log.e(TAG, "saveAndClose: "+"success" );
+
+            } else {
+
+                Log.e(TAG, "saveAndClose: "+ "Maximum Reached Limit for Face" );
+
+            }
+
+            faceVector = objFace.serializeRecogntionAlbum();
+
+            // TODO : update only face vector
+            saveAlbum(Arrays.toString(faceVector), context);
+        }
+
+        new ImageConfirmation().finish();
+
+        Intent resultIntent = new Intent(appContext.applicationContext(), KIDetailActivity.class);
+//        setResult(RESULT_OK, resultIntent);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        appContext.applicationContext().startActivity(resultIntent);
+
+        Log.e(TAG, "saveAndClose: "+"end" );
+    }
+
+    public static void setVectorsBuffered() {
+
+        List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
+
+        hash = retrieveHash(appContext.applicationContext().getApplicationContext());
+        Log.e(TAG, "setVectorsBuffered: hash size "+ hash.size()  );
+
+        String[] albumBuffered = new String[0];
+
+        int i = 0;
+        for (ProfileImage profileImage : vectorList){
+
+            if (profileImage.getFilevector() != null) {
+
+                String[] vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
+                vectorFace[0] = String.valueOf(i);
+
+
+                albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
+                hash.put(profileImage.getEntityID(), String.valueOf(i));
+
+//            Log.e(TAG, "setVectorsBuffered: "+ profileImage.getFilevector() );
+//            Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(vectorFace));
+
+            } else {
+                Log.e(TAG, "setVectorsBuffered: Profile Image Null" );
+            }
+            i++;
+
+        }
+
+//        String headerOne = "76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0"; // 1 user
+//        String headerOne = "96, -108, 4, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, -24, 3, 0, 0"; // 3 user
+//        String headerOne = "-100, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 480
+
+//        String headerOne = "120, 2, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 2, 0, 0, 0"; // 2 ok
+//        String headerOne = "-92, 3, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 3, 0, 0, 0"; // 3 ok
+        String headerOne = "-48, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 3 ok
+//        String headerOne = "-96, 50, 2, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, -32, 1, 0, 0";
+
+
+        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
+        albumBuffered = ArrayUtils.addAll(headerOne.split(", "), albumBuffered);
+//        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
+//        Log.e(TAG, "setVectorsBuffered: "+ albumBuffered.length );
+
+//        if (!hash.containsKey()){
+//
+//        }
+        Log.e(TAG, "setVectorsBuffered: hash size"+ hash.size() );
+        saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
+        saveHash(hash, appContext.applicationContext());
+
+
+    }
 
     /**
      * Stored from Local captured
@@ -490,7 +714,7 @@ public class Tools {
                     } else {
                         throw new IllegalArgumentException(
                                 "Failed to save static image, could not retrieve image compression format from name "
-                                + absoluteFileName );
+                                        + absoluteFileName );
                     }
 
                     // insert into the db local
@@ -522,104 +746,6 @@ public class Tools {
             }
         }
     }
-
-    /**
-     * Fetch data from API (json
-     */
-    public static void setVectorfromAPI(final android.content.Context context) {
-//        AllSharedPreferences allSharedPreferences;
-
-        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
-        String user = appContext.allSharedPreferences().fetchRegisteredANM();
-        String location = appContext.allSharedPreferences().getPreference("locationId");
-        String pwd = appContext.allSettings().fetchANMPassword();
-        //TODO : cange to based locationId
-//        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-        String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        client.setBasicAuth(user, pwd);
-
-//        client.get(api_url, new JsonHttpResponseHandler(){
-//        });
-
-        client.get(api_url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.e(TAG, "onSuccess: "+ statusCode );
-                insertOrUpdate(responseBody);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: ");
-            }
-        });
-
-
-    }
-
-    private static void insertOrUpdate(byte[] responseBody) {
-
-        try {
-            JSONArray response = new JSONArray(new String(responseBody));
-
-            for (int i = 0; i < response.length(); i++) {
-                JSONObject data = response.getJSONObject(i);
-
-                String uid = data.getString("caseId");
-//                        String anmId = data.getString("providerId");
-//                        String uid = data.getString("caseId");
-
-                // To AlbumArray
-                String faceVector = data.getJSONObject("attributes").getString("faceVector");
-
-                // Update Table ImageList on existing record based on entityId where faceVector== null
-//                ProfileImage profileImage= new ProfileImage();
-//                profileImage.setImageid(UUID.randomUUID().toString());
-                // TODO : get anmID from ?
-//                profileImage.setAnmId("anmID");
-//                profileImage.setEntityID(uid);
-//                profileImage.setFilepath(null);
-//                profileImage.setFilecategory("profilepic");
-//                profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
-
-                // TODO : fetch vector from imagebitmap
-//                    profileImage.setFilevector();
-//                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
-//                ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-
-//                imageRepo.add(profileImage);
-//                imageRepo.updateByEntityIdNull(uid, faceVector);
-                imageRepo.insertOrUpdate(uid, faceVector);
-//                        faceRepo.updateByEntityIdNull(uid, faceVector);
-
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * Method to Parse String
-     * @param arrayOfString
-     * @return
-     */
-    private String[] parseArray(String arrayOfString) {
-
-        return arrayOfString.substring(1,
-                arrayOfString.length() - 1).split(", ");
-    }
-
-    /**
-     * Save to Buffer from Local DB
-     *
-     * @param context
-     */
 
     public void parseSavedVector(Context context) {
 
@@ -770,77 +896,6 @@ public class Tools {
 
     }
 
-
-    public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
-
-        byte[] faceVector;
-
-        if (!updated) {
-
-//            Log.e(TAG, "saveAndClose: "+ "updated : false" );
-            int result = objFace.addPerson(arrayPossition);
-            faceVector = objFace.serializeRecogntionAlbum();
-
-//            Log.e(TAG, "saveAndClose: length "+ faceVector.length ); // 32
-//
-//            Log.e(TAG, "saveAndClose: " + result);
-
-            hash = retrieveHash(context);
-
-            hash.put(entityId, Integer.toString(result));
-//
-            // Save Hash
-            saveHash(hash, context);
-
-//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
-
-            Log.e(TAG, "saveAndClose: " + faceVector.length);
-
-            saveAlbum(Arrays.toString(faceVector), context);
-
-            String albumBufferArr = Arrays.toString(faceVector);
-
-            String[] faceVectorContent = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
-
-            // Get Face Vector Contnt Only by removing Header
-            faceVectorContent = Arrays.copyOfRange(faceVectorContent, faceVector.length-300, faceVector.length);
-
-            WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
-
-            // Reset Album to get Single Face Vector
-//            SmartShutterActivity.faceProc.resetAlbum();
-
-        } else {
-
-            int update_result = objFace.updatePerson(Integer.parseInt(hash.get(entityId)), 0);
-
-            if (update_result == 0) {
-
-                Log.e(TAG, "saveAndClose: "+"success" );
-
-            } else {
-
-                Log.e(TAG, "saveAndClose: "+ "Maximum Reached Limit for Face" );
-
-            }
-
-            faceVector = objFace.serializeRecogntionAlbum();
-
-            // TODO : update only face vector
-            saveAlbum(Arrays.toString(faceVector), context);
-        }
-
-        new ImageConfirmation().finish();
-
-        Intent resultIntent = new Intent(appContext.applicationContext(), KIDetailActivity.class);
-//        setResult(RESULT_OK, resultIntent);
-        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        appContext.applicationContext().startActivity(resultIntent);
-
-        Log.e(TAG, "saveAndClose: "+"end" );
-    }
-
     public void parseSavedVector2(Context context) {
 
         hash = retrieveHash(context.applicationContext());
@@ -941,51 +996,6 @@ public class Tools {
 
     }
 
-    public static void setVectorsBuffered() {
-
-        List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
-
-        hash = retrieveHash(appContext.applicationContext().getApplicationContext());
-        Log.e(TAG, "setVectorsBuffered: hash size "+ hash.size()  );
-
-        String[] albumBuffered = new String[0];
-
-        int i = 0;
-        for (ProfileImage profileImage : vectorList){
-
-            if (profileImage.getFilevector() != null) {
-
-                String[] vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
-                vectorFace[0] = String.valueOf(i);
 
 
-                albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
-                hash.put(profileImage.getEntityID(), String.valueOf(i));
-
-//            Log.e(TAG, "setVectorsBuffered: "+ profileImage.getFilevector() );
-//            Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(vectorFace));
-
-            } else {
-                Log.e(TAG, "setVectorsBuffered: Profile Image Null" );
-            }
-            i++;
-
-        }
-
-        String headerOne = "76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0";
-
-        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
-        albumBuffered = ArrayUtils.addAll(headerOne.split(", "), albumBuffered);
-//        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
-//        Log.e(TAG, "setVectorsBuffered: "+ albumBuffered.length );
-
-//        if (!hash.containsKey()){
-//
-//        }
-        Log.e(TAG, "setVectorsBuffered: hash size"+ hash.size() );
-        saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
-        saveHash(hash, appContext.applicationContext());
-
-
-    }
 }

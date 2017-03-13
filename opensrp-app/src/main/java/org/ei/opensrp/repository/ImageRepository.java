@@ -67,15 +67,15 @@ public class ImageRepository extends DrishtiRepository {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
 //        database.insert(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC));
 
-        Log.e(TAG, "add: "+profileImage.getEntityID());
-        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-//        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_NONE);
-        Log.e(TAG, "add: Id"+ id );
-        if (id == -1) {
-            database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
-        } else {
-            Log.e(TAG, "add: "+"Insert New Success" );
-        }
+//        Log.e(TAG, "add: "+profileImage.getEntityID());
+//        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+//        Log.e(TAG, "add: Id"+ id );
+//        if (id == -1) {
+        long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+        Log.e(TAG, "add: "+ id );
+//        } else {
+//            Log.e(TAG, "add: "+"Insert New Success" );
+//        }
 
         database.close();
     }
@@ -110,14 +110,23 @@ public class ImageRepository extends DrishtiRepository {
     private ContentValues createValuesFor(ProfileImage image, String type) {
         ContentValues values = new ContentValues();
 //        values.put(ID_COLUMN, image.getImageid());
+        if (image.getEntityID() != null)
         values.put(ID_COLUMN, image.getEntityID());
+        if (image.getAnmId() != null)
         values.put(anm_ID_COLUMN, image.getAnmId());
+        if (image.getContenttype() != null)
         values.put(contenttype_COLUMN, image.getContenttype());
+        if (image.getEntityID() != null)
         values.put(entityID_COLUMN, image.getEntityID());
+        if (image.getFilepath() != null)
         values.put(filepath_COLUMN, image.getFilepath());
+        if (image.getSyncStatus() != null)
         values.put(syncStatus_COLUMN, image.getSyncStatus());
+        if (image.getFilecategory() != null)
         values.put(filecategory_COLUMN, image.getFilecategory());
+        if (image.getFilevector() != null)
         values.put(filevector_COLUMN, image.getFilevector());
+        Log.e(TAG, "createValuesFor: "+ values.toString() );
         return values;
     }
 
@@ -183,6 +192,7 @@ public class ImageRepository extends DrishtiRepository {
 //        values.put(ID_COLUMN, UUID.randomUUID().toString());
 
         values.put(ID_COLUMN, entityId);
+//        values.put(anm_ID_COLUMN, );
         values.put(entityID_COLUMN, entityId);
         values.put(filevector_COLUMN, faceVector);
 //        values.put(syncStatus_COLUMN, TYPE_Unsynced);
@@ -212,6 +222,36 @@ public class ImageRepository extends DrishtiRepository {
     }
 
 
+    public void insertOrUpdate(ProfileImage profileImage, String uid) {
+        Log.e(TAG, "insertOrUpdate: "+"start "+profileImage.getEntityID() );
+        SQLiteDatabase db = masterRepository.getReadableDatabase();
+        ContentValues values = new ContentValues();
 
+//        ProfileImage profileImage= new ProfileImage();
+//        profileImage.setImageid(UUID.randomUUID().toString());
+//        values.put(ID_COLUMN, UUID.randomUUID().toString());
+//        values.put(ID_COLUMN, entityId);
+//        values.put(anm_ID_COLUMN, );
+//        values.put(entityID_COLUMN, entityId);
+//        values.put(filevector_COLUMN, faceVector);
+//        values.put(syncStatus_COLUMN, TYPE_Unsynced);
+//        values.put(bfrStatus_COLUMN, TYPE_Unbuffered);
+//        db.insertWithOnConflict(Vector_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE );
+//        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, "entityID" + " = ? AND filevector is null or filevector =?", new String[]{entityId, ""});
 
+//        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
+        long id = db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+        Log.e(TAG, "insertOrUpdate: id insert new "+ id );
+        if (id == -1) {
+            Log.e(TAG, "insertOrUpdate: updated "+ id );
+            db.update(Vector_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
+//            long id = db.update(Image_TABLE_NAME, values, ID_COLUMN + "=?", new String[]{String.valueOf(profileImage.getEntityID())});
+//        Log.e(TAG, "insertOrUpdate: "+profileImage.toString() );
+//            long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{uid});
+//        Log.e(TAG, "insertOrUpdate: "+id );
+        }
+
+        close(profileImage.getEntityID());
+
+    }
 }

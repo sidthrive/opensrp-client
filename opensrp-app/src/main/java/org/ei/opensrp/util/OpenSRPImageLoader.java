@@ -221,6 +221,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                  * Display image loaded from disk if reference is not NULL
                  */
                 if (result != null) {
+                    Log.d(TAG, "Found image on local storage, no download needed");
                     Log.i(TAG, "Found image on local storage, no download needed");
                     ImageContainer imgContainer = new ImageContainer(result, null, null, opensrpImageListener);
                     if (opensrpImageListener != null) {
@@ -513,6 +514,7 @@ public class OpenSRPImageLoader extends ImageLoader {
      */
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image) {
+        Log.e(TAG, "saveStaticImageToDisk: "+ entityId );
         if (image != null) {
             OutputStream os = null;
             try {
@@ -532,9 +534,12 @@ public class OpenSRPImageLoader extends ImageLoader {
                     // insert into the db
                     ProfileImage profileImage= new ProfileImage();
 //                    profileImage.setImageid(UUID.randomUUID().toString());
+                    // Image Id assumption is one user one image
+                    profileImage.setImageid(entityId);
                     // TODO : get anmID from ?
-                    profileImage.setAnmId("anmID");
+//                    profileImage.setAnmId("anmID");
                     profileImage.setEntityID(entityId);
+                    profileImage.setContenttype("jpeg");
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);

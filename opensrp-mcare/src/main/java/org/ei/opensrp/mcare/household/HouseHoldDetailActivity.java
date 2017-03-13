@@ -71,6 +71,7 @@ public class HouseHoldDetailActivity extends Activity {
     ListView Clientsview;
     Context context;
     public Button nidbutton;
+    private String entityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

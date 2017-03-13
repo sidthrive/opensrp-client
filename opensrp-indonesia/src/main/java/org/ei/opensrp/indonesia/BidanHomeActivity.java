@@ -82,6 +82,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
             Tools.setVectorsBuffered();
 
+//            Tools.loadAlbum(context().applicationContext());
             // Fetch vector from local db and stored as buffer
 //            mtool.parseSavedVector(context());
 

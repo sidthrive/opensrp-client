@@ -172,6 +172,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         Tools.loadAlbum(getApplicationContext());
+
+
     }
 
     @Override
@@ -231,6 +233,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             if (faceProc == null) {
                 faceProc = FacialProcessing.getInstance();
             }
+//            byte[] dataFace = faceProc.serializeRecogntionAlbum();
+
+//            Log.e(TAG, "onCreate: "+ dataFace.length );
+
 //            faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_STILL); // Static Image
             faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_VIDEO);
 
