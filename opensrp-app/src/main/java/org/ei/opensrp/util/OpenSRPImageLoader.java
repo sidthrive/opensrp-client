@@ -154,15 +154,29 @@ public class OpenSRPImageLoader extends ImageLoader {
 
             } else {
                 //get image record from the db
-                ImageRepository imageRepo = (ImageRepository)org.ei.opensrp.Context.getInstance().imageRepository();
-                ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
-                if(imageRecord!=null) {
-                    get(imageRecord, opensrpImageListener);
-                }else{
-                    String url= FileUtilities.getImageUrl(entityId);
-                    get(url,opensrpImageListener);
+                final OpenSRPImageLoader openSRPImageLoader = this;
+                new AsyncTask<Void, Void, ProfileImage>(){
 
-                }
+                    @Override
+                    protected ProfileImage doInBackground(Void... params) {
+                        ImageRepository imageRepo = org.ei.opensrp.Context.getInstance().imageRepository();
+                        ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
+                        return imageRecord;
+                    }
+
+                    @Override
+                    protected void onPostExecute(ProfileImage imageRecord) {
+                        if(imageRecord!=null) {
+                            openSRPImageLoader.get(imageRecord, opensrpImageListener);
+                        }else{
+                            String url= FileUtilities.getImageUrl(entityId);
+                            openSRPImageLoader.get(url,opensrpImageListener);
+
+                        }
+                    }
+                }.execute();
+
+
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);

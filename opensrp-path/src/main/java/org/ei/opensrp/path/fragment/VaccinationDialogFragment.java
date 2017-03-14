@@ -204,6 +204,8 @@ public class VaccinationDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 dismiss();
 
+                ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
+
                 int day = earlierDatePicker.getDayOfMonth();
                 int month = earlierDatePicker.getMonth();
                 int year = earlierDatePicker.getYear();
@@ -219,17 +221,18 @@ public class VaccinationDialogFragment extends DialogFragment {
                     if (radioName != null) {
                         tag.setName(radioName);
                     }
-
+                    tagsToUpdate.add(tag);
                 } else {
                     List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
                     for (String checkedName : selectedCheckboxes) {
                         VaccineWrapper tag = searchWrapperByName(checkedName);
                         if (tag != null) {
                             tag.setUpdatedVaccineDate(dateTime, false);
+                            tagsToUpdate.add(tag);
                         }
                     }
                 }
-                listener.onVaccinateEarlier(tags);
+                listener.onVaccinateEarlier(tagsToUpdate);
 
             }
         });
@@ -239,6 +242,8 @@ public class VaccinationDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
+
+                ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
 
                 Calendar calendar = Calendar.getInstance();
                 DateTime dateTime = new DateTime(calendar.getTime());
@@ -250,18 +255,19 @@ public class VaccinationDialogFragment extends DialogFragment {
                     if (radioName != null) {
                         tag.setName(radioName);
                     }
-
+                    tagsToUpdate.add(tag);
                 } else {
                     List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
                     for (String checkedName : selectedCheckboxes) {
                         VaccineWrapper tag = searchWrapperByName(checkedName);
                         if (tag != null) {
                             tag.setUpdatedVaccineDate(dateTime, true);
+                            tagsToUpdate.add(tag);
                         }
                     }
                 }
 
-                listener.onVaccinateToday(tags);
+                listener.onVaccinateToday(tagsToUpdate);
 
             }
         });

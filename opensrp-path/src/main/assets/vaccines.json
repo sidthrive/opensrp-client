@@ -48,17 +48,35 @@
     ]
   },
   {
+    "name": "14 Weeks",
+    "days_after_birth_due": 98,
+    "vaccines": [
+      {
+        "name": "OPV 3"
+      },
+      {
+        "name": "Penta 3"
+      },
+      {
+        "name": "PCV 3"
+      }
+    ]
+  },
+  {
     "name": "9 Months",
-    "days_after_birth_due": 2,
+    "days_after_birth_due": 274,
     "vaccines": [
       {
         "name": "Measles 1 / MR 1"
+      },
+      {
+        "name": "OPV 4"
       }
     ]
   },
   {
     "name": "18 Months",
-    "days_after_birth_due": 3,
+    "days_after_birth_due": 548,
     "vaccines": [
       {
         "name": "Measles 2 / MR 2"

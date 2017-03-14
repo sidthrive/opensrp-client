@@ -70,7 +70,7 @@ public class VaccineCard extends LinearLayout {
         statusIV = (ImageView) findViewById(R.id.status_iv);
         nameTV = (TextView) findViewById(R.id.name_tv);
         undoB = (Button) findViewById(R.id.undo_b);
-     }
+    }
 
     public void setVaccineWrapper(VaccineWrapper vaccineWrapper) {
         this.vaccineWrapper = vaccineWrapper;
@@ -143,7 +143,11 @@ public class VaccineCard extends LinearLayout {
                 undoB.setVisibility(GONE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(android.R.color.white));
-                nameTV.setText(String.format(context.getString(R.string.record_), getVaccineName()));
+                String vaccineName = getVaccineName();
+                nameTV.setText(String.format(context.getString(R.string.record_), vaccineName));
+                if (vaccineName.toLowerCase().contains("measles") || vaccineName.toLowerCase().contains("mr")) {
+                    nameTV.setText(vaccineName);
+                }
                 setClickable(true);
                 break;
             case DONE_CAN_BE_UNDONE:
@@ -170,8 +174,13 @@ public class VaccineCard extends LinearLayout {
                 undoB.setVisibility(GONE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(android.R.color.white));
+                String vName = getVaccineName();
                 nameTV.setText(String.format(context.getString(R.string.record_due_),
-                        getVaccineName(), DATE_FORMAT.format(getDateDue())));
+                        vName, DATE_FORMAT.format(getDateDue())));
+                if (vName.toLowerCase().contains("measles") || vName.toLowerCase().contains("mr")) {
+                    nameTV.setText(String.format(context.getString(R.string.mr_due_),
+                            vName, DATE_FORMAT.format(getDateDue())));
+                }
                 setClickable(true);
                 break;
         }

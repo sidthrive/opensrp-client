@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import org.ei.opensrp.path.domain.VaccineWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
  */
 public interface VaccinationActionListener {
 
-    public void onVaccinateToday(List<VaccineWrapper> tags);
+    public void onVaccinateToday(ArrayList<VaccineWrapper> tags);
 
-    public void onVaccinateEarlier(List<VaccineWrapper> tags);
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags);
 
     public void onUndoVaccination(VaccineWrapper tag);
 }
