@@ -2,10 +2,12 @@ package org.ei.opensrp.path.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -197,6 +199,8 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     }
 
     private int convertDpToPx(int dp) {
-        return Math.round(dp * (getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return Math.round(px);
     }
 }

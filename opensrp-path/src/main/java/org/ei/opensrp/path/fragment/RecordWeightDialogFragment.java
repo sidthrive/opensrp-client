@@ -69,6 +69,7 @@ public class RecordWeightDialogFragment extends DialogFragment {
         final EditText editWeight = (EditText) dialogView.findViewById(R.id.edit_weight);
         if (tag.getWeight() != null) {
             editWeight.setText(tag.getWeight().toString());
+            editWeight.setSelection(editWeight.getText().length());
         }
         //formatEditWeightView(editWeight, "");
         editWeight.addTextChangedListener(new TextWatcher() {

@@ -2,9 +2,9 @@ package org.ei.opensrp.path.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,16 +12,17 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -54,8 +55,10 @@ import java.util.List;
 
 import util.DateUtils;
 import util.ImageUtils;
+import util.JsonFormUtils;
 import util.Utils;
 
+import static util.Utils.getName;
 import static util.Utils.getValue;
 
 /**
@@ -116,6 +119,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         toolbar.init(this);
+        setLastModified(false);
     }
 
     @Override
@@ -167,8 +171,7 @@ public class ChildImmunizationActivity extends BaseActivity
         String name = "";
         String childId = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
             childId = Utils.getValue(childDetails.getColumnmaps(), "zeir_id", false);
         }
 
@@ -287,11 +290,11 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateRecordWeightView() {
 
-        String childName = getValue(childDetails.getColumnmaps(), "first_name", true) + " " + getValue(childDetails, "last_name", true);
+        String childName = constructChildName();
         String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
         String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
-        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
-            childName = "B/o " + motherFirstName;
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
         }
 
         String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
@@ -322,15 +325,18 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void updateRecordWeightView(WeightWrapper weightWrapper) {
-        Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-        if (weightWrapper.getDbKey() != null) {
-            recordWeightButton.setBackgroundResource(R.drawable.record_weight_update_bg);
-            recordWeightButton.setTextColor(Color.WHITE);
-            recordWeightButton.setText("Update weight");
+        View recordWeight = findViewById(R.id.record_weight);
+        if (weightWrapper.getDbKey() != null && weightWrapper.getWeight() != null) {
+            String weight = weightWrapper.getWeight().toString();
+            TextView recordWeightText = (TextView) findViewById(R.id.record_weight_text);
+            recordWeightText.setText(weight.trim() + " kg");
+
+            ImageView recordWeightCheck = (ImageView) findViewById(R.id.record_weight_check);
+            recordWeightCheck.setVisibility(View.VISIBLE);
         }
 
-        recordWeightButton.setTag(weightWrapper);
-        recordWeightButton.setOnClickListener(new View.OnClickListener() {
+        recordWeight.setTag(weightWrapper);
+        recordWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showWeightDialog(view);
@@ -381,10 +387,9 @@ public class ChildImmunizationActivity extends BaseActivity
     private String updateActivityTitle() {
         String name = "";
         if (isDataOk()) {
-            name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
-                    + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            name = constructChildName();
         }
-        return String.format("%s > %s", getString(R.string.app_name), name);
+        return String.format("%s > %s", getString(R.string.app_name), name.trim());
     }
 
     @Override
@@ -424,11 +429,18 @@ public class ChildImmunizationActivity extends BaseActivity
             weight.setKg(tag.getWeight());
             weight.setDate(tag.getUpdatedWeightDate().toDate());
             weight.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+            try {
+                weight.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                        toolbar.getCurrentLocation()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             weightRepository.add(weight);
 
             tag.setDbKey(weight.getId());
             updateRecordWeightView(tag);
+            setLastModified(true);
         }
     }
 
@@ -477,8 +489,8 @@ public class ChildImmunizationActivity extends BaseActivity
     public void performRegisterActions() {
         if (this.registerClickables != null) {
             if (this.registerClickables.isRecordWeight()) {
-                Button recordWeightButton = (Button) findViewById(R.id.record_weight);
-                recordWeightButton.performClick();
+                View recordWeight = findViewById(R.id.record_weight);
+                recordWeight.performClick();
             } else if (this.registerClickables.isRecordAll()) {
                 performRecordAllClick(0);
             }
@@ -532,6 +544,12 @@ public class ChildImmunizationActivity extends BaseActivity
         vaccine.setName(tag.getName());
         vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
         vaccine.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+        try {
+            vaccine.setLocationId(JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                    toolbar.getCurrentLocation()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
         if (StringUtils.isNumeric(lastChar)) {
@@ -541,6 +559,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
+        setLastModified(true);
     }
 
     private void updateVaccineGroupViews(View view) {
@@ -589,6 +608,37 @@ public class ChildImmunizationActivity extends BaseActivity
             return null;
         }
 
+    }
+
+    private String constructChildName() {
+        String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
+        String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+        return getName(firstName, lastName).trim();
+    }
+
+    @Override
+    public void finish() {
+        if(isLastModified()) {
+            String tableName = "ec_child";
+            AllCommonsRepository allCommonsRepository = getOpenSRPContext().allCommonsRepositoryobjects(tableName);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("last_interacted_with", (new Date()).getTime());
+            allCommonsRepository.update(tableName, contentValues, childDetails.entityId());
+            allCommonsRepository.updateSearch(childDetails.entityId());
+        }
+        super.finish();
+    }
+
+    private boolean isLastModified(){
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        return application.isLastModified();
+    }
+
+    private void setLastModified(boolean lastModified) {
+        VaccinatorApplication application = (VaccinatorApplication) getApplication();
+        if(lastModified != application.isLastModified()) {
+            application.setLastModified(lastModified);
+        }
     }
 
 }

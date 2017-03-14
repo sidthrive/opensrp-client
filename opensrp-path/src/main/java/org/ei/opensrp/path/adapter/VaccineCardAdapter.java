@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import util.ImageUtils;
 import util.Utils;
 
+import static util.Utils.getName;
 import static util.Utils.getValue;
 
 /**
@@ -95,7 +96,11 @@ public class VaccineCardAdapter extends BaseAdapter {
 
                 String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "zeir_id", false);
                 vaccineWrapper.setPatientNumber(zeirId);
-                vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
+
+                String firstName =getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true);
+                String lastName = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true);
+                String childName =  getName(firstName, lastName);
+                vaccineWrapper.setPatientName(childName.trim());
 
                 updateWrapper(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);

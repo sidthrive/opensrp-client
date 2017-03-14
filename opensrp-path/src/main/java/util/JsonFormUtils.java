@@ -74,8 +74,11 @@ public class JsonFormUtils {
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
-    public static void save(Context context, String jsonString, String providerId, String imageKey, String bindType, String subBindType) {
-        if (context == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(jsonString)) {
+    public static void save(Context context, org.ei.opensrp.Context openSrpContext,
+                            String jsonString, String providerId, String imageKey, String bindType,
+                            String subBindType) {
+        if (context == null || openSrpContext == null || StringUtils.isBlank(providerId)
+                || StringUtils.isBlank(jsonString)) {
             return;
         }
 
@@ -98,7 +101,7 @@ public class JsonFormUtils {
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
             Client c = JsonFormUtils.createBaseClient(fields, entityId);
-            Event e = JsonFormUtils.createEvent(fields, metadata, entityId, encounterType, providerId, bindType);
+            Event e = JsonFormUtils.createEvent(openSrpContext, fields, metadata, entityId, encounterType, providerId, bindType);
 
             Client s = null;
 
@@ -267,10 +270,12 @@ public class JsonFormUtils {
 
     }
 
-    public static Event createEvent(JSONArray fields, JSONObject metadata, String entityId, String encounterType, String providerId, String bindType) {
+    public static Event createEvent(org.ei.opensrp.Context openSrpContext,
+                                    JSONArray fields, JSONObject metadata, String entityId,
+                                    String encounterType, String providerId, String bindType) {
 
         String encounterDateField = getFieldValue(fields, FormEntityConstants.Encounter.encounter_date);
-        String encounterLocation = getFieldValue(fields, FormEntityConstants.Encounter.location_id);
+        String encounterLocation = null;
 
         Date encounterDate = new Date();
         if (StringUtils.isNotBlank(encounterDateField)) {
@@ -278,6 +283,11 @@ public class JsonFormUtils {
             if (dateTime != null) {
                 encounterDate = dateTime;
             }
+        }
+        try {
+            encounterLocation = metadata.getString("encounter_location");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         Event e = (Event) new Event()
@@ -1102,8 +1112,11 @@ public class JsonFormUtils {
         }
     }
 
-    public static void addChildRegLocHierarchyQuestions(JSONObject form, org.ei.opensrp.Context context) {
+    public static void addChildRegLocHierarchyQuestions(JSONObject form, String encounterLocation,
+                                                        org.ei.opensrp.Context context) {
         try {
+            form.getJSONObject("metadata").put("encounter_location",
+                    getOpenMrsLocationId(context, encounterLocation));
             JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
             ArrayList<String> allLevels = new ArrayList<>();
             allLevels.add("Country");
@@ -1204,5 +1217,53 @@ public class JsonFormUtils {
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         }
+    }
+
+    public static String getOpenMrsLocationId(org.ei.opensrp.Context context,
+                                       String locationName) throws JSONException {
+        String response = null;
+
+        if (locationName != null) {
+            JSONObject locationData = new JSONObject(context.anmLocationController().get());
+            if (locationData.has("locationsHierarchy")
+                    && locationData.getJSONObject("locationsHierarchy").has("map")) {
+                JSONObject map = locationData.getJSONObject("locationsHierarchy").getJSONObject("map");
+                Iterator<String> keys = map.keys();
+                while (keys.hasNext()) {
+                    String curKey = keys.next();
+                    String curResult = getOpenMrsLocationId(locationName, map.getJSONObject(curKey));
+
+                    if (curResult != null) {
+                        response = curResult;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return response;
+    }
+
+    private static String getOpenMrsLocationId(String locationName, JSONObject openMrsLocations)
+            throws JSONException {
+        String name = openMrsLocations.getJSONObject("node").getString("name");
+
+        if (locationName.equals(name)) {
+            return openMrsLocations.getJSONObject("node").getString("locationId");
+        }
+
+        if (openMrsLocations.has("children")) {
+            Iterator<String> childIterator = openMrsLocations.getJSONObject("children").keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                String curResult = getOpenMrsLocationId(locationName,
+                        openMrsLocations.getJSONObject("children").getJSONObject(curChildKey));
+                if (curResult != null) {
+                    return curResult;
+                }
+            }
+        }
+
+        return null;
     }
 }

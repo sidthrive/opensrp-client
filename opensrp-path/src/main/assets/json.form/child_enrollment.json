@@ -46,7 +46,8 @@
       "openmrs_entity": "concept",
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    }
+    },
+    "encounter_location":""
   },
   "step1": {
     "title": "Birth Registration",

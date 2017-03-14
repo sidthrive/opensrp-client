@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 public class VaccineCard extends LinearLayout {
     private static final String TAG = "VaccineCard";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
     private Context context;
     private ImageView statusIV;
     private TextView nameTV;
