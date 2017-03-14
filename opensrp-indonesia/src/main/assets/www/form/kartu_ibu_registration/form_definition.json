@@ -1,5 +1,5 @@
 {
-  "form_data_definition_version": "1",
+  "form_data_definition_version": "2",
   "form": {
     "bind_type": "kartu_ibu",
     "default_bind_path": "/model/instance/Kartu_ibu/",
@@ -7,6 +7,10 @@
       {
         "name": "id",
         "shouldLoadValue": true
+      },
+      {
+        "name": "tanggalPeriksa",
+        "bind": "/model/instance/Kartu_ibu/tanggal_periksa"
       },
       {
         "name": "lokasiPeriksa",
@@ -145,6 +149,10 @@
       {
         "name": "highRiskPregnancyOldMaternalAge",
         "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Old_maternal_age"
+      },
+      {
+        "name": "jenisKontrasepsi",
+        "value": ""
       },
       {
         "name": "isOutOfArea",

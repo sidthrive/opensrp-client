@@ -1,5 +1,5 @@
 {
-  "form_data_definition_version": "1",
+  "form_data_definition_version": "2",
   "form": {
     "bind_type": "kartu_ibu",
     "default_bind_path": "/model/instance/anc_registration/",
@@ -16,6 +16,55 @@
       {
         "name": "lokasiPeriksa",
         "bind": "/model/instance/anc_registration/Lokasi_periksa"
+      },
+      {
+        "name": "Village",
+        "bind": "/model/instance/anc_registration/Village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Province",
+        "bind": "/model/instance/anc_registration/Province",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-district",
+        "bind": "/model/instance/anc_registration/Sub-district",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "District",
+        "bind": "/model/instance/anc_registration/District",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-village",
+        "bind": "/model/instance/anc_registration/Sub-village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "dusun",
+        "bind": "/model/instance/anc_registration/dusun"
+      },
+      {
+        "name": "provinsi",
+        "bind": "/model/instance/anc_registration/provinsi"
+      },
+      {
+        "name": "kabupaten",
+        "bind": "/model/instance/anc_registration/kabupaten"
+      },
+      {
+        "name": "kecamatan",
+        "bind": "/model/instance/anc_registration/kecamatan"
+      },
+      {
+        "name": "desa",
+        "bind": "/model/instance/anc_registration/desa"
+      },
+      {
+        "name": "tanggalLahirAnakSebelumnya",
+        "bind": "/model/instance/anc_registration/tanggal_lahir_anak_sebelumnya"
       },
       {
         "name": "referenceDate",
@@ -80,6 +129,10 @@
       {
         "name": "htp",
         "bind": "/model/instance/anc_registration/htp"
+      },
+      {
+        "name": "usiaKlinis",
+        "bind": "/model/instance/anc_registration/usia_klinis"
       },
       {
         "name": "trimesterKe",

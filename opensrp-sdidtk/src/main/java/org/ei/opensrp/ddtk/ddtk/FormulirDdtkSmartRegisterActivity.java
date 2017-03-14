@@ -183,7 +183,6 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
-                    displayFormFragment.loadFormData();
                     displayFormFragment.setRecordId(entityId);
                     displayFormFragment.setFieldOverides(metaData);
                 }
@@ -213,7 +212,7 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
-                    displayFormFragment.loadFormData();
+
                 }
 
                 displayFormFragment.setRecordId(null);
