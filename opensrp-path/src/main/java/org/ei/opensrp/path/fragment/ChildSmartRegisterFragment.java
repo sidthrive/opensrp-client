@@ -1,9 +1,14 @@
 package org.ei.opensrp.path.fragment;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -36,7 +41,6 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
-import org.ei.opensrp.path.db.Client;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
@@ -47,34 +51,29 @@ import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.ei.opensrp.view.dialog.DialogOption;
-import org.ei.opensrp.view.dialog.DialogOptionModel;
-import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import util.GlobalSearchUtils;
 
 import static android.view.View.INVISIBLE;
 import static util.Utils.getValue;
-import static util.Utils.nonEmptyValue;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private  LocationPickerView clinicSelection;
+    private static final long NO_RESULT_SHOW_DIALOG_DELAY = 1000l;
+    private Handler showNoResultDialogHandler;
+    private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -493,5 +492,43 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
 
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        super.onLoadFinished(loader, cursor);
+        // Check if query was issued
+        if (searchView != null && searchView.getText().toString().length() > 0) {
+            if (cursor.getCount() == 0) {// No search result found
+                if (showNoResultDialogHandler != null) {
+                    showNoResultDialogHandler.removeCallbacksAndMessages(null);
+                    showNoResultDialogHandler = null;
+                }
 
+                showNoResultDialogHandler = new Handler();
+                showNoResultDialogHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (notInCatchmentDialogFragment == null) {
+                            notInCatchmentDialogFragment = new NotInCatchmentDialogFragment();
+                        }
+
+                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(DIALOG_TAG);
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+
+                        if(!notInCatchmentDialogFragment.isVisible()) {
+                            notInCatchmentDialogFragment.show(ft, DIALOG_TAG);
+                        }
+                    }
+                }, NO_RESULT_SHOW_DIALOG_DELAY);
+            } else {
+                if (showNoResultDialogHandler != null) {
+                    showNoResultDialogHandler.removeCallbacksAndMessages(null);
+                    showNoResultDialogHandler = null;
+                }
+            }
+        }
+    }
 }
