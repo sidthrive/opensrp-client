@@ -39,15 +39,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.util.IntegerUtil;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.db.Client;
-import org.ei.opensrp.path.db.Obs;
 import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.UndoVaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.util.IntegerUtil;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,9 +54,7 @@ import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +63,6 @@ import java.util.Map;
 import static util.Utils.addToList;
 import static util.Utils.addToRow;
 import static util.Utils.convertDateFormat;
-import static util.Utils.formatValue;
 import static util.Utils.getColorValue;
 import static util.Utils.getPreference;
 import static util.Utils.getValue;
@@ -246,7 +241,7 @@ public class VaccinatorUtils {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(context, vaccineWrapper, null);
+                UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(vaccineWrapper);
                 undoVaccinationDialogFragment.show(ft, UndoVaccinationDialogFragment.DIALOG_TAG);
             }
         });
@@ -278,7 +273,9 @@ public class VaccinatorUtils {
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, Arrays.asList(vaccineWrapper), null);
+                    ArrayList<VaccineWrapper> list = new ArrayList<VaccineWrapper>();
+                    list.add(vaccineWrapper);
+                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(list);
                     vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
                 }

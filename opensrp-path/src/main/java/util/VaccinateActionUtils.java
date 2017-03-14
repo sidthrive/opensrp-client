@@ -28,6 +28,7 @@ import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -148,7 +149,9 @@ public class VaccinateActionUtils {
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, Arrays.asList(tag), null);
+                    ArrayList<VaccineWrapper> list = new ArrayList<VaccineWrapper>();
+                    list.add(tag);
+                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(list);
                     vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
                 }

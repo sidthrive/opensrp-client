@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface VaccinationActionListener {
 
-    public void onVaccinateToday(List<VaccineWrapper> tags, View view);
+    public void onVaccinateToday(List<VaccineWrapper> tags);
 
-    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view);
+    public void onVaccinateEarlier(List<VaccineWrapper> tags);
 
-    public void onUndoVaccination(VaccineWrapper tag, View view);
+    public void onUndoVaccination(VaccineWrapper tag);
 }

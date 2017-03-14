@@ -50,6 +50,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
     private OnVaccineClickedListener onVaccineClickedListener;
     private OnVaccineUndoClickListener onVaccineUndoClickListener;
     private SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
+    private boolean modalOpen;
 
     private static enum State {
         IN_PAST,
@@ -245,5 +246,13 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
             return vaccineCardAdapter.getDueVaccines();
         }
         return new ArrayList<VaccineWrapper>();
+    }
+
+    public boolean isModalOpen() {
+        return modalOpen;
+    }
+
+    public void setModalOpen(boolean modalOpen) {
+        this.modalOpen = modalOpen;
     }
 }

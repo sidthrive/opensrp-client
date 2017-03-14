@@ -48,7 +48,6 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -146,11 +145,6 @@ public class ChildImmunizationActivity extends BaseActivity
         updateChildIdViews();
         updateVaccinationViews();
         updateRecordWeightView();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
         performRegisterActions();
     }
 
@@ -259,7 +253,9 @@ public class ChildImmunizationActivity extends BaseActivity
                     curGroup.setOnVaccineClickedListener(new VaccineGroup.OnVaccineClickedListener() {
                         @Override
                         public void onClick(VaccineGroup vaccineGroup, VaccineWrapper vaccine) {
-                            addVaccinationDialogFragment(Arrays.asList(vaccine), vaccineGroup);
+                            ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+                            vaccineWrappers.add(vaccine);
+                            addVaccinationDialogFragment(vaccineWrappers, vaccineGroup);
                         }
                     });
                     curGroup.setOnVaccineUndoClickListener(new VaccineGroup.OnVaccineUndoClickListener() {
@@ -283,8 +279,11 @@ public class ChildImmunizationActivity extends BaseActivity
         if (prev != null) {
             ft.remove(prev);
         }
+
         ft.addToBackStack(null);
-        UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(this, vaccineWrapper, vaccineGroup);
+        vaccineGroup.setModalOpen(true);
+
+        UndoVaccinationDialogFragment undoVaccinationDialogFragment = UndoVaccinationDialogFragment.newInstance(vaccineWrapper);
         undoVaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 
@@ -353,7 +352,7 @@ public class ChildImmunizationActivity extends BaseActivity
         }
         ft.addToBackStack(null);
         WeightWrapper weightWrapper = (WeightWrapper) view.getTag();
-        RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(this, weightWrapper);
+        RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(weightWrapper);
         recordWeightDialogFragment.show(ft, DIALOG_TAG);
 
     }
@@ -445,21 +444,23 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+    public void onVaccinateToday(List<VaccineWrapper> tags) {
         if (tags != null && !tags.isEmpty()) {
+            View view = getLastOpenedView();
             saveVaccine(tags, view);
         }
     }
 
     @Override
-    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+    public void onVaccinateEarlier(List<VaccineWrapper> tags) {
         if (tags != null && !tags.isEmpty()) {
+            View view = getLastOpenedView();
             saveVaccine(tags, view);
         }
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag, View view) {
+    public void onUndoVaccination(VaccineWrapper tag) {
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
@@ -470,27 +471,37 @@ public class ChildImmunizationActivity extends BaseActivity
                 tag.setDbKey(null);
 
                 vaccineRepository.deleteVaccine(dbKey);
+                View view = getLastOpenedView();
                 updateVaccineGroupViews(view);
             }
         }
     }
 
-    public void addVaccinationDialogFragment(List<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
+    public void addVaccinationDialogFragment(ArrayList<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
+
         FragmentTransaction ft = this.getFragmentManager().beginTransaction();
         Fragment prev = this.getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
+
         ft.addToBackStack(null);
-        VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(this, vaccineWrappers, vaccineGroup);
+        vaccineGroup.setModalOpen(true);
+
+        VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(vaccineWrappers);
         vaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 
     public void performRegisterActions() {
         if (this.registerClickables != null) {
             if (this.registerClickables.isRecordWeight()) {
-                View recordWeight = findViewById(R.id.record_weight);
-                recordWeight.performClick();
+                final View recordWeight = findViewById(R.id.record_weight);
+                recordWeight.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        recordWeight.performClick();
+                    }
+                });
             } else if (this.registerClickables.isRecordAll()) {
                 performRecordAllClick(0);
             }
@@ -505,8 +516,13 @@ public class ChildImmunizationActivity extends BaseActivity
                 public void run() {
                     ArrayList<VaccineWrapper> vaccineWrappers = vaccineGroup.getDueVaccines();
                     if (!vaccineWrappers.isEmpty()) {
-                        TextView recordAllTV = (TextView) vaccineGroup.findViewById(R.id.record_all_tv);
-                        recordAllTV.performClick();
+                        final TextView recordAllTV = (TextView) vaccineGroup.findViewById(R.id.record_all_tv);
+                        recordAllTV.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                recordAllTV.performClick();
+                            }
+                        });
                     } else {
                         performRecordAllClick(index + 1);
                     }
@@ -530,7 +546,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void saveVaccine(VaccineWrapper tag) {
-        if(tag.getUpdatedVaccineDate() == null){
+        if (tag.getUpdatedVaccineDate() == null) {
             return;
         }
 
@@ -567,6 +583,7 @@ public class ChildImmunizationActivity extends BaseActivity
             return;
         }
         final VaccineGroup vaccineGroup = (VaccineGroup) view;
+        vaccineGroup.setModalOpen(false);
 
         if (Looper.myLooper() == Looper.getMainLooper()) {
             vaccineGroup.updateViews();
@@ -618,7 +635,7 @@ public class ChildImmunizationActivity extends BaseActivity
 
     @Override
     public void finish() {
-        if(isLastModified()) {
+        if (isLastModified()) {
             String tableName = "ec_child";
             AllCommonsRepository allCommonsRepository = getOpenSRPContext().allCommonsRepositoryobjects(tableName);
             ContentValues contentValues = new ContentValues();
@@ -629,16 +646,29 @@ public class ChildImmunizationActivity extends BaseActivity
         super.finish();
     }
 
-    private boolean isLastModified(){
+    private boolean isLastModified() {
         VaccinatorApplication application = (VaccinatorApplication) getApplication();
         return application.isLastModified();
     }
 
     private void setLastModified(boolean lastModified) {
         VaccinatorApplication application = (VaccinatorApplication) getApplication();
-        if(lastModified != application.isLastModified()) {
+        if (lastModified != application.isLastModified()) {
             application.setLastModified(lastModified);
         }
     }
 
+    private VaccineGroup getLastOpenedView() {
+        if (vaccineGroups == null) {
+            return null;
+        }
+
+        for (VaccineGroup vaccineGroup : vaccineGroups) {
+            if (vaccineGroup.isModalOpen()) {
+                return vaccineGroup;
+            }
+        }
+
+        return null;
+    }
 }

@@ -4,16 +4,18 @@ import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.db.VaccineRepo.Vaccine;
 import org.joda.time.DateTime;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by keyman on 16/11/2016.
  */
-public class VaccineWrapper {
+public class VaccineWrapper implements Serializable {
     private String id;
     private Long dbKey;
     private Photo photo;
     private String name;
+    private String defaultName;
     private String gender;
     private String status;
     private Vaccine vaccine;
@@ -194,5 +196,13 @@ public class VaccineWrapper {
 
     public DateTime getRecordedDate() {
         return recordedDate;
+    }
+
+    public String getDefaultName() {
+        return defaultName;
+    }
+
+    public void setDefaultName(String defaultName) {
+        this.defaultName = defaultName;
     }
 }

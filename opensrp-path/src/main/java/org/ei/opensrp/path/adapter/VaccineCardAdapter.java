@@ -80,6 +80,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setId(vaccineGroup.getChildDetails().entityId());
                 vaccineWrapper.setGender(vaccineGroup.getChildDetails().getDetails().get("gender"));
                 vaccineWrapper.setName(vaccineName);
+                vaccineWrapper.setDefaultName(vaccineName);
 
                 String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
                 if (StringUtils.isNotBlank(dobString)) {
