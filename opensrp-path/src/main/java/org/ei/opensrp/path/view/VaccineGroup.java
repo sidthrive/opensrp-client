@@ -116,7 +116,21 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         this.onVaccineUndoClickListener = onVaccineUndoClickListener;
     }
 
+    /**
+     * This method will update all views, including vaccine cards in this group
+     */
     public void updateViews() {
+        updateViews(null);
+    }
+
+    /**
+     * This method will update vaccine group views, and the vaccine cards corresponding to the list
+     * of {@link VaccineWrapper}s specified
+     *
+     * @param vaccinesToUpdate  List of vaccines who's views we want updated, or NULL if we want to
+     *                          update all vaccine views
+     */
+    public void updateViews(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         this.state = State.IN_PAST;
         if (this.vaccineData != null) {
             String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
@@ -138,7 +152,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                 this.state = State.CURRENT;
             }
             updateStatusViews();
-            updateVaccineCards();
+            updateVaccineCards(vaccinesToUpdate);
         }
     }
 
@@ -168,7 +182,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         }
     }
 
-    private void updateVaccineCards() {
+    private void updateVaccineCards(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         if (vaccineCardAdapter == null) {
             try {
                 vaccineCardAdapter = new VaccineCardAdapter(context, this);
@@ -179,7 +193,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         }
 
         if (vaccineCardAdapter != null) {
-            vaccineCardAdapter.update();
+            vaccineCardAdapter.update(vaccinesToUpdate);
             toggleRecordAllTV();
         }
     }

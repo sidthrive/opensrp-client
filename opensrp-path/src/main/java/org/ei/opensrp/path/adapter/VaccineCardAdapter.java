@@ -98,9 +98,9 @@ public class VaccineCardAdapter extends BaseAdapter {
                 String zeirId = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "zeir_id", false);
                 vaccineWrapper.setPatientNumber(zeirId);
 
-                String firstName =getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true);
+                String firstName = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true);
                 String lastName = getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true);
-                String childName =  getName(firstName, lastName);
+                String childName = getName(firstName, lastName);
                 vaccineWrapper.setPatientName(childName.trim());
 
                 updateWrapper(vaccineWrapper);
@@ -118,10 +118,18 @@ public class VaccineCardAdapter extends BaseAdapter {
         return null;
     }
 
-    public void update() {
+    public void update(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         if (vaccineCards != null) {
-            for (VaccineCard curCard : vaccineCards.values()) {
-                if (curCard != null) curCard.updateState();
+            if (vaccinesToUpdate == null) {// Update all vaccines
+                for (VaccineCard curCard : vaccineCards.values()) {
+                    if (curCard != null) curCard.updateState();
+                }
+            } else {// Update just the vaccines specified
+                for (VaccineWrapper currWrapper : vaccinesToUpdate) {
+                    if (vaccineCards.containsKey(currWrapper.getName())) {
+                        vaccineCards.get(currWrapper.getName()).updateState();
+                    }
+                }
             }
         }
     }
