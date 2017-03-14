@@ -125,22 +125,30 @@ public class VaccineRepository extends BaseRepository {
 
     private List<Vaccine> readAllVaccines(Cursor cursor) {
         List<Vaccine> vaccines = new ArrayList<Vaccine>();
-        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                vaccines.add(
-                        new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                                cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                                cursor.getString(cursor.getColumnIndex(NAME)),
-                                cursor.getInt(cursor.getColumnIndex(CALCULATION)),
-                                new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
-                                cursor.getString(cursor.getColumnIndex(ANMID)),
-                                cursor.getString(cursor.getColumnIndex(LOCATIONID)),
-                                cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                                cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
-                        ));
 
-                cursor.moveToNext();
+        try {
+
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    vaccines.add(
+                            new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
+                                    cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                                    cursor.getString(cursor.getColumnIndex(NAME)),
+                                    cursor.getInt(cursor.getColumnIndex(CALCULATION)),
+                                    new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                                    cursor.getString(cursor.getColumnIndex(ANMID)),
+                                    cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                                    cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                                    cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
+                            ));
+
+                    cursor.moveToNext();
+                }
             }
+        } catch (Exception e) {
+
+        } finally {
+            cursor.close();
         }
         return vaccines;
     }

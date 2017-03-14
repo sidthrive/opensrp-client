@@ -37,6 +37,7 @@ public class VaccinatorApplication extends DrishtiApplication {
     private WeightRepository weightRepository;
     private UniqueIdRepository uniqueIdRepository;
     private VaccineRepository vaccineRepository;
+    private boolean lastModified;
 
     @Override
     public void onCreate() {
@@ -187,5 +188,13 @@ public class VaccinatorApplication extends DrishtiApplication {
             uniqueIdRepository = new UniqueIdRepository((PathRepository) getRepository());
         }
         return uniqueIdRepository;
+    }
+
+    public boolean isLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(boolean lastModified) {
+        this.lastModified = lastModified;
     }
 }
