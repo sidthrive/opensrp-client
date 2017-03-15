@@ -321,7 +321,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_anak.is_closed = 0 and relational_id != '' ";
+                mainCondition = " is_closed = 0 and relational_id != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -348,7 +348,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_anak.is_closed = 0 and relational_id != '' ";
+                mainCondition = " is_closed = 0 and relational_id != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
