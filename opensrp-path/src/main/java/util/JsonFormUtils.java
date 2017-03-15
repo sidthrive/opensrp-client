@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1152,6 +1153,38 @@ public class JsonFormUtils {
             }
         } catch (JSONException e) {
             //Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    public static void addAddAvailableVaccines(Context context, JSONObject form) {
+        String supportedVaccinesString = VaccinatorUtils.getSupportedVaccines(context);
+        if (StringUtils.isNotEmpty(supportedVaccinesString) && form != null) {
+            // For each of the vaccine groups, create a checkbox question
+            try {
+                JSONArray questionList = form.getJSONObject("step1").getJSONArray("fields");
+                JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
+                for (int i = 0; i < supportedVaccines.length(); i++) {
+                    JSONObject curVaccineGroup = supportedVaccines.getJSONObject(i);
+                    JSONObject curQuestion = new JSONObject();
+                    curQuestion.put("key", curVaccineGroup.getString("id"));
+                    curQuestion.put("type", "check_box");
+                    curQuestion.put("label", curVaccineGroup.getString("name"));
+                    JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
+                    JSONArray options = new JSONArray();
+                    for (int j = 0; j < vaccines.length(); j++) {
+                        JSONObject curVaccines = new JSONObject();
+                        curVaccines.put("key", vaccines.getJSONObject(j).getString("name"));
+                        curVaccines.put("text", vaccines.getJSONObject(j).getString("name"));
+                        curVaccines.put("value", vaccines.getJSONObject(j).getString("name"));
+                        options.put(curVaccines);
+                    }
+
+                    curQuestion.put("options", options);
+                    questionList.put(curQuestion);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
         }
     }
 

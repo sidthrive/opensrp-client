@@ -59,6 +59,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
     private static final int REQUEST_CODE_GET_JSON = 3432;
+    private static final int REQUEST_CODE_RECORD_OUT_OF_CATCHMENT = 1131;
     private int currentPage;
 
     private String[] formNames = new String[]{};
@@ -159,38 +160,61 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
-            if (StringUtils.isBlank(entityId)) {
-                UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
-                entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
-                if (entityId.isEmpty()) {
-                    Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
+            Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            if(mBaseFragment instanceof ChildSmartRegisterFragment) {
+            if (form != null && mBaseFragment instanceof ChildSmartRegisterFragment) {
                 LocationPickerView locationPickerView = ((ChildSmartRegisterFragment) mBaseFragment).getLocationPickerView();
-                JsonFormUtils.addChildRegLocHierarchyQuestions(form, locationPickerView.getSelectedItem(), context());
-                if (form != null) {
-                    Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-                    //inject zeir id into the form
+
+                if (formName.equals("child_enrollment")) {
+                    if (StringUtils.isBlank(entityId)) {
+                        UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
+                        entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                        if (entityId.isEmpty()) {
+                            Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
+                    if (StringUtils.isNotBlank(entityId)) {
+                        entityId = entityId.replace("-", "");
+                    }
+
+                    JsonFormUtils.addChildRegLocHierarchyQuestions(form, locationPickerView.getSelectedItem(), context());
+
+                    // Inject zeir id into the form
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
                     JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                             jsonObject.remove(JsonFormUtils.VALUE);
-                            if(StringUtils.isNotBlank(entityId)) {
-                                entityId = entityId.replace("-", "");
-                            }
                             jsonObject.put(JsonFormUtils.VALUE, entityId);
                             continue;
                         }
                     }
-                    intent.putExtra("json", form.toString());
-                    startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+                } else if (formName.equals("out_of_catchment_service")) {
+                    if (StringUtils.isNotBlank(entityId)) {
+                        entityId = entityId.replace("-", "");
+                    }
+
+                    // Inject zeir id into the form
+                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                            jsonObject.remove(JsonFormUtils.VALUE);
+                            jsonObject.put(JsonFormUtils.VALUE, entityId);
+                            continue;
+                        }
+                    }
+
+                    JsonFormUtils.addAddAvailableVaccines(this, form);
                 }
+
+                intent.putExtra("json", form.toString());
+                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -216,6 +240,8 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             if (StringUtils.isNotBlank(res.getContents())) {
                 onQRCodeSucessfullyScanned(res.getContents());
             } else Log.i("", "NO RESULT FOR QR CODE");
+        } else if (requestCode == REQUEST_CODE_RECORD_OUT_OF_CATCHMENT) {
+
         }
     }
 

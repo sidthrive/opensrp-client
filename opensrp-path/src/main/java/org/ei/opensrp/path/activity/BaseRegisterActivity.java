@@ -247,5 +247,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
+
+
 }
 

@@ -492,7 +492,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
 
-    @Override
+    /*@Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         super.onLoadFinished(loader, cursor);
         // Check if query was issued
@@ -530,5 +530,5 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 }
             }
         }
-    }
+    }*/
 }

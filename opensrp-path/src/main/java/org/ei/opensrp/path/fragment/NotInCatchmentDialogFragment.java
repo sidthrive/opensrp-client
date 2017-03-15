@@ -1,6 +1,9 @@
 package org.ei.opensrp.path.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,12 +12,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.activity.BaseRegisterActivity;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 14/03/2017.
  */
 
+@SuppressLint("ValidFragment")
 public class NotInCatchmentDialogFragment extends DialogFragment implements View.OnClickListener {
+    private final BaseRegisterActivity parentActivity;
+    private final String zeirId;
+
+    public NotInCatchmentDialogFragment(BaseRegisterActivity parentActivity, String zeirId) {
+        this.parentActivity = parentActivity;
+        this.zeirId = zeirId;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +34,21 @@ public class NotInCatchmentDialogFragment extends DialogFragment implements View
         setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
     }
 
+    public static NotInCatchmentDialogFragment launchDialog(BaseRegisterActivity activity,
+                                                            String dialogTag, String zeirId) {
+        NotInCatchmentDialogFragment dialogFragment = new NotInCatchmentDialogFragment(activity,
+                zeirId);
+        FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
+        Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        dialogFragment.show(ft, dialogTag);
+
+        return dialogFragment;
+    }
 
     @Nullable
     @Override
@@ -42,7 +69,7 @@ public class NotInCatchmentDialogFragment extends DialogFragment implements View
         if (v.getId() == R.id.search_b) {
 
         } else if (v.getId() == R.id.record_b) {
-
+            parentActivity.startFormActivity("out_of_catchment_service", zeirId, "");
         } else if (v.getId() == R.id.cancel_b) {
             this.dismiss();
         }

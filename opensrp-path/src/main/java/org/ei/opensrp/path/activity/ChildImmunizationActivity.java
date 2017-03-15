@@ -57,6 +57,7 @@ import util.DateUtils;
 import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
+import util.VaccinatorUtils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
@@ -244,7 +245,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (vaccineGroups == null) {
             vaccineGroups = new ArrayList<>();
             LinearLayout vaccineGroupCanvasLL = (LinearLayout) findViewById(R.id.vaccine_group_canvas_ll);
-            String supportedVaccinesString = readAssetContents(VACCINES_FILE);
+            String supportedVaccinesString = VaccinatorUtils.getSupportedVaccines(this);
             try {
                 JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
                 for (int i = 0; i < supportedVaccines.length(); i++) {

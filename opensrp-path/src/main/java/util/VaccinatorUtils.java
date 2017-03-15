@@ -374,4 +374,15 @@ public class VaccinatorUtils {
         float val =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, r.getDisplayMetrics());
         return new Float(val).intValue();
     }
+
+    /**
+     * Returns a JSON String containing a list of supported vaccines
+     *
+     * @param context   Current valid context to be used
+     * @return  JSON String with the supported vaccines or NULL if unable to obtain the list
+     */
+    public static String getSupportedVaccines(Context context) {
+        String supportedVaccinesString = Utils.readAssetContents(context, "vaccines.json");
+        return supportedVaccinesString;
+    }
 }
