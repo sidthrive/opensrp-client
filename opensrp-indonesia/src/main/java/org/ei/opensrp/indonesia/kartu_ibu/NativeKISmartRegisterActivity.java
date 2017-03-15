@@ -96,6 +96,11 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
 //            Log.e(TAG, "onCreate: "+proc_time );
 
+//            TEST
+//            mode_face = true;
+//            base_id = "eb3b415b-abf9-4a3d-902c-cdcd8307c7eb";
+//            Log.e(TAG, "onCreate: mode_face "+mode_face );
+
             if (mode_face){
                 nf.setCriteria(base_id);
                 mBaseFragment = new NativeKISmartRegisterFragment();
@@ -105,13 +110,16 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 //                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
 //                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
 
-                Log.e(TAG, "onCreate: " + base_id);
+                Log.e(TAG, "onCreate: id " + base_id);
+                showToast("id "+base_id);
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
-                // TODO : get name by base_id
-                builder.setTitle("Is it Right Clients ?");
+                builder.setTitle("Is it Right Person ?");
 //                builder.setTitle("Is it Right Clients ?" + base_id);
 //                builder.setTitle("Is it Right Clients ?"+ pc.getName());
-                builder.setMessage("Process Time : " + proc_time + " s");
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
                 builder.setNegativeButton("CANCEL", listener);
                 builder.setPositiveButton("YES", null);
                 builder.show();

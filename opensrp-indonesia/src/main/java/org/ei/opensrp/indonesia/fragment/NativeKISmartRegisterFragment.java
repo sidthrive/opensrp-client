@@ -62,6 +62,7 @@ import util.AsyncTask;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
@@ -76,6 +77,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
+
     @Override
     protected void onCreation() {
         //
@@ -103,7 +105,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             @Override
             public SortOption sortOption() {
                 return new NameSort();
-
             }
 
             @Override
@@ -122,22 +123,22 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 FlurryFacade.logEvent("click_filter_option_on_kohort_ibu_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
-                dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
-           //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
-          //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
+                dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label), filterStringForAll()));
+                //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
+                //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
                 String locationjson = context().anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
-                Map<String,TreeNode<String, Location>> locationMap =
+                Map<String, TreeNode<String, Location>> locationMap =
                         locationTree.getLocationsHierarchy();
-                addChildToList(dialogOptionslist,locationMap);
+                addChildToList(dialogOptionslist, locationMap);
                 DialogOption[] dialogOptions = new DialogOption[dialogOptionslist.size()];
-                for (int i = 0;i < dialogOptionslist.size();i++){
+                for (int i = 0; i < dialogOptionslist.size(); i++) {
                     dialogOptions[i] = dialogOptionslist.get(i);
                 }
 
-                return  dialogOptions;
+                return dialogOptions;
             }
 
             @Override
@@ -150,14 +151,12 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 FlurryFacade.logEvent("click_sorting_option_on_kohort_ibu_dashboard");
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
-
-
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label),KiSortByEdd()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
-                    //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_high_risk_pregnancy_label),ShortByriskflag()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label), KiSortByNameAZ()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse), KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label), KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_edd_label), KiSortByEdd()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label), KiSortByNoIbu()),
+                        //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_high_risk_pregnancy_label),ShortByriskflag()),
                 };
             }
 
@@ -169,7 +168,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
 
-
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
 //        if (clientProvider == null) {
@@ -177,17 +175,17 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //                    getActivity(),clientActionHandler , context.alertService());
 //        }
 
-        Log.e(TAG, "clientsProvider: " );
+        Log.e(TAG, "clientsProvider: ");
         return null;
     }
 
     private DialogOption[] getEditOptions() {
-        return ((NativeKISmartRegisterActivity)getActivity()).getEditOptions();
+        return ((NativeKISmartRegisterActivity) getActivity()).getEditOptions();
     }
 
     @Override
     protected void onInitialization() {
-      //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
+        //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 
     @Override
@@ -203,63 +201,68 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         initializeQueries(getCriteria());
     }
 
-    private String filterStringForAll(){
+    private String filterStringForAll() {
         return "";
     }
+
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
+        return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
                 "WHEN alerts.status = 'normal' THEN '3'\n" +
                 "WHEN alerts.status = 'expired' THEN '4'\n" +
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
-    public String KartuIbuMainCount(){
+
+    public String KartuIbuMainCount() {
         return "Select Count(*) from ec_kartu_ibu";
     }
 
-    public void initializeQueries(String s){
+    public void initializeQueries(String s) {
         try {
-            Log.e(TAG, "initializeQueries: "+s );
-        KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_kartu_ibu",new String []{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur","ec_kartu_ibu.namaSuami","noIbu"}));
-        clientsView.setAdapter(clientAdapter);
+            if (s == null) {
+                Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+            } else {
+                Log.e(TAG, "initializeQueries: " + s);
+            }
 
-        setTablename("ec_kartu_ibu");
-        SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
-        countqueryBUilder.SelectInitiateMainTableCounts("ec_kartu_ibu");
-       // countqueryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
+            KIClientsProvider kiscp = new KIClientsProvider(getActivity(), clientActionHandler, context().alertService());
+            clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_kartu_ibu", new String[]{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami", "noIbu"}));
+            clientsView.setAdapter(clientAdapter);
+
+            setTablename("ec_kartu_ibu");
+            SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
+            countqueryBUilder.SelectInitiateMainTableCounts("ec_kartu_ibu");
+            // countqueryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
 
             if (s != null) {
-                mainCondition = "is_closed = 0 AND object_id LIKE '%"+ s +"%'";
+                mainCondition = "is_closed = 0 AND object_id LIKE '%" + s + "%'";
             } else {
                 mainCondition = "is_closed = 0 ";
             }
             joinTable = "";
-        countSelect = countqueryBUilder.mainCondition(mainCondition);
-        super.CountExecute();
+            countSelect = countqueryBUilder.mainCondition(mainCondition);
+            super.CountExecute();
 
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+            SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
 
-        queryBUilder.SelectInitiateMainTable("ec_kartu_ibu", new String[]{"ec_kartu_ibu.relationalid","ec_kartu_ibu.is_closed", "ec_kartu_ibu.details", "ec_kartu_ibu.isOutOfArea", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami",  "noIbu"});
-     //   queryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
-        mainSelect = queryBUilder.mainCondition(mainCondition);
-        Sortqueries = KiSortByNameAZ();
+            queryBUilder.SelectInitiateMainTable("ec_kartu_ibu", new String[]{"ec_kartu_ibu.relationalid", "ec_kartu_ibu.is_closed", "ec_kartu_ibu.details", "ec_kartu_ibu.isOutOfArea", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami", "noIbu"});
+            //   queryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
+            mainSelect = queryBUilder.mainCondition(mainCondition);
+            Sortqueries = KiSortByNameAZ();
 
-        currentlimit = 20;
-        currentoffset = 0;
+            currentlimit = 20;
+            currentoffset = 0;
 
-        super.filterandSortInInitializeQueries();
+            super.filterandSortInInitializeQueries();
 
-        updateSearchView();
-        refresh();
-        } catch (Exception e){
+            updateSearchView();
+            refresh();
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
         }
-        finally {
-        }
-        
+
     }
 
 
@@ -267,7 +270,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     public void startRegistration() {
 
         String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
-        if(uniqueIdJson == null || uniqueIdJson.isEmpty()){
+        if (uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "no unique id", Toast.LENGTH_LONG).show();
             return;
         }
@@ -280,7 +283,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         ft.addToBackStack(null);
         LocationSelectorDialogFragment
                 .newInstance((NativeKISmartRegisterActivity) getActivity(), new
-                        EditDialogOptionModel(), context().anmLocationController().get(),
+                                EditDialogOptionModel(), context().anmLocationController().get(),
                         "kartu_ibu_registration")
                 .show(ft, locationDialogTAG);
     }
@@ -291,18 +294,18 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                     FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
-                    KIDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),KIDetailActivity.class);
+                    KIDetailActivity.kiclient = (CommonPersonObjectClient) view.getTag();
+                    Intent intent = new Intent(getActivity(), KIDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
-            //    case R.id.hh_due_date:
-            //        HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
+                //    case R.id.hh_due_date:
+                //        HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
 //
-            //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
-            //        break;
+                //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
+                //        break;
                 case R.id.btn_edit:
-                    KIDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
+                    KIDetailActivity.kiclient = (CommonPersonObjectClient) view.getTag();
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
             }
@@ -314,41 +317,42 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
 
-
     private String KiSortByNameAZ() {
         return "namalengkap ASC";
     }
+
     private String KiSortByNameZA() {
-            return "namalengkap DESC";
+        return "namalengkap DESC";
     }
 
     private String KiSortByAge() {
         return "umur DESC";
     }
+
     private String KiSortByNoIbu() {
         return "noIbu ASC";
     }
 
     private String KiSortByEdd() {
-         return " htp IS NULL, htp";
+        return " htp IS NULL, htp";
     }
-
 
     private class EditDialogOptionModel implements DialogOptionModel {
         @Override
         public DialogOption[] getDialogOptions() {
             return getEditOptions();
         }
+
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
-            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form) ) ) {
+            if (option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form))) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
                 AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
                 final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
                 if (ibuparent != null) {
                     short anc_isclosed = ibuparent.getClosed();
-                    if (anc_isclosed == 0 ) {
+                    if (anc_isclosed == 0) {
                         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -380,14 +384,14 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();
-        if(isPausedOrRefreshList()) {
+        if (isPausedOrRefreshList()) {
             initializeQueries("");
         }
-   //     updateSearchView();
+        //     updateSearchView();
 //
-        try{
+        try {
             LoginActivity.setLanguage();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -421,7 +425,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //        searchCancelView.setOnClickListener(searchCancelHandler);
 //    }
 
-    public void updateSearchView(){
+    public void updateSearchView() {
         getSearchView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -446,27 +450,28 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             }
         });
     }
-/*    public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
-        for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
-            if(entry.getValue().getChildren() != null) {
-                addChildToList(dialogOptionslist,entry.getValue().getChildren());
+    /*    public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
+            for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
-            }else{
-                StringUtil.humanize(entry.getValue().getLabel());
-                String name = StringUtil.humanize(entry.getValue().getLabel());
-                dialogOptionslist.add(new KICommonObjectFilterOption(name,"desa", name));
+                if(entry.getValue().getChildren() != null) {
+                    addChildToList(dialogOptionslist,entry.getValue().getChildren());
 
+                }else{
+                    StringUtil.humanize(entry.getValue().getLabel());
+                    String name = StringUtil.humanize(entry.getValue().getLabel());
+                    dialogOptionslist.add(new KICommonObjectFilterOption(name,"desa", name));
+
+                }
             }
-        }
-    }*/
-    public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
-        for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
+        }*/
+    public void addChildToList(ArrayList<DialogOption> dialogOptionslist, Map<String, TreeNode<String, Location>> locationMap) {
+        for (Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
-            if(entry.getValue().getChildren() != null) {
-                addChildToList(dialogOptionslist,entry.getValue().getChildren());
+            if (entry.getValue().getChildren() != null) {
+                addChildToList(dialogOptionslist, entry.getValue().getChildren());
 
-            }else{
+            } else {
                 StringUtil.humanize(entry.getValue().getLabel());
                 String name = StringUtil.humanize(entry.getValue().getLabel());
                 dialogOptionslist.add(new KICommonObjectFilterOption(name, "location_name", name, "ec_kartu_ibu"));
@@ -514,7 +519,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     public void getFacialRecord(View view) {
         Log.e(TAG, "getFacialRecord: ");
-        SmartShutterActivity.kidetail = (CommonPersonObjectClient)view.getTag();
+        SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", NativeKISmartRegisterFragment.class.getSimpleName());
@@ -526,7 +531,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     public void searchTextChangeListener(String s) {
         Log.e(TAG, "searchTextChangeListener: " + s);
         if (s != null) {
-            filters =  s;
+            filters = s;
         } else {
             searchView.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -577,7 +582,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             });
         }
     }
-
 
 
 }

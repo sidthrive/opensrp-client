@@ -59,6 +59,12 @@ public class Tools {
     public static org.ei.opensrp.Context appContext;
     public static android.content.Context androContext ;
     private static String[] splitStringArray;
+    private static Bitmap dummyImage = null;
+    private static byte[] headerOfVector;
+    private static byte[] bodyOfVector;
+    private static byte[] lastContentOfVector;
+//    private static String headerOne;
+    private static byte[] albumVectors;
     private Bitmap helperImage = null;
     private Canvas canvas = null;
     SmartShutterActivity ss = new SmartShutterActivity();
@@ -72,7 +78,14 @@ public class Tools {
     private FaceRepository faceRepo = (FaceRepository) new FaceRepository().faceRepository();
 //    private static FaceRepository faceRepo = (FaceRepository) Context.faceRepository();
 
-    String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
+    String headerO = "76, 120, -92, -48, -4, 40, 84, -128, -84, -40, 4, 48, 92, -120, -76, -32, 12, 56, 100, -112, -68, -24, 20, 64, 108, -104, -60, -16, 28, 72, 116, -96, -52, -8, 36, 80, 124, -88, -44, 0, 44, 88, -124, -80, -36, 8, 52, 96, -116, -72, -28, 16, 60, 104, -108, -64, -20, 24, 68, 112, -100, -56, -12, 32";
+    static String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
+    String headerSingle = "76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0"; // 1 user
+    // idx-2 0,1,2,3,4 @228
+    // 219, 437
+    // 219 idx-1
+//    private static String[] headerOne = emptyAlbum.substring(1, emptyAlbum.length()-1).split(", ");
+    private static String headerOne = emptyAlbum;
     private byte[] allFileVector;
 
 
@@ -87,7 +100,7 @@ public class Tools {
     public Tools(org.ei.opensrp.Context appContext) {
         imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
         Tools.appContext = appContext;
-        helperImage = BitmapFactory.decodeResource( appContext.applicationContext().getResources(), R.drawable.h8);//ok
+//        helperImage = BitmapFactory.decodeResource( appContext.applicationContext().getResources(), R.drawable.h8);//ok
 //        hash = retrieveHash(appContext.applicationContext());
     }
 
@@ -644,12 +657,15 @@ public class Tools {
                 String[] vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
                 vectorFace[0] = String.valueOf(i);
 
-
                 albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
                 hash.put(profileImage.getEntityID(), String.valueOf(i));
 
+                headerOne = generateHeader(i);
+
 //            Log.e(TAG, "setVectorsBuffered: "+ profileImage.getFilevector() );
 //            Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(vectorFace));
+//                Log.e(TAG, "setVectorsBuffered: "+i+ " - "+ Arrays.toString(headerOne) );
+                Log.e(TAG, "setVectorsBuffered: "+i+ " - "+ headerOne );
 
             } else {
                 Log.e(TAG, "setVectorsBuffered: Profile Image Null" );
@@ -658,18 +674,28 @@ public class Tools {
 
         }
 
+        Log.e(TAG, "setVectorsBuffered: "+ headerOne );
 //        String headerOne = "76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0"; // 1 user
-//        String headerOne = "96, -108, 4, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, -24, 3, 0, 0"; // 3 user
-//        String headerOne = "-100, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 480
-
 //        String headerOne = "120, 2, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 2, 0, 0, 0"; // 2 ok
 //        String headerOne = "-92, 3, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 3, 0, 0, 0"; // 3 ok
-        String headerOne = "-48, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 3 ok
+//        String headerOne = "-48, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 3 ok
 //        String headerOne = "-96, 50, 2, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, -32, 1, 0, 0";
+//        String headerOne = "-100, 4, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 4, 0, 0, 0"; // 480
 
+//        String headerOne = "96, -108, 4, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, -24, 3, 0, 0"; // 3 user
 
-        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
-        albumBuffered = ArrayUtils.addAll(headerOne.split(", "), albumBuffered);
+//        headerOfVector = Arrays.copyOfRange(objFace.serializeRecogntionAlbum(),0, 32);
+
+//        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
+
+        // If used fixed
+//        albumBuffered = ArrayUtils.addAll(headerOne.split(", "), albumBuffered);
+
+        // Used dinamic data
+        Log.e(TAG, "setVectorsBuffered: headerOne "+headerOne.toString() );
+
+        albumBuffered = ArrayUtils.addAll(headerOne.substring(1, headerOne.length() -1).split(", "), albumBuffered);
+
 //        Log.e(TAG, "setVectorsBuffered: "+ Arrays.toString(albumBuffered));
 //        Log.e(TAG, "setVectorsBuffered: "+ albumBuffered.length );
 
@@ -681,6 +707,50 @@ public class Tools {
         saveHash(hash, appContext.applicationContext());
 
 
+    }
+
+    private static String generateHeader(int i) {
+
+        String vectorHeader = "";
+
+        if (SmartShutterActivity.faceProc == null) {
+            SmartShutterActivity.faceProc = FacialProcessing.getInstance();
+        }
+        FacialProcessing objFace = SmartShutterActivity.faceProc;
+
+        dummyImage = BitmapFactory.decodeResource( appContext.applicationContext().getResources(), R.drawable.h8);//ok
+
+        boolean resSetBitmap = objFace.setBitmap(dummyImage);
+
+        FaceData[] faceData = objFace.getFaceData();
+        byte[] initContentBuffered = null;
+
+        if(resSetBitmap) {
+
+            Log.e(TAG, "generateHeader: idx person "+ objFace.addPerson(0) );
+            Log.e(TAG, "generateHeader: "+faceData[0].getRecognitionConfidence() );
+//            objFace.addPerson(0);
+
+            // HC
+
+            albumVectors = objFace.serializeRecogntionAlbum();
+
+            // Header
+            headerOfVector = Arrays.copyOfRange(objFace.serializeRecogntionAlbum(),0, 32);
+            lastContentOfVector = Arrays.copyOfRange(objFace.serializeRecogntionAlbum(), objFace.serializeRecogntionAlbum().length - 300, objFace.serializeRecogntionAlbum().length);
+
+            albumVectors[albumVectors.length-1] = Byte.parseByte(String.valueOf(i));
+
+            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumVectors);
+
+        } else {
+            Log.e(TAG, "generateHeader: Failed setBitmap SDK"  );
+        }
+
+        String strHeader = Arrays.toString(headerOfVector);
+//        Arrays.toString(.substring(1, headerOfVector.length - 1).split(","));
+//        return Arrays.toString(headerOfVector);
+        return strHeader;
     }
 
     /**
