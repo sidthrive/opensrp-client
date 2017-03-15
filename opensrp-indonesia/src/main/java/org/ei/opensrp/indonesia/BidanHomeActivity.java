@@ -78,6 +78,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
             // Fetch vector from API and stored to local db
 //            mtool.setVectorfromAPI(context());
+//            Tools.initVector();
             Tools.setVectorfromAPI(getApplicationContext());
 
             Tools.setVectorsBuffered();

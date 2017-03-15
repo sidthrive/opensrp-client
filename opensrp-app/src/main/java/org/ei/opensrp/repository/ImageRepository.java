@@ -1,21 +1,22 @@
 package org.ei.opensrp.repository;
 
 import android.content.ContentValues;
+import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.os.Environment;
 import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.R;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.view.activity.DrishtiApplication;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class ImageRepository extends DrishtiRepository {
     private static final String TAG = ImageRepository.class.getCanonicalName();
@@ -24,6 +25,7 @@ public class ImageRepository extends DrishtiRepository {
     public static final String ID_COLUMN = "imageid";
     public static final String anm_ID_COLUMN = "anmId";
     public static final String entityID_COLUMN = "entityID";
+    public static final String numberUser = "numberUser";
     private static final String contenttype_COLUMN = "contenttype";
     public static final String filepath_COLUMN = "filepath";
     public static final String syncStatus_COLUMN = "syncStatus";
@@ -34,16 +36,16 @@ public class ImageRepository extends DrishtiRepository {
     public static final String filevector_COLUMN = "filevector";
     public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN, bfrStatus_COLUMN};
     public static final String Vector_TABLE_NAME = "VectorList";
-    public static final String VID_COLUMN = "filevector";
-    private static final String Vector_SQL = "CREATE TABLE VectorList("+ entityID_COLUMN +" VARCHAR PRIMARY KEY, "+ VID_COLUMN +" TEXT, syncStatus VARCHAR )";
+    public static final String VID_COLUMN = "headerVector";
+    private static final String Vector_SQL = "CREATE TABLE VectorList("+ numberUser +" integer PRIMARY KEY, "+ VID_COLUMN +" TEXT NOT NULL UNIQUE)";
+//    private static final String Vector_SQL = "CREATE TABLE VectorList("+ numberUser +" integer PRIMARY KEY, "+ VID_COLUMN +" TEXT NOT NULL)";
     public static final String[] VectorImage_TABLE_COLUMNS = {
             entityID_COLUMN,
             filevector_COLUMN
     };
     public static final String[] Vector_TABLE_COLUMNS = {
-            entityID_COLUMN,
+            numberUser,
             VID_COLUMN,
-            syncStatus_COLUMN
     };
 
     public static final String TYPE_ANC = "ANC";
@@ -60,7 +62,9 @@ public class ImageRepository extends DrishtiRepository {
         database.execSQL(Image_SQL);
 
         database.execSQL(Vector_SQL);
+        importCSV(Context.getInstance(), database);
     }
+
 
     // If no record yet insert new, if exist just update
     public void add(ProfileImage profileImage, String entityId) {
@@ -252,6 +256,47 @@ public class ImageRepository extends DrishtiRepository {
         }
 
         close(profileImage.getEntityID());
+
+    }
+
+    public void importCSV(Context context, SQLiteDatabase database) {
+
+        InputStream is = context.applicationContext().getResources().openRawResource(R.raw.header_vectors1000);
+
+        AssetManager am = context.applicationContext().getAssets();
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
+
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        String numUsr ;
+        String headerVector ;
+        try {
+            while ((line = in.readLine()) != null){
+                String[] rowdata = line.split("; ");
+                numUsr = rowdata[0];
+                headerVector = rowdata[1];
+
+                ContentValues values = new ContentValues();
+                values.put(numberUser, numUsr);
+                values.put(VID_COLUMN, headerVector);
+                database.insert(Vector_TABLE_NAME, null, values);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        database.close();
+    }
+
+    public String findByUserCount(int i) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, numberUser + " = ?", new String[]{String.valueOf(i)}, null, null, null, null);
+//        List<ProfileImage> allcursor = readAll(cursor);
+//        Log.e(TAG, "findByUserCount: "+cursor.toString() );
+        cursor.moveToFirst();
+        return cursor.getString(1);
 
     }
 }

@@ -340,7 +340,7 @@ public class AllConstants {
 
         public static final String COUCH_DATABASE_NAME = "opensrp3";
         public static final String COUCH_DATABASE_USER = "admin";
-        public static final String COUCH_DATABASE_PASS = "Satu23456";
+        public static final String COUCH_DATABASE_PASS = "Satu2345";
     }
 
     public static class SyncFilters {
