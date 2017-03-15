@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.jjoe64.graphview.GraphView;
 
 import org.ei.opensrp.Context;
@@ -35,6 +36,7 @@ public class GiziZScoreChartActivity extends Activity{
         final Context context = Context.getInstance();
         calc = new ZScoreSystemCalculation();
         setContentView(R.layout.gizi_z_score_activity);
+        FlurryAgent.logEvent("ZScore_chart_view");
 
         if(client == null){
             DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();

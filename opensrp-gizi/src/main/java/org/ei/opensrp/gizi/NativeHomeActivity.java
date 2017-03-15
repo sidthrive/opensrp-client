@@ -234,7 +234,7 @@ public class NativeHomeActivity extends SecuredActivity {
 //=======
                 this, context().actionService(), context().formSubmissionSyncService(),
                 new SyncProgressIndicator(), context().allFormVersionSyncService());
-        FlurryFacade.logEvent("click_update_from_server");
+        FlurryAgent.logEvent("click_update_from_server");
 //>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
         String locationjson = context().anmLocationController().get();
