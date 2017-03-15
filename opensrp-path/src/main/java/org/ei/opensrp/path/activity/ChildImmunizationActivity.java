@@ -9,9 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -156,18 +156,13 @@ public class ChildImmunizationActivity extends BaseActivity
 
         WeightRepository weightRepository = getOpenSRPContext().weightRepository();
 
-        UpdateWeightTask updateWeightTask = new UpdateWeightTask();
-        updateWeightTask.setWeightRepository(weightRepository);
-        updateWeightTask.setRegisterClickables(registerClickables);
-        updateWeightTask.execute();
-
         VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
 
-        UpdateVaccineViewsTask updateVaccineViewsTask = new UpdateVaccineViewsTask();
-        updateVaccineViewsTask.setVaccineRepository(vaccineRepository);
-        updateVaccineViewsTask.setRegisterClickables(registerClickables);
-        updateVaccineViewsTask.execute();
-
+        UpdateViewTask updateViewTask = new UpdateViewTask();
+        updateViewTask.setWeightRepository(weightRepository);
+        updateViewTask.setVaccineRepository(vaccineRepository);
+        updateViewTask.setRegisterClickables(registerClickables);
+        Utils.startAsyncTask(updateViewTask, null);
     }
 
     private void updateProfilePicture(Gender gender) {
@@ -566,7 +561,7 @@ public class ChildImmunizationActivity extends BaseActivity
             VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
             SaveVaccinesTask backgroundTask = new SaveVaccinesTask();
             backgroundTask.setView(view);
-            backgroundTask.execute(arrayTags);
+            Utils.startAsyncTask(backgroundTask, arrayTags);
         }
     }
 
@@ -698,10 +693,15 @@ public class ChildImmunizationActivity extends BaseActivity
         return null;
     }
 
-    private class UpdateWeightTask extends AsyncTask<Void, Void, Weight> {
+    private class UpdateViewTask extends AsyncTask<Void, Void, Pair<Weight, List<Vaccine>>> {
 
+        private VaccineRepository vaccineRepository;
         private WeightRepository weightRepository;
         private RegisterClickables registerClickables;
+
+        public void setVaccineRepository(VaccineRepository vaccineRepository) {
+            this.vaccineRepository = vaccineRepository;
+        }
 
         public void setWeightRepository(WeightRepository weightRepository) {
             this.weightRepository = weightRepository;
@@ -712,45 +712,32 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         @Override
-        protected void onPostExecute(Weight weight) {
-            updateRecordWeightView(weight);
+        protected void onPreExecute() {
+            showProgressDialog(getString(R.string.updating_dialog_title), null);
+        }
+
+        @Override
+        protected void onPostExecute(Pair<Weight, List<Vaccine>> pair) {
+            hideProgressDialog();
+            updateRecordWeightView(pair.first);
+            updateVaccinationViews(pair.second);
             performRegisterActions(registerClickables);
         }
 
         @Override
-        protected Weight doInBackground(Void... voids) {
-            if (weightRepository == null) {
-                return null;
+        protected Pair<Weight, List<Vaccine>> doInBackground(Void... voids) {
+            List<Vaccine> vaccineList = new ArrayList<>();
+            Weight weight = null;
+            if (vaccineRepository != null) {
+                vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+
             }
-            return weightRepository.findUnSyncedByEntityId(childDetails.entityId());
-        }
-    }
-
-    private class UpdateVaccineViewsTask extends AsyncTask<Void, Void, List<Vaccine>> {
-
-        private VaccineRepository vaccineRepository;
-        private RegisterClickables registerClickables;
-
-        public void setVaccineRepository(VaccineRepository vaccineRepository) {
-            this.vaccineRepository = vaccineRepository;
-        }
-
-        public void setRegisterClickables(RegisterClickables registerClickables) {
-            this.registerClickables = registerClickables;
-        }
-
-        @Override
-        protected void onPostExecute(List<Vaccine> vaccines) {
-            updateVaccinationViews(vaccines);
-            performRegisterActions(registerClickables);
-        }
-
-        @Override
-        protected List<Vaccine> doInBackground(Void... voids) {
-            if (vaccineRepository == null) {
-                return null;
+            if (weightRepository != null) {
+                weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
             }
-            return vaccineRepository.findByEntityId(childDetails.entityId());
+
+            Pair<Weight, List<Vaccine>> pair = Pair.create(weight, vaccineList);
+            return pair;
         }
     }
 }

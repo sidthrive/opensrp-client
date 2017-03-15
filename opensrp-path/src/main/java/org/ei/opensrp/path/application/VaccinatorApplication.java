@@ -11,12 +11,10 @@ import com.crashlytics.android.Crashlytics;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.path.activity.LoginActivity;
-import org.ei.opensrp.path.receiver.ConfigSyncReceiver;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
-import java.io.File;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
@@ -42,7 +40,6 @@ public class VaccinatorApplication extends DrishtiApplication{
         context.updateCommonFtsObject(createCommonFtsObject());
         applyUserLanguagePreference();
         cleanUpSyncState();
-        ConfigSyncReceiver.scheduleFirstSync(getApplicationContext());
         setCrashlyticsUser(context);
     }
 

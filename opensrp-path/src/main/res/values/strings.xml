@@ -143,5 +143,6 @@
     <string name="no_record">No Record(s) Found!</string>
 
     <string name="saving_dialog_title">Saving…</string>
-    <string name="saving_dialog_message">Please wait</string>
+    <string name="updating_dialog_title">Updating…</string>
+    <string name="please_wait_message">Please wait</string>
 </resources>
