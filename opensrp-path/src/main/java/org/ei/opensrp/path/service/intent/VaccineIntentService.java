@@ -22,7 +22,8 @@ import util.JsonFormUtils;
 public class VaccineIntentService extends IntentService {
     private static final String TAG = VaccineIntentService.class.getCanonicalName();
     private final VaccineRepository vaccineRepository;
-
+    public static final String EVENT_TYPE = "Vaccination";
+    public static final String ENTITY_TYPE = "vaccination";
 
     public VaccineIntentService() {
 
@@ -45,8 +46,6 @@ public class VaccineIntentService extends IntentService {
             List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(24);
             if (!vaccines.isEmpty()) {
                 for (Vaccine vaccine : vaccines) {
-                    String eventType = "Vaccination";
-                    String entityType = "vaccination";
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String formatedDate = simpleDateFormat.format(vaccine.getDate());
@@ -54,7 +53,7 @@ public class VaccineIntentService extends IntentService {
                     JSONArray jsonArray = new JSONArray();
 
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(JsonFormUtils.KEY, vaccine.getName().toLowerCase().replace(" ", "_"));
+                    jsonObject.put(JsonFormUtils.KEY, vaccine.getName());
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, entityId);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));
@@ -64,7 +63,7 @@ public class VaccineIntentService extends IntentService {
 
                     if (vaccine.getCalculation() != null && vaccine.getCalculation().intValue() >= 0) {
                         jsonObject = new JSONObject();
-                        jsonObject.put(JsonFormUtils.KEY, vaccine.getName().toLowerCase().replace(" ", "_") + "_dose");
+                        jsonObject.put(JsonFormUtils.KEY, vaccine.getName() + "_dose");
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, calId);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));
@@ -72,7 +71,7 @@ public class VaccineIntentService extends IntentService {
                         jsonObject.put(JsonFormUtils.VALUE, vaccine.getCalculation());
                         jsonArray.put(jsonObject);
                     }
-                    JsonFormUtils.createVaccineEvent(getApplicationContext(), vaccine, eventType, entityType, jsonArray);
+                    JsonFormUtils.createVaccineEvent(getApplicationContext(), vaccine, EVENT_TYPE, ENTITY_TYPE, jsonArray);
                     vaccineRepository.close(vaccine.getId());
                 }
             }
@@ -83,20 +82,21 @@ public class VaccineIntentService extends IntentService {
 
     private String getParentId(String name) {
         name = name.split("\\s+")[0];
+        name = name.toLowerCase();
         switch (name) {
-            case "BCG":
+            case "bcg":
                 return "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "OPV":
+            case "opv":
                 return "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "PCV":
+            case "pcv":
                 return "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Penta":
+            case "penta":
                 return "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Rota":
+            case "rota":
                 return "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Measles":
+            case "measles":
                 return "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "MR":
+            case "mr":
                 return "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
         return "";

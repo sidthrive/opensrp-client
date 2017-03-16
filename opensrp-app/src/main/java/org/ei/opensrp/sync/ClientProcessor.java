@@ -42,7 +42,7 @@ public class ClientProcessor {
 
     private static final String detailsUpdated = "detailsUpdated";
 
-    private static final String VALUES_KEY = "values";
+    protected static final String VALUES_KEY = "values";
 
     private static final String[] openmrs_gen_ids = { "zeir_id" };
 
@@ -678,7 +678,7 @@ public class ClientProcessor {
      * @return
      * @throws Exception
      */
-    private String getHumanReadableConceptResponse(String value, JSONObject jsonDocObject) throws Exception {
+    protected String getHumanReadableConceptResponse(String value, JSONObject jsonDocObject) throws Exception {
 
         JSONArray humanReadableValues = jsonDocObject.has("humanReadableValues") ? jsonDocObject.getJSONArray("humanReadableValues") : null;
 
@@ -838,11 +838,11 @@ public class ClientProcessor {
         return null;
     }
 
-    private String getFileContents(String fileName) {
+    protected String getFileContents(String fileName) {
         return AssetHandler.readFileFromAssetsFolder(fileName, mContext);
     }
 
-    private List<String> getValues(Object jsonObject) throws JSONException {
+    protected List<String> getValues(Object jsonObject) throws JSONException {
         List<String> values = new ArrayList<String>();
         if (jsonObject == null) {
             return values;
@@ -895,7 +895,7 @@ public class ClientProcessor {
         this.mCloudantDataHandler = mCloudantDataHandler;
     }
 
-    private boolean isNullOrEmptyJSONObject(JSONObject jsonObject) {
+    protected boolean isNullOrEmptyJSONObject(JSONObject jsonObject) {
         return (jsonObject == null || jsonObject.length() == 0);
     }
 
@@ -923,5 +923,9 @@ public class ClientProcessor {
         } catch (Exception e) {
 
         }
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 }

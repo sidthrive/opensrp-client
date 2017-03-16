@@ -153,7 +153,11 @@ public class VaccineCard extends LinearLayout {
             case DONE_CAN_BE_UNDONE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
                 statusIV.setVisibility(VISIBLE);
-                undoB.setVisibility(VISIBLE);
+                if(isSynced()){
+                    undoB.setVisibility(GONE);
+                }else {
+                    undoB.setVisibility(VISIBLE);
+                }
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());
@@ -208,6 +212,13 @@ public class VaccineCard extends LinearLayout {
         }
 
         return null;
+    }
+
+    private boolean isSynced() {
+        if (vaccineWrapper != null) {
+            return vaccineWrapper.isSynced();
+        }
+        return false;
     }
 
     public static interface OnVaccineStateChangeListener {

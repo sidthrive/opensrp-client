@@ -12,6 +12,7 @@ import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
 import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.repository.VaccineRepository;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +29,7 @@ import util.Utils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
+import static util.Utils.nonEmptyValue;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
@@ -152,7 +154,7 @@ public class VaccineCardAdapter extends BaseAdapter {
         List<Vaccine> vaccineList = vaccineGroup.getVaccineList();
         if (!vaccineList.isEmpty()) {
             for (Vaccine vaccine : vaccineList) {
-                if (tag.getName().equals(vaccine.getName()) && vaccine.getDate() != null) {
+                if (tag.getName().equalsIgnoreCase(vaccine.getName()) && vaccine.getDate() != null) {
                     long diff = vaccine.getUpdatedAt() - vaccine.getDate().getTime();
                     if (diff > 0 && TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1) {
                         tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
@@ -161,6 +163,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                     }
                     tag.setRecordedDate(new DateTime(new Date(vaccine.getUpdatedAt())));
                     tag.setDbKey(vaccine.getId());
+                    tag.setSynced(vaccine.getSyncStatus() != null && vaccine.getSyncStatus().equals(VaccineRepository.TYPE_Synced));
                 }
             }
         }

@@ -20,7 +20,6 @@ import org.ei.opensrp.service.AllFormVersionSyncService;
 import org.ei.opensrp.service.FormSubmissionSyncService;
 import org.ei.opensrp.service.ImageUploadSyncService;
 import org.ei.opensrp.sync.AdditionalSyncService;
-import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
@@ -130,7 +129,7 @@ public class PathUpdateActionsTask {
                 }
 
                 long lastSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
-                ClientProcessor.getInstance(context).processClient(ecUpdater.allEvents(startSyncTimeStamp, lastSyncTimeStamp));
+                PathClientProcessor.getInstance(context).processClient(ecUpdater.allEvents(startSyncTimeStamp, lastSyncTimeStamp));
                 Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
                 pathAfterFetchListener.partialFetch(fetched);
             }

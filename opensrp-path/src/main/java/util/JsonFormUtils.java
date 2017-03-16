@@ -15,8 +15,8 @@ import org.ei.opensrp.clientandeventmodel.Obs;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
+import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
@@ -151,7 +151,7 @@ public class JsonFormUtils {
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
 
-            ClientProcessor.getInstance(context).processClient();
+            PathClientProcessor.getInstance(context).processClient();
 
         } catch (Exception e) {
             Log.e(TAG, "", e);

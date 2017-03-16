@@ -21,10 +21,10 @@ public class VaccineRepository extends DrishtiRepository {
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String NAME = "name";
     public static final String CALCULATION = "calculation";
-    private static final String DATE = "date";
-    private static final String ANMID = "anmid";
-    private static final String LOCATIONID = "location_id";
-    private static final String SYNC_STATUS = "sync_status";
+    public static final String DATE = "date";
+    public static final String ANMID = "anmid";
+    public static final String LOCATIONID = "location_id";
+    public static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
@@ -106,10 +106,14 @@ public class VaccineRepository extends DrishtiRepository {
         cursor.moveToFirst();
         List<Vaccine> vaccines = new ArrayList<Vaccine>();
         while (!cursor.isAfterLast()) {
+            String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
+            if (vaccineName != null) {
+                vaccineName = vaccineName.replace("_", " ");
+            }
             vaccines.add(
                     new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
                             cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                            cursor.getString(cursor.getColumnIndex(NAME)),
+                            vaccineName,
                             cursor.getInt(cursor.getColumnIndex(CALCULATION)),
                             new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
                             cursor.getString(cursor.getColumnIndex(ANMID)),
@@ -129,7 +133,7 @@ public class VaccineRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, vaccine.getId());
         values.put(BASE_ENTITY_ID, vaccine.getBaseEntityId());
-        values.put(NAME, vaccine.getName());
+        values.put(NAME, vaccine.getName() != null ? vaccine.getName().toLowerCase().replace(" ", "_") : null);
         values.put(CALCULATION, vaccine.getCalculation());
         values.put(DATE, vaccine.getDate() != null ? vaccine.getDate().getTime() : null);
         values.put(ANMID, vaccine.getAnmId());

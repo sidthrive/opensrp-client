@@ -35,6 +35,7 @@ public class VaccineWrapper implements Serializable {
     private DateTime recordedDate;
 
     private boolean today;
+    private boolean synced;
 
     public String getId() {
         return id;
@@ -204,5 +205,13 @@ public class VaccineWrapper implements Serializable {
 
     public void setDefaultName(String defaultName) {
         this.defaultName = defaultName;
+    }
+
+    public boolean isSynced() {
+        return synced;
+    }
+
+    public void setSynced(boolean synced) {
+        this.synced = synced;
     }
 }

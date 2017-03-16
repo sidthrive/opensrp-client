@@ -30,10 +30,10 @@ public class WeightRepository extends DrishtiRepository {
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String KG = "kg";
-    private static final String DATE = "date";
-    private static final String ANMID = "anmid";
-    private static final String LOCATIONID = "location_id";
-    private static final String SYNC_STATUS = "sync_status";
+    public static final String DATE = "date";
+    public static final String ANMID = "anmid";
+    public static final String LOCATIONID = "location_id";
+    public static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
     public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, KG, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 

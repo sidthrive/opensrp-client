@@ -19,6 +19,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -238,25 +239,45 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         int daysAfter = 0;
         String text = "at birth";
 
-        map.put("OPV 0", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("BCG", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("opv 0", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("bcg", Triple.of(dueDate(dobString, daysAfter), 0l, text));
 
         daysAfter = 42;
         text = "6 weeks";
 
-        map.put("OPV 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Penta 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("PCV 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Rota 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("opv 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("penta 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("pcv 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("rota 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
 
         daysAfter = 70;
         text = "10 weeks";
 
-        map.put("OPV 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Penta 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("PCV 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Rota 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("opv 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("penta 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("pcv 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("rota 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
 
+
+        daysAfter = 98;
+        text = "14 weeks";
+
+        map.put("opv 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("penta 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("pcv 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+
+        daysAfter = 274;
+        text = "9 Months";
+
+        map.put("measles 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("mr 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("opv 4", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+
+        daysAfter = 548;
+        text = "18 Months";
+
+        map.put("measles 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
+        map.put("mr 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
 
         if (vaccines != null) {
             for (Vaccine vaccine : vaccines) {
@@ -266,7 +287,9 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
                 }
             }
         }
+
         return map;
+
     }
 
     private Long dueDate(String dobString, int daysAfter) {
