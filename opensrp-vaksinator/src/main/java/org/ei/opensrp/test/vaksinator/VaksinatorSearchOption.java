@@ -58,6 +58,13 @@ public class VaksinatorSearchOption implements FilterOption {
                 }
             }
         }
+        if(!result) {
+            if(currentclient.getDetails().get("object_id") != null) {
+                if (currentclient.getDetails().get("object_id").toLowerCase().contains(criteria.toLowerCase())) {
+                    result = true;
+                }
+            }
+        }
 
         return result;
     }

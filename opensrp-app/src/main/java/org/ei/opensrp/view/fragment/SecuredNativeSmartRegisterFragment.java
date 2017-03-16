@@ -115,7 +115,7 @@ public abstract class SecuredNativeSmartRegisterFragment extends SecuredFragment
 
     private final PaginationViewHandler paginationViewHandler = new PaginationViewHandler();
     private final NavBarActionsHandler navBarActionsHandler = new NavBarActionsHandler();
-    private final SearchCancelHandler searchCancelHandler = new SearchCancelHandler();
+    public final SearchCancelHandler searchCancelHandler = new SearchCancelHandler();
 
     private boolean refreshList;
 

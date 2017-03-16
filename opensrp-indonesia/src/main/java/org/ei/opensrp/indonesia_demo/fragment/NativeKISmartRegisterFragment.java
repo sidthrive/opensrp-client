@@ -219,6 +219,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
+
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void initializeQueries(String s){
         KIClientsProvider kiscp = new KIClientsProvider(getActivity(),clientActionHandler,context.alertService());

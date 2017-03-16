@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,7 +102,20 @@ public class LoginActivity extends Activity {
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.test.R.color.action_bar_background));
         setLanguage();
 
+        debugApp();
+
     }
+
+    private void debugApp(){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.login, null);
+        if (context.userService().hasARegisteredUser()){
+            localLogin(view, "jurim", "Satu2345");
+        } else {
+            remoteLogin(view, "jurim", "Satu2345");
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

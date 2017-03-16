@@ -154,16 +154,8 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         JSONObject combined = null;
 
         try {
-            int formIndex = FormUtils.getIndexForFormName(formName, formNames) + + ((BaseRegisterActivityPagerAdapter)mPagerAdapter).offset(); // add the offset
-            if (entityId != null || metaData != null){
-                String data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
-                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
-                if (displayFormFragment != null) {
-                    displayFormFragment.setFormData(data);
-                    displayFormFragment.setRecordId(entityId);
-                    displayFormFragment.setFieldOverides(metaData);
-                }
-            }
+            JSONObject locationJSON = new JSONObject(locationJSONString);
+            //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
             //   Iterator<String> iter = uniqueId.keys();

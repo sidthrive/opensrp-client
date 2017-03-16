@@ -46,9 +46,9 @@ public class Generator {
     }
 
     public AllSettingsINA allSettingsINA() {
-        context.initRepository();
+        context.initRepositoryForUniqueId();
         if(allSettingsINA == null)
-            allSettingsINA = new AllSettingsINA(context.allSharedPreferences(), context.settingsRepository());
+            allSettingsINA = new AllSettingsINA(context.allSharedPreferences(), context.settingsRepositoryForUniqueId());
 
         return allSettingsINA;
     }
@@ -69,7 +69,7 @@ public class Generator {
         }
     public UniqueIdService uniqueIdService() {
         if (uniqueIdService == null)
-            uniqueIdService = new UniqueIdService(context.httpAgent(), context.configuration(), uniqueIdController(), allSettingsINA(), context.allSharedPreferences());
+            uniqueIdService = new UniqueIdService(context.getHttpAgent(), context.configuration(), uniqueIdController(), allSettingsINA(), context.allSharedPreferences());
         return uniqueIdService;
     }
 

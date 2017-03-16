@@ -18,6 +18,7 @@ import org.ei.opensrp.repository.AllEligibleCouples;
 import org.ei.opensrp.repository.AllReports;
 import org.ei.opensrp.repository.AllServicesProvided;
 import org.ei.opensrp.repository.AllSettings;
+import org.ei.opensrp.repository.AllSettingsINA;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.AllTimelineEvents;
 import org.ei.opensrp.repository.ChildRepository;
@@ -979,6 +980,14 @@ public class Context {
     public Context updateCommonFtsObject(CommonFtsObject commonFtsObject){
         this.commonFtsObject = commonFtsObject;
         return this;
+    }
+
+    public SettingsRepository settingsRepositoryForUniqueId(){
+        return settingsRepository();
+    }
+
+    public Repository initRepositoryForUniqueId() {
+        return initRepository();
     }
 
     public CommonFtsObject commonFtsObject() {

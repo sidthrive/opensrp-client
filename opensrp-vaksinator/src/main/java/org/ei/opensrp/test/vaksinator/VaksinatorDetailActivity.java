@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
+import org.apache.commons.io.FilenameUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.test.R;
+import org.ei.opensrp.test.face.camera.SmartShutterActivity;
+import org.ei.opensrp.test.face.camera.util.Tools;
 import org.w3c.dom.Text;
 
 import java.io.File;
@@ -38,9 +42,10 @@ import util.ImageFetcher;
  * Created by Iq on 09/06/16.
  */
 public class VaksinatorDetailActivity extends Activity {
+    public static CommonPersonObjectClient kiclient;
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = VaksinatorDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
 
@@ -52,6 +57,16 @@ public class VaksinatorDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient controller;
+
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
+
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,15 +225,43 @@ public class VaksinatorDetailActivity extends Activity {
         additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_lanjutan") != null ? controller.getDetails().get("dpt_hb_lanjutan") : "-"));
         additionalMeasles.setText(": " + (controller.getDetails().get("campak_lanjutan") != null ? controller.getDetails().get("campak_lanjutan") : "-"));
 
-        if(controller.getDetails().get("profilepic")!= null){
-            setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+        //        Profile Picture
+        photo_path = controller.getDetails().get("profilepic");
+
+        if (Tools.getPhotoPath() != null) {
+            String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
+            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/") + 1);
         }
-        else {
+
+        if (photo_path != null) {
+            tb_photo = new File(photo_path);
+            if (!tb_photo.exists()) {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
+            } else {
+                setImagetoHolderFromUri(this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+            }
+        } else if (Tools.getPhotoPath() != null && fileName.equals(controller.getCaseId())) {
+            setImagetoHolderFromUri(this, Tools.getPhotoPath(), photo, R.drawable.child_boy_infant);
+
+        } else {
+            Log.e(TAG, "onCreate: kelamin " + controller.getDetails().get("jenisKelamin"));
+
             photo.setImageResource(controller.getDetails().get("jenis_kelamin").contains("em")
                     ? R.drawable.child_girl_infant
                     : R.drawable.child_boy_infant);
-
         }
+
+//        if(controller.getDetails().get("profilepic")!= null){
+//            setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+//        }
+//        else {
+//            photo.setImageResource(controller.getDetails().get("jenis_kelamin").contains("em")
+//                    ? R.drawable.child_girl_infant
+//                    : R.drawable.child_boy_infant);
+//
+//        }
+
+        hash = Tools.retrieveHash(context.applicationContext());
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +269,21 @@ public class VaksinatorDetailActivity extends Activity {
 
                 bindobject = "anak";
                 entityid = controller.entityId();
-                dispatchTakePictureIntent(photo);
+//                dispatchTakePictureIntent(photo);
+
+                if (hash.containsValue(entityid)) {
+                    Log.e(TAG, "onClick: " + entityid + " updated");
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+//                dispatchTakePictureIntent(kiview, updateMode);
+
+                Intent intent = new Intent(VaksinatorDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
+                startActivity(intent);
 
             }
         });

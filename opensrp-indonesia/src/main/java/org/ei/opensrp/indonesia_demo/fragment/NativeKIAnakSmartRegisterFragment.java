@@ -235,7 +235,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         } else {
             Log.e(TAG, "initializeQueries: init " + s);
 
-            mainCondition = "isClosed !='true' AND ibuCaseId !='' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "isClosed !='true' AND ibuCaseId !='' AND id LIKE '%" + s + "%'";
         }
 
         super.CountExecute();

@@ -398,7 +398,7 @@ public class ImageConfirmation extends Activity {
             origin_class = KIDetailActivity.class;
         }
         else if(s_class.equals(KBDetailActivity.class.getSimpleName())){
-            origin_class = NativeKBSmartRegisterActivity.class;
+            origin_class = KBDetailActivity.class;
         }
         else if(s_class.equals(ANCDetailActivity.class.getSimpleName())){
             origin_class = ANCDetailActivity.class;
