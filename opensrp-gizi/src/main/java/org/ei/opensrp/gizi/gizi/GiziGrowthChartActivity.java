@@ -146,6 +146,8 @@ public class GiziGrowthChartActivity extends Activity{
                 }
             }
         }
+        if (ageSeries.length()+lengthSeries.length()<2)
+            return "0#0";
         return ageSeries.substring(1,ageSeries.length())+"#"+lengthSeries.substring(1,lengthSeries.length());
     }
 
