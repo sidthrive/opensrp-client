@@ -31,18 +31,12 @@ public class ImageRepository extends DrishtiRepository {
     public static final String syncStatus_COLUMN = "syncStatus";
     public static final String bfrStatus_COLUMN = "bfrStatus";
     public static final String filecategory_COLUMN = "filecategory";
-//    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN, filecategory_COLUMN};
 
     public static final String filevector_COLUMN = "filevector";
     public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN, bfrStatus_COLUMN};
     public static final String Vector_TABLE_NAME = "VectorList";
     public static final String VID_COLUMN = "headerVector";
     private static final String Vector_SQL = "CREATE TABLE VectorList("+ numberUser +" integer PRIMARY KEY, "+ VID_COLUMN +" TEXT NOT NULL UNIQUE)";
-//    private static final String Vector_SQL = "CREATE TABLE VectorList("+ numberUser +" integer PRIMARY KEY, "+ VID_COLUMN +" TEXT NOT NULL)";
-    public static final String[] VectorImage_TABLE_COLUMNS = {
-            entityID_COLUMN,
-            filevector_COLUMN
-    };
     public static final String[] Vector_TABLE_COLUMNS = {
             numberUser,
             VID_COLUMN,
@@ -69,17 +63,12 @@ public class ImageRepository extends DrishtiRepository {
     // If no record yet insert new, if exist just update
     public void add(ProfileImage profileImage, String entityId) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
-//        database.insert(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC));
-
-//        Log.e(TAG, "add: "+profileImage.getEntityID());
-//        long id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-//        Log.e(TAG, "add: Id"+ id );
-//        if (id == -1) {
         long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
         Log.e(TAG, "add: "+ id );
-//        } else {
-//            Log.e(TAG, "add: "+"Insert New Success" );
-//        }
+        if (id == 0) {
+        id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+            Log.e(TAG, "add: "+id+"Insert New Success" );
+        }
 
         database.close();
     }
@@ -107,8 +96,6 @@ public class ImageRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
         values.put(syncStatus_COLUMN, TYPE_Synced);
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
-
-//        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
     }
 
     private ContentValues createValuesFor(ProfileImage image, String type) {
@@ -150,7 +137,9 @@ public class ImageRepository extends DrishtiRepository {
         } catch (Exception e) {
             Log.e(TAG,e.getMessage());
         } finally {
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return profileImages;
     }
@@ -227,32 +216,13 @@ public class ImageRepository extends DrishtiRepository {
 
 
     public void insertOrUpdate(ProfileImage profileImage, String uid) {
-        Log.e(TAG, "insertOrUpdate: "+"start "+profileImage.getEntityID() );
         SQLiteDatabase db = masterRepository.getReadableDatabase();
-        ContentValues values = new ContentValues();
 
-//        ProfileImage profileImage= new ProfileImage();
-//        profileImage.setImageid(UUID.randomUUID().toString());
-//        values.put(ID_COLUMN, UUID.randomUUID().toString());
-//        values.put(ID_COLUMN, entityId);
-//        values.put(anm_ID_COLUMN, );
-//        values.put(entityID_COLUMN, entityId);
-//        values.put(filevector_COLUMN, faceVector);
-//        values.put(syncStatus_COLUMN, TYPE_Unsynced);
-//        values.put(bfrStatus_COLUMN, TYPE_Unbuffered);
-//        db.insertWithOnConflict(Vector_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE );
-//        masterRepository.getWritableDatabase().update(Vector_TABLE_NAME, values, "entityID" + " = ? AND filevector is null or filevector =?", new String[]{entityId, ""});
-
-//        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
         long id = db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
         Log.e(TAG, "insertOrUpdate: id insert new "+ id );
         if (id == -1) {
-            Log.e(TAG, "insertOrUpdate: updated "+ id );
+            Log.e(TAG, "insertOrUpdate: "+ "UPDATED" );
             db.update(Vector_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
-//            long id = db.update(Image_TABLE_NAME, values, ID_COLUMN + "=?", new String[]{String.valueOf(profileImage.getEntityID())});
-//        Log.e(TAG, "insertOrUpdate: "+profileImage.toString() );
-//            long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{uid});
-//        Log.e(TAG, "insertOrUpdate: "+id );
         }
 
         close(profileImage.getEntityID());
@@ -263,11 +233,9 @@ public class ImageRepository extends DrishtiRepository {
 
         InputStream is = context.applicationContext().getResources().openRawResource(R.raw.header_vectors1000);
 
-        AssetManager am = context.applicationContext().getAssets();
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
-        String line = null;
-        StringBuilder sb = new StringBuilder();
+        String line;
         String numUsr ;
         String headerVector ;
         try {
@@ -287,15 +255,12 @@ public class ImageRepository extends DrishtiRepository {
             e.printStackTrace();
         }
 
-//        database.close();
     }
 
     public String findByUserCount(int i) {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
         Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, numberUser + " = ?", new String[]{String.valueOf(i)}, null, null, null, null);
-//        List<ProfileImage> allcursor = readAll(cursor);
-//        Log.e(TAG, "findByUserCount: "+cursor.toString() );
-        cursor.moveToFirst();
+//        cursor.moveToFirst();
         return cursor.getString(1);
 
     }

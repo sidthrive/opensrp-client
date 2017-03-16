@@ -334,9 +334,9 @@ public class Tools {
 
         SharedPreferences.Editor editor = settings.edit();
         editor.clear();
-        Log.e(TAG, "Hash Save Size = " + hashMap.size());
+//        Log.e(TAG, "Hash Save Size = " + hashMap.size());
         for (String s : hashMap.keySet()) {
-            Log.e(TAG, "saveHash: " + s);
+//            Log.e(TAG, "saveHash: " + s);
             editor.putString(s, hashMap.get(s));
         }
         editor.apply();
@@ -349,11 +349,9 @@ public class Tools {
      * @return hash
      */
     public static HashMap<String, String> retrieveHash(android.content.Context context) {
-        Log.e(TAG, "retrieveHash: " + "start");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
         HashMap<String, String> hash = new HashMap<>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
-        Log.e(TAG, "retrieveHash: " + "end " + hash.size());
         return hash;
     }
 
@@ -361,51 +359,35 @@ public class Tools {
      * Save Vector array to xml
      */
     public static void saveAlbum(String albumBuffer, android.content.Context context) {
-        Log.e(TAG, "saveAlbum: " + "start");
-//		saveCloud(albumBuffer);
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(FaceConstants.ALBUM_ARRAY, albumBuffer);
         editor.apply();
-        Log.e(TAG, "saveAlbum: " + "end");
     }
 
     public static void loadAlbum(android.content.Context context) {
 
-        Log.e(TAG, "loadAlbum: " + "start");
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString(FaceConstants.ALBUM_ARRAY, null);
-//        Log.e(TAG, "loadAlbum: "+arrayOfString );
         byte[] albumArray;
 
-//        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length()) );
-//        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length() >= 32) );
-//        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length() <= 332) );
-//        Log.e(TAG, "loadAlbum: range "+(arrayOfString.length() >= 32 && arrayOfString.length() <= 332) );
-
-//        if (arrayOfString != null && !(arrayOfString.length() >= 32 && arrayOfString.length() <= 332)) {
         if (arrayOfString != null) {
 
             splitStringArray = arrayOfString.substring(1, arrayOfString.length() - 1).split(", ");
-//            if (!(splitStringArray.length >= 32 && splitStringArray.length <= 332)) {
 
             albumArray = new byte[splitStringArray.length];
 
-//                Log.e(TAG, "loadAlbum: length " + albumArray.length);
 
             for (int i = 0; i < splitStringArray.length; i++) {
                 albumArray[i] = Byte.parseByte(splitStringArray[i]);
             }
 
-//            User-space exception detected! if Data length not match
-            Log.e(TAG, "loadAlbum: panjang array = " + albumArray.length);
+            boolean result = SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
 
-            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
+            if (result) Log.e(TAG, "loadAlbum: "+"Succes" );
 
-            Log.e(TAG, "De-Serialized Album Success!");
-//            }
         } else {
-            Log.e(TAG, "loadAlbum: " + "is it your first record ? if no, there is problem happen." + arrayOfString);
+            Log.e(TAG, "loadAlbum: " + "is it your first record ? if no, there is problem happen.");
         }
     }
 
@@ -542,13 +524,6 @@ public class Tools {
 
                 // TODO : fetch vector from imagebitmap
                 profileImage.setFilevector(faceVector);
-//                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
-//                ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-
-//                imageRepo.add(profileImage);
-//                imageRepo.updateByEntityIdNull(uid, faceVector);
-//                imageRepo.insertOrUpdate(uid, faceVector);
-//                        faceRepo.updateByEntityIdNull(uid, faceVector);
 
                 imageRepo.insertOrUpdate(profileImage, uid);
 
@@ -655,7 +630,7 @@ public class Tools {
         if (vectorList.size() != 0) {
 
             hash = retrieveHash(appContext.applicationContext().getApplicationContext());
-            Log.e(TAG, "setVectorsBuffered: hash size " + hash.size());
+//            Log.e(TAG, "setVectorsBuffered: hash size " + hash.size());
 
             String[] albumBuffered = new String[0];
 
@@ -674,14 +649,14 @@ public class Tools {
                 } else {
                     Log.e(TAG, "setVectorsBuffered: Profile Image Null");
                 }
-                Log.e(TAG, "setVectorsBuffered: "+ i +" - "+ vectorFace.length);
+//                Log.e(TAG, "setVectorsBuffered: "+ i +" - "+ vectorFace.length);
                 i++;
 
             }
 
             albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);
 
-            Log.e(TAG, "setVectorsBuffered: hash size" + hash.size() + " album size "+ albumBuffered.length);
+//            Log.e(TAG, "setVectorsBuffered: hash size" + hash.size() + " album size "+ albumBuffered.length);
             saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
             saveHash(hash, appContext.applicationContext());
 

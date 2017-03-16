@@ -138,11 +138,12 @@ public class BidanHomeActivity extends SecuredActivity {
     }
 
     private void setupViews() {
+        // Main menu
         findViewById(R.id.btn_kartu_ibu_register).setOnClickListener(onRegisterStartListener);
+        findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kartu_ibu_anc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kartu_ibu_pnc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
 
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);

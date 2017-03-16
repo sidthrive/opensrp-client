@@ -421,5 +421,18 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
         }
     }
 
+    //    WD
+    public static String criteria;
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    public static String getCriteria() {
+        return criteria;
+    }
+
+
+
 
 }

@@ -175,7 +175,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //                    getActivity(),clientActionHandler , context.alertService());
 //        }
 
-        Log.e(TAG, "clientsProvider: ");
+        Log.e(TAG, "clientsProvider: here");
         return null;
     }
 
@@ -220,7 +220,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     public void initializeQueries(String s) {
         try {
-            if (s == null) {
+            if (s == null || s.equals("")) {
                 Log.e(TAG, "initializeQueries: "+"Not Initialized" );
             } else {
                 Log.e(TAG, "initializeQueries: " + s);
@@ -499,7 +499,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             @Override
             public void onClick(View v) {
                 CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
-//                Image selections[] = new Image[]{};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Please Choose one, Search by");
                 builder.setItems(selections, new DialogInterface.OnClickListener() {
