@@ -301,7 +301,7 @@
         "constraints": [
           {
             "type": "date",
-            "ex": "greaterThanEqualTo(step1:Date_Birth)",
+            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
             "err": "Date first seen can't occur before date of birth"
           }
         ]
@@ -389,7 +389,7 @@
         "relevance": {
           "step1:Place_Birth": {
             "type": "string",
-            "ex": "equalTo(Health facility)"
+            "ex": "equalTo(., \"Health facility\")"
           }
         }
       },
@@ -451,7 +451,7 @@
         "relevance": {
           "step1:Residential_Area": {
             "type": "string",
-            "ex": "equalTo([\"Other\"])"
+            "ex": "equalTo(., \"[\"Other\"]\")"
           }
         }
       },

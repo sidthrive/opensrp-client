@@ -52,8 +52,8 @@
       {
         "key": "ZEIR_ID",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "ZEIR_ID",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "ZEIR ID",
         "read_only": true,
@@ -64,13 +64,23 @@
         }
       },
       {
-        "key": "Child_Weight",
+        "key": "OA_Service_Date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "encounter",
+        "openmrs_entity_id": "encounter_date",
+        "type": "date_picker",
+        "hint": "Service date",
+        "expanded": true,
+        "max_date": "today"
+      },
+      {
+        "key": "Weight_Kg",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Child's weight (kg) *",
+        "hint": "Child's weight (kg)",
         "v_min": {
           "value": "0.1",
           "err": "Weight must be greater than 0"
@@ -83,23 +93,6 @@
           "value": "true",
           "err": "Enter child's weight (kg)"
         }
-      },
-      {
-        "key":"checkData",
-        "type":"check_box",
-        "label":"Select multiple preferences",
-        "options":[
-          {
-            "key":"awesomeness",
-            "text":"Are you willing for some awesomeness?",
-            "value":"false"
-          },
-          {
-            "key":"newsletter",
-            "text":"Do you really want to opt out from my newsletter?",
-            "value":"false"
-          }
-        ]
       }
     ]
   }

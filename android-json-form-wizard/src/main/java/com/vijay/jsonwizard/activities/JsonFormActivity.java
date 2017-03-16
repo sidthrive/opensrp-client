@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.R;
@@ -22,6 +23,7 @@ import com.vijay.jsonwizard.comparisons.LessThanEqualToComparison;
 import com.vijay.jsonwizard.comparisons.NotEqualToComparison;
 import com.vijay.jsonwizard.comparisons.RegexComparison;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.customviews.CheckBox;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -119,6 +121,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                            String openMrsEntityId)
             throws JSONException {
         synchronized (mJSONObject) {
+            Log.d(TAG, "Called");
             JSONObject jsonObject = mJSONObject.getJSONObject(stepName);
             JSONArray fields = jsonObject.getJSONArray("fields");
             for (int i = 0; i < fields.length(); i++) {
@@ -133,6 +136,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                             innerItem.put("value", value);
                             refreshSkipLogic();
                             refreshConstraints();
+                            Log.d(TAG, "Inside called");
                             return;
                         }
                     }
@@ -248,7 +252,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     /**
      * This method checks if all views being watched for constraints enforce those constraints
      * This library currently only supports constraints on views that store the value in {@link MaterialEditText}
-     * ie TreeViews, DatePickers, and EditTexts
+     * (ie TreeViews, DatePickers, and EditTexts), and {@link CheckBox}
      */
     @Override
     public void refreshConstraints() {
@@ -265,6 +269,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         String[] address = addressString.split(":");
                         if (address.length == 2) {
                             String value = getValueFromAddress(address);
+                            Log.d(TAG, "cur view has id "+addressString);
                             errorMessage = enforceConstraint(value, curConstraint);
                             if (errorMessage != null) break;
                         }
@@ -274,6 +279,11 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         if (curView instanceof MaterialEditText) {
                             ((MaterialEditText) curView).setText(null);
                             ((MaterialEditText) curView).setError(errorMessage);
+                        } else if (curView instanceof CheckBox) {
+                            String addressString = (String) curView.getTag(R.id.address);
+                            Log.d(TAG, "Failed checkbox is "+addressString);
+                            ((CheckBox) curView).setChecked(false);
+                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     }
                 } catch (Exception e) {
@@ -285,11 +295,26 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     private String getValueFromAddress(String[] address) throws Exception {
         String result = null;
-        if(address != null && address.length == 2) {
+        if (address != null && address.length == 2) {
             JSONArray fields = mJSONObject.getJSONObject(address[0]).getJSONArray("fields");
-            for(int i = 0; i < fields.length(); i++) {
-                if(fields.getJSONObject(i).getString("key").equals(address[1])) {
-                    result = fields.getJSONObject(i).optString("value");
+            for (int i = 0; i < fields.length(); i++) {
+                if (fields.getJSONObject(i).getString("key").equals(address[1])) {
+                    Log.d(TAG, "Question for value is " + fields.getJSONObject(i));
+                    if (fields.getJSONObject(i).getString("type").equals("check_box")) {
+                        JSONArray resultArray = new JSONArray();
+                        JSONArray options = fields.getJSONObject(i).getJSONArray("options");
+                        for (int j = 0; j < options.length(); j++) {
+                            if(options.getJSONObject(j).getString("value").toLowerCase().equals("true")) {
+                                resultArray.put(options.getJSONObject(j).getString("key"));
+                            }
+                        }
+
+                        if(resultArray.length() > 0) {
+                            result = resultArray.toString();
+                        }
+                    } else {
+                        result = fields.getJSONObject(i).optString("value");
+                    }
                 }
             }
         }
@@ -340,11 +365,40 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         Matcher matcher = pattern.matcher(ex);
         if (matcher.find()) {
             String functionName = matcher.group(1);
-            String b = matcher.group(2);
-            return comparisons.get(functionName).compare(value, type, b);
+            String b = matcher.group(2);//functions arguments should be two, and should either be addresses or values (enclosed using "")
+            String[] args = getFunctionArgs(b, value);
+            return comparisons.get(functionName).compare(args[0], type, args[1]);
         }
 
         return false;
+    }
+
+    private String[] getFunctionArgs(String functionArgs, String value) {
+        String[] args = new String[2];
+        String[] splitArgs = functionArgs.split(",");
+        if (splitArgs.length == 2) {
+            Pattern valueRegex = Pattern.compile("\"(.*)\"");
+            for(int i = 0; i < splitArgs.length; i++) {
+                String curArg = splitArgs[i].trim();
+
+                if(curArg.equals(".")) {
+                    args[i] = value;
+                } else {
+                    Matcher valueMatcher = valueRegex.matcher(curArg);
+                    if (valueMatcher.find()) {
+                        args[i] = valueMatcher.group(1);
+                    } else {
+                        try {
+                            args[i] = getValueFromAddress(curArg.split(":"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        return args;
     }
 
     /**
@@ -364,16 +418,20 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         Matcher matcher = pattern.matcher(ex);
         if (matcher.find()) {
             String functionName = matcher.group(1);
-            String addressForBString = matcher.group(2);
-            String[] addressForB = addressForBString.split(":");
-            if(addressForB.length == 2) {
-                String b = getValueFromAddress(addressForB);
-                if(TextUtils.isEmpty(b)
-                        || TextUtils.isEmpty(value)
-                        || comparisons.get(functionName).compare(value, type, b)) {
-                    return null;
-                }
+            String b = matcher.group(2);
+            String[] args = getFunctionArgs(b, value);
+            Log.d(TAG, "args  = "+b);
+            Log.d(TAG, "val = "+value);
+            Log.d(TAG, "a = "+args[0]);
+            Log.d(TAG, "b = "+args[1]);
+            if (TextUtils.isEmpty(value)
+                    || TextUtils.isEmpty(args[0])
+                    || TextUtils.isEmpty(args[1])
+                    || comparisons.get(functionName).compare(args[0], type, args[1])) {
+                return null;
             }
+        } else {
+            Log.d(TAG, "Matcher didn't work with function");
         }
 
         return errorMessage;

@@ -69,6 +69,13 @@ public class CheckBoxFactory implements FormWidgetFactory {
                 checkBox.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(checkBox);
             }
+
+            String constraints = item.optString("constraints");
+            if (constraints != null && context instanceof JsonApi) {
+                checkBox.setTag(R.id.constraints, constraints);
+                checkBox.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
+                ((JsonApi) context).addConstrainedView(checkBox);
+            }
         }
         return views;
     }

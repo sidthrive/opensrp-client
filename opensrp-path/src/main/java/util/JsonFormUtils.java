@@ -1162,20 +1162,72 @@ public class JsonFormUtils {
             // For each of the vaccine groups, create a checkbox question
             try {
                 JSONArray questionList = form.getJSONObject("step1").getJSONArray("fields");
+                JSONObject vaccinationLabel = new JSONObject();
+                vaccinationLabel.put("key", "Vaccines_Provided_Label");
+                vaccinationLabel.put("type", "label");
+                vaccinationLabel.put("text", "Which vaccinations were provided?");
+                vaccinationLabel.put("openmrs_entity_parent", "-");
+                vaccinationLabel.put("openmrs_entity", "-");
+                vaccinationLabel.put("openmrs_entity_id", "-");
+                questionList.put(vaccinationLabel);
                 JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
+
+                HashMap<String, ArrayList<JSONObject>> vaccineTypeConstraints = new HashMap<>();
+                for (int i = 0; i < supportedVaccines.length(); i++) {
+                    JSONObject curVaccineGroup = supportedVaccines.getJSONObject(i);
+                    JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
+                    for (int j = 0; j < vaccines.length(); j++) {
+                        JSONObject curVaccine = vaccines.getJSONObject(j);
+                        if (!vaccineTypeConstraints.containsKey(curVaccine.getString("type"))) {
+                            vaccineTypeConstraints.put(curVaccine.getString("type"),
+                                    new ArrayList<JSONObject>());
+                        }
+
+                        JSONObject curConstraint = new JSONObject();
+                        curConstraint.put("vaccine", curVaccine.getString("name"));
+                        curConstraint.put("type", "array");
+                        curConstraint.put("ex",
+                                "notEqualTo(step1:" + curVaccineGroup.getString("id") + ", \"[\"" + curVaccine.getString("name") + "\"]\")");
+                        curConstraint.put("err", "Cannot be given with the other " + curVaccine.getString("type") + " dose");
+                        vaccineTypeConstraints.get(curVaccine.getString("type")).add(curConstraint);
+                    }
+                }
+
                 for (int i = 0; i < supportedVaccines.length(); i++) {
                     JSONObject curVaccineGroup = supportedVaccines.getJSONObject(i);
                     JSONObject curQuestion = new JSONObject();
                     curQuestion.put("key", curVaccineGroup.getString("id"));
                     curQuestion.put("type", "check_box");
                     curQuestion.put("label", curVaccineGroup.getString("name"));
+                    curQuestion.put("openmrs_entity_parent", "-");
+                    curQuestion.put("openmrs_entity", "-");
+                    curQuestion.put("openmrs_entity_id", "-");
+
                     JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
                     JSONArray options = new JSONArray();
                     for (int j = 0; j < vaccines.length(); j++) {
                         JSONObject curVaccines = new JSONObject();
                         curVaccines.put("key", vaccines.getJSONObject(j).getString("name"));
                         curVaccines.put("text", vaccines.getJSONObject(j).getString("name"));
-                        curVaccines.put("value", vaccines.getJSONObject(j).getString("name"));
+                        curVaccines.put("value", "false");
+                        JSONArray constraints = new JSONArray();
+
+                        // Add the constraints
+                        if (vaccineTypeConstraints.containsKey(vaccines.getJSONObject(j).getString("type"))) {
+                            for (JSONObject curConstraint : vaccineTypeConstraints.get(vaccines.getJSONObject(j).getString("type"))) {
+                                if (!curConstraint.getString("vaccine")
+                                        .equals(vaccines.getJSONObject(j).getString("name"))) {
+                                    JSONObject constraintClone = new JSONObject(curConstraint.toString());
+                                    constraintClone.remove("vaccine");
+                                    constraints.put(constraintClone);
+                                }
+                            }
+                        }
+
+                        if (constraints.length() > 0) {
+                            curVaccines.put("constraints", constraints);
+                        }
+
                         options.put(curVaccines);
                     }
 

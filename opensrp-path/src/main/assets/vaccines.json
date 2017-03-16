@@ -5,10 +5,12 @@
     "days_after_birth_due": 0,
     "vaccines": [
       {
-        "name": "OPV 0"
+        "name": "OPV 0",
+        "type": "OPV"
       },
       {
-        "name": "BCG"
+        "name": "BCG",
+        "type": "BCG"
       }
     ]
   },
@@ -18,16 +20,20 @@
     "days_after_birth_due": 42,
     "vaccines": [
       {
-        "name": "OPV 1"
+        "name": "OPV 1",
+        "type": "OPV"
       },
       {
-        "name": "Penta 1"
+        "name": "Penta 1",
+        "type": "Penta"
       },
       {
-        "name": "PCV 1"
+        "name": "PCV 1",
+        "type": "PCV"
       },
       {
-        "name": "Rota 1"
+        "name": "Rota 1",
+        "type": "Rota"
       }
     ]
   },
@@ -37,16 +43,20 @@
     "days_after_birth_due": 70,
     "vaccines": [
       {
-        "name": "OPV 2"
+        "name": "OPV 2",
+        "type": "OPV"
       },
       {
-        "name": "Penta 2"
+        "name": "Penta 2",
+        "type": "Penta"
       },
       {
-        "name": "PCV 2"
+        "name": "PCV 2",
+        "type": "PCV"
       },
       {
-        "name": "Rota 2"
+        "name": "Rota 2",
+        "type": "Rota"
       }
     ]
   }

@@ -214,6 +214,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 }
 
                 intent.putExtra("json", form.toString());
+                Log.d(TAG, "form is " + form.toString());
                 startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
@@ -241,6 +242,8 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 onQRCodeSucessfullyScanned(res.getContents());
             } else Log.i("", "NO RESULT FOR QR CODE");
         } else if (requestCode == REQUEST_CODE_RECORD_OUT_OF_CATCHMENT) {
+            String jsonString = data.getStringExtra("json");
+            Log.d("JSONResult", jsonString);
 
         }
     }
