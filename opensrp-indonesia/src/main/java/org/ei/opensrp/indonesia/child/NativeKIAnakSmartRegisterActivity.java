@@ -1,5 +1,8 @@
 package org.ei.opensrp.indonesia.child;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +12,7 @@ import android.util.Log;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
@@ -58,6 +62,8 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
 
     ZiggyService ziggyService;
 
+    NativeKIAnakSmartRegisterFragment nf = new NativeKIAnakSmartRegisterFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +73,29 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         FlurryFacade.logEvent("anak_dashboard");
     formNames = this.buildFormNameList();
-        mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+        //        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: " + base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Clients ?");
+                builder.setMessage("Process Time : " + proc_time + " s");
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES", null);
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+        }
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -260,4 +288,21 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+//            mBaseFragment = new NativeKISmartRegisterFragment();
+
+//            nf.setCriteria("");
+//            onBackPressed();
+            Log.e(TAG, "onClick: Cancel");
+
+            Intent intent= new Intent(NativeKIAnakSmartRegisterActivity.this,NativeKIAnakSmartRegisterActivity.class);
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
 }

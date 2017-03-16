@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.ei.opensrp.indonesia">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application android:allowBackup="true"
         android:label="@string/app_name"
         android:name=".application.BidanApplication"
@@ -67,6 +70,11 @@
             android:name=".child.AnakDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
+
+        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
+        <activity android:name=".face.camera.ClientsList" />
+
     </application>
 
 </manifest>

@@ -84,6 +84,9 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
+
+    public static String criteria;
+
     @Override
     protected void onCreation() {
         //
@@ -454,6 +457,17 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
             }
         }
     }
+
+    //    WD
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    public static String getCriteria(){
+        return criteria;
+    }
+
+
 
 
 }

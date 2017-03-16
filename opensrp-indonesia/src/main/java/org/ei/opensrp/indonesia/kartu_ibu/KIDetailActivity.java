@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
@@ -19,6 +21,8 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.ImageRepository;
 
@@ -51,6 +55,12 @@ public class KIDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient kiclient;
+
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +84,8 @@ public class KIDetailActivity extends Activity {
 
         final TextView show_risk = (TextView) findViewById(R.id.show_more);
         final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
-        
-        
+
+
         //detail data
         TextView village = (TextView) findViewById(R.id.txt_village_name);
         TextView subvillage = (TextView) findViewById(R.id.txt_subvillage);
@@ -237,13 +247,23 @@ public class KIDetailActivity extends Activity {
             }
         });
 
+        hash = Tools.retrieveHash(context.applicationContext());
+
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-                dispatchTakePictureIntent(kiview);
+
+                if(hash.containsValue(entityid)){
+                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+                dispatchTakePictureIntent(kiview, updateMode);
+
 
             }
         });
@@ -275,26 +295,22 @@ public class KIDetailActivity extends Activity {
     static File currentfile;
     static String bindobject;
     static String entityid;
-    private void dispatchTakePictureIntent(ImageView imageView) {
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
 
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                currentfile = photoFile;
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+
+    private void dispatchTakePictureIntent(ImageView imageView, boolean modeUpdate) {
+
+        Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
+
+        mImageView = imageView;
+        Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
+        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
+
+        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+            startActivityForResult(takePictureIntent, 1);
+//            }
         }
     }
 

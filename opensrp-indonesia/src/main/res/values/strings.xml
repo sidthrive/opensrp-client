@@ -58,7 +58,6 @@
     <string name="str_page_info">Page {0} of {1}</string>
 
 
-
     <string name="mother_already_registered">Mother already registered in ANC</string>
     <string name="header_history_anc">VISIT HISTORY</string>
     <string name="header_name">NAME</string>
@@ -180,7 +179,7 @@
     <string name="service_type_mmr">MMR</string>
     <string name="service_type_vitamin_a">Vitamin A</string>
     <string name="service_type_illness_visit">Illness Visit</string>
-    <string name="service_type_empty"/>
+    <string name="service_type_empty" />
     <string name="sick_visit">Sick Visit</string>
     <string name="illness_report"><b>Illness Report:</b> %s</string>
     <string name="illness_date">Date:</string>
@@ -546,4 +545,43 @@
     <string name="fe">FE:</string>
     <string name="Nutrition_status">Nutrition Status:</string>
     <string name="lila">MUAC:</string>
+
+    <string name="desc">Photo Confirmation</string>
+    <string name="desc_approval">Approval Button Confirmation Desc</string>
+    <string name="desc_trash">Trash Description</string>
+
+
+    <string name="path_circle">
+        M 50,50
+        m -48,0
+        a 48,48 0 1,0 96,0
+        a 48,48 0 1,0 -96,0
+    </string>
+
+
+    <string name="path_face_left_eye">
+        M 35,40
+        m -7,0
+        a 7,7 0 1,0 14,0
+      a 7,7 0 1,0 -14,0
+  </string>
+  <string name="path_face_right_eye">
+      M 65,40
+      m -7,0
+      a 7,7 0 1,0 14,0
+      a 7,7 0 1,0 -14,0
+  </string>
+  <string name="path_face_mouth_sad">
+      M 30,75
+      Q 50,55 70,75
+  </string>
+  <string name="path_face_mouth_happy">
+      M 30,65
+      Q 50,85 70,65
+  </string>
+    <string name="groupCheckCross">Check Cross</string>
+    <string name="reset_album">Reset Album</string>
+    <string name="action_settings">Settings</string>
+    <string name="cell_phone">No. HP :</string>
+
 </resources>
