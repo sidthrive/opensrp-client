@@ -88,6 +88,7 @@ import org.ei.opensrp.view.contract.Villages;
 import org.ei.opensrp.view.contract.pnc.PNCClients;
 import org.ei.opensrp.view.controller.ANMController;
 import org.ei.opensrp.view.controller.ANMLocationController;
+import org.ei.opensrp.view.controller.UniqueIdController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -161,6 +162,8 @@ public class Context {
     private HTTPAgent httpAgent;
     private ZiggyFileLoader ziggyFileLoader;
 
+    private Cache<List<Long>> uIdsCache;
+    private AllSettingsINA allSettingsINA;
     private FormSubmissionRouter formSubmissionRouter;
     private ECRegistrationHandler ecRegistrationHandler;
     private FPComplicationsHandler fpComplicationsHandler;
@@ -270,6 +273,20 @@ public class Context {
                     configuration(), formsVersionRepository());
         }
         return allFormVersionSyncService;
+    }
+
+    public AllSettingsINA allSettingsINA() {
+        initRepository();
+        if(allSettingsINA == null) {
+            allSettingsINA = new AllSettingsINA(allSharedPreferences(), settingsRepository());
+        }
+        return allSettingsINA;
+    }
+    public Cache<List<Long>> uIdsCache() {
+        if (uIdsCache == null) {
+            uIdsCache = new Cache<>();
+        }
+        return uIdsCache;
     }
 
     public FormSubmissionRouter formSubmissionRouter() {

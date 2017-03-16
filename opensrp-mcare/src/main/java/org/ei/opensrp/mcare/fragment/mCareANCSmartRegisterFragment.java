@@ -285,6 +285,12 @@ public class mCareANCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                     @Override
                     protected Object doInBackground(Object[] params) {
+                        setCurrentSearchFilter(new ElcoSearchOption(cs.toString()));
+                        filteredClients = getClientsAdapter().getListItemProvider()
+                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+                                        getCurrentSearchFilter(), getCurrentSortOption());
+
+
 //                        currentSearchFilter =
 //                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
 //                        filteredClients = getClientsAdapter().getListItemProvider()

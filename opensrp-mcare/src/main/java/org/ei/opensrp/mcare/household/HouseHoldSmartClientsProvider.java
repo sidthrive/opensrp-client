@@ -304,6 +304,5 @@ public class HouseHoldSmartClientsProvider implements SmartRegisterCLientsProvid
     }
 
 
-
 }
 

@@ -188,7 +188,9 @@ public class FormUtils {
 
             String xml = writer.toString();
             //xml = xml.replaceAll("<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>","");//56 !!!this ain't working
+
             //Add model and instance tags
+
             xml = xml.substring(56);
             System.out.println(xml);
 
@@ -233,8 +235,10 @@ public class FormUtils {
                     Element child = (Element) entries.item(i);
                     String fieldName = child.getNodeName();
 
+
                     if(!subFormNames.isEmpty() && subFormNames.contains(fieldName)) {
                         /** its a subform element process it **/
+
                         // get the subform definition
                         JSONArray subForms = formDefinition.getJSONObject("form").getJSONArray("sub_forms");
                         JSONObject subFormDefinition = retriveSubformDefinitionForBindPath(subForms, fieldName);
@@ -258,6 +262,7 @@ public class FormUtils {
                                     writeXML(child, serializer, fieldOverrides, subFormDefinition, childEntityJson, entityId);
                                 }
                             }else{
+
                                 writeXML(child, serializer, fieldOverrides, subFormDefinition, new JSONObject(), entityId);
                             }
                         }
@@ -294,6 +299,8 @@ public class FormUtils {
     }
 
     /**
+//<<<<<<< HEAD
+//=======
      * Checks if the provided node has Child elements
      * @param element
      * @return
@@ -309,6 +316,7 @@ public class FormUtils {
     }
 
     /**
+//>>>>>>> fc57a485ae9e44237dc69626e10ad144281a146a
      * Iterate through the provided array and retrieve a json object whose name attribute matches the name supplied
      *
      * @param fieldName
@@ -713,6 +721,7 @@ public class FormUtils {
             }
             i++;
         }
+
         Object valueObject = object.has(path[i]) ? object.get(path[i]) : null;
 
         if (valueObject == null)

@@ -11,5 +11,22 @@
             android:defaultValue="http://118.91.130.18:8080/opensrp-web"
             android:persistent="true"/>
 
+        <EditTextPreference
+            android:key="HOST"
+            android:title="Host Url"
+            android:summary="Defines the host url of application"
+            android:dialogTitle="Host Url"
+            android:dialogMessage="Enter Host Url"
+            android:defaultValue="http://118.91.130.18"
+            android:persistent="true"/>
+
+        <EditTextPreference
+            android:key="PORT"
+            android:title="Port"
+            android:summary="Defines the port of base server url"
+            android:dialogTitle="Port"
+            android:dialogMessage="Enter port"
+            android:defaultValue="8080"
+            android:persistent="true"/>
     </PreferenceCategory>
 </PreferenceScreen>

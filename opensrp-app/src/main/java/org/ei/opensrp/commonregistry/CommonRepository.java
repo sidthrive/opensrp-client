@@ -2,13 +2,11 @@ package org.ei.opensrp.commonregistry;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import net.sqlcipher.database.SQLiteDatabase;
-import net.sqlcipher.database.SQLiteQueryBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +41,7 @@ public class CommonRepository extends DrishtiRepository {
         additionalcolumns = columns;
         common_TABLE_COLUMNS = ArrayUtils.addAll(common_TABLE_COLUMNS, columns);
         TABLE_NAME = tablename;
+
         common_SQL = "CREATE TABLE "+ TABLE_NAME + "(id VARCHAR PRIMARY KEY,relationalid VARCHAR,details VARCHAR";
         for(int i = 0;i<columns.length;i++){
             if(i ==0){
@@ -225,8 +224,9 @@ public class CommonRepository extends DrishtiRepository {
     }
 
 
+
     public List<CommonPersonObject> readAllcommonForField(Cursor cursor ,String tableName) {
-        List<CommonPersonObject> commons = new ArrayList<CommonPersonObject>();
+       List<CommonPersonObject> commons = new ArrayList<CommonPersonObject>();
         try {
             cursor.moveToFirst();
 

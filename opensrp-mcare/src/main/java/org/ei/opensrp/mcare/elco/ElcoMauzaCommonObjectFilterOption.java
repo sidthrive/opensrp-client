@@ -34,7 +34,6 @@ public class ElcoMauzaCommonObjectFilterOption implements CursorFilterOption {
 
     @Override
     public boolean filter(SmartRegisterClient client) {
-
         return false;
     }
 }

@@ -66,7 +66,6 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
 
-
     @Override
     protected SmartRegisterPaginatedAdapter adapter() {
         return new SmartRegisterPaginatedAdapter(clientsProvider());
@@ -290,7 +289,6 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
             @Override
             public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
                 (new AsyncTask() {
                     SmartRegisterClients filteredClients;
 
