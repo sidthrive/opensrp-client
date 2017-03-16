@@ -1,16 +1,11 @@
 {
   "form_data_definition_version": "1",
   "form": {
-    "bind_type": "ibu",
+    "bind_type": "kartu_ibu",
     "default_bind_path": "/model/instance/Parana/",
     "fields": [
       {
         "name": "id",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "kiId",
-        "source": "ibu.kartu_ibu.id",
         "shouldLoadValue": true
       },
       {
