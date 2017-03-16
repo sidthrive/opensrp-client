@@ -38,7 +38,7 @@ public class ImageRepository extends DrishtiRepository {
     public void add(ProfileImage Image) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
         database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
-        database.close();
+        //database.close();
     }
 
     public List<ProfileImage> allProfileImages() {

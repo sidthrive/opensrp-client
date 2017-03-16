@@ -44,7 +44,7 @@ public class UniqueIdRepository extends BaseRepository {
     public void add(UniqueId uniqueId) {
         SQLiteDatabase database = getPathRepository().getWritableDatabase();
         database.insert(UniqueIds_TABLE_NAME, null, createValuesFor(uniqueId));
-        database.close();
+        //database.close();
     }
 
     /**

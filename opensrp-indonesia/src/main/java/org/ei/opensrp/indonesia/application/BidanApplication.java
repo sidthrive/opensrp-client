@@ -140,7 +140,7 @@ public class BidanApplication extends DrishtiApplication {
         }
         return commonFtsObject;
     }
-    
+
     @Override
     public Repository getRepository() {
         if (repository == null) {
