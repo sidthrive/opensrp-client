@@ -8,17 +8,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.io.FilenameUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia_demo.R;
+import org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia_demo.face.camera.util.Tools;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.repository.ImageRepository;
 
@@ -41,7 +45,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
 public class AnakDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = AnakDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -50,8 +54,16 @@ public class AnakDetailActivity extends Activity {
     private static ImageFetcher mImageFetcher;
 
     //image retrieving
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
 
     public static CommonPersonObjectClient childclient;
+
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,16 +117,40 @@ public class AnakDetailActivity extends Activity {
         });
 
 
-        if(childclient.getDetails().get("profilepic")!= null){
-                setImagetoHolderFromUri(AnakDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
-        }
-        else {
-            if(childclient.getDetails().get("jenisKelamin").equals("laki")) {
-                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
-            }
-            childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+//        Profile Picture
+        photo_path = childclient.getDetails().get("profilepic");
 
+        ImageRepository ir = new ImageRepository();
+
+        if (Tools.getPhotoPath() != null) {
+            String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
+            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/")+1);
         }
+
+        if (photo_path != null) {
+            tb_photo = new File(photo_path);
+            if (!tb_photo.exists()) {
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
+            } else {
+                setImagetoHolderFromUri(this, childclient.getDetails().get("profilepic"), childview, R.mipmap.woman_placeholder);
+            }
+        } else if (Tools.getPhotoPath() != null && fileName.equals(childclient.getCaseId())) {
+            setImagetoHolderFromUri(this, Tools.getPhotoPath(), childview, R.mipmap.woman_placeholder);
+
+        } else {
+
+            childview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+        }
+//        if(childclient.getDetails().get("profilepic")!= null){
+//                setImagetoHolderFromUri(AnakDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
+//        }
+//        else {
+//            if(childclient.getDetails().get("jenisKelamin").equals("laki")) {
+//                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+//            }
+//            childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+//
+//        }
 
 
        // Date currentDateandTime = new Date();
@@ -154,6 +190,7 @@ public class AnakDetailActivity extends Activity {
         campak.setText(": "+humanize (childclient.getDetails().get("tanggalpemberianimunisasiCampak") != null ? childclient.getDetails().get("tanggalpemberianimunisasiCampak") : "-"));
         vita.setText(": "+ humanize(childclient.getDetails().get("pelayananVita") != null ? childclient.getDetails().get("pelayananVita") : "-"));
 
+        hash = Tools.retrieveHash(context.applicationContext());
 
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +198,21 @@ public class AnakDetailActivity extends Activity {
 
                 bindobject = "anak";
                 entityid = childclient.entityId();
-                dispatchTakePictureIntent(childview);
+//                dispatchTakePictureIntent(childview);
 
+                if (hash.containsValue(entityid)) {
+                    Log.e(TAG, "onClick: " + entityid + " updated");
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+//                dispatchTakePictureIntent(kiview, updateMode);
+
+                Intent intent = new Intent(AnakDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
+                startActivity(intent);
             }
         });
 
@@ -275,7 +325,7 @@ public class AnakDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIAnakSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

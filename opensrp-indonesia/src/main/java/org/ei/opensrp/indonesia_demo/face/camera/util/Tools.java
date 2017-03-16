@@ -22,9 +22,11 @@ import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.indonesia_demo.child.AnakDetailActivity;
 import org.ei.opensrp.indonesia_demo.face.camera.ClientsList;
 import org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity;
 //import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.indonesia_demo.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
@@ -47,6 +49,7 @@ public class Tools {
     private Canvas canvas = null;
     SmartShutterActivity ss = new SmartShutterActivity();
     ClientsList cl = new ClientsList();
+    private static String photoPath;
 
     public static boolean SavePictureToFile(android.content.Context context, Bitmap bitmap, String entityId) {
         for (int i = 0; i < 2; i++) {
@@ -69,8 +72,8 @@ public class Tools {
                             public void onScanCompleted(String path, Uri uri) {
                                 Log.i("ExternalStorage", "Scanned " + path + ":");
                                 Log.i("ExternalStorage", "-> uri=" + uri);
-                    }
-                });
+                            }
+                        });
                 String photoPath = pictureFile.toString();
                 Log.e(TAG, "Photo Path = " + photoPath);
 
@@ -90,7 +93,7 @@ public class Tools {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
 
-            if(i == 1) {
+            if (i == 1) {
                 final int THUMBSIZE = FaceConstants.THUMBSIZE;
                 Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(
                         BitmapFactory.decodeFile(""),
@@ -102,7 +105,7 @@ public class Tools {
         return false;
     }
 
-    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId) {
+    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, String bind_name) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
         File thumbs_photo = getOutputMediaFile(1, entityId);
@@ -119,13 +122,13 @@ public class Tools {
             Log.e(TAG, "Wrote image to " + pictureFile);
 
             MediaScannerConnection.scanFile(context, new String[]{
-                    pictureFile.toString()}, null,
+                            pictureFile.toString()}, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
                         public void onScanCompleted(String path, Uri uri) {
                             Log.i("ExternalStorage", "Scanned " + path + ":");
                             Log.i("ExternalStorage", "-> uri=" + uri);
-                }
-            });
+                        }
+                    });
             String photoPath = pictureFile.toString();
             Log.e(TAG, "Photo Path = " + photoPath);
 
@@ -133,22 +136,28 @@ public class Tools {
             FileOutputStream tfos = new FileOutputStream(thumbs_photo);
             final int THUMBSIZE = FaceConstants.THUMBSIZE;
 
-            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath ),
+            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath),
                     THUMBSIZE, THUMBSIZE);
             ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, tfos);
             tfos.close();
             Log.e(TAG, "Wrote image to " + thumbs_photo);
 
 //            TODO
-            bindobject = "kartu_ibu";
+            if (bind_name.equals(KIDetailActivity.class.getSimpleName())) {
+                bindobject = "kartu_ibu";
+            } else if (bind_name.equals(AnakDetailActivity.class.getSimpleName())) {
 
-            HashMap<String,String> details = new HashMap<>();
+                bindobject = "anak";
+            }
+            Log.e(TAG, "WritePictureToFile: bindobject" + bindobject );
+            HashMap<String, String> details = new HashMap<>();
 
-            saveimagereference(bindobject, entityId, details);
 //            details.put("profilepic", photoPath);
             details.put("profilepic", thumbs_photo.toString());
 
+            saveimagereference(bindobject, entityId, details);
 
+            setPhotoPath(thumbs_photo.toString());
 //            KIDetailActivity.details = new HashMap<>();
 //            HashMap<String,String> details = new HashMap<>();
 //            KIDetailActivity.details.put("profilepic",photoPath);
@@ -159,16 +168,17 @@ public class Tools {
 //            detailsRepository.add(entityId, "profilepic", photoPath, tsLong);
 //            detailsRepository.add(entityId, "profilepic", thumbs_photo.toString(), tsLong);
 
-            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-            ProfileImage profileImage = new ProfileImage(
-                    UUID.randomUUID().toString(),
-                    anmId,
-                    entityId,
-                    "Image",
-                    details.get("profilepic"),
-                    ImageRepository.TYPE_Unsynced,
-                    "dp");
-            ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+//            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+//            ProfileImage profileImage = new ProfileImage(
+//                    UUID.randomUUID().toString(),
+//                    entityId,
+//                    anmId,
+//                    entityId,
+//                    "Image",
+//                    details.get("profilepic"),
+//                    ImageRepository.TYPE_Unsynced,
+//                    "dp");
+//            ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
             return true;
 
         } catch (FileNotFoundException e) {
@@ -184,8 +194,8 @@ public class Tools {
         // Mode 1 = Thumbs
 
         // Location use app_dir
-        String imgFolder = (mode == 0) ? DrishtiApplication.getAppDir():
-                DrishtiApplication.getAppDir()+File.separator+".thumbs";
+        String imgFolder = (mode == 0) ? DrishtiApplication.getAppDir() :
+                DrishtiApplication.getAppDir() + File.separator + ".thumbs";
 //        String imgFolder = (mode == 0) ? "OPENSRP_SID":"OPENSRP_SID"+File.separator+".thumbs";
         File mediaStorageDir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), imgFolder);
@@ -207,11 +217,11 @@ public class Tools {
 
     public static Bitmap getThumbnail(ContentResolver cr, String path) throws Exception {
 
-        Cursor ca = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] { MediaStore.MediaColumns._ID }, MediaStore.MediaColumns.DATA + "=?", new String[] {path}, null);
+        Cursor ca = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.MediaColumns._ID}, MediaStore.MediaColumns.DATA + "=?", new String[]{path}, null);
         if (ca != null && ca.moveToFirst()) {
             int id = ca.getInt(ca.getColumnIndex(MediaStore.MediaColumns._ID));
             ca.close();
-            return MediaStore.Images.Thumbnails.getThumbnail(cr, id, MediaStore.Images.Thumbnails.MICRO_KIND, null );
+            return MediaStore.Images.Thumbnails.getThumbnail(cr, id, MediaStore.Images.Thumbnails.MICRO_KIND, null);
         }
 
         assert ca != null;
@@ -221,7 +231,7 @@ public class Tools {
     }
 
     public static void drawInfo(Rect rect, Bitmap mutableBitmap, float pixelDensity, String personName) {
-        Log.e(TAG, "drawInfo: " );
+        Log.e(TAG, "drawInfo: ");
 //        Rect rect = faceDatas[i].rect;
         // Extra padding around the faeRects
         rect.set(rect.left -= 20, rect.top -= 20, rect.right += 20, rect.bottom += 20);
@@ -267,7 +277,7 @@ public class Tools {
     }
 
     public static void drawRectFace(Rect rect, Bitmap mutableBitmap, float pixelDensity) {
-        Log.e(TAG, "drawInfo: " );
+        Log.e(TAG, "drawInfo: ");
 //        Rect rect = faceDatas[i].rect;
         // Extra padding around the faeRects
         rect.set(rect.left -= 20, rect.top -= 20, rect.right += 20, rect.bottom += 20);
@@ -285,6 +295,14 @@ public class Tools {
         canvas.drawRect(rect, paintForRectFill);
         canvas.drawRect(rect, paintForRectStroke);
 
+    }
+
+    public static void setPhotoPath(String photoPath) {
+        Tools.photoPath = photoPath;
+    }
+
+    public static String getPhotoPath() {
+        return photoPath;
     }
 
     public void saveHash(HashMap<String, String> hashMap, android.content.Context context) {
@@ -336,17 +354,17 @@ public class Tools {
 //        }
     }
 
-    public static void alertDialog(android.content.Context context, int opt){
+    public static void alertDialog(android.content.Context context, int opt) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         Tools tools = new Tools();
 //        alertDialog.setMessage(message);
         String message = "";
-        switch (opt){
-            case 0 :
+        switch (opt) {
+            case 0:
                 message = "Are you sure to empty The Album?";
 //                doEmpty;
                 break;
-            case 1 :
+            case 1:
                 message = "Are you sure to delete item";
                 break;
             default:
@@ -388,10 +406,18 @@ public class Tools {
 //        return hash;
 //    }
 
-    public static void saveimagereference(String bindobject, String entityid, Map<String, String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+    public static void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
+        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
+        ProfileImage profileImage = new ProfileImage(
+                UUID.randomUUID().toString(),
+                anmId,
+                entityid,
+                "Image",
+                details.get("profilepic"),
+                ImageRepository.TYPE_Unsynced,
+                "dp");
+
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
@@ -399,10 +425,10 @@ public class Tools {
 
     public void resetAlbum() {
 
-        Log.e(TAG, "resetAlbum: "+ "start" );
+        Log.e(TAG, "resetAlbum: " + "start");
         boolean result = SmartShutterActivity.faceProc.resetAlbum();
 
-        if (result){
+        if (result) {
             // Clear data
             // TODO: Null getApplication COntext
             HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
@@ -415,7 +441,7 @@ public class Tools {
             Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
 
         }
-        Log.e(TAG, "resetAlbum: "+ "finish" );
+        Log.e(TAG, "resetAlbum: " + "finish");
     }
 
 }

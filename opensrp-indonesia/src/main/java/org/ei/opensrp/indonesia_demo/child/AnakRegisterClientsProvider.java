@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia_demo.child;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import static org.joda.time.LocalDateTime.parse;
 import static org.ei.opensrp.util.StringUtil.humanize;
 
 public class AnakRegisterClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = AnakRegisterClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -120,8 +122,10 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         }
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
+
         //set image
-        //set image
+
+        Log.e(TAG, "getView: "+ pc.getDetails().get("profilepic") );
         final ImageView childview = (ImageView)convertView.findViewById(R.id.img_profile);
         if (pc.getDetails().get("profilepic") != null) {
             AnakDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy);

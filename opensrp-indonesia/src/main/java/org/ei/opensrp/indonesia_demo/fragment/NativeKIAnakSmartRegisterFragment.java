@@ -1,8 +1,14 @@
 package org.ei.opensrp.indonesia_demo.fragment;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,6 +27,7 @@ import org.ei.opensrp.indonesia_demo.child.AnakDetailActivity;
 import org.ei.opensrp.indonesia_demo.child.AnakOverviewServiceMode;
 import org.ei.opensrp.indonesia_demo.child.AnakRegisterClientsProvider;
 import org.ei.opensrp.indonesia_demo.child.NativeKIAnakSmartRegisterActivity;
+import org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.KICommonObjectFilterOption;
 import org.ei.opensrp.indonesia_demo.lib.FlurryFacade;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -46,6 +53,7 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 import util.AsyncTask;
 
@@ -58,6 +66,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  */
 public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
+    private static final String TAG = NativeKIAnakSmartRegisterFragment.class.getSimpleName();
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
     private VillageController villageController;
@@ -114,22 +123,22 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 FlurryFacade.logEvent("click_filter_option_on_kohort_anak_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
-                dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
+                dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label), filterStringForAll()));
                 //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
                 //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
                 String locationjson = context.anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
-                Map<String,TreeNode<String, Location>> locationMap =
+                Map<String, TreeNode<String, Location>> locationMap =
                         locationTree.getLocationsHierarchy();
-                addChildToList(dialogOptionslist,locationMap);
+                addChildToList(dialogOptionslist, locationMap);
                 DialogOption[] dialogOptions = new DialogOption[dialogOptionslist.size()];
-                for (int i = 0;i < dialogOptionslist.size();i++){
+                for (int i = 0; i < dialogOptionslist.size(); i++) {
                     dialogOptions[i] = dialogOptionslist.get(i);
                 }
 
-                return  dialogOptions;
+                return dialogOptions;
             }
 
             @Override
@@ -142,9 +151,9 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 FlurryFacade.logEvent("click_sorting_option_on_kohort_anak_dashboard");
                 return new DialogOption[]{
 
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),AnakNameShort()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),AnakNameShortR()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_dob_label),AnakDOB()),//tanggalLahirAnak
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label), AnakNameShort()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse), AnakNameShortR()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_dob_label), AnakDOB()),//tanggalLahirAnak
 
                 };
             }
@@ -170,7 +179,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
     }
 
     private DialogOption[] getEditOptions() {
-        return ((NativeKIAnakSmartRegisterActivity)getActivity()).getEditOptions();
+        return ((NativeKIAnakSmartRegisterActivity) getActivity()).getEditOptions();
     }
 
     @Override
@@ -189,11 +198,13 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
-        initializeQueries();
+        initializeQueries(getCriteria());
     }
-    private String filterStringForAll(){
+
+    private String filterStringForAll() {
         return "";
     }
+
     private String sortByAlertmethod() {
         return " CASE WHEN alerts.status = 'urgent' THEN '1'"
                 +
@@ -203,12 +214,12 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
-    public void initializeQueries(){
 
-        ///------------------------------------------------------------------
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void initializeQueries(String s) {
 
-        AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, anakscp, new CommonRepository("anak",new String []{"namaBayi", "tanggalLahirAnak", "anak.isClosed"}));
+        AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(), clientActionHandler, context.alertService());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, anakscp, new CommonRepository("anak", new String[]{"namaBayi", "tanggalLahirAnak", "anak.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("anak");
@@ -216,7 +227,17 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
         countqueryBUilder.customJoin("LEFT JOIN ibu ON ibu.id = anak.ibuCaseId LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
         countSelect = countqueryBUilder.mainCondition(" anak.isClosed !='true' and anak.ibuCaseId !='' ");
-        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+//        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+        if (s == null || Objects.equals(s, "!")) {
+            Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+
+            mainCondition = "isClosed !='true' AND ibuCaseId !=''";
+        } else {
+            Log.e(TAG, "initializeQueries: init " + s);
+
+            mainCondition = "isClosed !='true' AND ibuCaseId !='' AND object_id LIKE '%" + s + "%'";
+        }
+
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -239,15 +260,15 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
     @Override
     public void startRegistration() {
-   //     FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-   //     Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
-   //     if (prev != null) {
-   //         ft.remove(prev);
-  //      }
-    //    ft.addToBackStack(null);
-   //     BidanLocationSelectorDialogFragment
-    //            .newInstance((NativeKIAnakSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "kartu_pnc_regitration_oa")
-    //            .show(ft, locationDialogTAG);
+        //     FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+        //     Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
+        //     if (prev != null) {
+        //         ft.remove(prev);
+        //      }
+        //    ft.addToBackStack(null);
+        //     BidanLocationSelectorDialogFragment
+        //            .newInstance((NativeKIAnakSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "kartu_pnc_regitration_oa")
+        //            .show(ft, locationDialogTAG);
     }
 
     private class ClientActionHandler implements View.OnClickListener {
@@ -256,12 +277,12 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                     FlurryFacade.logEvent("click_detail_view_on_kohort_anak_dashboard");
-                    AnakDetailActivity.childclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),AnakDetailActivity.class);
+                    AnakDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
+                    Intent intent = new Intent(getActivity(), AnakDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
-               case R.id.btn_edit:
+                case R.id.btn_edit:
                     FlurryFacade.logEvent("click_visit_button_on_kohort_anak_dashboard");
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
                     break;
@@ -274,10 +295,10 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
     }
 
 
-
     private String AnakNameShort() {
         return " namaBayi ASC";
     }
+
     private String AnakNameShortR() {
         return " namaBayi DESC";
     }
@@ -298,72 +319,73 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();
-        if(isPausedOrRefreshList()) {
-            initializeQueries();
+        if (isPausedOrRefreshList()) {
+            initializeQueries("!");
         }
         //     updateSearchView();
 
 
-        try{
+        try {
             LoginActivity.setLanguage();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
-    @Override
-    public void setupSearchView(View view) {
-        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
-        searchView.setHint(getNavBarOptionsProvider().searchHint());
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
 
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-                (new AsyncTask() {
-                    SmartRegisterClients filteredClients;
-
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-//                        currentSearchFilter =
-//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-//                        filteredClients = getClientsAdapter().getListItemProvider()
-//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//    @Override
+//    public void setupSearchView(View view) {
+//        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+//        searchView.setHint(getNavBarOptionsProvider().searchHint());
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//            }
 //
-                        filters = cs.toString();
-                        joinTable = "";
-                        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
-                        return null;
-                    }
+//            @Override
+//            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//
+//                (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+//
+//                    @Override
+//                    protected Object doInBackground(Object[] params) {
+////                        currentSearchFilter =
+////                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+////                        filteredClients = getClientsAdapter().getListItemProvider()
+////                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+////                                        getCurrentSearchFilter(), getCurrentSortOption());
+////
+//                        filters = cs.toString();
+//                        joinTable = "";
+//                        mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+//                        return null;
+//                    }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+//                }).execute();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+//        searchCancelView.setOnClickListener(searchCancelHandler);
+//    }
 
-                    @Override
-                    protected void onPostExecute(Object o) {
-//                        clientsAdapter
-//                                .refreshList(currentVillageFilter, currentServiceModeOption,
-//                                        currentSearchFilter, currentSortOption);
-//                        getClientsAdapter().refreshClients(filteredClients);
-//                        getClientsAdapter().notifyDataSetChanged();
-                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                        CountExecute();
-                        filterandSortExecute();
-                        super.onPostExecute(o);
-                    }
-                }).execute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
-        searchCancelView.setOnClickListener(searchCancelHandler);
-    }
-
-    public void updateSearchView(){
+    public void updateSearchView() {
         getSearchView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -416,16 +438,17 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
             }
         });
     }
-    public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
-        for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
-            if(entry.getValue().getChildren() != null) {
-                addChildToList(dialogOptionslist,entry.getValue().getChildren());
+    public void addChildToList(ArrayList<DialogOption> dialogOptionslist, Map<String, TreeNode<String, Location>> locationMap) {
+        for (Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
-            }else{
+            if (entry.getValue().getChildren() != null) {
+                addChildToList(dialogOptionslist, entry.getValue().getChildren());
+
+            } else {
                 StringUtil.humanize(entry.getValue().getLabel());
                 String name = StringUtil.humanize(entry.getValue().getLabel());
-                dialogOptionslist.add(new KICommonObjectFilterOption(name,"Village", name));
+                dialogOptionslist.add(new KICommonObjectFilterOption(name, "Village", name));
 
             }
         }
@@ -436,10 +459,98 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         this.criteria = criteria;
     }
 
-    public static String getCriteria(){
+    public static String getCriteria() {
         return criteria;
     }
 
+    //    WD
+    @Override
+    public void setupSearchView(final View view) {
+        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Please Choose one, Search by");
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int opt) {
+                        if (opt == 0) searchTextChangeListener("");
+                        else getFacialRecord(view);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+        searchCancelView.setOnClickListener(searchCancelHandler);
+    }
+
+    public void getFacialRecord(View view) {
+        Log.e(TAG, "getFacialRecord: ");
+        SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+
+        Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", NativeKIAnakSmartRegisterFragment.class.getSimpleName());
+        intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
+        startActivity(intent);
+    }
+
+    public void searchTextChangeListener(String s) {
+        Log.e(TAG, "searchTextChangeListener: " + s);
+        if (s != null) {
+            filters = s;
+        } else {
+            searchView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+
+                @Override
+                public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+
+                    Log.e(TAG, "onTextChanged: " + searchView.getText());
+                    (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+
+                        @Override
+                        protected Object doInBackground(Object[] params) {
+//                        currentSearchFilter =
+//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+//                        filteredClients = getClientsAdapter().getListItemProvider()
+//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//
+                            filters = cs.toString();
+                            joinTable = "";
+                            mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+                            return null;
+                        }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+                    }).execute();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            });
+        }
+    }
 
 
 }

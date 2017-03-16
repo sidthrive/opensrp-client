@@ -234,14 +234,14 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
 //        mainCondition = " isClosed !='true' ";
 
-        if (s == null || Objects.equals(s, "")) {
+        if (s == null || Objects.equals(s, "!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
 
             mainCondition = "isClosed !='true' ";
         } else {
             Log.e(TAG, "initializeQueries: init " + s);
 
-            mainCondition = "isClosed = 0 AND object_id LIKE '%" + s + "%'";
+            mainCondition = "isClosed !='true' AND object_id LIKE '%" + s + "%'";
         }
 
         super.CountExecute();
@@ -307,11 +307,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         }
     }
 
-
-
     private String KiSortByNameAZ() {
         return " namalengkap ASC";
     }
+
     private String KiSortByNameZA() {
         return " namalengkap DESC";
     }
@@ -319,6 +318,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     private String KiSortByAge() {
         return " umur DESC";
     }
+
     private String KiSortByNoIbu() {
         return " noIbu ASC";
     }
@@ -355,7 +355,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
-            initializeQueries("");
+            initializeQueries("!");
         }
    //     updateSearchView();
 //

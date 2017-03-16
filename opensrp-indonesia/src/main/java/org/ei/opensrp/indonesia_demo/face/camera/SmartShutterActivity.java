@@ -166,6 +166,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+//        loadAlbum();
     }
 
     @Override
@@ -301,8 +302,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                         Class<?> origin_class = this.getClass();
 
-                        Log.e(TAG, "onPreviewFrame: init" + origin_class.getSimpleName());
-                        Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+                        Log.e(TAG, "onPreviewFrame: init " + origin_class.getSimpleName());
+                        Log.e(TAG, "onPreviewFrame: origin " + str_origin_class);
 
                         if (str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())) {
                             origin_class = NativeKISmartRegisterActivity.class;
@@ -317,7 +318,9 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                         }
 
                         Log.e(TAG, "onPreviewFrame: " + origin_class.getSimpleName());
+
                         Intent intent = new Intent(SmartShutterActivity.this, origin_class);
+
                         intent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
                         intent.putExtra("org.ei.opensrp.indonesia.face.base_id", selectedPersonName);
                         intent.putExtra("org.ei.opensrp.indonesia.face.proc_time", t_stopCamera);
@@ -968,7 +971,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
      * Function to take the raw YUV byte array and do the necessary conversions to save it.
      */
     private void savePicture(byte[] data) {
-        Log.e(TAG, "savePicture: "+entityId );
+        Log.e(TAG, "savePicture: base_id "+entityId );
+        Log.e(TAG, "savePicture: angle "+ displayAngle );
         Intent intent = new Intent(this, ImageConfirmation.class);
         // This is when smart shutter feature is not ON. Take the photo generally.
         if (data != null) {
@@ -980,6 +984,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", identifyPerson);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) kidetail);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", str_origin_class);
+
         startActivityForResult(intent, 1);
     }
 
@@ -1029,7 +1034,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString(FaceConstants.ALBUM_ARRAY, null);
 
-        Log.e(TAG, "loadAlbum: " + arrayOfString);
+        Log.e(TAG, "loadAlbum: " + arrayOfString.length());
         byte[] albumArray;
         if (arrayOfString != null) {
             String[] splitStringArray = arrayOfString.substring(1,
@@ -1041,7 +1046,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             }
             // Boolean
             SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
-            Log.e(TAG, "De-Serialized Album Success! " + albumArray.toString());
+            Log.e(TAG, "De-Serialized Album Success! ");
         }
     }
 

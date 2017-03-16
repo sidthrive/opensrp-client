@@ -245,6 +245,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     @Override
     public void onBackPressed() {
+        Log.e(TAG, "onBackPressed: "+ "here" );
         if (currentPage != 0) {
             switchToBaseFragment(null);
         } else if (currentPage == 0) {

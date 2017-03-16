@@ -14,7 +14,9 @@ import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia_demo.R;
+import org.ei.opensrp.indonesia_demo.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia_demo.lib.FlurryFacade;
+import org.ei.opensrp.view.activity.NativePNCSmartRegisterActivity;
 
 import java.io.File;
 
@@ -289,5 +291,15 @@ public class PNCDetailActivity extends Activity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, NativeKIPNCSmartRegisterActivity.class));
+        overridePendingTransition(0, 0);
+
+
+    }
+
 
 }

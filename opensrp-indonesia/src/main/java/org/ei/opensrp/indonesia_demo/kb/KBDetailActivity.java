@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -373,8 +374,9 @@ public class KBDetailActivity extends Activity {
     }
     @Override
     public void onBackPressed() {
+        Log.e(TAG, "onBackPressed: "+ "here" );
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKBSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

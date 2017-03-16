@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.FilenameUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -21,9 +23,11 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia_demo.R;
 import org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia_demo.face.camera.util.FaceConstants;
 import org.ei.opensrp.indonesia_demo.face.camera.util.Tools;
 import org.ei.opensrp.indonesia_demo.lib.FlurryFacade;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.view.contract.SmartRegisterClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +38,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
+
 import util.ImageCache;
 import util.ImageFetcher;
 
@@ -43,7 +48,7 @@ import util.ImageFetcher;
 public class KIDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = KIDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -59,6 +64,9 @@ public class KIDetailActivity extends Activity {
     private boolean updateMode = false;
     private String mode;
 
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +74,10 @@ public class KIDetailActivity extends Activity {
         Context context = Context.getInstance();
         setContentView(R.layout.ki_detail_activity);
 
-        final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
+        final ImageView kiview = (ImageView) findViewById(R.id.motherdetailprofileview);
         //header
-      //  TextView risk = (TextView) findViewById(R.id.detail_risk);
-        
+        //  TextView risk = (TextView) findViewById(R.id.detail_risk);
+
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_wife_name);
         TextView nik = (TextView) findViewById(R.id.txt_nik);
@@ -139,34 +147,52 @@ public class KIDetailActivity extends Activity {
         });
 
 
-        if(kiclient.getDetails().get("profilepic")!= null){
-                setImagetoHolderFromUri(KIDetailActivity.this, kiclient.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-        }
-        else {
-                kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+//        Profile Picture
+        photo_path = kiclient.getDetails().get("profilepic");
+
+        ImageRepository ir = new ImageRepository();
+
+        if (Tools.getPhotoPath() != null) {
+            String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
+            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/")+1);
         }
 
-       
-        nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+ (kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ (kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.dob)+ (kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-"));
-        phone.setText("No HP: "+ (kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
+        if (photo_path != null) {
+            tb_photo = new File(photo_path);
+            if (!tb_photo.exists()) {
+                kiview.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
+            } else {
+                setImagetoHolderFromUri(this, kiclient.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+            }
+        } else if (Tools.getPhotoPath() != null && fileName.equals(kiclient.getCaseId())) {
+            setImagetoHolderFromUri(this, Tools.getPhotoPath(), kiview, R.mipmap.woman_placeholder);
+
+        } else {
+
+            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+        }
+
+
+        nama.setText(getResources().getString(R.string.name) + (kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
+        nik.setText(getResources().getString(R.string.nik) + (kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
+        husband_name.setText(getResources().getString(R.string.husband_name) + (kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
+        dob.setText(getResources().getString(R.string.dob) + (kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-"));
+        phone.setText("No HP: " + (kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
 
         //risk
-        if(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+        if (kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null) {
+            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge) + humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
         }
-        if(kiclient.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+        if (kiclient.getDetails().get("highRiskPregnancyOldMaternalAge") != null) {
+            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge) + humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
         }
-        if(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
+        if (kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
                 || kiclient.getDetails().get("HighRiskPregnancyAbortus") != null
-                || kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
-                ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord")));
+                || kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord") != null
+                ) {
+            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition) + humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
+            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus) + humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus")));
+            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord) + humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord")));
 
         }
 
@@ -174,22 +200,21 @@ public class KIDetailActivity extends Activity {
         show_detail.setText(getResources().getString(R.string.show_less_button));
 
         //detail
-        village.setText(": "+humanize(kiclient.getDetails().get("desa") != null ? kiclient.getDetails().get("desa") : "-"));
-        subvillage.setText(": "+humanize (kiclient.getDetails().get("dusun") != null ? kiclient.getDetails().get("dusun") : "-"));
-        age.setText(": "+humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-"));
-        alamat.setText(": "+humanize(kiclient.getDetails().get("alamatDomisili") != null ? kiclient.getDetails().get("alamatDomisili") : "-"));
-        education.setText(": "+humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-"));
-        religion.setText(": "+humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-"));
-        job.setText(": "+humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-"));
-        gakin.setText(": "+humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-"));
-        blood_type.setText(": "+humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-"));
-        asuransi.setText(": "+humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-"));
-
+        village.setText(": " + humanize(kiclient.getDetails().get("desa") != null ? kiclient.getDetails().get("desa") : "-"));
+        subvillage.setText(": " + humanize(kiclient.getDetails().get("dusun") != null ? kiclient.getDetails().get("dusun") : "-"));
+        age.setText(": " + humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-"));
+        alamat.setText(": " + humanize(kiclient.getDetails().get("alamatDomisili") != null ? kiclient.getDetails().get("alamatDomisili") : "-"));
+        education.setText(": " + humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-"));
+        religion.setText(": " + humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-"));
+        job.setText(": " + humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-"));
+        gakin.setText(": " + humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-"));
+        blood_type.setText(": " + humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-"));
+        asuransi.setText(": " + humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-"));
 
 
         //risk detail
         highRiskSTIBBVs.setText(humanize(kiclient.getDetails().get("highRiskSTIBBVs") != null ? kiclient.getDetails().get("highRiskSTIBBVs") : "-"));
-        highRiskEctopicPregnancy.setText(humanize (kiclient.getDetails().get("highRiskEctopicPregnancy") != null ? kiclient.getDetails().get("highRiskEctopicPregnancy") : "-"));
+        highRiskEctopicPregnancy.setText(humanize(kiclient.getDetails().get("highRiskEctopicPregnancy") != null ? kiclient.getDetails().get("highRiskEctopicPregnancy") : "-"));
         highRiskCardiovascularDiseaseRecord.setText(humanize(kiclient.getDetails().get("highRiskCardiovascularDiseaseRecord") != null ? kiclient.getDetails().get("highRiskCardiovascularDiseaseRecord") : "-"));
         highRiskDidneyDisorder.setText(humanize(kiclient.getDetails().get("highRiskDidneyDisorder") != null ? kiclient.getDetails().get("highRiskDidneyDisorder") : "-"));
         highRiskHeartDisorder.setText(humanize(kiclient.getDetails().get("highRiskHeartDisorder") != null ? kiclient.getDetails().get("highRiskHeartDisorder") : "-"));
@@ -201,7 +226,7 @@ public class KIDetailActivity extends Activity {
         txt_highRiskHIVAIDS.setText(humanize(kiclient.getDetails().get("highRiskHIVAIDS") != null ? kiclient.getDetails().get("highRiskHIVAIDS") : "-"));
 
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
-        if(kiclient.getColumnmaps().get("ibu.id") != null) {
+        if (kiclient.getColumnmaps().get("ibu.id") != null) {
             final CommonPersonObject ibuparent = iburep.findByCaseID(kiclient.getColumnmaps().get("ibu.id"));
 
             txt_lbl_highRiskLabourFetusMalpresentation.setText(humanize(ibuparent.getDetails().get("highRiskLabourFetusMalpresentation") != null ? ibuparent.getDetails().get("highRiskLabourFetusMalpresentation") : "-"));
@@ -255,20 +280,24 @@ public class KIDetailActivity extends Activity {
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
 
-                if(hash.containsValue(entityid)){
-                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                if (hash.containsValue(entityid)) {
+                    Log.e(TAG, "onClick: " + entityid + " updated");
                     mode = "updated";
                     updateMode = true;
 
                 }
-                dispatchTakePictureIntent(kiview, updateMode);
+//                dispatchTakePictureIntent(kiview, updateMode);
 
+                Intent intent = new Intent(KIDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
+                startActivity(intent);
 
             }
         });
 
     }
-
 
 
     String mCurrentPhotoPath;
@@ -289,6 +318,7 @@ public class KIDetailActivity extends Activity {
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
+
     static final int REQUEST_TAKE_PHOTO = 1;
     static ImageView mImageView;
     static File currentfile;
@@ -298,13 +328,13 @@ public class KIDetailActivity extends Activity {
 
     private void dispatchTakePictureIntent(ImageView imageView, boolean modeUpdate) {
 
-        Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
+        Toast.makeText(KIDetailActivity.this, "Mode Updated: " + modeUpdate, Toast.LENGTH_SHORT).show();
 
         mImageView = imageView;
         Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
         takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
 
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+        Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
 
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
@@ -319,24 +349,26 @@ public class KIDetailActivity extends Activity {
 //            Bundle extras = data.getExtras();
 //            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
+            HashMap<String, String> details = new HashMap<String, String>();
+            details.put("profilepic", currentfile.getAbsolutePath());
+            saveimagereference(bindobject, entityid, details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
     }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+
+    public void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
+        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
+        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(), anmId, entityid, "Image", details.get("profilepic"), ImageRepository.TYPE_Unsynced, "dp");
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
+
+    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder) {
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
 
@@ -348,12 +380,9 @@ public class KIDetailActivity extends Activity {
         mImageFetcher.setLoadingImage(placeholder);
         mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
 //        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
+        mImageFetcher.loadImage("file:///" + file, view);
 
 //        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
 
 
 //        BitmapFactory.Options options = new BitmapFactory.Options();
@@ -361,7 +390,8 @@ public class KIDetailActivity extends Activity {
 //        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
 //        view.setImageBitmap(bitmap);
     }
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder) {
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
         File externalFile = new File(file);
         Uri external = Uri.fromFile(externalFile);
@@ -369,6 +399,7 @@ public class KIDetailActivity extends Activity {
 
 
     }
+
     @Override
     public void onBackPressed() {
         finish();

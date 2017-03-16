@@ -35,7 +35,9 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia_demo.R;
+import org.ei.opensrp.indonesia_demo.anc.ANCDetailActivity;
 import org.ei.opensrp.indonesia_demo.anc.NativeKIANCSmartRegisterActivity;
+import org.ei.opensrp.indonesia_demo.child.AnakDetailActivity;
 import org.ei.opensrp.indonesia_demo.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia_demo.face.camera.util.FaceConstants;
 import org.ei.opensrp.indonesia_demo.face.camera.util.Tools;
@@ -46,9 +48,12 @@ import org.ei.opensrp.indonesia_demo.fragment.NativeKIPNCSmartRegisterFragment;
 import org.ei.opensrp.indonesia_demo.fragment.NativeKISmartRegisterFragment;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.NativeKISmartRegisterActivity;
+import org.ei.opensrp.indonesia_demo.kb.KBDetailActivity;
 import org.ei.opensrp.indonesia_demo.kb.NativeKBSmartRegisterActivity;
 import org.ei.opensrp.indonesia_demo.pnc.NativeKIPNCSmartRegisterActivity;
+import org.ei.opensrp.indonesia_demo.pnc.PNCDetailActivity;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.view.contract.SmartRegisterClient;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -230,6 +235,7 @@ public class ImageConfirmation extends Activity {
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
         data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
+        Log.e(TAG, "init_extras: "+ extras.toString() );
         angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
         switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
@@ -248,24 +254,9 @@ public class ImageConfirmation extends Activity {
 
     public void showDetailUser(String selectedPersonName) {
 
-        AllCommonsRepository ibuRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        CommonPersonObject kiclient = ibuRepository.findByCaseID(selectedPersonName);
-
-//        Log.e(TAG, "onCreate: IbuRepo "+ibuRepository );
-//        Log.e(TAG, "onCreate: Id "+selectedPersonName );
-//        Log.e(TAG, "onCreate: KiClient "+kiclient.getCaseId() );
-
-//      CommonRepository commonrepository = new CommonRepository("ibu", new String[]{"ibu.isClosed", "ibu.ancDate", "ibu.ancKe", "kartu_ibu.namalengkap", "kartu_ibu.umur", "kartu_ibu.namaSuami"}););
-//        CommonRepository commonrepository = new CommonRepository("ec_kartu_ibu",new String []{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur","ec_kartu_ibu.namaSuami"});
-//        Log.e(TAG, "onCreate: CommonRespository "+commonrepository );
-//        CommonPersonObject personinlist = commonrepository.findByCaseID(selectedPersonName);
-//        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("ec_kartu_ibu.namalengkap"));
-//        KIDetailActivity.kiclient = pClient;
-//        Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);
-
         Class<?> origin_class = this.getClass();
 
-        Log.e(TAG, "onPreviewFrame: init"+origin_class.getSimpleName() );
+        Log.e(TAG, "onPreviewFrame: init"+ origin_class.getSimpleName() );
         Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
 
         if(str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())){
@@ -297,10 +288,36 @@ public class ImageConfirmation extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                Log.e(TAG, "onClick: " + identifyPerson);
-                Log.e(TAG, "onClick: " + entityId);
+                Log.e(TAG, "onClick: identify " + identifyPerson);
+                Log.e(TAG, "onClick: base_id " + entityId);
+
+                Class<?> origin_class = this.getClass();
+
+                Log.e(TAG, "onPreviewFrame: init"+ origin_class.getSimpleName() );
+                Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+
+                if(str_origin_class.equals(KIDetailActivity.class.getSimpleName())){
+                    origin_class = KIDetailActivity.class;
+                }
+                else if(str_origin_class.equals(KBDetailActivity.class.getSimpleName())){
+                    origin_class = NativeKBSmartRegisterActivity.class;
+                }
+                else if(str_origin_class.equals(ANCDetailActivity.class.getSimpleName())){
+                    origin_class = ANCDetailActivity.class;
+                }
+                else if(str_origin_class.equals(PNCDetailActivity.class.getSimpleName())){
+                    origin_class = PNCDetailActivity.class;
+                }
+                else if(str_origin_class.equals(AnakDetailActivity.class.getSimpleName())){
+                    origin_class = AnakDetailActivity.class;
+                }
+
                 if (!identifyPerson) {
-                    saveAndClose(entityId);
+
+                    Log.e(TAG, "onClick: "+ origin_class.getSimpleName() );
+
+                    saveAndClose(entityId, origin_class.getSimpleName());
+
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
@@ -361,33 +378,44 @@ public class ImageConfirmation extends Activity {
     /*
     Save File and DB
      */
-    private void saveAndClose(String entityId) {
+    private void saveAndClose(String entityId, String s_class) {
         Log.e(TAG, "saveAndClose: position"+ arrayPossition );
-//        int res = objFace.addPerson(arrayPossition);
-//        Log.e(TAG, "saveAndClose: " + res);
         Log.e(TAG, "saveAndClose: " + Arrays.toString(objFace.serializeRecogntionAlbum()));
 
+        Log.e(TAG, "saveAndClose: "+ s_class );
 //        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
         saveAlbum();
         int result = objFace.addPerson(arrayPossition);
         clientList.put(entityId, Integer.toString(result));
         saveHash(clientList, getApplicationContext());
 
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId);
-
-//        HashMap<String,String> details = new HashMap<>();
-//
-//        details.put("profilepic",currentfile.getAbsolutePath());
-//
-//        saveimagereference(bindobject,entityId, details);
-
-
-//        Tools.SavePictureToFile(ImageConfirmation.this, storedBitmap, entityId);
-//        resultIntent.putExtra("com.qualcomm.sdk.smartshutterappgit .SmartShutterActivity.thumbnail", thumbnail);
 
         ImageConfirmation.this.finish();
 
-        Intent resultIntent = new Intent(this, KIDetailActivity.class);
+        Class<?> origin_class = this.getClass();
+
+        if(s_class.equals(KIDetailActivity.class.getSimpleName())){
+            origin_class = KIDetailActivity.class;
+        }
+        else if(s_class.equals(KBDetailActivity.class.getSimpleName())){
+            origin_class = NativeKBSmartRegisterActivity.class;
+        }
+        else if(s_class.equals(ANCDetailActivity.class.getSimpleName())){
+            origin_class = ANCDetailActivity.class;
+        }
+        else if(s_class.equals(PNCDetailActivity.class.getSimpleName())){
+            origin_class = PNCDetailActivity.class;
+        }
+        else if(s_class.equals(AnakDetailActivity.class.getSimpleName())){
+            origin_class = AnakDetailActivity.class;
+        }
+
+        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, origin_class.getSimpleName());
+
+
+        Intent resultIntent = new Intent(this, origin_class );
+
+//        resultIntent.putExtra("SmartShutterActivity.thumbnail", thumbnail);
         setResult(RESULT_OK, resultIntent);
         startActivityForResult(resultIntent, 1);
 

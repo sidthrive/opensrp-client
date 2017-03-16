@@ -22,6 +22,7 @@ import org.ei.opensrp.indonesia_demo.R;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia_demo.lib.FlurryFacade;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.view.activity.NativeANCSmartRegisterActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -419,7 +420,7 @@ public class ANCDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIANCSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 
