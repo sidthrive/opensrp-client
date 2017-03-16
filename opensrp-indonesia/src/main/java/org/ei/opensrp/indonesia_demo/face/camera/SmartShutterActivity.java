@@ -1034,9 +1034,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
         String arrayOfString = settings.getString(FaceConstants.ALBUM_ARRAY, null);
 
-        Log.e(TAG, "loadAlbum: " + arrayOfString.length());
         byte[] albumArray;
+
         if (arrayOfString != null) {
+            Log.e(TAG, "loadAlbum: " + arrayOfString.length());
             String[] splitStringArray = arrayOfString.substring(1,
                     arrayOfString.length() - 1).split(", ");
 

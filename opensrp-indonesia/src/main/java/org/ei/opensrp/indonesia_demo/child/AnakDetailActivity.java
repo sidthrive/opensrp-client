@@ -70,23 +70,23 @@ public class AnakDetailActivity extends Activity {
         Context context = Context.getInstance();
         setContentView(R.layout.child_detail_activity);
 
-        final ImageView childview = (ImageView)findViewById(R.id.childdetailprofileview);
+        final ImageView childview = (ImageView) findViewById(R.id.childdetailprofileview);
         //header
         TextView today = (TextView) findViewById(R.id.detail_today);
-        
+
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_child_name);
         TextView mother = (TextView) findViewById(R.id.txt_mother_name);
         TextView father = (TextView) findViewById(R.id.txt_father_number);
         TextView dob = (TextView) findViewById(R.id.txt_dob);
-        
-      //  TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
+
+        //  TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
         TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
         TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
         TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
         TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
-        
-        
+
+
         //detail data
         TextView txt_noBayi = (TextView) findViewById(R.id.txt_noBayi);
         TextView txt_jenisKelamin = (TextView) findViewById(R.id.txt_jenisKelamin);
@@ -105,7 +105,6 @@ public class AnakDetailActivity extends Activity {
         TextView campak = (TextView) findViewById(R.id.txt_tanggalpemberianimunisasiCampak);
 
 
-
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +119,9 @@ public class AnakDetailActivity extends Activity {
 //        Profile Picture
         photo_path = childclient.getDetails().get("profilepic");
 
-        ImageRepository ir = new ImageRepository();
-
         if (Tools.getPhotoPath() != null) {
             String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
-            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/")+1);
+            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/") + 1);
         }
 
         if (photo_path != null) {
@@ -132,14 +129,18 @@ public class AnakDetailActivity extends Activity {
             if (!tb_photo.exists()) {
                 childview.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
             } else {
-                setImagetoHolderFromUri(this, childclient.getDetails().get("profilepic"), childview, R.mipmap.woman_placeholder);
+                setImagetoHolderFromUri(this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
             }
         } else if (Tools.getPhotoPath() != null && fileName.equals(childclient.getCaseId())) {
-            setImagetoHolderFromUri(this, Tools.getPhotoPath(), childview, R.mipmap.woman_placeholder);
+            setImagetoHolderFromUri(this, Tools.getPhotoPath(), childview, R.drawable.child_boy_infant);
 
         } else {
-
-            childview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+            Log.e(TAG, "onCreate: kelamin " + childclient.getDetails().get("jenisKelamin"));
+            if (childclient.getDetails().get("jenisKelamin").equals("laki")) {
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+            } else {
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+            }
         }
 //        if(childclient.getDetails().get("profilepic")!= null){
 //                setImagetoHolderFromUri(AnakDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
@@ -153,8 +154,8 @@ public class AnakDetailActivity extends Activity {
 //        }
 
 
-       // Date currentDateandTime = new Date();
-     //   today.setText(" "+currentDateandTime);
+        // Date currentDateandTime = new Date();
+        //   today.setText(" "+currentDateandTime);
 
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
@@ -163,32 +164,32 @@ public class AnakDetailActivity extends Activity {
 
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
-        
+
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
         final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
 
-        
-        nama.setText(getResources().getString(R.string.name)+humanize (childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
-        mother.setText(getResources().getString(R.string.child_details_mothers_name_label)+humanize (kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
-        father.setText(getResources().getString(R.string.child_details_fathers_name_label)+ humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak") : "-"));
-        
 
-        txt_noBayi.setText( ": "+humanize (childclient.getDetails().get("noBayi") != null ? childclient.getDetails().get("noBayi") : "-"));
-        txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("jenisKelamin") != null ? childclient.getDetails().get("jenisKelamin") : "-"));
-        txt_beratLahir.setText(": "+humanize (childclient.getDetails().get("beratLahir") != null ? childclient.getDetails().get("beratLahir") : "-"));
-        tinggi.setText(": "+ humanize(childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") != null ? childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") : "-"));
-        berat.setText(": "+humanize (childclient.getDetails().get("indikatorBeratBedanBayi") != null ? childclient.getDetails().get("indikatorBeratBedanBayi") : "-"));
-        asi.setText(": "+humanize (childclient.getDetails().get("pemberianAsiEksklusif") != null ? childclient.getDetails().get("pemberianAsiEksklusif") : "-"));
-        status_gizi.setText(": "+ humanize(childclient.getDetails().get("statusGizi") != null ? childclient.getDetails().get("statusGizi") : "-"));
-        kpsp.setText(": "+ humanize(childclient.getDetails().get("hasilDilakukannyaKPSP") != null ? childclient.getDetails().get("hasilDilakukannyaKPSP") : "-"));
-        hb0.setText(": "+ humanize(childclient.getDetails().get("tanggalpemberianimunisasiHb07") != null ? childclient.getDetails().get("tanggalpemberianimunisasiHb07") : "-"));
-        pol1.setText(": "+ humanize(childclient.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1") != null ? childclient.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1") : "-"));
-        pol2.setText(": "+ humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2") : "-"));
-        pol3.setText(": "+ humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3") : "-"));
-        pol4.setText(": "+ humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB3Polio4") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB3Polio4") : "-"));
-        campak.setText(": "+humanize (childclient.getDetails().get("tanggalpemberianimunisasiCampak") != null ? childclient.getDetails().get("tanggalpemberianimunisasiCampak") : "-"));
-        vita.setText(": "+ humanize(childclient.getDetails().get("pelayananVita") != null ? childclient.getDetails().get("pelayananVita") : "-"));
+        nama.setText(getResources().getString(R.string.name) + humanize(childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
+        mother.setText(getResources().getString(R.string.child_details_mothers_name_label) + humanize(kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
+        father.setText(getResources().getString(R.string.child_details_fathers_name_label) + humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
+        dob.setText(getResources().getString(R.string.date_of_birth) + humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak") : "-"));
+
+
+        txt_noBayi.setText(": " + humanize(childclient.getDetails().get("noBayi") != null ? childclient.getDetails().get("noBayi") : "-"));
+        txt_jenisKelamin.setText(": " + humanize(childclient.getDetails().get("jenisKelamin") != null ? childclient.getDetails().get("jenisKelamin") : "-"));
+        txt_beratLahir.setText(": " + humanize(childclient.getDetails().get("beratLahir") != null ? childclient.getDetails().get("beratLahir") : "-"));
+        tinggi.setText(": " + humanize(childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") != null ? childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") : "-"));
+        berat.setText(": " + humanize(childclient.getDetails().get("indikatorBeratBedanBayi") != null ? childclient.getDetails().get("indikatorBeratBedanBayi") : "-"));
+        asi.setText(": " + humanize(childclient.getDetails().get("pemberianAsiEksklusif") != null ? childclient.getDetails().get("pemberianAsiEksklusif") : "-"));
+        status_gizi.setText(": " + humanize(childclient.getDetails().get("statusGizi") != null ? childclient.getDetails().get("statusGizi") : "-"));
+        kpsp.setText(": " + humanize(childclient.getDetails().get("hasilDilakukannyaKPSP") != null ? childclient.getDetails().get("hasilDilakukannyaKPSP") : "-"));
+        hb0.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiHb07") != null ? childclient.getDetails().get("tanggalpemberianimunisasiHb07") : "-"));
+        pol1.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1") != null ? childclient.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1") : "-"));
+        pol2.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2") : "-"));
+        pol3.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3") : "-"));
+        pol4.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiDPTHB3Polio4") != null ? childclient.getDetails().get("tanggalpemberianimunisasiDPTHB3Polio4") : "-"));
+        campak.setText(": " + humanize(childclient.getDetails().get("tanggalpemberianimunisasiCampak") != null ? childclient.getDetails().get("tanggalpemberianimunisasiCampak") : "-"));
+        vita.setText(": " + humanize(childclient.getDetails().get("pelayananVita") != null ? childclient.getDetails().get("pelayananVita") : "-"));
 
         hash = Tools.retrieveHash(context.applicationContext());
 
@@ -219,7 +220,6 @@ public class AnakDetailActivity extends Activity {
     }
 
 
-
     String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
@@ -238,11 +238,13 @@ public class AnakDetailActivity extends Activity {
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
+
     static final int REQUEST_TAKE_PHOTO = 1;
     static ImageView mImageView;
     static File currentfile;
     static String bindobject;
     static String entityid;
+
     private void dispatchTakePictureIntent(ImageView imageView) {
         mImageView = imageView;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -272,24 +274,26 @@ public class AnakDetailActivity extends Activity {
 //            Bundle extras = data.getExtras();
 //            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
+            HashMap<String, String> details = new HashMap<String, String>();
+            details.put("profilepic", currentfile.getAbsolutePath());
+            saveimagereference(bindobject, entityid, details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
     }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+
+    public void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
+        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
+        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(), anmId, entityid, "Image", details.get("profilepic"), ImageRepository.TYPE_Unsynced, "dp");
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                childclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
+
+    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder) {
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
 
@@ -301,12 +305,9 @@ public class AnakDetailActivity extends Activity {
         mImageFetcher.setLoadingImage(placeholder);
         mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
 //        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
+        mImageFetcher.loadImage("file:///" + file, view);
 
 //        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
 
 
 //        BitmapFactory.Options options = new BitmapFactory.Options();
@@ -314,7 +315,8 @@ public class AnakDetailActivity extends Activity {
 //        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
 //        view.setImageBitmap(bitmap);
     }
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder) {
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
         File externalFile = new File(file);
         Uri external = Uri.fromFile(externalFile);
@@ -322,6 +324,7 @@ public class AnakDetailActivity extends Activity {
 
 
     }
+
     @Override
     public void onBackPressed() {
         finish();
