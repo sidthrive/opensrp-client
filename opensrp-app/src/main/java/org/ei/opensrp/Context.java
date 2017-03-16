@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClients;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.commonregistry.CommonRepositoryInformationHolder;
@@ -17,7 +18,6 @@ import org.ei.opensrp.repository.AllEligibleCouples;
 import org.ei.opensrp.repository.AllReports;
 import org.ei.opensrp.repository.AllServicesProvided;
 import org.ei.opensrp.repository.AllSettings;
-import org.ei.opensrp.repository.AllSettingsINA;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.AllTimelineEvents;
 import org.ei.opensrp.repository.ChildRepository;
@@ -32,7 +32,6 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.repository.ServiceProvidedRepository;
 import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.repository.TimelineEventRepository;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.service.ANMService;
 import org.ei.opensrp.service.ActionService;
 import org.ei.opensrp.service.AlertService;
@@ -47,7 +46,6 @@ import org.ei.opensrp.service.HTTPAgent;
 import org.ei.opensrp.service.MotherService;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.service.ServiceProvidedService;
-import org.ei.opensrp.service.UniqueIdService;
 import org.ei.opensrp.service.UserService;
 import org.ei.opensrp.service.ZiggyFileLoader;
 import org.ei.opensrp.service.ZiggyService;
@@ -100,6 +98,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.preference.PreferenceManager.setDefaultValues;
@@ -199,6 +198,8 @@ public class Context {
 
     protected DristhiConfiguration configuration;
 
+    private CommonFtsObject commonFtsObject;
+
     ///////////////////common bindtypes///////////////
     public static ArrayList<CommonRepositoryInformationHolder> bindtypes;
     /////////////////////////////////////////////////
@@ -251,7 +252,17 @@ public class Context {
     public FormSubmissionService formSubmissionService() {
         initRepository();
         if (formSubmissionService == null) {
-            formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings());
+            if(commonFtsObject != null){
+                Map<String, AllCommonsRepository> allCommonsRepositoryMap = new HashMap<String, AllCommonsRepository>();
+                for(String ftsTable: commonFtsObject.getTables()){
+                    AllCommonsRepository allCommonsRepository =  allCommonsRepositoryobjects(ftsTable);
+                    allCommonsRepositoryMap.put(ftsTable, allCommonsRepository);
+                }
+
+                formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings(), allCommonsRepositoryMap);
+            } else {
+                formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings());
+            }
         }
         return formSubmissionService;
     }
@@ -489,14 +500,14 @@ public class Context {
         return formSubmissionSyncService;
     }
 
-    public HTTPAgent httpAgent() {
+    protected HTTPAgent httpAgent() {
         if (httpAgent == null) {
             httpAgent = new HTTPAgent(applicationContext, allSettings(), allSharedPreferences(), configuration());
         }
         return httpAgent;
     }
 
-    public Repository initRepository() {
+    protected Repository initRepository() {
         if(configuration().appName().equals(AllConstants.APP_NAME_INDONESIA)) {
             return null;
         }
@@ -518,7 +529,11 @@ public class Context {
                 drishtireposotorylist.add(commonrepository(bindtypes.get(i).getBindtypename()));
             }
             DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-            repository = new Repository(this.applicationContext, session(), drishtireposotoryarray);
+            if(commonFtsObject != null){
+                repository = new Repository(this.applicationContext, session(), this.commonFtsObject, drishtireposotoryarray);
+            }else {
+                repository = new Repository(this.applicationContext, session(), drishtireposotoryarray);
+            }
         }
         return repository;
     }
@@ -601,7 +616,7 @@ public class Context {
         return alertRepository;
     }
 
-    public SettingsRepository settingsRepository() {
+    protected SettingsRepository settingsRepository() {
         if (settingsRepository == null) {
             settingsRepository = new SettingsRepository();
         }
@@ -881,7 +896,11 @@ public class Context {
                     index = i;
                 }
             }
-            MapOfCommonRepository.put(bindtypes.get(index).getBindtypename(),new CommonRepository(bindtypes.get(index).getBindtypename(),bindtypes.get(index).getColumnNames()));
+            if(commonFtsObject != null && commonFtsObject.containsTable(tablename)){
+                MapOfCommonRepository.put(bindtypes.get(index).getBindtypename(), new CommonRepository(commonFtsObject, bindtypes.get(index).getBindtypename(), bindtypes.get(index).getColumnNames()));
+            } else {
+                MapOfCommonRepository.put(bindtypes.get(index).getBindtypename(), new CommonRepository(bindtypes.get(index).getBindtypename(), bindtypes.get(index).getColumnNames()));
+            }
         }
 
         return  MapOfCommonRepository.get(tablename);
@@ -955,6 +974,15 @@ public class Context {
 
     public HTTPAgent getHttpAgent() {
         return httpAgent;
+    }
+
+    public Context updateCommonFtsObject(CommonFtsObject commonFtsObject){
+        this.commonFtsObject = commonFtsObject;
+        return this;
+    }
+
+    public CommonFtsObject commonFtsObject() {
+        return commonFtsObject;
     }
 
     ///////////////////////////////////////////////////////////////////////////////
