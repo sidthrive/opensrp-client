@@ -186,6 +186,8 @@ public class GiziZScoreChartActivity extends Activity{
         String [] temp = buildDayAgeArray(historyUmur/*, historyUmurHari*/).split(",");
         seriesAxis = temp[0].equals("") ? "" : ""+(Integer.parseInt(temp[0])/30);
         for(int i=1;i<temp.length;i++){
+            if(Integer.parseInt(temp[i])<0)
+                continue;
             seriesAxis = seriesAxis + "," + (Integer.parseInt(temp[i])/30);
         }
         return seriesAxis;
@@ -208,6 +210,8 @@ public class GiziZScoreChartActivity extends Activity{
         }
 
         for(int i=0;i<ageLength;i++){
+            if(Integer.parseInt(dayAge[i])<0)
+                continue;
             if(i>0)
                 wfa = wfa + ",";
             wfa = wfa + calc.countWFA(isMale,Integer.parseInt(dayAge[i]),Double.parseDouble(weight[i+1]));
