@@ -260,7 +260,7 @@ public class ImageRepository extends DrishtiRepository {
     public String findByUserCount(int i) {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
         Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, numberUser + " = ?", new String[]{String.valueOf(i)}, null, null, null, null);
-//        cursor.moveToFirst();
+        cursor.moveToFirst();
         return cursor.getString(1);
 
     }
