@@ -24,7 +24,7 @@ public class Repository extends SQLiteOpenHelper {
     private CommonFtsObject commonFtsObject;
 
     public Repository(Context context, Session session, DrishtiRepository... repositories) {
-        super(context, session.repositoryName(), null, 1);
+        super(context, ( session != null ? session.repositoryName() : AllConstants.DATABASE_NAME), null, 1);
         this.repositories = repositories;
         this.context = context;
         this.session = session;
