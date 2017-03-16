@@ -890,7 +890,7 @@ public class Tools {
         list = imageRepo.allVectorImages();
 
 //        Helper Face
-        Bitmap helperImage = BitmapFactory.decodeResource(context.applicationContext().getResources(), R.drawable.h8);//ok
+//        Bitmap helperImage = BitmapFactory.decodeResource(context.applicationContext().getResources(), R.drawable.h8);//ok
 //        Bitmap helperImage = BitmapFactory.decodeResource( context.applicationContext().getResources(), R.drawable.h9);//OK
 
         if (SmartShutterActivity.faceProc == null) {

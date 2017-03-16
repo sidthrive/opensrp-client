@@ -41,19 +41,13 @@ import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing.PREVIEW_ROTATION_ANGLE;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
-import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
-import org.ei.opensrp.indonesia.face.camera.util.FaceConstants;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
-import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
-import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
-import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
-import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
+import org.ei.opensrp.vaksinator.R;
+import org.ei.opensrp.vaksinator.face.camera.util.FaceConstants;
+import org.ei.opensrp.vaksinator.face.camera.util.Tools;
+import org.ei.opensrp.vaksinator.fragment.TTSmartRegisterFragment;
+import org.ei.opensrp.vaksinator.fragment.VaksinatorSmartRegisterFragment;
+import org.ei.opensrp.vaksinator.imunisasiTT.TTSmartRegisterActivity;
+import org.ei.opensrp.vaksinator.vaksinator.VaksinatorSmartRegisterActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -319,16 +313,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                         Log.e(TAG, "onPreviewFrame: init" + origin_class.getSimpleName());
                         Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
 
-                        if (str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())) {
-                            origin_class = NativeKISmartRegisterActivity.class;
-                        } else if (str_origin_class.equals(NativeKBSmartRegisterFragment.class.getSimpleName())) {
-                            origin_class = NativeKBSmartRegisterActivity.class;
-                        } else if (str_origin_class.equals(NativeKIAnakSmartRegisterFragment.class.getSimpleName())) {
-                            origin_class = NativeKIAnakSmartRegisterActivity.class;
-                        } else if (str_origin_class.equals(NativeKIANCSmartRegisterFragment.class.getSimpleName())) {
-                            origin_class = NativeKIANCSmartRegisterActivity.class;
-                        } else if (str_origin_class.equals(NativeKIPNCSmartRegisterFragment.class.getSimpleName())) {
-                            origin_class = NativeKIPNCSmartRegisterActivity.class;
+                        if (str_origin_class.equals(VaksinatorSmartRegisterFragment.class.getSimpleName())) {
+                            origin_class = VaksinatorSmartRegisterActivity.class;
+                        } else if (str_origin_class.equals(TTSmartRegisterFragment.class.getSimpleName())) {
+                            origin_class = TTSmartRegisterActivity.class;
                         }
 
                         Log.e(TAG, "onPreviewFrame: " + origin_class.getSimpleName());

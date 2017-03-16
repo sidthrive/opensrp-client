@@ -11,7 +11,7 @@ import android.view.SurfaceView;
 
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 
-import org.ei.opensrp.indonesia.AllConstantsINA;
+import org.ei.opensrp.vaksinator.face.camera.util.FaceConstants;
 
 public class PaintFaceView extends SurfaceView {
 
@@ -76,19 +76,19 @@ public class PaintFaceView extends SurfaceView {
 
 		} else if(faceData.getSmileValue() < 55) {
 
-			rectBrush.setColor(Color.parseColor(AllConstantsINA.RED_ORANGE));
+			rectBrush.setColor(Color.parseColor(FaceConstants.RED_ORANGE));
 
 		} else if(faceData.getSmileValue() < 70) {
 
-			rectBrush.setColor(Color.parseColor(AllConstantsINA.ORANGE_YELLOW));
+			rectBrush.setColor(Color.parseColor(FaceConstants.ORANGE_YELLOW));
 
 		} else if(faceData.getSmileValue() < 85) {
 
-			rectBrush.setColor(Color.parseColor(AllConstantsINA.YELLOW_GREEN));
+			rectBrush.setColor(Color.parseColor(FaceConstants.YELLOW_GREEN));
 
 		} else {
 
-			rectBrush.setColor(Color.parseColor(AllConstantsINA.GREEN));
+			rectBrush.setColor(Color.parseColor(FaceConstants.GREEN));
 		}
 		
 	}
