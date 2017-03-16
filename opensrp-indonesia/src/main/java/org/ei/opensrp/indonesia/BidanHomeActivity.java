@@ -85,6 +85,7 @@ public class BidanHomeActivity extends SecuredActivity {
     private TextView kartuIbuPNCRegisterClientCountView;
     private TextView anakRegisterClientCountView;
     private TextView kohortKbCountView;
+    private TextView ParanaClientCount;
     public static CommonPersonObjectController kicontroller;
     public static CommonPersonObjectController anccontroller;
     public static CommonPersonObjectController kbcontroller;
@@ -95,6 +96,7 @@ public class BidanHomeActivity extends SecuredActivity {
     private int anccount;
     private int pnccount;
     private int childcount;
+    private int paranacount;
 
     @Override
     protected void onCreation() {
@@ -136,6 +138,7 @@ public class BidanHomeActivity extends SecuredActivity {
         kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_anak_client_count);
         kohortKbCountView = (TextView) findViewById(R.id.txt_kohort_kb_register_count);
+        ParanaClientCount = (TextView) findViewById(R.id.txt_parana_client_count);
 
         findViewById(R.id.btn_videos).setVisibility(View.GONE);
 
@@ -209,11 +212,18 @@ public class BidanHomeActivity extends SecuredActivity {
         childcount= childcountcursor.getInt(0);
         childcountcursor.close();
 
+
+        Cursor prcountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true'"));
+        prcountcursor.moveToFirst();
+        paranacount= prcountcursor.getInt(0);
+        prcountcursor.close();
+
         ecRegisterClientCountView.setText(valueOf(kicount));
         kartuIbuANCRegisterClientCountView.setText(valueOf(anccount));
         kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
         anakRegisterClientCountView.setText(valueOf(childcount));
         kohortKbCountView.setText(valueOf(kbcount));
+       // ParanaClientCount.setText(paranacount);
     }
 
     @Override

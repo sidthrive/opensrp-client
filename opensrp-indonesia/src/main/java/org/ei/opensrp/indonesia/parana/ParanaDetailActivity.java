@@ -60,7 +60,7 @@ public class ParanaDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
-        setContentView(R.layout.anc_detail_activity);
+        setContentView(R.layout.parana_detail_activity);
 
         String DetailStart = timer.format(new Date());
         Map<String, String> ANCDetail = new HashMap<String, String>();
@@ -77,90 +77,21 @@ public class ParanaDetailActivity extends Activity {
         TextView husband_name = (TextView) findViewById(R.id.txt_husband_name);
         TextView dob = (TextView) findViewById(R.id.txt_dob);
         TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
-        TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
-        TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
-        TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
-        TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
-        final TextView show_risk = (TextView) findViewById(R.id.show_more);
-        final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
 
-        //detail data
-        TextView Keterangan_k1k4 = (TextView) findViewById(R.id.txt_Keterangan_k1k4);
-        TextView ancDate = (TextView) findViewById(R.id.txt_ancDate);
-        TextView tanggalHPHT = (TextView) findViewById(R.id.txt_tanggalHPHT);
-        TextView usiaKlinis = (TextView) findViewById(R.id.txt_usiaKlinis);
-        TextView trimesterKe = (TextView) findViewById(R.id.txt_trimesterKe);
-        TextView kunjunganKe = (TextView) findViewById(R.id.txt_kunjunganKe);
-        TextView ancKe = (TextView) findViewById(R.id.txt_ancKe);
-        TextView bbKg = (TextView) findViewById(R.id.txt_bbKg);
-        TextView tandaVitalTDSistolik = (TextView) findViewById(R.id.txt_tandaVitalTDSistolik);
-        TextView tandaVitalTDDiastolik = (TextView) findViewById(R.id.txt_tandaVitalTDDiastolik);
-        TextView hasilPemeriksaanLILA = (TextView) findViewById(R.id.txt_hasilPemeriksaanLILA);
-        TextView statusGiziibu = (TextView) findViewById(R.id.txt_statusGiziibu);
-        TextView tfu = (TextView) findViewById(R.id.txt_tfu);
-        TextView refleksPatelaIbu = (TextView) findViewById(R.id.txt_refleksPatelaIbu);
-        TextView djj = (TextView) findViewById(R.id.txt_djj);
-        TextView kepalaJaninTerhadapPAP = (TextView) findViewById(R.id.txt_kepalaJaninTerhadapPAP);
-        TextView taksiranBeratJanin = (TextView) findViewById(R.id.txt_taksiranBeratJanin);
-        TextView persentasiJanin = (TextView) findViewById(R.id.txt_persentasiJanin);
-        TextView jumlahJanin = (TextView) findViewById(R.id.txt_jumlahJanin);
+        TextView sesi1 = (TextView) findViewById(R.id.txt_sesi1);
+        TextView sesi2 = (TextView) findViewById(R.id.txt_sesi2);
+        TextView sesi3 = (TextView) findViewById(R.id.txt_sesi3);
+        TextView sesi4 = (TextView) findViewById(R.id.txt_sesi4);
 
 
-        TextView statusImunisasitt = (TextView) findViewById(R.id.txt_statusImunisasitt);
-        TextView pelayananfe = (TextView) findViewById(R.id.txt_pelayananfe);
-        TextView komplikasidalamKehamilan = (TextView) findViewById(R.id.txt_komplikasidalamKehamilan);
-
-        TextView integrasiProgrampmtctvct = (TextView) findViewById(R.id.txt_integrasiProgrampmtctvct);
-        TextView integrasiProgrampmtctPeriksaDarah = (TextView) findViewById(R.id.txt_integrasiProgrampmtctPeriksaDarah);
-        TextView integrasiProgrampmtctSerologi = (TextView) findViewById(R.id.txt_integrasiProgrampmtctSerologi);
-        TextView integrasiProgrampmtctarvProfilaksis = (TextView) findViewById(R.id.txt_integrasiProgrampmtctarvProfilaksis);
-        TextView integrasiProgramMalariaPeriksaDarah = (TextView) findViewById(R.id.txt_integrasiProgramMalariaPeriksaDarah);
-        TextView integrasiProgramMalariaObat = (TextView) findViewById(R.id.txt_integrasiProgramMalariaObat);
-        TextView integrasiProgramMalariaKelambuBerinsektisida = (TextView) findViewById(R.id.txt_integrasiProgramMalariaKelambuBerinsektisida);
-        TextView integrasiProgramtbDahak = (TextView) findViewById(R.id.txt_integrasiProgramtbDahak);
-        TextView integrasiProgramtbObat = (TextView) findViewById(R.id.txt_integrasiProgramtbObat);
-
-        TextView laboratoriumPeriksaHbHasil = (TextView) findViewById(R.id.txt_laboratoriumPeriksaHbHasil);
-        TextView laboratoriumPeriksaHbAnemia = (TextView) findViewById(R.id.txt_laboratoriumPeriksaHbAnemia);
-        TextView laboratoriumProteinUria = (TextView) findViewById(R.id.txt_laboratoriumProteinUria);
-        TextView laboratoriumGulaDarah = (TextView) findViewById(R.id.txt_laboratoriumGulaDarah);
-        TextView laboratoriumThalasemia = (TextView) findViewById(R.id.txt_laboratoriumThalasemia);
-        TextView laboratoriumSifilis = (TextView) findViewById(R.id.txt_laboratoriumSifilis);
-        TextView laboratoriumHbsAg = (TextView) findViewById(R.id.txt_laboratoriumHbsAg);
-
-
-        //detail RISK
-        TextView highRiskSTIBBVs = (TextView) findViewById(R.id.txt_highRiskSTIBBVs);
-        TextView highRiskEctopicPregnancy = (TextView) findViewById(R.id.txt_highRiskEctopicPregnancy);
-        TextView highRiskCardiovascularDiseaseRecord = (TextView) findViewById(R.id.txt_highRiskCardiovascularDiseaseRecord);
-        TextView highRiskDidneyDisorder = (TextView) findViewById(R.id.txt_highRiskDidneyDisorder);
-        TextView highRiskHeartDisorder = (TextView) findViewById(R.id.txt_highRiskHeartDisorder);
-        TextView highRiskAsthma = (TextView) findViewById(R.id.txt_highRiskAsthma);
-        TextView highRiskTuberculosis = (TextView) findViewById(R.id.txt_highRiskTuberculosis);
-        TextView highRiskMalaria = (TextView) findViewById(R.id.txt_highRiskMalaria);
-        TextView highRiskPregnancyPIH = (TextView) findViewById(R.id.txt_highRiskPregnancyPIH);
-        TextView highRiskPregnancyProteinEnergyMalnutrition = (TextView) findViewById(R.id.txt_highRiskPregnancyProteinEnergyMalnutrition);
-
-        TextView txt_highRiskLabourTBRisk = (TextView) findViewById(R.id.txt_highRiskLabourTBRisk);
-        TextView txt_HighRiskLabourSectionCesareaRecord = (TextView) findViewById(R.id.txt_HighRiskLabourSectionCesareaRecord);
-        TextView txt_highRisklabourFetusNumber = (TextView) findViewById(R.id.txt_highRisklabourFetusNumber);
-        TextView txt_highRiskLabourFetusSize = (TextView) findViewById(R.id.txt_highRiskLabourFetusSize);
-        TextView txt_lbl_highRiskLabourFetusMalpresentation = (TextView) findViewById(R.id.txt_lbl_highRiskLabourFetusMalpresentation);
-        TextView txt_highRiskPregnancyAnemia = (TextView) findViewById(R.id.txt_highRiskPregnancyAnemia);
-        TextView txt_highRiskPregnancyDiabetes = (TextView) findViewById(R.id.txt_highRiskPregnancyDiabetes);
-        TextView HighRiskPregnancyTooManyChildren = (TextView) findViewById(R.id.txt_HighRiskPregnancyTooManyChildren);
-        TextView highRiskPostPartumSectioCaesaria = (TextView) findViewById(R.id.txt_highRiskPostPartumSectioCaesaria);
-        TextView highRiskPostPartumForceps = (TextView) findViewById(R.id.txt_highRiskPostPartumForceps);
-        TextView highRiskPostPartumVacum = (TextView) findViewById(R.id.txt_highRiskPostPartumVacum);
-        TextView highRiskPostPartumPreEclampsiaEclampsia = (TextView) findViewById(R.id.txt_highRiskPostPartumPreEclampsiaEclampsia);
-        TextView highRiskPostPartumMaternalSepsis = (TextView) findViewById(R.id.txt_highRiskPostPartumMaternalSepsis);
-        TextView highRiskPostPartumInfection = (TextView) findViewById(R.id.txt_highRiskPostPartumInfection);
-        TextView highRiskPostPartumHemorrhage = (TextView) findViewById(R.id.txt_highRiskPostPartumHemorrhage);
-
-        TextView highRiskPostPartumPIH = (TextView) findViewById(R.id.txt_highRiskPostPartumPIH);
-        TextView highRiskPostPartumDistosia = (TextView) findViewById(R.id.txt_highRiskPostPartumDistosia);
-        TextView txt_highRiskHIVAIDS = (TextView) findViewById(R.id.txt_highRiskHIVAIDS);
-
+        TextView txt_nama  = (TextView) findViewById(R.id.txt_nama);
+        TextView        txt_tgl_lahir = (TextView) findViewById(R.id.txt_tgl_lahir);
+        TextView txt_BBL = (TextView) findViewById(R.id.txt_BBL);
+        TextView       txt_BBT = (TextView) findViewById(R.id.txt_BBT);
+        TextView txt_mmn = (TextView) findViewById(R.id.txt_mmn);
+        TextView        txt_kpsp = (TextView) findViewById(R.id.txt_kpsp);
+        TextView txt_status1s = (TextView) findViewById(R.id.txt_status);
+        
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,151 +106,33 @@ public class ParanaDetailActivity extends Activity {
             }
         });
 
-        Keterangan_k1k4.setText(": "+ humanize (ancclient.getDetails().get("Keterangan_k1k4") != null ? ancclient.getDetails().get("Keterangan_k1k4") : "-"));
-        tanggalHPHT.setText(": "+ humanize(ancclient.getDetails().get("tanggalHPHT") != null ? ancclient.getDetails().get("tanggalHPHT") : "-"));
-        usiaKlinis.setText(": "+ humanize(ancclient.getDetails().get("usiaKlinis") != null ? ancclient.getDetails().get("usiaKlinis") : "-"));
-        trimesterKe.setText(": "+ humanize(ancclient.getDetails().get("trimesterKe") != null ? ancclient.getDetails().get("trimesterKe") : "-"));
-        kunjunganKe.setText(": "+ humanize(ancclient.getDetails().get("kunjunganKe") != null ? ancclient.getDetails().get("kunjunganKe") : "-"));
-        bbKg.setText(": "+ humanize(ancclient.getDetails().get("bbKg") != null ? ancclient.getDetails().get("bbKg") : "-"));
-        tandaVitalTDSistolik.setText(": "+ humanize(ancclient.getDetails().get("tandaVitalTDSistolik") != null ? ancclient.getDetails().get("tandaVitalTDSistolik") : "-"));
-        tandaVitalTDDiastolik.setText(": "+ humanize(ancclient.getDetails().get("tandaVitalTDDiastolik") != null ? ancclient.getDetails().get("tandaVitalTDDiastolik") : "-"));
-        hasilPemeriksaanLILA.setText(": "+ humanize(ancclient.getDetails().get("hasilPemeriksaanLILA") != null ? ancclient.getDetails().get("hasilPemeriksaanLILA") : "-"));
-        statusGiziibu.setText(": "+ humanize(ancclient.getDetails().get("statusGiziibu") != null ? ancclient.getDetails().get("statusGiziibu") : "-"));
-        tfu.setText(": "+humanize (ancclient.getDetails().get("tfu") != null ? ancclient.getDetails().get("tfu") : "-"));
-        refleksPatelaIbu.setText(": "+ humanize(ancclient.getDetails().get("refleksPatelaIbu") != null ? ancclient.getDetails().get("refleksPatelaIbu") : "-"));
-        djj.setText(": "+ humanize(ancclient.getDetails().get("djj") != null ? ancclient.getDetails().get("djj") : "-"));
-        kepalaJaninTerhadapPAP.setText(": "+ humanize(ancclient.getDetails().get("kepalaJaninTerhadapPAP") != null ? ancclient.getDetails().get("kepalaJaninTerhadapPAP") : "-"));
-        taksiranBeratJanin.setText(": "+ humanize(ancclient.getDetails().get("taksiranBeratJanin") != null ? ancclient.getDetails().get("taksiranBeratJanin") : "-"));
-        persentasiJanin.setText(": "+humanize (ancclient.getDetails().get("persentasiJanin") != null ? ancclient.getDetails().get("persentasiJanin") : "-"));
-        jumlahJanin.setText(": "+ humanize(ancclient.getDetails().get("jumlahJanin") != null ? ancclient.getDetails().get("jumlahJanin") : "-"));
+        nama.setText(getResources().getString(R.string.name)+ (ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));
+        nik.setText(getResources().getString(R.string.nik)+ (ancclient.getDetails().get("nik") != null ? ancclient.getDetails().get("nik") : "-"));
+        husband_name.setText(getResources().getString(R.string.husband_name)+ (ancclient.getColumnmaps().get("namaSuami") != null ? ancclient.getColumnmaps().get("namaSuami") : "-"));
+        dob.setText(getResources().getString(R.string.dob)+ (ancclient.getDetails().get("tanggalLahir") != null ? ancclient.getDetails().get("tanggalLahir") : "-"));
+        phone.setText("No HP: "+ (ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
 
+        sesi1.setText(ancclient.getDetails().get("paranaStatus1"));
+        sesi2.setText(ancclient.getDetails().get("paranaStatus2"));
+        sesi3.setText(ancclient.getDetails().get("paranaStatus3"));
+        sesi4.setText(ancclient.getDetails().get("paranaStatus4"));
 
-        statusImunisasitt.setText(": "+ humanizeAndDoUPPERCASE (ancclient.getDetails().get("statusImunisasitt") != null ? ancclient.getDetails().get("statusImunisasitt") : "-"));
-        pelayananfe.setText(": "+humanize (ancclient.getDetails().get("pelayananfe") != null ? ancclient.getDetails().get("pelayananfe") : "-"));
-        komplikasidalamKehamilan.setText(": "+humanize (ancclient.getDetails().get("komplikasidalamKehamilan") != null ? ancclient.getDetails().get("komplikasidalamKehamilan") : "-"));
-        integrasiProgrampmtctvct.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctvct") != null ? ancclient.getDetails().get("integrasiProgrampmtctvct") : "-"));
-        integrasiProgrampmtctPeriksaDarah.setText(": "+humanize (ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") : "-"));
-        integrasiProgrampmtctSerologi.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctSerologi") != null ? ancclient.getDetails().get("integrasiProgrampmtctSerologi") : "-"));
-        integrasiProgrampmtctarvProfilaksis.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") != null ? ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") : "-"));
-        integrasiProgramMalariaPeriksaDarah.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") : "-"));
-        integrasiProgramMalariaObat.setText(": "+humanize (ancclient.getDetails().get("integrasiProgramMalariaObat") != null ? ancclient.getDetails().get("integrasiProgramMalariaObat") : "-"));
-        integrasiProgramMalariaKelambuBerinsektisida.setText(": "+ (ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") != null ? ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") : "-"));
-        integrasiProgramtbDahak.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramtbDahak") != null ? ancclient.getDetails().get("integrasiProgramtbDahak") : "-"));
-        integrasiProgramtbObat.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramtbObat") != null ? ancclient.getDetails().get("integrasiProgramtbObat") : "-"));
-        laboratoriumPeriksaHbHasil.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumPeriksaHbHasil") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbHasil") : "-"));
-        laboratoriumPeriksaHbAnemia.setText(": "+humanize (ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") : "-"));
-        laboratoriumProteinUria.setText(": "+humanize (ancclient.getDetails().get("laboratoriumProteinUria") != null ? ancclient.getDetails().get("laboratoriumProteinUria") : "-"));
-        laboratoriumGulaDarah.setText(": "+humanize (ancclient.getDetails().get("laboratoriumGulaDarah") != null ? ancclient.getDetails().get("laboratoriumGulaDarah") : "-"));
-        laboratoriumThalasemia.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumThalasemia") != null ? ancclient.getDetails().get("laboratoriumThalasemia") : "-"));
-        laboratoriumSifilis.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumSifilis") != null ? ancclient.getDetails().get("laboratoriumSifilis") : "-"));
-        laboratoriumHbsAg.setText(": "+humanize (ancclient.getDetails().get("laboratoriumHbsAg") != null ? ancclient.getDetails().get("laboratoriumHbsAg") : "-"));
+        AllCommonsRepository anak = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
+        if(ancclient.getDetails().get("childId") != null) {
+            final CommonPersonObject anakid = anak.findByCaseID(ancclient.getDetails().get("childId"));
+            txt_nama.setText(anakid.getColumnmaps().get("namaBayi") != null ? anakid.getColumnmaps().get("namaBayi") : "");
+            txt_tgl_lahir.setText(anakid.getColumnmaps().get("tanggalLahirAnak") != null ? anakid.getColumnmaps().get("tanggalLahirAnak") : "");
+            txt_BBL.setText(anakid.getDetails().get("beratLahir")!=null?anakid.getDetails().get("beratLahir"):"");
 
+            String berat = anakid.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan")!=null?" "+anakid.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan"):"";
+            String status_gizi = anakid.getDetails().get("statusGizi")!=null?anakid.getDetails().get("statusGizi"):"";
 
+            txt_kpsp.setText(": "+ humanize(anakid.getDetails().get("hasilDilakukannyaKPSP") != null ? anakid.getDetails().get("hasilDilakukannyaKPSP") : "-"));
 
-        //risk detail
-
-        txt_lbl_highRiskLabourFetusMalpresentation.setText(humanize(ancclient.getDetails().get("highRiskLabourFetusMalpresentation") != null ? ancclient.getDetails().get("highRiskLabourFetusMalpresentation") : "-"));
-        txt_highRisklabourFetusNumber.setText(humanize(ancclient.getDetails().get("highRisklabourFetusNumber") != null ? ancclient.getDetails().get("highRisklabourFetusNumber") : "-"));
-        txt_highRiskLabourFetusSize.setText(humanize(ancclient.getDetails().get("highRiskLabourFetusSize") != null ? ancclient.getDetails().get("highRiskLabourFetusSize") : "-"));
-        highRiskPregnancyProteinEnergyMalnutrition.setText(humanize(ancclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null ? ancclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") : "-"));
-        highRiskPregnancyPIH.setText(humanize(ancclient.getDetails().get("highRiskPregnancyPIH") != null ? ancclient.getDetails().get("highRiskPregnancyPIH") : "-"));
-        txt_highRiskPregnancyDiabetes.setText(humanize(ancclient.getDetails().get("highRiskPregnancyDiabetes") != null ? ancclient.getDetails().get("highRiskPregnancyDiabetes") : "-"));
-        txt_highRiskPregnancyAnemia.setText(humanize(ancclient.getDetails().get("highRiskPregnancyAnemia") != null ? ancclient.getDetails().get("highRiskPregnancyAnemia") : "-"));
-
-        highRiskPostPartumSectioCaesaria.setText(humanize(ancclient.getDetails().get("highRiskPostPartumSectioCaesaria") != null ? ancclient.getDetails().get("highRiskPostPartumSectioCaesaria") : "-"));
-        highRiskPostPartumForceps.setText(humanize(ancclient.getDetails().get("highRiskPostPartumForceps") != null ? ancclient.getDetails().get("highRiskPostPartumForceps") : "-"));
-        highRiskPostPartumVacum.setText(humanize(ancclient.getDetails().get("highRiskPostPartumVacum") != null ? ancclient.getDetails().get("highRiskPostPartumVacum") : "-"));
-        highRiskPostPartumPreEclampsiaEclampsia.setText(humanize(ancclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") != null ? ancclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") : "-"));
-        highRiskPostPartumMaternalSepsis.setText(humanize(ancclient.getDetails().get("highRiskPostPartumMaternalSepsis") != null ? ancclient.getDetails().get("highRiskPostPartumMaternalSepsis") : "-"));
-        highRiskPostPartumInfection.setText(humanize(ancclient.getDetails().get("highRiskPostPartumInfection") != null ? ancclient.getDetails().get("highRiskPostPartumInfection") : "-"));
-        highRiskPostPartumHemorrhage.setText(humanize(ancclient.getDetails().get("highRiskPostPartumHemorrhage") != null ? ancclient.getDetails().get("highRiskPostPartumHemorrhage") : "-"));
-        highRiskPostPartumPIH.setText(humanize(ancclient.getDetails().get("highRiskPostPartumPIH") != null ? ancclient.getDetails().get("highRiskPostPartumPIH") : "-"));
-        highRiskPostPartumDistosia.setText(humanize(ancclient.getDetails().get("highRiskPostPartumDistosia") != null ? ancclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
-
-
-
-
-
-        AllCommonsRepository kiRepository = Context.getInstance().allCommonsRepositoryobjects("ibu");
-
-        CommonPersonObject kiobject = kiRepository.findByCaseID(ancclient.entityId());
-
-        AllCommonsRepository iburep = Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
-
-        final CommonPersonObject kiclients = iburep.findByCaseID(kiobject.getColumnmaps().get("kartuIbuId"));
-
-        ancKe.setText(": "+(kiobject.getColumnmaps().get("ancKe") != null ? kiobject.getColumnmaps().get("ancKe") : "-"));
-
-        ancDate.setText(": "+ (kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "-"));
-        if(ancclient.getDetails().get("profilepic")!= null){
-            setImagetoHolderFromUri(ParanaDetailActivity.this, ancclient.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+            txt_BBT.setText(berat);
+            txt_status1s.setText(status_gizi);
         }
-        else {
-            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
-        }
-
-        nama.setText(getResources().getString(R.string.name)+ (kiclients.getColumnmaps().get("namalengkap") != null ? kiclients.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+ (kiclients.getDetails().get("nik") != null ? kiclients.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ (kiclients.getColumnmaps().get("namaSuami") != null ? kiclients.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.dob)+ (kiclients.getDetails().get("tanggalLahir") != null ? kiclients.getDetails().get("tanggalLahir") : "-"));
-        phone.setText("No HP: "+ (kiobject.getDetails().get("NomorTelponHp") != null ? kiobject.getDetails().get("NomorTelponHp") : "-"));
-
-        //risk
-        if(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge")));
-        }
-        if(kiclients.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge")));
-        }
-        if(kiclients.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
-                || kiclients.getDetails().get("HighRiskPregnancyAbortus") != null
-                || kiclients.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
-                ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(kiclients.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(kiclients.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(kiclients.getDetails().get("HighRiskLabourSectionCesareaRecord")));
-
-        }
-        txt_highRiskLabourTBRisk.setText(humanize(kiclients.getDetails().get("highRiskLabourTBRisk") != null ? kiclients.getDetails().get("highRiskLabourTBRisk") : "-"));
-
-        highRiskSTIBBVs.setText(humanize(kiclients.getDetails().get("highRiskSTIBBVs") != null ? kiclients.getDetails().get("highRiskSTIBBVs") : "-"));
-        highRiskEctopicPregnancy.setText(humanize (kiclients.getDetails().get("highRiskEctopicPregnancy") != null ? kiclients.getDetails().get("highRiskEctopicPregnancy") : "-"));
-        highRiskCardiovascularDiseaseRecord.setText(humanize(kiclients.getDetails().get("highRiskCardiovascularDiseaseRecord") != null ? kiclients.getDetails().get("highRiskCardiovascularDiseaseRecord") : "-"));
-        highRiskDidneyDisorder.setText(humanize(kiclients.getDetails().get("highRiskDidneyDisorder") != null ? kiclients.getDetails().get("highRiskDidneyDisorder") : "-"));
-        highRiskHeartDisorder.setText(humanize(kiclients.getDetails().get("highRiskHeartDisorder") != null ? kiclients.getDetails().get("highRiskHeartDisorder") : "-"));
-        highRiskAsthma.setText(humanize(kiclients.getDetails().get("highRiskAsthma") != null ? kiclients.getDetails().get("highRiskAsthma") : "-"));
-        highRiskTuberculosis.setText(humanize(kiclients.getDetails().get("highRiskTuberculosis") != null ? kiclients.getDetails().get("highRiskTuberculosis") : "-"));
-        highRiskMalaria.setText(humanize(kiclients.getDetails().get("highRiskMalaria") != null ? kiclients.getDetails().get("highRiskMalaria") : "-"));
-
-        txt_HighRiskLabourSectionCesareaRecord.setText(humanize(kiclients.getDetails().get("HighRiskLabourSectionCesareaRecord") != null ? ancclient.getDetails().get("HighRiskLabourSectionCesareaRecord") : "-"));
-        HighRiskPregnancyTooManyChildren.setText(humanize(kiclients.getDetails().get("HighRiskPregnancyTooManyChildren") != null ? ancclient.getDetails().get("HighRiskPregnancyTooManyChildren") : "-"));
-
-        txt_highRiskHIVAIDS.setText(humanize(ancclient.getDetails().get("highRiskHIVAIDS") != null ? ancclient.getDetails().get("highRiskHIVAIDS") : "-"));
-
-        show_risk.setText(getResources().getString(R.string.show_more_button));
-        show_detail.setText(getResources().getString(R.string.show_less_button));
-
-        show_risk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryFacade.logEvent("click_risk_detail");
-                findViewById(R.id.id1).setVisibility(View.GONE);
-                findViewById(R.id.id2).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more_detail).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more).setVisibility(View.GONE);
-            }
-        });
-
-        show_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.id1).setVisibility(View.VISIBLE);
-                findViewById(R.id.id2).setVisibility(View.GONE);
-                findViewById(R.id.show_more).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more_detail).setVisibility(View.GONE);
-            }
-        });
-
+        
 
     }
 
@@ -430,7 +243,7 @@ public class ParanaDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIParanaSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

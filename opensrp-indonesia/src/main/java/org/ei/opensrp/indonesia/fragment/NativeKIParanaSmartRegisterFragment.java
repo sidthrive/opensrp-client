@@ -27,6 +27,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.parana.KIParanaClientsProvider;
 import org.ei.opensrp.indonesia.parana.KIParanaOverviewServiceMode;
 import org.ei.opensrp.indonesia.parana.NativeKIParanaSmartRegisterActivity;
+import org.ei.opensrp.indonesia.parana.ParanaDetailActivity;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -206,24 +207,25 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
     }
     public void initializeQueries(){
         KIParanaClientsProvider kiscp = new KIParanaClientsProvider(getActivity(),clientActionHandler,context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ibu",new String []{"ibu.isClosed",  "ibu.hariKeKF","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","ibu.id","noIbu","htp","kartu_ibu.isOutOfArea","ibu.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
-        setTablename("ibu");
+        setTablename("kartu_ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
-        countqueryBUilder.SelectInitiateMainTableCounts("ibu");
-        countqueryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        countSelect = countqueryBUilder.mainCondition(" ibu.isClosed !='true'  and ibu.type = 'pnc' and ibu.kartuIbuId != ''");
-        mainCondition = " isClosed !='true'  and type = 'pnc' and kartuIbuId != '' ";
+        countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
+
+        countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+        //  countqueryBUilder.joinwithKIs("kartu_ibu");
+        countSelect = countqueryBUilder.mainCondition(" isClosed !='true' and namalengkap !=''");
+        mainCondition = " isClosed !='true' and namalengkap !=''";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("ibu", new String[]{"ibu.isClosed", "ibu.details", "ibu.hariKeKF","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"});
-
-        queryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        //  queryBUilder.joinwithIbus("ibu");
-        mainSelect = queryBUilder.mainCondition(" ibu.isClosed !='true' and ibu.type = 'pnc' and ibu.kartuIbuId != ''");
-        //   Sortqueries = KiSortByNameAZ();
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "ibu.id", "noIbu", "htp","ibu.isClosed"});
+        queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+        //    countqueryBUilder.joinwithchilds("ibu");
+        mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' and namalengkap !=''");
+        Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
         currentoffset = 0;
@@ -254,8 +256,8 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
-                    ANCDetailActivity.ancclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),ANCDetailActivity.class);
+                    ParanaDetailActivity.ancclient = (CommonPersonObjectClient)view.getTag();
+                    Intent intent = new Intent(getActivity(),ParanaDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
