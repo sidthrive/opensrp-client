@@ -3,6 +3,7 @@ package org.ei.opensrp.mcare.pnc;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import org.ei.opensrp.mcare.application.McareApplication;
 import org.ei.opensrp.mcare.household.HouseHoldDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.DateUtil;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
@@ -128,6 +130,18 @@ public class mCarePNCSmartClientsProvider implements SmartRegisterCLientsProvide
 //
 
         age.setText("("+(pc.getDetails().get("FWWOMAGE")!=null?pc.getDetails().get("FWWOMAGE"):"")+") ");
+
+        if(pc.getDetails().get("FWBIRTHDATE") != null) {
+            try {
+                int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ? pc.getDetails().get("FWBIRTHDATE") : "")), DateUtil.today());
+                Log.v("days", "" + days);
+                int calc_age = days / 365;
+                age.setText("(" + calc_age + ") ");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         dateofdelivery.setText(pc.getColumnmaps().get("FWBNFDTOO")!=null?pc.getColumnmaps().get("FWBNFDTOO"):"");
         String outcomevalue = pc.getColumnmaps().get("FWBNFSTS")!=null?pc.getColumnmaps().get("FWBNFSTS"):"";
 
@@ -161,7 +175,7 @@ public class mCarePNCSmartClientsProvider implements SmartRegisterCLientsProvide
                    dateofdelivery.setText(Html.fromHtml("" +" "+ doolay(pc)));
 
         } catch (Exception e) {
-            e.printStackTrace();
+              Log.e(getClass().getName(), "Exception", e);
         }
 
         itemView.setLayoutParams(clientViewLayoutParams);
@@ -184,7 +198,7 @@ public class mCarePNCSmartClientsProvider implements SmartRegisterCLientsProvide
             edd_date.setTime(calendar.getTime().getTime());
             return McareApplication.convertToEnglishDigits(format.format(edd_date));
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(getClass().getName(), "Exception", e);
             return "";
         }
 
@@ -453,7 +467,9 @@ public class mCarePNCSmartClientsProvider implements SmartRegisterCLientsProvide
                 }
             });
         }
-        if (alerttextstatus.getAlertstatus().equalsIgnoreCase("not synced")) {
+        if(alerttextstatus.getAlertstatus().equalsIgnoreCase("not synced")){
+            customFontTextView.setText("Not Synced");
+            customFontTextView.setTextColor(context.getResources().getColor(R.color.text_black));
             customFontTextView.setBackgroundColor(context.getResources().getColor(org.ei.opensrp.R.color.status_bar_text_almost_white));
 //
         }
@@ -537,7 +553,7 @@ public class mCarePNCSmartClientsProvider implements SmartRegisterCLientsProvide
             pnc_date.setTime(calendar.getTime().getTime());
             pncdate = format.format(pnc_date);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(getClass().getName(), "Exception", e);
             pncdate = "";
         }
         return pncdate;

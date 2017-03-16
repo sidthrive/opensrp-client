@@ -1,9 +1,11 @@
 <model>
   <instance>
-    <PregnancySurveillanceAndRegistrationForm encounter_type="Pregnancy Surveillance and Registration" id="PregnancySurveillanceAndRegistrationForm" version="201609200652">
+    <PregnancySurveillanceAndRegistrationForm encounter_type="Pregnancy Surveillance and Registration" id="PregnancySurveillanceAndRegistrationForm" version="201611160747">
       <formhub>
         <uuid/>
       </formhub>
+      <version/>
+      <changes/>
       <existing_mauzapara/>
       <existing_gobhhid/>
       <existing_jivhhid/>

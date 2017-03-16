@@ -294,6 +294,8 @@
     <string name="str_child_illness_ari">ari</string>
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
+    <string name="sort_by_age">Age (0y to 5 yrs)</string>
+    <string name="sort_by_age_reverse">Age (5 to 0 yrs)</string>
 
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
@@ -312,6 +314,7 @@
     <string name="test_register">Test Register</string>
     <string name="test">Test</string>
     <string name="hh_register_title_in_short">HH</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -370,7 +373,7 @@
     <string name="forminputerror">Please check the form for any error/missing input marked in Red box</string>
     <string name="okforminputerror">ok</string>
     <string name="child_profile">Child Details</string>
-    <string name="anthopometri">Antropometri</string>
+    <string name="anthopometri">Anthropometry</string>
     <string name="status">Nutrition Status</string>
     <string name="unique_id">Unique ID: </string>
     <string name="tanggal">Visit Date: </string>
@@ -415,12 +418,70 @@
     <string name="wasted">Wasted</string>
     <string name="lastVitA">Last Vitamin A given:</string>
     <string name="lastAnthelmintic">Last Anthelmintic given:</string>
+    <string name="reconfirmChildName">Re-Confirm children name</string>
 
+    <!-- Mother Register String -->
+    <string name="detail_ibu">Mother Details</string>
+    <string name="diastolik">Diastolic</string>
     <string name="form_name_visit">Monthly Visit</string>
+    <string name="gizi_ibu">MOTHER NUTRITION</string>
+    <string name="hasil_lab">Lab Test Result</string>
+    <string name="hb_level">HB Level</string>
+    <string name="kunjunganTerakhir">Last Visit</string>
+    <string name="lila">MUAC</string>
+    <string name="post_partum_care">Post-Partum Care</string>
+    <string name="sistolik">Systolic</string>
+    <string name="usiaKandungan">Gestational Age</string>
+    <string name="vitamin_a_pnc_2">Vitamin A after 2 hrs: </string>
+    <string name="vitamin_a_pnc_24">Vitamin A after 24 hrs: </string>
+
+
+    <string name="years_unit">yrs</string>
+    <string name="hours_unit">hrs</string>
     <string name="weight_unit">Kg</string>
     <string name="length_unit">Cm</string>
     <string name="x_axis_label">Month</string>
     <string name="chart_title">CHILD GROWTH CHART</string>
     <string name="lfa_string">Length for Age</string>
     <string name="hfa_string">Height for Age</string>
+
+
+    <string name="desc">Photo Confirmation</string>
+    <string name="desc_approval">Approval Button Confirmation Desc</string>
+    <string name="desc_trash">Trash Description</string>
+
+
+    <string name="path_circle">
+        M 50,50
+        m -48,0
+        a 48,48 0 1,0 96,0
+        a 48,48 0 1,0 -96,0
+    </string>
+
+
+    <string name="path_face_left_eye">
+        M 35,40
+        m -7,0
+        a 7,7 0 1,0 14,0
+      a 7,7 0 1,0 -14,0
+  </string>
+  <string name="path_face_right_eye">
+      M 65,40
+      m -7,0
+      a 7,7 0 1,0 14,0
+      a 7,7 0 1,0 -14,0
+  </string>
+  <string name="path_face_mouth_sad">
+      M 30,75
+      Q 50,55 70,75
+  </string>
+  <string name="path_face_mouth_happy">
+      M 30,65
+      Q 50,85 70,65
+  </string>
+    <string name="groupCheckCross">Check Cross</string>
+    <string name="reset_album">Reset Album</string>
+    <string name="action_settings">Settings</string>
+    <string name="cell_phone">No. HP :</string>
+
 </resources>

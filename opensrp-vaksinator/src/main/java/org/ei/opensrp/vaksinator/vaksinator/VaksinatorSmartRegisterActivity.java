@@ -1,10 +1,14 @@
 package org.ei.opensrp.vaksinator.vaksinator;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -32,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +90,14 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             }
         });
 
-        ziggyService = context.ziggyService();
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
+            String toastMessage = "need to refill unique id, its only "+
+                                  LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
+                                  " remaining";
+            Toast.makeText(context().applicationContext(), toastMessage,Toast.LENGTH_LONG).show();
+        }
+
+        ziggyService = context().ziggyService();
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -117,8 +129,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
                 new OpenFormOption("Bayi Immunisasi", "kohort_bayi_immunization", formController),
-
-                    new OpenFormOption("Tutup Bayi", "kohort_anak_tutup", formController),
+                new OpenFormOption("Tutup Bayi", "close_form", formController)
 
         };
     }
@@ -158,9 +169,14 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             ziggyService.saveForm(getParams(submission), submission.instance());
             ClientProcessor.getInstance(getApplicationContext()).processClient();
 
-            context.formSubmissionService().updateFTSsearch(submission);
-            context.formSubmissionRouter().handleSubmission(submission, formName);
+            context().formSubmissionService().updateFTSsearch(submission);
+            context().formSubmissionRouter().handleSubmission(submission, formName);
             //switch to forms list fragment
+
+            if(formName.equals("registrasi_jurim")){
+                saveuniqueid();
+            }
+
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
         }catch (Exception e){
@@ -171,6 +187,11 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
@@ -179,16 +200,15 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-         //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-       //     Iterator<String> iter = uniqueId.keys();
+            Iterator<String> iter = uniqueId.keys();
 
-       /*     while (iter.hasNext()) {
+            while (iter.hasNext()) {
                 String key = iter.next();
                 combined.put(key, uniqueId.get(key));
             }
-*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -198,21 +218,48 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             startFormActivity("registrasi_jurim", null, fieldOverrides.getJSONString());
         }
     }
-  /*  public void saveuniqueid() {
+    public void saveuniqueid() {
         try {
-            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            context.uniqueIdController().updateCurrentUniqueId(uniq);
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     @Override
-    public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
-//        Log.v("fieldoverride", metaData);
+    public void startFormActivity(final String formName, final String entityId, final String metaData) {
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName, FS, true);
+
+        if(formName.equals("kohort_bayi_immunization")) {
+            final int choice = new java.util.Random().nextInt(3);
+            CharSequence[] selections = selections(choice, entityId);
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(VaksinatorSmartRegisterActivity.this);
+            builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
+            builder.setItems(selections, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // the user clicked on colors[which]
+                    if (which == choice) {
+                        activatingForm(formName,entityId,metaData);
+                    }
+                }
+            });
+            builder.show();
+        }
+        else{
+            activatingForm(formName,entityId,metaData);
+        }
+
+    }
+
+    private void activatingForm(String formName, String entityId, String metaData){
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -236,7 +283,38 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    private CharSequence[] selections(int choice, String entityId){
+        String name = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak").findByCaseID(entityId).getColumnmaps().get("namaBayi");
+        CharSequence selections[] = new CharSequence[]{name, name, name};
+
+        selections[choice] = (CharSequence) name;
+
+        String query = "SELECT namaBayi FROM ec_anak where ec_anak.is_closed = 0";
+        Cursor cursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(query);
+        cursor.moveToFirst();
+
+        for (int i = 0; i < selections.length; i++) {
+            if (i != choice) {
+                cursor.move(new java.util.Random().nextInt(cursor.getCount()));
+                String temp = cursor.getString(cursor.getColumnIndex("namaBayi"));
+                System.out.println("start form activity / temp = " + temp);
+                if(temp==null)
+                    i--;
+                else if (temp.equals(name)) {
+                    System.out.println("equals");
+                    i--;
+                } else {
+                    selections[i] = (CharSequence) temp;
+                    System.out.println("char sequence of temp = " + selections[i]);
+                }
+                cursor.moveToFirst();
+            }
+        }
+        cursor.close();
+
+        return selections;
     }
 
     public void switchToBaseFragment(final String data){
@@ -286,7 +364,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
         formNames.add("registrasi_jurim");
-       formNames.add("kohort_anak_tutup");
+       formNames.add("close_form");
         formNames.add("kohort_bayi_immunization");
 //        DialogOption[] options = getEditOptions();
 //        for (int i = 0; i < options.length; i++){

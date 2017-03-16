@@ -17,7 +17,10 @@ import util.ZScore.ZScoreSystemCalculation;
 
 /**
  * Created by Iq on 15/09/16.
+ * This class is used to create preload (prepopulate) data which used for next visit registration,
+ * and other calculation that cannot conduct by Form, such as Nutrition status etc.
  */
+
 public class KmsHandler  implements FormSubmissionHandler {
     static String bindobject = "anak";
     private ClientProcessor clientProcessor;
@@ -33,65 +36,64 @@ public class KmsHandler  implements FormSubmissionHandler {
         CommonPersonObject childobject = childRepository.findByCaseID(entityID);
         Long tsLong = System.currentTimeMillis()/1000;
 
-        String berats = submission.getFieldValue("history_berat")!= null ? submission.getFieldValue("history_berat") :"0";
+        String[]history = submission.getFieldValue("history_berat")!= null ? split(submission.getFieldValue("history_berat")) : new String []{"0","0"};
+        String berats = history[1];
         String[] history_berat = berats.split(",");
         double berat_sebelum = Double.parseDouble((history_berat.length) >=3 ? (history_berat[(history_berat.length)-3]) : "0");
-        String umurs = submission.getFieldValue("history_umur")!= null ? submission.getFieldValue("history_umur") :"0";
+        String umurs = history[0];
         String[] history_umur = umurs.split(",");
         String tinggi = submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0";
         String lastVisitDate = submission.getFieldValue("tanggalPenimbangan") != null ? submission.getFieldValue("tanggalPenimbangan") : "-";
         String gender = submission.getFieldValue("gender") != null ? submission.getFieldValue("gender") : "-";
-        String tgllahir = submission.getFieldValue("tanggalLahirAnak") != null ? submission.getFieldValue("tanggalLahirAnak") : "-";
+        String tgllahir = submission.getFieldValue("tanggalLahirAnak") != null
+                ? submission.getFieldValue("tanggalLahirAnak")
+                : "-";
         String dateOfBirth = tgllahir.substring(0, tgllahir.indexOf("T"));
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
 
         detailsRepository.add(entityID, "preload_umur", umurs, tsLong);
-        detailsRepository.add(entityID, "berat_preload", berats, tsLong);
+        detailsRepository.add(entityID, "berat_preload", submission.getFieldValue("history_berat")!= null ? submission.getFieldValue("history_berat") : "0:0", tsLong);
+        detailsRepository.add(entityID, "history_umur", umurs, tsLong);
 
-       // detailsRepository.add(entityID, "preload_history_tinggi", submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0", tsLong);
-        detailsRepository.add(entityID, "history_tinggi", tinggi, tsLong);
+        // detailsRepository.add(entityID, "preload_history_tinggi", submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0", tsLong);
+        detailsRepository.add(entityID, "preload_history_tinggi", tinggi, tsLong);
         detailsRepository.add(entityID, "kunjunganSebelumnya", lastVisitDate, tsLong);
-        //detailsRepository.add(entityID, "history_umur", umurs, tsLong);
 
         if(submission.getFieldValue("tanggalPenimbangan") != null)
         {
+            if(new ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 1857) {
+                double weight = Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
+                double length = Double.parseDouble(submission.getFieldValue("tinggiBadan") != null ? submission.getFieldValue("tinggiBadan") : "0");
 
-            double weight=Double.parseDouble(submission.getFieldValue("beratBadan")!=null?submission.getFieldValue("beratBadan"):"0");
-            double length=Double.parseDouble(submission.getFieldValue("tinggiBadan")!=null?submission.getFieldValue("tinggiBadan"):"0");
+                ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
 
-            ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
+                double weight_for_age = zScore.countWFA(gender, dateOfBirth, lastVisitDate, weight);
+                String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
+                if (length != 0) {
+                    double heigh_for_age = zScore.countHFA(gender, dateOfBirth, lastVisitDate, length);
+                    String hfaStatus = zScore.getHFAZScoreClassification(heigh_for_age);
 
-            double weight_for_age = zScore.countWFA(gender, dateOfBirth, lastVisitDate, weight);
-            String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
-            if(length != 0) {
-                double heigh_for_age = zScore.countHFA(gender, dateOfBirth, lastVisitDate, length);
-                String hfaStatus = zScore.getHFAZScoreClassification(heigh_for_age);
+                    double wight_for_lenght = 0.0;
+                    String wflStatus = "";
+                    if (zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 730) {
+                        wight_for_lenght = zScore.countWFL(gender, weight, length);
+                    } else {
+                        wight_for_lenght = zScore.countWFH(gender, weight, length);
+                    }
+                    wflStatus = zScore.getWFLZScoreClassification(wight_for_lenght);
 
-                double wight_for_lenght = 0.0;
-                String wflStatus = "";
-                if (zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 730) {
-                    wight_for_lenght = zScore.countWFL(gender, weight, length);
+                    detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
+                    detailsRepository.add(entityID, "stunting", hfaStatus, tsLong);
+                    detailsRepository.add(entityID, "wasting", wflStatus, tsLong);
+
                 } else {
-                    wight_for_lenght = zScore.countWFH(gender, weight, length);
+                    detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
+                    detailsRepository.add(entityID, "stunting", "-", tsLong);
+                    detailsRepository.add(entityID, "wasting", "-", tsLong);
+
+
                 }
-                wflStatus = zScore.getWFLZScoreClassification(wight_for_lenght);
-
-
-
-                detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
-                detailsRepository.add(entityID, "stunting", hfaStatus, tsLong);
-                detailsRepository.add(entityID, "wasting", wflStatus, tsLong);
-
-
-
-            }
-            else {
-                detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
-                detailsRepository.add(entityID, "stunting", "-", tsLong);
-                detailsRepository.add(entityID, "wasting", "-", tsLong);
-
-
             }
         }
         /**
@@ -100,7 +102,6 @@ public class KmsHandler  implements FormSubmissionHandler {
          */
 
 
-        boolean jenisKelamin = gender.equalsIgnoreCase("male")? true:false;
         double berat= Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
         double beraSebelum = Double.parseDouble((history_berat.length) >=2 ? (history_berat[(history_berat.length)-2]) : "0");
         String tanggal_sebelumnya = (submission.getFieldValue("kunjunganSebelumnya") != null ? submission.getFieldValue("kunjunganSebelumnya") : "0");
@@ -109,11 +110,11 @@ public class KmsHandler  implements FormSubmissionHandler {
 
 
             //KMS calculation lastVisitDate
-            KmsPerson data = new KmsPerson(jenisKelamin, dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya);
+            KmsPerson data = new KmsPerson(!gender.toLowerCase().contains("em"), dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya);
             KmsCalc calculator = new KmsCalc();
-            int satu = Integer.parseInt(history_umur[history_umur.length-2]);
-            int dua = Integer.parseInt(history_umur[history_umur.length-1]);
-            String duat = history_berat.length <= 2  ? "-" : dua - satu >=2 ? "-" :calculator.cek2T(data);
+            ////System.out.println("tanggal penimbangan = "+submission.getFieldValue("tanggalPenimbangan")+", "+lastVisitDate);
+
+            String duat = history_berat.length <= 2  ? "-" : (Integer.parseInt(history_umur[history_umur.length-1])/30) - (Integer.parseInt(history_umur[history_umur.length-2])/30) >=2 ? "-" :calculator.cek2T(data);
             String status = history_berat.length <= 2 ? "No" : calculator.cekWeightStatus(data);
 
             detailsRepository.add(entityID, "bgm", calculator.cekBGM(data), tsLong);
@@ -136,5 +137,26 @@ public class KmsHandler  implements FormSubmissionHandler {
                 detailsRepository.add(entityID, "lastAnthelmintic", submission.getFieldValue("lastAnthelmintic"), tsLong);
             }
         }
+    }
+
+    private String[]split(String data){
+        if(!data.contains(":"))
+            return new String[]{"0","0"};
+        String []temp = data.split(",");
+        String []result = {"",""};
+        for(int i=0;i<temp.length;i++){
+            result[0]=result[0]+","+temp[i].split(":")[0];
+            result[1]=result[1]+","+temp[i].split(":")[1];
+        }
+
+        result[0]=result[0].substring(1,result[0].length());
+        result[1]=result[1].substring(1,result[1].length());
+
+        if(result[0].length()>2 && result[1].length()>2){
+            result[0] = result[0].substring(0,2).equals("0,")? result[0].substring(2,result[0].length()):result[0];
+            result[1] = result[1].substring(0,2).equals("0,")? result[1].substring(2,result[1].length()):result[1];
+        }
+
+        return result;
     }
 }

@@ -31,7 +31,7 @@ public class VaksinatorApplication extends DrishtiApplication {
         ErrorReportingFacade.initErrorHandler(getApplicationContext());
       /**
        * ENABLE THIS AGAIN AFTER FINISH TESTING*/
-        //  FlurryFacade.init(this);
+          FlurryFacade.init(this);
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
@@ -109,7 +109,7 @@ public class VaksinatorApplication extends DrishtiApplication {
         return null;
     }
     private String[] getFtsTables(){
-        String[] ftsTables = { "ec_anak", "ec_kartu_ibu" };
+        String[] ftsTables = { "ec_anak", "ec_kartu_ibu"};
         return ftsTables;
     }
 

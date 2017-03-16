@@ -3,6 +3,7 @@ package org.ei.opensrp.mcare.anc;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import org.ei.opensrp.mcare.application.McareApplication;
 import org.ei.opensrp.mcare.household.HouseHoldDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.DateUtil;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
@@ -122,10 +124,21 @@ public class mCareANCSmartClientsProvider implements SmartRegisterCLientsProvide
         name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME")!=null?pc.getColumnmaps().get("FWWOMFNAME"):""));
         spousename.setText(humanize(pc.getDetails().get("FWHUSNAME") != null ? pc.getDetails().get("FWHUSNAME") : ""));
         gobhhid.setText(" "+(pc.getColumnmaps().get("GOBHHID")!=null?pc.getColumnmaps().get("GOBHHID"):""));
-        jivitahhid.setText((pc.getColumnmaps().get("JiVitAHHID")!=null?pc.getColumnmaps().get("JiVitAHHID"):""));
+        jivitahhid.setText((pc.getColumnmaps().get("JiVitAHHID") != null ? pc.getColumnmaps().get("JiVitAHHID") : ""));
         village.setText(humanize((pc.getDetails().get("mauza") != null ? pc.getDetails().get("mauza") : "").replace("+", "_")));
-        age.setText("("+(pc.getDetails().get("FWWOMAGE")!=null?pc.getDetails().get("FWWOMAGE"):"")+") ");
+        age.setText("(" + (pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "") + ") ");
 
+        DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+
+        if(pc.getDetails().get("FWBIRTHDATE") != null) {
+            try {
+                int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ? pc.getDetails().get("FWBIRTHDATE") : "")), DateUtil.today());
+                int calc_age = days / 365;
+                age.setText("(" + calc_age + ") ");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if(pc.getDetails().get("FWWOMNID").length()>0) {
             String NIDSourcestring = "NID: " +  (pc.getDetails().get("FWWOMNID") != null ? pc.getDetails().get("FWWOMNID") : "") + " ";
@@ -168,7 +181,7 @@ public class mCareANCSmartClientsProvider implements SmartRegisterCLientsProvide
                 edd.setText(Html.fromHtml(EDDSourcestring));
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(getClass().getName(), "Exception", e);
         }
         constructRiskFlagView(pc,itemView);
         constructANCReminderDueBlock(pc.getColumnmaps().get("FWPSRLMP")!=null?pc.getColumnmaps().get("FWPSRLMP"):"",pc, itemView);
@@ -610,9 +623,9 @@ public class mCareANCSmartClientsProvider implements SmartRegisterCLientsProvide
     }
 
     private void constructRiskFlagView(CommonPersonObjectClient pc, View itemView) {
-//        AllCommonsRepository allancRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("mcaremother");
+//        AllCommonsRepository allancRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_mcaremother");
 //        CommonPersonObject ancobject = allancRepository.findByCaseID(pc.entityId());
-//        AllCommonsRepository allelcorep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("elco");
+//        AllCommonsRepository allelcorep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_elco");
 //        CommonPersonObject elcoparent = allelcorep.findByCaseID(ancobject.getRelationalId());
 
         ImageView hrp = (ImageView)itemView.findViewById(R.id.hrp);
@@ -669,7 +682,7 @@ public class mCareANCSmartClientsProvider implements SmartRegisterCLientsProvide
             anc_date.setTime(calendar.getTime().getTime());
             ancdate = format.format(anc_date);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(getClass().getName(), "Exception", e);
             ancdate = "";
         }
         return ancdate;

@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
@@ -20,6 +23,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -44,8 +48,9 @@ import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
  */
 public class PNCDetailActivity extends Activity {
 
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = PNCDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -56,11 +61,17 @@ public class PNCDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient pncclient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.pnc_detail_activity);
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<String, String>();
+        Detail.put("start", DetailStart);
+        FlurryAgent.logEvent("PNC_detail_view",Detail, true );
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -157,6 +168,10 @@ public class PNCDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(PNCDetailActivity.this, NativeKIPNCSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> Detail = new HashMap<String, String>();
+                Detail.put("end", DetailEnd);
+                FlurryAgent.logEvent("PNC_detail_view", Detail, true);
             }
         });
 
@@ -237,7 +252,10 @@ public class PNCDetailActivity extends Activity {
         nama.setText(getResources().getString(R.string.name)+ humanize(ibuparent.getColumnmaps().get("namalengkap") != null ? ibuparent.getColumnmaps().get("namalengkap") : "-"));
         nik.setText(getResources().getString(R.string.nik)+humanize (ibuparent.getDetails().get("nik") != null ? ibuparent.getDetails().get("nik") : "-"));
         husband_name.setText(getResources().getString(R.string.husband_name)+ humanize(ibuparent.getColumnmaps().get("namaSuami") != null ? ibuparent.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.dob)+ humanize(ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-"));
+        String tgl = ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-";
+        String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
+        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
+        //dob.setText(getResources().getString(R.string.dob)+ humanize(ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-"));
         phone.setText("No HP: "+ (ibuparent.getDetails().get("NomorTelponHp") != null ? ibuparent.getDetails().get("NomorTelponHp") : "-"));
 
 
@@ -298,6 +316,21 @@ public class PNCDetailActivity extends Activity {
             }
         });
 
+
+        kiview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
+                bindobject = "kartu_ibu";
+                entityid = pncclient.entityId();
+                Log.e(TAG, "onClick: " + entityid);
+                dispatchTakePictureIntent(kiview);
+
+            }
+        });
+
+
+
     }
 
 
@@ -309,5 +342,45 @@ public class PNCDetailActivity extends Activity {
 
 
     }
+
+
+    String mCurrentPhotoPath;
+
+    static final int REQUEST_TAKE_PHOTO = 1;
+    static ImageView mImageView;
+    static File currentfile;
+    static String bindobject;
+    static String entityid;
+
+
+    private void dispatchTakePictureIntent(ImageView imageView) {
+        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+        mImageView = imageView;
+        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                currentfile = photoFile;
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+            startActivityForResult(takePictureIntent, 1);
+//            }
+        }
+    }
+
 
 }

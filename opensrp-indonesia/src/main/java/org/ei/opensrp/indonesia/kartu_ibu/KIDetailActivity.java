@@ -3,37 +3,45 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.ei.opensrp.util.StringUtil.humanize;
 import util.ImageCache;
 import util.ImageFetcher;
+
+import static org.ei.opensrp.util.StringUtil.humanize;
 
 /**
  * Created by Iq on 07/09/16.
@@ -41,7 +49,7 @@ import util.ImageFetcher;
 public class KIDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = KIDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -49,19 +57,31 @@ public class KIDetailActivity extends Activity {
     private static String showbgm;
     private static ImageFetcher mImageFetcher;
 
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
 
     public static CommonPersonObjectClient kiclient;
+
+    private static HashMap<String, String> hash;
+    private String mode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.ki_detail_activity);
 
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<String, String>();
+        Detail.put("start", DetailStart);
+        FlurryAgent.logEvent("KI_detail_view",Detail, true );
+
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
-      //  TextView risk = (TextView) findViewById(R.id.detail_risk);
-        
+        //  TextView risk = (TextView) findViewById(R.id.detail_risk);
+
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_wife_name);
         TextView nik = (TextView) findViewById(R.id.txt_nik);
@@ -75,8 +95,8 @@ public class KIDetailActivity extends Activity {
 
         final TextView show_risk = (TextView) findViewById(R.id.show_more);
         final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
-        
-        
+
+
         //detail data
         TextView village = (TextView) findViewById(R.id.txt_village_name);
         TextView subvillage = (TextView) findViewById(R.id.txt_subvillage);
@@ -127,23 +147,28 @@ public class KIDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(KIDetailActivity.this, NativeKISmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> Detail = new HashMap<String, String>();
+                Detail.put("end", DetailEnd);
+                FlurryAgent.logEvent("KI_detail_view", Detail, true);
             }
         });
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(kiclient);
 
-        if(kiclient.getDetails().get("profilepic")!= null){
-                setImagetoHolderFromUri(KIDetailActivity.this, kiclient.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-        }
-        else {
-                kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
-        }
-       
+        //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+        Log.e(TAG, "onCreate: " );
+        BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+
+
         nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
         nik.setText(getResources().getString(R.string.nik)+ (kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
         husband_name.setText(getResources().getString(R.string.husband_name)+ (kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.dob)+ (kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-"));
+        String tgl = kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-";
+        String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
+        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
         phone.setText("No HP: "+ (kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
 
         //risk
@@ -191,26 +216,26 @@ public class KIDetailActivity extends Activity {
         txt_highRiskHIVAIDS.setText(humanize(kiclient.getDetails().get("highRiskHIVAIDS") != null ? kiclient.getDetails().get("highRiskHIVAIDS") : "-"));
 
 
-            txt_lbl_highRiskLabourFetusMalpresentation.setText(humanize(kiclient.getDetails().get("highRiskLabourFetusMalpresentation") != null ? kiclient.getDetails().get("highRiskLabourFetusMalpresentation") : "-"));
-            txt_highRisklabourFetusNumber.setText(humanize(kiclient.getDetails().get("highRisklabourFetusNumber") != null ? kiclient.getDetails().get("highRisklabourFetusNumber") : "-"));
-            txt_highRiskLabourFetusSize.setText(humanize(kiclient.getDetails().get("highRiskLabourFetusSize") != null ? kiclient.getDetails().get("highRiskLabourFetusSize") : "-"));
-            txt_highRiskLabourTBRisk.setText(humanize(kiclient.getDetails().get("highRiskLabourTBRisk") != null ? kiclient.getDetails().get("highRiskLabourTBRisk") : "-"));
-            highRiskPregnancyProteinEnergyMalnutrition.setText(humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null ? kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") : "-"));
-            highRiskPregnancyPIH.setText(humanize(kiclient.getDetails().get("highRiskPregnancyPIH") != null ? kiclient.getDetails().get("highRiskPregnancyPIH") : "-"));
-            txt_highRiskPregnancyDiabetes.setText(humanize(kiclient.getDetails().get("highRiskPregnancyDiabetes") != null ? kiclient.getDetails().get("highRiskPregnancyDiabetes") : "-"));
-            txt_highRiskPregnancyAnemia.setText(humanize(kiclient.getDetails().get("highRiskPregnancyAnemia") != null ? kiclient.getDetails().get("highRiskPregnancyAnemia") : "-"));
-            highRiskPostPartumSectioCaesaria.setText(humanize(kiclient.getDetails().get("highRiskPostPartumSectioCaesaria") != null ? kiclient.getDetails().get("highRiskPostPartumSectioCaesaria") : "-"));
-            highRiskPostPartumForceps.setText(humanize(kiclient.getDetails().get("highRiskPostPartumForceps") != null ? kiclient.getDetails().get("highRiskPostPartumForceps") : "-"));
-            highRiskPostPartumVacum.setText(humanize(kiclient.getDetails().get("highRiskPostPartumVacum") != null ? kiclient.getDetails().get("highRiskPostPartumVacum") : "-"));
-            highRiskPostPartumPreEclampsiaEclampsia.setText(humanize(kiclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") != null ? kiclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") : "-"));
-            highRiskPostPartumMaternalSepsis.setText(humanize(kiclient.getDetails().get("highRiskPostPartumMaternalSepsis") != null ? kiclient.getDetails().get("highRiskPostPartumMaternalSepsis") : "-"));
-            highRiskPostPartumInfection.setText(humanize(kiclient.getDetails().get("highRiskPostPartumInfection") != null ? kiclient.getDetails().get("highRiskPostPartumInfection") : "-"));
-            highRiskPostPartumHemorrhage.setText(humanize(kiclient.getDetails().get("highRiskPostPartumHemorrhage") != null ? kiclient.getDetails().get("highRiskPostPartumHemorrhage") : "-"));
-            highRiskPostPartumPIH.setText(humanize(kiclient.getDetails().get("highRiskPostPartumPIH") != null ? kiclient.getDetails().get("highRiskPostPartumPIH") : "-"));
-            highRiskPostPartumDistosia.setText(humanize(kiclient.getDetails().get("highRiskPostPartumDistosia") != null ? kiclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
+        txt_lbl_highRiskLabourFetusMalpresentation.setText(humanize(kiclient.getDetails().get("highRiskLabourFetusMalpresentation") != null ? kiclient.getDetails().get("highRiskLabourFetusMalpresentation") : "-"));
+        txt_highRisklabourFetusNumber.setText(humanize(kiclient.getDetails().get("highRisklabourFetusNumber") != null ? kiclient.getDetails().get("highRisklabourFetusNumber") : "-"));
+        txt_highRiskLabourFetusSize.setText(humanize(kiclient.getDetails().get("highRiskLabourFetusSize") != null ? kiclient.getDetails().get("highRiskLabourFetusSize") : "-"));
+        txt_highRiskLabourTBRisk.setText(humanize(kiclient.getDetails().get("highRiskLabourTBRisk") != null ? kiclient.getDetails().get("highRiskLabourTBRisk") : "-"));
+        highRiskPregnancyProteinEnergyMalnutrition.setText(humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null ? kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") : "-"));
+        highRiskPregnancyPIH.setText(humanize(kiclient.getDetails().get("highRiskPregnancyPIH") != null ? kiclient.getDetails().get("highRiskPregnancyPIH") : "-"));
+        txt_highRiskPregnancyDiabetes.setText(humanize(kiclient.getDetails().get("highRiskPregnancyDiabetes") != null ? kiclient.getDetails().get("highRiskPregnancyDiabetes") : "-"));
+        txt_highRiskPregnancyAnemia.setText(humanize(kiclient.getDetails().get("highRiskPregnancyAnemia") != null ? kiclient.getDetails().get("highRiskPregnancyAnemia") : "-"));
+        highRiskPostPartumSectioCaesaria.setText(humanize(kiclient.getDetails().get("highRiskPostPartumSectioCaesaria") != null ? kiclient.getDetails().get("highRiskPostPartumSectioCaesaria") : "-"));
+        highRiskPostPartumForceps.setText(humanize(kiclient.getDetails().get("highRiskPostPartumForceps") != null ? kiclient.getDetails().get("highRiskPostPartumForceps") : "-"));
+        highRiskPostPartumVacum.setText(humanize(kiclient.getDetails().get("highRiskPostPartumVacum") != null ? kiclient.getDetails().get("highRiskPostPartumVacum") : "-"));
+        highRiskPostPartumPreEclampsiaEclampsia.setText(humanize(kiclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") != null ? kiclient.getDetails().get("highRiskPostPartumPreEclampsiaEclampsia") : "-"));
+        highRiskPostPartumMaternalSepsis.setText(humanize(kiclient.getDetails().get("highRiskPostPartumMaternalSepsis") != null ? kiclient.getDetails().get("highRiskPostPartumMaternalSepsis") : "-"));
+        highRiskPostPartumInfection.setText(humanize(kiclient.getDetails().get("highRiskPostPartumInfection") != null ? kiclient.getDetails().get("highRiskPostPartumInfection") : "-"));
+        highRiskPostPartumHemorrhage.setText(humanize(kiclient.getDetails().get("highRiskPostPartumHemorrhage") != null ? kiclient.getDetails().get("highRiskPostPartumHemorrhage") : "-"));
+        highRiskPostPartumPIH.setText(humanize(kiclient.getDetails().get("highRiskPostPartumPIH") != null ? kiclient.getDetails().get("highRiskPostPartumPIH") : "-"));
+        highRiskPostPartumDistosia.setText(humanize(kiclient.getDetails().get("highRiskPostPartumDistosia") != null ? kiclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
 
 
-      //  }
+        //  }
 
         show_risk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,16 +258,33 @@ public class KIDetailActivity extends Activity {
             }
         });
 
+        hash = Tools.retrieveHash(context.applicationContext());
+
         kiview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-                dispatchTakePictureIntent(kiview);
+//                Log.e(TAG, "onClick: "+hash.size() );
+//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
+                if(hash.containsValue(entityid)){
+                    Log.e(TAG, "onClick: "+entityid+" updated" );
+                    mode = "updated";
+
+                }
+                dispatchTakePictureIntent(kiview, mode);
 
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        overridePendingTransition(0, 0);
 
     }
 
@@ -250,111 +292,120 @@ public class KIDetailActivity extends Activity {
 
     String mCurrentPhotoPath;
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
     static final int REQUEST_TAKE_PHOTO = 1;
     static ImageView mImageView;
     static File currentfile;
     static String bindobject;
     static String entityid;
-    private void dispatchTakePictureIntent(ImageView imageView) {
+
+    private void dispatchTakePictureIntent(ImageView imageView, String mode) {
+        Log.e(TAG, "dispatchTakePictureIntent: "+"klik" );
         mImageView = imageView;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
+        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", true);
+
+
+        //FIXME USE SmartShutterActivity INSTEAD
+//     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+
+        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                currentfile = photoFile;
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                currentfile = photoFile;
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                startActivityForResult(takePictureIntent, 1);
+//            }
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.e(TAG, "onActivityResult: "+requestCode );
+        Log.e(TAG, "onActivityResult: "+resultCode );
+        Log.e(TAG, "onActivityResult: "+intent );
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 //            Bundle extras = data.getExtras();
 //            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-            mImageView.setImageBitmap(bitmap);
+
+//            HashMap<String,String> details = new HashMap<String,String>();
+//            details.put("profilepic",currentfile.getAbsolutePath());
+//            saveimagereference(bindobject,entityid,details);
+
+//            Long tsLong = System.currentTimeMillis()/1000;
+//            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+//            detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
+//
+            Bundle extras = intent.getExtras();
+            Bitmap mImageBitmap = (Bitmap) extras.get("data");
+//            saveStaticImageToDisk(kiclient.getCaseId(),mImageBitmap);
+            mImageView.setImageBitmap(mImageBitmap);
         }
     }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
-        mImageThumbSize = 300;
-        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
+//    public static void saveStaticImageToDisk(String entityId, Bitmap image) {
+//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+//
+//        if (image != null) {
+//            OutputStream os = null;
+//            try {
+//
+//                if (entityId != null && !entityId.isEmpty()) {
+//                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
+//
+//                    File outputFile = new File(absoluteFileName);
+//                    os = new FileOutputStream(outputFile);
+//                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
+//                    if (compressFormat != null) {
+//                        image.compress(compressFormat, 100, os);
+//                    } else {
+//                        throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+//                                + absoluteFileName);
+//                    }
+//                    // insert into the db
+//                    ProfileImage profileImage= new ProfileImage();
+//                    profileImage.setImageid(UUID.randomUUID().toString());
+//                    profileImage.setAnmId(anmId);
+//                    profileImage.setEntityID(entityId);
+//                    profileImage.setFilepath(absoluteFileName);
+//                    profileImage.setFilecategory("profilepic");
+//                    profileImage.setFilevector("[ve, ct, or]");
+//                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+//                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+//                    imageRepo.add(profileImage);
+//                }
+//
+//            } catch (FileNotFoundException e) {
+//                Log.e(TAG, "Failed to save static image to disk");
+//            } finally {
+//                if (os != null) {
+//                    try {
+//                        os.close();
+//                    } catch (IOException e) {
+//                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-
-        ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
-        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
-        mImageFetcher.setLoadingImage(placeholder);
-        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
-
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
-    }
     public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
         File externalFile = new File(file);
         Uri external = Uri.fromFile(externalFile);
         view.setImageURI(external);
-
-
-    }
-    @Override
-    public void onBackPressed() {
-        finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
-        overridePendingTransition(0, 0);
 
 
     }

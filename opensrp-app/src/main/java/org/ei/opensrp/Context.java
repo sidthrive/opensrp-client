@@ -96,7 +96,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -254,13 +253,7 @@ public class Context {
         initRepository();
         if (formSubmissionService == null) {
             if(commonFtsObject != null){
-                Map<String, AllCommonsRepository> allCommonsRepositoryMap = new HashMap<String, AllCommonsRepository>();
-                for(String ftsTable: commonFtsObject.getTables()){
-                    AllCommonsRepository allCommonsRepository =  allCommonsRepositoryobjects(ftsTable);
-                    allCommonsRepositoryMap.put(ftsTable, allCommonsRepository);
-                }
-
-                formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings(), allCommonsRepositoryMap);
+                formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings(), allCommonsRepositoryMap());
             } else {
                 formSubmissionService = new FormSubmissionService(ziggyService(), formDataRepository(), allSettings());
             }
@@ -697,7 +690,11 @@ public class Context {
 
     public AlertService alertService() {
         if (alertService == null) {
-            alertService = new AlertService(alertRepository());
+            if(commonFtsObject() != null) {
+                alertService = new AlertService(alertRepository(), commonFtsObject(), allCommonsRepositoryMap());
+            }else {
+                alertService = new AlertService(alertRepository());
+            }
         }
         return alertService;
     }
@@ -1017,10 +1014,31 @@ public class Context {
     }
 
     public Map<String, String> customHumanReadableConceptResponse() {
-        if(customHumanReadableConceptResponse == null){
+        if (customHumanReadableConceptResponse == null) {
             return new HashMap<>();
         }
         return customHumanReadableConceptResponse;
+    }
+
+
+    //unique id getter method
+
+    public SettingsRepository getSettingsRepositoryforUniqueId(){
+        return this.settingsRepository();
+    }
+
+    public Repository initializeRepositoryForUniqueId(){
+        return this.initRepository();
+    }
+
+
+    public Map<String, AllCommonsRepository> allCommonsRepositoryMap() {
+        Map<String, AllCommonsRepository> allCommonsRepositoryMap = new HashMap<String, AllCommonsRepository>();
+        for (String ftsTable : commonFtsObject.getTables()) {
+            AllCommonsRepository allCommonsRepository = allCommonsRepositoryobjects(ftsTable);
+            allCommonsRepositoryMap.put(ftsTable, allCommonsRepository);
+        }
+        return allCommonsRepositoryMap;
     }
 
     ///////////////////////////////////////////////////////////////////////////////

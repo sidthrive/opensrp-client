@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import net.sqlcipher.database.SQLiteDatabase;
-import net.sqlcipher.database.SQLiteQueryBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -489,9 +488,11 @@ public class CommonRepository extends DrishtiRepository {
             // Update Search Fields
             String[] ftsSearchFields =  commonFtsObject.getSearchFields(TABLE_NAME);
             for(String ftsSearchField: ftsSearchFields){
-                String ftsSearchValue = getSearchFieldValue(commonPersonObject, ftsSearchField);
-                String ftsSearchColumn = withSub(ftsSearchValue);
-                ftsSearchColumns.add(ftsSearchColumn);
+                if(!ftsSearchField.startsWith("alerts.")) {
+                    String ftsSearchValue = getSearchFieldValue(commonPersonObject, ftsSearchField);
+                    String ftsSearchColumn = withSub(ftsSearchValue);
+                    ftsSearchColumns.add(ftsSearchColumn);
+                }
             }
 
             String phraseSeparator = " | ";
@@ -520,8 +521,10 @@ public class CommonRepository extends DrishtiRepository {
             String[] ftsSortFields =  commonFtsObject.getSortFields(TABLE_NAME);
             if(ftsSortFields != null)
                 for(String ftsSortField: ftsSortFields){
-                    String ftsSortValue = getSearchFieldValue(commonPersonObject, ftsSortField);
-                    searchValues.put(ftsSortField, ftsSortValue);
+                    if(!ftsSortField.startsWith("alerts.")) {
+                        String ftsSortValue = getSearchFieldValue(commonPersonObject, ftsSortField);
+                        searchValues.put(ftsSortField, ftsSortValue);
+                    }
                 }
 
             // Update Common Fields
@@ -538,6 +541,65 @@ public class CommonRepository extends DrishtiRepository {
         }catch (Exception e){
             Log.e("", "Update Search Error", e);
             return null;
+        }
+    }
+
+    public boolean populateSearchValues(String caseId, String field, String value, String[] listToRemove){
+        SQLiteDatabase database = masterRepository.getWritableDatabase();
+
+        CommonPersonObject commonPersonObject = findByCaseID(caseId);
+        if (commonPersonObject == null) {
+            return false;
+        }
+
+        if(commonFtsObject == null){
+            return false;
+        }
+
+        ContentValues searchValues = new ContentValues();
+
+        String ftsSearchTable = CommonFtsObject.searchTableName(TABLE_NAME);
+        ArrayList<HashMap<String, String>> mapList = rawQuery(String.format("SELECT " + CommonFtsObject.idColumn + ", " + CommonFtsObject.phraseColumn + " FROM " + ftsSearchTable + " WHERE  " + CommonFtsObject.idColumn + " = '%s'", caseId));
+
+        if(mapList.isEmpty()){
+            return false;
+        }
+
+        if(field.equals(CommonFtsObject.phraseColumn)){
+            HashMap<String, String> map = mapList.get(0);
+            String oldSearchValue  = map.get(CommonFtsObject.phraseColumn);
+
+            if(listToRemove != null && listToRemove.length > 0){
+                for(String s: listToRemove){
+                    if(oldSearchValue.contains(s)){
+                       oldSearchValue =  oldSearchValue.replace("| "+ s, "");
+                    }
+                }
+            }
+
+            // Underscore does not work well in fts search
+            if(value.contains("_")) {
+                value = value.replace("_", "");
+            }
+
+            List<String> ftsSearchColumns = new ArrayList<String>();
+            ftsSearchColumns.add(oldSearchValue);
+            ftsSearchColumns.add(value);
+
+            String phraseSeparator = " | ";
+            String phrase = StringUtils.join(ftsSearchColumns, phraseSeparator);
+
+            searchValues.put(CommonFtsObject.phraseColumn, phrase);
+
+        } else {
+           searchValues.put(field, value);
+        }
+
+        try {
+            int rowsAffected = database.update(ftsSearchTable, searchValues, CommonFtsObject.idColumn + " = ?", new String[]{caseId});
+            return rowsAffected > 0;
+        }catch (Exception e){
+            return false;
         }
     }
 

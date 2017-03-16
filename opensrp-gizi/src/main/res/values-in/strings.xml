@@ -54,6 +54,7 @@
     <string name="label_sorted_by">Diurutkan berdasarkan:</string>
     <string name="label_village">, Desa:</string>
     <string name="ec_register_wife_age">({0})</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="ec_register_male_child">Male\n{0}</string>
     <string name="ec_register_female_child">Female\n{0}</string>
@@ -75,7 +76,8 @@
 
     <string name="str_out_of_area">(O/A)</string>
 
-    <string name="sort_by_name_label">Nama (A to Z)</string>
+    <string name="sort_by_name_label">Nama (A ke Z)</string>
+    <string name="sort_by_name_label_reverse">Nama (Z ke A)</string>
     <string name="sort_by_ec_number_label">EC Number</string>
     <string name="sort_by_date_of_delivery_label">Date of Delivery</string>
     <string name="sort_by_sc_label">SC</string>
@@ -84,6 +86,8 @@
     <string name="sort_by_high_risk_pregnancy_label">HRP</string>
     <string name="sort_by_high_risk_label">High Risk (HR)</string>
     <string name="sort_by_bpl_label">BPL</string>
+    <string name="sort_by_age">Umur (0 ke 5)</string>
+    <string name="sort_by_age_reverse">umur (5 ke 0)</string>
 
     <string name="filter_by_all_label">All</string>
     <string name="filter_by_out_of_area_label">O/A</string>
@@ -178,6 +182,7 @@
     <string name="service_type_dpt_booster_1_short">DPT B1</string>
     <string name="service_type_dpt_booster_2_short">DPT B2</string>
     <string name="pentavalent_short">Pentav</string>
+    <string name="reconfirmChildName">Konfirmasi nama Anak</string>
 
     <string name="fp_register_title_in_short">FP:</string>
     <string name="pnc_register_title_in_short">PNC:</string>
@@ -240,7 +245,7 @@
     <string name="edd_label">"EDD: "</string>
     <string name="str_days_past_due">day (s) past due</string>
     <string name="lmp_label">LMP:</string>
-    <string name="str_weeks">weeks</string>
+    <string name="str_weeks">Minggu</string>
     <string name="anc_register_title_in_short">ANC:</string>
     <string name="str_bp">BP</string>
     <string name="str_weight">Weight: </string>
@@ -414,5 +419,19 @@
     <string name="obatcacing">Obat Cacing:</string>
     <string name="lastVitA">Vitamin A terakhir diberikan:</string>
     <string name="lastAnthelmintic">Obat cacing terakhir diberikan:</string>
+
+    <string name="gizi_ibu">GIZI IBU</string>
+    <string name="detail_ibu">Detail Ibu</string>
+    <string name="hasil_lab">Hasil Tes Lab</string>
+    <string name="hb_level">Kadar HB</string>
+    <string name="vitamin_a_pnc_2">Vitamin A setelah 2 jam: </string>
+    <string name="vitamin_a_pnc_24">Vitamin A setelah 24 jam: </string>
+    <string name="post_partum_care">Pelayanan Post-Partum</string>
+    <string name="years_unit">th</string>
+    <string name="kunjunganTerakhir">Kunjungan Terakhir</string>
+    <string name="usiaKandungan">Usia Kandungan</string>
+    <string name="lila">Lingkar Lengan</string>
+    <string name="sistolik">Sistolik</string>
+    <string name="diastolik">Diastolik</string>
 
 </resources>

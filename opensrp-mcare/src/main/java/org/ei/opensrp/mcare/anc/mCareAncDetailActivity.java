@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.mcare.R;
+import org.ei.opensrp.util.DateUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,6 +105,20 @@ public class mCareAncDetailActivity extends Activity {
         }
         husbandname.setText(Html.fromHtml(getString(R.string.elco_details_husband_name_label)+" "+humanize(ancclient.getDetails().get("FWHUSNAME") != null ? ancclient.getDetails().get("FWHUSNAME") : "")));
         age.setText(Html.fromHtml(getString(R.string.elco_age_label)+" " + (ancclient.getDetails().get("FWWOMAGE") != null ? ancclient.getDetails().get("FWWOMAGE") : "")));
+
+
+        if(ancclient.getDetails().get("FWBIRTHDATE") != null) {
+            try {
+                int days = DateUtil.dayDifference(DateUtil.getLocalDate((ancclient.getDetails().get("FWBIRTHDATE") != null ? ancclient.getDetails().get("FWBIRTHDATE") : "")), DateUtil.today());
+                Log.v("days", "" + days);
+                int calc_age = days / 365;
+                age.setText(Html.fromHtml(getString(R.string.elco_age_label) + " " + calc_age));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         jivitahhid.setText(Html.fromHtml(getString(R.string.hhiid_jivita_elco_label)+" " +(ancclient.getColumnmaps().get("JiVitAHHID") != null ? ancclient.getColumnmaps().get("JiVitAHHID") : "")));
         godhhid.setText(Html.fromHtml(getString(R.string.hhid_gob_elco_label) +" " + (ancclient.getColumnmaps().get("GOBHHID") != null ? ancclient.getColumnmaps().get("GOBHHID") : "")));
 //        psf_due_date.setText(Elcoclient.getDetails().get("FWPSRDATE") != null ? Elcoclient.getDetails().get("FWPSRDATE") : "");

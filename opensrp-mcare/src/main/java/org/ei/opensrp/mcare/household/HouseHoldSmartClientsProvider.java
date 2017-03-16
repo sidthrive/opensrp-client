@@ -2,6 +2,7 @@ package org.ei.opensrp.mcare.household;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -156,7 +156,7 @@ public class HouseHoldSmartClientsProvider implements SmartRegisterCLientsProvid
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
             }
         }else if (householdobject.getColumnmaps().get("FWNHREGDATE")!= null && householdobject.getColumnmaps().get("FWCENDATE")== null){
             viewHolder.last_visit_date.setText(householdobject.getColumnmaps().get("FWNHREGDATE")!=null?householdobject.getColumnmaps().get("FWNHREGDATE"):"");

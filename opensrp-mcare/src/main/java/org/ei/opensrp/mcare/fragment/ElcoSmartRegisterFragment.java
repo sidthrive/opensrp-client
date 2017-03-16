@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -14,6 +15,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
+import org.ei.opensrp.cursoradapter.CursorFilterOption;
 import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
 import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
@@ -32,7 +34,6 @@ import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
-import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.controller.VillageController;
 import org.ei.opensrp.view.dialog.AllClientsFilter;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -51,8 +52,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.AsyncTask;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -68,6 +67,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     private DialogOptionMapper dialogOptionMapper;
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
+
 
     @Override
     protected SmartRegisterPaginatedAdapter adapter() {
@@ -109,7 +109,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
             public DialogOption[] filterOptions() {
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),""));
-                String locationjson = context.anmLocationController().get();
+                String locationjson = context().anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
                 Map<String,TreeNode<String, Location>> locationMap =
@@ -133,7 +133,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                 return new DialogOption[]{
                         new CursorCommonObjectSort(getString(R.string.due_status),sortByAlertmethod()),
                         new CursorCommonObjectSort(getString(R.string.elco_alphabetical_sort),householdSortByName()),
-                         new CursorCommonObjectSort(Context.getInstance().applicationContext().getString(R.string.hh_fwGobhhid_sort),householdSortByFWGOBHHID()),
+                        new CursorCommonObjectSort(Context.getInstance().applicationContext().getString(R.string.hh_fwGobhhid_sort),householdSortByFWGOBHHID()),
                         new CursorCommonObjectSort( Context.getInstance().applicationContext().getString(R.string.hh_fwJivhhid_sort),householdSortByFWJIVHHID())
 
 //                        new CommonObjectSort(true,false,true,"age")
@@ -160,7 +160,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     protected void onInitialization() {
 
 
-        context.formSubmissionRouter().getHandlerMap().put("psrf_form", new PSRFHandler());
+        context().formSubmissionRouter().getHandlerMap().put("psrf_form", new PSRFHandler());
     }
 
     @Override
@@ -201,7 +201,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
 //        super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
-           clientsView.setVisibility(View.VISIBLE);
+        clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
         initializeQueries();
@@ -220,8 +220,8 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     private DialogOption[] getEditOptions(CommonPersonObjectClient tag) {
         return ((ElcoSmartRegisterActivity)getActivity()).getEditOptions(tag);
     }
-    private DialogOption[] getEditOptionsForMIS_ELCO(CommonPersonObjectClient tag) {
-        return ((ElcoSmartRegisterActivity)getActivity()).getEditOptionsForMISELCO(tag);
+    private DialogOption[] getEditOptionsForMIS_ELCO(CommonPersonObjectClient tag,String alertstate) {
+        return ((ElcoSmartRegisterActivity)getActivity()).getEditOptionsForMISELCO(tag,alertstate);
     }
 
 
@@ -237,7 +237,7 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                     showFragmentDialog(new EditDialogOptionModel((CommonPersonObjectClient) view.getTag()), view.getTag());
                     break;
                 case R.id.mis_elco:
-                    showFragmentDialog(new EditDialogOptionModelForMIS_ELCO((CommonPersonObjectClient)view.getTag()), view.getTag());
+                    showFragmentDialog(new EditDialogOptionModelForMIS_ELCO((CommonPersonObjectClient)view.getTag(R.id.clientobject),(String)view.getTag(R.id.AlertStatustextforMIS_ELCO)), view.getTag());
                     break;
             }
         }
@@ -265,13 +265,15 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
     private class EditDialogOptionModelForMIS_ELCO implements DialogOptionModel {
         CommonPersonObjectClient tag;
-        public EditDialogOptionModelForMIS_ELCO(CommonPersonObjectClient tag) {
+        String alertstatus;
+        public EditDialogOptionModelForMIS_ELCO(CommonPersonObjectClient tag,String alertstate) {
             this.tag = tag;
+            alertstatus = alertstate;
         }
 
         @Override
         public DialogOption[] getDialogOptions() {
-            return getEditOptionsForMIS_ELCO(tag);
+            return getEditOptionsForMIS_ELCO(tag,alertstatus);
         }
 
         @Override
@@ -290,41 +292,19 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
             @Override
             public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-                (new AsyncTask() {
-                    SmartRegisterClients filteredClients;
 
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-//                        currentSearchFilter =
-//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-//                        filteredClients = getClientsAdapter().getListItemProvider()
-//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-//                                        getCurrentSearchFilter(), getCurrentSortOption());
-//
-                        if(cs.toString().equalsIgnoreCase("")){
-                            filters = "";
-                        }else {
-                            //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
-                            filters = cs.toString();
-                        }
-                        joinTable = "";
-                        mainCondition = " FWWOMFNAME is not null and is_closed=0 ";
-                        return null;
-                    }
+                if(cs.toString().equalsIgnoreCase("")){
+                    filters = "";
+                }else {
+                    //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
+                    filters = cs.toString();
+                }
+                joinTable = "";
+                mainCondition = " FWWOMFNAME is not null and is_closed=0 ";
 
-                    @Override
-                    protected void onPostExecute(Object o) {
-//                        clientsAdapter
-//                                .refreshList(currentVillageFilter, currentServiceModeOption,
-//                                        currentSearchFilter, currentSortOption);
-//                        getClientsAdapter().refreshClients(filteredClients);
-//                        getClientsAdapter().notifyDataSetChanged();
-                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                        CountExecute();
-                        filterandSortExecute();
-                        super.onPostExecute(o);
-                    }
-                }).execute();
+                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
+                filterandSortExecute();
             }
 
             @Override
@@ -342,47 +322,18 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
             @Override
             public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-                (new AsyncTask() {
-                    SmartRegisterClients filteredClients;
 
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-//                        currentSearchFilter =
-//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-//                        filteredClients = getClientsAdapter().getListItemProvider()
-//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-//                                        getCurrentSearchFilter(), getCurrentSortOption());
-//
-                        if (cs.toString().equalsIgnoreCase("")) {
-                            filters = "";
-                        } else {
-                            //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
-                            filters = cs.toString();
-                        }
-                        joinTable = "";
-                        mainCondition = " FWWOMFNAME is not null and is_closed=0 ";
-                        return null;
-                    }
+                if (cs.toString().equalsIgnoreCase("")) {
+                    filters = "";
+                } else {
+                    //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
+                    filters = cs.toString();
+                }
+                joinTable = "";
+                mainCondition = " FWWOMFNAME is not null and is_closed=0 ";
 
-                    @Override
-                    protected void onPostExecute(Object o) {
-//                        clientsAdapter
-//                                .refreshList(currentVillageFilter, currentServiceModeOption,
-//                                        currentSearchFilter, currentSortOption);
-//                        getClientsAdapter().refreshClients(filteredClients);
-//                        getClientsAdapter().notifyDataSetChanged();
-                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                        filterandSortExecute();
-                        super.onPostExecute(o);
-                    }
-                }).execute();
-//                currentSearchFilter = new HHSearchOption(cs.toString());
-//                clientsAdapter
-//                        .refreshList(currentVillageFilter, currentServiceModeOption,
-//                                currentSearchFilter, currentSortOption);
-//
-//                searchCancelView.setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-
+                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                filterandSortExecute();
 
             }
 
@@ -407,14 +358,13 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         }
     }
     private void initializeQueries(){
-        EcElcoSmartClientsProvider hhscp = new EcElcoSmartClientsProvider(getActivity(),clientActionHandler,context.alertService());
+        EcElcoSmartClientsProvider hhscp = new EcElcoSmartClientsProvider(getActivity(),clientActionHandler,context().alertService());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, new CommonRepository("ec_elco",new String []{ "FWWOMFNAME","relational_id", "JiVitAHHID", "GOBHHID"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("ec_elco");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ec_elco");
-        countqueryBUilder.joinwithALerts("ec_elco", "ELCO PSRF");
         mainCondition = " FWWOMFNAME is not null and is_closed=0 ";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
 
@@ -422,7 +372,6 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ec_elco", new String[]{"relationalid", "relational_id", "details", "FWWOMFNAME", "JiVitAHHID", "GOBHHID", "base_entity_id", "FWHUSNAME", "FWWOMAGE", "FWWOMNID", "FWWOMBID", "FWPSRDATE", "FWPSRPREGSTS"});
-        queryBUilder.joinwithALerts("ec_elco", "ELCO PSRF");
         mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = sortByAlertmethod();
 
@@ -438,14 +387,21 @@ public class ElcoSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
 
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
-                "WHEN alerts.status = 'upcoming' THEN '2'\n" +
-                "WHEN alerts.status = 'normal' THEN '3'\n" +
-                "WHEN alerts.status = 'expired' THEN '4'\n" +
-                "WHEN alerts.status is Null THEN '5'\n" +
-                "WHEN alerts.status = 'complete' THEN '6'\n" +
-                "Else alerts.status END ASC";
+        return " CASE WHEN ELCO_PSRF = 'urgent' THEN '1'\n" +
+                "WHEN ELCO_PSRF = 'upcoming' THEN '2'\n" +
+                "WHEN ELCO_PSRF = 'normal' THEN '3'\n" +
+                "WHEN ELCO_PSRF = 'expired' THEN '4'\n" +
+                "WHEN ELCO_PSRF is Null THEN '5'\n" +
+                "WHEN ELCO_PSRF = 'complete' THEN '6'\n" +
+                "Else ELCO_PSRF END ASC";
     }
 
+    /**
+     * Override filter to capture fts filter by location
+     * @param filter
+     */
+    @Override
+    public void onFilterSelection(FilterOption filter) {
+        super.onFilterSelection(filter);
+    }
 }

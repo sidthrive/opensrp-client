@@ -1,6 +1,7 @@
 package org.ei.opensrp.mcare.child;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -181,7 +182,7 @@ public class mCareChildSmartClientsProvider implements SmartRegisterCLientsProvi
 
             return days;
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(getClass().getName(), "Exception", e);
             return 0l;
         }
 
@@ -407,7 +408,9 @@ public class mCareChildSmartClientsProvider implements SmartRegisterCLientsProvi
                 }
             });
         }
-        if (alerttextstatus.getAlertstatus().equalsIgnoreCase("not synced")) {
+        if(alerttextstatus.getAlertstatus().equalsIgnoreCase("not synced")){
+            customFontTextView.setText("Not Synced");
+            customFontTextView.setTextColor(context.getResources().getColor(R.color.text_black));
             customFontTextView.setBackgroundColor(context.getResources().getColor(org.ei.opensrp.R.color.status_bar_text_almost_white));
 //
         }

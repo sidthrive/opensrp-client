@@ -23,10 +23,8 @@ import org.ei.opensrp.mcare.fragment.ElcoSmartRegisterFragment;
 import org.ei.opensrp.mcare.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -37,13 +35,10 @@ import org.ei.opensrp.view.fragment.SecuredFragment;
 import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONObject;
-import org.opensrp.api.domain.Location;
-import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -92,6 +87,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
         });
 
+        ziggyService = context().ziggyService();
     }
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
@@ -177,17 +173,20 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 new OpenFormOption(getResources().getString(R.string.psrfform), "psrf_form", formController,overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
         };
     }
-    public DialogOption[] getEditOptionsForMISELCO(CommonPersonObjectClient elco) {
+    public DialogOption[] getEditOptionsForMISELCO(CommonPersonObjectClient elco,String alertstatus) {
+        String alertstate = alertstatus;
+        HashMap<String,String> overridemap = new HashMap<String,String>();
+        overridemap.put("mis_elco_current_formStatus", alertstate);
 
         return new DialogOption[]{
 
-                new OpenFormOption(getResources().getString(R.string.mis_elco), "mis_elco", formController)
+                new OpenFormOption(getResources().getString(R.string.mis_elco), "mis_elco", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault)
         };
     }
 
     private String getalertstateofelco(CommonPersonObjectClient elco) {
         List<Alert> alertlist_for_client = org.ei.opensrp.Context.getInstance().alertService().findByEntityIdAndAlertNames(elco.entityId(), "ELCO PSRF");
-        String alertstate = "";
+        String alertstate = "upcoming";
         if(alertlist_for_client.size() == 0 ){
 
         }else {
@@ -215,6 +214,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 }
 
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
+
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
                     displayFormFragment.setRecordId(entityId);
@@ -289,14 +289,15 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             ziggyService.saveForm(getParams(submission), submission.instance());
             ClientProcessor.getInstance(getApplicationContext()).processClient();
 
-            context.formSubmissionService().updateFTSsearch(submission);
-            context.formSubmissionRouter().handleSubmission(submission, formName);
+            context().formSubmissionService().updateFTSsearch(submission);
+            context().formSubmissionRouter().handleSubmission(submission, formName);
 
             switchToBaseFragment(formSubmission);
 
         }catch (Exception e){
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
+
             if (displayFormFragment != null) {
                 displayFormFragment.hideTranslucentProgressDialog();
             }

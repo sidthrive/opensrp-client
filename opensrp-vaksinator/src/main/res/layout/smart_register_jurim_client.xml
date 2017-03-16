@@ -24,7 +24,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:id="@+id/profilepic"
-                android:src="@drawable/woman_placeholder"
+                android:src="@drawable/child_boy_infant"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="5dp" />
 

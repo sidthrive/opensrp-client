@@ -96,7 +96,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
         elcodetails.setTag(smartRegisterClient);
 
         final CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
-
+        profilepic.setImageResource(org.ei.opensrp.R.drawable.woman_placeholder);
         if(pc.getDetails().get("profilepic")!=null){
             HouseHoldDetailActivity.setImagetoHolder((Activity) context, pc.getDetails().get("profilepic"), profilepic, R.mipmap.womanimageload);
         }
@@ -108,6 +108,15 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
         jivitahhid.setText(pc.getColumnmaps().get("JiVitAHHID")!=null?pc.getColumnmaps().get("JiVitAHHID"):"");
         village.setText((humanize((pc.getDetails().get("FWWOMMAUZA_PARA") != null ? pc.getDetails().get("FWWOMMAUZA_PARA") : "").replace("+", "_"))));
         age.setText("("+(pc.getDetails().get("FWWOMAGE")!=null?pc.getDetails().get("FWWOMAGE"):"")+") ");
+
+        DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+        try {
+            int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
+            int calc_age = days / 365;
+            age.setText("("+calc_age+") ");
+        }catch (Exception e){
+            Log.e(getClass().getName(), "Exception", e);
+        }
 
         if((pc.getDetails().get("FWWOMNID")!=null?pc.getDetails().get("FWWOMNID"):"").length()>0) {
             String NIDSourcestring = "NID: " +  (pc.getDetails().get("FWWOMNID") != null ? pc.getDetails().get("FWWOMNID") : "") ;
@@ -157,7 +166,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
             }
         }else  if(householdparent.getDetails().get("FWNHREGDATE")!= null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -169,7 +178,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
             }
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -178,18 +187,28 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
         if(pc.getDetails().get("FWPSRDATE")!=null && pc.getDetails().get("FWPSRPREGSTS")!=null){
             if(pc.getDetails().get("FWPSRPREGSTS").equalsIgnoreCase("0") || pc.getDetails().get("FWPSRPREGSTS").equalsIgnoreCase("9")){
                  try {
-                Date regdate = format.parse(householdparent.getDetails().get("FWPSRDATE"));
+                Date regdate = format.parse(pc.getDetails().get("FWPSRDATE"));
 
                 lastdate = regdate;
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Log.e(getClass().getName(), "Exception", e);
                 }
 
             }
+        }
+        if(pc.getDetails().get("FWPSRDATE")!=null ){
+            if(pc.getDetails().get("FWPSRPREGSTS")==null){
+                try {
+                    Date regdate = format.parse(pc.getDetails().get("FWPSRDATE"));
 
+                    lastdate = regdate;
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    Log.e(getClass().getName(), "Exception", e);
+                }
 
-
+            }
         }
 
         //psrf_schedule_logic == 1 || FWPSRSTS ==2
@@ -239,7 +258,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                     });
                 }
                 }catch(ParseException e){
-                    e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
                 }
 
         }
@@ -344,7 +363,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
             }
         }else  if(householdparent.getDetails().get("FWNHREGDATE")!= null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -356,7 +375,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(getClass().getName(), "Exception", e);
             }
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -369,7 +388,7 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                     lastdate = regdate;
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                     Log.e(getClass().getName(), "Exception", e);
                 }
             mis_elco_due.setBackgroundColor(context.getResources().getColor(R.color.alert_complete_green_mcare));
             mis_elco_due.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
@@ -432,12 +451,15 @@ public class ElcoSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 mis_elco_due.setBackgroundColor(context.getResources().getColor(R.color.alert_upcoming_dark_blue));
                 mis_elco_due.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
                 mis_elco_due.setOnClickListener(onClickListener);
-                mis_elco_due.setTag(smartRegisterClient);
+                mis_elco_due.setTag(R.id.clientobject,smartRegisterClient);
+                mis_elco_due.setTag(R.id.AlertStatustextforMIS_ELCO,"upcoming");
+
 
             }
             if(alertlist_for_client.get(i).status().value().equalsIgnoreCase("urgent")){
                 mis_elco_due.setOnClickListener(onClickListener);
-                mis_elco_due.setTag(smartRegisterClient);
+                mis_elco_due.setTag(R.id.clientobject,smartRegisterClient);
+                mis_elco_due.setTag(R.id.AlertStatustextforMIS_ELCO,"urgent");
                 mis_elco_due.setBackgroundColor(context.getResources().getColor(org.ei.opensrp.R.color.alert_urgent_red));
                 mis_elco_due.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
 

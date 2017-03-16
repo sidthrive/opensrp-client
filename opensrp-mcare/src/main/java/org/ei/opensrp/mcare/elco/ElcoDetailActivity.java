@@ -17,6 +17,7 @@ import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.mcare.R;
+import org.ei.opensrp.util.DateUtil;
 import org.ei.opensrp.view.fragment.SecuredFragment;
 
 import java.io.File;
@@ -62,7 +63,6 @@ public class ElcoDetailActivity extends SecuredFragment implements View.OnClickL
 
 
     protected void initiallize() {
-        context = Context.getInstance();
 //        setContentView(R.layout.elco_detail_activity);
         TextView name = (TextView) mView.findViewById(R.id.name);
         TextView brid = (TextView)mView. findViewById(R.id.brid);
@@ -108,6 +108,18 @@ public class ElcoDetailActivity extends SecuredFragment implements View.OnClickL
         }
         husbandname.setText(Html.fromHtml(getString(R.string.elco_details_husband_name_label) + " " + humanize((Elcoclient.getDetails().get("FWHUSNAME") != null ? Elcoclient.getDetails().get("FWHUSNAME") : ""))));
         age.setText(Html.fromHtml(getString(R.string.elco_age_label)+ " " + (Elcoclient.getDetails().get("FWWOMAGE") != null ? Elcoclient.getDetails().get("FWWOMAGE") : "")));
+
+        if(Elcoclient.getDetails().get("FWBIRTHDATE") != null) {
+            try {
+                int days = DateUtil.dayDifference(DateUtil.getLocalDate((Elcoclient.getDetails().get("FWBIRTHDATE") != null ? Elcoclient.getDetails().get("FWBIRTHDATE") : "")), DateUtil.today());
+                int calc_age = days / 365;
+                age.setText(Html.fromHtml(getString(R.string.elco_age_label) + " " + calc_age));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         jivitahhid.setText(Html.fromHtml(getString(R.string.hhiid_jivita_elco_label)+ " "+(Elcoclient.getColumnmaps().get("JiVitAHHID") != null ? Elcoclient.getColumnmaps().get("JiVitAHHID") : "")));
         godhhid.setText(Html.fromHtml(getString(R.string.hhid_gob_elco_label)+ " "+(Elcoclient.getColumnmaps().get("GOBHHID") != null ? Elcoclient.getColumnmaps().get("GOBHHID") : "")));
         psf_due_date.setText(Elcoclient.getDetails().get("FWPSRDATE") != null ? Elcoclient.getDetails().get("FWPSRDATE") : "N/A");

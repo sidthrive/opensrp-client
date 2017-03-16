@@ -1,15 +1,13 @@
 package org.ei.opensrp.indonesia.kartu_ibu;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
-import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.Alert;
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
@@ -18,8 +16,6 @@ import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.util.FormUtils;
@@ -33,25 +29,25 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANC_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_CLOSE;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_EDIT;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_REGISTRATION;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_PELAYANAN;
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
 public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     public static final String TAG = "KIActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
@@ -71,7 +67,12 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        FlurryFacade.logEvent("kohort_ibu_dashboard");
+        String KIStart = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("start", KIStart);
+        FlurryAgent.logEvent("KI_dashboard", KI, true);
+        
+     //   FlurryFacade.logEvent("kohort_ibu_dashboard");
         formNames = this.buildFormNameList();
         mBaseFragment = new NativeKISmartRegisterFragment();
 
@@ -87,7 +88,16 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
-        ziggyService = context.ziggyService();
+
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
+            String toastMessage =   "need to refill unique id, its only "+
+                                    LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
+                                    " remaining";
+            Toast.makeText(context().applicationContext(), toastMessage, Toast.LENGTH_LONG).show();
+        }
+
+        ziggyService = context().ziggyService();
+
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -136,15 +146,15 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-            //   Iterator<String> iter = uniqueId.keys();
+            Iterator<String> iter = uniqueId.keys();
 
-            //  while (iter.hasNext()) {
-            //      String key = iter.next();
-            //       combined.put(key, uniqueId.get(key));
-            //    }
+            while (iter.hasNext()) {
+                String key = iter.next();
+                combined.put(key, uniqueId.get(key));
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -167,8 +177,12 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             ziggyService.saveForm(getParams(submission), submission.instance());
             ClientProcessor.getInstance(getApplicationContext()).processClient();
 
-            context.formSubmissionService().updateFTSsearch(submission);
-            context.formSubmissionRouter().handleSubmission(submission, formName);
+            context().formSubmissionService().updateFTSsearch(submission);
+            context().formSubmissionRouter().handleSubmission(submission, formName);
+
+            if(formName.equals("kartu_ibu_registration")){
+                saveuniqueid();
+            }
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
@@ -180,11 +194,20 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+      //  FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -210,6 +233,17 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             e.printStackTrace();
         }
 
+    }
+
+    public void saveuniqueid() {
+        try {
+            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+            String uniq = uniqueId.getString("unique_id");
+            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void switchToBaseFragment(final String data){
@@ -274,6 +308,10 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KIEnd = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("end", KIEnd);
+        FlurryAgent.logEvent("KI_dashboard",KI, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

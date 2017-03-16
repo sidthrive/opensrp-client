@@ -46,14 +46,15 @@
       <integrasi_program openmrs_entity="Concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <komplikasi openmrs_entity="Concept" openmrs_entity_id="1576AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <komplikasilain-lain openmrs_entity="Concept" openmrs_entity_id="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-      <penanganan_komplikasi openmrs_entity="Concept" openmrs_entity_id="163104AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+      <treatment openmrs_entity="concept" openmrs_entity_id="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+      <treatment_text openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <dirujuk_ke openmrs_entity="Concept" openmrs_entity_id="163145AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <dirujuk_ke_lain_lain openmrs_entity="Concept" openmrs_entity_id="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <alamat_bersalin openmrs_entity="Concept" openmrs_entity_id="162724AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <keadaan_bayi openmrs_entity="Concept" openmrs_entity_id="159917AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-      <child_registration openmrs_entity="person" openmrs_entity_id="Child Registration" template="">
+      <child_registration template="" openmrs_entity="person" openmrs_entity_id="Child Registration">
         <desa_anak openmrs_entity="Concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="cityVillage"/>
-        <generated_note_name_60/>
+        <generated_note_name_61/>
         <child_existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
         <nama_bayi openmrs_entity="Concept" openmrs_entity_id="1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
         <jenis_kelamin openmrs_entity="person" openmrs_entity_id="gender"/>

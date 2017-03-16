@@ -1,6 +1,11 @@
 package org.ei.opensrp;
 
 public class AllConstants {
+    public static final String DRISHTI_BASE_URL = "DRISHTI_BASE_URL";
+    public static final String PROFILE_IMAGES_DOWNLOAD_PATH = "/multimedia/profileimage";
+    public static final String PROFILE_IMAGES_UPLOAD_PATH = "/multimedia/upload";
+
+
     public static final String REPORT_CATEGORY = "reportCategory";
     public static final String INDICATOR_DETAIL = "indicatorDetail";
     public static final String CATEGORY_DESCRIPTION = "categoryDescription";
@@ -41,6 +46,7 @@ public class AllConstants {
     public static final String ANM_LOCATION_CONTROLLER = "anmLocationContext";
 
     public static final String REPOSITORY = "formDataRepositoryContext";
+
 
     public static final String NEW_FP_METHOD_FIELD_NAME = "newMethod";
 
@@ -319,6 +325,7 @@ public class AllConstants {
         public static final String DELIVERY_FACILITY_SDH_VALUE = "sdh";
         public static final String DELIVERY_FACILITY_DH_VALUE = "dh";
     }
+
     public static final String DATASTORE_MANAGER_DIR = "data";
 
     public static class CloudantSync {
@@ -331,11 +338,11 @@ public class AllConstants {
         public static final String BATCHES_REPLICATED = "BATCHES_REPLICATED";
         public static final String COUCHDB_PORT = "5984";
 
-        public static final String COUCH_DATABASE_NAME = "gizi";
-        public static final String COUCH_DATABASE_USER = "";
-        public static final String COUCH_DATABASE_PASS = "";
-
+        public static final String COUCH_DATABASE_NAME = "opensrp2";
+        public static final String COUCH_DATABASE_USER = "admin";
+        public static final String COUCH_DATABASE_PASS = "Satu2345";
     }
+
     public static class SyncFilters {
         // These pull filters must be defined in your couchDB server for them to work
         // Filters
@@ -345,6 +352,16 @@ public class AllConstants {
         //filter by team e.g. team = user1,user2,user3
         public static final String FILTER_TEAM = "team";
 
+    }
+
+    public static final int ANIMATION_FADE_IN_TIME = 250;
+
+    public  final class ImageCache {
+        public static final int DISK_CACHE_MAX_SIZE = 250 * 1024 * 1024; // in bytes totalling 250MB
+        public static final float MEM_CACHE_PERCENT = 0.05f; // Default memory cache size as a percent of device memory class
+        public static final int MEM_CACHE_MAX_SIZE = 10 * 1024; // in kilobytes (value calculated using MEM_CACHE_PERCENT should not exceed this maximum 10MB)
+        public static final String DISK_CACHE_DIR = "opensrp-images";
 
     }
+
 }

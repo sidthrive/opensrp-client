@@ -25,7 +25,7 @@ public class TTServiceModeOption extends ServiceModeOption {
 
     @Override
     public String name() {
-       return Context.getInstance().getStringResource(R.string.test_register);
+       return Context.getInstance().getStringResource(R.string.registerTT);
     }
 
     @Override
@@ -33,23 +33,25 @@ public class TTServiceModeOption extends ServiceModeOption {
         return new ClientsHeaderProvider() {
             @Override
             public int count() {
-                return 2;
+                return 7;
             }
 
             @Override
             public int weightSum() {
-                return 10;
+                return 1000;
             }
 
             @Override
             public int[] weights() {
-                return new int[]{8,2};
+                return new int[]{244, 90, 140, 120, 170, 135, 95};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.hh_profile,R.string.header_edit
+                        R.string.header_name, R.string.header_id, R.string.header_klinis,
+                        R.string.header_pemeriksaan, R.string.header_history_anc,
+                        R.string.tt_status, R.string.header_edit
                         };
             }
         };

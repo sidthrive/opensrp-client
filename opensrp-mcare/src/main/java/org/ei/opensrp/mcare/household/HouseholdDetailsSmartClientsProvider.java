@@ -29,6 +29,7 @@ import org.ei.opensrp.mcare.elco.ElcoSmartRegisterActivity;
 import org.ei.opensrp.mcare.pnc.mCarePNCSmartRegisterActivity;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.util.DateUtil;
 import org.ei.opensrp.view.activity.ANCSmartRegisterActivity;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -185,8 +186,46 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
 
                     name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
                     age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
+                    DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+                    try {
+                        int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
+                        int calc_age = days / 365;
+                        age.setText("("+calc_age+")");
+                    }catch (Exception e){
+
+                    }
                     LinearLayout child_parent_carrier = (LinearLayout)itemView.findViewById(R.id.child_parent_holder);
                     addchildrenifany(child_parent_carrier,mcaremother);
+                }else {
+
+                    itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_nonregister_clients, null);
+                    TextView name = (TextView) itemView.findViewById(R.id.name);
+                    TextView age = (TextView) itemView.findViewById(R.id.age);
+                    ImageView profilepic = (ImageView) itemView.findViewById(R.id.profilepic);
+
+                    if (pc.getDetails().get("profilepic") != null) {
+                        HouseHoldDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), profilepic, R.mipmap.womanimageload);
+                    }
+
+                    profilepic.setOnClickListener(onClickListener);
+                    profilepic.setTag(smartRegisterClient);
+
+
+                    Button editform = (Button) itemView.findViewById(R.id.edit_forms);
+                    editform.setOnClickListener(onClickListener);
+                    editform.setTag(smartRegisterClient);
+
+
+                    name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
+                    age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
+                    DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+                    try {
+                        int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
+                        int calc_age = days / 365;
+                        age.setText("("+calc_age+")");
+                    }catch (Exception e){
+
+                    }
                 }
             }else {
 
@@ -210,6 +249,15 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
 
                 name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
                 age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
+
+                DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+                try {
+                    int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
+                    int calc_age = days / 365;
+                    age.setText("("+calc_age+")");
+                }catch (Exception e){
+
+                }
             }
         }
 //        itemView.setLayoutParams(clientViewLayoutParams);

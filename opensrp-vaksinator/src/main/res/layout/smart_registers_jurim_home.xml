@@ -14,6 +14,38 @@
         android:gravity="center_vertical">
 
         <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal|bottom"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="93dp"
+                android:layout_height="95dp"
+                android:id="@+id/imageView"
+                android:src="@mipmap/opensrp_indonesia_vaccine_logo"
+                android:paddingBottom="20px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Vaksinator"
+                android:id="@+id/textView"
+                android:gravity="bottom|left"
+                android:textSize="60dp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="50dp"></LinearLayout>
+
+        <LinearLayout
             android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -52,6 +84,38 @@
 
             </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_TT_vaksinator_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/register_pnc"
+                    style="@style/ImageButton.Home.Register"/>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TT VACCINE"
+                    style="@style/CustomFontTextViewStyle.Home.RegisterName"/>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_label"
+                    style="@style/CustomFontTextViewStyle.Home.RegisterLabel"/>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:id="@+id/txt_TT_vaksinator_register_client_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.Badge2"/>
+
+            </FrameLayout>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -71,21 +135,9 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_reporting"
                 android:drawablePadding="5dp"
-                android:paddingLeft="185dp"
-                android:paddingRight="185dp"
+                android:paddingLeft="400dp"
+                android:paddingRight="400dp"
                 android:text="@string/str_reporting"
-                style="@style/CustomFontTextViewStyle.Home.Buttons"/>
-
-        <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/btn_videos"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_tv"
-                android:drawablePadding="5dp"
-                android:paddingLeft="200dp"
-                android:paddingRight="200dp"
-                android:text="@string/str_videos"
                 style="@style/CustomFontTextViewStyle.Home.Buttons"/>
 
     </LinearLayout>

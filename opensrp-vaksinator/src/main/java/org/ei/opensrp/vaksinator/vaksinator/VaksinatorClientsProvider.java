@@ -1,5 +1,6 @@
 package org.ei.opensrp.vaksinator.vaksinator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -101,7 +102,7 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
+//            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -130,19 +131,21 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         //set default image for mother berat_badan_saat_lahir
 
         //final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
-
-        /*if (pc.getDetails().get("profilepic") != null) {
-            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), viewHolder.profilepic, R.drawable.child_boy_infant);
-            viewHolder.profilepic.setTag(smartRegisterClient);
+        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
+        if (pc.getDetails().get("profilepic") != null) {
+            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
+            childview.setTag(smartRegisterClient);
         }
-        else {
-            viewHolder.profilepic.setImageDrawable(pc.getDetails().get("jenis_kelamin") != null
-                    ? context.getResources().getDrawable(pc.getDetails().get("jenis_kelamin").contains("em")
-                    ? R.drawable.child_girl_infant
-                    : R.drawable.child_boy_infant)
-                    : context.getResources().getDrawable(R.drawable.child_boy_infant)
-            );
-        }*/
+        else if (pc.getDetails().get("gender") != null) {
+            if(viewHolder.profilepic==null){
+
+            }
+            else if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
+                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
+            } else {
+                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+            }
+        }
 
        /* viewHolder.motherName.setText(
                 pc.getDetails().get("namaIbu")!=null
@@ -217,6 +220,8 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.setLayoutParams(clientViewLayoutParams);
       //  return convertView;
     }
+
+
     CommonPersonObjectController householdelcocontroller;
 
     private String latestDate(String[]dates){

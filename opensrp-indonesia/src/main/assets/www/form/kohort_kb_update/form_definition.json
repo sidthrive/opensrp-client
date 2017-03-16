@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/kohort_pelayanan_kb_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/kohort_pelayanan_kb_reviewed/end"
+      },
+      {
         "name": "cityVillage",
         "bind": "/model/instance/kohort_pelayanan_kb_reviewed/Village",
         "shouldLoadValue": true

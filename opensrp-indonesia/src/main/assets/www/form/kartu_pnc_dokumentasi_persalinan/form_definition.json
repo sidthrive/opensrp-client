@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/dok_persalinan_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/dok_persalinan_reviewed/end"
+      },
+      {
         "name": "cityVillage",
         "bind": "/model/instance/dok_persalinan_reviewed/Village",
         "shouldLoadValue": true
@@ -164,6 +172,14 @@
         "bind": "/model/instance/dok_persalinan_reviewed/high_risk_postPartum_Sectio_Caesaria"
       },
       {
+        "name": "treatment",
+        "bind": "/model/instance/dok_persalinan_reviewed/treatment"
+      },
+      {
+        "name": "treatmentText",
+        "bind": "/model/instance/dok_persalinan_reviewed/treatment_text"
+      },
+      {
         "name": "kepemilikanBukuKia",
         "bind": "/model/instance/dok_persalinan_reviewed/kepemilikan_buku_kia",
         "source": "ibu.anak.kepemilikan_buku_kia"
@@ -250,7 +266,7 @@
           },
           {
             "name": "beratLahir",
-            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/berat_bayi"
+            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/berat_badan_saat_lahir"
           },
           {
             "name": "HighRiskChildLowBirthweght",

@@ -34,7 +34,6 @@ import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
-import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.controller.VillageController;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.ei.opensrp.view.dialog.AllClientsFilter;
@@ -52,8 +51,6 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Map;
-
-import util.AsyncTask;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -115,7 +112,7 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_pncrv2), filterStringForPNCRV2()));
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_pncrv3), filterStringForPNCRV3()));
 
-                String locationjson = context.anmLocationController().get();
+                String locationjson = context().anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
                 Map<String, TreeNode<String, Location>> locationMap =
@@ -279,34 +276,19 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-                (new AsyncTask() {
-                    SmartRegisterClients filteredClients;
 
-                    @Override
-                    protected Object doInBackground(Object[] params) {
+                if(cs.toString().equalsIgnoreCase("")){
+                    filters = "";
+                }else {
+                    //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
+                    filters = cs.toString();
+                }
+                joinTable = "";
+                mainCondition = " is_closed=0 ";
 
-//
-                        if (cs.toString().equalsIgnoreCase("")) {
-                            filters = "";
-                        } else {
-                            //filters = "and FWWOMFNAME Like '%" + cs.toString() + "%' or GOBHHID Like '%" + cs.toString() + "%'  or JiVitAHHID Like '%" + cs.toString() + "%' ";
-                            filters = cs.toString();
-                        }
-                        joinTable = "";
-                        mainCondition = " is_closed=0 ";
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Object o) {
-//
-                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                        CountExecute();
-                        filterandSortExecute();
-                        super.onPostExecute(o);
-                    }
-                }).execute();
-
+                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
+                filterandSortExecute();
 
             }
 
@@ -359,7 +341,6 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         //FWSORTVALUE
         return "Select  ec_pnc.id as _id,ec_pnc.base_entity_id as relationalid,ec_pnc.details,ec_elco.FWWOMFNAME,hh.existing_Mauzapara as mauza,ec_elco.FWWOMNID,ec_elco.FWWOMBID,ec_elco.JiVitAHHID,ec_elco.GOBHHID,FWBNFSTS,FWBNFDTOO \n" +
                 " from ec_pnc \n" +
-                " Left Join alerts on alerts.caseID = ec_pnc.id and alerts.scheduleName = 'Post Natal Care Reminder Visit'   \n" +
                 " Left Join ec_elco on ec_elco.id=ec_pnc.base_entity_id   \n" +
                 " Left Join ec_household hh on hh.id=ec_elco.relational_id ";
     }
@@ -367,13 +348,12 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
     public String pncMainCountWithJoins() {
         return "Select Count(*) \n" +
                 "from ec_pnc \n" +
-                "Left Join alerts on alerts.caseID = ec_pnc.id and alerts.scheduleName = 'Post Natal Care Reminder Visit'  \n" +
                 "Left Join ec_elco on ec_elco.id=ec_pnc.base_entity_id ";
     }
 
     public void initializeQueries() {
         try {
-            mCarePNCSmartClientsProvider hhscp = new mCarePNCSmartClientsProvider(getActivity(), clientActionHandler, context.alertService());
+            mCarePNCSmartClientsProvider hhscp = new mCarePNCSmartClientsProvider(getActivity(), clientActionHandler, context().alertService());
             clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, new CommonRepository("ec_pnc", new String[]{"FWWOMFNAME", "FWPSRLMP", "JiVitAHHID", "GOBHHID", "FWBNFSTS", "FWBNFDTOO"}));
             clientsView.setAdapter(clientAdapter);
 
@@ -405,14 +385,13 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
-                "WHEN alerts.status = 'upcoming' THEN '2'\n" +
-                "WHEN alerts.status = 'normal' THEN '3'\n" +
-                "WHEN alerts.status = 'expired' THEN '4'\n" +
-                "WHEN alerts.status is Null THEN '5'\n" +
-                "WHEN alerts.status = 'complete' THEN '6'\n" +
-                "Else alerts.status END ASC";
+        return " CASE WHEN Post_Natal_Care_Reminder_Visit = 'urgent' THEN '1'\n" +
+                "WHEN Post_Natal_Care_Reminder_Visit = 'upcoming' THEN '2'\n" +
+                "WHEN Post_Natal_Care_Reminder_Visit = 'normal' THEN '3'\n" +
+                "WHEN Post_Natal_Care_Reminder_Visit = 'expired' THEN '4'\n" +
+                "WHEN Post_Natal_Care_Reminder_Visit is Null THEN '5'\n" +
+                "WHEN Post_Natal_Care_Reminder_Visit = 'complete' THEN '6'\n" +
+                "Else Post_Natal_Care_Reminder_Visit END ASC";
     }
 
     private String sortBySortValue() {
@@ -442,17 +421,23 @@ public class mCarePNCSmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 "Else ec_pnc.FWBNFSTS END ASC";
     }
 
-    private String filterStringForPNCRV1() {
-        return "and alerts.visitCode LIKE '%pncrv_1%'";
+    private String filterStringForPNCRV1(){
+        return "pncrv_1";
+    }
+    private String filterStringForPNCRV2(){
+        return "pncrv_2";
+    }
+    private String filterStringForPNCRV3(){
+        return "pncrv_3";
     }
 
-    private String filterStringForPNCRV2() {
-        return "and alerts.visitCode LIKE '%pncrv_2%'";
+    /**
+     * Override filter to capture fts filter by location
+     * @param filter
+     */
+    @Override
+    public void onFilterSelection(FilterOption filter) {
+        super.onFilterSelection(filter);
     }
-
-    private String filterStringForPNCRV3() {
-        return "and alerts.visitCode LIKE '%pncrv_3%'";
-    }
-
 
 }

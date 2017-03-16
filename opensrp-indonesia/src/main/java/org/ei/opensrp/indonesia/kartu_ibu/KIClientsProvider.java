@@ -2,20 +2,15 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.common.base.Strings;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
@@ -23,41 +18,26 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
-import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.indonesia.R;
-
-import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
-import org.ei.opensrp.util.DateUtil;
-import org.ei.opensrp.view.contract.AlertDTO;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
-import org.ei.opensrp.view.viewHolder.ECProfilePhotoLoader;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
-import org.ei.opensrp.view.viewHolder.ProfilePhotoLoader;
-import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static org.ei.opensrp.util.StringUtil.humanize;
-import static org.ei.opensrp.view.controller.ECSmartRegisterController.STATUS_DATE_FIELD;
-import static org.ei.opensrp.view.controller.ECSmartRegisterController.STATUS_TYPE_FIELD;
 import static org.joda.time.LocalDateTime.parse;
 
 /**
@@ -68,24 +48,21 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
     private final Context context;
     private final View.OnClickListener onClickListener;
     private Drawable iconPencilDrawable;
-    private final int txtColorBlack;
     private final AbsListView.LayoutParams clientViewLayoutParams;
 
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
     public KIClientsProvider(Context context,
-                                         View.OnClickListener onClickListener,
-                                         AlertService alertService) {
+                             View.OnClickListener onClickListener,
+                             AlertService alertService) {
         this.onClickListener = onClickListener;
-//        this.controller = controller;
         this.context = context;
         this.alertService = alertService;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         clientViewLayoutParams = new AbsListView.LayoutParams(MATCH_PARENT,
                 (int) context.getResources().getDimension(org.ei.opensrp.R.dimen.list_item_height));
-        txtColorBlack = context.getResources().getColor(org.ei.opensrp.R.color.text_black);
 
     }
 
@@ -143,8 +120,6 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
-
-
         //set image
         final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
         if (pc.getDetails().get("profilepic") != null) {
@@ -152,9 +127,9 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
             kiview.setTag(smartRegisterClient);
         }
         else {
-
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
         }
+
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
         viewHolder.village_name.setText(pc.getDetails().get("address1")!=null?pc.getDetails().get("address1"):"");
@@ -171,7 +146,13 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.anc_status_layout.setText("");
         viewHolder.date_status.setText("");
         viewHolder.visit_status.setText("");
-
+        //start profile image
+        viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+        }
+       //end profile image
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
         if(ibuparent != null) {
@@ -179,31 +160,50 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
             //check anc  status
             if (anc_isclosed == 0) {
                 detailsRepository.updateDetails(ibuparent);
-                checkMonth(pc.getDetails().get("htp"),viewHolder.edd_due);
-                checkLastVisit(pc.getDetails().get("ancDate"),pc.getDetails().get("ancKe"),context.getString(R.string.service_anc),
+                if(pc.getDetails().get("htp") == null) {
+                    checkMonth(pc.getDetails().get("htp"), viewHolder.edd_due);
+
+                }checkLastVisit(pc.getDetails().get("ancDate"),context.getString(R.string.anc_ke) + ": "+pc.getDetails().get("ancKe"),context.getString(R.string.service_anc),
                                viewHolder.anc_status_layout,viewHolder.date_status,viewHolder.visit_status);
             }
             //if anc is 1(closed) set status to pnc
             else if (anc_isclosed == 1) {
                 AllCommonsRepository pncrep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_pnc");
                 final CommonPersonObject pncparent = pncrep.findByCaseID(pc.entityId());
-                short pnc_isclosed = pncparent.getClosed();
-                if (pnc_isclosed == 0) {
-                    detailsRepository.updateDetails(pncparent);
-                    checkMonth("delivered",viewHolder.edd_due);
-                    checkLastVisit(pc.getDetails().get("PNCDate"),pc.getDetails().get("hariKeKF"),context.getString(R.string.service_pnc),
-                            viewHolder.anc_status_layout,viewHolder.date_status,viewHolder.visit_status);
+                if(pncparent != null) {
+                    short pnc_isclosed = pncparent.getClosed();
+                    if (pnc_isclosed == 0) {
+                        detailsRepository.updateDetails(pncparent);
+                  /*  checkMonth("delivered",viewHolder.edd_due);*/
+                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+                        String deliver = context.getString(R.string.delivered);
+                        viewHolder.edd_due.setText(deliver);
+                        checkLastVisit(pc.getDetails().get("PNCDate"), context.getString(R.string.pnc_ke) + " " + pc.getDetails().get("hariKeKF"), context.getString(R.string.service_pnc),
+                                viewHolder.anc_status_layout, viewHolder.date_status, viewHolder.visit_status);
+                    }
                 }
+
             }
         }
         //last check if mother in PF (KB) service
         else if(!StringUtils.isNumeric(pc.getDetails().get("jenisKontrasepsi"))) {
-                checkLastVisit(pc.getDetails().get("tanggalkunjungan"),pc.getDetails().get("jenisKontrasepsi"),context.getString(R.string.service_fp),
+                checkLastVisit(pc.getDetails().get("tanggalkunjungan"),context.getString(R.string.fp_methods)+": "+pc.getDetails().get("jenisKontrasepsi"),context.getString(R.string.service_fp),
                         viewHolder.anc_status_layout,viewHolder.date_status,viewHolder.visit_status);
         }
-        viewHolder.children_age_left.setText(pc.getColumnmaps().get("namaBayi")!=null?"Name : "+pc.getColumnmaps().get("namaBayi"):"");
-        viewHolder.children_age_right.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null?"DOB : "+pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T")):"");
 
+
+
+        //anak
+        AllCommonsRepository anakrep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
+        ArrayList<String> list = new ArrayList<>();
+        list.add((pc.entityId()));
+        List<CommonPersonObject> allchild = anakrep.findByRelational_IDs(list);
+        for (int i = 0; i < allchild.size(); i++) {
+            CommonPersonObject commonPersonObject = allchild.get(i);
+            detailsRepository.updateDetails(commonPersonObject);
+            viewHolder.children_age_left.setText(commonPersonObject.getColumnmaps().get("namaBayi") != null ? "Name : " + commonPersonObject.getColumnmaps().get("namaBayi") : "");
+            viewHolder.children_age_right.setText(commonPersonObject.getColumnmaps().get("tanggalLahirAnak") != null ? "DOB : " + commonPersonObject.getColumnmaps().get("tanggalLahirAnak").substring(0, commonPersonObject.getColumnmaps().get("tanggalLahirAnak").indexOf("T")) : "");
+        }
 
         viewHolder.hr_badge.setVisibility(View.INVISIBLE);
         viewHolder.hrp_badge.setVisibility(View.INVISIBLE);
@@ -274,15 +274,14 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
             riskview.setVisibility(View.VISIBLE);
         }
-
     }
 
     public void checkLastVisit(String date,String visitNumber,String Status, TextView visitStatus,TextView visitDate, TextView VisitNumber ) {
-
+        String visit_stat="";
         String visit_date = date != null ? context.getString(R.string.date_visit_title) + " " + date : "";
-        String visit_stat = visitNumber != null ? context.getString(R.string.anc_ke) + " " + visitNumber : "";
+
+        VisitNumber.setText(visitNumber);
         visitDate.setText(visit_date);
-        VisitNumber.setText(visit_stat);
         visitStatus.setText(Status);
     }
 
@@ -310,11 +309,11 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 _dueEdd = context.getString(R.string.edd_passed);
             }
             TextMonth.setText(_dueEdd);
-        }else if(htp.equals("delivered")){
+        }/*else if(htp.equals("delivered")){
             TextMonth.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
             _dueEdd = context.getString(R.string.delivered);
             TextMonth.setText(_dueEdd);
-        }
+        }*/
         else {
             TextMonth.setText("-");
         }

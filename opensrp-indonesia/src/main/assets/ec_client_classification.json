@@ -66,6 +66,11 @@
         "type": "event",
         "fields": [
           {
+            "field":"eventType",
+            "field_value": "Tambah ANC",
+            "creates_case":["ec_ibu"]
+          },
+          {
             "field":"obs.fieldCode",
             "concept": "45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "values": ["703AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"],
@@ -76,6 +81,7 @@
             "field_value": "Kunjungan ANC",
             "creates_case":["ec_ibu"]
           },
+
           {
             "field":"eventType",
             "field_value": "Penutupan ANC",

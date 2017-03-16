@@ -84,10 +84,11 @@ public class NativeHomeActivity extends SecuredActivity {
     };
 
     private TextView anakRegisterClientCountView;
+    private TextView ibuRegisterClientCountView;
     public static CommonPersonObjectController kicontroller;
     public static CommonPersonObjectController childcontroller;
-    public static int kicount;
 
+    private static int kicount;
     private int childcount;
 
 
@@ -96,7 +97,7 @@ public class NativeHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_jurim_home);
       //  FlurryFacade.logEvent("vaksinator_home_dashboard");
-        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController);
+        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -111,19 +112,20 @@ public class NativeHomeActivity extends SecuredActivity {
 
     private void setupViews() {
         findViewById(R.id.btn_vaksinator_register).setOnClickListener(onRegisterStartListener);
-//        findViewById(R.id.btn_tt_register).setOnClickListener(onRegisterStartListener);
+        findViewById(R.id.btn_TT_vaksinator_register).setOnClickListener(onRegisterStartListener);
        // findViewById(R.id.btn_test2_register).setOnClickListener(onRegisterStartListener);
        // findViewById(R.id.btn_tt_register).setVisibility(View.INVISIBLE);
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
-        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
+//        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
 
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_vaksinator_register_client_count);
+        ibuRegisterClientCountView = (TextView) findViewById(R.id.txt_TT_vaksinator_register_client_count);
 
     }
 
     private void initialize() {
-        pendingFormSubmissionService = context.pendingFormSubmissionService();
+        pendingFormSubmissionService = context().pendingFormSubmissionService();
         SYNC_STARTED.addListener(onSyncStartListener);
         SYNC_COMPLETED.addListener(onSyncCompleteListener);
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
@@ -158,12 +160,19 @@ public class NativeHomeActivity extends SecuredActivity {
 
     private void updateRegisterCounts(HomeContext homeContext) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-        Cursor childcountcursor = context.commonrepository("ec_anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
+        Cursor childcountcursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
         childcountcursor.close();
 
+        Cursor kicountcursor = context().commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu", "ec_ibu.is_closed=0 and ec_ibu.pptest='Positive'" ));
+        kicountcursor.moveToFirst();
+        kicount= kicountcursor.getInt(0);
+        kicountcursor.close();
+
         anakRegisterClientCountView.setText(valueOf(childcount));
+        ibuRegisterClientCountView.setText(valueOf(kicount));
+
 
        /* CommonPersonObjectController hhcontroller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("anak"),
                 context.allBeneficiaries(), context.listCache(),
@@ -212,17 +221,20 @@ public class NativeHomeActivity extends SecuredActivity {
 
     public void updateFromServer() {
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
-                this, context.actionService(), context.formSubmissionSyncService(),
-                new SyncProgressIndicator(), context.allFormVersionSyncService());
+                this, context().actionService(), context().formSubmissionSyncService(),
+                new SyncProgressIndicator(), context().allFormVersionSyncService());
         FlurryFacade.logEvent("click_update_from_server");
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
-        String locationjson = context.anmLocationController().get();
+
+        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT))  // unique id part
+            LoginActivity.generator.requestUniqueId();                                                                  // unique id part
+
+        String locationjson = context().anmLocationController().get();
         LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
         Map<String,TreeNode<String, Location>> locationMap =
                 locationTree.getLocationsHierarchy();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -236,7 +248,7 @@ public class NativeHomeActivity extends SecuredActivity {
 
     private void updateSyncIndicator() {
         if (updateMenuItem != null) {
-            if (context.allSharedPreferences().fetchIsSyncInProgress()) {
+            if (context().allSharedPreferences().fetchIsSyncInProgress()) {
                 updateMenuItem.setActionView(R.layout.progress);
             } else
                 updateMenuItem.setActionView(null);
@@ -266,9 +278,9 @@ public class NativeHomeActivity extends SecuredActivity {
                     navigationController.startECSmartRegistry();
                     break;
 
-              //  case R.id.btn_test2_register:
-            //        navigationController.startANCSmartRegistry();
-            //        break;
+                case R.id.btn_TT_vaksinator_register:
+                    navigationController.startFPSmartRegistry();
+                    break;
 /*
                 case R.id.btn_pnc_register:
 //                    navigationController.startPNCSmartRegistry();
@@ -296,12 +308,12 @@ public class NativeHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
-                case R.id.btn_videos:
+//                case R.id.btn_videos:
 //                    navigationController.startVideos();
-                    break;
+//                    break;
             }
         }
     };

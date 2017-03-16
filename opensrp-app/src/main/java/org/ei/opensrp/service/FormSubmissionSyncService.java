@@ -1,5 +1,7 @@
 package org.ei.opensrp.service;
 
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,7 +15,7 @@ import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.AllSettings;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.FormDataRepository;
-import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,11 +59,13 @@ public class FormSubmissionSyncService {
 
             mCountDownLatch.await();
             //pushToServer();
-            new ImageUploadSyncService((ImageRepository) Context.imageRepository());
+            Intent intent = new Intent(DrishtiApplication.getInstance().getApplicationContext(),ImageUploadSyncService.class);
+            DrishtiApplication.getInstance().getApplicationContext().startService(intent);
             return FetchStatus.fetched;
         }catch (Exception e) {
             return FetchStatus.fetchedFailed;
         }
+
     }
 
     public void pushToServer() {

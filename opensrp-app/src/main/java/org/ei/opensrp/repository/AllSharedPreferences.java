@@ -13,7 +13,6 @@ import static org.ei.opensrp.util.Log.logInfo;
 
 public class AllSharedPreferences {
     public static final String ANM_IDENTIFIER_PREFERENCE_KEY = "anmIdentifier";
-    private static final String DRISHTI_BASE_URL = "DRISHTI_BASE_URL";
     private static final String HOST = "HOST";
     private static final String PORT = "PORT";
     private static final String LAST_SYNC_DATE = "LAST_SYNC_DATE";

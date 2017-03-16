@@ -34,6 +34,8 @@
     </string>
     <string name="unsynced_forms_count_message">forms unsynced</string>
 
+    <string name="tt_register_name">TT Register</string>
+
     <string name="str_next">"Berikutnya&gt;&gt;"</string>
     <string name="str_previous">"&lt;&lt;Sebelumnya"</string>
     <string name="str_page_info">Halaman {0} dari {1}</string>
@@ -58,6 +60,7 @@
     <string name="ec_register_male_child">Laki-Laki\n{0}</string>
     <string name="ec_register_female_child">Perempuan\n{0}</string>
     <string name="ec_register_no_fp">No FP</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="status_delivery">Delivery:</string>
     <string name="str_lmp">LMP:</string>
@@ -237,10 +240,10 @@
 
     <string name="anc_label">ANC:</string>
     <string name="hb_test_label">Hb Test</string>
-    <string name="edd_label">"EDD: "</string>
+    <string name="edd_label">"HTPT: "</string>
     <string name="str_days_past_due">day (s) past due</string>
     <string name="lmp_label">LMP:</string>
-    <string name="str_weeks">weeks</string>
+    <string name="str_weeks">minggu</string>
     <string name="anc_register_title_in_short">ANC:</string>
     <string name="str_bp">BP</string>
     <string name="str_weight">Wt.</string>
@@ -264,6 +267,9 @@
     <string name="header_tt">TT</string>
     <string name="header_tt_1">TT 1</string>
     <string name="header_tt_2">TT 2</string>
+    <string name="header_tt_3">TT 3</string>
+    <string name="header_tt_4">TT 4</string>
+    <string name="header_tt_5">TT 5</string>
     <string name="header_tt_booster">TT Booster</string>
     <string name="header_ifa">IFA</string>
     <string name="header_hb">HB</string>
@@ -275,7 +281,7 @@
     <string name="str_contact">Contact:</string>
     <string name="str_risks_reviewed">Risks reviewed:</string>
     <string name="sort_by_edd_label">EDD</string>
-
+    <string name="reconfirmChildName">Konfirmasi nama Anak</string>
 
     <string name="str_pnc_delivery_date">Date:</string>
     <string name="str_pnc_delivery_place">Place:</string>
@@ -311,6 +317,7 @@
     <string name="hh_inhabitants_details">HH Inhabitants Details</string>
     <string name="household_entries">All Household Entries</string>
     <string name="vaksinator">VAKSINASI ANAK</string>
+    <string name="registerTT">REGISTER TT IBU</string>
     <string name="test">Register Vaksinator</string>
     <string name="hh_register_title_in_short">HH</string>
 
@@ -421,6 +428,24 @@
     <string name="campakVisitLabel">Kunjungan Imunisasi Campak</string>
     <string name="dptTambahanVisitLabel">Kunjungan Imunisasi DPT/HB Tambahan</string>
     <string name="campakTambahanVisitLabel">Kunjungan Imunisasi Campak Tambahan</string>
+
+    <!--
+        TT REGISTER STRING LIBRARY
+    -->
+    <string name="motherID">No. Ibu:</string>
+    <string name="lila">Lila</string>
+    <string name="weight">Berat Badan</string>
+    <string name="last_visit_date">Kunj. terakhir: </string>
+    <string name="anc_ke">ANC ke </string>
+    <string name="visit_number">Kunjungan ke-</string>
+    <string name="header_klinis">Status Klinis</string>
+    <string name="header_pemeriksaan">Pemeriksaan</string>
+    <string name="header_history_anc">Riwayat ANC</string>
+    <string name="tt_status">Status TT</string>
+    <string name="cm">cm</string>
+    <string name="kg">kg</string>
+    <string name="week">minggu</string>
+    <string name="clinical_age">Usia Klinis: </string>
 
     <color name="vaccBlue">#FF9BC1FB</color>
 

@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <kunjungan_anc_reviewed_anc_visit encounter_type="Kunjungan ANC" id="kunjungan_anc" version="201610101325">
+        <kunjungan_anc_reviewed_anc_visit encounter_type="Kunjungan ANC" id="kunjungan_anc" version="201703060708">
             <formhub>
                 <uuid/>
             </formhub>
@@ -59,12 +59,15 @@
             <pelayanan_catat_buku_kia openmrs_entity="concept" openmrs_entity_id="163148AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <pelayananfe openmrs_entity="concept" openmrs_entity_id="104677AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <jumlah_fe openmrs_entity="concept" openmrs_entity_id="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <resiko_terdeksi_pertama_kali openmrs_entity="concept" openmrs_entity_id="163519AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <fe1_fe3/>
             <komplikasi_dalam_kehamilan openmrs_entity="concept" openmrs_entity_id="1576AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <komplikasi_tertangani/>
+            <komplikasi_lain openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1576AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <resiko_terdeksi_pertama_kali openmrs_entity="concept" openmrs_entity_id="163519AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <treatment openmrs_entity="concept" openmrs_entity_id="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <treatment_text openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1774AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <rujukan openmrs_entity="concept" openmrs_entity_id="1788AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <dirujuk_ke openmrs_entity="concept" openmrs_entity_id="163145AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <dirujuk_keL openmrs_entity="concept" openmrs_entity_id="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="Type of facility referred to - 1788AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <dirujuk_keL openmrs_entity="concept" openmrs_entity_id="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1788AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <keadaan_ibu_saat_tiba openmrs_entity="concept" openmrs_entity_id="163183AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <keadaan_ibu_saat_pulang openmrs_entity="concept" openmrs_entity_id="163184AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <keterangan openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA"/>

@@ -17,6 +17,7 @@ public class ZScoreSystemCalculation {
         return zScoreClassification(new ReferenceTableForDailyIndex().WeightAgeStandardIndex,zScore);
     }
 
+
     public String getHFAZScoreClassification(double zScore){
         return zScoreClassification(new ReferenceTableForDailyIndex().HeightAgeStandardIndex,zScore);
     }
@@ -101,6 +102,8 @@ public class ZScoreSystemCalculation {
     }
 
     public int dailyUnitCalculationOf(String dateFrom,String dateTo){
+        if(dateFrom.length()<10 || dateTo.length()<10)
+            return -1;
         String[]d1 = dateFrom.split("-");
         String[]d2 = dateTo.split("-");
 

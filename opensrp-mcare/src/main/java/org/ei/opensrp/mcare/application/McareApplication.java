@@ -3,15 +3,16 @@ package org.ei.opensrp.mcare.application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.util.Pair;
 
-import org.acra.ACRA;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.mcare.LoginActivity;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
-import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
 
@@ -21,6 +22,8 @@ import static org.ei.opensrp.util.Log.logInfo;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import static org.ei.opensrp.util.Log.logInfo;
 
 /**
  * Created by koros on 1/22/16.
@@ -40,6 +43,7 @@ public class McareApplication extends DrishtiApplication {
     public void onCreate() {
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 //        ACRA.init(this);
 
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
@@ -116,13 +120,13 @@ public class McareApplication extends DrishtiApplication {
             String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
             return ftsSearchFields;
         } else if (tableName.equals("ec_mcaremother")) {
-            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
+            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "alerts.visitCode"};
             return ftsSearchFields;
         } else if (tableName.equals("ec_pnc")) {
-            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
+            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "alerts.visitCode"};
             return ftsSearchFields;
         } else if (tableName.equals("ec_mcarechild")) {
-            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
+            String[] ftsSearchFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "alerts.visitCode"};
             return ftsSearchFields;
         }
         return null;
@@ -130,19 +134,19 @@ public class McareApplication extends DrishtiApplication {
 
     private String[] getFtsSortFields(String tableName) {
         if (tableName.equals("ec_household")) {
-            String[] sortFields = {"FWHOHFNAME", "FWGOBHHID", "FWJIVHHID"};
+            String[] sortFields = {"FWHOHFNAME", "FWGOBHHID", "FWJIVHHID", "alerts.FW_CENSUS"};
             return sortFields;
         } else if (tableName.equals("ec_elco")) {
-            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
+            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "alerts.ELCO_PSRF"};
             return sortFields;
         } else if (tableName.equals("ec_mcaremother")) {
-            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "FWPSRLMP"};
+            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "FWPSRLMP", "alerts.Ante_Natal_Care_Reminder_Visit", "alerts.BirthNotificationPregnancyStatusFollowUp"};
             return sortFields;
         } else if (tableName.equals("ec_pnc")) {
-            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "FWBNFDTOO"};
+            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "FWBNFDTOO", "alerts.Post_Natal_Care_Reminder_Visit"};
             return sortFields;
         } else if (tableName.equals("ec_mcarechild")) {
-            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID"};
+            String[] sortFields = {"FWWOMFNAME", "GOBHHID", "JiVitAHHID", "alerts.Essential_Newborn_Care_Checklist"};
             return sortFields;
         }
         return null;
@@ -173,15 +177,44 @@ public class McareApplication extends DrishtiApplication {
         return ftsTables;
     }
 
-    private CommonFtsObject createCommonFtsObject() {
+    /**
+     * Map value Pair<TableName, updateVisitCode>
+     * @return
+     */
+    private Map<String, Pair<String, Boolean>> getAlertScheduleMap(){
+        Map<String, Pair<String, Boolean>> map = new HashMap<String, Pair<String, Boolean>>();
+        map.put("FW CENSUS", Pair.create("ec_household", false));
+        map.put("ELCO PSRF", Pair.create("ec_elco", false));
+        map.put("Ante Natal Care Reminder Visit", Pair.create("ec_mcaremother", true));
+        map.put("BirthNotificationPregnancyStatusFollowUp",  Pair.create("ec_mcaremother", false));
+        map.put("Post Natal Care Reminder Visit", Pair.create("ec_pnc", true));
+        map.put("Essential Newborn Care Checklist", Pair.create("ec_mcarechild", true));
+
+        return map;
+    }
+
+    private String[] getAlertFilterVisitCodes(){
+        String[] ftsTables = { "ancrv_1", "ancrv_2", "ancrv_3", "ancrv_4", "pncrv_1", "pncrv_2", "pncrv_3", "enccrv_1", "enccrv_2", "enccrv_3" };
+        return ftsTables;
+    }
+
+    private CommonFtsObject createCommonFtsObject(){
         CommonFtsObject commonFtsObject = new CommonFtsObject(getFtsTables());
         for (String ftsTable : commonFtsObject.getTables()) {
             commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
             commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             commonFtsObject.updateMainConditions(ftsTable, getFtsMainConditions(ftsTable));
         }
+        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
+        commonFtsObject.updateAlertFilterVisitCodes(getAlertFilterVisitCodes());
         return commonFtsObject;
     }
+    public static void setCrashlyticsUser(Context context) {
+                if(context != null && context.userService() != null
+                                && context.allSharedPreferences() != null) {
+                       Crashlytics.setUserName(context.allSharedPreferences().fetchRegisteredANM());
+                   }
+           }
 
     /**
      * Map linking generated Concepts with human readable values

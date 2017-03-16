@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,8 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import util.uniqueIdGenerator.Generator;
+
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 import static org.ei.opensrp.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
@@ -67,12 +70,13 @@ public class LoginActivity extends Activity {
     public static final String Bengali_LANGUAGE = "Bengali";
     public static final String Bahasa_LANGUAGE = "Bahasa";
 
+    public static Generator generator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         logVerbose("Initializing ...");
-        try{
+        try {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(this));
             String preferredLocale = allSharedPreferences.fetchLanguagePreference();
             Resources res = Context.getInstance().applicationContext().getResources();
@@ -81,12 +85,12 @@ public class LoginActivity extends Activity {
             android.content.res.Configuration conf = res.getConfiguration();
             conf.locale = new Locale(preferredLocale);
             res.updateConfiguration(conf, dm);
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
         setContentView(org.ei.opensrp.R.layout.login);
-        ImageView loginglogo = (ImageView)findViewById(R.id.login_logo);
-        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.login_logo));
+        ImageView loginglogo = (ImageView) findViewById(R.id.login_logo);
+        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.gizilogin));
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         initializeLoginFields();
         initializeBuildDetails();
@@ -96,8 +100,8 @@ public class LoginActivity extends Activity {
         getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.gizi.R.mipmap.logo));
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.gizi.R.color.action_bar_background));
         setLanguage();
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -305,12 +309,14 @@ public class LoginActivity extends Activity {
 
     private void localLoginWith(String userName, String password) {
         context.userService().localLogin(userName, password);
+        LoginActivity.generator = new Generator(context,userName,password);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
         context.userService().remoteLogin(userName, password, userInfo);
+        LoginActivity.generator = new Generator(context,userName,password);
         goToHome();
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
     }
@@ -368,7 +374,7 @@ public class LoginActivity extends Activity {
         }
     }
 
-    /*private void tryGetUniqueId(final String username, final String password, final Listener<ResponseStatus> afterGetUniqueId) {
+    private void tryGetUniqueId(final String username, final String password, final Listener<ResponseStatus> afterGetUniqueId) {
         LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
             @Override
             public void setVisible() {
@@ -383,8 +389,9 @@ public class LoginActivity extends Activity {
         task.doActionInBackground(new BackgroundAction<ResponseStatus>() {
             @Override
             public ResponseStatus actionToDoInBackgroundThread() {
-                ((Context)context).uniqueIdService().syncUniqueIdFromServer(username, password);
-                return ((Context)context).uniqueIdService().getLastUsedId(username, password);
+                LoginActivity.generator = new Generator(context,username,password);
+                LoginActivity.generator.uniqueIdService().syncUniqueIdFromServer(username, password);
+                return (LoginActivity.generator.uniqueIdService().getLastUsedId(username, password));
             }
 
                 @Override
@@ -392,6 +399,6 @@ public class LoginActivity extends Activity {
                 afterGetUniqueId.onEvent(result);
             }
         });
-    }*/
+    }
 
 }
