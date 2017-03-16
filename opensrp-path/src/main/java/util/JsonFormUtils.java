@@ -12,6 +12,7 @@ import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.clientandeventmodel.FormEntityConstants;
 import org.ei.opensrp.clientandeventmodel.Obs;
+import org.ei.opensrp.clientandeventmodel.processor.EventsProcessor;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
@@ -150,6 +151,70 @@ public class JsonFormUtils {
 
             ClientProcessor.getInstance(context).processClient();
 
+        } catch (Exception e) {
+            Log.e(TAG, "", e);
+        }
+    }
+    public static void editsave(Context context, String jsonString, String providerId, String imageKey, String bindType, String subBindType) {
+        if (context == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(jsonString)) {
+            return;
+        }
+
+        try {
+
+            JSONObject jsonForm = new JSONObject(jsonString);
+
+            String entityId = getString(jsonForm, ENTITY_ID);
+            if (StringUtils.isBlank(entityId)) {
+                entityId = generateRandomUUIDString();
+            }
+
+            JSONArray fields = fields(jsonForm);
+            if (fields == null) {
+                return;
+            }
+
+            String encounterType = "Update Birth Registration";
+
+            JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+            Client c = JsonFormUtils.createBaseClient(fields, entityId);
+            Event e = JsonFormUtils.createEvent(fields, metadata, entityId, encounterType, providerId, bindType);
+
+            Client s = null;
+
+            if (StringUtils.isNotBlank(subBindType)) {
+                s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+            }
+            Event se = null;
+            if (s != null && e != null) {
+                JSONObject subBindTypeJson = getJSONObject(jsonForm, subBindType);
+                if (subBindTypeJson != null) {
+                    String subBindTypeEncounter = getString(subBindTypeJson, ENCOUNTER_TYPE);
+                    if (StringUtils.isNotBlank(subBindTypeEncounter)) {
+                        se = JsonFormUtils.createSubFormEvent(null, metadata, e, s.getBaseEntityId(), subBindTypeEncounter, providerId, subBindType);
+                    }
+                }
+            }
+            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+            if (c != null) {
+                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(c);
+                cloudantDataHandler.createClientDocument(client);
+            }
+            if (e != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
+                cloudantDataHandler.createEventDocument(event);
+            }
+            if (s != null) {
+                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(s);
+                cloudantDataHandler.createClientDocument(client);
+            }
+            if (se != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(se);
+                cloudantDataHandler.createEventDocument(event);
+            }
+            ClientProcessor.getInstance(context).processClient();
+//            EventsProcessor
         } catch (Exception e) {
             Log.e(TAG, "", e);
         }

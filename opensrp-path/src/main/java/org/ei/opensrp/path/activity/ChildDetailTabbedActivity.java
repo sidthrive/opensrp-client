@@ -224,7 +224,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 }
                 if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
                     jsonObject.remove(JsonFormUtils.VALUE);
-                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"program_client_id",true).replace("-", ""));
+                    jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(),"zeir_id",true).replace("-", ""));
                 }
                 if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Child_Register_Card_Number")) {
                     jsonObject.remove(JsonFormUtils.VALUE);
@@ -340,7 +340,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.editsave(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         }
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
@@ -388,7 +388,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         if (isDataOk()) {
             name = Utils.getValue(childDetails.getColumnmaps(), "first_name", true)
                     + " " + Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
-            childId = Utils.getValue(childDetails.getColumnmaps(), "program_client_id", false);
+            childId = Utils.getValue(childDetails.getColumnmaps(), "zeir_id", false);
             if (StringUtils.isNotBlank(childId)) {
                 childId = childId.replace("-", "");
             }
