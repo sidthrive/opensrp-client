@@ -548,4 +548,10 @@
     <string name="lila">MUAC:</string>
     <string name="str_register_kb_form">FP Registration</string>
     <string name="tgl_melahirkan">Delivery Date:</string>
+    <string name="MMN">MMN</string>
+    <string name="sesi1">Sesi 1</string>
+    <string name="sesi2">Sesi 2</string>
+    <string name="sesi3">Sesi 3</string>
+    <string name="sesi4">Sesi 4</string>
+    <string name="parana_register_title_in_short">PARANA</string>
 </resources>

@@ -125,6 +125,7 @@ public class BidanHomeActivity extends SecuredActivity {
         findViewById(R.id.btn_kartu_ibu_pnc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
+        findViewById(R.id.btn_parana_register).setOnClickListener(onRegisterStartListener);
 
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
@@ -327,6 +328,9 @@ public class BidanHomeActivity extends SecuredActivity {
                case R.id.btn_kartu_ibu_pnc_register:
                    navigationController.startPNCSmartRegistry();
                    break;
+                case R.id.btn_parana_register:
+                    navigationController.startVideos();
+                    break;
             }
             String HomeEnd = timer.format(new Date());
             Map<String, String> Home = new HashMap<String, String>();

@@ -9,6 +9,7 @@ import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
+import org.ei.opensrp.indonesia.parana.NativeKIParanaSmartRegisterActivity;
 import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
 import org.ei.opensrp.view.activity.VideosActivity;
 import org.ei.opensrp.view.controller.ANMController;
@@ -53,9 +54,9 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
     public void startChildSmartRegistry() {
         activity.startActivity(new Intent(activity, NativeKIAnakSmartRegisterActivity.class));
     }
-  /*  public void startVideos() {
-        activity.startActivity(new Intent(activity, VideosActivity.class));
-    }*/
+      public void startVideos() {
+        activity.startActivity(new Intent(activity, NativeKIParanaSmartRegisterActivity.class));
+    }
     public void startReports(){
         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://dho-report.sid-indonesia.org")));
     }
