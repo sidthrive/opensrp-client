@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <EC_Kunjungan_Gizi_NewStructure-mapped_O encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201703160735">
+    <EC_Kunjungan_Gizi_NewStructure-mapped_O encounter_type="Kunjungan Gizi" id="kunjungan_gizi_new" version="201703160833">
       <formhub>
         <uuid/>
       </formhub>
@@ -51,16 +51,17 @@
       <preload_umur openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0</preload_umur>
       <preload_history_tinggi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0:0</preload_history_tinggi>
       <umur openmrs_entity="concept" openmrs_entity_id="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-      <generated_note_name_60/>
+      <umur_bulan openmrs_entity="concept" openmrs_entity_id="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+      <generated_note_name_61/>
       <berat_preload openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">0:0</berat_preload>
       <berat_badan openmrs_entity="concept" openmrs_entity_id="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <history_berat openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <tinggi_badan openmrs_entity="concept" openmrs_entity_id="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <history_tinggi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <history_umur openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-      <generated_note_name_72/>
       <generated_note_name_73/>
       <generated_note_name_74/>
+      <generated_note_name_75/>
       <mp_asi openmrs_entity="concept" openmrs_entity_id="159854AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <ae openmrs_entity="concept" openmrs_entity_id="5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <vitA openmrs_entity="concept" openmrs_entity_id="161534AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
