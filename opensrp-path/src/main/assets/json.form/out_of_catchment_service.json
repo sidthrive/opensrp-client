@@ -69,9 +69,13 @@
         "openmrs_entity": "encounter",
         "openmrs_entity_id": "encounter_date",
         "type": "date_picker",
-        "hint": "Service date",
+        "hint": "Service date *",
         "expanded": true,
-        "max_date": "today"
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Enter the service date"
+        }
       },
       {
         "key": "Weight_Kg",
