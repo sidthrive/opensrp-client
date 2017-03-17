@@ -142,21 +142,6 @@ public class AnakDetailActivity extends Activity {
                 childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
             }
         }
-//        if(childclient.getDetails().get("profilepic")!= null){
-//                setImagetoHolderFromUri(AnakDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
-//        }
-//        else {
-//            if(childclient.getDetails().get("jenisKelamin").equals("laki")) {
-//                childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
-//            }
-//            childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
-//
-//        }
-
-
-        // Date currentDateandTime = new Date();
-        //   today.setText(" "+currentDateandTime);
-
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
 

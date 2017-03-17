@@ -11,7 +11,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.ei.opensrp.Context;
-import org.ei.opensrp.test.LoginActivity;
 import org.ei.opensrp.util.Cache;
 
 import java.io.BufferedReader;
@@ -126,9 +125,9 @@ public class Generator {
 
         @Override
         protected String doInBackground(String... params) {
-            result = connectToOpenMRS();
-            if(result.length()>1)
-                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(result);
+//            result = connectToOpenMRS();
+//            if(result.length()>1)
+//                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(result);
 
             return "Executed";
         }
