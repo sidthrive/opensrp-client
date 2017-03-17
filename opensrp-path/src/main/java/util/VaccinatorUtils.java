@@ -49,6 +49,7 @@ import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.UndoVaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.domain.Location;
@@ -384,5 +385,21 @@ public class VaccinatorUtils {
     public static String getSupportedVaccines(Context context) {
         String supportedVaccinesString = Utils.readAssetContents(context, "vaccines.json");
         return supportedVaccinesString;
+    }
+
+    public static int getVaccineCalculation(Context context, String vaccineName)
+            throws JSONException {
+        JSONArray supportedVaccines = new JSONArray(getSupportedVaccines(context));
+        for (int i = 0; i < supportedVaccines.length(); i++) {
+            JSONObject curGroup = supportedVaccines.getJSONObject(i);
+            for (int j = 0; j < curGroup.getJSONArray("vaccines").length(); j++) {
+                JSONObject curVaccine = curGroup.getJSONArray("vaccines").getJSONObject(j);
+                if (curVaccine.getString("name").equals(vaccineName)) {
+                    return curVaccine.getJSONObject("openmrs_calculate").getInt("calculation");
+                }
+            }
+        }
+
+        return -1;
     }
 }

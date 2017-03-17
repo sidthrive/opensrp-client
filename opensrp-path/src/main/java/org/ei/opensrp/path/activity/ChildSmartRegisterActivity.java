@@ -166,6 +166,9 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             if (form != null && mBaseFragment instanceof ChildSmartRegisterFragment) {
                 LocationPickerView locationPickerView = ((ChildSmartRegisterFragment) mBaseFragment).getLocationPickerView();
 
+                form.getJSONObject("metadata").put("encounter_location",
+                        JsonFormUtils.getOpenMrsLocationId(context(), locationPickerView.getSelectedItem()));
+
                 if (formName.equals("child_enrollment")) {
                     if (StringUtils.isBlank(entityId)) {
                         UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
@@ -180,7 +183,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                         entityId = entityId.replace("-", "");
                     }
 
-                    JsonFormUtils.addChildRegLocHierarchyQuestions(form, locationPickerView.getSelectedItem(), context());
+                    JsonFormUtils.addChildRegLocHierarchyQuestions(form, context());
 
                     // Inject zeir id into the form
                     JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
@@ -234,7 +237,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.save(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.saveBirthRegistration(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -244,7 +247,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         } else if (requestCode == REQUEST_CODE_RECORD_OUT_OF_CATCHMENT) {
             String jsonString = data.getStringExtra("json");
             Log.d("JSONResult", jsonString);
-
+            JsonFormUtils.saveOutOfAreaService(this, context(), jsonString);
         }
     }
 

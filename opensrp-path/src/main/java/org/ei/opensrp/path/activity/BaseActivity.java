@@ -297,8 +297,10 @@ public abstract class BaseActivity extends AppCompatActivity
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
             if (toolbar instanceof LocationSwitcherToolbar) {
                 LocationSwitcherToolbar locationSwitcherToolbar = (LocationSwitcherToolbar) toolbar;
-                JsonFormUtils.addChildRegLocHierarchyQuestions(form,
-                        locationSwitcherToolbar.getCurrentLocation(), getOpenSRPContext());
+                form.getJSONObject("metadata").put("encounter_location",
+                        JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                                locationSwitcherToolbar.getCurrentLocation()));
+                JsonFormUtils.addChildRegLocHierarchyQuestions(form, getOpenSRPContext());
                 if (form != null) {
                     Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                     //inject zeir id into the form
@@ -329,7 +331,7 @@ public abstract class BaseActivity extends AppCompatActivity
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            JsonFormUtils.save(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+            JsonFormUtils.saveBirthRegistration(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -2,6 +2,7 @@ package util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,10 +17,13 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
+import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +79,7 @@ public class JsonFormUtils {
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
-    public static void save(Context context, org.ei.opensrp.Context openSrpContext,
+    public static void saveBirthRegistration(Context context, org.ei.opensrp.Context openSrpContext,
                             String jsonString, String providerId, String imageKey, String bindType,
                             String subBindType) {
         if (context == null || openSrpContext == null || StringUtils.isBlank(providerId)
@@ -157,6 +161,109 @@ public class JsonFormUtils {
         } catch (Exception e) {
             Log.e(TAG, "", e);
         }
+    }
+
+    public static void saveOutOfAreaService(Context context, org.ei.opensrp.Context openSrpContext,
+                                            String jsonString) {
+        SaveOutOfAreaServiceTask saveOutOfAreaServiceTask = new SaveOutOfAreaServiceTask(context,
+                openSrpContext, jsonString);
+
+        saveOutOfAreaServiceTask.execute();
+    }
+
+    /**
+     * Constructs a weight object using the out of service area form
+     *
+     * @param openSrpContext    The context to work with
+     * @param outOfAreaForm     Out of area form to extract the weight form
+     *
+     * @return  A weight object if weight recorded in form, or {@code null} if weight not recorded
+     * @throws Exception
+     */
+    private static Weight getWeightObject(org.ei.opensrp.Context openSrpContext, JSONObject outOfAreaForm) throws Exception {
+        Weight weight = null;
+        JSONArray fields = outOfAreaForm.getJSONObject("step1").getJSONArray("fields");
+        String serviceDate = null;
+
+        int foundFields = 0;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject curField = fields.getJSONObject(i);
+            if(curField.getString("key").equals("Weight_Kg")) {
+                foundFields++;
+                if(StringUtils.isNotEmpty(curField.getString("value"))) {
+                    weight = new Weight();
+                    weight.setBaseEntityId("");
+                    weight.setKg(Float.parseFloat(curField.getString("value")));
+                    weight.setAnmId(openSrpContext.allSharedPreferences().fetchRegisteredANM());
+                    weight.setLocationId(outOfAreaForm.getJSONObject("metadata")
+                            .getString("encounter_location"));
+                }
+            } else if (curField.getString("key").equals("OA_Service_Date")) {
+                foundFields++;
+                serviceDate = curField.getString("value");
+            }
+
+            if (foundFields == 2) {
+                break;
+            }
+        }
+
+        if (weight != null && serviceDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            weight.setDate(dateFormat.parse(serviceDate));
+        }
+
+        return weight;
+    }
+
+    /**
+     * Constructs a list of recorded vaccines from the out of area form provided
+     *
+     * @param openSrpContext    The context to use
+     * @param outOfAreaForm     Out of area form to extract recorded vaccines from
+     * @return  A list of recorded vaccines
+     */
+    private static ArrayList<Vaccine> getVaccineObjects(Context context,
+                                                        org.ei.opensrp.Context openSrpContext,
+                                                        JSONObject outOfAreaForm) throws Exception {
+        ArrayList<Vaccine> vaccines = new ArrayList<>();
+        JSONArray fields = outOfAreaForm.getJSONObject("step1").getJSONArray("fields");
+        String serviceDate = null;
+
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject curField = fields.getJSONObject(i);
+            if (curField.has("is_vaccine_group")
+                    && curField.getBoolean("is_vaccine_group")
+                    && curField.getString("type").equals("check_box")) {
+                JSONArray options = curField.getJSONArray("options");
+                for (int j = 0; j < options.length(); j++) {
+                    JSONObject curOption = options.getJSONObject(j);
+                    if (curOption.getString("value").toLowerCase().equals("true")) {
+                        Vaccine curVaccine = new Vaccine();
+                        curVaccine.setBaseEntityId("");
+                        curVaccine.setName(curOption.getString("key"));
+                        curVaccine.setAnmId(openSrpContext.allSharedPreferences().fetchRegisteredANM());
+                        curVaccine.setLocationId(outOfAreaForm.getJSONObject("metadata")
+                                .getString("encounter_location"));
+                        curVaccine.setCalculation(VaccinatorUtils.getVaccineCalculation(context,
+                                curVaccine.getName()));
+
+                        vaccines.add(curVaccine);
+                    }
+                }
+            } else if (curField.getString("key").equals("OA_Service_Date")) {
+                serviceDate = curField.getString("value");
+            }
+        }
+
+        if (serviceDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            for (Vaccine curVaccine : vaccines) {
+                curVaccine.setDate(dateFormat.parse(serviceDate));
+            }
+        }
+
+        return vaccines;
     }
 
     public static void saveImage(Context context, String providerId, String entityId, String imageLocation) {
@@ -1113,11 +1220,9 @@ public class JsonFormUtils {
         }
     }
 
-    public static void addChildRegLocHierarchyQuestions(JSONObject form, String encounterLocation,
+    public static void addChildRegLocHierarchyQuestions(JSONObject form,
                                                         org.ei.opensrp.Context context) {
         try {
-            form.getJSONObject("metadata").put("encounter_location",
-                    getOpenMrsLocationId(context, encounterLocation));
             JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
             ArrayList<String> allLevels = new ArrayList<>();
             allLevels.add("Country");
@@ -1198,6 +1303,7 @@ public class JsonFormUtils {
                     JSONObject curQuestion = new JSONObject();
                     curQuestion.put("key", curVaccineGroup.getString("id"));
                     curQuestion.put("type", "check_box");
+                    curQuestion.put("is_vaccine_group", true);
                     curQuestion.put("label", curVaccineGroup.getString("name"));
                     curQuestion.put("openmrs_entity_parent", "-");
                     curQuestion.put("openmrs_entity", "-");
@@ -1350,5 +1456,44 @@ public class JsonFormUtils {
         }
 
         return null;
+    }
+
+    private static class SaveOutOfAreaServiceTask extends AsyncTask<Void, Void, Void> {
+
+        private final Context context;
+        private final org.ei.opensrp.Context openSrpContext;
+        private final String formString;
+
+        public SaveOutOfAreaServiceTask(Context context, org.ei.opensrp.Context openSrpContext, String formString) {
+            this.context = context;
+            this.openSrpContext = openSrpContext;
+            this.formString = formString;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                JSONObject form = new JSONObject(formString);
+
+                // Create a weight object if weight was recorded
+                Weight weight = getWeightObject(openSrpContext, form);
+                if (weight != null) {
+                    WeightRepository weightRepository = openSrpContext.weightRepository();
+                    weightRepository.add(weight);
+                }
+
+                // Create a vaccine object for all recorded vaccines
+                ArrayList<Vaccine> vaccines = getVaccineObjects(context, openSrpContext, form);
+                if (vaccines.size() > 0) {
+                    VaccineRepository vaccineRepository = openSrpContext.vaccineRepository();
+                    for(Vaccine curVaccine : vaccines) {
+                        vaccineRepository.add(curVaccine);
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+            return null;
+        }
     }
 }
