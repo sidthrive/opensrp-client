@@ -151,7 +151,7 @@ public class VaksinatorSmartClientsProvider implements SmartRegisterCLientsProvi
             );
         }
 
-        viewHolder.name.setText(pc.getDetails().get("namaBayi") != null ? pc.getDetails().get("namaBayi") : " ");
+        viewHolder.name.setText(pc.getColumnmaps().get("nama_bayi") != null ? pc.getColumnmaps().get("nama_bayi") : " ");
 
         /*viewHolder.motherName.setText(
                 pc.getDetails().get("namaIbu")!=null

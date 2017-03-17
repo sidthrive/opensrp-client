@@ -120,7 +120,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         int umur = pc.getColumnmaps().get("tanggalLahirAnak") != null ? age(pc.getColumnmaps().get("tanggalLahirAnak")) : 0;
 
-        viewHolder.name.setText(pc.getColumnmaps().get("namaBayi") != null ? pc.getColumnmaps().get("namaBayi") : " ");
+        viewHolder.name.setText(pc.getColumnmaps().get("nama_bayi") != null ? pc.getColumnmaps().get("nama_bayi") : " ");
       //  viewHolder.name.setText(pc.getc().get("namaIbu") != null ? pc.getDetails().get("namaIbu") : " ");
 
         Log.e(TAG, "getView: "+ pc.getDetails().get("profilepic"));

@@ -9,7 +9,7 @@
     {
       "name": "anak",
       "columns": [
-        {"name":"isClosed"},{"name":"namaBayi"},{"name":"tanggalLahirAnak"}
+        {"name":"isClosed"},{"name":"nama_bayi"},{"name":"tanggalLahirAnak"}
       ]
     }
   ]

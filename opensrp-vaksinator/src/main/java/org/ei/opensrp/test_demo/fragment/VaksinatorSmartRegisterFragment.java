@@ -213,7 +213,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
     public void initializeQueries(String s) {
         KIClientsProvider kiscp = new KIClientsProvider(getActivity(), clientActionHandler, context.alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("anak", new String[]{"tanggalLahirAnak", "namaBayi", "isClosed"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("anak", new String[]{"tanggalLahirAnak", "nama_bayi", "isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("anak");
@@ -222,19 +222,19 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
         if (s == null || s.equals("!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
-            mainCondition = "namaBayi !=''";
+            mainCondition = "nama_bayi !=''";
         } else {
             Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = "namaBayi !='' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "nama_bayi !='' AND object_id LIKE '%" + s + "%'";
         }
 
-        countSelect = countqueryBUilder.mainCondition("namaBayi !='' ");
+        countSelect = countqueryBUilder.mainCondition("nama_bayi !='' ");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("anak", new String[]{"isClosed", "anak.details", "tanggalLahirAnak", "namaBayi"});
-        mainSelect = queryBUilder.mainCondition("namaBayi !=''");
+        queryBUilder.SelectInitiateMainTable("anak", new String[]{"isClosed", "anak.details", "tanggalLahirAnak", "nama_bayi"});
+        mainSelect = queryBUilder.mainCondition("nama_bayi !=''");
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
@@ -289,11 +289,11 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
 
     private String KiSortByNameAZ() {
-        return " namaBayi ASC";
+        return " nama_bayi ASC";
     }
 
     private String KiSortByNameZA() {
-        return " namaBayi DESC";
+        return " nama_bayi DESC";
     }
 
     private String KiSortByAge() {
@@ -374,7 +374,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 ////
 //                        filters = cs.toString();
 //                        joinTable = "";
-//                        mainCondition = " namaBayi !='' ";
+//                        mainCondition = " nama_bayi !='' ";
 //                        return null;
 //                    }
 //
@@ -423,7 +423,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = " nama_bayi !='' ";
                         return null;
                     }
 
@@ -544,7 +544,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                             filters = cs.toString();
                             joinTable = "";
-                            mainCondition = "namaBayi !=''";
+                            mainCondition = "nama_bayi !=''";
                             Log.e(TAG, "doInBackground: " + filters);
                             return null;
                         }

@@ -166,7 +166,7 @@ public class VaksinatorDetailActivity extends Activity {
         additionalDPTLabel.setText(getString(R.string.dptTambahan));
         additionalMeaslesLabel.setText(getString(R.string.campakTambahan));
 
-        nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
+        nama.setText(": " + (controller.getColumnmaps().get("nama_bayi") != null ? controller.getColumnmaps().get("nama_bayi") : "-"));
 
         fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
