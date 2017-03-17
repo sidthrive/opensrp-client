@@ -18,18 +18,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.form.FormSubmission;
-import org.ei.opensrp.path.db.VaccineRepo;
-import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.service.ZiggyService;
+import org.ei.opensrp.util.FormUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 
 import static org.ei.opensrp.AllConstants.ENTITY_ID_PARAM;
@@ -240,41 +239,94 @@ public class VaccinateActionUtils {
         }
 
         VaccineRepo.Vaccine vaccine = tag.getVaccine();
-            switch (vaccine) {
-                case penta1:
-                case pcv1:
-                case opv1:
-                    if (age > 35)
-                        addHook = true;
-                    break;
-                case penta2:
-                case pcv2:
-                case opv2:
-                    if (age > 63)
-                        addHook = true;
-                    break;
-                case penta3:
-                case pcv3:
-                case opv3:
-                case ipv:
-                    if (age > 91)
-                        addHook = true;
-                    break;
-                case measles1:
-                    if (age > 250)
-                        addHook = true;
-                    break;
-                case measles2:
-                    if (age > 340)
-                        addHook = true;
-                    break;
-                default:
+        switch (vaccine) {
+            case penta1:
+            case pcv1:
+            case opv1:
+                if (age > 35)
                     addHook = true;
-                    break;
-            }
+                break;
+            case penta2:
+            case pcv2:
+            case opv2:
+                if (age > 63)
+                    addHook = true;
+                break;
+            case penta3:
+            case pcv3:
+            case opv3:
+            case ipv:
+                if (age > 91)
+                    addHook = true;
+                break;
+            case measles1:
+                if (age > 250)
+                    addHook = true;
+                break;
+            case measles2:
+                if (age > 340)
+                    addHook = true;
+                break;
+            default:
+                addHook = true;
+                break;
+        }
 
         return addHook;
 
     }
+
+
+    public static String stateKey(String vaccineName) {
+
+        switch (vaccineName) {
+            case "opv 0":
+            case "bcg":
+                return "at birth";
+
+            case "opv 1":
+            case "penta 1":
+            case "pcv 1":
+            case "rota 1":
+                return "6 weeks";
+
+            case "opv 2":
+            case "penta 2":
+            case "pcv 2":
+            case "rota 2":
+                return "10 weeks";
+
+            case "opv 3":
+            case "penta 3":
+            case "opv 4":
+                return "14 weeks";
+
+            case "measles 1":
+            case "mr 1":
+            case "pcv 3":
+                return "9 Months";
+
+            case "measles 2":
+            case "mr 2":
+                return "18 Months";
+        }
+
+        return "";
+    }
+
+    public static String[] allAlertNames(String category) {
+        if (category == null) {
+            return null;
+        }
+        if (category.equals("child")) {
+            String[] alerts = {"BCG", "OPV 0", "Penta 1", "OPV 1", "PCV 1", "ROTA 1", "Penta 2", "OPV 2", "PCV 2", "ROTA 2",
+                    "Penta 3", "OPV 3", "PCV 3", "IPV", "Measles 1", "MR 1", "Measles 2", "MR 2",
+                    "bcg", "opv0", "penta1", "opv1", "pcv1", "rota1", "penta2", "opv2", "pcv2", "rota2",
+                    "penta3", "opv3", "pcv3", "ipv", "measles1", "mr1", "measles2", "mr2"};
+            return alerts;
+        }
+        return null;
+    }
+
 
 }

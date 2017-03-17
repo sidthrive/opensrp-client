@@ -13,13 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
-import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -39,11 +40,15 @@ import java.util.concurrent.TimeUnit;
 
 import util.DateUtils;
 import util.ImageUtils;
+import util.VaccinateActionUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.fillValue;
 import static util.Utils.getName;
 import static util.Utils.getValue;
+import static util.VaccinatorUtils.generateScheduleList;
+import static util.VaccinatorUtils.nextVaccineDue;
+import static util.VaccinatorUtils.receivedVaccines;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -56,6 +61,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     VaccineRepository vaccineRepository;
     WeightRepository weightRepository;
     private final AbsListView.LayoutParams clientViewLayoutParams;
+    private static final String VACCINES_FILE = "vaccines.json";
 
     public ChildSmartClientsProvider(Context context, View.OnClickListener onClickListener,
                                      AlertService alertService, VaccineRepository vaccineRepository, WeightRepository weightRepository) {
@@ -97,7 +103,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         String dobString = getValue(pc.getColumnmaps(), "dob", false);
         String duration = "";
         if (StringUtils.isNotBlank(dobString)) {
-            DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
+            DateTime dateTime = new DateTime(dobString);
             duration = DateUtils.getDuration(dateTime);
             if (duration != null) {
                 fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
@@ -136,10 +142,55 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         // Alerts
         List<Vaccine> vaccines = vaccineRepository.findByEntityId(pc.entityId());
-        Map<String, Triple<Long, Long, String>> map = vaccinesMap(vaccines, dobString);
+        Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+
+        List<Alert> alertList = alertService.findByEntityIdAndAlertNames(pc.entityId(),
+                VaccinateActionUtils.allAlertNames("child"));
+
+        List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
+
+        Date lastVaccine = null;
+        if (!vaccines.isEmpty()) {
+            Vaccine vaccine = vaccines.get(vaccines.size() - 1);
+            lastVaccine = vaccine.getDate();
+        }
 
         State state = State.FULLY_IMMUNIZED;
         String stateKey = null;
+
+        Map<String, Object> nv = nextVaccineDue(sch, lastVaccine);
+        if (nv != null) {
+            DateTime dueDate = (DateTime) nv.get("date");
+            VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get("vaccine");
+            stateKey = VaccinateActionUtils.stateKey(vaccine.display().toLowerCase());
+            if (nv.get("alert") == null) {
+                state = State.NO_ALERT;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("normal")) {
+                state = State.DUE;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("upcoming")) {
+                Calendar today = Calendar.getInstance();
+                today.set(Calendar.HOUR_OF_DAY, 0);
+                today.set(Calendar.MINUTE, 0);
+                today.set(Calendar.SECOND, 0);
+                today.set(Calendar.MILLISECOND, 0);
+
+                if (dueDate.getMillis() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dueDate.getMillis() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
+                    state = State.UPCOMING_NEXT_7_DAYS;
+                } else {
+                    state = State.UPCOMING;
+                }
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("urgent")) {
+                state = State.OVERDUE;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("expired")) {
+                state = State.EXPIRED;
+            }
+        } else {
+            state = State.WAITING;
+        }
+
+        /*
+        Map<String, Triple<Long, Long, String>> map = vaccinesMap(vaccines, dobString);
+
         for (Triple<Long, Long, String> triple : map.values()) {
             Date dateDue = new Date(triple.getLeft());
 
@@ -173,13 +224,31 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
                     break;
                 }
             }
-        }
+        } */
+
+        recordVaccination.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
         if (state.equals(State.FULLY_IMMUNIZED)) {
             recordVaccination.setText("Fully\nimmunized");
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_check, 0, 0, 0);
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.INACTIVE)) {
+            recordVaccination.setText("Inactive");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_icon_status_inactive, 0, 0, 0);
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.WAITING)) {
+            recordVaccination.setText("Waiting");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.EXPIRED)) {
+            recordVaccination.setText("Expired");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setEnabled(false);
         } else if (state.equals(State.UPCOMING)) {
             recordVaccination.setText("Due\n" + stateKey);
@@ -189,18 +258,23 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         } else if (state.equals(State.UPCOMING_NEXT_7_DAYS)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_light_blue_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_light_blue_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.DUE)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_blue_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_blue_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.OVERDUE)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
             recordVaccination.setEnabled(true);
+        } else if (state.equals(State.NO_ALERT)) {
+            recordVaccination.setText("Due\n" + stateKey);
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setEnabled(false);
         }
 
     }
@@ -231,6 +305,31 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     public LayoutInflater inflater() {
         return inflater;
     }
+
+
+    private Long dueDate(String dobString, int daysAfter) {
+        if (StringUtils.isNotBlank(dobString)) {
+            Calendar dobCalender = Calendar.getInstance();
+            DateTime dateTime = new DateTime(dobString);
+            dobCalender.setTime(dateTime.toDate());
+            dobCalender.add(Calendar.DATE, daysAfter);
+            return dobCalender.getTimeInMillis();
+        }
+        return 0l;
+    }
+
+    public enum State {
+        DUE,
+        OVERDUE,
+        UPCOMING_NEXT_7_DAYS,
+        UPCOMING,
+        INACTIVE,
+        EXPIRED,
+        WAITING,
+        NO_ALERT,
+        FULLY_IMMUNIZED
+    }
+
 
     private Map<String, Triple<Long, Long, String>> vaccinesMap(List<Vaccine> vaccines, String
             dobString) {
@@ -292,23 +391,4 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
     }
 
-    private Long dueDate(String dobString, int daysAfter) {
-        if (StringUtils.isNotBlank(dobString)) {
-            Calendar dobCalender = Calendar.getInstance();
-            DateTime dateTime = new DateTime(dobString);
-            dobCalender.setTime(dateTime.toDate());
-            dobCalender.add(Calendar.DATE, daysAfter);
-            return dobCalender.getTimeInMillis();
-        }
-        return 0l;
-    }
-
-    public enum State {
-        DUE,
-        OVERDUE,
-        UPCOMING_NEXT_7_DAYS,
-        UPCOMING,
-        INACTIVE,
-        FULLY_IMMUNIZED
-    }
 }

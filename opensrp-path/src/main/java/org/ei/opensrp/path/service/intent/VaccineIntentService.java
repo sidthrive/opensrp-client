@@ -52,8 +52,10 @@ public class VaccineIntentService extends IntentService {
 
                     JSONArray jsonArray = new JSONArray();
 
+                    String vaccineName = vaccine.getName().replace(" ", "_");
+
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(JsonFormUtils.KEY, vaccine.getName());
+                    jsonObject.put(JsonFormUtils.KEY, vaccineName);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, entityId);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));
@@ -63,7 +65,7 @@ public class VaccineIntentService extends IntentService {
 
                     if (vaccine.getCalculation() != null && vaccine.getCalculation().intValue() >= 0) {
                         jsonObject = new JSONObject();
-                        jsonObject.put(JsonFormUtils.KEY, vaccine.getName() + "_dose");
+                        jsonObject.put(JsonFormUtils.KEY, vaccineName + "_dose");
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, calId);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));

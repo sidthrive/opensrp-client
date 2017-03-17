@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
@@ -39,7 +38,8 @@ public class VaccineCard extends LinearLayout {
         DONE_CAN_NOT_BE_UNDONE,
         DUE,
         NOT_DUE,
-        OVERDUE
+        OVERDUE,
+        EXPIRED
     }
 
     public VaccineCard(Context context) {
@@ -84,19 +84,37 @@ public class VaccineCard extends LinearLayout {
     public void updateState() {
         this.state = State.NOT_DUE;
         if (vaccineWrapper != null) {
-            Date dateDue = getDateDue();
             Date dateDone = getDateDone();
+            boolean isSynced = isSynced();
+            String status = getStatus();
 
             if (dateDone != null) {// Vaccination was done
-                Calendar today = Calendar.getInstance();
-                long timeDiff = today.getTimeInMillis() - dateDone.getTime();
-                if (timeDiff >= 0 && timeDiff < TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) {
-                    // Less than one day since vaccination was done
-                    this.state = State.DONE_CAN_BE_UNDONE;
-                } else {
+                if (isSynced) {
                     this.state = State.DONE_CAN_NOT_BE_UNDONE;
+                } else {
+                    this.state = State.DONE_CAN_BE_UNDONE;
                 }
             } else {// Vaccination has not been done
+                if (status != null) {
+                    if (status.equalsIgnoreCase("due")) {
+                        Alert alert = getAlert();
+                        if (alert == null) {
+                            //state = State.NO_ALERT;
+                        } else if (alert.status().value().equalsIgnoreCase("normal")) {
+                            state = State.DUE;
+                        } else if (alert.status().value().equalsIgnoreCase("upcoming")) {
+                            //state = State.UPCOMING;
+                        } else if (alert.status().value().equalsIgnoreCase("urgent")) {
+                            state = State.OVERDUE;
+                        } else if (alert.status().value().equalsIgnoreCase("expired")) {
+                            state = State.EXPIRED;
+                        }
+                    } else if (vaccineWrapper.getStatus().equalsIgnoreCase("expired")) {
+                        state = State.EXPIRED;
+                    }
+                }
+
+                /*
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
                 today.set(Calendar.MINUTE, 0);
@@ -110,7 +128,7 @@ public class VaccineCard extends LinearLayout {
                     this.state = State.OVERDUE;
                 } else {
                     this.state = State.DUE;
-                }
+                } */
             }
         }
 
@@ -153,11 +171,7 @@ public class VaccineCard extends LinearLayout {
             case DONE_CAN_BE_UNDONE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
                 statusIV.setVisibility(VISIBLE);
-                if(isSynced()){
-                    undoB.setVisibility(GONE);
-                }else {
-                    undoB.setVisibility(VISIBLE);
-                }
+                undoB.setVisibility(VISIBLE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());
@@ -186,6 +200,15 @@ public class VaccineCard extends LinearLayout {
                             vName, DATE_FORMAT.format(getDateDue())));
                 }
                 setClickable(true);
+                break;
+            case EXPIRED:
+                setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
+                statusIV.setVisibility(VISIBLE);
+                undoB.setVisibility(GONE);
+                nameTV.setVisibility(VISIBLE);
+                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
+                nameTV.setText("Expired: " + getVaccineName());
+                setClickable(false);
                 break;
         }
     }
@@ -221,8 +244,23 @@ public class VaccineCard extends LinearLayout {
         return false;
     }
 
+    private Alert getAlert() {
+        if (vaccineWrapper != null) {
+            return vaccineWrapper.getAlert();
+        }
+        return null;
+    }
+
+    private String getStatus() {
+        if (vaccineWrapper != null) {
+            return vaccineWrapper.getStatus();
+        }
+        return null;
+    }
+
     public static interface OnVaccineStateChangeListener {
         void onStateChanged(final State newState);
+
     }
 
     public Button getUndoB() {

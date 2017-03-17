@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.VaccineCardAdapter;
@@ -45,6 +46,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
     private JSONObject vaccineData;
     private CommonPersonObjectClient childDetails;
     private List<Vaccine> vaccineList;
+    private List<Alert> alertList;
     private State state;
     private OnRecordAllClickListener onRecordAllClickListener;
     private OnVaccineClickedListener onVaccineClickedListener;
@@ -85,6 +87,10 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         return this.vaccineList;
     }
 
+    public List<Alert> getAlertList() {
+        return alertList;
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public VaccineGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -105,10 +111,11 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         recordAllTV.setOnClickListener(this);
     }
 
-    public void setData(JSONObject vaccineData, CommonPersonObjectClient childDetails, List<Vaccine> vaccines) {
+    public void setData(JSONObject vaccineData, CommonPersonObjectClient childDetails, List<Vaccine> vaccines, List<Alert> alerts) {
         this.vaccineData = vaccineData;
         this.childDetails = childDetails;
         this.vaccineList = vaccines;
+        this.alertList = alerts;
         updateViews();
     }
 

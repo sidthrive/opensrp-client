@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.view.VaccineCard;
@@ -22,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import util.ImageUtils;
@@ -29,7 +32,8 @@ import util.Utils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
-import static util.Utils.nonEmptyValue;
+import static util.VaccinatorUtils.generateScheduleList;
+import static util.VaccinatorUtils.receivedVaccines;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 22/02/2017.
@@ -93,7 +97,6 @@ public class VaccineCardAdapter extends BaseAdapter {
                     vaccineWrapper.setVaccineDate(new DateTime(dobCalender.getTime()));
                 }
 
-
                 Photo photo = ImageUtils.profilePhotoByClient(vaccineGroup.getChildDetails());
                 vaccineWrapper.setPhoto(photo);
 
@@ -106,6 +109,7 @@ public class VaccineCardAdapter extends BaseAdapter {
                 vaccineWrapper.setPatientName(childName.trim());
 
                 updateWrapper(vaccineWrapper);
+                updateWrapperStatus(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 
                 vaccineCards.put(vaccineName, vaccineCard);
@@ -152,9 +156,10 @@ public class VaccineCardAdapter extends BaseAdapter {
 
     private void updateWrapper(VaccineWrapper tag) {
         List<Vaccine> vaccineList = vaccineGroup.getVaccineList();
+
         if (!vaccineList.isEmpty()) {
             for (Vaccine vaccine : vaccineList) {
-                if (tag.getName().equalsIgnoreCase(vaccine.getName()) && vaccine.getDate() != null) {
+                if (tag.getName().toLowerCase().contains(vaccine.getName().toLowerCase()) && vaccine.getDate() != null) {
                     long diff = vaccine.getUpdatedAt() - vaccine.getDate().getTime();
                     if (diff > 0 && TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1) {
                         tag.setUpdatedVaccineDate(new DateTime(vaccine.getDate()), false);
@@ -169,4 +174,23 @@ public class VaccineCardAdapter extends BaseAdapter {
         }
 
     }
+
+    private void updateWrapperStatus(VaccineWrapper tag) {
+        List<Vaccine> vaccineList = vaccineGroup.getVaccineList();
+
+        List<Alert> alertList = vaccineGroup.getAlertList();
+        Map<String, Date> recievedVaccines = receivedVaccines(vaccineList);
+        String dobString = Utils.getValue(vaccineGroup.getChildDetails().getColumnmaps(), "dob", false);
+        List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
+
+        for (Map<String, Object> m : sch) {
+            VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) m.get("vaccine");
+            if (tag.getName().toLowerCase().equalsIgnoreCase(vaccine.display().toLowerCase())) {
+                tag.setStatus(m.get("status").toString());
+                tag.setAlert((Alert) m.get("alert"));
+
+            }
+        }
+    }
+
 }
