@@ -29,7 +29,6 @@ import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -43,8 +42,8 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     private JSONObject          mJSONObject;
     private PropertyManager propertyManager;
-    private ArrayList<View> skipLogicViews;
-    private ArrayList<View> constrainedViews;
+    private HashMap<String, View> skipLogicViews;
+    private HashMap<String, View> constrainedViews;
     private String functionRegex;
     private HashMap<String, Comparison> comparisons;
 
@@ -66,7 +65,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         setContentView(R.layout.activity_json_form);
         mToolbar = (Toolbar) findViewById(R.id.tb_top);
         setSupportActionBar(mToolbar);
-        skipLogicViews = new ArrayList<>();
+        skipLogicViews = new HashMap<>();
         if (savedInstanceState == null) {
             init(getIntent().getStringExtra("json"));
             getSupportFragmentManager().beginTransaction()
@@ -107,8 +106,8 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                     item.put("openmrs_entity_parent", openMrsEntityParent);
                     item.put("openmrs_entity", openMrsEntity);
                     item.put("openmrs_entity_id", openMrsEntityId);
-                    refreshSkipLogic();
-                    refreshConstraints();
+                    refreshSkipLogic(key, null);
+                    refreshConstraints(key, null);
                     return;
                 }
             }
@@ -134,8 +133,8 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         String anotherKeyAtIndex = innerItem.getString("key");
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put("value", value);
-                            refreshSkipLogic();
-                            refreshConstraints();
+                            refreshSkipLogic(parentKey, childKey);
+                            refreshConstraints(parentKey, childKey);
                             Log.d(TAG, "Inside called");
                             return;
                         }
@@ -191,28 +190,37 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     @Override
     public void clearSkipLogicViews() {
-        skipLogicViews = new ArrayList<>();
+        skipLogicViews = new HashMap<>();
     }
 
     @Override
     public void clearConstrainedViews() {
-        constrainedViews = new ArrayList<>();
+        constrainedViews = new HashMap<>();
     }
 
     @Override
     public void addSkipLogicView(View view) {
-        skipLogicViews.add(view);
+        skipLogicViews.put(getViewKey(view), view);
     }
 
     @Override
     public void addConstrainedView(View view) {
-        constrainedViews.add(view);
+        constrainedViews.put(getViewKey(view), view);
+    }
+
+    private String getViewKey(View view) {
+        String key = (String) view.getTag(R.id.key);
+        if(view.getTag(R.id.childKey) != null) {
+            key = key + ":" + (String) view.getTag(R.id.childKey);
+        }
+
+        return key;
     }
 
     @Override
-    public void refreshSkipLogic() {
+    public void refreshSkipLogic(String parentKey, String childKey) {
         initComparisons();
-        for (View curView : skipLogicViews) {
+        for (View curView : skipLogicViews.values()) {
             String relevanceTag = (String) curView.getTag(R.id.relevance);
             if (relevanceTag != null && relevanceTag.length() > 0) {
                 try {
@@ -255,71 +263,105 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
      * (ie TreeViews, DatePickers, and EditTexts), and {@link CheckBox}
      */
     @Override
-    public void refreshConstraints() {
+    public void refreshConstraints(String parentKey, String childKey) {
         initComparisons();
-        for (View curView : constrainedViews) {
-            String constraintTag = (String) curView.getTag(R.id.constraints);
-            if (constraintTag != null && constraintTag.length() > 0) {
-                try {
-                    JSONArray constraint = new JSONArray(constraintTag);
-                    String errorMessage = null;
-                    for (int i = 0; i < constraint.length(); i++) {
-                        JSONObject curConstraint = constraint.getJSONObject(i);
-                        String addressString = (String) curView.getTag(R.id.address);
-                        String[] address = addressString.split(":");
-                        if (address.length == 2) {
-                            String value = getValueFromAddress(address);
-                            Log.d(TAG, "cur view has id "+addressString);
-                            errorMessage = enforceConstraint(value, curConstraint);
-                            if (errorMessage != null) break;
-                        }
-                    }
 
-                    if (errorMessage != null) {
-                        if (curView instanceof MaterialEditText) {
-                            ((MaterialEditText) curView).setText(null);
-                            ((MaterialEditText) curView).setError(errorMessage);
-                        } else if (curView instanceof CheckBox) {
-                            String addressString = (String) curView.getTag(R.id.address);
-                            Log.d(TAG, "Failed checkbox is "+addressString);
-                            ((CheckBox) curView).setChecked(false);
-                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        // Priorities constraints on the view that has just been changed
+        String changedViewKey = parentKey;
+        if (changedViewKey != null && childKey != null) {
+            changedViewKey = changedViewKey + ":" + childKey;
+        }
+
+        if(changedViewKey != null && constrainedViews.containsKey(changedViewKey)) {
+            checkViewConstraints(constrainedViews.get(changedViewKey));
+        }
+
+        for (View curView : constrainedViews.values()) {
+            if (changedViewKey == null || !getViewKey(curView).equals(changedViewKey)) {
+                checkViewConstraints(curView);
+            }
+        }
+    }
+
+    private void checkViewConstraints(View curView) {
+        String constraintTag = (String) curView.getTag(R.id.constraints);
+        if (constraintTag != null && constraintTag.length() > 0) {
+            try {
+                String addressString = (String) curView.getTag(R.id.address);
+                String[] address = addressString.split(":");
+
+                JSONArray constraint = new JSONArray(constraintTag);
+                String errorMessage = null;
+                for (int i = 0; i < constraint.length(); i++) {
+                    JSONObject curConstraint = constraint.getJSONObject(i);
+                    if (address.length == 2) {
+                        String value = getValueFromAddress(address);
+                        Log.d(TAG, "cur view has id " + addressString);
+                        errorMessage = enforceConstraint(value, curConstraint);
+                        if (errorMessage != null) break;
+                    }
+                }
+
+                if (errorMessage != null) {
+                    if (curView instanceof MaterialEditText) {
+                        ((MaterialEditText) curView).setText(null);
+                        ((MaterialEditText) curView).setError(errorMessage);
+                    } else if (curView instanceof CheckBox) {
+                        Log.d(TAG, "Failed checkbox is " + addressString);
+                        ((CheckBox) curView).setChecked(false);
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                        String checkBoxKey = (String) curView.getTag(R.id.childKey);
+                        JSONObject questionObject = getObjectUsingAddress(address);
+                        for (int i = 0; i < questionObject.getJSONArray("options").length(); i++) {
+                            JSONObject curOption = questionObject.getJSONArray("options").getJSONObject(i);
+                            if (curOption.getString("key").equals(checkBoxKey)) {
+                                curOption.put("value", "false");
+                                break;
+                            }
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
     private String getValueFromAddress(String[] address) throws Exception {
         String result = null;
-        if (address != null && address.length == 2) {
-            JSONArray fields = mJSONObject.getJSONObject(address[0]).getJSONArray("fields");
-            for (int i = 0; i < fields.length(); i++) {
-                if (fields.getJSONObject(i).getString("key").equals(address[1])) {
-                    Log.d(TAG, "Question for value is " + fields.getJSONObject(i));
-                    if (fields.getJSONObject(i).getString("type").equals("check_box")) {
-                        JSONArray resultArray = new JSONArray();
-                        JSONArray options = fields.getJSONObject(i).getJSONArray("options");
-                        for (int j = 0; j < options.length(); j++) {
-                            if(options.getJSONObject(j).getString("value").toLowerCase().equals("true")) {
-                                resultArray.put(options.getJSONObject(j).getString("key"));
-                            }
-                        }
-
-                        if(resultArray.length() > 0) {
-                            result = resultArray.toString();
-                        }
-                    } else {
-                        result = fields.getJSONObject(i).optString("value");
+        JSONObject object = getObjectUsingAddress(address);
+        if (object != null) {
+            if (object.getString("type").equals("check_box")) {
+                JSONArray resultArray = new JSONArray();
+                JSONArray options = object.getJSONArray("options");
+                for (int j = 0; j < options.length(); j++) {
+                    if(options.getJSONObject(j).getString("value").toLowerCase().equals("true")) {
+                        resultArray.put(options.getJSONObject(j).getString("key"));
                     }
                 }
+
+                if(resultArray.length() > 0) {
+                    result = resultArray.toString();
+                }
+            } else {
+                result = object.optString("value");
             }
         }
 
         return result;
+    }
+
+    private JSONObject getObjectUsingAddress(String[] address) throws Exception {
+        if (address != null && address.length == 2) {
+            JSONArray fields = mJSONObject.getJSONObject(address[0]).getJSONArray("fields");
+            for (int i = 0; i < fields.length(); i++) {
+                if (fields.getJSONObject(i).getString("key").equals(address[1])) {
+                    return fields.getJSONObject(i);
+                }
+            }
+        }
+
+        return null;
     }
 
     private void initComparisons() {

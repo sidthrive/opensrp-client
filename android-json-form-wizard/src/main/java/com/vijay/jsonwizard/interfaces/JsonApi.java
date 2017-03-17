@@ -38,7 +38,7 @@ public interface JsonApi {
 
     void addConstrainedView(View view);
 
-    void refreshSkipLogic();
+    void refreshSkipLogic(String parentKey, String childKey);
 
-    void refreshConstraints();
+    void refreshConstraints(String parentKey, String childKey);
 }
