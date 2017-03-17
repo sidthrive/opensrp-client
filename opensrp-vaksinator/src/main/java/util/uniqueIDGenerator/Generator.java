@@ -10,8 +10,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
+import org.ei.opensrp.test_demo.LoginActivity;
 import org.ei.opensrp.util.Cache;
+import org.ei.opensrp.test_demo.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,12 +36,14 @@ public class Generator {
     private String url;
     private String result;
 
-    public static final int UNIQUE_ID_LIMIT = 20;
-    public static final int UNIQUE_ID_LENGTH_REQUEST = 100;
+    public static final int UNIQUE_ID_LIMIT = 5;
+    public static final int UNIQUE_ID_LENGTH_REQUEST = 1;
 
     public Generator(Context context, String username, String password){
         this.context=context;
-        url = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1"+
+        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replace("opensrp-web","openmrs");
+        url =   DRISTHI_BASE_URL+
+                "/module/idgen/exportIdentifiers.form?source=1"+
                 "&numberToGenerate="+Integer.toString(UNIQUE_ID_LENGTH_REQUEST)+
                 "&username="+username+
                 "&password="+password;
@@ -65,7 +70,7 @@ public class Generator {
         if(uniqueIdController == null)
             uniqueIdController = new UniqueIdController(uniqueIdRepository(), allSettingsINA(), uIdsCache());
         return uniqueIdController;
-        }
+    }
     public UniqueIdService uniqueIdService() {
         if (uniqueIdService == null)
             uniqueIdService = new UniqueIdService(context.getHttpAgent(), context.configuration(), uniqueIdController(), allSettingsINA(), context.allSharedPreferences());
@@ -125,9 +130,9 @@ public class Generator {
 
         @Override
         protected String doInBackground(String... params) {
-//            result = connectToOpenMRS();
-//            if(result.length()>1)
-//                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(result);
+            result = connectToOpenMRS();
+            if(result.length()>1)
+                LoginActivity.generator.uniqueIdService().saveJsonResponseToUniqueId(result);
 
             return "Executed";
         }
