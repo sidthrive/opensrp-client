@@ -11,7 +11,6 @@ import org.ei.opensrp.repository.DrishtiRepository;
 import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.util.BitmapImageCache;
 import org.ei.opensrp.util.OpenSRPImageLoader;
-import org.ei.opensrp.util.Session;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,6 +47,7 @@ public abstract class DrishtiApplication extends Application {
         MultiDex.install(this);
     }
     protected Repository repository;
+
     public  Repository getRepository() {
         ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
         DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
@@ -83,7 +83,11 @@ public abstract class DrishtiApplication extends Application {
     public void setPassword(String password){
         this.password=password;
     }
+
     public String getPassword(){
+        if(password==null) {
+            context.userService().getGroupId(context.userService().getAllSharedPreferences().fetchRegisteredANM());
+        }
         return password;
     }
 }
