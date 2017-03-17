@@ -59,5 +59,50 @@
         "type": "Rota"
       }
     ]
+  },
+  {
+    "name": "14 Weeks",
+    "id": "Fourteen_Weeks",
+    "days_after_birth_due": 98,
+    "vaccines": [
+      {
+        "name": "OPV 3",
+        "type": "OPV"
+      },
+      {
+        "name": "Penta 3",
+        "type": "Penta"
+      },
+      {
+        "name": "PCV 3",
+        "type": "PCV"
+      }
+    ]
+  },
+  {
+    "name": "9 Months",
+    "id": "Nine_Months",
+    "days_after_birth_due": 274,
+    "vaccines": [
+      {
+        "name": "Measles 1 / MR 1",
+        "type": "Measles / MR"
+      },
+      {
+        "name": "OPV 4",
+        "type": "OPV"
+      }
+    ]
+  },
+  {
+    "name": "18 Months",
+    "id": "Eighteen_Months",
+    "days_after_birth_due": 548,
+    "vaccines": [
+      {
+        "name": "Measles 2 / MR 2",
+        "type": "Measles / MR"
+      }
+    ]
   }
 ]
