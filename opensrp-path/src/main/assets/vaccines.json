@@ -6,11 +6,31 @@
     "vaccines": [
       {
         "name": "OPV 0",
-        "type": "OPV"
+        "type": "OPV",
+        "openmrs_date": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "BCG",
-        "type": "BCG"
+        "type": "BCG",
+        "openmrs_date": {
+          "entity_parent": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "",
+          "entity": "",
+          "entity_id": ""
+        }
       }
     ]
   },
@@ -21,19 +41,59 @@
     "vaccines": [
       {
         "name": "OPV 1",
-        "type": "OPV"
+        "type": "OPV",
+        "openmrs_date": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "Penta 1",
-        "type": "Penta"
+        "type": "Penta",
+        "openmrs_date": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "PCV 1",
-        "type": "PCV"
+        "type": "PCV",
+        "openmrs_date": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "Rota 1",
-        "type": "Rota"
+        "type": "Rota",
+        "openmrs_date": {
+          "entity_parent": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   },
@@ -44,19 +104,59 @@
     "vaccines": [
       {
         "name": "OPV 2",
-        "type": "OPV"
+        "type": "OPV",
+        "openmrs_date": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "Penta 2",
-        "type": "Penta"
+        "type": "Penta",
+        "openmrs_date": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "PCV 2",
-        "type": "PCV"
+        "type": "PCV",
+        "openmrs_date": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "Rota 2",
-        "type": "Rota"
+        "type": "Rota",
+        "openmrs_date": {
+          "entity_parent": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   },
@@ -67,15 +167,45 @@
     "vaccines": [
       {
         "name": "OPV 3",
-        "type": "OPV"
+        "type": "OPV",
+        "openmrs_date": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "Penta 3",
-        "type": "Penta"
+        "type": "Penta",
+        "openmrs_date": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "PCV 3",
-        "type": "PCV"
+        "type": "PCV",
+        "openmrs_date": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   },
@@ -85,12 +215,46 @@
     "days_after_birth_due": 274,
     "vaccines": [
       {
-        "name": "Measles 1 / MR 1",
-        "type": "Measles / MR"
+        "name": "Measles 1",
+        "type": "Measles / MR",
+        "openmrs_date": {
+          "entity_parent": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "name": "MR 1",
+        "type": "Measles / MR",
+        "openmrs_date": {
+          "entity_parent": "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "name": "OPV 4",
-        "type": "OPV"
+        "type": "OPV",
+        "openmrs_date": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   },
@@ -100,8 +264,32 @@
     "days_after_birth_due": 548,
     "vaccines": [
       {
-        "name": "Measles 2 / MR 2",
-        "type": "Measles / MR"
+        "name": "Measles 2",
+        "type": "Measles / MR",
+        "openmrs_date": {
+          "entity_parent": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "name": "MR 2",
+        "type": "Measles / MR",
+        "openmrs_date": {
+          "entity_parent": "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "entity_parent": "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   }
