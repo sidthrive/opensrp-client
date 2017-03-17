@@ -118,7 +118,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
-        int umur = pc.getColumnmaps().get("tanggalLahirAnak") != null ? age(pc.getColumnmaps().get("tanggalLahirAnak")) : 0;
+        int umur = pc.getDetails().get("tanggal_lahir") != null ? age(pc.getDetails().get("tanggal_lahir")) : 0;
 
         viewHolder.name.setText(pc.getColumnmaps().get("nama_bayi") != null ? pc.getColumnmaps().get("nama_bayi") : " ");
       //  viewHolder.name.setText(pc.getc().get("namaIbu") != null ? pc.getDetails().get("namaIbu") : " ");
@@ -154,9 +154,9 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 : pc.getDetails().get("dusun")!= null
                 ? pc.getDetails().get("dusun")
                 : " ");
-        viewHolder.age.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null
-                ?     Integer.toString(age(pc.getColumnmaps().get("tanggalLahirAnak"))/12)+" "+ context.getResources().getString(R.string.year_short)
-                + ", "+Integer.toString(age(pc.getColumnmaps().get("tanggalLahirAnak"))%12)+" "+ context.getResources().getString(R.string.month_short)
+        viewHolder.age.setText(pc.getDetails().get("tanggal_lahir")!=null
+                ?     Integer.toString(age(pc.getDetails().get("tanggal_lahir"))/12)+" "+ context.getResources().getString(R.string.year_short)
+                + ", "+Integer.toString(age(pc.getDetails().get("tanggal_lahir"))%12)+" "+ context.getResources().getString(R.string.month_short)
                 : " ");
         viewHolder.gender.setText(pc.getDetails().get("jenis_kelamin") != null
                 ? pc.getDetails().get("jenis_kelamin").contains("em")
