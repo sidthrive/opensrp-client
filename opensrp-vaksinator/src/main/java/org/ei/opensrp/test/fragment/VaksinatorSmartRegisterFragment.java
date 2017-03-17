@@ -16,6 +16,12 @@ import android.widget.Toast;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
 import org.ei.opensrp.commonregistry.CommonObjectSort;
+import org.ei.opensrp.commonregistry.CommonRepository;
+import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
+import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
+import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
+import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
+import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.test.face.camera.SmartShutterActivity;
 import org.ei.opensrp.test.vaksinator.CommonObjectFilterOption;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -24,6 +30,8 @@ import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.test.LoginActivity;
 import org.ei.opensrp.test.R;
 import org.ei.opensrp.test.vaksinator.FlurryFacade;
+import org.ei.opensrp.test.vaksinator.KIClientsProvider;
+import org.ei.opensrp.test.vaksinator.KICommonObjectFilterOption;
 import org.ei.opensrp.test.vaksinator.VaksinatorDetailActivity;
 import org.ei.opensrp.test.vaksinator.VaksinatorSmartRegisterActivity;
 import org.ei.opensrp.test.vaksinator.VaksinatorSearchOption;
@@ -63,7 +71,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 /**
  * Created by koros on 10/12/15.
  */
-public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterFragment {
+public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
     private static final String TAG = VaksinatorSmartRegisterFragment.class.getSimpleName();
     private SmartRegisterClientsProvider clientProvider = null;
@@ -74,19 +82,18 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
 
-    public String filters = "";
-
     public static String criteria;
+
 
     @Override
     protected void onCreation() {
         //
     }
 
-    @Override
-    protected SmartRegisterPaginatedAdapter adapter() {
-        return new SmartRegisterPaginatedAdapter(clientsProvider());
-    }
+//    @Override
+//    protected SmartRegisterPaginatedAdapter adapter() {
+//        return new SmartRegisterPaginatedAdapter(clientsProvider());
+//    }
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -94,8 +101,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 
             @Override
             public ServiceModeOption serviceMode() {
-
-                 return new VaksinatorServiceModeOption(clientsProvider());
+                return new VaksinatorServiceModeOption(clientsProvider());
             }
 
             @Override
@@ -106,13 +112,12 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
             @Override
             public SortOption sortOption() {
                 return new NameSort();
-            //    return new HouseholdCensusDueDateSort();
 
             }
 
             @Override
             public String nameInShortFormForTitle() {
-                return Context.getInstance().getStringResource(R.string.test);
+                return Context.getInstance().getStringResource(R.string.title002);
             }
         };
     }
@@ -123,24 +128,25 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 
             @Override
             public DialogOption[] filterOptions() {
-                FlurryFacade.logEvent("click_filter_option_vaksinator");
+                FlurryFacade.logEvent("click_filter_option_on_kohort_ibu_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
-                dialogOptionslist.add(new AllClientsFilter());
-              //  dialogOptionslist.add( new NOHHMWRAEXISTFilterOption("0","ELCO", NOHHMWRAEXISTFilterOption.ByColumnAndByDetails.byDetails));
-             //   dialogOptionslist.add(new HHMWRAEXISTFilterOption("0","ELCO", HHMWRAEXISTFilterOption.ByColumnAndByDetails.byDetails));
+                dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label), filterStringForAll()));
+                //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
+                //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
                 String locationjson = context.anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
-                Map<String,TreeNode<String, Location>> locationMap =
+
+                Map<String, TreeNode<String, Location>> locationMap =
                         locationTree.getLocationsHierarchy();
-                addChildToList(dialogOptionslist,locationMap);
+                addChildToList(dialogOptionslist, locationMap);
                 DialogOption[] dialogOptions = new DialogOption[dialogOptionslist.size()];
-                for (int i = 0;i < dialogOptionslist.size();i++){
+                for (int i = 0; i < dialogOptionslist.size(); i++) {
                     dialogOptions[i] = dialogOptionslist.get(i);
                 }
 
-                return  dialogOptions;
+                return dialogOptions;
             }
 
             @Override
@@ -150,16 +156,13 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 
             @Override
             public DialogOption[] sortingOptions() {
-                FlurryFacade.logEvent("click_sort_option_vaksinator ");
+                FlurryFacade.logEvent("click_sorting_option_on_kohort_ibu_dashboard");
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
 
-//""
-//                        new CommonObjectSort(true,false,true,"age")
-                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false,"nama_bayi",getResources().getString(R.string.sort_by_nama_bayi)),
-                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false,"tanggal_lahir",getResources().getString(R.string.sort_by_tanggal_lahir)),
-                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false,"namaIbu",getResources().getString(R.string.sort_by_nama_ibu)),
-                        new CommonObjectSort(CommonObjectSort.ByColumnAndByDetails.byDetails, false,"dusun",getResources().getString(R.string.sort_by_dusun))
+
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label), KiSortByNameAZ()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse), KiSortByNameZA()),
                 };
             }
 
@@ -170,30 +173,23 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
         };
     }
 
+
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
-        if (clientProvider == null) {
-            clientProvider = new VaksinatorSmartClientsProvider(
-                    getActivity(),clientActionHandler , controller,context.alertService());
-        }
-        return clientProvider;
+//        if (clientProvider == null) {
+//            clientProvider = new HouseHoldSmartClientsProvider(
+//                    getActivity(),clientActionHandler , context.alertService());
+//        }
+        return null;
     }
 
     private DialogOption[] getEditOptions() {
-        return ((VaksinatorSmartRegisterActivity)getActivity()).getEditOptions();
+        return ((VaksinatorSmartRegisterActivity) getActivity()).getEditOptions();
     }
 
     @Override
     protected void onInitialization() {
-        Log.e(TAG, "onInitialization: " );
-        if (controller == null) {
-            controller = new CommonPersonObjectController(context.allCommonsRepositoryobjects("anak"),
-                    context.allBeneficiaries(), context.listCache(),
-                    context.personObjectClientsCache(), "nama_bayi", "anak", "tanggal_lahir",
-                    //                                  find this   , on this   , order by this
-                    CommonPersonObjectController.ByColumnAndByDetails.byColumn.byDetails);
-        }
-        dialogOptionMapper = new DialogOptionMapper();
+        //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 
     @Override
@@ -202,18 +198,67 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
-        updateSearchView();
-//        checkforNidMissing(view);
+        view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
+        clientsView.setVisibility(View.VISIBLE);
+        clientsProgressView.setVisibility(View.INVISIBLE);
+//        list.setBackgroundColor(Color.RED);
+        initializeQueries(getCriteria());
     }
+
+    private String filterStringForAll() {
+        return "";
+    }
+
+    private String sortByAlertmethod() {
+        return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
+                "WHEN alerts.status = 'upcoming' THEN '2'\n" +
+                "WHEN alerts.status = 'normal' THEN '3'\n" +
+                "WHEN alerts.status = 'expired' THEN '4'\n" +
+                "WHEN alerts.status is Null THEN '5'\n" +
+                "Else alerts.status END ASC";
+    }
+
+    public void initializeQueries(String s) {
+        KIClientsProvider kiscp = new KIClientsProvider(getActivity(), clientActionHandler, context.alertService());
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("anak", new String[]{"tanggalLahirAnak", "namaBayi", "isClosed"}));
+        clientsView.setAdapter(clientAdapter);
+
+        setTablename("anak");
+        SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
+        countqueryBUilder.SelectInitiateMainTableCounts("anak");
+
+        if (s == null || s.equals("!")) {
+            Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+            mainCondition = "namaBayi !=''";
+        } else {
+            Log.e(TAG, "initializeQueries: " + s);
+            mainCondition = "namaBayi !='' AND object_id LIKE '%" + s + "%'";
+        }
+
+        countSelect = countqueryBUilder.mainCondition("namaBayi !='' ");
+        //  mainCondition = " isClosed !='true' ";
+        super.CountExecute();
+
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable("anak", new String[]{"isClosed", "anak.details", "tanggalLahirAnak", "namaBayi"});
+        mainSelect = queryBUilder.mainCondition("namaBayi !=''");
+        //   Sortqueries = KiSortByNameAZ();
+
+        currentlimit = 20;
+        currentoffset = 0;
+
+        super.filterandSortInInitializeQueries();
+
+//        setServiceModeViewDrawableRight(null);
+        updateSearchView();
+        refresh();
+
+
+    }
+
 
     @Override
     public void startRegistration() {
-        FlurryFacade.logEvent("click_start_registration_on_vaksinator");
-        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
-        if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
-            Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_SHORT).show();
-            return;
-        }
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {
@@ -226,13 +271,12 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
     }
 
     private class ClientActionHandler implements View.OnClickListener {
-        @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                     FlurryFacade.logEvent("click_detail_picture_vaksinator");
-                    VaksinatorDetailActivity.controller = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),VaksinatorDetailActivity.class);
+                    VaksinatorDetailActivity.controller = (CommonPersonObjectClient) view.getTag();
+                    Intent intent = new Intent(getActivity(), VaksinatorDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;
@@ -250,6 +294,28 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
         }
     }
 
+
+    private String KiSortByNameAZ() {
+        return " namaBayi ASC";
+    }
+
+    private String KiSortByNameZA() {
+        return " namaBayi DESC";
+    }
+
+    private String KiSortByAge() {
+        return " umur DESC";
+    }
+
+    private String KiSortByNoIbu() {
+        return " noIbu ASC";
+    }
+
+    private String KiSortByEdd() {
+        return " htp IS NULL, htp";
+    }
+
+
     private class EditDialogOptionModel implements DialogOptionModel {
         @Override
         public DialogOption[] getDialogOptions() {
@@ -258,25 +324,90 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
+
+
+            /*if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
+                CommonPersonObjectClient pc = KIDetailActivity.kiclient;
+                if(pc.getColumnmaps().get("ibu.type")!= null) {
+                    if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }*/
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
 
     @Override
     protected void onResumption() {
-        super.onResumption();
+//        super.onResumption();
         getDefaultOptionsProvider();
-        updateSearchView();
-        //checkforNidMissing(mView);
-
-        try{
+        if (isPausedOrRefreshList()) {
+            initializeQueries("!");
+        }
+        //     updateSearchView();
+//
+        try {
             LoginActivity.setLanguage();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
+    //    @Override
+//    public void setupSearchView(View view) {
+//        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+//        searchView.setHint(getNavBarOptionsProvider().searchHint());
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//
+//                (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+//
+//                    @Override
+//                    protected Object doInBackground(Object[] params) {
+////                        currentSearchFilter =
+////                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+////                        filteredClients = getClientsAdapter().getListItemProvider()
+////                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+////                                        getCurrentSearchFilter(), getCurrentSortOption());
+////
+//                        filters = cs.toString();
+//                        joinTable = "";
+//                        mainCondition = " namaBayi !='' ";
+//                        return null;
+//                    }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+//                }).execute();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+//        searchCancelView.setOnClickListener(searchCancelHandler);
+//    }
+//
     public void updateSearchView(){
         getSearchView().addTextChangedListener(new TextWatcher() {
             @Override
@@ -291,12 +422,15 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
                     @Override
                     protected Object doInBackground(Object[] params) {
 //                        currentSearchFilter =
-                        setCurrentSearchFilter(new VaksinatorSearchOption(cs.toString()));
-                        filteredClients = getClientsAdapter().getListItemProvider()
-                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-                                        getCurrentSearchFilter(), getCurrentSortOption());
+//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+//                        filteredClients = getClientsAdapter().getListItemProvider()
+//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//
 
-
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " namaBayi !='' ";
                         return null;
                     }
 
@@ -305,9 +439,10 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 //                        clientsAdapter
 //                                .refreshList(currentVillageFilter, currentServiceModeOption,
 //                                        currentSearchFilter, currentSortOption);
-                        getClientsAdapter().refreshClients(filteredClients);
-                        getClientsAdapter().notifyDataSetChanged();
+//                        getClientsAdapter().refreshClients(filteredClients);
+//                        getClientsAdapter().notifyDataSetChanged();
                         getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                        filterandSortExecute();
                         super.onPostExecute(o);
                     }
                 }).execute();
@@ -328,15 +463,17 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
         });
     }
 
-    public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
-            for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
-        
-                if(entry.getValue().getChildren() != null) {
-                    addChildToList(dialogOptionslist,entry.getValue().getChildren());
-                }else{
-                    StringUtil.humanize(entry.getValue().getLabel());
-                    String name = StringUtil.humanize(entry.getValue().getLabel());
-                    dialogOptionslist.add(new CommonObjectFilterOption(name,"dusun", CommonObjectFilterOption.ByColumnAndByDetails.byDetails,name));
+    public void addChildToList(ArrayList<DialogOption> dialogOptionslist, Map<String, TreeNode<String, Location>> locationMap) {
+        for (Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
+
+            if (entry.getValue().getChildren() != null) {
+                addChildToList(dialogOptionslist, entry.getValue().getChildren());
+
+            } else {
+                StringUtil.humanize(entry.getValue().getLabel());
+                String name = StringUtil.humanize(entry.getValue().getLabel());
+                dialogOptionslist.add(new KICommonObjectFilterOption(name, "desa", name));
+
             }
         }
     }
@@ -346,7 +483,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
         this.criteria = criteria;
     }
 
-    public static String getCriteria(){
+    public static String getCriteria() {
         return criteria;
     }
 
@@ -413,8 +550,8 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
 //
 
                             filters = cs.toString();
-//                        joinTable = "";
-//                        mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
+                            joinTable = "";
+                            mainCondition = "namaBayi !=''";
                             Log.e(TAG, "doInBackground: " + filters);
                             return null;
                         }
@@ -440,6 +577,4 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterF
             });
         }
     }
-
-
 }

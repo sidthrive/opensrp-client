@@ -45,8 +45,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
 
 public class ImageConfirmation extends Activity {
 

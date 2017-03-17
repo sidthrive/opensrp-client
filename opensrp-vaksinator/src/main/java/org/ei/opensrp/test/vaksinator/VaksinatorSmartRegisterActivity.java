@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -31,7 +30,6 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +61,6 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
     VaksinatorSmartRegisterFragment nf = new VaksinatorSmartRegisterFragment();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +76,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
        // FlurryFacade.logEvent("anc_dashboard");
         formNames = this.buildFormNameList();
-        //        WD
+//        WD
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
@@ -91,10 +88,21 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
                 nf.setCriteria(base_id);
                 mBaseFragment = new VaksinatorSmartRegisterFragment();
 
-                Log.e(TAG, "onCreate: " + base_id);
+//                CommonPersonObject cpo = new CommonPersonObject(base_id, null, null, null);
+//                CommonPersonObjectClient pc = new CommonPersonObjectClient(base_id, null, null);
+//                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+//                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
+
+                Log.e(TAG, "onCreate: id " + base_id);
+                showToast("id "+base_id);
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
-                builder.setTitle("Is it Right Clients ?");
-                builder.setMessage("Process Time : " + proc_time + " s");
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
                 builder.setNegativeButton("CANCEL", listener);
                 builder.setPositiveButton("YES", null);
                 builder.show();
@@ -102,6 +110,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         } else {
             mBaseFragment = new VaksinatorSmartRegisterFragment();
         }
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
         mPager.setOffscreenPageLimit(formNames.length);
@@ -114,15 +123,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             }
         });
 
-        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
-            String toastMessage = MessageFormat.format(getString(R.string.unique_id_almost_empty),
-                    Integer.toString(LoginActivity.generator.uniqueIdController().countRemainingUniqueId()));
-            Toast.makeText(context.applicationContext(), toastMessage,
-                    Toast.LENGTH_LONG).show();
-        }
         ziggyService = context.ziggyService();
-        String uniqueID = LoginActivity.generator.uniqueIdController().getAllUniqueId().toString();
-        System.out.println("unique id remains on database : "+uniqueID);
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -163,7 +164,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
                 new OpenFormOption(context.getStringResource(R.string.polio3VisitLabel), "polio3_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.dpt3VisitLabel), "hb3_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.polio4VisitLabel), "polio4_visit", formController),
-               // new OpenFormOption(context.getStringResource(R.string.ipvVisitLabel), "ipv_visit", formController),
+                new OpenFormOption(context.getStringResource(R.string.ipvVisitLabel), "ipv_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.campakVisitLabel), "campak_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.dptTambahanVisitLabel), "dpthb_lanjutan_visit", formController),
                 new OpenFormOption(context.getStringResource(R.string.campakTambahanVisitLabel), "campak_lanjutan_visit", formController),
@@ -193,7 +194,6 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         }
     }
     */
-
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
@@ -203,6 +203,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
             ziggyService.saveForm(getParams(submission), submission.instance());
+
+            context.formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -215,15 +217,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             }
             e.printStackTrace();
         }
-        if(formName.equals("registrasi_jurim")){
-            saveuniqueid();
-        }
-        //end capture flurry log for FS
-                String end = timer.format(new Date());
-                Map<String, String> FS = new HashMap<String, String>();
-                FS.put("end", end);
-                FlurryAgent.logEvent(formName,FS, true);
     }
+
 
     @Override
     public void OnLocationSelected(String locationJSONString) {
@@ -231,16 +226,16 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+         //   JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-            Iterator<String> iter = uniqueId.keys();
+       //     Iterator<String> iter = uniqueId.keys();
 
-            while (iter.hasNext()) {
+       /*     while (iter.hasNext()) {
                 String key = iter.next();
                 combined.put(key, uniqueId.get(key));
             }
-
+*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -250,26 +245,21 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             startFormActivity("registrasi_jurim", null, fieldOverrides.getJSONString());
         }
     }
-    public void saveuniqueid() {
+  /*  public void saveuniqueid() {
         try {
-            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+            JSONObject uniqueId = new JSONObject(context.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
-            LoginActivity.generator.uniqueIdController().updateCurrentUniqueId(uniq);
+            context.uniqueIdController().updateCurrentUniqueId(uniq);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        //Start capture flurry log for FS
-               String start = timer.format(new Date());
-                Map<String, String> FS = new HashMap<String, String>();
-                FS.put("start", start);
-                FlurryAgent.logEvent(formName,FS, true );
-     //   FlurryFacade.logEvent(formName);
-       // Log.v("fieldoverride", metaData);
+        FlurryFacade.logEvent(formName);
+//        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -352,11 +342,12 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         formNames.add("polio3_visit");
         formNames.add("hb3_visit");
         formNames.add("polio4_visit");
-//        formNames.add("ipv_visit");
+        formNames.add("ipv_visit");
         formNames.add("campak_visit");
         formNames.add("dpthb_lanjutan_visit");
         formNames.add("campak_lanjutan_visit");
         formNames.add("close_form");
+        formNames.add("kartu_ibu_registration");
 //        DialogOption[] options = getEditOptions();
 //        for (int i = 0; i < options.length; i++){
 //            formNames.add(((OpenFormOption) options[i]).getFormName());
@@ -390,8 +381,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         public void onClick(DialogInterface dialog, int which) {
 //            mBaseFragment = new NativeKISmartRegisterFragment();
 
-//            nf.setCriteria("");
-//            onBackPressed();
+            nf.setCriteria("");
+            onBackPressed();
             Log.e(TAG, "onClick: Cancel");
 
             Intent intent= new Intent(VaksinatorSmartRegisterActivity.this, VaksinatorSmartRegisterActivity.class);

@@ -29,69 +29,49 @@
         "shouldLoadValue": true
       },
       {
-        "name": "provinsi",
-        "bind": "/model/instance/penutupan_anak_mapped/provinsi",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "kabupaten",
-        "bind": "/model/instance/penutupan_anak_mapped/kabupaten",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "kecamatan",
-        "bind": "/model/instance/penutupan_anak_mapped/kecamatan",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "desa",
-        "bind": "/model/instance/penutupan_anak_mapped/desa",
-        "shouldLoadValue": true
-      },
-      {
-        "name": "dusun",
-        "bind": "/model/instance/penutupan_anak_mapped/dusun",
-        "shouldLoadValue": true
-      },
-      {
         "name": "penyebab_ditutup",
-        "bind": "/model/instance/penutupan_anak_mapped/close_reason"
-      },
-      {
-        "name": "penyebab_lain_ditutup",
-        "bind": "/model/instance/penutupan_anak_mapped/close_reason_other"
+        "bind": "/model/instance/penutupan_anak_mapped/close_reason",
+        "shouldLoadValue": true
       },
       {
         "name": "penyebab_meninggal",
-        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause"
+        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause",
+        "shouldLoadValue": true
       },
       {
         "name": "penyebab_lain_meninggal",
-        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause_other"
+        "bind": "/model/instance/penutupan_anak_mapped/child_death_cause_other",
+        "shouldLoadValue": true
       },
       {
         "name": "tanggal_meninggal",
-        "bind": "/model/instance/penutupan_anak_mapped/child_death_date"
+        "bind": "/model/instance/penutupan_anak_mapped/child_death_date",
+        "shouldLoadValue": true
       },
       {
         "name": "tempat_meninggal",
-        "bind": "/model/instance/penutupan_anak_mapped/place_of_death"
+        "bind": "/model/instance/penutupan_anak_mapped/place_of_death",
+        "shouldLoadValue": true
       },
       {
         "name": "tindakan_sebelum_rujukan",
-        "bind": "/model/instance/penutupan_anak_mapped/prereferral_management"
+        "bind": "/model/instance/penutupan_anak_mapped/prereferral_management",
+        "shouldLoadValue": true
       },
       {
         "name": "dirujuk",
-        "bind": "/model/instance/penutupan_anak_mapped/referred"
+        "bind": "/model/instance/penutupan_anak_mapped/referred",
+        "shouldLoadValue": true
       },
       {
         "name": "lokasi_rujukan",
-        "bind": "/model/instance/penutupan_anak_mapped/referral_location"
+        "bind": "/model/instance/penutupan_anak_mapped/referral_location",
+        "shouldLoadValue": true
       },
       {
         "name": "form_ditutup",
-        "bind": "/model/instance/penutupan_anak_mapped/confirm_child_close"
+        "bind": "/model/instance/penutupan_anak_mapped/confirm_child_close",
+        "shouldLoadValue": true
       },
       {
         "name": "registrationDate",

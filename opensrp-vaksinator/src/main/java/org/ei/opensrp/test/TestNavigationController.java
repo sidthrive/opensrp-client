@@ -3,12 +3,10 @@ package org.ei.opensrp.test;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 
 
 import org.ei.opensrp.test.imunisasiTT.TTSmartRegisterActivity;
 import org.ei.opensrp.test.vaksinator.VaksinatorSmartRegisterActivity;
-import org.ei.opensrp.view.activity.ReportsActivity;
 import org.ei.opensrp.view.controller.ANMController;
 
 
@@ -43,11 +41,5 @@ public class TestNavigationController extends org.ei.opensrp.view.controller.Nav
     public void startANCSmartRegistry() {
         activity.startActivity(new Intent(activity, VaksinatorSmartRegisterActivity.class));
     }
-    @Override
-    public void startReports() {
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://dho-report.sid-indonesia.org/")));
-        // activity.startActivity(new Intent(activity, ReportsActivity.class));
-    }
-
 
 }

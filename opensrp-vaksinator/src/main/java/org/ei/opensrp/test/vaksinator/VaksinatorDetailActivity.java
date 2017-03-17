@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
-import org.apache.commons.io.FilenameUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
@@ -58,6 +57,7 @@ public class VaksinatorDetailActivity extends Activity {
 
     public static CommonPersonObjectClient controller;
 
+
     private static HashMap<String, String> hash;
     private boolean updateMode = false;
     private String mode;
@@ -65,7 +65,6 @@ public class VaksinatorDetailActivity extends Activity {
     private String photo_path;
     private File tb_photo;
     private String fileName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,6 @@ public class VaksinatorDetailActivity extends Activity {
         TextView additionalMeaslesLabel = (TextView) findViewById(R.id.additionalMeaslesLabel);
 
         //profile
-        TextView uniqueID = (TextView) findViewById(R.id.uniqueID);
         TextView nama = (TextView) findViewById(R.id.childName);
         TextView motherName = (TextView) findViewById(R.id.motherName);
         TextView fatherName = (TextView) findViewById(R.id.fatherName);
@@ -169,9 +167,8 @@ public class VaksinatorDetailActivity extends Activity {
         additionalDPTLabel.setText(getString(R.string.dptTambahan));
         additionalMeaslesLabel.setText(getString(R.string.campakTambahan));
 
-        //display value
-        uniqueID.setText(": " + (controller.getDetails().get("unique_id") != null ? controller.getDetails().get("unique_id") : "-"));
-        nama.setText(": " + (controller.getDetails().get("nama_bayi") != null ? controller.getDetails().get("nama_bayi") : "-"));
+        nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
+
         fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
                 ? controller.getDetails().get("namaIbu")
@@ -196,7 +193,7 @@ public class VaksinatorDetailActivity extends Activity {
                 : controller.getDetails().get("posyandu")!=null
                     ? controller.getDetails().get("posyandu")
                     : "-"));
-        dateOfBirth.setText(": " + (controller.getDetails().get("tanggal_lahir") != null ? controller.getDetails().get("tanggal_lahir") : "-"));
+        dateOfBirth.setText(": " + (controller.getColumnmaps().get("tanggalLahirAnak") != null ? controller.getColumnmaps().get("tanggalLahirAnak") : "-"));
         birthWeight.setText(": " + (controller.getDetails().get("berat_badan_saat_lahir") != null
                                     ? Double.toString(Integer.parseInt(controller.getDetails()
                                                         .get("berat_badan_saat_lahir"))/1000)
@@ -222,44 +219,18 @@ public class VaksinatorDetailActivity extends Activity {
         measles.setText(": " + (controller.getDetails().get("imunisasi_campak") != null ? controller.getDetails().get("imunisasi_campak") : "-"));
 
         complete.setText(": " + (controller.getDetails().get("imunisasi_lengkap") != null ? controller.getDetails().get("imunisasi_lengkap") : "-"));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_lanjutan") != null ? controller.getDetails().get("dpt_hb_lanjutan") : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("campak_lanjutan") != null ? controller.getDetails().get("campak_lanjutan") : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
 
-        //        Profile Picture
-        photo_path = controller.getDetails().get("profilepic");
-
-        if (Tools.getPhotoPath() != null) {
-            String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
-            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/") + 1);
+        if(controller.getDetails().get("profilepic")!= null){
+            setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
         }
-
-        if (photo_path != null) {
-            tb_photo = new File(photo_path);
-            if (!tb_photo.exists()) {
-                photo.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
-            } else {
-                setImagetoHolderFromUri(this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
-            }
-        } else if (Tools.getPhotoPath() != null && fileName.equals(controller.getCaseId())) {
-            setImagetoHolderFromUri(this, Tools.getPhotoPath(), photo, R.drawable.child_boy_infant);
-
-        } else {
-            Log.e(TAG, "onCreate: kelamin " + controller.getDetails().get("jenisKelamin"));
-
+        else {
             photo.setImageResource(controller.getDetails().get("jenis_kelamin").contains("em")
                     ? R.drawable.child_girl_infant
                     : R.drawable.child_boy_infant);
-        }
 
-//        if(controller.getDetails().get("profilepic")!= null){
-//            setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
-//        }
-//        else {
-//            photo.setImageResource(controller.getDetails().get("jenis_kelamin").contains("em")
-//                    ? R.drawable.child_girl_infant
-//                    : R.drawable.child_boy_infant);
-//
-//        }
+        }
 
         hash = Tools.retrieveHash(context.applicationContext());
 
@@ -282,7 +253,7 @@ public class VaksinatorDetailActivity extends Activity {
                 Intent intent = new Intent(VaksinatorDetailActivity.this, SmartShutterActivity.class);
                 intent.putExtra("IdentifyPerson", false);
                 intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
                 startActivity(intent);
 
             }
