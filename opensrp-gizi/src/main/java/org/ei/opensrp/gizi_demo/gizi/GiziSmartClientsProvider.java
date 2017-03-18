@@ -36,6 +36,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
  */
 public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
 
+
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -127,8 +128,8 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         }
 
         viewHolder.name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"");
-        viewHolder.age.setText(pc.getColumnmaps().get("tanggalLahir")!= null
-                ? Integer.toString(monthRangeToToday(pc.getColumnmaps().get("tanggalLahir")))
+        viewHolder.age.setText(pc.getDetails().get("tanggalLahir")!= null
+                ? Integer.toString(monthRangeToToday(pc.getDetails().get("tanggalLahir")))
                 +" "+context.getString(R.string.mth)
                 : "");
         viewHolder.fatherName.setText(pc.getDetails().get("namaIbu")!=null
@@ -155,11 +156,14 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
                 : View.INVISIBLE
         );
         viewHolder.setVitAVisibility();
-        viewHolder.setAntihelminticVisibility(
-                dayRangeBetween(pc.getDetails().get("tanggalLahir").split("-")
-                        ,new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).split("-")
-                ) >= 365 ? View.VISIBLE : View.INVISIBLE
-        );
+
+        if(pc.getDetails().get("tanggalLahir") != null ){
+            viewHolder.setAntihelminticVisibility(
+                    dayRangeBetween(pc.getDetails().get("tanggalLahir").split("-")
+                            ,new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).split("-")
+                    ) >= 365 ? View.VISIBLE : View.INVISIBLE
+            );
+        }
 
 //------CHILD DATA HAS BEEN SUBMITTED OR NOT
         viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(pc.getDetails().get("tanggalPenimbangan"),0)?R.drawable.ic_remove:R.drawable.ic_yes_large));

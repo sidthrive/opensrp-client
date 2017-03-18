@@ -200,8 +200,18 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
+        Log.e(TAG, "setupViews: " );
+
+//        if(getCriteria().equals("!") || getCriteria() == null){
+//            initializeQueries("!");
+//        }else {
+//            initializeQueries(getCriteria());
+//
+//        }
+
         initializeQueries(getCriteria());
     }
+
     private String filterStringForAll(){
         return "";
     }
@@ -222,23 +232,25 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         setTablename("anak");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
+//        mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
 
         if (s == null || s.equals("!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
-            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"%'";
+//            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
+            mainCondition = "namaBayi !=''";
         } else {
             Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"%' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "namaBayi !='' AND object_id LIKE '%" + s + "%'";
         }
 
 
-        countSelect = countqueryBUilder.mainCondition("details not LIKE '%\"form_ditutup\": \"yes\"%'");
+        countSelect = countqueryBUilder.mainCondition("details not LIKE '%\"form_ditutup\": \"yes\"\"%'");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed","anak.details","tanggalLahirAnak","namaBayi"});
-        mainSelect = queryBUilder.mainCondition(" details not LIKE '%\"form_ditutup\":yes\"%' ");
+        mainSelect = queryBUilder.mainCondition(" details not LIKE '%\"form_ditutup\":yes\"\"%' ");
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
@@ -337,10 +349,14 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     @Override
     protected void onResumption() {
 //        super.onResumption();
+        Log.e(TAG, "onResumption: " );
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
             initializeQueries("!");
         }
+
+//        initializeQueries(getCriteria());
+
         //     updateSearchView();
 //
         try{
@@ -425,7 +441,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = "namaBayi !=''";
                         return null;
                     }
 

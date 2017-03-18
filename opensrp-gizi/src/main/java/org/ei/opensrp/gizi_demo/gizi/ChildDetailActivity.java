@@ -51,7 +51,7 @@ public class ChildDetailActivity extends Activity {
     public static CommonPersonObjectClient kiclient;
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = ChildDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
   //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -147,7 +147,7 @@ public class ChildDetailActivity extends Activity {
             setImagetoHolderFromUri(this, Tools.getPhotoPath(), childview, R.drawable.child_boy_infant);
 
         } else {
-            childview.setImageResource(childclient.getDetails().get("jenis_kelamin").contains("em")
+            childview.setImageResource(childclient.getDetails().get("jenisKelamin").contains("em")
                     ? R.drawable.child_girl_infant
                     : R.drawable.child_boy_infant);
         }

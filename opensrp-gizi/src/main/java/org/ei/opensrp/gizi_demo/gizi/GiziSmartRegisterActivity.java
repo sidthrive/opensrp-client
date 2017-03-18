@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 //import org.ei.opensrp.gizi.fragment.HouseHoldSmartRegisterFragment;
 
 public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements
-        LocationSelectorDialogFragment.OnLocationSelectedListener{
+        LocationSelectorDialogFragment.OnLocationSelectedListener {
 
     private static final String TAG = GiziSmartRegisterActivity.class.getSimpleName();
 
@@ -74,28 +74,28 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         String GiziStart = timer.format(new Date());
-                Map<String, String> Gizi = new HashMap<String, String>();
-                Gizi.put("start", GiziStart);
-                FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
-       // FlurryFacade.logEvent("Gizi_dashboard");
+        Map<String, String> Gizi = new HashMap<String, String>();
+        Gizi.put("start", GiziStart);
+        FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
+        // FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
 
 //        WD
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
             String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
             double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
 //            Log.e(TAG, "onCreate: "+proc_time );
 
-            if (mode_face){
+            if (mode_face) {
                 nf.setCriteria(base_id);
                 mBaseFragment = new GiziSmartRegisterFragment();
 
                 Log.e(TAG, "onCreate: id " + base_id);
 //                showToast("id "+base_id);
-                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Is it Right Person ?");
 //                builder.setTitle("Is it Right Clients ?" + base_id);
 //                builder.setTitle("Is it Right Clients ?"+ pc.getName());
@@ -104,7 +104,16 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 //                builder.setMessage("Process Time : " + proc_time + " s");
 
                 builder.setNegativeButton("CANCEL", listener);
-                builder.setPositiveButton("YES", null);
+                builder.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do all your stuff here
+                                nf.setCriteria("!");
+                                currentPage = 0;
+                            }
+                        }
+                );
                 builder.show();
             }
         } else {
@@ -125,13 +134,16 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         ziggyService = context.ziggyService();
     }
-    public void onPageChanged(int page){
+
+    public void onPageChanged(int page) {
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         LoginActivity.setLanguage();
     }
 
     @Override
-    protected DefaultOptionsProvider getDefaultOptionsProvider() {return null;}
+    protected DefaultOptionsProvider getDefaultOptionsProvider() {
+        return null;
+    }
 
     @Override
     protected void setupViews() {
@@ -140,41 +152,45 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     }
 
     @Override
-    protected void onResumption(){}
+    protected void onResumption() {
+    }
 
     @Override
-    protected NavBarOptionsProvider getNavBarOptionsProvider() {return null;}
+    protected NavBarOptionsProvider getNavBarOptionsProvider() {
+        return null;
+    }
 
     @Override
-    protected SmartRegisterClientsProvider clientsProvider() {return null;}
+    protected SmartRegisterClientsProvider clientsProvider() {
+        return null;
+    }
 
     @Override
-    protected void onInitialization() {}
+    protected void onInitialization() {
+    }
 
     @Override
     public void startRegistration() {
     }
 
     public DialogOption[] getEditOptions() {
-            return new DialogOption[]{
+        return new DialogOption[]{
                 new OpenFormOption("Kunjungan Per Bulan ", "kunjungan_gizi", formController),
                 new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
-                new OpenFormOption("Close Form","close_form",formController)
+                new OpenFormOption("Close Form", "close_form", formController)
 
 
-
-
-            };
+        };
 
 
     }
 
 
     @Override
-    public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
+    public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides) {
         Log.v("fieldoverride", fieldOverrides.toString());
         // save the form
-        try{
+        try {
             FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
 
@@ -185,7 +201,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
 
-        }catch (Exception e){
+        } catch (Exception e) {
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
             if (displayFormFragment != null) {
@@ -270,11 +286,11 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
-            if (entityId != null || metaData != null){
+            if (entityId != null || metaData != null) {
                 String data = null;
                 //check if there is previously saved data for the form
                 data = getPreviouslySavedDataForForm(formName, metaData, entityId);
-                if (data == null){
+                if (data == null) {
                     data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 }
 
@@ -288,7 +304,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -329,7 +345,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     }*/
 
-    public void switchToBaseFragment(final String data){
+    public void switchToBaseFragment(final String data) {
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {
             @Override
@@ -360,7 +376,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     }
 
     public DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
-        return  (DisplayFormFragment)findFragmentByPosition(index);
+        return (DisplayFormFragment) findFragmentByPosition(index);
     }
 
     @Override
@@ -372,15 +388,15 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         }
     }
 
-    private String[] buildFormNameList(){
+    private String[] buildFormNameList() {
         List<String> formNames = new ArrayList<String>();
-       formNames.add("registrasi_gizi");
+        formNames.add("registrasi_gizi");
         formNames.add("kunjungan_gizi");
         formNames.add("edit_registrasi_gizi");
         formNames.add("close_form");
-       
 
-     //   formNames.add("census_enrollment_form");
+
+        //   formNames.add("census_enrollment_form");
 //        DialogOption[] options = getEditOptions();
 //        for (int i = 0; i < options.length; i++){
 //            formNames.add(((OpenFormOption) options[i]).getFormName());
@@ -395,17 +411,17 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         String GiziEnd = timer.format(new Date());
         Map<String, String> Gizi = new HashMap<String, String>();
         Gizi.put("end", GiziEnd);
-        FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
+        FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
     }
 
-    public void retrieveAndSaveUnsubmittedFormData(){
-        if (currentActivityIsShowingForm()){
+    public void retrieveAndSaveUnsubmittedFormData() {
+        if (currentActivityIsShowingForm()) {
             DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
             formFragment.saveCurrentFormData();
         }
     }
 
-    private boolean currentActivityIsShowingForm(){
+    private boolean currentActivityIsShowingForm() {
         return currentPage != 0;
     }
 
@@ -413,12 +429,12 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         @Override
         public void onClick(DialogInterface dialog, int which) {
 //            mBaseFragment = new NativeKISmartRegisterFragment();
-
             nf.setCriteria("");
+
             onBackPressed();
             Log.e(TAG, "onClick: Cancel");
 
-            Intent intent= new Intent(GiziSmartRegisterActivity.this, GiziSmartRegisterActivity.class);
+            Intent intent = new Intent(GiziSmartRegisterActivity.this, GiziSmartRegisterActivity.class);
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 //            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
 
