@@ -225,20 +225,20 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
         if (s == null || s.equals("!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
-            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
+            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"%'";
         } else {
             Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"%' AND object_id LIKE '%" + s + "%'";
         }
 
 
-        countSelect = countqueryBUilder.mainCondition("details not LIKE '%\"form_ditutup\": \"yes\"\"%'");
+        countSelect = countqueryBUilder.mainCondition("details not LIKE '%\"form_ditutup\": \"yes\"%'");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed","anak.details","tanggalLahirAnak","namaBayi"});
-        mainSelect = queryBUilder.mainCondition(" details not LIKE '%\"form_ditutup\":yes\"\"%' ");
+        mainSelect = queryBUilder.mainCondition(" details not LIKE '%\"form_ditutup\":yes\"%' ");
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;

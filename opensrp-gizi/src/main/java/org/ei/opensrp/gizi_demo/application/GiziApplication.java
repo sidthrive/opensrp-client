@@ -79,7 +79,7 @@ public class GiziApplication extends DrishtiApplication {
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("anak")){
-            String[] ftsSearchFields =  { "namaBayi" };
+            String[] ftsSearchFields =  { "namaBayi","details" };
             return ftsSearchFields;
         } else if (tableName.equals("ibu")){
             String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
@@ -90,7 +90,7 @@ public class GiziApplication extends DrishtiApplication {
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("anak")){
-            String[] sortFields = { "namaBayi", "tanggalLahirAnak" };
+            String[] sortFields = { "namaBayi", "tanggalLahirAnak","details" };
             return sortFields;
         } else if(tableName.equals("ibu")){
             String[] sortFields = { "namalengkap", "umur", "noIbu", "htp" };
