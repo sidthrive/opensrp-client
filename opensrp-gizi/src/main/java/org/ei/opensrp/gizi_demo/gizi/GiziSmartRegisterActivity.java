@@ -1,5 +1,8 @@
 package org.ei.opensrp.gizi_demo.gizi;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,7 +21,7 @@ import org.ei.opensrp.gizi_demo.fragment.GiziSmartRegisterFragment;
 import org.ei.opensrp.gizi_demo.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi_demo.R;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.dialog.DialogOption;
@@ -45,9 +48,11 @@ import butterknife.ButterKnife;
 public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements
         LocationSelectorDialogFragment.OnLocationSelectedListener{
 
+    private static final String TAG = GiziSmartRegisterActivity.class.getSimpleName();
+
+
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
 
-    public static final String TAG = "GiziActivity";
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -58,6 +63,8 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
 
     ZiggyService ziggyService;
+
+    GiziSmartRegisterFragment nf = new GiziSmartRegisterFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +80,36 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
        // FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
-        mBaseFragment = new GiziSmartRegisterFragment();
+
+//        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new GiziSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: id " + base_id);
+//                showToast("id "+base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES", null);
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new GiziSmartRegisterFragment();
+        }
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -87,7 +123,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
         });
 
-        ziggyService = context().ziggyService();
+        ziggyService = context.ziggyService();
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -144,7 +180,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            context().formSubmissionService().updateFTSsearch(submission);
+            context.formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -372,4 +408,21 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+//            mBaseFragment = new NativeKISmartRegisterFragment();
+
+            nf.setCriteria("");
+            onBackPressed();
+            Log.e(TAG, "onClick: Cancel");
+
+            Intent intent= new Intent(GiziSmartRegisterActivity.this, GiziSmartRegisterActivity.class);
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
 }

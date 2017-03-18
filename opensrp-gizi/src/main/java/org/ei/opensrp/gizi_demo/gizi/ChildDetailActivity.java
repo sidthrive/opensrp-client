@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,10 +24,13 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import org.apache.commons.io.FilenameUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi_demo.R;
+import org.ei.opensrp.gizi_demo.face.camera.SmartShutterActivity;
+import org.ei.opensrp.gizi_demo.face.camera.util.Tools;
 import org.ei.opensrp.repository.ImageRepository;
 
 import java.io.File;
@@ -44,6 +48,7 @@ import util.ImageFetcher;
  * Created by Iq on 26/04/16.
  */
 public class ChildDetailActivity extends Activity {
+    public static CommonPersonObjectClient kiclient;
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
     private static final String TAG = "ImageGridFragment";
@@ -57,6 +62,17 @@ public class ChildDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient childclient;
+
+
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
+
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,21 +128,46 @@ public class ChildDetailActivity extends Activity {
         });
 
 
-        if(childclient.getDetails().get("profilepic")!= null){
-            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+        //        Profile Picture
+        photo_path = childclient.getDetails().get("profilepic");
 
-            }
+        if (Tools.getPhotoPath() != null) {
+            String absoluteFilePathNoExt = FilenameUtils.removeExtension(Tools.getPhotoPath());
+            fileName = absoluteFilePathNoExt.substring(absoluteFilePathNoExt.lastIndexOf("/") + 1);
         }
-        else {
-            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") || childclient.getDetails().get("gender").equalsIgnoreCase("laki-laki")) {
-                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
+
+        if (photo_path != null) {
+            tb_photo = new File(photo_path);
+            if (!tb_photo.exists()) {
+                childview.setImageDrawable(getResources().getDrawable(R.drawable.fr_not_found_404));
             } else {
-                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
+                setImagetoHolderFromUri(this, childclient.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
             }
+        } else if (Tools.getPhotoPath() != null && fileName.equals(childclient.getCaseId())) {
+            setImagetoHolderFromUri(this, Tools.getPhotoPath(), childview, R.drawable.child_boy_infant);
+
+        } else {
+            childview.setImageResource(childclient.getDetails().get("jenis_kelamin").contains("em")
+                    ? R.drawable.child_girl_infant
+                    : R.drawable.child_boy_infant);
         }
+
+
+//        if(childclient.getDetails().get("profilepic")!= null){
+//            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+//                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+//            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+//                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+//
+//            }
+//        }
+//        else {
+//            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") || childclient.getDetails().get("gender").equalsIgnoreCase("laki-laki")) {
+//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
+//            } else {
+//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
+//            }
+//        }
 
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
@@ -196,13 +237,30 @@ public class ChildDetailActivity extends Activity {
 
         });
 
+        hash = Tools.retrieveHash(context.applicationContext());
+
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 bindobject = "anak";
                 entityid = childclient.entityId();
-                dispatchTakePictureIntent(childview);
+//                dispatchTakePictureIntent(childview);
+
+                if (hash.containsValue(entityid)) {
+                    Log.e(TAG, "onClick: " + entityid + " updated");
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+//                dispatchTakePictureIntent(kiview, updateMode);
+
+                Intent intent = new Intent(ChildDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivity(intent);
+
 
             }
         });

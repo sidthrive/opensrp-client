@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi_demo.R;
 
 import java.util.ArrayList;
 

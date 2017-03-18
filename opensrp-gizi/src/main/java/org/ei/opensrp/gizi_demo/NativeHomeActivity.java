@@ -15,6 +15,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
+import org.ei.opensrp.gizi_demo.R;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -119,14 +120,14 @@ public class NativeHomeActivity extends SecuredActivity {
     }
 
     private void initialize() {
-        pendingFormSubmissionService = context().pendingFormSubmissionService();
+        pendingFormSubmissionService = context.pendingFormSubmissionService();
         SYNC_STARTED.addListener(onSyncStartListener);
         SYNC_COMPLETED.addListener(onSyncCompleteListener);
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
         ACTION_HANDLED.addListener(updateANMDetailsListener);
         getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.gizi.R.mipmap.logo));
-        getSupportActionBar().setLogo(org.ei.opensrp.gizi.R.mipmap.logo);
+        getSupportActionBar().setIcon(getResources().getDrawable(R.mipmap.logo));
+        getSupportActionBar().setLogo(R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         LoginActivity.setLanguage();
@@ -156,7 +157,7 @@ public class NativeHomeActivity extends SecuredActivity {
     private void updateRegisterCounts(HomeContext homeContext) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 
-        Cursor childcountcursor = context().commonrepository("anak").RawCustomQueryForAdapter(
+        Cursor childcountcursor = context.commonrepository("anak").RawCustomQueryForAdapter(
                 sqb.queryForCountOnRegisters("anak", "details not LIKE '%\"form_ditutup\": \"yes\"%'"));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
@@ -206,8 +207,8 @@ public class NativeHomeActivity extends SecuredActivity {
 
     public void updateFromServer() {
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
-                this, context().actionService(), context().formSubmissionSyncService(),
-                new SyncProgressIndicator(), context().allFormVersionSyncService());
+                this, context.actionService(), context.formSubmissionSyncService(),
+                new SyncProgressIndicator(), context.allFormVersionSyncService());
         FlurryFacade.logEvent("click_update_from_server");
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
@@ -224,7 +225,7 @@ public class NativeHomeActivity extends SecuredActivity {
 
     private void updateSyncIndicator() {
         if (updateMenuItem != null) {
-            if (context().allSharedPreferences().fetchIsSyncInProgress()) {
+            if (context.allSharedPreferences().fetchIsSyncInProgress()) {
                 updateMenuItem.setActionView(R.layout.progress);
             } else
                 updateMenuItem.setActionView(null);

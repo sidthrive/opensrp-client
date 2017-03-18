@@ -2,7 +2,7 @@ package org.ei.opensrp.gizi_demo.gizi;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi_demo.R;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.FilterOption;
 

@@ -1,6 +1,6 @@
 package util.ZScore;
 
-import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi_demo.R;
 
 /**
  * Created by Iq on 24/05/16.

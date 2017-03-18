@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import org.ei.opensrp.domain.LoginResponse;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.domain.ResponseStatus;
 import org.ei.opensrp.event.Listener;
+import org.ei.opensrp.gizi_demo.R;
 import org.ei.opensrp.gizi_demo.gizi.ErrorReportingFacade;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
@@ -93,11 +95,24 @@ public class LoginActivity extends Activity {
         setDoneActionHandlerOnPasswordField();
         initializeProgressDialog();
         getActionBar().setTitle("");
-        getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.gizi.R.mipmap.logo));
-        getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.gizi.R.color.action_bar_background));
+        getActionBar().setIcon(getResources().getDrawable(R.drawable.logo));
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_background));
         setLanguage();
 
+        debugApp();
+
     }
+
+    private void debugApp(){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.login, null);
+        if (context.userService().hasARegisteredUser()){
+            localLogin(view, "gizi12", "Satu2345");
+        } else {
+            remoteLogin(view, "gizi12", "Satu2345");
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
