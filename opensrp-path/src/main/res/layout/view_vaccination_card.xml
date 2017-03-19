@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/status_iv"
         android:background="@null"
         android:gravity="center_horizontal"
@@ -38,6 +39,8 @@
         android:background="@drawable/undo_background"
         android:text="Undo"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

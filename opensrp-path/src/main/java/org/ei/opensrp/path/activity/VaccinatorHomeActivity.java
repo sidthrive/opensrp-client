@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.controller.VaccinatorNavigationController;
+import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -211,7 +213,7 @@ public class VaccinatorHomeActivity extends SecuredActivity {
         PathUpdateActionsTask pathUpdateActionsTask = new PathUpdateActionsTask(
                 this, context().actionService(), context().formSubmissionSyncService(),
                 new SyncProgressIndicator(), context().allFormVersionSyncService());
-        pathUpdateActionsTask.updateFromServer(new SyncAfterFetchListener());
+        pathUpdateActionsTask.updateFromServer(new PathAfterFetchListener());
     }
 
     @Override

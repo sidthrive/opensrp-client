@@ -8,18 +8,35 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.utils.ValidationStatus;
+import com.vijay.jsonwizard.views.JsonFormFragmentView;
+import com.vijay.jsonwizard.widgets.EditTextFactory;
 
-public class GenericTextWatcher implements TextWatcher {
+import java.util.ArrayList;
+
+public class GenericTextWatcher implements TextWatcher, View.OnFocusChangeListener {
 
     private View   mView;
     private String mStepName;
+    private ArrayList<View.OnFocusChangeListener> onFocusChangeListeners;
+    private JsonFormFragment formFragment;
 
-    public GenericTextWatcher(String stepName, View view) {
+    public GenericTextWatcher(String stepName, JsonFormFragment formFragment, View view) {
+        this.formFragment = formFragment;
         mView = view;
         mStepName = stepName;
+        onFocusChangeListeners = new ArrayList<>();
+        mView.setOnFocusChangeListener(this);
+    }
+
+    public void addOnFocusChangeListener(View.OnFocusChangeListener onFocusChangeListener) {
+        onFocusChangeListeners.add(onFocusChangeListener);
     }
 
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -30,6 +47,7 @@ public class GenericTextWatcher implements TextWatcher {
 
     public void afterTextChanged(Editable editable) {
         String text = editable.toString();
+        Log.d("RealtimeValidation", "afterTextChanged called");
         JsonApi api = null;
         if(mView.getContext() instanceof JsonApi) {
             api = (JsonApi) mView.getContext();
@@ -49,6 +67,16 @@ public class GenericTextWatcher implements TextWatcher {
         } catch (JSONException e) {
             // TODO- handle
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!hasFocus) {
+            JsonFormFragmentPresenter.validate(formFragment, mView, false);
+        }
+        for (View.OnFocusChangeListener curListener : onFocusChangeListeners) {
+            curListener.onFocusChange(v, hasFocus);
         }
     }
 }

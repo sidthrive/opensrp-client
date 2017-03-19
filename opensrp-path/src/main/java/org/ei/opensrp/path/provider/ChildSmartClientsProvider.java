@@ -1,7 +1,6 @@
 package org.ei.opensrp.path.provider;
 
 import android.content.Context;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,10 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -28,23 +29,19 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import util.DateUtils;
 import util.ImageUtils;
-import util.Utils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.fillValue;
+import static util.Utils.getName;
 import static util.Utils.getValue;
 
 /**
@@ -56,14 +53,16 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     private final View.OnClickListener onClickListener;
     AlertService alertService;
     VaccineRepository vaccineRepository;
+    WeightRepository weightRepository;
     private final AbsListView.LayoutParams clientViewLayoutParams;
 
     public ChildSmartClientsProvider(Context context, View.OnClickListener onClickListener,
-                                     AlertService alertService, VaccineRepository vaccineRepository) {
+                                     AlertService alertService, VaccineRepository vaccineRepository, WeightRepository weightRepository) {
         this.onClickListener = onClickListener;
         this.context = context;
         this.alertService = alertService;
         this.vaccineRepository = vaccineRepository;
+        this.weightRepository = weightRepository;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         clientViewLayoutParams = new AbsListView.LayoutParams(MATCH_PARENT, (int) context.getResources().getDimension(org.ei.opensrp.R.dimen.list_item_height));
@@ -74,16 +73,20 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
         fillValue((TextView) convertView.findViewById(R.id.child_zeir_id), getValue(pc.getColumnmaps(), "zeir_id", false));
-        String childName = getValue(pc.getColumnmaps(), "first_name", true) + " " + getValue(pc, "last_name", true);
+
+        String firstName = getValue(pc.getColumnmaps(), "first_name", true);
+        String lastName = getValue(pc.getColumnmaps(), "last_name", true);
+        String childName = getName(firstName, lastName);
+
         String motherFirstName = getValue(pc.getColumnmaps(), "mother_first_name", true);
-        if (childName.trim().isEmpty() && !motherFirstName.isEmpty()) {
-            childName = "B/o " + motherFirstName;
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
         }
         fillValue((TextView) convertView.findViewById(R.id.child_name), childName);
 
         String motherName = getValue(pc.getColumnmaps(), "mother_first_name", true) + " " + getValue(pc, "mother_last_name", true);
-        if (!motherName.trim().isEmpty()) {
-            motherName = "M/G: " + motherName;
+        if (!StringUtils.isNotBlank(motherName)) {
+            motherName = "M/G: " + motherName.trim();
         }
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
@@ -111,9 +114,18 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);
 
-        Button recordWeight = (Button) convertView.findViewById(R.id.record_weight);
+        View recordWeight = convertView.findViewById(R.id.record_weight);
         recordWeight.setTag(client);
         recordWeight.setOnClickListener(onClickListener);
+
+        Weight weight = weightRepository.findUnSyncedByEntityId(pc.entityId());
+        if (weight != null) {
+            TextView recordWeightText = (TextView) convertView.findViewById(R.id.record_weight_text);
+            recordWeightText.setText(weight.getKg().toString() + " kg");
+
+            ImageView recordWeightCheck = (ImageView) convertView.findViewById(R.id.record_weight_check);
+            recordWeightCheck.setVisibility(View.VISIBLE);
+        }
 
         Button recordVaccination = (Button) convertView.findViewById(R.id.record_vaccination);
         recordVaccination.setTag(client);
@@ -276,5 +288,4 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         INACTIVE,
         FULLY_IMMUNIZED
     }
-
 }
