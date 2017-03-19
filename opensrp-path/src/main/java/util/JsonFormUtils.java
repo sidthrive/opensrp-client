@@ -217,6 +217,8 @@ public class JsonFormUtils {
                 cloudantDataHandler.createEventDocument(event);
             }
             ClientProcessor.getInstance(context).processClient();
+
+
 //            EventsProcessor
         } catch (Exception e) {
             Log.e(TAG, "", e);

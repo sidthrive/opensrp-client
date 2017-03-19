@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -36,24 +37,32 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
+import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
+import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
@@ -77,11 +86,15 @@ import util.JsonFormUtils;
 import util.Utils;
 import util.barcode.BarcodeIntentIntegrator;
 import util.barcode.BarcodeIntentResult;
+
+import static util.Utils.getName;
+import static util.Utils.getValue;
+
 /**
  * Created by raihan on 1/03/2017.
  */
 
-public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener {
+public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener, WeightActionListener {
 
 
     private Toolbar detailtoolbar;
@@ -98,7 +111,10 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private child_registration_data_fragment child_data_fragment;
     private child_under_five_fragment child_under_five_Fragment;
+    private static final String DIALOG_TAG = "ChildDetailActivity_DIALOG_TAG";
+
     private File currentfile;
+    public String location_name = "";
 
     public CommonPersonObjectClient getChildDetails() {
         return childDetails;
@@ -114,6 +130,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = this.getIntent().getExtras();
+        location_name = extras.getString("location_name");
         if (extras != null) {
             Serializable serializable = extras.getSerializable(EXTRA_CHILD_DETAILS);
             if (serializable != null && serializable instanceof CommonPersonObjectClient) {
@@ -189,6 +206,9 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 viewPager.setCurrentItem(1);
                 child_under_five_Fragment.loadview(true);
                 return  true;
+            case R.id.weight_data:
+                showWeightDialog();
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -201,7 +221,9 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         Context context = Context.getInstance();
         try{
         JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
-//        JsonFormUtils.addChildRegLocHierarchyQuestions(form, context);
+            LocationPickerView lpv = new LocationPickerView(getApplicationContext());
+            lpv.init(context);
+        JsonFormUtils.addChildRegLocHierarchyQuestions(form,lpv.getSelectedItem(), context);
         if (form != null) {
             form.put("entity_id",childDetails.entityId());
             Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
@@ -555,6 +577,77 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     public void onUndoVaccination(VaccineWrapper tag, View view) {
 
     }
+
+    @Override
+    public void onWeightTaken(WeightWrapper tag) {
+        if (tag != null) {
+            WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            Weight weight = new Weight();
+            if (tag.getDbKey() != null) {
+                weight = weightRepository.find(tag.getDbKey());
+            }
+            weight.setBaseEntityId(childDetails.entityId());
+            weight.setKg(tag.getWeight());
+            weight.setDate(tag.getUpdatedWeightDate().toDate());
+            weight.setAnmId(getOpenSRPContext().allSharedPreferences().fetchRegisteredANM());
+            try {
+                weight.setLocationId(location_name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            weightRepository.add(weight);
+
+            tag.setDbKey(weight.getId());
+            child_under_five_Fragment.loadview(false);
+//            updateRecordWeightView(tag);
+//            setLastModified(true);
+        }
+    }
+    private void showWeightDialog() {
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        android.app.Fragment prev = this.getFragmentManager().findFragmentByTag(DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+
+        String childName = constructChildName();
+        String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
+        String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
+        }
+        String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
+        String duration = "";
+        String dobString = getValue(childDetails.getColumnmaps(), "dob", false);
+        if (StringUtils.isNotBlank(dobString)) {
+            DateTime dateTime = new DateTime(getValue(childDetails.getColumnmaps(), "dob", false));
+            duration = DateUtils.getDuration(dateTime);
+        }
+
+        Photo photo = ImageUtils.profilePhotoByClient(childDetails);
+
+        WeightWrapper weightWrapper = new WeightWrapper();
+        weightWrapper.setId(childDetails.entityId());
+        weightWrapper.setGender(gender.toString());
+        weightWrapper.setPatientName(childName);
+        weightWrapper.setPatientNumber(zeirId);
+        weightWrapper.setPatientAge(duration);
+        weightWrapper.setPhoto(photo);
+        weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
+
+        RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(this, weightWrapper);
+        recordWeightDialogFragment.show(ft, DIALOG_TAG);
+
+    }
+    private String constructChildName() {
+        String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
+        String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+        return getName(firstName, lastName).trim();
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

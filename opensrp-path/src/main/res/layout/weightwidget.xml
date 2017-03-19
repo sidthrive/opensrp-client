@@ -31,7 +31,7 @@
         android:orientation="vertical"
         android:layout_margin="20dp"
         android:id="@+id/weightvalues"
-        android:layout_height="175dp">
+        android:layout_height="wrap_content">
 
 
 

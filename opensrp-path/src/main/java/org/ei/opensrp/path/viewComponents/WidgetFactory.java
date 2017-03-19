@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.viewComponents;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,12 @@ public class WidgetFactory {
     public View createWeightWidget(LayoutInflater inflater, ViewGroup container, HashMap<String,String> last_five_weight_map){
         View weightwidget = inflater.inflate(R.layout.weightwidget, container, false);
         LinearLayout tableLayout = (LinearLayout) weightwidget.findViewById(R.id.weightvalues);
+        ViewGroup.LayoutParams weightvaluesparams = tableLayout.getLayoutParams();
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,last_five_weight_map.size()*35 ,Context.getInstance().applicationContext().getResources().getDisplayMetrics());
+
+        weightvaluesparams.height = height;
+        tableLayout.setLayoutParams(weightvaluesparams);
+
         for (Map.Entry<String, String> entry : last_five_weight_map.entrySet())
         {
             tableLayout.addView(createTableRow(inflater,tableLayout,""+entry.getKey(),""+entry.getValue()));

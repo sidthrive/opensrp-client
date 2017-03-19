@@ -107,6 +107,16 @@ public class WeightRepository extends DrishtiRepository {
 
         return null;
     }
+    public List<Weight> findLast5(String entityid) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ?", new String[]{entityid}, null, null, UPDATED_AT_COLUMN, null);
+        List<Weight> weights = readAllWeights(cursor);
+//        if (!weights.isEmpty()) {
+            return weights;
+//        }
+
+//        return null;
+    }
 
     public void close(Long caseId) {
         ContentValues values = new ContentValues();

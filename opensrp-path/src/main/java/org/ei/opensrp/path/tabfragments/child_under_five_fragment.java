@@ -3,6 +3,7 @@ package org.ei.opensrp.path.tabfragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -22,17 +25,25 @@ import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.repository.WeightRepository;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import util.DateUtils;
+import util.Utils;
 
 
 public class child_under_five_fragment extends Fragment  {
@@ -44,6 +55,7 @@ public class child_under_five_fragment extends Fragment  {
     private CommonPersonObjectClient childDetails;
     private Map<String,String> detailmaps;
     private ArrayList<ImmunizationRowGroup> vaccineGroups;
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
 
@@ -89,14 +101,37 @@ public class child_under_five_fragment extends Fragment  {
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         fragmentcontainer.removeAllViews();
         HashMap<String,String> weightmap = new HashMap<String, String>();
-        weightmap.put("9 m","8.4");
-        weightmap.put("8 m","7.5 Kg");
-        weightmap.put("7 m","6.7 Kg");
-        weightmap.put("6 m","5.6 Kg");
-        weightmap.put("5 m","5.0 Kg");
-        WidgetFactory wd = new WidgetFactory();
+//        weightmap.put("9 m","8.4");
+//        weightmap.put("8 m","7.5 Kg");
+//        weightmap.put("7 m","6.7 Kg");
+//        weightmap.put("6 m","5.6 Kg");
+//        weightmap.put("5 m","5.0 Kg");
+        WeightRepository wp =  Context.getInstance().weightRepository();
+        List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
 
-        fragmentcontainer.addView(wd.createWeightWidget(inflater,container,weightmap));
+        for(int i = 0;i<weightlist.size();i++){
+//            String formattedDob = "";
+            String formattedAge = "";
+            if (weightlist.get(i).getDate() != null) {
+
+                Date weighttaken = weightlist.get(i).getDate();;
+//                formattedDob = DATE_FORMAT.format(weighttaken);
+                String birthdate = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
+                DateTime birthday = new DateTime(birthdate);
+                Date birth = birthday.toDate();
+                long timeDiff = weighttaken.getTime() - birth.getTime();
+
+                if (timeDiff >= 0) {
+                    formattedAge = DateUtils.getDuration(timeDiff);
+                }
+            }
+            weightmap.put(formattedAge,weightlist.get(i).getKg()+" Kg");
+        }
+//        weightlist.size();
+        WidgetFactory wd = new WidgetFactory();
+        if(weightmap.size()>0) {
+            fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
+        }
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
         updateVaccinationViews(fragmentcontainer,editmode);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
