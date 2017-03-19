@@ -158,7 +158,7 @@ public class JsonFormUtils {
             Log.e(TAG, "", e);
         }
     }
-    public static void editsave(Context context, String jsonString, String providerId, String imageKey, String bindType, String subBindType) {
+    public static void editsave(Context context,org.ei.opensrp.Context openSrpContext, String jsonString, String providerId, String imageKey, String bindType, String subBindType) {
         if (context == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(jsonString)) {
             return;
         }
@@ -182,7 +182,7 @@ public class JsonFormUtils {
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
             Client c = JsonFormUtils.createBaseClient(fields, entityId);
-            Event e = JsonFormUtils.createEvent(fields, metadata, entityId, encounterType, providerId, bindType);
+            Event e = JsonFormUtils.createEvent(openSrpContext, fields, metadata, entityId, encounterType, providerId, bindType);
 
             Client s = null;
 

@@ -201,7 +201,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         Context context = Context.getInstance();
         try{
         JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
-        JsonFormUtils.addChildRegLocHierarchyQuestions(form, context);
+//        JsonFormUtils.addChildRegLocHierarchyQuestions(form, context);
         if (form != null) {
             form.put("entity_id",childDetails.entityId());
             Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
@@ -340,7 +340,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.editsave(this, jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.editsave(this,getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
             }
         }
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
