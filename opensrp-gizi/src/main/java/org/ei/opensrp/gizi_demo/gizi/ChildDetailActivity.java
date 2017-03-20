@@ -128,6 +128,9 @@ public class ChildDetailActivity extends Activity {
         });
 
 
+        System.out.println("details: "+childclient.getColumnmaps().toString());
+
+
         //        Profile Picture
         photo_path = childclient.getDetails().get("profilepic");
 
@@ -172,7 +175,7 @@ public class ChildDetailActivity extends Activity {
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
         uniqueId.setText(getString(R.string.unique_id) + " " + (childclient.getDetails().get("unique_id") != null ? childclient.getDetails().get("unique_id"):"-"));
-        nama.setText(getString(R.string.child_name) +" "+ (childclient.getDetails().get("namaBayi") != null ? childclient.getDetails().get("namaBayi") : "-"));
+        nama.setText(getString(R.string.child_name) +" "+ (childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
         father_name.setText(getString(R.string.father_name)+" "+(childclient.getDetails().get("namaAyah")!=null ? childclient.getDetails().get("namaAyah") : "-"));
         mother_name.setText(getString(R.string.mother_name) +" : "+ (childclient.getDetails().get("namaIbu") != null ? childclient.getDetails().get("namaIbu")
                 : childclient.getDetails().get("namaOrtu")!=null
