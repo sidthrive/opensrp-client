@@ -2,6 +2,7 @@ package org.ei.opensrp.indonesia_demo;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 
 import org.ei.opensrp.indonesia_demo.anc.NativeKIANCSmartRegisterActivity;
@@ -51,5 +52,7 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
     public void startChildSmartRegistry() {
         activity.startActivity(new Intent(activity, NativeKIAnakSmartRegisterActivity.class));
     }
-
+    public void startReports(){
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://dho-report.sid-indonesia.org")));
+    }
 }

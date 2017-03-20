@@ -342,7 +342,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
                 if(pc.getColumnmaps().get("ibu.type")!= null) {
-                    if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {
+                    if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
                         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
                         return;
                     }

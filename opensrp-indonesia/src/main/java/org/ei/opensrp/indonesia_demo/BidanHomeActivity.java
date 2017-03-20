@@ -302,7 +302,7 @@ public class BidanHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
                 case R.id.btn_videos:
