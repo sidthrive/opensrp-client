@@ -35,6 +35,7 @@ import org.ei.opensrp.domain.ResponseStatus;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.service.intent.PullUniqueIdsIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.util.Log;
@@ -70,6 +71,7 @@ public class LoginActivity extends Activity {
     public static final String ENGLISH_LANGUAGE = "English";
     public static final String KANNADA_LANGUAGE = "Kannada";
     public static final String URDU_LANGUAGE = "Urdu";
+    android.content.Context appContext;
 
 
     @Override
@@ -96,7 +98,7 @@ public class LoginActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
         }
-
+        appContext=this;
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         positionViews();
         initializeLoginFields();
@@ -208,6 +210,8 @@ public class LoginActivity extends Activity {
                 if (loginResponse == SUCCESS) {
                     if (context.userService().isUserInPioneerGroup(userName)) {
                         remoteLoginWith(userName, password, loginResponse.payload());
+                        Intent intent = new Intent(appContext, PullUniqueIdsIntentService.class);
+                        appContext.startService(intent);
                     } else {// Valid user from wrong group trying to log in
                         showErrorDialog(getResources().getString(R.string.unauthorized_group));
                         view.setClickable(true);
