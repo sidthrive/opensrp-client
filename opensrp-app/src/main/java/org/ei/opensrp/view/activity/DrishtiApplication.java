@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.R;
@@ -32,6 +34,7 @@ public abstract class DrishtiApplication extends Application {
         super.onCreate();
         mInstance=this;
         context = Context.getInstance();
+        SQLiteDatabase.loadLibs(this);
     }
 
     public static synchronized DrishtiApplication getInstance() {
@@ -86,7 +89,8 @@ public abstract class DrishtiApplication extends Application {
 
     public String getPassword(){
         if(password==null) {
-            context.userService().getGroupId(context.userService().getAllSharedPreferences().fetchRegisteredANM());
+            String username=context.userService().getAllSharedPreferences().fetchRegisteredANM();
+            password=context.userService().getGroupId(username);
         }
         return password;
     }

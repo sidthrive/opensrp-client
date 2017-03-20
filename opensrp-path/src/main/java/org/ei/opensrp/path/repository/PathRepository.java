@@ -76,13 +76,18 @@ public class PathRepository extends Repository {
 
     @Override
     public synchronized SQLiteDatabase getReadableDatabase(String password) {
-        if (readableDatabase == null || !readableDatabase.isOpen()) {
-            if (readableDatabase != null) {
-                readableDatabase.close();
-            }
-            readableDatabase = super.getReadableDatabase(password);
-        }
-        return readableDatabase;
+       try {
+           if (readableDatabase == null || !readableDatabase.isOpen()) {
+               if (readableDatabase != null) {
+                   readableDatabase.close();
+               }
+               readableDatabase = super.getReadableDatabase(password);
+           }
+           return readableDatabase;
+       }catch(Exception e){
+           Log.e(TAG,"Database Error. "+e.getMessage());
+           return null;
+       }
 
     }
 
