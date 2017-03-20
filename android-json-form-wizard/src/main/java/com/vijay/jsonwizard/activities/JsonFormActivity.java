@@ -120,7 +120,6 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                            String openMrsEntityId)
             throws JSONException {
         synchronized (mJSONObject) {
-            Log.d(TAG, "Called");
             JSONObject jsonObject = mJSONObject.getJSONObject(stepName);
             JSONArray fields = jsonObject.getJSONArray("fields");
             for (int i = 0; i < fields.length(); i++) {
@@ -135,7 +134,6 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                             innerItem.put("value", value);
                             refreshSkipLogic(parentKey, childKey);
                             refreshConstraints(parentKey, childKey);
-                            Log.d(TAG, "Inside called");
                             return;
                         }
                     }
@@ -296,8 +294,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                     JSONObject curConstraint = constraint.getJSONObject(i);
                     if (address.length == 2) {
                         String value = getValueFromAddress(address);
-                        Log.d(TAG, "cur view has id " + addressString);
-                        errorMessage = enforceConstraint(value, curConstraint);
+                        errorMessage = enforceConstraint(value, curView, curConstraint);
                         if (errorMessage != null) break;
                     }
                 }
@@ -307,7 +304,6 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         ((MaterialEditText) curView).setText(null);
                         ((MaterialEditText) curView).setError(errorMessage);
                     } else if (curView instanceof CheckBox) {
-                        Log.d(TAG, "Failed checkbox is " + addressString);
                         ((CheckBox) curView).setChecked(false);
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
                         String checkBoxKey = (String) curView.getTag(R.id.childKey);
@@ -452,7 +448,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
      * @return  An error message if constraint has not been enfored or NULL if constraint enforced
      * @throws Exception
      */
-    private String enforceConstraint(String value, JSONObject constraint) throws Exception {
+    private String enforceConstraint(String value, View view, JSONObject constraint) throws Exception {
         String type = constraint.getString("type").toLowerCase();
         String ex = constraint.getString("ex");
         String errorMessage = constraint.getString("err");
@@ -462,11 +458,13 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
             String functionName = matcher.group(1);
             String b = matcher.group(2);
             String[] args = getFunctionArgs(b, value);
-            Log.d(TAG, "args  = "+b);
-            Log.d(TAG, "val = "+value);
-            Log.d(TAG, "a = "+args[0]);
-            Log.d(TAG, "b = "+args[1]);
-            if (TextUtils.isEmpty(value)
+
+            boolean viewDoesntHaveValue = TextUtils.isEmpty(value);
+            if (view instanceof CheckBox) {
+                viewDoesntHaveValue = !((CheckBox) view).isChecked();
+            }
+
+            if (viewDoesntHaveValue
                     || TextUtils.isEmpty(args[0])
                     || TextUtils.isEmpty(args[1])
                     || comparisons.get(functionName).compare(args[0], type, args[1])) {

@@ -54,11 +54,7 @@ public class NotEqualToComparison extends Comparison {
                         aList1.removeAll(bList2);
                         bList1.removeAll(aList2);
 
-                        boolean result = aList1.size() == aList2.size() && bList1.size() == bList2.size();
-                        Log.d(TAG, "result for comparison is "+result);
-                        Log.d(TAG, "result a "+aArray.toString());
-                        Log.d(TAG, "result b "+bArray.toString());
-                        return result;
+                        return aList1.size() == aList2.size() && bList1.size() == bList2.size();
                     } catch (JSONException e) {
                         Log.e(TAG, Log.getStackTraceString(e));
                     }

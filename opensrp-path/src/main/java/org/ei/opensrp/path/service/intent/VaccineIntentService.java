@@ -24,18 +24,23 @@ import util.VaccinatorUtils;
 public class VaccineIntentService extends IntentService {
     private static final String TAG = VaccineIntentService.class.getCanonicalName();
     private final VaccineRepository vaccineRepository;
-    private final JSONArray availableVaccines;
+    private JSONArray availableVaccines;
 
-    public VaccineIntentService() throws JSONException {
+    public VaccineIntentService() {
 
         super("VaccineService");
         vaccineRepository = Context.getInstance().vaccineRepository();
-        availableVaccines = new JSONArray(VaccinatorUtils.getSupportedVaccines(this));
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
+        if (availableVaccines == null) {
+            try {
+                availableVaccines = new JSONArray(VaccinatorUtils.getSupportedVaccines(this));
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
         final String entityId = "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         final String calId = "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         final String dateDataType = "date";
