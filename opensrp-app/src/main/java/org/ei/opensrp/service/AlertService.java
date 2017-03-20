@@ -57,6 +57,10 @@ public class AlertService {
         return repository.findByEntityIdAndAlertNames(entityId, names);
     }
 
+    public Alert findByEntityIdAndScheduleName(String entityId, String scheduleName) {
+        return repository.findByEntityIdAndScheduleName(entityId, scheduleName);
+    }
+
     public void changeAlertStatusToInProcess(String entityId, String alertName) {
         repository.changeAlertStatusToInProcess(entityId, alertName);
         updateFtsSearchAfterStatusChange(entityId, alertName);
@@ -68,7 +72,7 @@ public class AlertService {
     }
 
     // FTS methods
-    private void updateFtsSearchAfterStatusChange(String entityId, String alertName) {
+    public void updateFtsSearchAfterStatusChange(String entityId, String alertName) {
         if (commonFtsObject != null && allCommonsRepositoryMap != null) {
             List<Alert> alerts = findByEntityIdAndAlertNames(entityId, alertName);
             if (alerts != null && !alerts.isEmpty()) {
@@ -81,7 +85,7 @@ public class AlertService {
 
     }
 
-    private void updateFtsSearch(Alert alert, boolean statusChange) {
+    public void updateFtsSearch(Alert alert, boolean statusChange) {
         if (commonFtsObject != null && allCommonsRepositoryMap != null) {
             String entityId = alert.caseId();
             String scheduleName = alert.scheduleName();
@@ -104,7 +108,7 @@ public class AlertService {
     }
 
 
-    private boolean updateFtsSearchInACR(String bindType, String entityId, String field, String value) {
+    public boolean updateFtsSearchInACR(String bindType, String entityId, String field, String value) {
         AllCommonsRepository allCommonsRepository = getAllCommonRepository(bindType);
         if (allCommonsRepository != null) {
             return allCommonsRepository.updateSearch(entityId, field, value, commonFtsObject.getAlertFilterVisitCodes());

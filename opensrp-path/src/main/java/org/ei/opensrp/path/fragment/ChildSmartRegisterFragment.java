@@ -26,6 +26,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.CursorSortOption;
@@ -74,7 +75,7 @@ import static util.Utils.nonEmptyValue;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-    private  LocationPickerView clinicSelection;
+    private LocationPickerView clinicSelection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -199,6 +200,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(INVISIBLE);
 
+        View filterSection = view.findViewById(R.id.filter_selection);
+        filterSection.setOnClickListener(clientActionHandler);
+
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
         setServiceModeViewDrawableRight(null);
@@ -308,7 +312,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            CommonPersonObjectClient client = null;
+            if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
+                client = (CommonPersonObjectClient) view.getTag();
+            }
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
@@ -324,6 +331,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 case R.id.record_vaccination:
                     registerClickables.setRecordAll(true);
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    break;
+                case R.id.filter_selection:
+                    filter("", "", filterSelectionCondition());
                     break;
 
             }
@@ -493,5 +503,55 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
     }
 
+    private String filterSelectionCondition() {
+        return " BCG = 'urgent' or "
+                + "OPV_0 = 'urgent' or "
+
+                + "OPV_1 = 'urgent' or "
+                + "PENTA_1 = 'urgent' or "
+                + "PCV_1 = 'urgent' or "
+                + "ROTA_1 = 'urgent' or "
+
+                + "OPV_2 = 'urgent' or "
+                + "PENTA_2 = 'urgent' or "
+                + "PCV_2 = 'urgent' or "
+                + "ROTA_2 = 'urgent' or "
+
+                + "OPV_3 = 'urgent' or "
+                + "PENTA_3 = 'urgent' or "
+                + "PCV_3 = 'urgent' or "
+
+                + "MEASLES_1 = 'urgent' or "
+                + "MR_1 = 'urgent' or "
+                + "OPV_4 = 'urgent' or "
+
+                + "MEASLES_2 = 'urgent' or "
+                + "MR_2 = 'urgent' or "
+
+                + "BCG = 'normal' or "
+                + "OPV_0 = 'normal' or "
+
+                + "OPV_1 = 'normal' or "
+                + "PENTA_1 = 'normal' or "
+                + "PCV_1 = 'normal' or "
+                + "ROTA_1 = 'normal' or "
+
+                + "OPV_2 = 'normal' or "
+                + "PENTA_2 = 'normal' or "
+                + "PCV_2 = 'normal' or "
+                + "ROTA_2 = 'normal' or "
+
+                + "OPV_3 = 'normal' or "
+                + "PENTA_3 = 'normal' or "
+                + "PCV_3 = 'normal' or "
+
+                + "MEASLES_1 = 'normal' or "
+                + "MR_1 = 'normal' or "
+                + "OPV_4 = 'normal' or "
+
+                + "MEASLES_2 = 'normal' or "
+                + "MR_2 = 'normal' ";
+
+    }
 
 }

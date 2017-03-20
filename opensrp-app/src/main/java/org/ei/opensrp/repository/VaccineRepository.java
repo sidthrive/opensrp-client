@@ -6,7 +6,12 @@ import android.database.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.drishti.dto.AlertStatus;
+import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.service.AlertService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +39,14 @@ public class VaccineRepository extends DrishtiRepository {
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
 
+    private CommonFtsObject commonFtsObject;
+    private AlertService alertService;
+
+    public VaccineRepository(CommonFtsObject commonFtsObject, AlertService alertService) {
+        this.commonFtsObject = commonFtsObject;
+        this.alertService = alertService;
+    }
+
     @Override
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(VACCINE_SQL);
@@ -60,7 +73,9 @@ public class VaccineRepository extends DrishtiRepository {
             String idSelection = ID_COLUMN + " = ?";
             database.update(VACCINE_TABLE_NAME, createValuesFor(vaccine), idSelection, new String[]{vaccine.getId().toString()});
         }
+
         database.close();
+        updateFtsSearch(vaccine);
     }
 
     public List<Vaccine> findUnSyncedBeforeTime(int hours) {
@@ -92,8 +107,13 @@ public class VaccineRepository extends DrishtiRepository {
     }
 
     public void deleteVaccine(Long caseId) {
-        SQLiteDatabase database = masterRepository.getWritableDatabase();
-        database.delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
+        Vaccine vaccine = find(caseId);
+        if(vaccine != null) {
+            SQLiteDatabase database = masterRepository.getWritableDatabase();
+            database.delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
+
+            updateFtsSearch(vaccine.getBaseEntityId(), vaccine.getName());
+        }
     }
 
     public void close(Long caseId) {
@@ -108,7 +128,7 @@ public class VaccineRepository extends DrishtiRepository {
         while (!cursor.isAfterLast()) {
             String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
             if (vaccineName != null) {
-                vaccineName = vaccineName.replace("_", " ");
+                vaccineName = removeHyphen(vaccineName);
             }
             vaccines.add(
                     new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
@@ -133,7 +153,7 @@ public class VaccineRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, vaccine.getId());
         values.put(BASE_ENTITY_ID, vaccine.getBaseEntityId());
-        values.put(NAME, vaccine.getName() != null ? vaccine.getName().toLowerCase().replace(" ", "_") : null);
+        values.put(NAME, vaccine.getName() != null ? addHyphen(vaccine.getName().toLowerCase()): null);
         values.put(CALCULATION, vaccine.getCalculation());
         values.put(DATE, vaccine.getDate() != null ? vaccine.getDate().getTime() : null);
         values.put(ANMID, vaccine.getAnmId());
@@ -141,5 +161,61 @@ public class VaccineRepository extends DrishtiRepository {
         values.put(SYNC_STATUS, vaccine.getSyncStatus());
         values.put(UPDATED_AT_COLUMN, vaccine.getUpdatedAt() != null ? vaccine.getUpdatedAt() : null);
         return values;
+    }
+
+    //-----------------------
+    // FTS methods
+    public void updateFtsSearch(Vaccine vaccine) {
+        if (commonFtsObject != null && alertService() != null) {
+            String entityId = vaccine.getBaseEntityId();
+            String vaccineName = vaccine.getName();
+            if(vaccineName != null){
+                vaccineName = removeHyphen(vaccineName);
+            }
+            String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+
+            String bindType = commonFtsObject.getAlertBindType(scheduleName);
+
+            if (StringUtils.isNotBlank(bindType) && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
+                String field = addHyphen(scheduleName);
+                // update vaccine status
+                alertService().updateFtsSearchInACR(bindType, entityId, field, AlertStatus.complete.value());
+            }
+        }
+    }
+
+    public void updateFtsSearch(String entityId, String vaccineName) {
+        if (commonFtsObject != null && alertService() != null) {
+            if(vaccineName != null){
+                vaccineName = removeHyphen(vaccineName);
+            }
+
+            String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+            if(StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)){
+                Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
+                alertService().updateFtsSearch(alert, true);
+            }
+        }
+    }
+
+    public AlertService alertService() {
+        if(alertService == null){
+            alertService = Context.getInstance().alertService();
+        };
+        return alertService;
+    }
+
+    public static String addHyphen(String s) {
+        if(StringUtils.isNotBlank(s)){
+            return  s.replace(" ", "_");
+        }
+        return s;
+    }
+
+    public static String removeHyphen(String s) {
+        if(StringUtils.isNotBlank(s)){
+            return  s.replace("_", " ");
+        }
+        return s;
     }
 }

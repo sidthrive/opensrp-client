@@ -689,7 +689,7 @@ public class Context {
     }
     public VaccineRepository vaccineRepository() {
         if (vaccineRepository == null) {
-            vaccineRepository = new VaccineRepository();
+            vaccineRepository = new VaccineRepository(commonFtsObject(), alertService);
         }
         return vaccineRepository;
     }

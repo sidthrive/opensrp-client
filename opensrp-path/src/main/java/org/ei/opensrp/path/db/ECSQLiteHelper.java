@@ -115,7 +115,6 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
         values = removeEndingComma(values);
 
         String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
-        Log.i("", sql);
         getDatabase().execSQL(sql);
     }
 
@@ -250,7 +249,6 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
                     JSONObject cl = getClient(baseEntityId);
                     ev.put("client", cl);
                 }
-                Log.i(getClass().getName(), "Event Retrieved: " + ev.toString());
                 list.add(ev);
             }
         } catch (Exception e) {
@@ -282,8 +280,7 @@ public class ECSQLiteHelper extends SQLiteOpenHelper {
                 }
 
                 cl.put("addresses", alist);
-                Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
-
+                
                 return cl;
             }
         } catch (Exception e) {

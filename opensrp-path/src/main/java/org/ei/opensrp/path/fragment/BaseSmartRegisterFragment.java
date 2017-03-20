@@ -102,7 +102,7 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     }
 
-    private void filter(String filterString, String joinTableString, String mainConditionString) {
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
         filters = filterString;
         joinTable = joinTableString;
         mainCondition = mainConditionString;
