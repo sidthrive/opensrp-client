@@ -678,7 +678,7 @@ public class Context {
 
     public UserService userService() {
         if (userService == null) {
-            //Repository repo = initRepository();
+            repository = initRepository();
             userService = new UserService(repository, allSettings(), allSharedPreferences(), httpAgent(), session(), configuration(), saveANMLocationTask(),saveUserInfoTask());
         }
         return userService;

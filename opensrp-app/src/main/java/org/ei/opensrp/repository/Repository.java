@@ -48,6 +48,8 @@ public class Repository extends SQLiteOpenHelper {
         this.repositories = repositories;
         this.context = context;
         this.session=session;
+        this.databasePath = context != null ? context.getDatabasePath(dbName) : new File("/data/data/org.ei.opensrp.indonesia/databases/drishti.db");
+
         SQLiteDatabase.loadLibs(context);
         for (DrishtiRepository repository : repositories) {
             repository.updateMasterRepository(this);
