@@ -104,7 +104,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/imageView2"
                         android:src="@drawable/bell"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:tint="@color/alert_completed" />
 
                     <TextView
                         android:layout_width="wrap_content"

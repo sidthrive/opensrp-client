@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:paddingRight="10dp"
-            android:textColor="@color/client_list_grey"
+            android:textColor="@color/text_black"
             android:textSize="16sp"
             android:layout_weight="1" />
 
@@ -39,9 +39,10 @@
             android:gravity="center_horizontal"
             android:paddingRight="10dp"
             android:text=""
-            android:textColor="@color/client_list_grey"
+            android:textColor="@color/text_black"
             android:textSize="16sp"
-            android:layout_weight="1" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp" />
     </LinearLayout>
 
     <Button

@@ -159,7 +159,7 @@ public class ImmunizationRowCard extends LinearLayout {
                     undoB.setVisibility(INVISIBLE);
                 }
                 nameTV.setVisibility(VISIBLE);
-                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
+//                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText( getVaccineName());
                 StatusTV.setText(DATE_FORMAT.format(getDateDue()));
                 setClickable(false);
@@ -173,7 +173,7 @@ public class ImmunizationRowCard extends LinearLayout {
                     undoB.setVisibility(INVISIBLE);
                 }
                 nameTV.setVisibility(VISIBLE);
-                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
+//                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());
                 StatusTV.setText(DATE_FORMAT.format(getDateDone()));
                 setClickable(false);
@@ -187,7 +187,7 @@ public class ImmunizationRowCard extends LinearLayout {
                     undoB.setVisibility(INVISIBLE);
                 }
                 nameTV.setVisibility(VISIBLE);
-                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
+//                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());
                 StatusTV.setText(DATE_FORMAT.format(getDateDone()));
                 setClickable(false);
@@ -201,7 +201,7 @@ public class ImmunizationRowCard extends LinearLayout {
                     undoB.setVisibility(INVISIBLE);
                 }
                 nameTV.setVisibility(VISIBLE);
-                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
+//                nameTV.setTextColor(context.getResources().getColor(R.color.silver));
                 nameTV.setText(getVaccineName());
                 StatusTV.setText(DATE_FORMAT.format(getDateDue()));
                 setClickable(false);

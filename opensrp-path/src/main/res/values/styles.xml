@@ -89,6 +89,10 @@
         <item name="fontVariant">bold</item>
     </style>
 
+    <style name="CustomFontTextViewStyle.ClientList.NoPadding" parent="CustomFontTextViewStyle">
+        <item name="android:paddingLeft">0dp</item>
+    </style>
+
     <style name="CustomFontTextViewStyle.ClientList.Medium" parent="CustomFontTextViewStyle">
         <item name="fontVariant">medium</item>
     </style>

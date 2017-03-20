@@ -1,6 +1,7 @@
 package org.ei.opensrp.path.tabfragments;
 
 import android.app.FragmentTransaction;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -20,12 +21,14 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.path.fragment.VaccinationEditDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -148,9 +151,10 @@ public class child_under_five_fragment extends Fragment  {
             LinearLayout vaccineGroupCanvasLL = new LinearLayout(getActivity());
             vaccineGroupCanvasLL.setOrientation(LinearLayout.VERTICAL);
             v.addView(vaccineGroupCanvasLL,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            TextView  title = new TextView(getActivity());
+            CustomFontTextView title = new CustomFontTextView(getActivity());
             title.setAllCaps(true);
-            title.setTextAppearance(getActivity(),  android.R.style.TextAppearance_Large);
+            title.setTextAppearance(getActivity(),  android.R.style.TextAppearance_Medium);
+            title.setTextColor(getResources().getColor(R.color.text_black));
             title.setText("Immunizations");
             vaccineGroupCanvasLL.addView(title);
 
@@ -217,7 +221,7 @@ public class child_under_five_fragment extends Fragment  {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-        VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(getActivity(), vaccineWrappers, vaccineGroup);
+        VaccinationEditDialogFragment vaccinationDialogFragment = VaccinationEditDialogFragment.newInstance(getActivity(), vaccineWrappers, vaccineGroup);
         vaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
 }

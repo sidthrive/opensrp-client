@@ -43,6 +43,7 @@ import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.domain.WeightWrapper;
+import org.ei.opensrp.path.fragment.EditWeightDialogFragment;
 import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
@@ -575,7 +576,19 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     @Override
     public void onUndoVaccination(VaccineWrapper tag, View view) {
+        if (tag != null) {
 
+            if (tag.getDbKey() != null) {
+                VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                Long dbKey = tag.getDbKey();
+                tag.setUpdatedVaccineDate(null, false);
+                tag.setRecordedDate(null);
+                tag.setDbKey(null);
+
+                vaccineRepository.deleteVaccine(dbKey);
+                updateVaccineGroupViews(view);
+            }
+        }
     }
 
     @Override
@@ -602,6 +615,8 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             child_under_five_Fragment.loadview(false);
 //            updateRecordWeightView(tag);
 //            setLastModified(true);
+        }else{
+            child_under_five_Fragment.loadview(false);
         }
     }
     private void showWeightDialog() {
@@ -631,6 +646,12 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         WeightWrapper weightWrapper = new WeightWrapper();
         weightWrapper.setId(childDetails.entityId());
+        WeightRepository wp =  Context.getInstance().weightRepository();
+        List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
+        if(weightlist.size()>0){
+            weightWrapper.setWeight(weightlist.get(0).getKg());
+            weightWrapper.setUpdatedWeightDate(new DateTime(weightlist.get(0).getDate()),false);
+        }
         weightWrapper.setGender(gender.toString());
         weightWrapper.setPatientName(childName);
         weightWrapper.setPatientNumber(zeirId);
@@ -638,8 +659,8 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         weightWrapper.setPhoto(photo);
         weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
 
-        RecordWeightDialogFragment recordWeightDialogFragment = RecordWeightDialogFragment.newInstance(this, weightWrapper);
-        recordWeightDialogFragment.show(ft, DIALOG_TAG);
+        EditWeightDialogFragment editWeightDialogFragment = EditWeightDialogFragment.newInstance(this, weightWrapper);
+        editWeightDialogFragment.show(ft, DIALOG_TAG);
 
     }
     private String constructChildName() {

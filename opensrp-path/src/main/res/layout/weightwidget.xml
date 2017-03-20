@@ -9,12 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
+        <org.ei.opensrp.view.customControls.CustomFontTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            style="@style/CustomFontTextViewStyle.ClientList.NoPadding"
             android:text="LAST 5 WEIGHTS"
-            android:id="@+id/textView3" />
+            android:id="@+id/textView3"
+            android:textColor="@color/text_black" />
 
         <TextView
             android:layout_width="wrap_content"
