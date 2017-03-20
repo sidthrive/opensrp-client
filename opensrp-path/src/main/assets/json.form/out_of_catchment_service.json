@@ -54,14 +54,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "barcode",
+        "barcode_type": "qrcode",
         "hint": "ZEIR ID",
         "read_only": true,
-        "value": "0",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        },
+        "value": "",
         "v_required": {
           "value": "true",
           "err": "Enter the child's ZEIR ID"

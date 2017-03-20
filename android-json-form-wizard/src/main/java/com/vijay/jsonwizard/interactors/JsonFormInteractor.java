@@ -16,6 +16,7 @@ import android.view.View;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
+import com.vijay.jsonwizard.widgets.BarcodeFactory;
 import com.vijay.jsonwizard.widgets.CheckBoxFactory;
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 import com.vijay.jsonwizard.widgets.EditTextFactory;
@@ -47,6 +48,7 @@ public class JsonFormInteractor {
         map.put(JsonFormConstants.SPINNER, new SpinnerFactory());
         map.put(JsonFormConstants.DATE_PICKER, new DatePickerFactory());
         map.put(JsonFormConstants.TREE, new TreeViewFactory());
+        map.put(JsonFormConstants.BARCODE, new BarcodeFactory());
     }
 
     public List<View> fetchFormElements(String stepName, Context context, JSONObject parentJson, CommonListener listener) {

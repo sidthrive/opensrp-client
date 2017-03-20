@@ -41,4 +41,6 @@ public interface JsonApi {
     void refreshSkipLogic(String parentKey, String childKey);
 
     void refreshConstraints(String parentKey, String childKey);
+
+    void addOnActivityResultListener(Integer requestCode, OnActivityResultListener onActivityResultListener);
 }

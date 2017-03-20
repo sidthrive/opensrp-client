@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.CheckBox;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
 
@@ -46,6 +48,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     private HashMap<String, View> constrainedViews;
     private String functionRegex;
     private HashMap<String, Comparison> comparisons;
+    private HashMap<Integer, OnActivityResultListener> onActivityResultListeners;
 
     public void init(String json) {
         try {
@@ -66,6 +69,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         mToolbar = (Toolbar) findViewById(R.id.tb_top);
         setSupportActionBar(mToolbar);
         skipLogicViews = new HashMap<>();
+        onActivityResultListeners = new HashMap<>();
         if (savedInstanceState == null) {
             init(getIntent().getStringExtra("json"));
             getSupportFragmentManager().beginTransaction()
@@ -73,6 +77,15 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
             onFormStart();
         } else {
             init(savedInstanceState.getString("jsonState"));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (onActivityResultListeners.containsKey(requestCode)) {
+            onActivityResultListeners.get(requestCode).onActivityResult(requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -279,6 +292,12 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                 checkViewConstraints(curView);
             }
         }
+    }
+
+    @Override
+    public void addOnActivityResultListener(final Integer requestCode,
+                                            OnActivityResultListener onActivityResultListener) {
+        onActivityResultListeners.put(requestCode, onActivityResultListener);
     }
 
     private void checkViewConstraints(View curView) {
