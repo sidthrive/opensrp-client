@@ -61,6 +61,10 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the child's ZEIR ID"
         }
       },
       {

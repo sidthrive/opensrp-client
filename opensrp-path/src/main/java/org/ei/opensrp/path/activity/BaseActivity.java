@@ -25,9 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
@@ -38,25 +35,16 @@ import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.UniqueIdRepository;
-import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
-import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.activity.SettingsActivity;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Minutes;
 import org.joda.time.Seconds;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import util.JsonFormUtils;
 
@@ -232,9 +220,9 @@ public abstract class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_register) {
-            startChildRegistration();
+            startJsonForm("child_enrollment", null);
         } else if (id == R.id.nav_record_vaccination_out_catchment) {
-
+            startJsonForm("out_of_catchment_service", null);
         }/* else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -285,38 +273,15 @@ public abstract class BaseActivity extends AppCompatActivity
         return new int[]{darkShade, normalShade, lightSade};
     }
 
-    protected void startChildRegistration() {
+    protected void startJsonForm(String formName, String entityId) {
         try {
-            UniqueIdRepository uniqueIdRepo = org.ei.opensrp.Context.getInstance().uniqueIdRepository();
-            String entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
-            if (entityId.isEmpty()) {
-                Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
             if (toolbar instanceof LocationSwitcherToolbar) {
                 LocationSwitcherToolbar locationSwitcherToolbar = (LocationSwitcherToolbar) toolbar;
-                form.getJSONObject("metadata").put("encounter_location",
-                        JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
-                                locationSwitcherToolbar.getCurrentLocation()));
-                JsonFormUtils.addChildRegLocHierarchyQuestions(form, getOpenSRPContext());
-                if (form != null) {
-                    Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-                    //inject zeir id into the form
-                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                            jsonObject.remove(JsonFormUtils.VALUE);
-                            jsonObject.put(JsonFormUtils.VALUE, entityId);
-                            continue;
-                        }
-                    }
-                    intent.putExtra("json", form.toString());
-                    startActivityForResult(intent, REQUEST_CODE_GET_JSON);
-                }
+                String locationId = JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(),
+                        locationSwitcherToolbar.getCurrentLocation());
+
+                JsonFormUtils.startForm(this, getOpenSRPContext(), REQUEST_CODE_GET_JSON,
+                        formName, entityId, null, locationId);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);

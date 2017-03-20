@@ -37,6 +37,7 @@ import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -160,68 +161,14 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
-            Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
-
-            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(formName);
-            if (form != null && mBaseFragment instanceof ChildSmartRegisterFragment) {
+            if (mBaseFragment instanceof ChildSmartRegisterFragment) {
                 LocationPickerView locationPickerView = ((ChildSmartRegisterFragment) mBaseFragment).getLocationPickerView();
-
-                form.getJSONObject("metadata").put("encounter_location",
-                        JsonFormUtils.getOpenMrsLocationId(context(), locationPickerView.getSelectedItem()));
-
-                if (formName.equals("child_enrollment")) {
-                    if (StringUtils.isBlank(entityId)) {
-                        UniqueIdRepository uniqueIdRepo = context().uniqueIdRepository();
-                        entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
-                        if (entityId.isEmpty()) {
-                            Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-
-                    if (StringUtils.isNotBlank(entityId)) {
-                        entityId = entityId.replace("-", "");
-                    }
-
-                    JsonFormUtils.addChildRegLocHierarchyQuestions(form, context());
-
-                    // Inject zeir id into the form
-                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                            jsonObject.remove(JsonFormUtils.VALUE);
-                            jsonObject.put(JsonFormUtils.VALUE, entityId);
-                            continue;
-                        }
-                    }
-                } else if (formName.equals("out_of_catchment_service")) {
-                    if (StringUtils.isNotBlank(entityId)) {
-                        entityId = entityId.replace("-", "");
-                    }
-
-                    // Inject zeir id into the form
-                    JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                    JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
-                            jsonObject.remove(JsonFormUtils.VALUE);
-                            jsonObject.put(JsonFormUtils.VALUE, entityId);
-                            continue;
-                        }
-                    }
-
-                    JsonFormUtils.addAddAvailableVaccines(this, form);
-                }
-
-                intent.putExtra("json", form.toString());
-                Log.d(TAG, "form is " + form.toString());
-                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+                String locationId = JsonFormUtils.getOpenMrsLocationId(context(), locationPickerView.getSelectedItem());
+                JsonFormUtils.startForm(this, context(), REQUEST_CODE_GET_JSON, formName, entityId,
+                        metaData, locationId);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Log.e(TAG, Log.getStackTraceString(e));
         }
 
     }

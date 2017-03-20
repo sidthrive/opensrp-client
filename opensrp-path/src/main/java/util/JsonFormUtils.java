@@ -1,9 +1,14 @@
 package util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -16,7 +21,11 @@ import org.ei.opensrp.clientandeventmodel.Obs;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
+import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.sync.ClientProcessor;
@@ -1494,6 +1503,95 @@ public class JsonFormUtils {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
             return null;
+        }
+    }
+
+
+    /**
+     * Starts an instance of JsonFormActivity with the provided form details
+     *
+     * @param context                       The activity form is being launched from
+     * @param openSrpContext                Current OpenSRP context
+     * @param jsonFormActivityRequestCode   The request code to be used to launch {@link JsonFormActivity}
+     * @param formName                      The name of the form to launch
+     * @param entityId                      The unique entity id for the form (e.g child's ZEIR id)
+     * @param metaData                      The form's meta data
+     * @param currentLocationId             OpenMRS id for the current device's location
+     * @throws Exception
+     */
+    public static void startForm(Activity context, org.ei.opensrp.Context openSrpContext,
+                                 int jsonFormActivityRequestCode,
+                                 String formName, String entityId, String metaData,
+                                 String currentLocationId) throws Exception {
+        Intent intent = new Intent(context, JsonFormActivity.class);
+
+        JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+        if (form != null) {
+            form.getJSONObject("metadata").put("encounter_location", currentLocationId);
+
+            if (formName.equals("child_enrollment")) {
+                if (StringUtils.isBlank(entityId)) {
+                    UniqueIdRepository uniqueIdRepo = openSrpContext.uniqueIdRepository();
+                    entityId = uniqueIdRepo.getNextUniqueId() != null ?
+                            uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                    if (entityId.isEmpty()) {
+                        Toast.makeText(context, context.getString(R.string.no_openmrs_id),
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                if (StringUtils.isNotBlank(entityId)) {
+                    entityId = entityId.replace("-", "");
+                }
+
+                JsonFormUtils.addChildRegLocHierarchyQuestions(form, openSrpContext);
+
+                // Inject zeir id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY)
+                            .equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                        jsonObject.remove(JsonFormUtils.VALUE);
+                        jsonObject.put(JsonFormUtils.VALUE, entityId);
+                        continue;
+                    }
+                }
+            } else if (formName.equals("out_of_catchment_service")) {
+                if (StringUtils.isNotBlank(entityId)) {
+                    entityId = entityId.replace("-", "");
+                } else {
+                    JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+                    for (int i = 0; i < fields.length(); i++) {
+                        if(fields.getJSONObject(i).getString("key").equals("ZEIR_ID")) {
+                            fields.getJSONObject(i).put("read_only", false);
+                            break;
+                        }
+                    }
+                }
+
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY)
+                            .equalsIgnoreCase(JsonFormUtils.ZEIR_ID)) {
+                        jsonObject.remove(JsonFormUtils.VALUE);
+                        jsonObject.put(JsonFormUtils.VALUE, entityId);
+                        continue;
+                    }
+                }
+
+                JsonFormUtils.addAddAvailableVaccines(context, form);
+            } else {
+                Log.w(TAG, "Unsupported form requested for launch "+formName);
+            }
+
+            intent.putExtra("json", form.toString());
+            Log.d(TAG, "form is " + form.toString());
+            context.startActivityForResult(intent, jsonFormActivityRequestCode);
         }
     }
 }
