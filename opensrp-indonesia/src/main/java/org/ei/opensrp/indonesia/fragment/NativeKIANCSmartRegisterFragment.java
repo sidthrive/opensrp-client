@@ -199,6 +199,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 //        list.setBackgroundColor(Color.RED);
         initializeQueries(getCriteria());
     }
+
     private String filterStringForAll(){
         return "";
     }

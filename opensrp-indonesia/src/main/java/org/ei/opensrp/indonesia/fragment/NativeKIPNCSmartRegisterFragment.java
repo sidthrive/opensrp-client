@@ -189,6 +189,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
+        view.findViewById(R.id.register_client).setVisibility(View.GONE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
@@ -198,6 +199,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     private String filterStringForAll(){
         return "";
     }
+
     private String sortByAlertmethod() {
         return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
@@ -286,17 +288,17 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     @Override
     public void startRegistration() {
 
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-        LocationSelectorDialogFragment
-                .newInstance((NativeKIPNCSmartRegisterActivity) getActivity(), new
-                        EditDialogOptionModel(), context().anmLocationController().get(),
-                        "kartu_pnc_regitration_oa")
-                .show(ft, locationDialogTAG);
+//        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+//        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
+//        if (prev != null) {
+//            ft.remove(prev);
+//        }
+//        ft.addToBackStack(null);
+//        LocationSelectorDialogFragment
+//                .newInstance((NativeKIPNCSmartRegisterActivity) getActivity(), new
+//                        EditDialogOptionModel(), context().anmLocationController().get(),
+//                        "kartu_pnc_regitration_oa")
+//                .show(ft, locationDialogTAG);
     }
 
     private class ClientActionHandler implements View.OnClickListener {

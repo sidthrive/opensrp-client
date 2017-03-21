@@ -122,7 +122,7 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
 //                builder.setMessage("Process Time : " + proc_time + " s");
 
                 builder.setNegativeButton("CANCEL", listener);
-                builder.setPositiveButton("YES", null);
+                builder.setPositiveButton("YES", listener);
                 builder.show();
             }
         } else {
@@ -336,15 +336,19 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-//            mBaseFragment = new NativeKISmartRegisterFragment();
 
-            nf.setCriteria("");
-            onBackPressed();
-            Log.e(TAG, "onClick: Cancel");
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
 
-            Intent intent= new Intent(NativeKIAnakSmartRegisterActivity.this, NativeKIAnakSmartRegisterActivity.class);
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
-//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(NativeKIAnakSmartRegisterActivity.this, NativeKIAnakSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+
 
         }
     };

@@ -59,7 +59,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGIS
  */
 public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
-    public static final String TAG = "PNCActivity";
+    public static final String TAG = NativeKIPNCSmartRegisterActivity.class.getSimpleName();
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -117,7 +117,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 //                builder.setMessage("Process Time : " + proc_time + " s");
 
                 builder.setNegativeButton("CANCEL", listener);
-                builder.setPositiveButton("YES", null);
+                builder.setPositiveButton("YES", listener);
                 builder.show();
             }
         } else {
@@ -390,14 +390,20 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
         @Override
         public void onClick(DialogInterface dialog, int which) {
 //            mBaseFragment = new NativeKISmartRegisterFragment();
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
 
-            nf.setCriteria("");
-            onBackPressed();
-            Log.e(TAG, "onClick: Cancel");
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+                Log.e(TAG, "onClick: Cancel");
 
-            Intent intent= new Intent(NativeKIPNCSmartRegisterActivity.this,NativeKIPNCSmartRegisterActivity.class);
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+                Intent intent= new Intent(NativeKIPNCSmartRegisterActivity.this,NativeKIPNCSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 //            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+            }
+
 
         }
     };
