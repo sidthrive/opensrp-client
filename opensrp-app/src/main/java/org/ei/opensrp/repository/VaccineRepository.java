@@ -2,6 +2,7 @@ package org.ei.opensrp.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -166,35 +167,44 @@ public class VaccineRepository extends DrishtiRepository {
     //-----------------------
     // FTS methods
     public void updateFtsSearch(Vaccine vaccine) {
-        if (commonFtsObject != null && alertService() != null) {
-            String entityId = vaccine.getBaseEntityId();
-            String vaccineName = vaccine.getName();
-            if(vaccineName != null){
-                vaccineName = removeHyphen(vaccineName);
-            }
-            String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+        try{
+            if (commonFtsObject != null && alertService() != null) {
+                String entityId = vaccine.getBaseEntityId();
+                String vaccineName = vaccine.getName();
+                if(vaccineName != null){
+                    vaccineName = removeHyphen(vaccineName);
+                }
+                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
 
-            String bindType = commonFtsObject.getAlertBindType(scheduleName);
+                String bindType = commonFtsObject.getAlertBindType(scheduleName);
 
-            if (StringUtils.isNotBlank(bindType) && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
-                String field = addHyphen(scheduleName);
-                // update vaccine status
-                alertService().updateFtsSearchInACR(bindType, entityId, field, AlertStatus.complete.value());
+                if (StringUtils.isNotBlank(bindType) && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
+                    String field = addHyphen(scheduleName);
+                    // update vaccine status
+                    alertService().updateFtsSearchInACR(bindType, entityId, field, AlertStatus.complete.value());
+                }
             }
+        }catch (Exception e){
+            Log.e(TAG, Log.getStackTraceString(e));
         }
+
     }
 
     public void updateFtsSearch(String entityId, String vaccineName) {
-        if (commonFtsObject != null && alertService() != null) {
-            if(vaccineName != null){
-                vaccineName = removeHyphen(vaccineName);
-            }
+        try {
+            if (commonFtsObject != null && alertService() != null) {
+                if (vaccineName != null) {
+                    vaccineName = removeHyphen(vaccineName);
+                }
 
-            String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
-            if(StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)){
-                Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
-                alertService().updateFtsSearch(alert, true);
+                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+                if (StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)) {
+                    Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
+                    alertService().updateFtsSearch(alert, true);
+                }
             }
+        } catch (Exception e){
+            Log.e(TAG, Log.getStackTraceString(e));
         }
     }
 

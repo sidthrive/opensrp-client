@@ -8,6 +8,7 @@ import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.repository.AlertRepository;
+import org.ei.opensrp.util.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -73,37 +74,45 @@ public class AlertService {
 
     // FTS methods
     public void updateFtsSearchAfterStatusChange(String entityId, String alertName) {
-        if (commonFtsObject != null && allCommonsRepositoryMap != null) {
-            List<Alert> alerts = findByEntityIdAndAlertNames(entityId, alertName);
-            if (alerts != null && !alerts.isEmpty()) {
-                for (Alert alert : alerts) {
-                    updateFtsSearch(alert, true);
+        try {
+            if (commonFtsObject != null && allCommonsRepositoryMap != null) {
+                List<Alert> alerts = findByEntityIdAndAlertNames(entityId, alertName);
+                if (alerts != null && !alerts.isEmpty()) {
+                    for (Alert alert : alerts) {
+                        updateFtsSearch(alert, true);
 
+                    }
                 }
             }
+        }catch (Exception e){
+           Log.logError(android.util.Log.getStackTraceString(e));
         }
 
     }
 
     public void updateFtsSearch(Alert alert, boolean statusChange) {
-        if (commonFtsObject != null && allCommonsRepositoryMap != null) {
-            String entityId = alert.caseId();
-            String scheduleName = alert.scheduleName();
-            String visitCode = alert.visitCode();
-            AlertStatus status = alert.status();
+        try {
+            if (commonFtsObject != null && allCommonsRepositoryMap != null) {
+                String entityId = alert.caseId();
+                String scheduleName = alert.scheduleName();
+                String visitCode = alert.visitCode();
+                AlertStatus status = alert.status();
 
-            String bindType = commonFtsObject.getAlertBindType(scheduleName);
+                String bindType = commonFtsObject.getAlertBindType(scheduleName);
 
-            if (StringUtils.isNotBlank(bindType) && status != null && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
-                String field = scheduleName.replace(" ", "_");
-                // update alert status
-                updateFtsSearchInACR(bindType, entityId, field, status.value());
-                if (!statusChange && StringUtils.isNotBlank(visitCode) && commonFtsObject.alertUpdateVisitCode(scheduleName)) {
-                    // update alert visit code
-                    updateFtsSearchInACR(bindType, entityId, CommonFtsObject.phraseColumn, visitCode);
+                if (StringUtils.isNotBlank(bindType) && status != null && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
+                    String field = scheduleName.replace(" ", "_");
+                    // update alert status
+                    updateFtsSearchInACR(bindType, entityId, field, status.value());
+                    if (!statusChange && StringUtils.isNotBlank(visitCode) && commonFtsObject.alertUpdateVisitCode(scheduleName)) {
+                        // update alert visit code
+                        updateFtsSearchInACR(bindType, entityId, CommonFtsObject.phraseColumn, visitCode);
+                    }
                 }
-            }
 
+            }
+        } catch (Exception e){
+            Log.logError(android.util.Log.getStackTraceString(e));
         }
     }
 

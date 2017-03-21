@@ -21,6 +21,7 @@ import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -31,6 +32,7 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -149,16 +151,27 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
-        Date lastVaccine = null;
-        if (!vaccines.isEmpty()) {
-            Vaccine vaccine = vaccines.get(vaccines.size() - 1);
-            lastVaccine = vaccine.getDate();
-        }
-
         State state = State.FULLY_IMMUNIZED;
         String stateKey = null;
 
-        Map<String, Object> nv = nextVaccineDue(sch, lastVaccine);
+        Map<String, Object> nv = null;
+        if (vaccines.isEmpty()) {
+            List<VaccineRepo.Vaccine> vList = new ArrayList<>();
+            vList.add(VaccineRepo.Vaccine.bcg);
+            vList.add(VaccineRepo.Vaccine.opv0);
+            nv = nextVaccineDue(sch, vList);
+        }
+
+        if(nv == null){
+            Date lastVaccine = null;
+            if (!vaccines.isEmpty()) {
+                Vaccine vaccine = vaccines.get(vaccines.size() - 1);
+                lastVaccine = vaccine.getDate();
+            }
+
+            nv = nextVaccineDue(sch, lastVaccine);
+        }
+
         if (nv != null) {
             DateTime dueDate = (DateTime) nv.get("date");
             VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get("vaccine");
@@ -187,44 +200,6 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         } else {
             state = State.WAITING;
         }
-
-        /*
-        Map<String, Triple<Long, Long, String>> map = vaccinesMap(vaccines, dobString);
-
-        for (Triple<Long, Long, String> triple : map.values()) {
-            Date dateDue = new Date(triple.getLeft());
-
-            Date dateDone = null;
-            if (triple.getMiddle() > 0l) {
-                dateDone = new Date(triple.getMiddle());
-            }
-
-            if (dateDone == null) {
-                Calendar today = Calendar.getInstance();
-                today.set(Calendar.HOUR_OF_DAY, 0);
-                today.set(Calendar.MINUTE, 0);
-                today.set(Calendar.SECOND, 0);
-                today.set(Calendar.MILLISECOND, 0);
-
-                if (dateDue.getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    state = State.OVERDUE;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dateDue.getTime() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    state = State.DUE;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dateDue.getTime() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
-                    state = State.UPCOMING_NEXT_7_DAYS;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
-                    state = State.UPCOMING;
-                    stateKey = triple.getRight();
-                    break;
-                }
-            }
-        } */
 
         recordVaccination.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
@@ -271,7 +246,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.NO_ALERT)) {
-            recordVaccination.setText("Due\n" + stateKey);
+            recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setEnabled(false);
@@ -306,18 +281,6 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         return inflater;
     }
 
-
-    private Long dueDate(String dobString, int daysAfter) {
-        if (StringUtils.isNotBlank(dobString)) {
-            Calendar dobCalender = Calendar.getInstance();
-            DateTime dateTime = new DateTime(dobString);
-            dobCalender.setTime(dateTime.toDate());
-            dobCalender.add(Calendar.DATE, daysAfter);
-            return dobCalender.getTimeInMillis();
-        }
-        return 0l;
-    }
-
     public enum State {
         DUE,
         OVERDUE,
@@ -329,66 +292,4 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         NO_ALERT,
         FULLY_IMMUNIZED
     }
-
-
-    private Map<String, Triple<Long, Long, String>> vaccinesMap(List<Vaccine> vaccines, String
-            dobString) {
-        Map<String, Triple<Long, Long, String>> map = new LinkedHashMap<>();
-
-        int daysAfter = 0;
-        String text = "at birth";
-
-        map.put("opv 0", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("bcg", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 42;
-        text = "6 weeks";
-
-        map.put("opv 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("penta 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("pcv 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("rota 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 70;
-        text = "10 weeks";
-
-        map.put("opv 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("penta 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("pcv 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("rota 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-
-        daysAfter = 98;
-        text = "14 weeks";
-
-        map.put("opv 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("penta 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("pcv 3", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 274;
-        text = "9 Months";
-
-        map.put("measles 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("mr 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("opv 4", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 548;
-        text = "18 Months";
-
-        map.put("measles 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("mr 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        if (vaccines != null) {
-            for (Vaccine vaccine : vaccines) {
-                if (map.containsKey(vaccine.getName()) && vaccine.getDate() != null) {
-                    Triple<Long, Long, String> triple = map.get(vaccine.getName());
-                    map.put(vaccine.getName(), Triple.of(triple.getLeft(), vaccine.getDate().getTime(), triple.getRight()));
-                }
-            }
-        }
-
-        return map;
-
-    }
-
 }

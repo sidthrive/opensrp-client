@@ -398,6 +398,24 @@ public class VaccinatorUtils {
         return v;
     }
 
+    public static Map<String, Object> nextVaccineDue(List<Map<String, Object>> schedule, List<Vaccine> vaccineList) {
+        Map<String, Object> v = null;
+        for (Map<String, Object> m : schedule) {
+            if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
+                if (v == null) {
+                    if (m.get("vaccine") != null && vaccineList.contains((Vaccine) m.get("vaccine"))) {
+                        v = m;
+                    }
+                } else if (v.get("alert") == null && m.get("alert") != null) {
+                    if (m.get("vaccine") != null && vaccineList.contains((Vaccine) m.get("vaccine"))) {
+                        v = m;
+                    }
+                }
+            }
+        }
+        return v;
+    }
+
     public static int dpToPx(Context context, float dpValue) {
         Resources r = context.getResources();
         float val = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, r.getDisplayMetrics());

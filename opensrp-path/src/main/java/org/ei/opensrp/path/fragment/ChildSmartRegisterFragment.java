@@ -26,7 +26,6 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.CursorSortOption;
@@ -37,7 +36,6 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
-import org.ei.opensrp.path.db.Client;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
@@ -48,30 +46,22 @@ import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.ei.opensrp.view.dialog.DialogOption;
-import org.ei.opensrp.view.dialog.DialogOptionModel;
-import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import util.GlobalSearchUtils;
 
 import static android.view.View.INVISIBLE;
 import static util.Utils.getValue;
-import static util.Utils.nonEmptyValue;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
@@ -333,7 +323,16 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                     break;
                 case R.id.filter_selection:
-                    filter("", "", filterSelectionCondition());
+                    String tagString = "PRESSED";
+                    if (view.getTag() == null) {
+                        filter("", "", filterSelectionCondition());
+                        view.setTag(tagString);
+                        view.setBackgroundResource(R.drawable.transparent_clicked_background);
+                    } else if (view.getTag().toString().equals(tagString)){
+                        filter("", "", "");
+                        view.setTag(null);
+                        view.setBackgroundResource(R.drawable.transparent_gray_background);
+                    }
                     break;
 
             }
