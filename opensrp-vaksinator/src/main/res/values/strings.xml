@@ -141,7 +141,8 @@
     <string name="header_vitamin_a">VITAMIN A</string>
     <string name="thayi_label">Thayi:</string>
     <string name="mother_ec_label">Mother EC:</string>
-    <string name="sort_by_child_age">Age</string>
+    <string name="sort_by_child_age">Age (0 to 5 yrs)</string>
+    <string name="sort_by_child_age_desc">Age (5 to 0 yrs)</string>
     <string name="sort_by_child_hr">HR</string>
     <string name="str_child_immunizations">Child Immunizations</string>
     <string name="str_child_illness">Child Illness</string>

@@ -134,7 +134,8 @@
     <string name="header_vitamin_a">VITAMIN A</string>
     <string name="thayi_label">Thayi:</string>
     <string name="mother_ec_label">Mother EC:</string>
-    <string name="sort_by_child_age">Age</string>
+    <string name="sort_by_child_age">Umur (0 - 5 thn)</string>
+    <string name="sort_by_child_age_desc">Umur (5 - 0 thn)</string>
     <string name="sort_by_child_hr">HR</string>
     <string name="str_child_immunizations">Child Immunizations</string>
     <string name="str_child_illness">Child Illness</string>
