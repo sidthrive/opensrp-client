@@ -1,6 +1,7 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -103,8 +104,10 @@ public class DatePickerFactory implements FormWidgetFactory {
                     DATE_FORMAT_REGEX));
 
             Calendar date = getDate(editText.getText().toString());
-            final android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog
-                    (context, new android.app.DatePickerDialog.OnDateSetListener() {
+            final android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(
+                    context,
+                    AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
+                    new android.app.DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             Calendar calendarDate = Calendar.getInstance();
@@ -120,8 +123,10 @@ public class DatePickerFactory implements FormWidgetFactory {
                                 updateDateText(editText, duration, "");
                             }
                         }
-                    }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get
-                            (Calendar.DAY_OF_MONTH));
+                    },
+                    date.get(Calendar.YEAR),
+                    date.get(Calendar.MONTH),
+                    date.get(Calendar.DAY_OF_MONTH));
 
             datePickerDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override

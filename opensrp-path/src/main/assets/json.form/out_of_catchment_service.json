@@ -71,7 +71,7 @@
         "openmrs_entity_id": "encounter_date",
         "type": "date_picker",
         "hint": "Service date *",
-        "expanded": true,
+        "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
