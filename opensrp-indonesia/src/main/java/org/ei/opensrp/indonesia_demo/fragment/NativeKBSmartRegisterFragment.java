@@ -207,8 +207,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
+        return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
                 "WHEN alerts.status = 'normal' THEN '3'\n" +
                 "WHEN alerts.status = 'expired' THEN '4'\n" +
