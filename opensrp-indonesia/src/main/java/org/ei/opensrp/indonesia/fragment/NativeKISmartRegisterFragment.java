@@ -1,10 +1,12 @@
 package org.ei.opensrp.indonesia.fragment;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,6 +58,7 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 import util.AsyncTask;
 
@@ -218,13 +221,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         return "Select Count(*) from ec_kartu_ibu";
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void initializeQueries(String s) {
         try {
-            if (s == null || s.equals("")) {
-                Log.e(TAG, "initializeQueries: "+"Not Initialized" );
-            } else {
-                Log.e(TAG, "initializeQueries: " + s);
-            }
 
             KIClientsProvider kiscp = new KIClientsProvider(getActivity(), clientActionHandler, context().alertService());
             clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_kartu_ibu", new String[]{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami", "noIbu"}));
@@ -235,10 +234,12 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             countqueryBUilder.SelectInitiateMainTableCounts("ec_kartu_ibu");
             // countqueryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
 
-            if (s != null) {
-                mainCondition = "is_closed = 0 AND object_id LIKE '%" + s + "%'";
-            } else {
+            if (s == null || Objects.equals(s, "!")) {
                 mainCondition = "is_closed = 0 ";
+                Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+            } else {
+                Log.e(TAG, "initializeQueries: " + s);
+                mainCondition = "is_closed = 0 AND object_id LIKE '%" + s + "%'";
             }
             joinTable = "";
             countSelect = countqueryBUilder.mainCondition(mainCondition);

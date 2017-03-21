@@ -4,7 +4,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +13,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
@@ -66,28 +65,10 @@ public class BidanHomeActivity extends SecuredActivity {
             }
             updateRegisterCounts();
 
-            Tools mtool = new Tools(context());
-
-//            try {
-//                MultimediaProcessor.getInstance(getApplicationContext()).processMultimediaClient();
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            mtool.findAllUnStored();
-
-            // Fetch vector from API and stored to local db
-//            mtool.setVectorfromAPI(context());
-//            Tools.initVector();
             Tools.setVectorfromAPI(getApplicationContext());
 
             Tools.setVectorsBuffered();
 
-//            Tools.loadAlbum(context().applicationContext());
-            // Fetch vector from local db and stored as buffer
-//            mtool.parseSavedVector(context());
-
-//            mtool.vector_findAllUnsaved();
         }
     };
 

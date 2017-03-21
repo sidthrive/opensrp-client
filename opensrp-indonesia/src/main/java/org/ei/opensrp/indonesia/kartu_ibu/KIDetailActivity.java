@@ -14,31 +14,22 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
-import org.acra.util.ToastSender;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
-import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import util.ImageCache;
 import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -268,7 +259,8 @@ public class KIDetailActivity extends Activity {
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
 //                Log.e(TAG, "onClick: "+hash.size() );
-//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
+                Log.e(TAG, "onClick: Value "+hash.containsValue(entityid) );
+                Log.e(TAG, "onClick: Key "+hash.containsKey(entityid) );
                 if(hash.containsValue(entityid)){
                     Log.e(TAG, "onClick: "+entityid+" updated" );
                     mode = "updated";
@@ -313,7 +305,6 @@ public class KIDetailActivity extends Activity {
         //FIXME USE SmartShutterActivity INSTEAD
 //     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go

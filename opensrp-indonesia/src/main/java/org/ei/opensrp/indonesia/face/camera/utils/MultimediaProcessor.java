@@ -1,4 +1,4 @@
-package org.ei.opensrp.indonesia.face.camera.util;
+package org.ei.opensrp.indonesia.face.camera.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.ei.opensrp.commonregistry.CommonRepositoryInformationHolder;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;

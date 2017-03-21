@@ -1,8 +1,10 @@
 package org.ei.opensrp.indonesia.fragment;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,6 +53,7 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 import util.AsyncTask;
 
@@ -210,6 +213,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 "Else alerts.status END ASC";
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void initializeQueries(String s) {
 
         AnakRegisterClientsProvider anakscp = new AnakRegisterClientsProvider(getActivity(), clientActionHandler, context().alertService());
@@ -221,12 +225,12 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         countqueryBUilder.SelectInitiateMainTableCounts("ec_anak");
         countqueryBUilder.customJoin("LEFT JOIN ec_kartu_ibu ON ec_kartu_ibu.id = ec_anak.relational_id");
 
-        if (s != null) {
-            Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = "is_closed = 0 AND relational_id !='' AND object_id LIKE '%" + s + "%'";
-        } else {
+        if (s == null || Objects.equals(s, "!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
             mainCondition = " is_closed = 0  and relational_id != ''";
+        } else {
+            Log.e(TAG, "initializeQueries: " + s);
+            mainCondition = "is_closed = 0 AND relational_id !='' AND object_id LIKE '%" + s + "%'";
         }
 
 
@@ -313,7 +317,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 //        super.onResumption();
         getDefaultOptionsProvider();
         if (isPausedOrRefreshList()) {
-            initializeQueries("");
+            initializeQueries("!");
         }
         //     updateSearchView();
 
@@ -325,32 +329,6 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         }
 
     }
-
-    //    WD
-    @Override
-    public void setupSearchView(final View view) {
-        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Please Choose one, Search by");
-                builder.setItems(selections, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int opt) {
-                        if (opt == 0) searchTextChangeListener("");
-                        else getFacialRecord(view);
-                    }
-                });
-                builder.show();
-            }
-        });
-
-        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
-        searchCancelView.setOnClickListener(searchCancelHandler);
-    }
-
 
 //    OLD method
 //    @Override
@@ -424,7 +402,44 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         }
     }
 
-//    SID: WD
+
+    //    WD
+    public static String criteria;
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    public static String getCriteria() {
+        return criteria;
+    }
+
+
+    //    WD
+    @Override
+    public void setupSearchView(final View view) {
+        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Please Choose one, Search by");
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int opt) {
+                        if (opt == 0) searchTextChangeListener("");
+                        else getFacialRecord(view);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+        searchCancelView.setOnClickListener(searchCancelHandler);
+    }
+
     public void getFacialRecord(View view) {
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
@@ -449,14 +464,37 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 @Override
                 public void onTextChanged(final CharSequence cs, int start, int before, int count) {
 
-                    filters = cs.toString();
-                    joinTable = "";
-                    mainCondition = " is_closed = 0 and relational_id != '' ";
+                    Log.e(TAG, "onTextChanged: " + searchView.getText());
+                    (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
 
-                    getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                    CountExecute();
-                    filterandSortExecute();
-
+                        @Override
+                        protected Object doInBackground(Object[] params) {
+//                        currentSearchFilter =
+//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+//                        filteredClients = getClientsAdapter().getListItemProvider()
+//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//
+                            filters = cs.toString();
+                            joinTable = "";
+                            mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+                            return null;
+                        }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+                    }).execute();
                 }
 
                 @Override
@@ -465,18 +503,6 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
             });
         }
     }
-
-    //    WD
-    public static String criteria;
-
-    public void setCriteria(String criteria) {
-        this.criteria = criteria;
-    }
-
-    public static String getCriteria() {
-        return criteria;
-    }
-
 
 
 

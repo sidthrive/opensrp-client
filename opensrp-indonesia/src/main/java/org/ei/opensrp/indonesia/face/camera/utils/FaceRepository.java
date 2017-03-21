@@ -1,4 +1,4 @@
-package org.ei.opensrp.indonesia.face.camera.util;
+package org.ei.opensrp.indonesia.face.camera.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -7,10 +7,8 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.indonesia.face.camera.ImageConfirmation;
 import org.ei.opensrp.repository.DrishtiRepository;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.repository.Repository;
 
 import java.util.List;
 

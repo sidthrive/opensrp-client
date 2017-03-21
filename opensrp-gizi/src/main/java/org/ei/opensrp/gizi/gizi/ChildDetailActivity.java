@@ -31,6 +31,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
+import org.ei.opensrp.gizi.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.Log;
@@ -54,9 +55,11 @@ import util.growthChart.GrowthChartGenerator;
  * Created by Iq on 26/04/16.
  */
 public class ChildDetailActivity extends Activity {
+    public static CommonPersonObjectClient kiclient;
+
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = ChildDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
   //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -67,6 +70,17 @@ public class ChildDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient childclient;
+
+
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
+
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,19 +259,43 @@ public class ChildDetailActivity extends Activity {
 
         });
 
+//        childview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
+//                bindobject = "anak";
+//                entityid = childclient.entityId();
+//                android.util.Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(childview);
+//
+//            }
+//        });
+//
+        hash = Tools.retrieveHash(context.applicationContext());
+
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
+
                 bindobject = "anak";
                 entityid = childclient.entityId();
-                android.util.Log.e(TAG, "onClick: " + entityid);
-                dispatchTakePictureIntent(childview);
+
+                if (hash.containsValue(entityid)) {
+                    android.util.Log.e(TAG, "onClick: " + entityid + " updated");
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+
+                Intent intent = new Intent(ChildDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivity(intent);
+
 
             }
         });
-
-
     }
 
     // english: fEMale, bahasa: perEMpuan, both have EM; since en: male, bhs: laki, both no EM

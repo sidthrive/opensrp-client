@@ -1,4 +1,4 @@
-package org.ei.opensrp.indonesia.face.camera.util;
+package org.ei.opensrp.indonesia.face.camera.utils;
 
 /**
  * Created by wildan on 1/4/17.
