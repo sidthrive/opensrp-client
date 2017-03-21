@@ -1,10 +1,14 @@
 package com.vijay.jsonwizard.widgets;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -32,7 +36,7 @@ public class CheckBoxFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
         String relevance = jsonObject.optString("relevance");
-        views.add(getTextViewWith(context, 20, jsonObject.getString("label"), jsonObject.getString("key"),
+        views.add(getTextViewWith(context, 27, jsonObject.getString("label"), jsonObject.getString("key"),
                 jsonObject.getString("type"), openMrsEntityParent, openMrsEntity, openMrsEntityId,
                 relevance,
                 getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, 0), FONT_BOLD_PATH));
@@ -45,26 +49,35 @@ public class CheckBoxFactory implements FormWidgetFactory {
         JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < options.length(); i++) {
             JSONObject item = options.getJSONObject(i);
-            CheckBox checkBox = (CheckBox) LayoutInflater.from(context).inflate(R.layout.item_checkbox, null);
-            checkBox.setText(item.getString("text"));
+            LinearLayout checkboxLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.item_checkbox, null);
+            TextView text1 = (TextView) checkboxLayout.findViewById(R.id.text1);
+            text1.setText(item.getString("text"));
+            final CheckBox checkBox = (CheckBox) checkboxLayout.findViewById(R.id.checkbox);
+            checkBox.setTag(R.id.raw_value, item.getString("text"));
             checkBox.setTag(R.id.key, jsonObject.getString("key"));
             checkBox.setTag(R.id.type, jsonObject.getString("type"));
             checkBox.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
             checkBox.setTag(R.id.openmrs_entity, openMrsEntity);
             checkBox.setTag(R.id.openmrs_entity_id, openMrsEntityId);
             checkBox.setTag(R.id.childKey, item.getString("key"));
-            checkBox.setGravity(Gravity.CENTER_VERTICAL);
-            checkBox.setTextSize(context.getResources().getDimension(R.dimen.default_text_size));
+            //checkBox.setTextSize(context.getResources().getDimension(R.dimen.default_text_size));
             checkBox.setOnCheckedChangeListener(listener);
+            checkboxLayout.setClickable(true);
+            checkboxLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkBox.toggle();
+                }
+            });
             if (!TextUtils.isEmpty(item.optString("value"))) {
                 checkBox.setChecked(Boolean.valueOf(item.optString("value")));
             }
             checkBox.setEnabled(!readOnly);
             if (i == options.length() - 1) {
-                checkBox.setLayoutParams(getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, (int) context
+                checkboxLayout.setLayoutParams(getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, (int) context
                         .getResources().getDimension(R.dimen.extra_bottom_margin)));
             }
-            views.add(checkBox);
+            views.add(checkboxLayout);
             if (relevance != null && context instanceof JsonApi) {
                 checkBox.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(checkBox);

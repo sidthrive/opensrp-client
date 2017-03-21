@@ -33,7 +33,7 @@ public class RadioButtonFactory implements FormWidgetFactory {
         String relevance = jsonObject.optString("relevance");
 
         List<View> views = new ArrayList<>(1);
-        views.add(getTextViewWith(context, 20, jsonObject.getString("label"), jsonObject.getString("key"),
+        views.add(getTextViewWith(context, 27, jsonObject.getString("label"), jsonObject.getString("key"),
                 jsonObject.getString("type"), openMrsEntityParent, openMrsEntity, openMrsEntityId,
                 relevance,
                 getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, 0), FONT_BOLD_PATH));
