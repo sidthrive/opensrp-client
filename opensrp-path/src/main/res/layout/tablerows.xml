@@ -20,7 +20,7 @@
                 android:textColor="@color/dark_grey"
                 android:text="Catchment area"
                 android:id="@+id/label"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="0dp"

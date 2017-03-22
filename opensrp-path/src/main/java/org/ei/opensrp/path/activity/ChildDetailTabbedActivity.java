@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -97,10 +98,11 @@ import static util.Utils.getValue;
 
 public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener, WeightActionListener {
 
-
+    private Menu overflow;
     private Toolbar detailtoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TextView saveButton;
     private static final int REQUEST_CODE_GET_JSON = 3432;
     static final int REQUEST_TAKE_PHOTO = 1;
     public static Gender gender;
@@ -154,7 +156,20 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         detailtoolbar.setNavigationIcon(R.drawable.back_button);
 //        detailtoolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.ic_menu));
+        saveButton = (TextView)detailtoolbar.findViewById(R.id.save);
+        saveButton.setVisibility(View.INVISIBLE);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailtoolbar.showOverflowMenu();
+                for(int i = 0;i<overflow.size();i++){
+                    overflow.getItem(i).setVisible(true);
+                }
+                child_under_five_Fragment.loadview(false);
 
+                saveButton.setVisibility(View.INVISIBLE);
+            }
+        });
 
         detailtoolbar.showOverflowMenu();
 
@@ -165,6 +180,28 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 //        getSupportActionBar().
         initiallization(savedInstanceState);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    saveButton.setVisibility(View.INVISIBLE);
+                    for(int i = 0;i<overflow.size();i++){
+                        overflow.getItem(i).setVisible(true);
+                    }
+                    child_under_five_Fragment.loadview(false);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         setupViewPager(viewPager);
 
         detailtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -188,6 +225,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
+        overflow = menu;
         return true;
     }
     @Override
@@ -206,6 +244,11 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             case R.id.immunization_data:
                 viewPager.setCurrentItem(1);
                 child_under_five_Fragment.loadview(true);
+                saveButton.setVisibility(View.VISIBLE);
+                for(int i = 0;i<overflow.size();i++){
+                    overflow.getItem(i).setVisible(false);
+                }
+//                detailtoolbar.hideOverflowMenu();
                 return  true;
             case R.id.weight_data:
                 showWeightDialog();
