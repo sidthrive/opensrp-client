@@ -16,7 +16,7 @@ import java.util.Locale;
  * Created by koros on 1/22/16.
  */
 
-public class TestApplication extends DrishtiApplication {
+public class ECPApplication extends DrishtiApplication {
 
     @Override
     public void onCreate() {
