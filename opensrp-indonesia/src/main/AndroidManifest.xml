@@ -9,15 +9,15 @@
         android:name=".application.BidanApplication"
         >
         <!-- local key -->
-        <meta-data
+       <!-- <meta-data
             android:name="io.fabric.ApiKey"
             android:value="5bda8a6293b5b89b510a53e5d297d42bdf427e10" />
-
-        <!-- sid key
+-->
+        <!-- sid key -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b74c58c94d8965151212e8ecf1f4fdfbf5b7f4e4" />
-        -->
+
         <activity
             android:name=".LoginActivity"
             android:theme="@android:style/Theme.Holo"
@@ -79,8 +79,8 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
 
-        <activity android:name=".face.camera.SmartShutterActivity" />
-        <activity android:name=".face.camera.ImageConfirmation" />
+        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
         <activity android:name=".face.camera.ClientsList" />
 
     </application>

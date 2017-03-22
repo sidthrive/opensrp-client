@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">opensrp-gizi</string>
+    <string name="app_name">Gizi</string>
     <string name="userNameEditText">Enter user name</string>
     <string name="passwordEditText">Enter password</string>
     <string name="login_text">Log In</string>
@@ -294,6 +294,8 @@
     <string name="str_child_illness_ari">ari</string>
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
+    <string name="sort_by_age">Age (0y to 5 yrs)</string>
+    <string name="sort_by_age_reverse">Age (5 to 0 yrs)</string>
 
 
     <string name="ic_check_circle_blank">&#xe03e;</string>
@@ -312,6 +314,7 @@
     <string name="test_register">Test Register</string>
     <string name="test">Test</string>
     <string name="hh_register_title_in_short">HH</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -415,6 +418,7 @@
     <string name="wasted">Wasted</string>
     <string name="lastVitA">Last Vitamin A given:</string>
     <string name="lastAnthelmintic">Last Anthelmintic given:</string>
+    <string name="reconfirmChildName">Re-Confirm children name</string>
 
     <!-- Mother Register String -->
     <string name="detail_ibu">Mother Details</string>

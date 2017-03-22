@@ -31,6 +31,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
+import org.ei.opensrp.gizi.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.Log;
@@ -54,9 +55,11 @@ import util.growthChart.GrowthChartGenerator;
  * Created by Iq on 26/04/16.
  */
 public class ChildDetailActivity extends Activity {
+    public static CommonPersonObjectClient kiclient;
+
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = ChildDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
   //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -67,15 +70,26 @@ public class ChildDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient childclient;
+
+
+    private static HashMap<String, String> hash;
+    private boolean updateMode = false;
+    private String mode;
+
+    private String photo_path;
+    private File tb_photo;
+    private String fileName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.gizi_detail_activity);
         String DetailStart = timer.format(new Date());
-          /*      Map<String, String> Detail = new HashMap<String, String>();
+                Map<String, String> Detail = new HashMap<String, String>();
                 Detail.put("start", DetailStart);
-                FlurryAgent.logEvent("gizi_detail_view",Detail, true );*/
+                FlurryAgent.logEvent("gizi_detail_view",Detail, true );
 
         final ImageView childview = (ImageView)findViewById(R.id.detail_profilepic);
         //header
@@ -245,19 +259,43 @@ public class ChildDetailActivity extends Activity {
 
         });
 
+//        childview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
+//                bindobject = "anak";
+//                entityid = childclient.entityId();
+//                android.util.Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(childview);
+//
+//            }
+//        });
+//
+        hash = Tools.retrieveHash(context.applicationContext());
+
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
+
                 bindobject = "anak";
                 entityid = childclient.entityId();
-                android.util.Log.e(TAG, "onClick: " + entityid);
-                dispatchTakePictureIntent(childview);
+
+                if (hash.containsValue(entityid)) {
+                    android.util.Log.e(TAG, "onClick: " + entityid + " updated");
+                    mode = "updated";
+                    updateMode = true;
+
+                }
+
+                Intent intent = new Intent(ChildDetailActivity.this, SmartShutterActivity.class);
+                intent.putExtra("IdentifyPerson", false);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivity(intent);
+
 
             }
         });
-
-
     }
 
     // english: fEMale, bahasa: perEMpuan, both have EM; since en: male, bhs: laki, both no EM
@@ -355,6 +393,7 @@ public class ChildDetailActivity extends Activity {
 
             Long tsLong = System.currentTimeMillis()/1000;
             DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
             detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
 
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -362,14 +401,6 @@ public class ChildDetailActivity extends Activity {
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
-    }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;

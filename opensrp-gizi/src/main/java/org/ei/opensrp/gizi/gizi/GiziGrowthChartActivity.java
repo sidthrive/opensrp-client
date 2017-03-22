@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 
@@ -29,6 +30,7 @@ public class GiziGrowthChartActivity extends Activity{
         super.onCreate(savedInstanceState);
         final Context context = Context.getInstance();
         setContentView(R.layout.gizi_chart_activity);
+        FlurryAgent.logEvent("Growth_chart_view");
 
         GraphView lfaGraph = (GraphView)findViewById(R.id.lfa_chart);
         GraphView hfaGraph = (GraphView)findViewById(R.id.hfa_chart);
@@ -144,6 +146,8 @@ public class GiziGrowthChartActivity extends Activity{
                 }
             }
         }
+        if (ageSeries.length()+lengthSeries.length()<2)
+            return "0#0";
         return ageSeries.substring(1,ageSeries.length())+"#"+lengthSeries.substring(1,lengthSeries.length());
     }
 

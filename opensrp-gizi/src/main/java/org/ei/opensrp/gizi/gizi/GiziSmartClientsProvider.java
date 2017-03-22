@@ -3,6 +3,7 @@ package org.ei.opensrp.gizi.gizi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -49,6 +52,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
  * Created by user on 2/12/15.
  */
 public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = GiziSmartClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -123,22 +127,41 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         }
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
-        //set image
-        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
-        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-        detailsRepository.updateDetails(pc);
-        if (pc.getDetails().get("profilepic") != null) {
-                       ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-                       childview.setTag(smartRegisterClient);
-        }
-        else if (pc.getDetails().get("gender") != null) {
 
-            if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
-            } else {
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-            }
+        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+
+        //set image
+//        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
+//        detailsRepository.updateDetails(pc);
+//        if (pc.getDetails().get("profilepic") != null) {
+//                       ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+//                       childview.setTag(smartRegisterClient);
+//        }
+//        else if (pc.getDetails().get("gender") != null) {
+//
+//            if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
+//            } else {
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+//            }
+//        }
+
+        //start profile image
+        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
+
+        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            Log.e(TAG, "getView: details "+ pc.getDetails().toString() );
+//            Log.e(TAG, "getView: id= "+pc.getCaseId()+" gender= "+pc.getDetails().get("gender") );
+
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+//                    OpenSRPImageLoader.getStaticImageListener(
+//                            viewHolder.profilepic,
+//                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+//                            0)
+//            );
         }
+        //end profile image
 
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));

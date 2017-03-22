@@ -1,10 +1,16 @@
 package org.ei.opensrp.indonesia.fragment;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -19,6 +25,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
 import org.ei.opensrp.indonesia.kb.AllKBServiceMode;
 import org.ei.opensrp.indonesia.kb.KBClientsProvider;
@@ -48,6 +55,9 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
+
+import util.AsyncTask;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -59,6 +69,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGIS
  */
 public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
+    private static final String TAG = NativeKBSmartRegisterFragment.class.getSimpleName();
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
     private VillageController villageController;
@@ -181,17 +192,17 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
+        view.findViewById(R.id.register_client).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
-        initializeQueries();
+        initializeQueries(getCriteria());
     }
     private String filterStringForAll(){
         return "";
     }
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
+        return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
                 "WHEN alerts.status = 'normal' THEN '3'\n" +
                 "WHEN alerts.status = 'expired' THEN '4'\n" +
@@ -203,7 +214,8 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         return "Select Count(*) from ec_kartu_ibu";
     }
 
-    public void initializeQueries(){
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void initializeQueries(String s){
         try {
             KBClientsProvider kiscp = new KBClientsProvider(getActivity(),clientActionHandler,context().alertService());
             clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_kartu_ibu",new String []{"ec_kartu_ibu.is_closed", "namalengkap", "umur","namaSuami", "ec_kartu_ibu.isOutOfArea"}));
@@ -212,8 +224,15 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
             setTablename("ec_kartu_ibu");
             SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
             countqueryBUilder.SelectInitiateMainTableCounts("ec_kartu_ibu");
-            countqueryBUilder.customJoin("LEFT JOIN ec_ibu on ec_kartu_ibu.id = ec_ibu.base_entity_id");
-            mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
+         //   countqueryBUilder.customJoin("LEFT JOIN ec_ibu on ec_kartu_ibu.id = ec_ibu.base_entity_id");
+            if (s == null || Objects.equals(s, "!")) {
+                Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+                mainCondition = "is_closed = 0 and jenisKontrasepsi != '0'";
+            } else {
+                Log.e(TAG, "initializeQueries: " + s);
+                mainCondition = "is_closed = 0 and jenisKontrasepsi != '0' AND object_id LIKE '%" + s + "%'";
+            }
+
             joinTable = "";
             countSelect = countqueryBUilder.mainCondition(mainCondition);
             super.CountExecute();
@@ -221,7 +240,8 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
             SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
             queryBUilder.SelectInitiateMainTable("ec_kartu_ibu", new String[]{"ec_kartu_ibu.relationalid","ec_kartu_ibu.is_closed", "ec_kartu_ibu.details", "ec_kartu_ibu.isOutOfArea", "namalengkap", "umur", "namaSuami", "imagelist.imageid"});
             queryBUilder.customJoin("LEFT JOIN ec_ibu on ec_kartu_ibu.id = ec_ibu.base_entity_id LEFT JOIN ImageList imagelist ON ec_ibu.base_entity_id=imagelist.entityID ");
-            mainSelect = queryBUilder.mainCondition(mainCondition);
+
+            mainSelect = queryBUilder.mainCondition(" ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0'");
             Sortqueries = KiSortByNameAZ();
 
             currentlimit = 20;
@@ -316,7 +336,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
-            initializeQueries();
+            initializeQueries("!");
         }
         //     updateSearchView();
         //   checkforNidMissing(mView);
@@ -328,35 +348,55 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         }
 
     }
-    @Override
-    public void setupSearchView(View view) {
-        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
-        searchView.setHint(getNavBarOptionsProvider().searchHint());
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
+//    OLD
+//    @Override
+//    public void setupSearchView(View view) {
+//        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+//        searchView.setHint(getNavBarOptionsProvider().searchHint());
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//
+//                filters = cs.toString();
+//                joinTable = "";
+//                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
+//
+//
+//                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                CountExecute();
+//                filterandSortExecute();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
 
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//        searchView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
+////                Image selections[] = new Image[]{};
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                builder.setTitle("Please Choose one, Search by");
+//                builder.setItems(selections, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int opt) {
+//                        if (opt == 0) searchTextChangeListener("");
+//                        else getFacialRecord(view);
+//                    }
+//                });
+//                builder.show();
+//            }
+//        });
 
-                filters = cs.toString();
-                joinTable = "";
-                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
-
-
-                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                CountExecute();
-                filterandSortExecute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
-        searchCancelView.setOnClickListener(searchCancelHandler);
-    }
+//        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+//        searchCancelView.setOnClickListener(searchCancelHandler);
+//    }
 
     public void updateSearchView(){
         getSearchView().addTextChangedListener(new TextWatcher() {
@@ -391,11 +431,168 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
             }else{
                 StringUtil.humanize(entry.getValue().getLabel());
                 String name = StringUtil.humanize(entry.getValue().getLabel());
-                dialogOptionslist.add(new KICommonObjectFilterOption(name,"dusun", name));
+                dialogOptionslist.add(new KICommonObjectFilterOption(name, "location_name", name, "ec_kartu_ibu"));
 
             }
         }
     }
+
+//    public void searchTextChangeListener(String s) {
+//        Log.e(TAG, "searchTextChangeListener: " + s);
+//        if (s != null) {
+//            filters =  s;
+//        } else {
+//            searchView.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//                }
+//
+//                @Override
+//                public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//
+//                    Log.e(TAG, "onTextChanged: " + searchView.getText());
+//                    (new AsyncTask() {
+////                    SmartRegisterClients filteredClients;
+//
+//                        @Override
+//                        protected Object doInBackground(Object[] params) {
+////                        currentSearchFilter =
+////                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+////                        filteredClients = getClientsAdapter().getListItemProvider()
+////                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+////                                        getCurrentSearchFilter(), getCurrentSortOption());
+////
+//
+//                            filters = cs.toString();
+////                        joinTable = "";
+////                        mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
+//                            Log.e(TAG, "doInBackground: " + filters);
+//                            return null;
+//                        }
+////
+////                    @Override
+////                    protected void onPostExecute(Object o) {
+//////                        clientsAdapter
+//////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+//////                                        currentSearchFilter, currentSortOption);
+//////                        getClientsAdapter().refreshClients(filteredClients);
+//////                        getClientsAdapter().notifyDataSetChanged();
+////                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+////                        CountExecute();
+////                        filterandSortExecute();
+////                        super.onPostExecute(o);
+////                    }
+//                    }).execute();
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                }
+//            });
+//        }
+//    }
+
+
+    //    WD
+    public static String criteria;
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    public static String getCriteria() {
+        return criteria;
+    }
+
+    //    WD
+    @Override
+    public void setupSearchView(final View view) {
+        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Please Choose one, Search by");
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int opt) {
+                        if (opt == 0) searchTextChangeListener("");
+                        else getFacialRecord(view);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+        searchCancelView.setOnClickListener(searchCancelHandler);
+    }
+
+    public void getFacialRecord(View view) {
+        Log.e(TAG, "getFacialRecord: ");
+        SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+
+        Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
+        startActivity(intent);
+    }
+
+    public void searchTextChangeListener(String s) {
+        Log.e(TAG, "searchTextChangeListener: " + s);
+        if (s != null) {
+            filters = s;
+        } else {
+            searchView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+
+                @Override
+                public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+
+                    Log.e(TAG, "onTextChanged: " + searchView.getText());
+                    (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+
+                        @Override
+                        protected Object doInBackground(Object[] params) {
+//                        currentSearchFilter =
+//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+//                        filteredClients = getClientsAdapter().getListItemProvider()
+//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//
+                            filters = cs.toString();
+                            joinTable = "";
+                            mainCondition = " isClosed !='true' and ibuCaseId !='' ";
+                            return null;
+                        }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+                    }).execute();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            });
+        }
+    }
+
 
 
 }

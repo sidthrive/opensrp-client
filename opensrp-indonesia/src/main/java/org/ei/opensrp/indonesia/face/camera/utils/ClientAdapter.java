@@ -1,4 +1,4 @@
-package org.ei.opensrp.indonesia.face.camera.util;
+package org.ei.opensrp.indonesia.face.camera.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;

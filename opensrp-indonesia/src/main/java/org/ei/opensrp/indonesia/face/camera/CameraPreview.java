@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import org.ei.opensrp.indonesia.face.camera.util.FaceConstants;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceConstants;
 
 import java.io.IOException;
 import java.util.List;

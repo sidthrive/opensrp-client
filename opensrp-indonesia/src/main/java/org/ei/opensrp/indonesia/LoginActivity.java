@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         logVerbose("Initializing ...");
-        try {
+        try{
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(this));
             String preferredLocale = allSharedPreferences.fetchLanguagePreference();
             Resources res = Context.getInstance().applicationContext().getResources();
@@ -86,12 +86,12 @@ public class LoginActivity extends Activity {
             android.content.res.Configuration conf = res.getConfiguration();
             conf.locale = new Locale(preferredLocale);
             res.updateConfiguration(conf, dm);
-        } catch (Exception e) {
+        }catch(Exception e){
 
         }
         setContentView(org.ei.opensrp.R.layout.login);
-        ImageView loginglogo = (ImageView) findViewById(R.id.login_logo);
-        loginglogo.setImageDrawable(getResources().getDrawable(R.mipmap.login_logo));
+        ImageView loginglogo = (ImageView)findViewById(R.id.login_logo);
+        loginglogo.setImageDrawable(getResources().getDrawable(R.drawable.login_logo_bidan));
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         initializeLoginFields();
         initializeBuildDetails();
@@ -101,8 +101,20 @@ public class LoginActivity extends Activity {
         getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.indonesia.R.mipmap.logo));
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.indonesia.R.color.action_bar_background));
         setLanguage();
+
+        debugApp();
+
     }
 
+    private void debugApp(){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.login, null);
+        if (context.userService().hasARegisteredUser()){
+            localLogin(view, "user28", "1Sampai8");
+        } else {
+            remoteLogin(view, "user28", "1Sampai8");
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

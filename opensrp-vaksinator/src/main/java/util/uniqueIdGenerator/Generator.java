@@ -10,9 +10,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.vaksinator.LoginActivity;
 import org.ei.opensrp.util.Cache;
+import org.ei.opensrp.vaksinator.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,7 +41,9 @@ public class Generator {
 
     public Generator(Context context, String username, String password){
         this.context=context;
-        url = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1"+
+        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replaceFirst("[^/]*$", "openmrs");
+        url =   DRISTHI_BASE_URL+
+                "/module/idgen/exportIdentifiers.form?source=1"+
                 "&numberToGenerate="+Integer.toString(UNIQUE_ID_LENGTH_REQUEST)+
                 "&username="+username+
                 "&password="+password;

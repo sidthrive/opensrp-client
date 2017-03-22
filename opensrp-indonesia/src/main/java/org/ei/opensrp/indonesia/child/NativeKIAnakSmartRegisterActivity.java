@@ -1,16 +1,20 @@
 package org.ei.opensrp.indonesia.child;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -25,8 +29,12 @@ import org.ei.opensrp.view.fragment.SecuredNativeSmartRegisterFragment;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,8 +54,8 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_BAYI_KUN
  * Created by Dimas Ciputra on 4/7/15.
  */
 public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegisterActivity {
-
-    public static final String TAG = "AnakActivity";
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
+    public static final String TAG = NativeKIAnakSmartRegisterFragment.class.getSimpleName();
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -59,6 +67,10 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
 
     ZiggyService ziggyService;
 
+    // WD need for initialize queries
+    NativeKIAnakSmartRegisterFragment nf = new NativeKIAnakSmartRegisterFragment();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +78,58 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        FlurryFacade.logEvent("anak_dashboard");
-    formNames = this.buildFormNameList();
+
+        String KIStart = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("start", KIStart);
+        FlurryAgent.logEvent("Anak_dashboard", KI, true);
+
+
+        formNames = this.buildFormNameList();
         mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+
+        // Relace by followed
+//        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+//            TEST
+//            mode_face = true;
+//            base_id = "eb3b415b-abf9-4a3d-902c-cdcd8307c7eb";
+//            Log.e(TAG, "onCreate: mode_face "+mode_face );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+
+//                CommonPersonObject cpo = new CommonPersonObject(base_id, null, null, null);
+//                CommonPersonObjectClient pc = new CommonPersonObjectClient(base_id, null, null);
+//                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+//                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
+
+                Log.e(TAG, "onCreate: id " + base_id);
+                showToast("id "+base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES", listener);
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new NativeKIAnakSmartRegisterFragment();
+        }
+
+
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -151,11 +212,21 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+        //  FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
+
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -245,6 +316,10 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KIEnd = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("end", KIEnd);
+        FlurryAgent.logEvent("Anak_dashboard",KI, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){
@@ -257,4 +332,26 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(NativeKIAnakSmartRegisterActivity.this, NativeKIAnakSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+
+
+        }
+    };
+
+
 }

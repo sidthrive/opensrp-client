@@ -515,6 +515,7 @@ public class Context {
             }else {
                 repository = new Repository(this.applicationContext, session(), drishtireposotoryarray);
             }
+            Log.e(TAG, "initRepository: "+"finish" );
         }
         return repository;
     }

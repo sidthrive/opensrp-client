@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.jjoe64.graphview.GraphView;
 
 import org.ei.opensrp.Context;
@@ -35,6 +36,7 @@ public class GiziZScoreChartActivity extends Activity{
         final Context context = Context.getInstance();
         calc = new ZScoreSystemCalculation();
         setContentView(R.layout.gizi_z_score_activity);
+        FlurryAgent.logEvent("ZScore_chart_view");
 
         if(client == null){
             DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
@@ -184,6 +186,8 @@ public class GiziZScoreChartActivity extends Activity{
         String [] temp = buildDayAgeArray(historyUmur/*, historyUmurHari*/).split(",");
         seriesAxis = temp[0].equals("") ? "" : ""+(Integer.parseInt(temp[0])/30);
         for(int i=1;i<temp.length;i++){
+            if(Integer.parseInt(temp[i])<0)
+                continue;
             seriesAxis = seriesAxis + "," + (Integer.parseInt(temp[i])/30);
         }
         return seriesAxis;
@@ -192,17 +196,22 @@ public class GiziZScoreChartActivity extends Activity{
     private String createWFASeries(){
         if(historyBerat==null)
             return "";
+
         String []dayAge = buildDayAgeArray(historyUmur/*,historyUmurHari*/).split(",");
         String[] weight = historyBerat.split(",");
         boolean isMale = !client.getDetails().get("gender").toLowerCase().contains("em");
         String wfa = "";
         int ageLength = dayAge.length;
 
+        if(ageLength==1 && dayAge[0].equals(""))
+            return dayAge[0];
         for(int i=0;i<ageLength;i++){
             ////System.out.println("age on day : "+dayAge[i]);
         }
 
         for(int i=0;i<ageLength;i++){
+            if(Integer.parseInt(dayAge[i])<0)
+                continue;
             if(i>0)
                 wfa = wfa + ",";
             wfa = wfa + calc.countWFA(isMale,Integer.parseInt(dayAge[i]),Double.parseDouble(weight[i+1]));
@@ -305,7 +314,7 @@ public class GiziZScoreChartActivity extends Activity{
         for (int i = 1; i < huhLength.length; i++) {
             result = result + "," + huhLength[i];
         }
-        return result.substring(1,result.length());
+        return result.length()<1? "" : result.substring(1,result.length());
     }
 
     private String buildDayAgeArray(String huh,String hu){
@@ -377,6 +386,8 @@ public class GiziZScoreChartActivity extends Activity{
     }
 
     private String[]split(String data){
+        if(data==null)
+            return new String[]{"0","0"};
         if(!data.contains(":"))
             return new String[]{"0","0"};
         String []temp = data.split(",");

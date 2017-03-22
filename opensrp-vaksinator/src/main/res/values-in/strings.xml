@@ -60,6 +60,7 @@
     <string name="ec_register_male_child">Laki-Laki\n{0}</string>
     <string name="ec_register_female_child">Perempuan\n{0}</string>
     <string name="ec_register_no_fp">No FP</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="status_delivery">Delivery:</string>
     <string name="str_lmp">LMP:</string>
@@ -133,7 +134,8 @@
     <string name="header_vitamin_a">VITAMIN A</string>
     <string name="thayi_label">Thayi:</string>
     <string name="mother_ec_label">Mother EC:</string>
-    <string name="sort_by_child_age">Age</string>
+    <string name="sort_by_child_age">Umur (0 - 5 thn)</string>
+    <string name="sort_by_child_age_desc">Umur (5 - 0 thn)</string>
     <string name="sort_by_child_hr">HR</string>
     <string name="str_child_immunizations">Child Immunizations</string>
     <string name="str_child_illness">Child Illness</string>
@@ -280,7 +282,7 @@
     <string name="str_contact">Contact:</string>
     <string name="str_risks_reviewed">Risks reviewed:</string>
     <string name="sort_by_edd_label">EDD</string>
-
+    <string name="reconfirmChildName">Konfirmasi nama Anak</string>
 
     <string name="str_pnc_delivery_date">Date:</string>
     <string name="str_pnc_delivery_place">Place:</string>

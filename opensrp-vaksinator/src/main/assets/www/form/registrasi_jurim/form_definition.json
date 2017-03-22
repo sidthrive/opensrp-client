@@ -10,6 +10,25 @@
         "shouldLoadValue": true
       },
       {
+        "name": "noIbu",
+        "bind": "/model/instance/registrasi_vaksinator/no_ibu"
+      },
+      {
+        "name": "pasienWilayah",
+        "bind": "/model/instance/registrasi_vaksinator/pasien_wilayah",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pasienPindahan",
+        "bind": "/model/instance/registrasi_vaksinator/pasien_pindahan",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tglPindah",
+        "bind": "/model/instance/registrasi_vaksinator/tgl_pindah",
+        "shouldLoadValue": true
+      },
+      {
         "name": "existing_location",
         "bind": "/model/instance/registrasi_vaksinator/existing_location",
         "shouldLoadValue": true

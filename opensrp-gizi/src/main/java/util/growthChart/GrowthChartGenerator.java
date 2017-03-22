@@ -199,9 +199,11 @@ public class GrowthChartGenerator {
         //System.out.println("date length = "+date.length);
         for(int i=0;i<date.length;i++){
             this.index=i;
-//            //System.out.println("Z Score line chart : "+i);
-//            //System.out.println("date "+i+" : "+date[i]);
-//            //System.out.println("value "+i+" : "+value[i]);
+//            System.out.println("Z Score line chart : "+i);
+//            System.out.println("date "+i+" : "+date[i]);
+//            System.out.println("value "+i+" : "+value[i]);
+            if(i>=date.length || i>=value.length)       // prevent null data on chart
+                break;
             createLineChart(graph, dateOfBirth, date[i], value[i]);
         }
     }

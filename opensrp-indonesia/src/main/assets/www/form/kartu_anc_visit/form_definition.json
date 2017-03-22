@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/end"
+      },
+      {
         "name": "kiId",
         "shouldLoadValue": true,
         "source": "ibu.kartu_ibu.id"
@@ -78,8 +86,8 @@
         "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/nomortelpon"
       },
       {
-        "name": "Keterangan_k1k4",
-        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/Keterangan_k1k4"
+        "name": "nomorHp",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/nomor_telpon_hp"
       },
       {
         "name": "KeteranganK1k4Who",
@@ -197,6 +205,18 @@
       {
         "name": "komplikasidalamKehamilan",
         "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/komplikasi_dalam_kehamilan"
+      },
+      {
+        "name": "komplikasiLain",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/komplikasi_lain"
+      },
+      {
+        "name": "treatment",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/treatment"
+      },
+      {
+        "name": "treatmentText",
+        "bind": "/model/instance/kunjungan_anc_reviewed_anc_visit/treatment_text"
       },
       {
         "name": "rujukan",

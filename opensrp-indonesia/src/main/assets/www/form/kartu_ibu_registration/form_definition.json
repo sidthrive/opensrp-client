@@ -27,6 +27,18 @@
         "bind": "/model/instance/Kartu_ibu/Lokasi_periksa"
       },
       {
+        "name": "pasienWilayah",
+        "bind": "/model/instance/Kartu_ibu/pasien_wilayah"
+      },
+      {
+        "name": "pasienPindahan",
+        "bind": "/model/instance/Kartu_ibu/pasien_pindahan"
+      },
+      {
+        "name": "tglPindah",
+        "bind": "/model/instance/Kartu_ibu/tgl_pindah"
+      },
+      {
         "name": "unique_id",
         "bind": "/model/instance/Kartu_ibu/unique_id",
         "shouldLoadValue" : true

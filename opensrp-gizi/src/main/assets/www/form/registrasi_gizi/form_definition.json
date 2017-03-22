@@ -10,6 +10,25 @@
         "shouldLoadValue": true
       },
       {
+        "name": "pasienWilayah",
+        "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/pasien_wilayah",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pasienPindahan",
+        "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/pasien_pindahan",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tglPindah",
+        "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/tgl_pindah",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "noIbu",
+        "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/no_ibu"
+      },
+      {
         "name": "existing_location",
         "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/existing_location",
         "shouldLoadValue": true

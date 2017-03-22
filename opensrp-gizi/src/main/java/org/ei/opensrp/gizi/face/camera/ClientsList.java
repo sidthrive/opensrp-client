@@ -14,9 +14,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.ei.opensrp.clientandeventmodel.Client;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.util.ClientAdapter;
 import org.ei.opensrp.gizi.face.camera.util.FaceConstants;
+import org.ei.opensrp.gizi.face.camera.util.Tools;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +33,8 @@ public class ClientsList extends Activity{
     private GridView gv_clientList;
     private String[] names;
     private HashMap<String, String> hash;
+
+    private Tools tools;
 
     private boolean deleteUser = false;
     private boolean updateUser = false;
@@ -164,16 +168,20 @@ public class ClientsList extends Activity{
         public void onClick(DialogInterface dialog, int id) {
             boolean result = SmartShutterActivity.faceProc.resetAlbum();
 
-            Log.e(TAG, "onClick: "+result );
+//            Log.e(TAG, "onClick: "+result );
+//            new Tools().resetAlbum();
+
             if (result) {
                 HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(getApplicationContext());
                 hashMap.clear();
 
                 SmartShutterActivity ss = new SmartShutterActivity();
+
                 // Clear List Clients
                 ss.saveHash(hashMap, getApplicationContext());
 
                 saveAlbum();
+
                 Toast.makeText(getApplicationContext(),
                         "Album Reset Successful.",
                         Toast.LENGTH_LONG).show();

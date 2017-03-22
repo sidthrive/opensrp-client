@@ -241,6 +241,24 @@
           }
         }
       ]
+    },
+    {"name": "ec_multimedia",
+      "columns" : [
+        {
+          "column_name" : "baseEntityID",
+          "type" : "Multimedia",
+          "json_mapping" : {
+            "field" : "caseId"
+          }
+        },
+        {
+          "column_name" : "faceVector",
+          "type" : "Multimedia",
+          "json_mapping" : {
+            "field" : "attributes.faceVector"
+          }
+        }
+      ]
     }
   ]
 }

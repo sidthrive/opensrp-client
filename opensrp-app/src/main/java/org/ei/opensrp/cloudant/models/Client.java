@@ -66,7 +66,7 @@ public class Client extends org.ei.opensrp.clientandeventmodel.Client {
     }
 
     public static final String type_key = "type";
-    public static final String adresses_key = "adresses";
+    public static final String adresses_key = "addresses";
     public static final String attributes_key = "attributes";
     public static final String base_entity_id_key = "baseEntityId";
     public static final String birth_date_key = "birthdate";

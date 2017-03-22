@@ -1,18 +1,21 @@
 package org.ei.opensrp.indonesia.pnc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
-import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.ZiggyService;
@@ -28,8 +31,12 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,8 +58,8 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGIS
  * Created by Dimas Ciputra on 3/5/15.
  */
 public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
-
-    public static final String TAG = "PNCActivity";
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
+    public static final String TAG = NativeKIPNCSmartRegisterActivity.class.getSimpleName();
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -64,6 +71,8 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     ZiggyService ziggyService;
 
+    NativeKIPNCSmartRegisterFragment nf = new NativeKIPNCSmartRegisterFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +82,53 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         formNames = this.buildFormNameList();
-        mBaseFragment = new NativeKIPNCSmartRegisterFragment();
-        FlurryFacade.logEvent("pnc_dashboard");
+//        mBaseFragment = new NativeKIPNCSmartRegisterFragment();
+//        mBaseFragment = new NativeKISmartRegisterFragment(); // Relace by followed
+//        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+//            TEST
+//            mode_face = true;
+//            base_id = "eb3b415b-abf9-4a3d-902c-cdcd8307c7eb";
+//            Log.e(TAG, "onCreate: mode_face "+mode_face );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new NativeKIPNCSmartRegisterFragment();
+
+//                CommonPersonObject cpo = new CommonPersonObject(base_id, null, null, null);
+//                CommonPersonObjectClient pc = new CommonPersonObjectClient(base_id, null, null);
+//                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+//                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
+
+                Log.e(TAG, "onCreate: id " + base_id);
+                showToast("id "+base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES", listener);
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new NativeKIPNCSmartRegisterFragment();
+        }
+
+        String KIStart = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("start", KIStart);
+        FlurryAgent.logEvent("PNC_dashboard", KI, true);
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
         mPager.setOffscreenPageLimit(formNames.length);
@@ -180,6 +234,11 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     /*@Override
@@ -214,6 +273,11 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
 //        Log.v("fieldoverride", metaData);
+        //  FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -305,6 +369,10 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KIEnd = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("end", KIEnd);
+        FlurryAgent.logEvent("PNC_dashboard",KI, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){
@@ -317,4 +385,27 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+//            mBaseFragment = new NativeKISmartRegisterFragment();
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+                Log.e(TAG, "onClick: Cancel");
+
+                Intent intent= new Intent(NativeKIPNCSmartRegisterActivity.this,NativeKIPNCSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+    };
+
 }

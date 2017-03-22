@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/dok_persalinan_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/dok_persalinan_reviewed/end"
+      },
+      {
         "name": "cityVillage",
         "bind": "/model/instance/dok_persalinan_reviewed/Village",
         "shouldLoadValue": true
@@ -162,6 +170,14 @@
       {
         "name": "highRiskPostPartumSectioCaesaria",
         "bind": "/model/instance/dok_persalinan_reviewed/high_risk_postPartum_Sectio_Caesaria"
+      },
+      {
+        "name": "treatment",
+        "bind": "/model/instance/dok_persalinan_reviewed/treatment"
+      },
+      {
+        "name": "treatmentText",
+        "bind": "/model/instance/dok_persalinan_reviewed/treatment_text"
       },
       {
         "name": "kepemilikanBukuKia",

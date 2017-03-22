@@ -34,6 +34,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
@@ -53,6 +54,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -114,6 +116,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
     long t_startCamera = 0;
     double t_stopCamera = 0;
     String str_origin_class;
+    private boolean updated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         setContentView(R.layout.activity_fr_main_face);
 
         Bundle extras = getIntent().getExtras();
+        updated = extras.getBoolean("org.sid.sidface.SmartShutterActivity.updated");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kidetail = extras.getParcelable("org.sid.sidface.ImageConfirmation.kidetail");
@@ -160,6 +164,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+        Tools.loadAlbum(getApplicationContext());
+
+
     }
 
     @Override
@@ -215,9 +223,14 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
         if (isDevCompat) {
 
+//            loadAlbum();
             if (faceProc == null) {
                 faceProc = FacialProcessing.getInstance();
             }
+//            byte[] dataFace = faceProc.serializeRecogntionAlbum();
+
+//            Log.e(TAG, "onCreate: "+ dataFace.length );
+
 //            faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_STILL); // Static Image
             faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_VIDEO);
 
@@ -268,7 +281,9 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                 faceArray = faceProc.getFaceData();
 
                 if (faceArray == null) {
-                    Log.e(TAG, "Face array is null");
+
+                    Log.e(TAG, "onPreviewFrame: "+ "No Face value" );
+
                 } else {
                     int surfaceWidth = mPreview.getWidth();
                     int surfaceHeight = mPreview.getHeight();
@@ -283,7 +298,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                         // Default name is the person is unknown
                         selectedPersonName = "Not Identified";
                         while (iter.hasNext()) {
-                            Log.e(TAG, "In");
+                            Log.e(TAG, "onPreviewFrame: "+"check Hash" );
                             HashMap.Entry<String, String> entry = iter.next();
                             if (entry.getValue().equals(selectedPersonId)) {
                                 selectedPersonName = entry.getKey();
@@ -300,8 +315,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                         if (str_origin_class.equals(GiziSmartRegisterFragment.class.getSimpleName())) {
                             origin_class = GiziSmartRegisterActivity.class;
-                        }
-                        else if (str_origin_class.equals(GiziIbuSmartRegisterFragment.class.getSimpleName())) {
+                        } else if (str_origin_class.equals(GiziIbuSmartRegisterFragment.class.getSimpleName())) {
                             origin_class = IbuSmartRegisterActivity.class;
                         }
 
@@ -492,8 +506,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             faceProc = FacialProcessing.getInstance();
             faceProc.setRecognitionConfidence(Tools.CONFIDENCE_VALUE);
 
-            Tools tools = new Tools();
-            loadAlbum();
+//            Tools tools = new Tools();
+//            Tools.loadAlbum(getApplicationContext());
 
         } else if (!isDevCompat && !activityStartedOnce) {
             Log.e(TAG, "Feature is NOT supported");
@@ -960,14 +974,16 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         Intent intent = new Intent(this, ImageConfirmation.class);
         // This is when smart shutter feature is not ON. Take the photo generally.
         if (data != null) {
-            intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation", data);
+            intent.putExtra("org.sid.sidface.ImageConfirmation", data);
         }
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera", switchCamera);
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation", displayAngle);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.switchCamera", switchCamera);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.orientation", displayAngle);
         intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityId);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", identifyPerson);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) kidetail);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", str_origin_class);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.updated", updated);
+
         startActivityForResult(intent, 1);
     }
 

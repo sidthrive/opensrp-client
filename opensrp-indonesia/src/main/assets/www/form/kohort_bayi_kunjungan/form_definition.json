@@ -10,6 +10,14 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "start",
+                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/start"
+            },
+            {
+                "name": "end",
+                "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/end"
+            },
+            {
                 "name": "desa_anak",
                 "bind": "/model/instance/kohort_kunjungan_bayi_reviewed/Village",
                 "shouldLoadValue": true

@@ -553,7 +553,7 @@
 
 
     <string name="desc">Photo Confirmation</string>
-    <string name="desc_approval">Approval Button Confirmation Desc</string>
+    <string name="desc_approval">Approval Desc</string>
     <string name="desc_trash">Trash Description</string>
 
 

@@ -1,5 +1,8 @@
 package org.ei.opensrp.vaksinator.imunisasiTT;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +19,7 @@ import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.vaksinator.LoginActivity;
 import org.ei.opensrp.vaksinator.R;
 import org.ei.opensrp.vaksinator.fragment.TTSmartRegisterFragment;
+import org.ei.opensrp.vaksinator.fragment.VaksinatorSmartRegisterFragment;
 import org.ei.opensrp.vaksinator.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.vaksinator.vaksinator.FlurryFacade;
@@ -57,6 +61,8 @@ public class TTSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     ZiggyService ziggyService;
 
+    TTSmartRegisterFragment nf = new TTSmartRegisterFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +78,39 @@ public class TTSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
         // FlurryFacade.logEvent("anc_dashboard");
         formNames = this.buildFormNameList();
-        mBaseFragment = new TTSmartRegisterFragment();
+
+        //        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new TTSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: id " + base_id);
+//                showToast("id "+base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES", listener);
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new TTSmartRegisterFragment();
+        }
+
+
+
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -316,4 +354,24 @@ public class TTSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(TTSmartRegisterActivity.this, TTSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+
+
+        }
+    };
 }

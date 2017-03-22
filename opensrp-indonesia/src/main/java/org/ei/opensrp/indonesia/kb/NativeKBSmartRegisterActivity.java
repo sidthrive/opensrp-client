@@ -2,6 +2,7 @@ package org.ei.opensrp.indonesia.kb;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,12 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
+import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -31,9 +34,13 @@ import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -60,9 +67,11 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private String[] formNames = new String[]{};
     private android.support.v4.app.Fragment mBaseFragment = null;
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
 
     ZiggyService ziggyService;
+
+    NativeKBSmartRegisterFragment nf = new NativeKBSmartRegisterFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +80,46 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         ButterKnife.bind(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        FlurryFacade.logEvent("kb_dashboard");
+
+        String KBStart = timer.format(new Date());
+        Map<String, String> KB = new HashMap<String, String>();
+        KB.put("start", KBStart);
+        FlurryAgent.logEvent("KB_dashboard", KB, true);
+        
         formNames = this.buildFormNameList();
+
+        //        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new NativeKBSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: " + base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Clients ?");
+                builder.setMessage("Process Time : " + proc_time + " s");
+                builder.setNegativeButton("CANCEL", listener);
+                builder.setPositiveButton("YES",                         new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do all your stuff here
+                                nf.setCriteria("!");
+                                currentPage = 0;
+                            }
+                        }
+                );
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new NativeKBSmartRegisterFragment();
+        }
+
         mBaseFragment = new NativeKBSmartRegisterFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
@@ -191,11 +238,20 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
+        //end capture flurry log for FS
+        String end = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("end", end);
+        FlurryAgent.logEvent(formName,FS, true);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        FlurryFacade.logEvent(formName);
+        //  FlurryFacade.logEvent(formName);
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName,FS, true );
       //  Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -283,6 +339,10 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onPause() {
         super.onPause();
         retrieveAndSaveUnsubmittedFormData();
+        String KBEnd = timer.format(new Date());
+        Map<String, String> KB = new HashMap<String, String>();
+        KB.put("end", KBEnd);
+        FlurryAgent.logEvent("KB_dashboard",KB, true );
     }
 
     public void saveuniqueid() {
@@ -305,4 +365,24 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(NativeKBSmartRegisterActivity.this, NativeKBSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+
+
+        }
+    };
 }

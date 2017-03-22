@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/PNC_visit_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/PNC_visit_reviewed/end"
+      },
+      {
         "name": "kiId",
         "source": "ibu.kartu_ibu.id",
         "shouldLoadValue": true
@@ -108,6 +116,14 @@
       {
         "name": "kondisiPascaTindakan",
         "bind": "/model/instance/PNC_visit_reviewed/kondisipascatindakan"
+      },
+      {
+        "name": "treatment",
+        "bind": "/model/instance/PNC_visit_reviewed/treatment"
+      },
+      {
+        "name": "treatmentText",
+        "bind": "/model/instance/PNC_visit_reviewed/treatment_text"
       },
       {
         "name": "rujukan",

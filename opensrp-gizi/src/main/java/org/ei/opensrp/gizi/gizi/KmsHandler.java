@@ -53,7 +53,7 @@ public class KmsHandler  implements FormSubmissionHandler {
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
 
         detailsRepository.add(entityID, "preload_umur", umurs, tsLong);
-        detailsRepository.add(entityID, "berat_preload", berats, tsLong);
+        detailsRepository.add(entityID, "berat_preload", submission.getFieldValue("history_berat")!= null ? submission.getFieldValue("history_berat") : "0:0", tsLong);
         detailsRepository.add(entityID, "history_umur", umurs, tsLong);
 
         // detailsRepository.add(entityID, "preload_history_tinggi", submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0", tsLong);
@@ -62,38 +62,38 @@ public class KmsHandler  implements FormSubmissionHandler {
 
         if(submission.getFieldValue("tanggalPenimbangan") != null)
         {
+            if(new ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 1857) {
+                double weight = Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
+                double length = Double.parseDouble(submission.getFieldValue("tinggiBadan") != null ? submission.getFieldValue("tinggiBadan") : "0");
 
-            double weight=Double.parseDouble(submission.getFieldValue("beratBadan")!=null?submission.getFieldValue("beratBadan"):"0");
-            double length=Double.parseDouble(submission.getFieldValue("tinggiBadan")!=null?submission.getFieldValue("tinggiBadan"):"0");
+                ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
 
-            ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
+                double weight_for_age = zScore.countWFA(gender, dateOfBirth, lastVisitDate, weight);
+                String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
+                if (length != 0) {
+                    double heigh_for_age = zScore.countHFA(gender, dateOfBirth, lastVisitDate, length);
+                    String hfaStatus = zScore.getHFAZScoreClassification(heigh_for_age);
 
-            double weight_for_age = zScore.countWFA(gender, dateOfBirth, lastVisitDate, weight);
-            String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
-            if(length != 0) {
-                double heigh_for_age = zScore.countHFA(gender, dateOfBirth, lastVisitDate, length);
-                String hfaStatus = zScore.getHFAZScoreClassification(heigh_for_age);
+                    double wight_for_lenght = 0.0;
+                    String wflStatus = "";
+                    if (zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 730) {
+                        wight_for_lenght = zScore.countWFL(gender, weight, length);
+                    } else {
+                        wight_for_lenght = zScore.countWFH(gender, weight, length);
+                    }
+                    wflStatus = zScore.getWFLZScoreClassification(wight_for_lenght);
 
-                double wight_for_lenght = 0.0;
-                String wflStatus = "";
-                if (zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 730) {
-                    wight_for_lenght = zScore.countWFL(gender, weight, length);
+                    detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
+                    detailsRepository.add(entityID, "stunting", hfaStatus, tsLong);
+                    detailsRepository.add(entityID, "wasting", wflStatus, tsLong);
+
                 } else {
-                    wight_for_lenght = zScore.countWFH(gender, weight, length);
+                    detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
+                    detailsRepository.add(entityID, "stunting", "-", tsLong);
+                    detailsRepository.add(entityID, "wasting", "-", tsLong);
+
+
                 }
-                wflStatus = zScore.getWFLZScoreClassification(wight_for_lenght);
-
-                detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
-                detailsRepository.add(entityID, "stunting", hfaStatus, tsLong);
-                detailsRepository.add(entityID, "wasting", wflStatus, tsLong);
-
-            }
-            else {
-                detailsRepository.add(entityID, "underweight", wfaStatus, tsLong);
-                detailsRepository.add(entityID, "stunting", "-", tsLong);
-                detailsRepository.add(entityID, "wasting", "-", tsLong);
-
-
             }
         }
         /**
@@ -113,9 +113,8 @@ public class KmsHandler  implements FormSubmissionHandler {
             KmsPerson data = new KmsPerson(!gender.toLowerCase().contains("em"), dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya);
             KmsCalc calculator = new KmsCalc();
             ////System.out.println("tanggal penimbangan = "+submission.getFieldValue("tanggalPenimbangan")+", "+lastVisitDate);
-            int satu = Integer.parseInt(history_umur[history_umur.length-2])/30;
-            int dua = Integer.parseInt(history_umur[history_umur.length-1])/30;
-            String duat = history_berat.length <= 2  ? "-" : dua - satu >=2 ? "-" :calculator.cek2T(data);
+
+            String duat = history_berat.length <= 2  ? "-" : (Integer.parseInt(history_umur[history_umur.length-1])/30) - (Integer.parseInt(history_umur[history_umur.length-2])/30) >=2 ? "-" :calculator.cek2T(data);
             String status = history_berat.length <= 2 ? "No" : calculator.cekWeightStatus(data);
 
             detailsRepository.add(entityID, "bgm", calculator.cekBGM(data), tsLong);
@@ -149,8 +148,15 @@ public class KmsHandler  implements FormSubmissionHandler {
             result[0]=result[0]+","+temp[i].split(":")[0];
             result[1]=result[1]+","+temp[i].split(":")[1];
         }
+
         result[0]=result[0].substring(1,result[0].length());
         result[1]=result[1].substring(1,result[1].length());
+
+        if(result[0].length()>2 && result[1].length()>2){
+            result[0] = result[0].substring(0,2).equals("0,")? result[0].substring(2,result[0].length()):result[0];
+            result[1] = result[1].substring(0,2).equals("0,")? result[1].substring(2,result[1].length()):result[1];
+        }
+
         return result;
     }
 }

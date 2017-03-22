@@ -121,16 +121,17 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
 
         viewHolder.follow_up.setOnClickListener(onClickListener);
         viewHolder.follow_up.setTag(smartRegisterClient);
+        viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
+
         viewHolder.profilelayout.setOnClickListener(onClickListener);
         viewHolder.profilelayout.setTag(smartRegisterClient);
+
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
         if (iconPencilDrawable == null) {
             iconPencilDrawable = context.getResources().getDrawable(R.drawable.ic_pencil);
         }
-        viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
-        viewHolder.follow_up.setOnClickListener(onClickListener);
-        //set image
 
+        //set image
         AllCommonsRepository allancRepository =  org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
         CommonPersonObject ancobject = allancRepository.findByCaseID(pc.entityId());
 
@@ -143,7 +144,6 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         }else{
             pc.setDetails(details);
         }
-
 
         viewHolder.hr_badge.setVisibility(View.INVISIBLE);
         viewHolder.hrp_badge.setVisibility(View.INVISIBLE);

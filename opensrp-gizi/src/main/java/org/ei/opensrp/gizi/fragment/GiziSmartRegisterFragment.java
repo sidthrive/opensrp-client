@@ -5,11 +5,15 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -21,6 +25,7 @@ import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragm
 import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.gizi.LoginActivity;
+import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
 import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 import org.ei.opensrp.gizi.gizi.FlurryFacade;
 import org.ei.opensrp.gizi.gizi.GiziGrowthChartActivity;
@@ -67,6 +72,8 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  */
 public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
+    private static final String TAG = GiziSmartRegisterFragment.class.getSimpleName();
+
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
     private VillageController villageController;
@@ -74,6 +81,9 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     private ClientProcessor clientProcessor;
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
+
+    public static String criteria;
+
     @Override
     protected void onCreation() {
         //
@@ -117,7 +127,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
             @Override
             public DialogOption[] filterOptions() {
-                FlurryFacade.logEvent("click_filter_option_on_kohort_ibu_dashboard");
+                FlurryAgent.logEvent("click_filter_option_on_kohort_ibu_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
@@ -152,6 +162,8 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_age),KiSortByAgeASC()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_age_reverse),KiSortByAgeDESC()),
                 };
             }
 
@@ -192,7 +204,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
-        initializeQueries();
+        initializeQueries(getCriteria());
     }
     private String filterStringForAll(){
         return "";
@@ -206,7 +218,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
-    public void initializeQueries(){
+    public void initializeQueries(String s){
         GiziSmartClientsProvider kiscp = new GiziSmartClientsProvider(getActivity(),clientActionHandler,context().alertService());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_anak",new String []{"tanggalLahirAnak","namaBayi"}));
         clientsView.setAdapter(clientAdapter);
@@ -214,7 +226,15 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         setTablename("ec_anak");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ec_anak");
-        mainCondition = " is_closed = 0 ";
+
+        if (s == null || s.equals("!")) {
+            Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+            mainCondition = "is_closed = 0 ";
+        } else {
+            Log.e(TAG, "initializeQueries: " + s);
+            mainCondition = " is_closed = 0 AND object_id LIKE '%" + s + "%'";
+        }
+
         countSelect = countqueryBUilder.mainCondition(" is_closed = 0 ");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
@@ -256,7 +276,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //<<<<<<< HEAD
 //                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "registrasi_gizi")
 //=======
-                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context().anmLocationController().get(), "registrasi_jurim")
+                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context().anmLocationController().get(), "registrasi_gizi")
 //>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
                 .show(ft, locationDialogTAG);
     }
@@ -312,6 +332,12 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     private String KiSortByNameZA() {
         return " namaBayi DESC";
     }
+    private String KiSortByAgeASC() {
+        return " tanggalLahirAnak DESC";
+    }
+    private String KiSortByAgeDESC() {
+        return " tanggalLahirAnak ASC";
+    }
 
     private String KiSortByAge() {
         return " umur DESC";
@@ -352,7 +378,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
-            initializeQueries();
+            initializeQueries("!");
         }
         //     updateSearchView();
 //
@@ -363,58 +389,58 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         }
 
     }
-    @Override
-    public void setupSearchView(View view) {
-        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
-        searchView.setHint(getNavBarOptionsProvider().searchHint());
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-                (new AsyncTask() {
-                    SmartRegisterClients filteredClients;
-
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-//                        currentSearchFilter =
-//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-//                        filteredClients = getClientsAdapter().getListItemProvider()
-//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//    @Override
+//    public void setupSearchView(View view) {
+//        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+//        searchView.setHint(getNavBarOptionsProvider().searchHint());
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+//            }
 //
-                        filters = cs.toString();
-                        joinTable = "";
-                        mainCondition = " namaBayi !='' ";
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Object o) {
-//                        clientsAdapter
-//                                .refreshList(currentVillageFilter, currentServiceModeOption,
-//                                        currentSearchFilter, currentSortOption);
-//                        getClientsAdapter().refreshClients(filteredClients);
-//                        getClientsAdapter().notifyDataSetChanged();
-                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-                        CountExecute();
-                        filterandSortExecute();
-                        super.onPostExecute(o);
-                    }
-                }).execute();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
-        searchCancelView.setOnClickListener(searchCancelHandler);
-    }
-
+//            @Override
+//            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+//
+//                (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+//
+//                    @Override
+//                    protected Object doInBackground(Object[] params) {
+////                        currentSearchFilter =
+////                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+////                        filteredClients = getClientsAdapter().getListItemProvider()
+////                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+////                                        getCurrentSearchFilter(), getCurrentSortOption());
+////
+//                        filters = cs.toString();
+//                        joinTable = "";
+//                        mainCondition = " is_closed = 0 AND namaBayi !='' ";
+//                        return null;
+//                    }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+//                }).execute();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+//        searchCancelView.setOnClickListener(searchCancelHandler);
+//    }
+//
     public void updateSearchView(){
         getSearchView().addTextChangedListener(new TextWatcher() {
             @Override
@@ -437,7 +463,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = " is_closed = 0 AND namaBayi !='' ";
                         return null;
                     }
 
@@ -484,6 +510,107 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         }
     }
 
+
+
+    //    WD
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    public static String getCriteria() {
+        return criteria;
+    }
+
+    //    WD
+    @Override
+    public void setupSearchView(final View view) {
+        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence selections[] = new CharSequence[]{"Name", "Photo"};
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Please Choose one, Search by");
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int opt) {
+                        if (opt == 0) searchTextChangeListener("");
+                        else getFacialRecord(view);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
+        searchCancelView.setOnClickListener(searchCancelHandler);
+    }
+
+    public void getFacialRecord(View view) {
+        Log.e(TAG, "getFacialRecord: ");
+        SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+
+        Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", GiziSmartRegisterFragment.class.getSimpleName());
+        intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
+        startActivity(intent);
+    }
+
+    public void searchTextChangeListener(String s) {
+        Log.e(TAG, "searchTextChangeListener: " + s);
+        if (s != null) {
+            filters = s;
+        } else {
+            searchView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                }
+
+                @Override
+                public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+
+                    Log.e(TAG, "onTextChanged: " + searchView.getText());
+                    (new AsyncTask() {
+//                    SmartRegisterClients filteredClients;
+
+                        @Override
+                        protected Object doInBackground(Object[] params) {
+//                        currentSearchFilter =
+//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
+//                        filteredClients = getClientsAdapter().getListItemProvider()
+//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
+//                                        getCurrentSearchFilter(), getCurrentSortOption());
+//
+
+                            filters = cs.toString();
+                            joinTable = "";
+                            mainCondition = "nama_bayi !=''";
+                            Log.e(TAG, "doInBackground: " + filters);
+                            return null;
+                        }
+//
+//                    @Override
+//                    protected void onPostExecute(Object o) {
+////                        clientsAdapter
+////                                .refreshList(currentVillageFilter, currentServiceModeOption,
+////                                        currentSearchFilter, currentSortOption);
+////                        getClientsAdapter().refreshClients(filteredClients);
+////                        getClientsAdapter().notifyDataSetChanged();
+//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+//                        CountExecute();
+//                        filterandSortExecute();
+//                        super.onPostExecute(o);
+//                    }
+                    }).execute();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            });
+        }
+    }
 
 
 

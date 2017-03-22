@@ -1,11 +1,3 @@
-/* ======================================================================
- *  Copyright � 2014 Qualcomm Technologies, Inc. All Rights Reserved.
- *  QTI Proprietary and Confidential.
- *  =====================================================================
- *  
- * @file:   ImageConfirmation.java
- *
- */
 package org.ei.opensrp.indonesia.face.camera;
 
 import android.app.Activity;
@@ -29,16 +21,14 @@ import android.widget.Toast;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
-import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
-import org.ei.opensrp.indonesia.face.camera.util.FaceConstants;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceConstants;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
@@ -48,14 +38,11 @@ import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
 import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
-import org.ei.opensrp.repository.ImageRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
 
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
@@ -86,6 +73,8 @@ public class ImageConfirmation extends Activity {
     byte[] data;
     int angle;
     boolean switchCamera;
+    private byte[] faceVector;
+    private boolean updated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +102,7 @@ public class ImageConfirmation extends Activity {
 //        Retrieve data from Local Storage
         clientList = SmartShutterActivity.retrieveHash(getApplicationContext());
 
-        boolean result = objFace.setBitmap(storedBitmap);
+        boolean setBitmapResult = objFace.setBitmap(storedBitmap);
         faceDatas = objFace.getFaceData();
 
         int imageViewSurfaceWidth = storedBitmap.getWidth();
@@ -121,25 +110,29 @@ public class ImageConfirmation extends Activity {
 //        int imageViewSurfaceWidth = confirmationView.getWidth();
 //        int imageViewSurfaceHeight = confirmationView.getHeight();
 
+        // Face Confirmation view purpose
         workingBitmap = Bitmap.createScaledBitmap(storedBitmap,
                 imageViewSurfaceWidth, imageViewSurfaceHeight, false);
 //        mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+
         mutableBitmap = storedBitmap.copy(Bitmap.Config.ARGB_8888, true);
 
         objFace.normalizeCoordinates(imageViewSurfaceWidth, imageViewSurfaceHeight);
 
         // Set Bitmap Success
-        if(result){
+        if(setBitmapResult){
 //            Log.e(TAG, "onCreate: SetBitmap objFace "+"Success" );
 
             // Face Data Exist
             if(faceDatas != null){
-//                Log.e(TAG, "onCreate: faceDatas "+"NotNull" );
+//                Log.e(TAG, "onCreate: faceDatas "+faceDatas.length );
                 rects = new Rect[faceDatas.length];
 
                 for (int i = 0; i < faceDatas.length; i++) {
                     Rect rect = faceDatas[i].rect;
                     rects[i] = rect;
+
+                    int matchRate = faceDatas[i].getRecognitionConfidence();
 
                     float pixelDensity = getResources().getDisplayMetrics().density;
 
@@ -160,13 +153,15 @@ public class ImageConfirmation extends Activity {
                         Toast.makeText(getApplicationContext(), selectedPersonName, Toast.LENGTH_SHORT).show();
 
 //                        Draw Info on Image
-//                        Tools.drawInfo(rect, mutableBitmap, pixelDensity, selectedPersonName);
+                        Tools.drawInfo(rect, mutableBitmap, pixelDensity, selectedPersonName);
 
                         showDetailUser(selectedPersonName);
 
                     } else {
-
+                        // Not Identifiying, do new record.
+//                        Draw Info on Image
                         Tools.drawRectFace(rect, mutableBitmap, pixelDensity);
+
                         Log.e(TAG, "onCreate: PersonId "+faceDatas[i].getPersonId() );
 
                         // Check Detected existing face
@@ -174,47 +169,56 @@ public class ImageConfirmation extends Activity {
 
                             arrayPossition = i;
 
-//                            TODO
-//                            int res = objFace.addPerson(arrayPossition);
-//                            clientList.put(entityId, Integer.toString(res));
-//                            saveHash(clientList, getApplicationContext());
-//                            saveAlbum();
-
                         } else {
-                            Log.e(TAG, "onCreate: Similar face found " +
-                                    Integer.toString(faceDatas[i].getRecognitionConfidence()));
 
-                            AlertDialog.Builder builder= new AlertDialog.Builder(this);
-
-                            builder.setTitle("Are you Sure?");
-                            builder.setMessage("Similar Face Found! : Confidence "+faceDatas[i].getRecognitionConfidence());
-                            builder.setNegativeButton("CANCEL", null);
-                            builder.show();
-                            confirmButton.setVisibility(View.INVISIBLE);
+                            showPersonInfo(matchRate);
 
                         }
 
 //                        TODO: asign selectedPersonName to search
-
-                        confirmationView.setImageBitmap(mutableBitmap);            // Setting the view with the bitmap image that came in.
+                        // Applied Image that came in to the view.
+                        // Face only
+//                        confirmationView.setImageBitmap(storedBitmap);
+                        // Face and Rect
+                        confirmationView.setImageBitmap(mutableBitmap);
 
                     } // end if-else mode Identify {True or False}
+
                 } // end for count ic_faces
+
             } else {
+
                 Log.e(TAG, "onCreate: faceDatas "+"Null" );
                 Toast.makeText(ImageConfirmation.this, "No Face Detected", Toast.LENGTH_SHORT).show();
                 Intent resultIntent = new Intent();
                 setResult(RESULT_CANCELED, resultIntent);
                 ImageConfirmation.this.finish();
             }
+
         } else {
+
             Log.e(TAG, "onCreate: SetBitmap objFace"+"Failed" );
+
         }
 
 //        confirmationView.setImageBitmap(storedBitmap);            // Setting the view with the bitmap image that came in.
 //        confirmationView.setImageBitmap(mutableBitmap);            // Setting the view with the bitmap image that came in.
 
         buttonJob();
+    }
+
+    private void showPersonInfo(int recognitionConfidence) {
+        Log.e(TAG, "showPersonInfo: Similar face found " +
+                Integer.toString(recognitionConfidence));
+
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+
+        builder.setTitle("Are you Sure?");
+        builder.setMessage("Similar Face Found! : Confidence "+recognitionConfidence);
+        builder.setNegativeButton("CANCEL", null);
+        builder.show();
+        confirmButton.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -229,19 +233,22 @@ public class ImageConfirmation extends Activity {
      */
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
-        data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
-        angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
-        switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
+        data = getIntent().getByteArrayExtra("org.sid.sidface.ImageConfirmation");
+        angle = extras.getInt("org.sid.sidface.ImageConfirmation.orientation");
+        switchCamera = extras.getBoolean("org.sid.sidface.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
+        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
+        Log.e(TAG, "init_extras: "+updated );
 
     }
 
 
     private void init_gui() {
-        confirmationView = (ImageView) findViewById(R.id.iv_confirmationView);  // Display New Photo
+        // Display New Photo
+        confirmationView = (ImageView) findViewById(R.id.iv_confirmationView);
         trashButton = (ImageView) findViewById(R.id.iv_cancel);
         confirmButton = (ImageView) findViewById(R.id.iv_approve);
     }
@@ -255,18 +262,10 @@ public class ImageConfirmation extends Activity {
 //        Log.e(TAG, "onCreate: Id "+selectedPersonName );
 //        Log.e(TAG, "onCreate: KiClient "+kiclient.getCaseId() );
 
-//      CommonRepository commonrepository = new CommonRepository("ibu", new String[]{"ibu.isClosed", "ibu.ancDate", "ibu.ancKe", "kartu_ibu.namalengkap", "kartu_ibu.umur", "kartu_ibu.namaSuami"}););
-//        CommonRepository commonrepository = new CommonRepository("ec_kartu_ibu",new String []{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur","ec_kartu_ibu.namaSuami"});
-//        Log.e(TAG, "onCreate: CommonRespository "+commonrepository );
-//        CommonPersonObject personinlist = commonrepository.findByCaseID(selectedPersonName);
-//        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("ec_kartu_ibu.namalengkap"));
-//        KIDetailActivity.kiclient = pClient;
-//        Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);
-
         Class<?> origin_class = this.getClass();
 
-        Log.e(TAG, "onPreviewFrame: init"+origin_class.getSimpleName() );
-        Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+//        Log.e(TAG, "showDetailUser: "+ origin_class.getSimpleName() );
+//        Log.e(TAG, "showDetailUser: "+ str_origin_class);
 
         if(str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())){
             origin_class = NativeKISmartRegisterActivity.class;
@@ -297,10 +296,15 @@ public class ImageConfirmation extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                Log.e(TAG, "onClick: " + identifyPerson);
-                Log.e(TAG, "onClick: " + entityId);
+                Log.e(TAG, "onClick: identify " + identifyPerson);
+                Log.e(TAG, "onClick: base_id " + entityId);
+
                 if (!identifyPerson) {
-                    saveAndClose(entityId);
+
+                    Log.e(TAG, "onClick: class origin "+str_origin_class );
+
+//                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
@@ -362,28 +366,23 @@ public class ImageConfirmation extends Activity {
     Save File and DB
      */
     private void saveAndClose(String entityId) {
-        Log.e(TAG, "saveAndClose: position"+ arrayPossition );
-//        int res = objFace.addPerson(arrayPossition);
-//        Log.e(TAG, "saveAndClose: " + res);
-        Log.e(TAG, "saveAndClose: " + Arrays.toString(objFace.serializeRecogntionAlbum()));
 
-//        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
-        saveAlbum();
+        Log.e(TAG, "saveAndClose: updated "+ updated );
+
+        faceVector = objFace.serializeRecogntionAlbum();
+
+        Log.e(TAG, "saveAndClose: " + Arrays.toString(faceVector));
+
         int result = objFace.addPerson(arrayPossition);
         clientList.put(entityId, Integer.toString(result));
-        saveHash(clientList, getApplicationContext());
 
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId);
+        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
 
-//        HashMap<String,String> details = new HashMap<>();
-//
-//        details.put("profilepic",currentfile.getAbsolutePath());
-//
-//        saveimagereference(bindobject,entityId, details);
+        SmartShutterActivity.faceProc.resetAlbum();
 
-
-//        Tools.SavePictureToFile(ImageConfirmation.this, storedBitmap, entityId);
-//        resultIntent.putExtra("com.qualcomm.sdk.smartshutterappgit .SmartShutterActivity.thumbnail", thumbnail);
+//        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, albumBuffer, updated);
+        // TODO : change album buffer to String[]
+//        Tools.WritePictureToFile(storedBitmap, entityId, albumBuffer, updated);
 
         ImageConfirmation.this.finish();
 
@@ -428,19 +427,5 @@ public class ImageConfirmation extends Activity {
 //        ref.setValue(imageEncoded);
     }
 
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(
-                UUID.randomUUID().toString(),
-                anmId,
-                entityid,
-                "Image",
-                details.get("profilepic"),
-                ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
 
 }

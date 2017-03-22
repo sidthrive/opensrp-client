@@ -34,6 +34,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "namaBayi",
+        "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/nama_bayi",
+        "shouldLoadValue": true
+      },
+      {
         "name": "underweight",
         "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/underweight",
         "shouldLoadValue": true
@@ -125,7 +130,7 @@
         "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_badan"
       },
       {
-        "name": "berat_preload",
+        "name": "history_berat",
         "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/berat_preload",
         "shouldLoadValue": true
       },

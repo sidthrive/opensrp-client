@@ -53,13 +53,21 @@ public class VaksinatorDetailActivity extends Activity {
     private static ImageFetcher mImageFetcher;
 
     //image retrieving
-
     public static CommonPersonObjectClient controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.smart_register_jurim_detail_client);
+
+        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+        detailsRepository.updateDetails(controller);
+
+        AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
+        CommonPersonObject controllers = childRepository.findByCaseID(controller.entityId());
+
+        AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
+        final CommonPersonObject kiparent = kirep.findByCaseID(controllers.getColumnmaps().get("relational_id"));
 
         String DetailStart = timer.format(new Date());
         Map<String, String> Detail = new HashMap<String, String>();
@@ -83,6 +91,7 @@ public class VaksinatorDetailActivity extends Activity {
         TextView additionalMeaslesLabel = (TextView) findViewById(R.id.additionalMeaslesLabel);
 
         //profile
+        TextView uid = (TextView) findViewById(R.id.uidValue);
         TextView nama = (TextView) findViewById(R.id.childName);
         TextView motherName = (TextView) findViewById(R.id.motherName);
         TextView fatherName = (TextView) findViewById(R.id.fatherName);
@@ -130,7 +139,8 @@ public class VaksinatorDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(VaksinatorDetailActivity.this, VaksinatorRecapitulationActivity.class));
+                VaksinatorRecapitulationActivity.staticVillageName = (kiparent.getDetails().get("cityVillage") != null ? ": " + kiparent.getDetails().get("cityVillage") : "null");
+                        startActivity(new Intent(VaksinatorDetailActivity.this, VaksinatorRecapitulationActivity.class));
                 overridePendingTransition(0, 0);
                 FlurryFacade.logEvent("click_recapitulation_button");
             }
@@ -152,17 +162,10 @@ public class VaksinatorDetailActivity extends Activity {
         completeLabel.setText(getString(R.string.imunisasiLengkap));
         additionalDPTLabel.setText(getString(R.string.dptTambahan));
         additionalMeaslesLabel.setText(getString(R.string.campakTambahan));
-        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-        detailsRepository.updateDetails(controller);
 
+
+        uid.setText(": "+(controller.getDetails().get("UniqueId")!=null ? controller.getDetails().get("UniqueId") : "-"));
         nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
-
-
-        AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
-        CommonPersonObject childobject = childRepository.findByCaseID(controller.entityId());
-
-        AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
 
         System.out.println("details: "+controller.getDetails().toString());
 
@@ -204,7 +207,7 @@ public class VaksinatorDetailActivity extends Activity {
                                                         .get("beratLahir"))/1000)
                                                         + " kg"
                                     : "-"));
-        antipiretik.setText(": " + (controller.getDetails().get("getAntypiretic") != null ? controller.getDetails().get("getAntypiretic") : "-"));
+        antipiretik.setText(": " + (controller.getDetails().get("antipiretik") != null ? yesNo(controller.getDetails().get("antipiretik").toLowerCase().contains("y")) : "-"));
 
         hb1Under7.setText(": " + (hasDate(controller,"hb0")
                 ? controller.getDetails().get("hb0")
@@ -226,6 +229,22 @@ public class VaksinatorDetailActivity extends Activity {
         complete.setText(": " + yesNo(isComplete()));
         additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
         additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+
+        if(controller.getDetails().get("profilepic")!= null){
+            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
+            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+
+            }
+        }
+        else {
+            if (controller.getDetails().get("gender").equalsIgnoreCase("male") ) {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+            } else {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+            }
+        }
 
         /*if(controller.getDetails().get("profilepic")!= null){
             setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
@@ -275,13 +294,13 @@ public class VaksinatorDetailActivity extends Activity {
     static String entityid;
 
     private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
         mImageView = imageView;
         Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
 //        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 //        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -326,14 +345,6 @@ public class VaksinatorDetailActivity extends Activity {
             mImageView.setImageBitmap(bitmap);
         }
     }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
@@ -367,6 +378,7 @@ public class VaksinatorDetailActivity extends Activity {
 
 
     }
+
     private boolean isComplete(){
         return (controller.getDetails().get("hb0") != null &&
                 controller.getDetails().get("bcg") != null &&

@@ -338,13 +338,11 @@ public class AllConstants {
         public static final String BATCHES_REPLICATED = "BATCHES_REPLICATED";
         public static final String COUCHDB_PORT = "5984";
 
-        public static final String COUCH_DATABASE_NAME = "opensrp";
-        public static final String COUCH_DATABASE_USER = "";
-        public static final String COUCH_DATABASE_PASS = "";
-
-
-
+        public static final String COUCH_DATABASE_NAME = "opensrp3";
+        public static final String COUCH_DATABASE_USER = "admin";
+        public static final String COUCH_DATABASE_PASS = "Satu2345";
     }
+
     public static class SyncFilters {
         // These pull filters must be defined in your couchDB server for them to work
         // Filters
@@ -365,4 +363,5 @@ public class AllConstants {
         public static final String DISK_CACHE_DIR = "opensrp-images";
 
     }
+
 }

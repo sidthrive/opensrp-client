@@ -35,7 +35,7 @@ public class GiziApplication extends DrishtiApplication {
         ErrorReportingFacade.initErrorHandler(getApplicationContext());
         /**
          * ENABLE THIS AGAIN AFTER FINISH TESTING*/
-      //  FlurryFacade.init(this);
+        FlurryFacade.init(this);
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
@@ -82,7 +82,7 @@ public class GiziApplication extends DrishtiApplication {
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("ec_anak")){
-            String[] ftsSearchFields =  { "namaBayi" };
+            String[] ftsSearchFields =  { "namaBayi","tanggalLahirAnak" };
             return ftsSearchFields;
         } else if (tableName.equals("ec_kartu_ibu")){
             String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
@@ -93,7 +93,7 @@ public class GiziApplication extends DrishtiApplication {
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("ec_anak")){
-            String[] sortFields = { "namaBayi"};
+            String[] sortFields = { "namaBayi","tanggalLahirAnak"};
             return sortFields;
         } else if(tableName.equals("ec_kartu_ibu")){
             String[] sortFields = { "namalengkap", "namaSuami"};

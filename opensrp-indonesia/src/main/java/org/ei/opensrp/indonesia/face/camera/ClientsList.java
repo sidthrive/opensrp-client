@@ -14,11 +14,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import org.ei.opensrp.clientandeventmodel.Client;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.face.camera.util.ClientAdapter;
-import org.ei.opensrp.indonesia.face.camera.util.FaceConstants;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.ClientAdapter;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceConstants;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -32,16 +32,20 @@ public class BidanApplication extends DrishtiApplication {
     public void onCreate() {
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
         super.onCreate();
+
         //  ACRA.init(this);
 
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
         ErrorReportingFacade.initErrorHandler(getApplicationContext());
         FlurryFacade.init(this);
+
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
         applyUserLanguagePreference();
         cleanUpSyncState();
+
     }
 
     @Override
@@ -110,7 +114,7 @@ public class BidanApplication extends DrishtiApplication {
             String[] sortFields = { "namalengkap", "umur", "noIbu", "pptest" , "htp" };
             return sortFields;
         } else if(tableName.equals("ec_pnc")){
-            String[] sortFields = { "namalengkap", "keadaanIbu"};
+            String[] sortFields = { "namalengkap", "umur", "noIbu", "keadaanIbu"};
             return sortFields;
         }
         return null;
@@ -118,7 +122,7 @@ public class BidanApplication extends DrishtiApplication {
 
     private String[] getFtsMainConditions(String tableName){
         if(tableName.equals("ec_kartu_ibu")) {
-            String[] mainConditions = { "is_closed", "details" , "jenisKontrasepsi" };
+            String[] mainConditions = { "is_closed", "jenisKontrasepsi" };
             return mainConditions;
         } else if(tableName.equals("ec_anak")){
             String[] mainConditions = { "is_closed", "relational_id" };
