@@ -3,6 +3,7 @@ package org.ei.opensrp.path.tabfragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,11 @@ import org.ei.opensrp.repository.DetailsRepository;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
+import util.DateUtils;
 import util.Utils;
 
 
@@ -56,28 +60,54 @@ public class child_registration_data_fragment extends Fragment {
         WidgetFactory wd = new WidgetFactory();
 
 
-        layout.addView(wd.createTableRow(inflater,container,"Catchment Area", "Linda"));
-        layout.addView(wd.createTableRow(inflater,container,"ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"program_client_id",false)));
-        layout.addView(wd.createTableRow(inflater,container,"Child Register Card Number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
-        layout.addView(wd.createTableRow(inflater,container,"Birth Certificate Number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", Utils.getValue(childDetails.getColumnmaps(),"Home_Facility",false)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"program_client_id",false)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's register card number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's birth certificate number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
         layout.addView(wd.createTableRow(inflater,container,"First Name",Utils.getValue(childDetails.getColumnmaps(),"first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Last Name",Utils.getValue(childDetails.getColumnmaps(),"last_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Sex",Utils.getValue(childDetails.getColumnmaps(),"gender",true)));
-        layout.addView(wd.createTableRow(inflater,container,"DOB",ChildDetailTabbedActivity.DATE_FORMAT.format( new DateTime(Utils.getValue(childDetails.getColumnmaps(),"dob",true)).toDate())));
+        layout.addView(wd.createTableRow(inflater,container,"Child's DOB",ChildDetailTabbedActivity.DATE_FORMAT.format( new DateTime(Utils.getValue(childDetails.getColumnmaps(),"dob",true)).toDate())));
+
+
+        String formattedAge = "";
+        String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            Date dob = dateTime.toDate();
+            long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
+
+            if (timeDiff >= 0) {
+                formattedAge = DateUtils.getDuration(timeDiff);
+            }
+        }
+
+
+        layout.addView(wd.createTableRow(inflater,container,"Age",formattedAge));
+
+
         layout.addView(wd.createTableRow(inflater,container,"Date First Seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
         layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(childDetails.getColumnmaps(),"Birth_Weight",true)));
 
-        layout.addView(wd.createTableRow(inflater,container,"Mother/Guardian Name",Utils.getValue(Detailsmap,"mother_first_name",true)+" "+Utils.getValue(Detailsmap,"mother_last_name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Mother/guardian first name",Utils.getValue(Detailsmap,"mother_first_name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Mother/guardian last name",Utils.getValue(Detailsmap,"mother_last_name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Mother/guardian DOB",Utils.getValue(Detailsmap,"Mother_Guardian_Date_Birth",true)));
+
         layout.addView(wd.createTableRow(inflater,container,"Mother/Guardian NRC",Utils.getValue(Detailsmap,"Mother_Guardian_NRC",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian phone number",Utils.getValue(Detailsmap,"Mother_Guardian_Number",true)));
         layout.addView(wd.createTableRow(inflater,container,"Father/guardian name",Utils.getValue(Detailsmap,"Father_Guardian_Name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Father/guardian NRC",Utils.getValue(Detailsmap,"Father_Guardian_NRC",true)));
         layout.addView(wd.createTableRow(inflater,container,"Place of birth",Utils.getValue(Detailsmap,"Place_Birth",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Birth facility",Utils.getValue(Detailsmap,"Birth_Facility_Name",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Residential address",Utils.getValue(Detailsmap,"Residential_Address",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Which health facility was the child born in?",Utils.getValue(Detailsmap,"Birth_Facility_Name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's residential area",Utils.getValue(Detailsmap,"Residential_Area",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Other residential area",Utils.getValue(Detailsmap,"Residential_Area_Other",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Home address",Utils.getValue(Detailsmap,"Residential_Address",true)));
+
         layout.addView(wd.createTableRow(inflater,container,"Landmark",Utils.getValue(Detailsmap,"Physical_Landmark",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW name",Utils.getValue(Detailsmap,"CHW_Name",true)));
-        layout.addView(wd.createTableRow(inflater,container,"CHW's phone number",Utils.getValue(Detailsmap,"CHW_Phone_Number",true)));
+        layout.addView(wd.createTableRow(inflater,container,"CHW phone number",Utils.getValue(Detailsmap,"CHW_Phone_Number",true)));
+        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(Detailsmap,"PMTCT_Status",true)));
+
 
 //        layout.addView(createTableRow(inflater,container,"Catchment Area","Linda"));
 //        layout.addView(createTableRow(inflater,container,"Catchment Area","Linda"));
