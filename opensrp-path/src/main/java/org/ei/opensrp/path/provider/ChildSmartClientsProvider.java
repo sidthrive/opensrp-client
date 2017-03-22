@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Alert;
@@ -21,7 +20,6 @@ import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.repository.VaccineRepository;
 import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
-import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -35,7 +33,6 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -99,9 +96,6 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         }
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
-        String gender = getValue(pc.getColumnmaps(), "gender", true);
-        ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(ImageUtils.profileImageResourceByGender(gender));
-
         String dobString = getValue(pc.getColumnmaps(), "dob", false);
         String duration = "";
         if (StringUtils.isNotBlank(dobString)) {
@@ -116,6 +110,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         if (client.entityId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            String gender = getValue(pc.getColumnmaps(), "gender", true);
             convertView.findViewById(R.id.child_profilepic).setTag(org.ei.opensrp.R.id.entity_id, pc.getCaseId());
             DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener((ImageView) convertView.findViewById(R.id.child_profilepic), ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
         }
@@ -175,7 +170,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         if (nv != null) {
             DateTime dueDate = (DateTime) nv.get("date");
             VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get("vaccine");
-            stateKey = VaccinateActionUtils.stateKey(vaccine.display().toLowerCase());
+            stateKey = VaccinateActionUtils.stateKey(vaccine);
             if (nv.get("alert") == null) {
                 state = State.NO_ALERT;
             } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("normal")) {
@@ -246,7 +241,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.NO_ALERT)) {
-            recordVaccination.setText("Record\n" + stateKey);
+            recordVaccination.setText("Due\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setEnabled(false);

@@ -12,15 +12,19 @@ import com.crashlytics.android.Crashlytics;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.path.activity.LoginActivity;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import util.VaccinateActionUtils;
 
 import static org.ei.opensrp.util.Log.logInfo;
 
@@ -96,33 +100,21 @@ public class VaccinatorApplication extends DrishtiApplication {
     }
 
     private String[] getFtsSortFields(String tableName) {
+
+
         if (tableName.equals("ec_child")) {
-            String[] sortFields = {"first_name", "dob", "zeir_id", "last_interacted_with",
-                    "alerts.BCG",
-                    "alerts.OPV_0",
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+            List<String> names = new ArrayList<>();
+            names.add("first_name");
+            names.add("dob");
+            names.add("zeir_id");
+            names.add("last_interacted_with");
 
-                    "alerts.OPV_1",
-                    "alerts.Penta_1",
-                    "alerts.PCV_1",
-                    "alerts.ROTA_1",
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+                names.add( "alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
+            }
 
-                    "alerts.OPV_2",
-                    "alerts.PENTA_2",
-                    "alerts.PCV_2",
-                    "alerts.ROTA_2",
-
-                    "alerts.OPV_3",
-                    "alerts.PENTA_3",
-                    "alerts.PCV_3",
-
-                    "alerts.MEASLES_1",
-                    "alerts.MR_1",
-                    "alerts.OPV_4",
-
-                    "alerts.MEASLES_2",
-                    "alerts.MR_2"
-            };
-            return sortFields;
+            return names.toArray(new String[names.size()]);
         } else if (tableName.equals("ec_mother")) {
             String[] sortFields = {"first_name", "dob", "zeir_id", "last_interacted_with"};
             return sortFields;
@@ -136,31 +128,11 @@ public class VaccinatorApplication extends DrishtiApplication {
     }
 
     private Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
         Map<String, Pair<String, Boolean>> map = new HashMap<String, Pair<String, Boolean>>();
-        map.put("BCG", Pair.create("ec_child", false));
-        map.put("OPV 0", Pair.create("ec_child", false));
-
-        map.put("OPV 1", Pair.create("ec_child", false));
-        map.put("PENTA 1", Pair.create("ec_child", false));
-        map.put("PCV 1", Pair.create("ec_child", false));
-        map.put("ROTA 1", Pair.create("ec_child", false));
-
-        map.put("OPV 2", Pair.create("ec_child", false));
-        map.put("PENTA 2", Pair.create("ec_child", false));
-        map.put("PCV 2", Pair.create("ec_child", false));
-        map.put("ROTA 2", Pair.create("ec_child", false));
-
-        map.put("OPV 3", Pair.create("ec_child", false));
-        map.put("PENTA 3", Pair.create("ec_child", false));
-        map.put("PCV 3", Pair.create("ec_child", false));
-
-        map.put("MEASLES 1", Pair.create("ec_child", false));
-        map.put("MR 1", Pair.create("ec_child", false));
-        map.put("OPV 4", Pair.create("ec_child", false));
-
-        map.put("MEASLES 2", Pair.create("ec_child", false));
-        map.put("MR 2", Pair.create("ec_child", false));
-
+        for (VaccineRepo.Vaccine vaccine : vaccines) {
+            map.put(vaccine.display(), Pair.create("ec_child", false));
+        }
         return map;
     }
 

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -489,16 +490,19 @@ public class ChildImmunizationActivity extends BaseActivity
             if (tag.getDbKey() != null) {
                 VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
                 Long dbKey = tag.getDbKey();
+                vaccineRepository.deleteVaccine(dbKey);
+
                 tag.setUpdatedVaccineDate(null, false);
                 tag.setRecordedDate(null);
                 tag.setDbKey(null);
 
-                vaccineRepository.deleteVaccine(dbKey);
                 View view = getLastOpenedView();
+
+                List<Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
 
                 ArrayList<VaccineWrapper> wrappers = new ArrayList<>();
                 wrappers.add(tag);
-                updateVaccineGroupViews(view, wrappers);
+                updateVaccineGroupViews(view, wrappers, vaccineList, true);
             }
         }
     }
@@ -560,23 +564,24 @@ public class ChildImmunizationActivity extends BaseActivity
     private void saveVaccine(ArrayList<VaccineWrapper> tags, final View view) {
         if (tags.isEmpty()) {
             return;
-        } else if (tags.size() == 1) {
-            saveVaccine(tags.get(0));
-            updateVaccineGroupViews(view, tags);
-        } else {
-            VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
-            SaveVaccinesTask backgroundTask = new SaveVaccinesTask();
-            backgroundTask.setView(view);
-            Utils.startAsyncTask(backgroundTask, arrayTags);
         }
+
+        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+
+        VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
+        SaveVaccinesTask backgroundTask = new SaveVaccinesTask();
+        backgroundTask.setVaccineRepository(vaccineRepository);
+        backgroundTask.setView(view);
+        Utils.startAsyncTask(backgroundTask, arrayTags);
+
     }
 
-    private void saveVaccine(VaccineWrapper tag) {
+    private void saveVaccine(VaccineRepository vaccineRepository, VaccineWrapper tag) {
         if (tag.getUpdatedVaccineDate() == null) {
             return;
         }
 
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+
 
         Vaccine vaccine = new Vaccine();
         if (tag.getDbKey() != null) {
@@ -604,7 +609,11 @@ public class ChildImmunizationActivity extends BaseActivity
         setLastModified(true);
     }
 
-    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers) {
+    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, List<Vaccine> vaccineList) {
+        updateVaccineGroupViews(view, wrappers, vaccineList, false);
+    }
+
+    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
         if (view == null || !(view instanceof VaccineGroup)) {
             return;
         }
@@ -612,24 +621,38 @@ public class ChildImmunizationActivity extends BaseActivity
         vaccineGroup.setModalOpen(false);
 
         if (Looper.myLooper() == Looper.getMainLooper()) {
+            if(undo){
+                vaccineGroup.setVaccineList(vaccineList);
+                vaccineGroup.updateWrapperStatus(wrappers);
+            }
             vaccineGroup.updateViews(wrappers);
+
         } else {
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if(undo){
+                        vaccineGroup.setVaccineList(vaccineList);
+                        vaccineGroup.updateWrapperStatus(wrappers);
+                    }
                     vaccineGroup.updateViews(wrappers);
                 }
             });
         }
     }
 
-    private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, ArrayList<VaccineWrapper>> {
+    private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Pair<ArrayList<VaccineWrapper>, List<Vaccine>>> {
 
         private View view;
+        private VaccineRepository vaccineRepository;
 
         public void setView(View view) {
             this.view = view;
+        }
+
+        public void setVaccineRepository(VaccineRepository vaccineRepository) {
+            this.vaccineRepository = vaccineRepository;
         }
 
         @Override
@@ -638,19 +661,25 @@ public class ChildImmunizationActivity extends BaseActivity
         }
 
         @Override
-        protected void onPostExecute(ArrayList<VaccineWrapper> vaccineWrappers) {
+        protected void onPostExecute(Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair) {
             hideProgressDialog();
-            updateVaccineGroupViews(view, vaccineWrappers);
+            updateVaccineGroupViews(view, pair.first, pair.second);
         }
 
         @Override
-        protected ArrayList<VaccineWrapper> doInBackground(VaccineWrapper... vaccineWrappers) {
+        protected Pair<ArrayList<VaccineWrapper>, List<Vaccine>> doInBackground(VaccineWrapper... vaccineWrappers) {
+
             ArrayList<VaccineWrapper> list = new ArrayList<>();
-            for (VaccineWrapper tag : vaccineWrappers) {
-                saveVaccine(tag);
-                list.add(tag);
+            if(vaccineRepository != null) {
+                for (VaccineWrapper tag : vaccineWrappers) {
+                    saveVaccine(vaccineRepository, tag);
+                    list.add(tag);
+                }
             }
-            return list;
+
+            List<Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+            Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair =  new Pair<>(list, vaccineList);
+            return pair;
         }
     }
 

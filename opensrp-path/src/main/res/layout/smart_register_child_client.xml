@@ -25,8 +25,7 @@
             android:paddingBottom="2dp"
             android:paddingLeft="2dp"
             android:paddingTop="2dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/child_boy_infant" />
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="fill_parent"

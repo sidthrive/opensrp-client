@@ -9,6 +9,7 @@ public class PathAfterFetchListener implements AfterFetchListener {
 
     @Override
     public void afterFetch(FetchStatus fetchStatus) {
+        ON_DATA_FETCHED.notifyListeners(fetchStatus);
     }
 
     void partialFetch(FetchStatus fetchStatus) {

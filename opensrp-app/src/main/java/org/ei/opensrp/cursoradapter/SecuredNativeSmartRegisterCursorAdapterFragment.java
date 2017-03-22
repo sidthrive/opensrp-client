@@ -580,7 +580,7 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
         }
     }
 
-    private boolean isValidFilterForFts(CommonRepository commonRepository){
+    protected boolean isValidFilterForFts(CommonRepository commonRepository){
         return commonRepository.isFts() && filters != null
                 && !StringUtils.containsIgnoreCase(filters, "like")
                 && !StringUtils.startsWithIgnoreCase(filters.trim(), "and ");

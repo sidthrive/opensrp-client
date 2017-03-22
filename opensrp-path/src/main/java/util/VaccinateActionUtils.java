@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static org.ei.opensrp.AllConstants.ENTITY_ID_PARAM;
@@ -277,37 +278,37 @@ public class VaccinateActionUtils {
     }
 
 
-    public static String stateKey(String vaccineName) {
+    public static String stateKey(VaccineRepo.Vaccine vaccine) {
 
-        switch (vaccineName) {
-            case "opv 0":
-            case "bcg":
+        switch (vaccine) {
+            case opv0:
+            case bcg:
                 return "at birth";
 
-            case "opv 1":
-            case "penta 1":
-            case "pcv 1":
-            case "rota 1":
+            case opv1:
+            case penta1:
+            case pcv1:
+            case rota1:
                 return "6 weeks";
 
-            case "opv 2":
-            case "penta 2":
-            case "pcv 2":
-            case "rota 2":
+            case opv2:
+            case penta2:
+            case pcv2:
+            case rota2:
                 return "10 weeks";
 
-            case "opv 3":
-            case "penta 3":
-            case "opv 4":
+            case opv3:
+            case penta3:
+            case opv4:
                 return "14 weeks";
 
-            case "measles 1":
-            case "mr 1":
-            case "pcv 3":
+            case measles1:
+            case mr1:
+            case pcv3:
                 return "9 Months";
 
-            case "measles 2":
-            case "mr 2":
+            case measles2:
+            case mr2:
                 return "18 Months";
         }
 
@@ -319,14 +320,31 @@ public class VaccinateActionUtils {
             return null;
         }
         if (category.equals("child")) {
-            String[] alerts = {"BCG", "OPV 0", "Penta 1", "OPV 1", "PCV 1", "ROTA 1", "Penta 2", "OPV 2", "PCV 2", "ROTA 2",
-                    "Penta 3", "OPV 3", "PCV 3", "IPV", "Measles 1", "MR 1", "Measles 2", "MR 2",
-                    "bcg", "opv0", "penta1", "opv1", "pcv1", "rota1", "penta2", "opv2", "pcv2", "rota2",
-                    "penta3", "opv3", "pcv3", "ipv", "measles1", "mr1", "measles2", "mr2"};
-            return alerts;
+
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+            List<String> names = new ArrayList<>();
+
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+                names.add(vaccine.display());
+                names.add(vaccine.name());
+            }
+
+            return names.toArray(new String[names.size()]);
         }
         return null;
     }
 
+    public static String addHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace(" ", "_");
+        }
+        return s;
+    }
 
+    public static String removeHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace("_", " ");
+        }
+        return s;
+    }
 }

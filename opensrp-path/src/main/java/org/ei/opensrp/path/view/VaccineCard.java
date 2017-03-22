@@ -203,7 +203,7 @@ public class VaccineCard extends LinearLayout {
                 break;
             case EXPIRED:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
-                statusIV.setVisibility(VISIBLE);
+                statusIV.setVisibility(GONE);
                 undoB.setVisibility(GONE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
