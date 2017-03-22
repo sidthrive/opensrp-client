@@ -64,10 +64,8 @@ public class ImageRepository extends DrishtiRepository {
     public void add(ProfileImage profileImage, String entityId) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
         long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
-        Log.e(TAG, "add: "+ id );
         if (id == 0) {
         id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-            Log.e(TAG, "add: "+id+"Insert New Success" );
         }
 
         database.close();
@@ -117,7 +115,6 @@ public class ImageRepository extends DrishtiRepository {
         values.put(filecategory_COLUMN, image.getFilecategory());
         if (image.getFilevector() != null)
         values.put(filevector_COLUMN, image.getFilevector());
-        Log.e(TAG, "createValuesFor: "+ values.toString() );
         return values;
     }
 
@@ -260,8 +257,14 @@ public class ImageRepository extends DrishtiRepository {
     public String findByUserCount(int i) {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
         Cursor cursor = database.query(Vector_TABLE_NAME, Vector_TABLE_COLUMNS, numberUser + " = ?", new String[]{String.valueOf(i)}, null, null, null, null);
+
+//        if (cursor != null){
+//            Log.e(TAG, "findByUserCount: cursor not null" );
+//        }
         cursor.moveToFirst();
-        return cursor.getString(1);
+        String vectorHeader = cursor.getString(1);
+        cursor.close();
+        return vectorHeader;
 
     }
 }

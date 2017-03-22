@@ -81,9 +81,9 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         String GiziStart = timer.format(new Date());
-                Map<String, String> Gizi = new HashMap<String, String>();
+                Map<String, String> Gizi = new HashMap<>();
                 Gizi.put("start", GiziStart);
-                FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
+//                FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
       //  FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();

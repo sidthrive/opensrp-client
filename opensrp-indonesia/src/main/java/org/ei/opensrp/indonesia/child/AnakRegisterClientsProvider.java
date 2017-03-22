@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia.child;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -40,6 +42,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
 import static org.joda.time.LocalDateTime.parse;
 
 public class AnakRegisterClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = AnakRegisterClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -136,21 +139,21 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
-        final ImageView childview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if (pc.getDetails().get("profilepic") != null) {
-            AnakDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy);
-            childview.setTag(smartRegisterClient);
-        }
-        else {
-            if(pc.getDetails().get("gender") != null && pc.getDetails().get("gender").equals("male")) {
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-            }
-            else if(pc.getDetails().get("gender") != null && pc.getDetails().get("gender").equals("laki")) {
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-            }
-            else
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
-        }
+//        final ImageView childview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        if (pc.getDetails().get("profilepic") != null) {
+//            AnakDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy);
+//            childview.setTag(smartRegisterClient);
+//        }
+//        else {
+//            if(pc.getDetails().get("gender") != null && pc.getDetails().get("gender").equals("male")) {
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+//            }
+//            else if(pc.getDetails().get("gender") != null && pc.getDetails().get("gender").equals("laki")) {
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+//            }
+//            else
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
+//        }
 
 
         viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"");
@@ -163,7 +166,12 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+                    OpenSRPImageLoader.getStaticImageListener(
+                            viewHolder.profilepic,
+                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+                            0)
+            );
         }
         //end profile image
 
@@ -194,25 +202,12 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
-//<<<<<<< HEAD
         if(ibuparent !=null) {
             detailsRepository.updateDetails(ibuparent);
             String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
             viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
 
         }
-
-/*=======
-//        detailsRepository.updateDetails(ibuparent);
-
-
-
-        if(ibuparent !=null) {
-            detailsRepository.updateDetails(ibuparent);
-            String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
-            place(tempat, viewHolder.tempat_lahir);
-        }
->>>>>>> issue276*/
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
         final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));

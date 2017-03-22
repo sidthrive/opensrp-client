@@ -626,6 +626,7 @@ public class Tools {
     public static void setVectorsBuffered() {
 
         List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
+        Log.e(TAG, "setVectorsBuffered: "+ vectorList.size() );
 
         if (vectorList.size() != 0) {
 
@@ -636,7 +637,7 @@ public class Tools {
 
             int i = 0;
             for (ProfileImage profileImage : vectorList) {
-                String[] vectorFace = new String[]{};
+                String[] vectorFace;
                 if (profileImage.getFilevector() != null) {
 
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");

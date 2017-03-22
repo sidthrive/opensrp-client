@@ -135,7 +135,7 @@ public class OpenSRPImageLoader extends ImageLoader {
      * retrieve it using url of the source image.
      * The assumption here is that this method will be used to fetch profile images whereby the name of the file is equals to the client's base entity id
      *
-     * @param entityId- The id of the image to be retrieved
+     * @param entityId - The id of the image to be retrieved
      * @return ImageContainer that will contain either the specified default bitmap or the loaded bitmap. If the default was returned, the
      * {@link OpenSRPImageLoader} will be invoked when the request is fulfilled.
      */

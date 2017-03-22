@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ei.opensrp.gizi.NativeHomeActivity"
+        <activity android:name=".GiziHomeActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
         <activity android:name="org.ei.opensrp.gizi.gizi.GiziSmartRegisterActivity"

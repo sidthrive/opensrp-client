@@ -553,7 +553,12 @@ public class Tools {
      * @param context
      */
 
-    public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
+    public static void saveAndClose(android.content.Context context,
+                                    String entityId,
+                                    boolean updated,
+                                    FacialProcessing objFace,
+                                    int arrayPossition,
+                                    Bitmap storedBitmap) {
 
         byte[] faceVector;
 
@@ -564,7 +569,6 @@ public class Tools {
             faceVector = objFace.serializeRecogntionAlbum();
 
 //            Log.e(TAG, "saveAndClose: length "+ faceVector.length ); // 32
-//
 //            Log.e(TAG, "saveAndClose: " + result);
 
             hash = retrieveHash(context);
@@ -641,7 +645,6 @@ public class Tools {
 
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
                     vectorFace[0] = String.valueOf(i);
-
 
                     albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
                     hash.put(profileImage.getEntityID(), String.valueOf(i));
@@ -1027,7 +1030,6 @@ public class Tools {
 
 
     }
-
 
     public static void initVector() {
 

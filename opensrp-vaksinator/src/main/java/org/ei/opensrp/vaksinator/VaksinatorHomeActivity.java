@@ -19,6 +19,7 @@ import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.sync.UpdateActionsTask;
+import org.ei.opensrp.vaksinator.face.camera.util.Tools;
 import org.ei.opensrp.vaksinator.vaksinator.FlurryFacade;
 import org.ei.opensrp.view.activity.SecuredActivity;
 import org.ei.opensrp.view.contract.HomeContext;
@@ -42,7 +43,7 @@ import static org.ei.opensrp.event.Event.FORM_SUBMITTED;
 import static org.ei.opensrp.event.Event.SYNC_COMPLETED;
 import static org.ei.opensrp.event.Event.SYNC_STARTED;
 
-public class NativeHomeActivity extends SecuredActivity {
+public class VaksinatorHomeActivity extends SecuredActivity {
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     private MenuItem updateMenuItem;
     private MenuItem remainingFormsToSyncMenuItem;
@@ -66,6 +67,13 @@ public class NativeHomeActivity extends SecuredActivity {
                 updateMenuItem.setActionView(null);
             }
             updateRegisterCounts();
+
+            Tools mTools = new Tools(context());
+
+            Tools.setVectorfromAPI(getApplicationContext());
+
+            Tools.setVectorsBuffered();
+
         }
     };
 

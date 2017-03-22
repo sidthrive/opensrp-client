@@ -121,14 +121,14 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         detailsRepository.updateDetails(pc);
 
         //set image
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if (pc.getDetails().get("profilepic") != null) {
-            KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-            kiview.setTag(smartRegisterClient);
-        }
-        else {
-            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
-        }
+//        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        if (pc.getDetails().get("profilepic") != null) {
+//            KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+//            kiview.setTag(smartRegisterClient);
+//        }
+//        else {
+//            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//        }
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");

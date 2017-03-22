@@ -169,13 +169,6 @@ public class ImageConfirmation extends Activity {
 
                             arrayPossition = i;
 
-//                            TODO : wait Button Response
-//                            buttonJob();
-//                            int res = objFace.addPerson(arrayPossition);
-//                            clientList.put(entityId, Integer.toString(res));
-//                            saveHash(clientList, getApplicationContext());
-//                            saveAlbum();
-
                         } else {
 
                             showPersonInfo(matchRate);
@@ -183,7 +176,6 @@ public class ImageConfirmation extends Activity {
                         }
 
 //                        TODO: asign selectedPersonName to search
-
                         // Applied Image that came in to the view.
                         // Face only
 //                        confirmationView.setImageBitmap(storedBitmap);
@@ -249,6 +241,7 @@ public class ImageConfirmation extends Activity {
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
         updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
+        Log.e(TAG, "init_extras: "+updated );
 
     }
 
@@ -271,8 +264,8 @@ public class ImageConfirmation extends Activity {
 
         Class<?> origin_class = this.getClass();
 
-        Log.e(TAG, "showDetailUser: "+ origin_class.getSimpleName() );
-        Log.e(TAG, "showDetailUser: "+ str_origin_class);
+//        Log.e(TAG, "showDetailUser: "+ origin_class.getSimpleName() );
+//        Log.e(TAG, "showDetailUser: "+ str_origin_class);
 
         if(str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())){
             origin_class = NativeKISmartRegisterActivity.class;
@@ -308,8 +301,9 @@ public class ImageConfirmation extends Activity {
 
                 if (!identifyPerson) {
 
-//                  saveAndClose(entityId);
-                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Log.e(TAG, "onClick: class origin "+str_origin_class );
+
+//                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
