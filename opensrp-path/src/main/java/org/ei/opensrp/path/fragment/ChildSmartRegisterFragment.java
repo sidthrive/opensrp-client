@@ -39,6 +39,7 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.VaccineRepo;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
@@ -268,7 +269,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         String parentTableName = "ec_mother";
 
         ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
-                clientActionHandler, context().alertService(), context().vaccineRepository(), context().weightRepository());
+                clientActionHandler, context().alertService(), VaccinatorApplication.getInstance().vaccineRepository(), VaccinatorApplication.getInstance().weightRepository());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 

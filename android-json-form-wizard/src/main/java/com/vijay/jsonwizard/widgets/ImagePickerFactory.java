@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.R;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -34,7 +35,7 @@ import static com.vijay.jsonwizard.utils.FormUtils.getLayoutParams;
 public class ImagePickerFactory implements FormWidgetFactory {
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JSONObject jsonObject, CommonListener listener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
         String openMrsEntityParent = jsonObject.getString("openmrs_entity_parent");
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");

@@ -24,6 +24,7 @@ import com.vijay.jsonwizard.comparisons.RegexComparison;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
 

@@ -18,7 +18,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.VaccineCardAdapter;
 import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
-import org.ei.opensrp.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.VaccineRepository;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;

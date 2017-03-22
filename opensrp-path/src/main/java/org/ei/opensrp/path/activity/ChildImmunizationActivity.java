@@ -37,9 +37,9 @@ import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -158,9 +158,9 @@ public class ChildImmunizationActivity extends BaseActivity
         updateAgeViews();
         updateChildIdViews();
 
-        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+        WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
 
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository =  VaccinatorApplication.getInstance().vaccineRepository();
 
         AlertService alertService = getOpenSRPContext().alertService();
 
@@ -443,7 +443,7 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     public void onWeightTaken(WeightWrapper tag) {
         if (tag != null) {
-            WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            final WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
             Weight weight = new Weight();
             if (tag.getDbKey() != null) {
                 weight = weightRepository.find(tag.getDbKey());
@@ -488,7 +488,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 Long dbKey = tag.getDbKey();
                 vaccineRepository.deleteVaccine(dbKey);
 
@@ -566,7 +566,7 @@ public class ChildImmunizationActivity extends BaseActivity
             return;
         }
 
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
 
         VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
         SaveVaccinesTask backgroundTask = new SaveVaccinesTask();

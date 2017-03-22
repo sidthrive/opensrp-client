@@ -11,11 +11,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.service.intent.VaccineIntentService;
 import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.json.JSONArray;
@@ -152,7 +153,7 @@ public class PathClientProcessor extends ClientProcessor {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = simpleDateFormat.parse(contentValues.getAsString(VaccineRepository.DATE));
 
-                VaccineRepository vaccineRepository = org.ei.opensrp.Context.getInstance().vaccineRepository();
+                VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 Vaccine vaccineObj = new Vaccine();
                 vaccineObj.setBaseEntityId(contentValues.getAsString(VaccineRepository.BASE_ENTITY_ID));
                 vaccineObj.setName(contentValues.getAsString(VaccineRepository.NAME));
@@ -192,7 +193,7 @@ public class PathClientProcessor extends ClientProcessor {
             if (contentValues != null && contentValues.size() > 0) {
                 Date date = DateUtil.getDateFromString(contentValues.getAsString(WeightRepository.DATE));
 
-                WeightRepository weightRepository = org.ei.opensrp.Context.getInstance().weightRepository();
+                WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
                 Weight weightObj = new Weight();
                 weightObj.setBaseEntityId(contentValues.getAsString(WeightRepository.BASE_ENTITY_ID));
                 if (contentValues.containsKey(WeightRepository.KG)) {

@@ -6,7 +6,8 @@ import android.util.Log;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Weight;
-import org.ei.opensrp.repository.WeightRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,16 +21,13 @@ import util.JsonFormUtils;
  */
 public class WeightIntentService extends IntentService {
     private static final String TAG = WeightIntentService.class.getCanonicalName();
-    private final WeightRepository weightRepository;
     public static final String EVENT_TYPE = "Growth Monitoring";
     public static final String ENTITY_TYPE = "weight";
+    private WeightRepository weightRepository;
 
 
     public WeightIntentService() {
-
         super("WeightService");
-        weightRepository = Context.getInstance().weightRepository();
-
     }
 
     @Override
@@ -60,7 +58,11 @@ public class WeightIntentService extends IntentService {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
+    }
 
-
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        weightRepository = VaccinatorApplication.getInstance().weightRepository();
+        return super.onStartCommand(intent, flags, startId);
     }
 }

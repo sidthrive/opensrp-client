@@ -35,13 +35,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -285,7 +286,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     protected void startChildRegistration() {
         try {
-            UniqueIdRepository uniqueIdRepo = org.ei.opensrp.Context.getInstance().uniqueIdRepository();
+            UniqueIdRepository uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
             String entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
             if (entityId.isEmpty()) {
                 Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();

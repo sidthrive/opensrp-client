@@ -16,6 +16,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.sync.PathClientProcessor;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
@@ -146,7 +147,7 @@ public class JsonFormUtils {
 
             String zeirId = c.getIdentifier(ZEIR_ID);
             //mark zeir id as used
-            org.ei.opensrp.Context.getInstance().uniqueIdRepository().close(zeirId);
+           VaccinatorApplication.getInstance().uniqueIdRepository().close(zeirId);
 
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);

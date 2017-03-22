@@ -1,4 +1,4 @@
-package org.ei.opensrp.repository;
+package org.ei.opensrp.path.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VaccineRepository extends DrishtiRepository {
+public class VaccineRepository extends BaseRepository {
     private static final String TAG = VaccineRepository.class.getCanonicalName();
     private static final String VACCINE_SQL = "CREATE TABLE vaccines (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,calculation INTEGER,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL, UNIQUE(base_entity_id, name) ON CONFLICT IGNORE)";
     public static final String VACCINE_TABLE_NAME = "vaccines";
@@ -43,13 +43,13 @@ public class VaccineRepository extends DrishtiRepository {
     private CommonFtsObject commonFtsObject;
     private AlertService alertService;
 
-    public VaccineRepository(CommonFtsObject commonFtsObject, AlertService alertService) {
+    public VaccineRepository(PathRepository pathRepository, CommonFtsObject commonFtsObject, AlertService alertService) {
+        super(pathRepository);
         this.commonFtsObject = commonFtsObject;
         this.alertService = alertService;
     }
 
-    @Override
-    protected void onCreate(SQLiteDatabase database) {
+    protected static void createTable(SQLiteDatabase database) {
         database.execSQL(VACCINE_SQL);
         database.execSQL(BASE_ENTITY_ID_INDEX);
         database.execSQL(UPDATED_AT_INDEX);
@@ -67,51 +67,67 @@ public class VaccineRepository extends DrishtiRepository {
             vaccine.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         }
 
-        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        SQLiteDatabase database = getPathRepository().getWritableDatabase();
         if (vaccine.getId() == null) {
             vaccine.setId(database.insert(VACCINE_TABLE_NAME, null, createValuesFor(vaccine)));
         } else {
             String idSelection = ID_COLUMN + " = ?";
             database.update(VACCINE_TABLE_NAME, createValuesFor(vaccine), idSelection, new String[]{vaccine.getId().toString()});
         }
-
-        database.close();
         updateFtsSearch(vaccine);
     }
 
     public List<Vaccine> findUnSyncedBeforeTime(int hours) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR_OF_DAY, -hours);
+        List<Vaccine> vaccines = new ArrayList<Vaccine>();
+        Cursor cursor = null;
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.HOUR_OF_DAY, -hours);
 
-        Long time = calendar.getTimeInMillis();
+            Long time = calendar.getTimeInMillis();
 
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
-        return readAllVaccines(cursor);
+            cursor = getPathRepository().getReadableDatabase().query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
+            vaccines = readAllVaccines(cursor);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return vaccines;
     }
 
+
     public List<Vaccine> findByEntityId(String entityId) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        SQLiteDatabase database = getPathRepository().getReadableDatabase();
         Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? ORDER BY " + UPDATED_AT_COLUMN, new String[]{entityId}, null, null, null, null);
         return readAllVaccines(cursor);
     }
 
     public Vaccine find(Long caseId) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
-        List<Vaccine> vaccines = readAllVaccines(cursor);
-        if (!vaccines.isEmpty()) {
-            return vaccines.get(0);
+        Vaccine vaccine = null;
+        Cursor cursor = null;
+        try {
+            cursor = getPathRepository().getReadableDatabase().query(VACCINE_TABLE_NAME, VACCINE_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
+            List<Vaccine> vaccines = readAllVaccines(cursor);
+            if (!vaccines.isEmpty()) {
+                vaccine = vaccines.get(0);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-
-        return null;
+        return vaccine;
     }
 
     public void deleteVaccine(Long caseId) {
         Vaccine vaccine = find(caseId);
         if(vaccine != null) {
-            SQLiteDatabase database = masterRepository.getWritableDatabase();
-            database.delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
+            getPathRepository().getWritableDatabase().delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
 
             updateFtsSearch(vaccine.getBaseEntityId(), vaccine.getName());
         }
@@ -120,32 +136,40 @@ public class VaccineRepository extends DrishtiRepository {
     public void close(Long caseId) {
         ContentValues values = new ContentValues();
         values.put(SYNC_STATUS, TYPE_Synced);
-        masterRepository.getWritableDatabase().update(VACCINE_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
+        getPathRepository().getWritableDatabase().update(VACCINE_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
     }
 
     private List<Vaccine> readAllVaccines(Cursor cursor) {
-        cursor.moveToFirst();
         List<Vaccine> vaccines = new ArrayList<Vaccine>();
-        while (!cursor.isAfterLast()) {
-            String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
-            if (vaccineName != null) {
-                vaccineName = removeHyphen(vaccineName);
-            }
-            vaccines.add(
-                    new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                            vaccineName,
-                            cursor.getInt(cursor.getColumnIndex(CALCULATION)),
-                            new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
-                            cursor.getString(cursor.getColumnIndex(ANMID)),
-                            cursor.getString(cursor.getColumnIndex(LOCATIONID)),
-                            cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                            cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
-                    ));
 
-            cursor.moveToNext();
+        try {
+
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
+                    if (vaccineName != null) {
+                        vaccineName = removeHyphen(vaccineName);
+                    }
+                    vaccines.add(
+                            new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
+                                    cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                                    vaccineName,
+                                    cursor.getInt(cursor.getColumnIndex(CALCULATION)),
+                                    new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                                    cursor.getString(cursor.getColumnIndex(ANMID)),
+                                    cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                                    cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                                    cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
+                            ));
+
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return vaccines;
     }
 
