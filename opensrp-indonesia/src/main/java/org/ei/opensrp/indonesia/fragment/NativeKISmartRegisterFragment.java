@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -235,11 +236,11 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             // countqueryBUilder.customJoin("LEFT JOIN ec_anak ON ec_kartu_ibu.id = ec_anak.relational_id ");
 
             if (s == null || Objects.equals(s, "!")) {
-                mainCondition = "is_closed = 0 ";
+                mainCondition = "is_closed = 0 and namalengkap != '' ";
                 Log.e(TAG, "initializeQueries: "+"Not Initialized" );
             } else {
                 Log.e(TAG, "initializeQueries: " + s);
-                mainCondition = "is_closed = 0 AND object_id LIKE '%" + s + "%'";
+                mainCondition = "is_closed = 0 and namalengkap != '' AND object_id LIKE '%" + s + "%'";
             }
             joinTable = "";
             countSelect = countqueryBUilder.mainCondition(mainCondition);
@@ -368,14 +369,24 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                     }
                 }*/
             }
-          /*  if(option.name().equalsIgnoreCase(getString(R.string.str_register_fp_form)) ) {
+            if(option.name().equalsIgnoreCase(getString(R.string.str_register_fp_form)) ) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
 
                 if(!StringUtils.isNumeric(pc.getDetails().get("jenisKontrasepsi"))) {
                             Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered_in_fp), Toast.LENGTH_SHORT).show();
                             return;
                 }
-            }*/
+
+                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
+                if (ibuparent != null) {
+                    short anc_isclosed = ibuparent.getClosed();
+                    if (anc_isclosed == 0) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
 
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }

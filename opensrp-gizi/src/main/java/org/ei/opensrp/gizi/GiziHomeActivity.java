@@ -106,7 +106,7 @@ public class GiziHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_gizi_home);
         //  FlurryFacade.logEvent("gizi_home_dashboard");
-        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this, anmController);
+        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -115,7 +115,7 @@ public class GiziHomeActivity extends SecuredActivity {
         String HomeStart = timer.format(new Date());
         Map<String, String> Home = new HashMap<String, String>();
         Home.put("start", HomeStart);
-//        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
+        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
 
     }
 
@@ -311,7 +311,7 @@ public class GiziHomeActivity extends SecuredActivity {
             String HomeEnd = timer.format(new Date());
             Map<String, String> Home = new HashMap<String, String>();
             Home.put("end", HomeEnd);
-//            FlurryAgent.logEvent("gizi_home_dashboard",Home, true);
+            FlurryAgent.logEvent("gizi_home_dashboard",Home, true);
         }
     };
 

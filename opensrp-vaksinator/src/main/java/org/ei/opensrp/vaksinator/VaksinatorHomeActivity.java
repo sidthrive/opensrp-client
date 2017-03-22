@@ -105,7 +105,7 @@ public class VaksinatorHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_jurim_home);
       //  FlurryFacade.logEvent("vaksinator_home_dashboard");
-        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController);
+        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);

@@ -14,6 +14,14 @@
         "shouldLoadValue":true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/kunjungan_neonatal_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/kunjungan_neonatal_reviewed/end"
+      },
+      {
         "name": "desa_anak",
         "bind": "/model/instance/kunjungan_neonatal_reviewed/Village",
         "shouldLoadValue": true

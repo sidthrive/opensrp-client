@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/anc_registration/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/anc_registration/end"
+      },
+      {
         "name": "pptest",
         "bind": "/model/instance/anc_registration/pptest"
       },

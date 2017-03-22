@@ -157,6 +157,8 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age),KiSortByNameAZ()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age_desc),KiSortByNameZA()),
                 };
             }
 
@@ -302,8 +304,10 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
     }
 
     private String KiSortByAge() {
-        return " umur DESC";
+        return " tanggalLahirAnak DESC ";
     }
+    private String KiSortByAgeDesc(){ return " tanggalLahirAnak ASC ";}
+
     private String KiSortByNoIbu() {
         return " noIbu ASC";
     }

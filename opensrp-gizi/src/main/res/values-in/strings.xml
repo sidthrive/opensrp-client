@@ -54,7 +54,7 @@
     <string name="label_sorted_by">Diurutkan berdasarkan:</string>
     <string name="label_village">, Desa:</string>
     <string name="ec_register_wife_age">({0})</string>
-    <string name="dho_site">"http://dho-report.sid-indonesia.org"</string>
+    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
 
     <string name="ec_register_male_child">Male\n{0}</string>
     <string name="ec_register_female_child">Female\n{0}</string>
@@ -76,7 +76,8 @@
 
     <string name="str_out_of_area">(O/A)</string>
 
-    <string name="sort_by_name_label">Nama (A to Z)</string>
+    <string name="sort_by_name_label">Nama (A ke Z)</string>
+    <string name="sort_by_name_label_reverse">Nama (Z ke A)</string>
     <string name="sort_by_ec_number_label">EC Number</string>
     <string name="sort_by_date_of_delivery_label">Date of Delivery</string>
     <string name="sort_by_sc_label">SC</string>
@@ -85,6 +86,8 @@
     <string name="sort_by_high_risk_pregnancy_label">HRP</string>
     <string name="sort_by_high_risk_label">High Risk (HR)</string>
     <string name="sort_by_bpl_label">BPL</string>
+    <string name="sort_by_age">Umur (0 ke 5)</string>
+    <string name="sort_by_age_reverse">umur (5 ke 0)</string>
 
     <string name="filter_by_all_label">All</string>
     <string name="filter_by_out_of_area_label">O/A</string>

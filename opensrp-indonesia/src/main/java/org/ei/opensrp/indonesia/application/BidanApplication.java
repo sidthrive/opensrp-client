@@ -114,7 +114,7 @@ public class BidanApplication extends DrishtiApplication {
             String[] sortFields = { "namalengkap", "umur", "noIbu", "pptest" , "htp" };
             return sortFields;
         } else if(tableName.equals("ec_pnc")){
-            String[] sortFields = { "namalengkap", "keadaanIbu"};
+            String[] sortFields = { "namalengkap", "umur", "noIbu", "keadaanIbu"};
             return sortFields;
         }
         return null;

@@ -143,18 +143,19 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
             pc.setDetails(details);
         }
 
-        System.out.println(pc.getColumnmaps().toString());
-        System.out.println(pc.getDetails().toString());
+//        System.out.println(pc.getColumnmaps().toString());
+//        System.out.println(pc.getDetails().toString());
 
         viewHolder.namaLengkap.setText(getColumnMaps("namalengkap", pc));
         viewHolder.namaSuami.setText(getColumnMaps("namaSuami", pc));
         viewHolder.dusun.setText(getDetails("posyandu", pc));
         viewHolder.tanggalLahir.setText(getDetails("tanggalLahir",pc).length()>10?getDetails("tanggalLahir",pc).substring(0,10) : "-");
-        viewHolder.umur.setText(getDetails("umur",pc) + " "+context.getString(R.string.years_unit));
+        viewHolder.umur.setText(getDetails("umur", pc) + " "+context.getString(R.string.years_unit));
 
         viewHolder.lastANCVisit.setText(context.getString(R.string.kunjunganTerakhir) + ": " + getDetails("ancDate", pc));
-        viewHolder.HPHT.setText(context.getString(R.string.usiaKandungan)+": "+(usiaKandungan(getDetails("tanggalHPHT",pc),getDetails("ancDate",pc))!= -1
-                ? Integer.toString(usiaKandungan(getDetails("tanggalHPHT",pc),getDetails("ancDate",pc)))
+        int usiaKandungan = usiaKandungan(getDetails("tanggalHPHT",pc),getDetails("ancDate",pc));
+        viewHolder.HPHT.setText(context.getString(R.string.usiaKandungan)+": "+(usiaKandungan!= -1
+                ? Integer.toString(usiaKandungan)
                 : "-")+ context.getString(R.string.str_weeks));
         viewHolder.lila.setText(context.getString(R.string.lila)+": "+getDetails("hasilPemeriksaanLILA",pc) + " cm");
         viewHolder.hbLevel.setText(context.getString(R.string.hb_level)+": "+getDetails("laboratoriumPeriksaHbHasil",pc));
@@ -224,7 +225,41 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
     }
 
     private int usiaKandungan(String hpht, String lastANC){
-        return (hpht.equals("") || lastANC.equals("")) ? -1 : new util.ZScore.ZScoreSystemCalculation().dailyUnitCalculationOf(hpht,lastANC)/7;
+        return (hpht.equals("") || lastANC.equals("")) ? -1 : dailyUnitCalculationOf(hpht,lastANC);
+    }
+
+    private int dailyUnitCalculationOf(String dateFrom,String dateTo){
+        if(dateFrom.length()<10 || dateTo.length()<10)
+            return -1;
+        String[]d1 = dateFrom.split("-");
+        String[]d2 = dateTo.split("-");
+
+        int day1=Integer.parseInt(d1[2]),month1=Integer.parseInt(d1[1]),year1=Integer.parseInt(d1[0]);
+        int day2=Integer.parseInt(d2[2]),month2=Integer.parseInt(d2[1]),year2=Integer.parseInt(d2[0]);
+
+        if (month2<month1){
+            month2+=12;
+            year2--;
+        }
+//        int[]dayLength = {31,28,31,30,31,30,31,31,30,31,30,31};
+//        int counter = 0;
+//        dayLength[1] = year1%4 == 0 ? 29 :28;
+//
+//        while(day1<=day2 || month1<month2 || year1<year2){
+//            counter++;
+//            day1++;
+//            if (day1>dayLength[month1-1]){
+//                day1 = 1;
+//                month1++;
+//            }
+//            if (month1 > 12){
+//                month1=1;
+//                year1++;
+//                dayLength[1] = year1 % 4 == 0 ? 29:28;
+//            }
+//        }
+
+        return (((year2-year1)*52) + ((month2-month1)* 4 + ((month2-month1)/3)) + ((day2-day1)/7));
     }
 
      class ViewHolder {

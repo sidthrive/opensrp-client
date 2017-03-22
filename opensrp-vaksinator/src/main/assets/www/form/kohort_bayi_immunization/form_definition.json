@@ -25,6 +25,11 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "namaBayi",
+                "bind": "/model/instance/Baby_Immunization_openmrs/nama_bayi",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "lokasiPeriksa",
                 "bind": "/model/instance/Baby_Immunization_openmrs/Lokasi_periksa"
             },
