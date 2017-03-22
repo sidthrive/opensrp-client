@@ -184,17 +184,13 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-                JsonFormUtils.saveBirthRegistration(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                JsonFormUtils.saveForm(this, context(), jsonString, allSharedPreferences.fetchRegisteredANM());
             }
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE && resultCode == RESULT_OK) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (StringUtils.isNotBlank(res.getContents())) {
                 onQRCodeSucessfullyScanned(res.getContents());
             } else Log.i("", "NO RESULT FOR QR CODE");
-        } else if (requestCode == REQUEST_CODE_RECORD_OUT_OF_CATCHMENT && resultCode == RESULT_OK) {
-            String jsonString = data.getStringExtra("json");
-            Log.d("JSONResult", jsonString);
-            JsonFormUtils.saveOutOfAreaService(this, context(), jsonString);
         }
     }
 

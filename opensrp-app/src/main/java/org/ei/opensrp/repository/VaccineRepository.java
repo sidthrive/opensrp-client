@@ -2,6 +2,7 @@ package org.ei.opensrp.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -15,10 +16,11 @@ import java.util.List;
 
 public class VaccineRepository extends DrishtiRepository {
     private static final String TAG = VaccineRepository.class.getCanonicalName();
-    private static final String VACCINE_SQL = "CREATE TABLE vaccines (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,calculation INTEGER,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL, UNIQUE(base_entity_id, name) ON CONFLICT IGNORE)";
+    private static final String VACCINE_SQL = "CREATE TABLE vaccines (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,program_client_id VARCHAR NULL,name VARCHAR NOT NULL,calculation INTEGER,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL, UNIQUE(base_entity_id, name) ON CONFLICT IGNORE)";
     public static final String VACCINE_TABLE_NAME = "vaccines";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String PROGRAM_CLIENT_ID = "program_client_id";
     public static final String NAME = "name";
     public static final String CALCULATION = "calculation";
     private static final String DATE = "date";
@@ -26,7 +28,7 @@ public class VaccineRepository extends DrishtiRepository {
     private static final String LOCATIONID = "location_id";
     private static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
+    public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, PROGRAM_CLIENT_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + VACCINE_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + VACCINE_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
@@ -109,6 +111,7 @@ public class VaccineRepository extends DrishtiRepository {
             vaccines.add(
                     new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
                             cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                            cursor.getString(cursor.getColumnIndex(PROGRAM_CLIENT_ID)),
                             cursor.getString(cursor.getColumnIndex(NAME)),
                             cursor.getInt(cursor.getColumnIndex(CALCULATION)),
                             new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
@@ -129,6 +132,7 @@ public class VaccineRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, vaccine.getId());
         values.put(BASE_ENTITY_ID, vaccine.getBaseEntityId());
+        values.put(PROGRAM_CLIENT_ID, vaccine.getProgramClientId());
         values.put(NAME, vaccine.getName());
         values.put(CALCULATION, vaccine.getCalculation());
         values.put(DATE, vaccine.getDate() != null ? vaccine.getDate().getTime() : null);

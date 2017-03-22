@@ -296,7 +296,7 @@ public abstract class BaseActivity extends AppCompatActivity
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            JsonFormUtils.saveBirthRegistration(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+            JsonFormUtils.saveForm(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

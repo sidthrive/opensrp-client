@@ -22,8 +22,6 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
-import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.VaccineRepository;
@@ -32,7 +30,6 @@ import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +39,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,7 +84,21 @@ public class JsonFormUtils {
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
-    public static void saveBirthRegistration(Context context, org.ei.opensrp.Context openSrpContext,
+    public static void saveForm(Context context, org.ei.opensrp.Context openSrpContext,
+                                String jsonString, String providerId) {
+        try {
+            JSONObject form = new JSONObject(jsonString);
+            if(form.getString("encounter_type").equals("Out of Catchment Service")) {
+                saveOutOfAreaService(context, openSrpContext, jsonString);
+            } else if (form.getString("encounter_type").equals("Birth Registration")) {
+                saveBirthRegistration(context, openSrpContext, jsonString, providerId, "Child_Photo", "child", "mother");
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    private static void saveBirthRegistration(Context context, org.ei.opensrp.Context openSrpContext,
                             String jsonString, String providerId, String imageKey, String bindType,
                             String subBindType) {
         if (context == null || openSrpContext == null || StringUtils.isBlank(providerId)
@@ -174,10 +184,31 @@ public class JsonFormUtils {
 
     public static void saveOutOfAreaService(Context context, org.ei.opensrp.Context openSrpContext,
                                             String jsonString) {
-        SaveOutOfAreaServiceTask saveOutOfAreaServiceTask = new SaveOutOfAreaServiceTask(context,
+        /*SaveOutOfAreaServiceTask saveOutOfAreaServiceTask = new SaveOutOfAreaServiceTask(context,
                 openSrpContext, jsonString);
 
-        saveOutOfAreaServiceTask.execute();
+        saveOutOfAreaServiceTask.execute();*/
+        try {
+            JSONObject form = new JSONObject(jsonString);
+
+            // Create a weight object if weight was recorded
+            Weight weight = getWeightObject(openSrpContext, form);
+            if (weight != null) {
+                WeightRepository weightRepository = openSrpContext.weightRepository();
+                weightRepository.add(weight);
+            }
+
+            // Create a vaccine object for all recorded vaccines
+            ArrayList<Vaccine> vaccines = getVaccineObjects(context, openSrpContext, form);
+            if (vaccines.size() > 0) {
+                VaccineRepository vaccineRepository = openSrpContext.vaccineRepository();
+                for(Vaccine curVaccine : vaccines) {
+                    vaccineRepository.add(curVaccine);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 
     /**
@@ -193,6 +224,7 @@ public class JsonFormUtils {
         Weight weight = null;
         JSONArray fields = outOfAreaForm.getJSONObject("step1").getJSONArray("fields");
         String serviceDate = null;
+        String zeirId = null;
 
         int foundFields = 0;
         for (int i = 0; i < fields.length(); i++) {
@@ -206,13 +238,17 @@ public class JsonFormUtils {
                     weight.setAnmId(openSrpContext.allSharedPreferences().fetchRegisteredANM());
                     weight.setLocationId(outOfAreaForm.getJSONObject("metadata")
                             .getString("encounter_location"));
+                    weight.setUpdatedAt(null);
                 }
             } else if (curField.getString("key").equals("OA_Service_Date")) {
                 foundFields++;
                 serviceDate = curField.getString("value");
+            } else if (curField.getString("key").equals("ZEIR_ID")) {
+                foundFields++;
+                zeirId = formatChildUniqueId(curField.getString("value"));
             }
 
-            if (foundFields == 2) {
+            if (foundFields == 3) {
                 break;
             }
         }
@@ -220,6 +256,10 @@ public class JsonFormUtils {
         if (weight != null && serviceDate != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             weight.setDate(dateFormat.parse(serviceDate));
+        }
+
+        if (weight != null && zeirId != null) {
+            weight.setProgramClientId(zeirId);
         }
 
         return weight;
@@ -238,6 +278,7 @@ public class JsonFormUtils {
         ArrayList<Vaccine> vaccines = new ArrayList<>();
         JSONArray fields = outOfAreaForm.getJSONObject("step1").getJSONArray("fields");
         String serviceDate = null;
+        String zeirId = null;
 
         for (int i = 0; i < fields.length(); i++) {
             JSONObject curField = fields.getJSONObject(i);
@@ -256,19 +297,26 @@ public class JsonFormUtils {
                                 .getString("encounter_location"));
                         curVaccine.setCalculation(VaccinatorUtils.getVaccineCalculation(context,
                                 curVaccine.getName()));
+                        curVaccine.setUpdatedAt(null);
 
                         vaccines.add(curVaccine);
                     }
                 }
             } else if (curField.getString("key").equals("OA_Service_Date")) {
                 serviceDate = curField.getString("value");
+            } else if (curField.getString("key").equals("ZEIR_ID")) {
+                zeirId = formatChildUniqueId(curField.getString("value"));
             }
         }
 
-        if (serviceDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            for (Vaccine curVaccine : vaccines) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        for (Vaccine curVaccine : vaccines) {
+            if (serviceDate != null) {
                 curVaccine.setDate(dateFormat.parse(serviceDate));
+            }
+
+            if (zeirId != null) {
+                curVaccine.setProgramClientId(zeirId);
             }
         }
 
@@ -545,16 +593,31 @@ public class JsonFormUtils {
         if (entityVal != null && entityVal.equals(entity)) {
             String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
 
-            if (entityIdVal.equals(ZEIR_ID) && StringUtils.isNotBlank(value) && !value.contains("-")) {
-                StringBuilder stringBuilder = new StringBuilder(value);
-                stringBuilder.insert(value.length() - 1, '-');
-                value = stringBuilder.toString();
+            if (entityIdVal.equals(ZEIR_ID)) {
+                value = formatChildUniqueId(value);
             }
 
             pids.put(entityIdVal, value);
         }
 
 
+    }
+
+    /**
+     * This method formats the child unique id obtained from a JSON Form to something that is useable
+     *
+     * @param unformattedId The unformatted unique identifier
+     *
+     * @return  A formatted ID or the original id if method is unable to format
+     */
+    private static String formatChildUniqueId(String unformattedId) {
+        if (StringUtils.isNotBlank(unformattedId) && !unformattedId.contains("-")) {
+            StringBuilder stringBuilder = new StringBuilder(unformattedId);
+            stringBuilder.insert(unformattedId.length() - 1, '-');
+            unformattedId = stringBuilder.toString();
+        }
+
+        return unformattedId;
     }
 
 
@@ -1359,6 +1422,7 @@ public class JsonFormUtils {
         try {
             Event e = (Event) new Event()
                     .withBaseEntityId(weight.getBaseEntityId())
+                    .withIdentifiers(weight.getIdentifiers())
                     .withEventDate(weight.getDate())
                     .withEventType(eventType)
                     .withLocationId(weight.getLocationId())
@@ -1391,6 +1455,7 @@ public class JsonFormUtils {
         try {
             Event e = (Event) new Event()
                     .withBaseEntityId(vaccine.getBaseEntityId())
+                    .withIdentifiers(vaccine.getIdentifiers())
                     .withEventDate(vaccine.getDate())
                     .withEventType(eventType)
                     .withLocationId(vaccine.getLocationId())
