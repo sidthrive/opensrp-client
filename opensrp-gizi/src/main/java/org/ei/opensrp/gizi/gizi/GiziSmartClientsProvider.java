@@ -142,7 +142,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
-        viewHolder.age.setText(pc.getDetails().get("tanggalLahirAnak")!= null ? Integer.toString(monthRangeToToday(ages))+" bln" : "");
+        viewHolder.age.setVisibility(View.INVISIBLE);//.setText(pc.getDetails().get("tanggalLahirAnak")!= null ? Integer.toString(monthRangeToToday(ages))+" bln" : "");
 
         /*viewHolder.fatherName.setText(pc.getDetails().get("namaIbu")!=null
                 ? pc.getDetails().get("namaIbu")
@@ -182,7 +182,10 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
        }
 
 
-        viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
+//        viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
+        int age = monthRangeToToday(ages);
+        viewHolder.gender.setText(pc.getDetails().get("tanggalLahirAnak") != null
+                ? age/12 + " " + context.getString(R.string.years_unit)+" "+age%12+" "+context.getString(R.string.month_unit) : "-");
         viewHolder.visitDate.setText(context.getString(R.string.tanggal) +  " "+(pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"-"));
         viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
         viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
