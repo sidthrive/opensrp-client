@@ -3,10 +3,8 @@ package org.ei.opensrp.path.activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,9 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,42 +25,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.Photo;
-import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.EditWeightDialogFragment;
-import org.ei.opensrp.path.fragment.RecordWeightDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
-import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.LocationPickerView;
-import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.UniqueIdRepository;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
@@ -78,7 +67,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,8 +74,6 @@ import util.DateUtils;
 import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
-import util.barcode.BarcodeIntentIntegrator;
-import util.barcode.BarcodeIntentResult;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
@@ -218,7 +204,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     private void initiallization(Bundle savedInstanceState) {
 
-        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+        DetailsRepository detailsRepository = getOpenSRPContext().detailsRepository();
         detailmaps  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
         profileWidget();
     }
@@ -262,7 +248,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     }
 
     private String getmetaDataForEditForm() {
-        Context context = Context.getInstance();
+        Context context = getOpenSRPContext();
         try{
         JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
             LocationPickerView lpv = new LocationPickerView(getApplicationContext());
@@ -379,7 +365,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     }
 
     public void startFormActivity(String formName, String entityId, String metaData) {
-        Context context = Context.getInstance();
+        Context context = getOpenSRPContext();
 
         Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
 
@@ -622,7 +608,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 Long dbKey = tag.getDbKey();
                 tag.setUpdatedVaccineDate(null, false);
                 tag.setRecordedDate(null);
@@ -637,7 +623,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     @Override
     public void onWeightTaken(WeightWrapper tag) {
         if (tag != null) {
-            WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
             Weight weight = new Weight();
             if (tag.getDbKey() != null) {
                 weight = weightRepository.find(tag.getDbKey());
@@ -689,7 +675,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         WeightWrapper weightWrapper = new WeightWrapper();
         weightWrapper.setId(childDetails.entityId());
-        WeightRepository wp =  Context.getInstance().weightRepository();
+        WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
         List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
         if(weightlist.size()>0){
             weightWrapper.setWeight(weightlist.get(0).getKg());
@@ -802,7 +788,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         }
     }
     private void saveVaccine(VaccineWrapper tag) {
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
 
         Vaccine vaccine = new Vaccine();
         if (tag.getDbKey() != null) {

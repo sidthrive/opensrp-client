@@ -1,33 +1,25 @@
 package org.ei.opensrp.path.tabfragments;
 
 import android.app.FragmentTransaction;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.VaccineWrapper;
-import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationEditDialogFragment;
-import org.ei.opensrp.path.listener.VaccinationActionListener;
-import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -39,7 +31,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +80,7 @@ public class child_under_five_fragment extends Fragment  {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        VaccineRepository vaccineRepository = ((ChildDetailTabbedActivity)getActivity()).getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
 
         loadview(false);
@@ -109,7 +100,7 @@ public class child_under_five_fragment extends Fragment  {
 //        weightmap.put("7 m","6.7 Kg");
 //        weightmap.put("6 m","5.6 Kg");
 //        weightmap.put("5 m","5.0 Kg");
-        WeightRepository wp =  Context.getInstance().weightRepository();
+        WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
         List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
 
         for(int i = 0;i<weightlist.size();i++){

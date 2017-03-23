@@ -129,8 +129,7 @@ public class WeightRepository extends BaseRepository {
         return weight;
     }
     public List<Weight> findLast5(String entityid) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ?", new String[]{entityid}, null, null, UPDATED_AT_COLUMN, null);
+        Cursor cursor =  getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ?", new String[]{entityid}, null, null, UPDATED_AT_COLUMN, null);
         List<Weight> weights = readAllWeights(cursor);
 //        if (!weights.isEmpty()) {
             return weights;
@@ -139,7 +138,7 @@ public class WeightRepository extends BaseRepository {
 //        return null;
     }
     public void delete(String entityID) {
-        masterRepository.getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ?", new String[]{entityID});
+        getPathRepository().getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ?", new String[]{entityID});
     }
 
     public void close(Long caseId) {
