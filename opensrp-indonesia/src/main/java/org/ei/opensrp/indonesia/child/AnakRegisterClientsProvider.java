@@ -156,14 +156,18 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"");
         //delivery documentation
         viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null?pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T")):"");
-        viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir")!=null?pc.getDetails().get("beratLahir"):"");
+        viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir") != null ? pc.getDetails().get("beratLahir") : "");
 
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
-
+        int picture = pc.getDetails().get("gender") != null
+                ? pc.getDetails().get("gender").toLowerCase().contains("em")
+                    ? R.mipmap.child_girl
+                    : R.mipmap.child_boy
+                : R.mipmap.child_boy;
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, picture, picture));
         }
         //end profile image
 
