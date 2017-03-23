@@ -2,11 +2,13 @@ package org.ei.opensrp.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.util.List;
 
@@ -42,7 +44,10 @@ public class ImageUploadSyncService extends IntentService {
         } catch (Exception e) {
             logError(TAG,e.getMessage());
         }
+
     }
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         logInfo("Started image upload sync service");

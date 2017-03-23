@@ -50,6 +50,7 @@ public class ImageRepository extends DrishtiRepository {
 
     public static String TYPE_Unbuffered = "Unbuffered";
     public static String TYPE_Buffered = "Buffered";
+    private String filePath_COLUMN;
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
@@ -216,9 +217,9 @@ public class ImageRepository extends DrishtiRepository {
         SQLiteDatabase db = masterRepository.getReadableDatabase();
 
         long id = db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-        Log.e(TAG, "insertOrUpdate: id insert new "+ id );
+//        Log.e(TAG, "insertOrUpdate: id insert new "+ id );
         if (id == -1) {
-            Log.e(TAG, "insertOrUpdate: "+ "UPDATED" );
+//            Log.e(TAG, "insertOrUpdate: "+ "UPDATED" );
             db.update(Vector_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
         }
 
@@ -267,4 +268,21 @@ public class ImageRepository extends DrishtiRepository {
         return vectorHeader;
 
     }
+
+    public ArrayList<String> findAllUnDownloaded() {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+//            Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, filepath_COLUMN + " IS NULL OR "+ filepath_COLUMN+ " = ?", new String[]{""}, null, null, null, null);\
+        Cursor cursor = database.rawQuery("SELECT base_entity_id FROM ec_kartu_ibu \n" +
+                "UNION \n" +
+                "SELECT base_entity_id FROM ec_anak WHERE base_entity_id IS NOT NULL AND base_entity_id != ''" , null);
+//        return readAll(cursor);
+        ArrayList<String> mArrayList = new ArrayList<String>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            mArrayList.add(cursor.getString(0)); //add the item
+            cursor.moveToNext();
+        }
+        return mArrayList;
+    }
+
 }

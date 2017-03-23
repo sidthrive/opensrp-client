@@ -109,13 +109,20 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 //            viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.profilepic);
 
-            final ImageView kiview = (ImageView)convertView.findViewById(R.id.profilepic);
-            if (pc.getDetails().get("profilepic") != null) {
-//                KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-                kiview.setTag(smartRegisterClient);
-            }
-            else {
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//            final ImageView kiview = (ImageView)convertView.findViewById(R.id.profilepic);
+//            if (pc.getDetails().get("profilepic") != null) {
+////                KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+//                kiview.setTag(smartRegisterClient);
+//            }
+//            else {
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//            }
+
+            //start profile image
+            viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+            if(pc.getCaseId()!=null){//image already in local storage most likey ):
+                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
             }
 
             convertView.setTag(viewHolder);
@@ -143,30 +150,27 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
             pc.setDetails(details);
         }
 
-//        System.out.println(pc.getColumnmaps().toString());
-//        System.out.println(pc.getDetails().toString());
-
         viewHolder.namaLengkap.setText(getColumnMaps("namalengkap", pc));
         viewHolder.namaSuami.setText(getColumnMaps("namaSuami", pc));
         viewHolder.dusun.setText(getDetails("posyandu", pc));
         viewHolder.tanggalLahir.setText(getDetails("tanggalLahir",pc).length()>10?getDetails("tanggalLahir",pc).substring(0,10) : "-");
-        viewHolder.umur.setText(getDetails("umur", pc) + " "+context.getString(R.string.years_unit));
+        viewHolder.umur.setText(String.format("%s %s", getDetails("umur", pc), context.getString(R.string.years_unit)));
 
-        viewHolder.lastANCVisit.setText(context.getString(R.string.kunjunganTerakhir) + ": " + getDetails("ancDate", pc));
+        viewHolder.lastANCVisit.setText(String.format("%s: %s", context.getString(R.string.kunjunganTerakhir), getDetails("ancDate", pc)));
         int usiaKandungan = usiaKandungan(getDetails("tanggalHPHT",pc),getDetails("ancDate",pc));
-        viewHolder.HPHT.setText(context.getString(R.string.usiaKandungan)+": "+(usiaKandungan!= -1
+        viewHolder.HPHT.setText(String.format("%s: %s%s", context.getString(R.string.usiaKandungan), usiaKandungan != -1
                 ? Integer.toString(usiaKandungan)
-                : "-")+ context.getString(R.string.str_weeks));
-        viewHolder.lila.setText(context.getString(R.string.lila)+": "+getDetails("hasilPemeriksaanLILA",pc) + " cm");
-        viewHolder.hbLevel.setText(context.getString(R.string.hb_level)+": "+getDetails("laboratoriumPeriksaHbHasil",pc));
-        viewHolder.weight.setText(context.getString(R.string.str_weight)+" "+getDetails("bbKg", pc)+" "+context.getString(R.string.weight_unit));
+                : "-", context.getString(R.string.str_weeks)));
+        viewHolder.lila.setText(String.format("%s: %s cm", context.getString(R.string.lila), getDetails("hasilPemeriksaanLILA", pc)));
+        viewHolder.hbLevel.setText(String.format("%s: %s", context.getString(R.string.hb_level), getDetails("laboratoriumPeriksaHbHasil", pc)));
+        viewHolder.weight.setText(String.format("%s %s %s", context.getString(R.string.str_weight), getDetails("bbKg", pc), context.getString(R.string.weight_unit)));
 
-        viewHolder.sistolik.setText(context.getString(R.string.sistolik)+": "+getDetails("tandaVitalTDSistolik", pc));
-        viewHolder.diastolik.setText(context.getString(R.string.diastolik)+": "+getDetails("tandaVitalTDDiastolik",pc));
+        viewHolder.sistolik.setText(String.format("%s: %s", context.getString(R.string.sistolik), getDetails("tandaVitalTDSistolik", pc)));
+        viewHolder.diastolik.setText(String.format("%s: %s", context.getString(R.string.diastolik), getDetails("tandaVitalTDDiastolik", pc)));
 
 
-        viewHolder.vitaminA2.setText(context.getString(R.string.vitamin_a_pnc_2)+getDetails("vitaminA2jamPP",pc));
-        viewHolder.vitaminA24.setText(context.getString(R.string.vitamin_a_pnc_24)+getDetails("vitaminA24jamPP",pc));
+        viewHolder.vitaminA2.setText(String.format("%s%s", context.getString(R.string.vitamin_a_pnc_2), getDetails("vitaminA2jamPP", pc)));
+        viewHolder.vitaminA24.setText(String.format("%s%s", context.getString(R.string.vitamin_a_pnc_24), getDetails("vitaminA24jamPP", pc)));
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
@@ -264,24 +268,14 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 
      class ViewHolder {
 
-         TextView namaLengkap ;
-         TextView tanggalLahir;
-         TextView umur;
-         TextView dusun;
-         TextView namaSuami;
+         TextView namaLengkap, tanggalLahir, umur, dusun, namaSuami;
+
          LinearLayout profilelayout;
          ImageView profilepic;
 
-         TextView HPHT;
-         TextView lastANCVisit;
-         TextView lila;
-         TextView hbLevel;
-         TextView weight;
+         TextView HPHT, lastANCVisit, lila, hbLevel, weight;
 
-         TextView sistolik;
-         TextView diastolik;
-         TextView vitaminA2;
-         TextView vitaminA24;
+         TextView sistolik, diastolik, vitaminA2, vitaminA24;
 
 //         TextView stunting_status;
 //         TextView wasting_status;

@@ -27,6 +27,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,16 +111,17 @@ public class AnakDetailActivity extends Activity {
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(childclient);
 
-        String gender=childclient.getDetails().containsKey("gender")?childclient.getDetails().get("gender"):"laki";
+        String gender = childclient.getDetails().containsKey("gender") ? childclient.getDetails().get("gender"):"laki";
 
 
         //start profile image
 
-        int placeholderDrawable= gender.equalsIgnoreCase("male")?R.drawable.child_boy_infant:R.drawable.child_girl_infant;
+        int placeholderDrawable= gender.equalsIgnoreCase("male") ? R.drawable.child_boy_infant:R.drawable.child_girl_infant;
+
         childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
         if(childclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
 
         }
         //end profile image
@@ -287,7 +289,7 @@ public class AnakDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIAnakSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

@@ -232,16 +232,16 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
             mainCondition = "is_closed = 0 ";
         } else {
             Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = " is_closed = 0 AND object_id LIKE '%" + s + "%'";
+            mainCondition = "is_closed = 0 AND object_id LIKE '%" + s + "%'";
         }
 
-        countSelect = countqueryBUilder.mainCondition(" is_closed = 0 ");
+        countSelect = countqueryBUilder.mainCondition("is_closed = 0 ");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ec_anak", new String[]{"ec_anak.relationalid","ec_anak.is_closed","ec_anak.details","tanggalLahirAnak","namaBayi"});
-        mainSelect = queryBUilder.mainCondition(" is_closed = 0 ");
+        mainSelect = queryBUilder.mainCondition("is_closed = 0 ");
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
@@ -273,11 +273,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
         ft.addToBackStack(null);
         LocationSelectorDialogFragment
-//<<<<<<< HEAD
-//                .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context.anmLocationController().get(), "registrasi_gizi")
-//=======
                 .newInstance((GiziSmartRegisterActivity) getActivity(), new EditDialogOptionModel(), context().anmLocationController().get(), "registrasi_gizi")
-//>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
                 .show(ft, locationDialogTAG);
     }
 
@@ -547,7 +543,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
 
     public void getFacialRecord(View view) {
-        Log.e(TAG, "getFacialRecord: ");
+        Log.e(TAG, "getFacialRecord: start ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);

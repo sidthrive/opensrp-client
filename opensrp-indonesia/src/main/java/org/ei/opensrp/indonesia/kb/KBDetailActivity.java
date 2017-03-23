@@ -27,6 +27,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -163,35 +164,35 @@ public class KBDetailActivity extends Activity {
 
         if(kiclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
 
 
 
-        nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+ (kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ (kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
+        nama.setText(String.format("%s%s", getResources().getString(R.string.name), kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
+        nik.setText(String.format("%s%s", getResources().getString(R.string.nik), kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
+        husband_name.setText(String.format("%s%s", getResources().getString(R.string.husband_name), kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
         String tgl = kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-";
         String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
-        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
-        phone.setText("No HP: "+ (kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
+        dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
+        phone.setText(String.format("No HP: %s", kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
 
 
 
         //risk
         if(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyYoungMaternalAge), humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(kiclient.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyOldMaternalAge), humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
                 || kiclient.getDetails().get("HighRiskPregnancyAbortus") != null
                 || kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
                 ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord")));
+            risk2.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition), humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition"))));
+            risk3.setText(String.format("%s%s", getResources().getString(R.string.HighRiskPregnancyAbortus), humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus"))));
+            risk4.setText(String.format("%s%s", getResources().getString(R.string.HighRiskLabourSectionCesareaRecord), humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord"))));
 
         }
 
@@ -199,28 +200,28 @@ public class KBDetailActivity extends Activity {
         show_risk.setText(getResources().getString(R.string.show_more_button));
         show_detail.setText(getResources().getString(R.string.show_less_button));
 
-        village.setText( ": "+humanize(kiclient.getDetails().get("cityVillage") != null ? kiclient.getDetails().get("cityVillage") : "-"));
-        subvillage.setText( ": "+humanize(kiclient.getDetails().get("address1") != null ? kiclient.getDetails().get("address1") : "-"));
-        age.setText(": "+humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-"));
-        alamat.setText(": "+humanize(kiclient.getDetails().get("address3") != null ? kiclient.getDetails().get("address3") : "-"));
-        education.setText(": "+humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-"));
-        religion.setText(": "+humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-"));
-        job.setText(": "+humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-"));
-        gakin.setText(": "+humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-"));
-        blood_type.setText(": "+humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-"));
-        asuransi.setText(": "+humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-"));
+        village.setText(String.format(": %s", humanize(kiclient.getDetails().get("cityVillage") != null ? kiclient.getDetails().get("cityVillage") : "-")));
+        subvillage.setText(String.format(": %s", humanize(kiclient.getDetails().get("address1") != null ? kiclient.getDetails().get("address1") : "-")));
+        age.setText(String.format(": %s", humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-")));
+        alamat.setText(String.format(": %s", humanize(kiclient.getDetails().get("address3") != null ? kiclient.getDetails().get("address3") : "-")));
+        education.setText(String.format(": %s", humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-")));
+        religion.setText(String.format(": %s", humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-")));
+        job.setText(String.format(": %s", humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-")));
+        gakin.setText(String.format(": %s", humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-")));
+        blood_type.setText(String.format(": %s", humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-")));
+        asuransi.setText(String.format(": %s", humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-")));
 
 
-        jenisKontrasepsi.setText(": "+ humanize(kiclient.getDetails().get("jenisKontrasepsi") != null ? kiclient.getDetails().get("jenisKontrasepsi") : "-"));
-        alkihb.setText(": "+ humanize(kiclient.getDetails().get("alkihb") != null ? kiclient.getDetails().get("alkihb") : "-"));
-        tdSistolik.setText(": "+ humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-"));
-        td_diastolik.setText(": "+ humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-"));
-        alkilila.setText(": "+humanize(kiclient.getDetails().get("alkilila") != null ? kiclient.getDetails().get("alkilila") : "-"));
-        alkiPenyakitIms.setText(": "+humanize(kiclient.getDetails().get("alkiPenyakitIms") != null ? kiclient.getDetails().get("alkiPenyakitIms") : "-"));
-        keteranganTentangPesertaKB.setText(": "+humanize(kiclient.getDetails().get("keteranganTentangPesertaKB") != null ? kiclient.getDetails().get("keteranganTentangPesertaKB") : "-"));
-        keteranganTentangPesertaKB2.setText(": "+humanize(kiclient.getDetails().get("keterangantentangPesertaKB2") != null ? kiclient.getDetails().get("keterangantentangPesertaKB2") : "-"));
-        alkiPenyakitKronis.setText(": "+humanize(kiclient.getDetails().get("alkiPenyakitKronis") != null ? kiclient.getDetails().get("alkiPenyakitKronis") : "-"));
-        keteranganGantiCara.setText(": "+humanize(kiclient.getDetails().get("keteranganGantiCara") != null ? kiclient.getDetails().get("keteranganGantiCara") : "-"));
+        jenisKontrasepsi.setText(String.format(": %s", humanize(kiclient.getDetails().get("jenisKontrasepsi") != null ? kiclient.getDetails().get("jenisKontrasepsi") : "-")));
+        alkihb.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkihb") != null ? kiclient.getDetails().get("alkihb") : "-")));
+        tdSistolik.setText(String.format(": %s", humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-")));
+        td_diastolik.setText(String.format(": %s", humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-")));
+        alkilila.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkilila") != null ? kiclient.getDetails().get("alkilila") : "-")));
+        alkiPenyakitIms.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkiPenyakitIms") != null ? kiclient.getDetails().get("alkiPenyakitIms") : "-")));
+        keteranganTentangPesertaKB.setText(String.format(": %s", humanize(kiclient.getDetails().get("keteranganTentangPesertaKB") != null ? kiclient.getDetails().get("keteranganTentangPesertaKB") : "-")));
+        keteranganTentangPesertaKB2.setText(String.format(": %s", humanize(kiclient.getDetails().get("keterangantentangPesertaKB2") != null ? kiclient.getDetails().get("keterangantentangPesertaKB2") : "-")));
+        alkiPenyakitKronis.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkiPenyakitKronis") != null ? kiclient.getDetails().get("alkiPenyakitKronis") : "-")));
+        keteranganGantiCara.setText(String.format(": %s", humanize(kiclient.getDetails().get("keteranganGantiCara") != null ? kiclient.getDetails().get("keteranganGantiCara") : "-")));
 
 
 //risk detail
@@ -340,7 +341,7 @@ public class KBDetailActivity extends Activity {
 //            Bundle extras = data.getExtras();
 //            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
+            HashMap<String,String> details = new HashMap<>();
             details.put("profilepic",currentfile.getAbsolutePath());
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -384,7 +385,7 @@ public class KBDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKBSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

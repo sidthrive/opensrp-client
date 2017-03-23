@@ -53,6 +53,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
+
     public KIClientsProvider(Context context,
                              View.OnClickListener onClickListener,
                              AlertService alertService) {

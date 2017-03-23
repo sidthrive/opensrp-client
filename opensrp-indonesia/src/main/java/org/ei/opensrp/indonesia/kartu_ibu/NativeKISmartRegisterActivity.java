@@ -57,7 +57,7 @@ import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_PELAY
  */
 public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
-    public static final String TAG = "KIActivity";
+    public static final String TAG = NativeKISmartRegisterActivity.class.getSimpleName();
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -328,14 +328,23 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        retrieveAndSaveUnsubmittedFormData();
+        String KIEnd = timer.format(new Date());
+        Map<String, String> KI = new HashMap<String, String>();
+        KI.put("end", KIEnd);
+        FlurryAgent.logEvent("KI_dashboard",KI, true );
+    }
+
+    @Override
     public void onBackPressed() {
-//        WD
         nf.setCriteria("");
         Log.e(TAG, "onBackPressed: "+currentPage );
 
         if (currentPage != 0) {
             switchToBaseFragment(null);
-        } else if (currentPage == 0) {
+        } else {
             super.onBackPressed(); // allow back key only if we are
         }
     }
@@ -353,16 +362,6 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         //     formNames.add(((OpenFormOption) options[i]).getFormName());
         //    }
         return formNames.toArray(new String[formNames.size()]);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        retrieveAndSaveUnsubmittedFormData();
-        String KIEnd = timer.format(new Date());
-        Map<String, String> KI = new HashMap<String, String>();
-        KI.put("end", KIEnd);
-        FlurryAgent.logEvent("KI_dashboard",KI, true );
     }
 
     public void retrieveAndSaveUnsubmittedFormData(){

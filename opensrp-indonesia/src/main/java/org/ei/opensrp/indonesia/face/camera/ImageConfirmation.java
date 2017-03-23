@@ -85,6 +85,38 @@ public class ImageConfirmation extends Activity {
 
         init_extras();
 
+        process_img();
+
+        buttonJob();
+    }
+
+    private void init_gui() {
+        // Display New Photo
+        confirmationView = (ImageView) findViewById(R.id.iv_confirmationView);
+        trashButton = (ImageView) findViewById(R.id.iv_cancel);
+        confirmButton = (ImageView) findViewById(R.id.iv_approve);
+    }
+
+    /**
+     * Method to get Info from previous Intent
+     */
+    private void init_extras() {
+        Bundle extras = getIntent().getExtras();
+        data = getIntent().getByteArrayExtra("org.sid.sidface.ImageConfirmation");
+        angle = extras.getInt("org.sid.sidface.ImageConfirmation.orientation");
+        switchCamera = extras.getBoolean("org.sid.sidface.ImageConfirmation.switchCamera");
+        entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
+        identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
+        kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
+        str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
+        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
+        Log.e(TAG, "init_extras: "+updated );
+
+    }
+
+
+    private void process_img() {
+
         storedBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
         objFace = SmartShutterActivity.faceProc;
 
@@ -179,6 +211,7 @@ public class ImageConfirmation extends Activity {
                         // Applied Image that came in to the view.
                         // Face only
 //                        confirmationView.setImageBitmap(storedBitmap);
+
                         // Face and Rect
                         confirmationView.setImageBitmap(mutableBitmap);
 
@@ -200,25 +233,6 @@ public class ImageConfirmation extends Activity {
             Log.e(TAG, "onCreate: SetBitmap objFace"+"Failed" );
 
         }
-
-//        confirmationView.setImageBitmap(storedBitmap);            // Setting the view with the bitmap image that came in.
-//        confirmationView.setImageBitmap(mutableBitmap);            // Setting the view with the bitmap image that came in.
-
-        buttonJob();
-    }
-
-    private void showPersonInfo(int recognitionConfidence) {
-        Log.e(TAG, "showPersonInfo: Similar face found " +
-                Integer.toString(recognitionConfidence));
-
-        AlertDialog.Builder builder= new AlertDialog.Builder(this);
-
-        builder.setTitle("Are you Sure?");
-        builder.setMessage("Similar Face Found! : Confidence "+recognitionConfidence);
-        builder.setNegativeButton("CANCEL", null);
-        builder.show();
-        confirmButton.setVisibility(View.INVISIBLE);
-
     }
 
     @Override
@@ -226,31 +240,6 @@ public class ImageConfirmation extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.image_confirmation, menu);
         return true;
-    }
-
-    /**
-     * Method to get Info from previous Intent
-     */
-    private void init_extras() {
-        Bundle extras = getIntent().getExtras();
-        data = getIntent().getByteArrayExtra("org.sid.sidface.ImageConfirmation");
-        angle = extras.getInt("org.sid.sidface.ImageConfirmation.orientation");
-        switchCamera = extras.getBoolean("org.sid.sidface.ImageConfirmation.switchCamera");
-        entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
-        identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
-        kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
-        str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
-        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
-        Log.e(TAG, "init_extras: "+updated );
-
-    }
-
-
-    private void init_gui() {
-        // Display New Photo
-        confirmationView = (ImageView) findViewById(R.id.iv_confirmationView);
-        trashButton = (ImageView) findViewById(R.id.iv_cancel);
-        confirmButton = (ImageView) findViewById(R.id.iv_approve);
     }
 
     public void showDetailUser(String selectedPersonName) {
@@ -287,6 +276,20 @@ public class ImageConfirmation extends Activity {
 
     }
 
+    private void showPersonInfo(int recognitionConfidence) {
+        Log.e(TAG, "showPersonInfo: Similar face found " +
+                Integer.toString(recognitionConfidence));
+
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+
+        builder.setTitle("Are you Sure?");
+        builder.setMessage("Similar Face Found! : Confidence "+recognitionConfidence);
+        builder.setNegativeButton("CANCEL", null);
+        builder.show();
+        confirmButton.setVisibility(View.INVISIBLE);
+
+    }
+
     /**
      *
      */
@@ -303,11 +306,12 @@ public class ImageConfirmation extends Activity {
 
                     Log.e(TAG, "onClick: class origin "+str_origin_class );
 
-//                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
+                    // TODO: detect origin class
                     KIDetailActivity.kiclient = (CommonPersonObjectClient) arg0.getTag();
                     Log.e(TAG, "onClick: " + KIDetailActivity.kiclient);
 //                    Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);

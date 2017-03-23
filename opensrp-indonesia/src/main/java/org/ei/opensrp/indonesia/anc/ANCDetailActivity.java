@@ -27,6 +27,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.ANCDetail;
 
 import java.io.File;
@@ -174,7 +175,7 @@ public class ANCDetailActivity extends Activity {
                 startActivity(new Intent(ANCDetailActivity.this, NativeKIANCSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
                 String DetailEnd = timer.format(new Date());
-                Map<String, String> Detail = new HashMap<String, String>();
+                Map<String, String> Detail = new HashMap<>();
                 Detail.put("end", DetailEnd);
                 FlurryAgent.logEvent("ANC_detail_view", Detail, true);
             }
@@ -183,44 +184,44 @@ public class ANCDetailActivity extends Activity {
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ancclient);
         
-        Keterangan_k1k4.setText(": "+ humanize (ancclient.getDetails().get("Keterangan_k1k4") != null ? ancclient.getDetails().get("Keterangan_k1k4") : "-"));
-        tanggalHPHT.setText(": "+ humanize(ancclient.getDetails().get("tanggalHPHT") != null ? ancclient.getDetails().get("tanggalHPHT") : "-"));
-        usiaKlinis.setText(": "+ humanize(ancclient.getDetails().get("usiaKlinis") != null ? ancclient.getDetails().get("usiaKlinis") : "-"));
-        trimesterKe.setText(": "+ humanize(ancclient.getDetails().get("trimesterKe") != null ? ancclient.getDetails().get("trimesterKe") : "-"));
-        kunjunganKe.setText(": "+ humanize(ancclient.getDetails().get("kunjunganKe") != null ? ancclient.getDetails().get("kunjunganKe") : "-"));
-        bbKg.setText(": "+ humanize(ancclient.getDetails().get("bbKg") != null ? ancclient.getDetails().get("bbKg") : "-"));
-        tandaVitalTDSistolik.setText(": "+ humanize(ancclient.getDetails().get("tandaVitalTDSistolik") != null ? ancclient.getDetails().get("tandaVitalTDSistolik") : "-"));
-        tandaVitalTDDiastolik.setText(": "+ humanize(ancclient.getDetails().get("tandaVitalTDDiastolik") != null ? ancclient.getDetails().get("tandaVitalTDDiastolik") : "-"));
-        hasilPemeriksaanLILA.setText(": "+ humanize(ancclient.getDetails().get("hasilPemeriksaanLILA") != null ? ancclient.getDetails().get("hasilPemeriksaanLILA") : "-"));
-        statusGiziibu.setText(": "+ humanize(ancclient.getDetails().get("statusGiziibu") != null ? ancclient.getDetails().get("statusGiziibu") : "-"));
-        tfu.setText(": "+humanize (ancclient.getDetails().get("tfu") != null ? ancclient.getDetails().get("tfu") : "-"));
-        refleksPatelaIbu.setText(": "+ humanize(ancclient.getDetails().get("refleksPatelaIbu") != null ? ancclient.getDetails().get("refleksPatelaIbu") : "-"));
-        djj.setText(": "+ humanize(ancclient.getDetails().get("djj") != null ? ancclient.getDetails().get("djj") : "-"));
-        kepalaJaninTerhadapPAP.setText(": "+ humanize(ancclient.getDetails().get("kepalaJaninTerhadapPAP") != null ? ancclient.getDetails().get("kepalaJaninTerhadapPAP") : "-"));
-        taksiranBeratJanin.setText(": "+ humanize(ancclient.getDetails().get("taksiranBeratJanin") != null ? ancclient.getDetails().get("taksiranBeratJanin") : "-"));
-        persentasiJanin.setText(": "+humanize (ancclient.getDetails().get("persentasiJanin") != null ? ancclient.getDetails().get("persentasiJanin") : "-"));
-        jumlahJanin.setText(": "+ humanize(ancclient.getDetails().get("jumlahJanin") != null ? ancclient.getDetails().get("jumlahJanin") : "-"));
+        Keterangan_k1k4.setText(String.format(": %s", humanize(ancclient.getDetails().get("Keterangan_k1k4") != null ? ancclient.getDetails().get("Keterangan_k1k4") : "-")));
+        tanggalHPHT.setText(String.format(": %s", humanize(ancclient.getDetails().get("tanggalHPHT") != null ? ancclient.getDetails().get("tanggalHPHT") : "-")));
+        usiaKlinis.setText(String.format(": %s", humanize(ancclient.getDetails().get("usiaKlinis") != null ? ancclient.getDetails().get("usiaKlinis") : "-")));
+        trimesterKe.setText(String.format(": %s", humanize(ancclient.getDetails().get("trimesterKe") != null ? ancclient.getDetails().get("trimesterKe") : "-")));
+        kunjunganKe.setText(String.format(": %s", humanize(ancclient.getDetails().get("kunjunganKe") != null ? ancclient.getDetails().get("kunjunganKe") : "-")));
+        bbKg.setText(String.format(": %s", humanize(ancclient.getDetails().get("bbKg") != null ? ancclient.getDetails().get("bbKg") : "-")));
+        tandaVitalTDSistolik.setText(String.format(": %s", humanize(ancclient.getDetails().get("tandaVitalTDSistolik") != null ? ancclient.getDetails().get("tandaVitalTDSistolik") : "-")));
+        tandaVitalTDDiastolik.setText(String.format(": %s", humanize(ancclient.getDetails().get("tandaVitalTDDiastolik") != null ? ancclient.getDetails().get("tandaVitalTDDiastolik") : "-")));
+        hasilPemeriksaanLILA.setText(String.format(": %s", humanize(ancclient.getDetails().get("hasilPemeriksaanLILA") != null ? ancclient.getDetails().get("hasilPemeriksaanLILA") : "-")));
+        statusGiziibu.setText(String.format(": %s", humanize(ancclient.getDetails().get("statusGiziibu") != null ? ancclient.getDetails().get("statusGiziibu") : "-")));
+        tfu.setText(String.format(": %s", humanize(ancclient.getDetails().get("tfu") != null ? ancclient.getDetails().get("tfu") : "-")));
+        refleksPatelaIbu.setText(String.format(": %s", humanize(ancclient.getDetails().get("refleksPatelaIbu") != null ? ancclient.getDetails().get("refleksPatelaIbu") : "-")));
+        djj.setText(String.format(": %s", humanize(ancclient.getDetails().get("djj") != null ? ancclient.getDetails().get("djj") : "-")));
+        kepalaJaninTerhadapPAP.setText(String.format(": %s", humanize(ancclient.getDetails().get("kepalaJaninTerhadapPAP") != null ? ancclient.getDetails().get("kepalaJaninTerhadapPAP") : "-")));
+        taksiranBeratJanin.setText(String.format(": %s", humanize(ancclient.getDetails().get("taksiranBeratJanin") != null ? ancclient.getDetails().get("taksiranBeratJanin") : "-")));
+        persentasiJanin.setText(String.format(": %s", humanize(ancclient.getDetails().get("persentasiJanin") != null ? ancclient.getDetails().get("persentasiJanin") : "-")));
+        jumlahJanin.setText(String.format(": %s", humanize(ancclient.getDetails().get("jumlahJanin") != null ? ancclient.getDetails().get("jumlahJanin") : "-")));
 
 
-        statusImunisasitt.setText(": "+ humanizeAndDoUPPERCASE (ancclient.getDetails().get("statusImunisasitt") != null ? ancclient.getDetails().get("statusImunisasitt") : "-"));
-        pelayananfe.setText(": "+humanize (ancclient.getDetails().get("pelayananfe") != null ? ancclient.getDetails().get("pelayananfe") : "-"));
-        komplikasidalamKehamilan.setText(": "+humanize (ancclient.getDetails().get("komplikasidalamKehamilan") != null ? ancclient.getDetails().get("komplikasidalamKehamilan") : "-"));
-        integrasiProgrampmtctvct.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctvct") != null ? ancclient.getDetails().get("integrasiProgrampmtctvct") : "-"));
-        integrasiProgrampmtctPeriksaDarah.setText(": "+humanize (ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") : "-"));
-        integrasiProgrampmtctSerologi.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctSerologi") != null ? ancclient.getDetails().get("integrasiProgrampmtctSerologi") : "-"));
-        integrasiProgrampmtctarvProfilaksis.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") != null ? ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") : "-"));
-        integrasiProgramMalariaPeriksaDarah.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") : "-"));
-        integrasiProgramMalariaObat.setText(": "+humanize (ancclient.getDetails().get("integrasiProgramMalariaObat") != null ? ancclient.getDetails().get("integrasiProgramMalariaObat") : "-"));
-        integrasiProgramMalariaKelambuBerinsektisida.setText(": "+ (ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") != null ? ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") : "-"));
-        integrasiProgramtbDahak.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramtbDahak") != null ? ancclient.getDetails().get("integrasiProgramtbDahak") : "-"));
-        integrasiProgramtbObat.setText(": "+ humanize(ancclient.getDetails().get("integrasiProgramtbObat") != null ? ancclient.getDetails().get("integrasiProgramtbObat") : "-"));
-        laboratoriumPeriksaHbHasil.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumPeriksaHbHasil") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbHasil") : "-"));
-        laboratoriumPeriksaHbAnemia.setText(": "+humanize (ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") : "-"));
-        laboratoriumProteinUria.setText(": "+humanize (ancclient.getDetails().get("laboratoriumProteinUria") != null ? ancclient.getDetails().get("laboratoriumProteinUria") : "-"));
-        laboratoriumGulaDarah.setText(": "+humanize (ancclient.getDetails().get("laboratoriumGulaDarah") != null ? ancclient.getDetails().get("laboratoriumGulaDarah") : "-"));
-        laboratoriumThalasemia.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumThalasemia") != null ? ancclient.getDetails().get("laboratoriumThalasemia") : "-"));
-        laboratoriumSifilis.setText(": "+ humanize(ancclient.getDetails().get("laboratoriumSifilis") != null ? ancclient.getDetails().get("laboratoriumSifilis") : "-"));
-        laboratoriumHbsAg.setText(": "+humanize (ancclient.getDetails().get("laboratoriumHbsAg") != null ? ancclient.getDetails().get("laboratoriumHbsAg") : "-"));
+        statusImunisasitt.setText(String.format(": %s", humanizeAndDoUPPERCASE(ancclient.getDetails().get("statusImunisasitt") != null ? ancclient.getDetails().get("statusImunisasitt") : "-")));
+        pelayananfe.setText(String.format(": %s", humanize(ancclient.getDetails().get("pelayananfe") != null ? ancclient.getDetails().get("pelayananfe") : "-")));
+        komplikasidalamKehamilan.setText(String.format(": %s", humanize(ancclient.getDetails().get("komplikasidalamKehamilan") != null ? ancclient.getDetails().get("komplikasidalamKehamilan") : "-")));
+        integrasiProgrampmtctvct.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgrampmtctvct") != null ? ancclient.getDetails().get("integrasiProgrampmtctvct") : "-")));
+        integrasiProgrampmtctPeriksaDarah.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgrampmtctPeriksaDarah") : "-")));
+        integrasiProgrampmtctSerologi.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgrampmtctSerologi") != null ? ancclient.getDetails().get("integrasiProgrampmtctSerologi") : "-")));
+        integrasiProgrampmtctarvProfilaksis.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") != null ? ancclient.getDetails().get("integrasiProgrampmtctarvProfilaksis") : "-")));
+        integrasiProgramMalariaPeriksaDarah.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") != null ? ancclient.getDetails().get("integrasiProgramMalariaPeriksaDarah") : "-")));
+        integrasiProgramMalariaObat.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgramMalariaObat") != null ? ancclient.getDetails().get("integrasiProgramMalariaObat") : "-")));
+        integrasiProgramMalariaKelambuBerinsektisida.setText(String.format(": %s", ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") != null ? ancclient.getDetails().get("integrasiProgramMalariaKelambuBerinsektisida") : "-"));
+        integrasiProgramtbDahak.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgramtbDahak") != null ? ancclient.getDetails().get("integrasiProgramtbDahak") : "-")));
+        integrasiProgramtbObat.setText(String.format(": %s", humanize(ancclient.getDetails().get("integrasiProgramtbObat") != null ? ancclient.getDetails().get("integrasiProgramtbObat") : "-")));
+        laboratoriumPeriksaHbHasil.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumPeriksaHbHasil") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbHasil") : "-")));
+        laboratoriumPeriksaHbAnemia.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") != null ? ancclient.getDetails().get("laboratoriumPeriksaHbAnemia") : "-")));
+        laboratoriumProteinUria.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumProteinUria") != null ? ancclient.getDetails().get("laboratoriumProteinUria") : "-")));
+        laboratoriumGulaDarah.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumGulaDarah") != null ? ancclient.getDetails().get("laboratoriumGulaDarah") : "-")));
+        laboratoriumThalasemia.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumThalasemia") != null ? ancclient.getDetails().get("laboratoriumThalasemia") : "-")));
+        laboratoriumSifilis.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumSifilis") != null ? ancclient.getDetails().get("laboratoriumSifilis") : "-")));
+        laboratoriumHbsAg.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumHbsAg") != null ? ancclient.getDetails().get("laboratoriumHbsAg") : "-")));
 
 
 
@@ -248,39 +249,39 @@ public class ANCDetailActivity extends Activity {
 
 
 
-        ancKe.setText(": "+(ancclient.getDetails().get("ancKe") != null ? ancclient.getDetails().get("ancKe") : "-"));
+        ancKe.setText(String.format(": %s", ancclient.getDetails().get("ancKe") != null ? ancclient.getDetails().get("ancKe") : "-"));
 
-        ancDate.setText(": "+ (ancclient.getDetails().get("ancDate") != null ? ancclient.getDetails().get("ancDate") : "-"));
+        ancDate.setText(String.format(": %s", ancclient.getDetails().get("ancDate") != null ? ancclient.getDetails().get("ancDate") : "-"));
 
         if(ancclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(ancclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ancclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
 
-        nama.setText(getResources().getString(R.string.name)+ (ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+ (ancclient.getDetails().get("nik") != null ? ancclient.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ (ancclient.getColumnmaps().get("namaSuami") != null ? ancclient.getColumnmaps().get("namaSuami") : "-"));
+        nama.setText(String.format("%s%s", getResources().getString(R.string.name), ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));
+        nik.setText(String.format("%s%s", getResources().getString(R.string.nik), ancclient.getDetails().get("nik") != null ? ancclient.getDetails().get("nik") : "-"));
+        husband_name.setText(String.format("%s%s", getResources().getString(R.string.husband_name), ancclient.getColumnmaps().get("namaSuami") != null ? ancclient.getColumnmaps().get("namaSuami") : "-"));
         String tgl = ancclient.getDetails().get("tanggalLahir") != null ? ancclient.getDetails().get("tanggalLahir") : "-";
         String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
-        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
+        dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
 
      //   dob.setText(getResources().getString(R.string.dob)+ (ancclient.getDetails().get("tanggalLahir") != null ? ancclient.getDetails().get("tanggalLahir") : "-"));
-        phone.setText("No HP: "+ (ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
+        phone.setText(String.format("No HP: %s", ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
 
         //risk
         if(ancclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(ancclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyYoungMaternalAge), humanize(ancclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(ancclient.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(ancclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyOldMaternalAge), humanize(ancclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(ancclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
                 || ancclient.getDetails().get("HighRiskPregnancyAbortus") != null
                 || ancclient.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
                 ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(ancclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(ancclient.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(ancclient.getDetails().get("HighRiskLabourSectionCesareaRecord")));
+            risk2.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition), humanize(ancclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition"))));
+            risk3.setText(String.format("%s%s", getResources().getString(R.string.HighRiskPregnancyAbortus), humanize(ancclient.getDetails().get("HighRiskPregnancyAbortus"))));
+            risk4.setText(String.format("%s%s", getResources().getString(R.string.HighRiskLabourSectionCesareaRecord), humanize(ancclient.getDetails().get("HighRiskLabourSectionCesareaRecord"))));
 
         }
         txt_highRiskLabourTBRisk.setText(humanize(ancclient.getDetails().get("highRiskLabourTBRisk") != null ? ancclient.getDetails().get("highRiskLabourTBRisk") : "-"));
@@ -444,7 +445,7 @@ public class ANCDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIANCSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

@@ -140,8 +140,6 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         kidetail = extras.getParcelable("org.sid.sidface.ImageConfirmation.kidetail");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
 
-        Log.e(TAG, "onCreate: " + kidetail);
-
         initializeFlags();
 
         initializeCheckBoxes();
@@ -155,7 +153,6 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         settingsButtonPress = false;
 
         chooseCameraActionListener();
-//        switchCameraActionListener();
         galleryActionListener();
         cameraActionListener();
         settingsActionListener();
@@ -314,8 +311,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                         Class<?> origin_class = this.getClass();
 
-                        Log.e(TAG, "onPreviewFrame: init" + origin_class.getSimpleName());
-                        Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+                        Log.e(TAG, "onPreviewFrame: init " + origin_class.getSimpleName());
+                        Log.e(TAG, "onPreviewFrame: origin " + str_origin_class);
 
                         if (str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())) {
                             origin_class = NativeKISmartRegisterActivity.class;
@@ -524,11 +521,11 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SmartShutterActivity.this);
 
             // set title
-            alertDialogBuilder.setTitle("Not Supported");
+            alertDialogBuilder.setTitle(FaceConstants.UNSUPPORTED_TITLE);
 
             // set dialog message
             alertDialogBuilder
-                    .setMessage("Your device does not support Qualcomm's FacialActivity Processing Feature. Continue with the normal camera.")
+                    .setMessage(FaceConstants.UNSUPPORTED_MSG)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {

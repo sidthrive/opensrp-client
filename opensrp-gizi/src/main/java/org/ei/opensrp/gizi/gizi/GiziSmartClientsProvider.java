@@ -15,14 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
-import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.gizi.R;
@@ -34,19 +31,10 @@ import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import util.KMS.KmsCalc;
-import util.KMS.KmsPerson;
-import util.ZScore.ZScoreSystemCalculation;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static org.ei.opensrp.util.StringUtil.humanize;
 
 /**
  * Created by user on 2/12/15.
@@ -129,37 +117,23 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-
-        //set image
-//        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
-//        detailsRepository.updateDetails(pc);
-//        if (pc.getDetails().get("profilepic") != null) {
-//                       ChildDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-//                       childview.setTag(smartRegisterClient);
-//        }
-//        else if (pc.getDetails().get("gender") != null) {
-//
-//            if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
-//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
-//            } else {
-//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-//            }
-//        }
+        detailsRepository.updateDetails(pc);
 
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
 
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            Log.e(TAG, "getView: details "+ pc.getDetails().toString() );
-//            Log.e(TAG, "getView: id= "+pc.getCaseId()+" gender= "+pc.getDetails().get("gender") );
-
-//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-//                    OpenSRPImageLoader.getStaticImageListener(
-//                            viewHolder.profilepic,
-//                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-//                            0)
-//            );
+            if (pc.getDetails().get("gender") != null) {
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+                    OpenSRPImageLoader.getStaticImageListener(
+                            viewHolder.profilepic,
+                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+                            0)
+            );
+            } else {
+                Log.e(TAG, "getView: Gender is Not Set" );
+            }
         }
         //end profile image
 
@@ -186,7 +160,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
             String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
             String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
 
-            viewHolder.fatherName.setText(namaibu + "," + namaayah);
+            viewHolder.fatherName.setText(String.format("%s,%s", namaibu, namaayah));
             viewHolder.subVillage.setText(kiparent.getDetails().get("address1") != null ? kiparent.getDetails().get("address1") : "");
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
@@ -206,9 +180,9 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
 
         viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
-        viewHolder.visitDate.setText(context.getString(R.string.tanggal) +  " "+(pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"-"));
-        viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
-        viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
+        viewHolder.visitDate.setText(String.format("%s %s", context.getString(R.string.tanggal), pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-"));
+        viewHolder.height.setText(String.format("%s %s Cm", context.getString(R.string.height), pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-"));
+        viewHolder.weight.setText(String.format("%s %s Kg", context.getString(R.string.weight), pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-"));
         viewHolder.weightText.setText(context.getString(R.string.label_weight));
         viewHolder.heightText.setText(context.getString(R.string.label_height));
         viewHolder.antihelminticText.setText(R.string.anthelmintic);
@@ -231,14 +205,14 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
         if(pc.getDetails().get("tanggalPenimbangan") != null)
         {
-            viewHolder.stunting_status.setText(context.getString(R.string.stunting) +  " "+(hasValue(pc.getDetails().get("stunting"))?setStatus(pc.getDetails().get("stunting")):"-"));
-            viewHolder.underweight.setText(context.getString(R.string.wfa) +  " "+(hasValue(pc.getDetails().get("underweight"))? setStatus(pc.getDetails().get("underweight")):"-"));
-            viewHolder.wasting_status.setText(context.getString(R.string.wasting) +   " "+(hasValue(pc.getDetails().get("wasting"))? setStatus(pc.getDetails().get("wasting")):"-"));
+            viewHolder.stunting_status.setText(String.format("%s %s", context.getString(R.string.stunting), hasValue(pc.getDetails().get("stunting")) ? setStatus(pc.getDetails().get("stunting")) : "-"));
+            viewHolder.underweight.setText(String.format("%s %s", context.getString(R.string.wfa), hasValue(pc.getDetails().get("underweight")) ? setStatus(pc.getDetails().get("underweight")) : "-"));
+            viewHolder.wasting_status.setText(String.format("%s %s", context.getString(R.string.wasting), hasValue(pc.getDetails().get("wasting")) ? setStatus(pc.getDetails().get("wasting")) : "-"));
         }
         else{
-            viewHolder.underweight.setText(context.getString(R.string.wfa) + " ");
-            viewHolder.stunting_status.setText(context.getString(R.string.stunting) +  " ");
-            viewHolder.wasting_status.setText(context.getString(R.string.wasting) +  " ");
+            viewHolder.underweight.setText(String.format("%s ", context.getString(R.string.wfa)));
+            viewHolder.stunting_status.setText(String.format("%s ", context.getString(R.string.stunting)));
+            viewHolder.wasting_status.setText(String.format("%s ", context.getString(R.string.wasting)));
         }
         //================ END OF Z-SCORE==============================//
 

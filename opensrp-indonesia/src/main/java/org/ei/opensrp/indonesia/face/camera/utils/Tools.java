@@ -1035,4 +1035,19 @@ public class Tools {
 
 //        imageRepo.importCSV(appContext);
     }
+
+
+    public static void download_images() {
+        try {
+            List<String> images = imageRepo.findAllUnDownloaded();
+            for (String uid : images){
+                Log.e(TAG, "download_image: "+uid );
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(uid, null);
+
+            }
+        } catch (Exception e){
+            Log.e(TAG, "download_image: "+ e.getMessage() );
+        }
+    }
+
 }

@@ -16,4 +16,6 @@ public class FaceConstants {
     public static final String YELLOW_GREEN = "#86B404";
     public static final String GREEN = "#5FB404";
 
+    public static final String UNSUPPORTED_MSG = "Your device does not support Qualcomm's Facial Activity Processing Feature. Continue with the normal camera.";
+    public static final String UNSUPPORTED_TITLE = "Not Supported";
 }

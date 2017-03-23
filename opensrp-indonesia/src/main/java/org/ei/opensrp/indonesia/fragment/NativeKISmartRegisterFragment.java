@@ -408,6 +408,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         }
 
     }
+
+
 //    @Override
 //    public void setupSearchView(View view) {
 //        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
