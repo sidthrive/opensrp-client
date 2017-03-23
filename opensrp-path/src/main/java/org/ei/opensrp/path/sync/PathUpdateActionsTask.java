@@ -66,6 +66,7 @@ public class PathUpdateActionsTask {
 
                 FetchStatus fetchStatusForForms = sync();
                 FetchStatus fetchStatusForActions = actionService.fetchNewActions();
+                pathAfterFetchListener.partialFetch(fetchStatusForActions);
 
                 startPullUniqueIdsIntentService(context);
 
