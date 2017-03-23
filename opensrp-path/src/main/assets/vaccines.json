@@ -20,7 +20,7 @@
         }
       },
       {
-        "name": "BCG",
+        "name": "BCG 1",
         "type": "BCG",
         "openmrs_date": {
           "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -28,10 +28,10 @@
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "",
-          "entity": "",
-          "entity_id": "",
-          "calculation": -1
+          "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 1
         }
       }
     ]
@@ -305,6 +305,43 @@
         "openmrs_calculate": {
           "parent_entity": "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 2
+        }
+      }
+    ]
+  },
+  {
+    "name": "Other Vaccines",
+    "id": "Other",
+    "days_after_birth_due": -1,
+    "vaccines": [
+      {
+        "name": "OPV 4",
+        "type": "OPV",
+        "openmrs_date": {
+          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 4
+        }
+      },
+      {
+        "name": "BCG 2",
+        "type": "BCG",
+        "openmrs_date": {
+          "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 2
         }
