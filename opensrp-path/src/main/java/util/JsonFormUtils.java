@@ -186,31 +186,10 @@ public class JsonFormUtils {
 
     public static void saveOutOfAreaService(Context context, org.ei.opensrp.Context openSrpContext,
                                             String jsonString) {
-        /*SaveOutOfAreaServiceTask saveOutOfAreaServiceTask = new SaveOutOfAreaServiceTask(context,
+        SaveOutOfAreaServiceTask saveOutOfAreaServiceTask = new SaveOutOfAreaServiceTask(context,
                 openSrpContext, jsonString);
 
-        saveOutOfAreaServiceTask.execute();*/
-        try {
-            JSONObject form = new JSONObject(jsonString);
-
-            // Create a weight object if weight was recorded
-            Weight weight = getWeightObject(openSrpContext, form);
-            if (weight != null) {
-                WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
-                weightRepository.add(weight);
-            }
-
-            // Create a vaccine object for all recorded vaccines
-            ArrayList<Vaccine> vaccines = getVaccineObjects(context, openSrpContext, form);
-            if (vaccines.size() > 0) {
-                VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
-                for(Vaccine curVaccine : vaccines) {
-                    vaccineRepository.add(curVaccine);
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+        saveOutOfAreaServiceTask.execute();
     }
 
     /**
