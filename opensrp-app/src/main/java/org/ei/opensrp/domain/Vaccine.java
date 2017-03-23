@@ -40,7 +40,6 @@ public class Vaccine {
         this.id = id;
         this.baseEntityId = baseEntityId;
         this.programClientId = programClientId;
-        this.programClientId = null;
         this.name = name;
         this.calculation = calculation;
         this.date = date;
@@ -75,8 +74,11 @@ public class Vaccine {
     }
 
     public HashMap<String, String> getIdentifiers() {
-        HashMap<String, String> identifiers = new HashMap<>();
-        identifiers.put(Event.PROGRAM_CLIENT_ID, programClientId);
+        HashMap<String, String> identifiers = null;
+        if (programClientId != null) {
+            identifiers = new HashMap<>();
+            identifiers.put(Event.PROGRAM_CLIENT_ID, programClientId);
+        }
         return identifiers;
     }
 
