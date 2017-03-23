@@ -1,4 +1,4 @@
-package org.ei.opensrp.repository;
+package org.ei.opensrp.path.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -14,10 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static java.lang.String.format;
-import static org.apache.commons.lang3.ArrayUtils.addAll;
-
-public class WeightRepository extends DrishtiRepository {
+public class WeightRepository extends BaseRepository {
     private static final String TAG = WeightRepository.class.getCanonicalName();
     private static final String WEIGHT_SQL = "CREATE TABLE weights (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,program_client_id VARCHAR NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL)";
     public static final String WEIGHT_TABLE_NAME = "weights";
@@ -39,8 +36,11 @@ public class WeightRepository extends DrishtiRepository {
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
 
-    @Override
-    protected void onCreate(SQLiteDatabase database) {
+    public WeightRepository(PathRepository pathRepository) {
+        super(pathRepository);
+    }
+
+    protected static void createTable(SQLiteDatabase database) {
         database.execSQL(WEIGHT_SQL);
         database.execSQL(BASE_ENTITY_ID_INDEX);
         database.execSQL(SYNC_STATUS_INDEX);
@@ -60,74 +60,102 @@ public class WeightRepository extends DrishtiRepository {
             weight.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         }
 
-        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        SQLiteDatabase database = getPathRepository().getWritableDatabase();
         if (weight.getId() == null) {
             weight.setId(database.insert(WEIGHT_TABLE_NAME, null, createValuesFor(weight)));
         } else {
             String idSelection = ID_COLUMN + " = ?";
             database.update(WEIGHT_TABLE_NAME, createValuesFor(weight), idSelection, new String[]{weight.getId().toString()});
         }
-        database.close();
     }
 
     public List<Weight> findUnSyncedBeforeTime(int hours) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR_OF_DAY, -hours);
+        List<Weight> weights = new ArrayList<>();
+        Cursor cursor = null;
+        try {
 
-        Long time = calendar.getTimeInMillis();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.HOUR_OF_DAY, -hours);
 
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
-        return readAllWeights(cursor);
+            Long time = calendar.getTimeInMillis();
+
+            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
+            weights = readAllWeights(cursor);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return weights;
     }
 
     public Weight findUnSyncedByEntityId(String entityId) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, TYPE_Unsynced}, null, null, null, null);
-        List<Weight> weights = readAllWeights(cursor);
-        if (!weights.isEmpty()) {
-            return weights.get(0);
-        }
+        Weight weight = null;
+        Cursor cursor = null;
+        try {
 
-        return null;
+            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, TYPE_Unsynced}, null, null, null, null);
+            List<Weight> weights = readAllWeights(cursor);
+            if (!weights.isEmpty()) {
+                weight = weights.get(0);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return weight;
     }
 
     public Weight find(Long caseId) {
-        SQLiteDatabase database = masterRepository.getReadableDatabase();
-        Cursor cursor = database.query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
-        List<Weight> weights = readAllWeights(cursor);
-        if (!weights.isEmpty()) {
-            return weights.get(0);
+        Weight weight = null;
+        Cursor cursor = null;
+        try {
+            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
+            List<Weight> weights = readAllWeights(cursor);
+            if (!weights.isEmpty()) {
+                weight = weights.get(0);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-
-        return null;
+        return weight;
     }
 
     public void close(Long caseId) {
         ContentValues values = new ContentValues();
         values.put(SYNC_STATUS, TYPE_Synced);
-        masterRepository.getWritableDatabase().update(WEIGHT_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
+        getPathRepository().getWritableDatabase().update(WEIGHT_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
     }
 
     private List<Weight> readAllWeights(Cursor cursor) {
-        cursor.moveToFirst();
-        List<Weight> weights = new ArrayList<Weight>();
-        while (!cursor.isAfterLast()) {
-            weights.add(
-                    new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                            cursor.getString(cursor.getColumnIndex(PROGRAM_CLIENT_ID)),
-                            cursor.getFloat(cursor.getColumnIndex(KG)),
-                            new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
-                            cursor.getString(cursor.getColumnIndex(ANMID)),
-                            cursor.getString(cursor.getColumnIndex(LOCATIONID)),
-                            cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                            cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
-                    ));
+        List<Weight> weights = new ArrayList<>();
 
-            cursor.moveToNext();
+        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                weights.add(
+                        new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
+                                cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                                cursor.getString(cursor.getColumnIndex(PROGRAM_CLIENT_ID)),
+                                cursor.getFloat(cursor.getColumnIndex(KG)),
+                                new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                                cursor.getString(cursor.getColumnIndex(ANMID)),
+                                cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                                cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                                cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
+                        ));
+
+                cursor.moveToNext();
+            }
         }
-        cursor.close();
         return weights;
     }
 

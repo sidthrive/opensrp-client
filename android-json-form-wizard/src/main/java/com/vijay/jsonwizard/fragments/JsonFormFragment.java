@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -160,6 +161,7 @@ public class JsonFormFragment extends MvpFragment<JsonFormFragmentPresenter, Jso
     public void writeValue(String stepName, String prentKey, String childObjectKey, String childKey,
                            String value, String openMrsEntityParent, String openMrsEntity,
                            String openMrsEntityId) {
+        Log.d("RealtimeValidation", "Fragment write value called");
         try {
             mJsonApi.writeValue(stepName, prentKey, childObjectKey, childKey, value,
                     openMrsEntityParent, openMrsEntity, openMrsEntityId);
@@ -181,7 +183,7 @@ public class JsonFormFragment extends MvpFragment<JsonFormFragmentPresenter, Jso
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-        return new JsonFormFragmentPresenter();
+        return new JsonFormFragmentPresenter(this);
     }
 
     @Override

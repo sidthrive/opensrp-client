@@ -12,6 +12,7 @@ import com.rengwuxian.materialedittext.validation.RegexpValidator;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.customviews.GenericTextWatcher;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -36,7 +37,7 @@ public class EditTextFactory implements FormWidgetFactory {
     public static final int MIN_LENGTH = 0;
     public static final int MAX_LENGTH = 100;
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JSONObject jsonObject, CommonListener listener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
         String openMrsEntityParent = jsonObject.getString("openmrs_entity_parent");
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
@@ -160,7 +161,7 @@ public class EditTextFactory implements FormWidgetFactory {
             }
         }
 
-        editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
+        editText.addTextChangedListener(new GenericTextWatcher(stepName, formFragment, editText));
         if (relevance != null && context instanceof JsonApi) {
             editText.setTag(R.id.relevance, relevance);
             ((JsonApi) context).addSkipLogicView(editText);

@@ -14,6 +14,7 @@ import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.customviews.GenericTextWatcher;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -34,7 +35,7 @@ import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
  */
 public class TreeViewFactory implements FormWidgetFactory {
     @Override
-    public List<View> getViewsFromJson(String stepName, final Context context, JSONObject
+    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment, JSONObject
             jsonObject, CommonListener listener) throws Exception {
         List<View> views = new ArrayList<>(1);
         try {
@@ -107,15 +108,6 @@ public class TreeViewFactory implements FormWidgetFactory {
                 }
             });
 
-            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        showTreeDialog(editText, treeViewDialog);
-                    }
-                }
-            });
-
             editText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,7 +123,17 @@ public class TreeViewFactory implements FormWidgetFactory {
                 }
             });
 
-            editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
+            GenericTextWatcher genericTextWatcher = new GenericTextWatcher(stepName, formFragment, editText);
+            genericTextWatcher.addOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        showTreeDialog(editText, treeViewDialog);
+                    }
+                }
+            });
+
+            editText.addTextChangedListener(genericTextWatcher);
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(editText);

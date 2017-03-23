@@ -22,10 +22,12 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.repository.UniqueIdRepository;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
+
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
@@ -170,7 +172,7 @@ public class JsonFormUtils {
 
             String zeirId = c.getIdentifier(ZEIR_ID);
             //mark zeir id as used
-            org.ei.opensrp.Context.getInstance().uniqueIdRepository().close(zeirId);
+           VaccinatorApplication.getInstance().uniqueIdRepository().close(zeirId);
 
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
@@ -194,14 +196,14 @@ public class JsonFormUtils {
             // Create a weight object if weight was recorded
             Weight weight = getWeightObject(openSrpContext, form);
             if (weight != null) {
-                WeightRepository weightRepository = openSrpContext.weightRepository();
+                WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
                 weightRepository.add(weight);
             }
 
             // Create a vaccine object for all recorded vaccines
             ArrayList<Vaccine> vaccines = getVaccineObjects(context, openSrpContext, form);
             if (vaccines.size() > 0) {
-                VaccineRepository vaccineRepository = openSrpContext.vaccineRepository();
+                VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 for(Vaccine curVaccine : vaccines) {
                     vaccineRepository.add(curVaccine);
                 }
@@ -1552,14 +1554,14 @@ public class JsonFormUtils {
                 // Create a weight object if weight was recorded
                 Weight weight = getWeightObject(openSrpContext, form);
                 if (weight != null) {
-                    WeightRepository weightRepository = openSrpContext.weightRepository();
+                    WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
                     weightRepository.add(weight);
                 }
 
                 // Create a vaccine object for all recorded vaccines
                 ArrayList<Vaccine> vaccines = getVaccineObjects(context, openSrpContext, form);
                 if (vaccines.size() > 0) {
-                    VaccineRepository vaccineRepository = openSrpContext.vaccineRepository();
+                    VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                     for(Vaccine curVaccine : vaccines) {
                         vaccineRepository.add(curVaccine);
                     }
@@ -1596,12 +1598,10 @@ public class JsonFormUtils {
 
             if (formName.equals("child_enrollment")) {
                 if (StringUtils.isBlank(entityId)) {
-                    UniqueIdRepository uniqueIdRepo = openSrpContext.uniqueIdRepository();
-                    entityId = uniqueIdRepo.getNextUniqueId() != null ?
-                            uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                    UniqueIdRepository uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
+                    entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
                     if (entityId.isEmpty()) {
-                        Toast.makeText(context, context.getString(R.string.no_openmrs_id),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

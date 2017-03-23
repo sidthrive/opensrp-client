@@ -61,6 +61,11 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
     private String mCurrentKey;
     private String mCurrentPhotoPath;
     private JsonFormInteractor mJsonFormInteractor = JsonFormInteractor.getInstance();
+    private final JsonFormFragment formFragment;
+
+    public JsonFormFragmentPresenter(JsonFormFragment formFragment) {
+        this.formFragment = formFragment;
+    }
 
     public void addFormElements() {
         mStepName = getView().getArguments().getString("stepName");
@@ -70,7 +75,7 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        List<View> views = mJsonFormInteractor.fetchFormElements(mStepName, getView().getContext(), mStepDetails,
+        List<View> views = mJsonFormInteractor.fetchFormElements(mStepName, formFragment, mStepDetails,
                 getView().getCommonListener());
         getView().addFormElements(views);
 
@@ -109,28 +114,24 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
 
     public ValidationStatus writeValuesAndValidate(LinearLayout mainView) {
         int childCount = mainView.getChildCount();
+        ValidationStatus firstError = null;
         for (int i = 0; i < childCount; i++) {
             View childAt = mainView.getChildAt(i);
             String key = (String) childAt.getTag(R.id.key);
             String openMrsEntityParent = (String) childAt.getTag(R.id.openmrs_entity_parent);
             String openMrsEntity = (String) childAt.getTag(R.id.openmrs_entity);
             String openMrsEntityId = (String) childAt.getTag(R.id.openmrs_entity_id);
+
+            ValidationStatus validationStatus = validate(getView(), childAt, firstError == null);
+            if (firstError == null && !validationStatus.isValid()) {
+                firstError = validationStatus;
+            }
+
             if (childAt instanceof MaterialEditText) {
                 MaterialEditText editText = (MaterialEditText) childAt;
-                ValidationStatus validationStatus = EditTextFactory.validate(getView(), editText);
-                if (!validationStatus.isValid()) {
-                    validationStatus.requestAttention();
-                    return validationStatus;
-                }
                 getView().writeValue(mStepName, key, editText.getText().toString(),
                         openMrsEntityParent, openMrsEntity, openMrsEntityId);
             } else if (childAt instanceof ImageView) {
-                ValidationStatus validationStatus = ImagePickerFactory.validate(getView(),
-                        (ImageView) childAt);
-                if (!validationStatus.isValid()) {
-                    validationStatus.requestAttention();
-                    return validationStatus;
-                }
                 Object path = childAt.getTag(R.id.imagePath);
                 if (path instanceof String) {
                     getView().writeValue(mStepName, key, (String) path, openMrsEntityParent,
@@ -149,18 +150,43 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
                     getView().writeValue(mStepName, parentKey, childKey, openMrsEntityParent,
                             openMrsEntity, openMrsEntityId);
                 }
-            } else if (childAt instanceof MaterialSpinner) {
-                MaterialSpinner spinner = (MaterialSpinner) childAt;
-                ValidationStatus validationStatus = SpinnerFactory.validate(getView(), spinner);
-                if (!validationStatus.isValid()) {
-                    validationStatus.requestAttention();
-                    spinner.setError(validationStatus.getErrorMessage());
-                    return validationStatus;
-                } else {
-                    spinner.setError(null);
-                }
+            } else if (childAt instanceof MaterialSpinner) {}
+        }
+
+        if (firstError == null) {
+            return new ValidationStatus(true, null, null, null);
+        } else {
+            return firstError;
+        }
+    }
+
+    public static ValidationStatus validate(JsonFormFragmentView formFragmentView, View childAt, boolean requestFocus) {
+        if (childAt instanceof MaterialEditText) {
+            MaterialEditText editText = (MaterialEditText) childAt;
+            ValidationStatus validationStatus = EditTextFactory.validate(formFragmentView, editText);
+            if (!validationStatus.isValid()) {
+                if (requestFocus) validationStatus.requestAttention();
+                return validationStatus;
+            }
+        } else if (childAt instanceof ImageView) {
+            ValidationStatus validationStatus = ImagePickerFactory.validate(formFragmentView,
+                    (ImageView) childAt);
+            if (!validationStatus.isValid()) {
+                if (requestFocus) validationStatus.requestAttention();
+                return validationStatus;
+            }
+        } else if (childAt instanceof MaterialSpinner) {
+            MaterialSpinner spinner = (MaterialSpinner) childAt;
+            ValidationStatus validationStatus = SpinnerFactory.validate(formFragmentView, spinner);
+            if (!validationStatus.isValid()) {
+                if (requestFocus) validationStatus.requestAttention();
+                spinner.setError(validationStatus.getErrorMessage());
+                return validationStatus;
+            } else {
+                spinner.setError(null);
             }
         }
+
         return new ValidationStatus(true, null, null, null);
     }
 

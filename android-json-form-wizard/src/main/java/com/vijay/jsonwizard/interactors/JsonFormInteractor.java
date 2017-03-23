@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.widgets.BarcodeFactory;
@@ -51,7 +52,8 @@ public class JsonFormInteractor {
         map.put(JsonFormConstants.BARCODE, new BarcodeFactory());
     }
 
-    public List<View> fetchFormElements(String stepName, Context context, JSONObject parentJson, CommonListener listener) {
+    public List<View> fetchFormElements(String stepName, JsonFormFragment formFragment,
+                                        JSONObject parentJson, CommonListener listener) {
         Log.d(TAG, "fetchFormElements called");
         List<View> viewsFromJson = new ArrayList<>(5);
         try {
@@ -59,7 +61,7 @@ public class JsonFormInteractor {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject childJson = fields.getJSONObject(i);
                 try {
-                    List<View> views =  map.get(childJson.getString("type")).getViewsFromJson(stepName, context, childJson, listener);
+                    List<View> views =  map.get(childJson.getString("type")).getViewsFromJson(stepName, formFragment.getContext(), formFragment, childJson, listener);
                     if (views.size() > 0) {
                         viewsFromJson.addAll(views);
                     }

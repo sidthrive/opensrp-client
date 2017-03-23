@@ -19,6 +19,7 @@ import com.rengwuxian.materialedittext.validation.RegexpValidator;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.customviews.GenericTextWatcher;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -48,7 +49,7 @@ public class DatePickerFactory implements FormWidgetFactory {
     public static final String DATE_FORMAT_REGEX = "(^(((0[1-9]|1[0-9]|2[0-8])[-](0[1-9]|1[012]))|((29|30|31)[-](0[13578]|1[02]))|((29|30)[-](0[4,6,9]|11)))[-](19|[2-9][0-9])\\d\\d$)|(^29[-]02[-](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
 
     @Override
-    public List<View> getViewsFromJson(String stepName, final Context context, JSONObject jsonObject,
+    public List<View> getViewsFromJson(String stepName, final Context context, JsonFormFragment formFragment, JSONObject jsonObject,
                                        CommonListener listener) throws Exception {
         List<View> views = new ArrayList<>(1);
         try {
@@ -164,15 +165,6 @@ public class DatePickerFactory implements FormWidgetFactory {
                 datePickerDialog.getDatePicker().setCalendarViewShown(false);
             }
 
-            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        showDatePickerDialog(context, datePickerDialog, editText);
-                    }
-                }
-            });
-
             editText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -188,7 +180,16 @@ public class DatePickerFactory implements FormWidgetFactory {
                 }
             });
 
-            editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
+            GenericTextWatcher genericTextWatcher = new GenericTextWatcher(stepName, formFragment, editText);
+            genericTextWatcher.addOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        showDatePickerDialog(context, datePickerDialog, editText);
+                    }
+                }
+            });
+            editText.addTextChangedListener(genericTextWatcher);
 
             views.add(dateViewRelativeLayout);
             if (relevance != null && context instanceof JsonApi) {

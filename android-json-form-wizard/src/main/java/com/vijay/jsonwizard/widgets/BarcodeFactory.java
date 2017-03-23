@@ -11,6 +11,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.customviews.GenericTextWatcher;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
@@ -36,7 +37,8 @@ public class BarcodeFactory implements FormWidgetFactory {
     private static final String DEFAULT_TYPE= TYPE_BARCODE;
 
     @Override
-    public List<View> getViewsFromJson(String stepName, final Context context, final JSONObject jsonObject,
+    public List<View> getViewsFromJson(String stepName, final Context context,
+                                       JsonFormFragment formFragment, final JSONObject jsonObject,
                                        CommonListener listener) throws Exception {
         List<View> views = new ArrayList<>(1);
         try {
@@ -117,7 +119,7 @@ public class BarcodeFactory implements FormWidgetFactory {
                 });
             }
 
-            editText.addTextChangedListener(new GenericTextWatcher(stepName, editText));
+            editText.addTextChangedListener(new GenericTextWatcher(stepName, formFragment, editText));
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(editText);
