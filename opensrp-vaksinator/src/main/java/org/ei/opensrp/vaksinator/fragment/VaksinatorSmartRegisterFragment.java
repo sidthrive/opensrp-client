@@ -363,7 +363,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 //
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = " namaBayi !='' AND is_closed = 0";
                         return null;
                     }
 
@@ -406,7 +406,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = " namaBayi !='' AND is_closed = 0";
                         return null;
                     }
 
