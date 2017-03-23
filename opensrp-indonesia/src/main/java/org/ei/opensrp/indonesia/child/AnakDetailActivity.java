@@ -138,10 +138,10 @@ public class AnakDetailActivity extends Activity {
         nama.setText(getResources().getString(R.string.name)+humanize (childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
         mother.setText(getResources().getString(R.string.child_details_mothers_name_label)+humanize (kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
         father.setText(getResources().getString(R.string.child_details_fathers_name_label)+ humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak") : "-"));
+        dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak").substring(0,10) : "-"));
 
         txt_noBayi.setText( ": "+humanize (childclient.getDetails().get("noBayi") != null ? childclient.getDetails().get("noBayi") : "-"));
-        txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("jenisKelamin") != null ? childclient.getDetails().get("jenisKelamin") : "-"));
+        txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("gender") != null ? childclient.getDetails().get("gender") : "-"));
         txt_beratLahir.setText(": "+humanize (childclient.getDetails().get("beratLahir") != null ? childclient.getDetails().get("beratLahir") : "-"));
         tinggi.setText(": "+ humanize(childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") != null ? childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") : "-"));
         berat.setText(": "+humanize (childclient.getDetails().get("indikatorBeratBedanBayi") != null ? childclient.getDetails().get("indikatorBeratBedanBayi") : "-"));
