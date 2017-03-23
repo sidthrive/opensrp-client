@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.util.ViewUtil;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 20/03/2017.
@@ -80,7 +83,7 @@ public class BarcodeFactory implements FormWidgetFactory {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                        launchBarcodeScanner((Activity) context, jsonObject.optString("barcode_type"));
+                        launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
                     }
                 }
             });
@@ -88,7 +91,7 @@ public class BarcodeFactory implements FormWidgetFactory {
             editText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    launchBarcodeScanner((Activity) context, jsonObject.optString("barcode_type"));
+                    launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
                 }
             });
 
@@ -138,7 +141,9 @@ public class BarcodeFactory implements FormWidgetFactory {
         return views;
     }
 
-    private void launchBarcodeScanner(Activity activity, String barcodeType) {
+    private void launchBarcodeScanner(Activity activity, MaterialEditText editText, String barcodeType) {
+        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(editText.getWindowToken(), HIDE_NOT_ALWAYS);
         IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
         if(barcodeType != null && barcodeType.equals(TYPE_QR)) {
             intentIntegrator.addExtra(SCAN_MODE, QR_MODE);
