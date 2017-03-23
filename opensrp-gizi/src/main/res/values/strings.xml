@@ -437,6 +437,7 @@
 
 
     <string name="years_unit">yrs</string>
+    <string name="month_unit">mth</string>
     <string name="hours_unit">hrs</string>
     <string name="weight_unit">Kg</string>
     <string name="length_unit">Cm</string>

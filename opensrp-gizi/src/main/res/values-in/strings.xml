@@ -427,7 +427,8 @@
     <string name="vitamin_a_pnc_2">Vitamin A setelah 2 jam: </string>
     <string name="vitamin_a_pnc_24">Vitamin A setelah 24 jam: </string>
     <string name="post_partum_care">Pelayanan Post-Partum</string>
-    <string name="years_unit">th</string>
+    <string name="years_unit">thn</string>
+    <string name="month_unit">bln</string>
     <string name="kunjunganTerakhir">Kunjungan Terakhir</string>
     <string name="usiaKandungan">Usia Kandungan</string>
     <string name="lila">Lingkar Lengan</string>
