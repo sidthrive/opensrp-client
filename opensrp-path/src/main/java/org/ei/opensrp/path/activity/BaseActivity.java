@@ -32,18 +32,18 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.UniqueIdRepository;
 import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.activity.SettingsActivity;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
@@ -53,10 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import util.JsonFormUtils;
 
@@ -290,7 +287,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     protected void startChildRegistration() {
         try {
-            UniqueIdRepository uniqueIdRepo = org.ei.opensrp.Context.getInstance().uniqueIdRepository();
+            UniqueIdRepository uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
             String entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
             if (entityId.isEmpty()) {
                 Toast.makeText(this, getString(R.string.no_openmrs_id), Toast.LENGTH_SHORT).show();
