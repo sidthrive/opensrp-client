@@ -1,158 +1,17 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <android.support.design.widget.AppBarLayout
+    <include
+        layout="@layout/app_bar_child_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="#FAFAFA">
+        android:layout_height="match_parent" />
 
-        <org.ei.opensrp.path.toolbar.LocationSwitcherToolbar
-            android:id="@+id/child_detail_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/AppThemeNoActionBarAndTitleWithEditButton"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/title"
-                style="@style/CustomFontTextViewStyle.NavBar.Black"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/CustomFontTextViewStyle.NavBar"
-                android:text="Save"
-                android:id="@+id/save"
-                android:textSize="@dimen/activity_title_size"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp" />
-        </FrameLayout>
+    <include layout="@layout/nav_view_base"/>
 
-        </org.ei.opensrp.path.toolbar.LocationSwitcherToolbar>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-          >
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/immun_child_card_height"
-                android:layout_margin="20dp"
-                android:background="@drawable/border">
-
-                <ImageView
-                    android:layout_width="@dimen/immun_child_card_height"
-                    android:layout_height="@dimen/immun_child_card_height"
-                    android:id="@+id/profile_image_iv"
-                    android:src="@drawable/child_boy_infant"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp">
-
-                    <org.ei.opensrp.view.customControls.CustomFontTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
-                        android:text="Joyce Mwansa"
-                        android:id="@+id/name"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/activity_title_size" />
-
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <org.ei.opensrp.view.customControls.CustomFontTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/CustomFontTextViewStyle.ClientList.Light"
-                            android:id="@+id/idforclient"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/activity_sub_title_size"
-                            android:text="ZEIR: 5425428" />
-
-                        <org.ei.opensrp.view.customControls.CustomFontTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/CustomFontTextViewStyle.ClientList.Light"
-                            android:text="Age: 6w 4d"
-                            android:id="@+id/ageforclient"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/activity_sub_title_size"
-                            android:layout_marginLeft="5dp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView2"
-                        android:src="@drawable/bell"
-                        android:layout_gravity="center_horizontal"
-                        android:tint="@color/alert_completed" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Active"
-                        android:id="@+id/textView2"
-                        android:textColor="#31B404"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="status"
-                        android:id="@+id/textView"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="#A9A9A9" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/female_dark_pink"
-            app:tabIndicatorColor="@color/female_dark_pink"
-            app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator"
-            app:tabIndicatorHeight="4dp"
-            app:tabMaxWidth="0dp"
-            app:tabGravity="fill"/>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-</android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.DrawerLayout>

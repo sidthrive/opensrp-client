@@ -12,18 +12,17 @@ import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.clientandeventmodel.FormEntityConstants;
 import org.ei.opensrp.clientandeventmodel.Obs;
-import org.ei.opensrp.clientandeventmodel.processor.EventsProcessor;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -419,6 +418,13 @@ public class JsonFormUtils {
             String dataType = getString(jsonObject, OPENMRS_DATA_TYPE);
             if (StringUtils.isBlank(dataType)) {
                 dataType = "text";
+            }
+
+            if(dataType.equals("date") && StringUtils.isNotBlank(value) ){
+                String newValue = convertToOpenMRSDate(value);
+                if(newValue != null){
+                    value = newValue;
+                }
             }
 
             String entityVal = getString(jsonObject, OPENMRS_ENTITY);
@@ -1333,6 +1339,101 @@ public class JsonFormUtils {
             }
         }
 
+        return null;
+    }
+
+    public static void saveReportDeceased(Context context, org.ei.opensrp.Context openSrpContext,
+                                           String jsonString, String providerId, String locationId, String entityId){
+
+        try {
+            JSONObject jsonForm = new JSONObject(jsonString);
+
+            JSONArray fields = fields(jsonForm);
+            if (fields == null) {
+                return;
+            }
+
+            String bindType = "child";
+            String encounterDateField = getFieldValue(fields, "Date_of_Death");
+
+            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+            JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+            Date encounterDate = new Date();
+            if (StringUtils.isNotBlank(encounterDateField)) {
+                Date dateTime = formatDate(encounterDateField, false);
+                if (dateTime != null) {
+                    encounterDate = dateTime;
+                }
+            }
+
+            Event e = (Event) new Event()
+                    .withBaseEntityId(entityId)//should be different for main and subform
+                    .withEventDate(encounterDate)
+                    .withEventType(encounterType)
+                    .withLocationId(locationId)
+                    .withProviderId(providerId)
+                    .withEntityType(bindType)
+                    .withFormSubmissionId(generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject jsonObject = getJSONObject(fields, i);
+                String value = getString(jsonObject, VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    addObservation(e, jsonObject);
+                }
+            }
+
+            if (metadata != null) {
+                Iterator<?> keys = metadata.keys();
+
+                while (keys.hasNext()) {
+                    String key = (String) keys.next();
+                    JSONObject jsonObject = getJSONObject(metadata, key);
+                    String value = getString(jsonObject, VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+                        if (entityVal != null) {
+                            if (entityVal.equals(CONCEPT)) {
+                                addToJSONObject(jsonObject, KEY, key);
+                                addObservation(e, jsonObject);
+                            } else if (entityVal.equals(ENCOUNTER)) {
+                                String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+                                if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
+                                    Date eDate = formatDate(value, false);
+                                    if (eDate != null) {
+                                        e.setEventDate(eDate);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+
+            if (e != null) {
+                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
+                cloudantDataHandler.createEventDocument(event);
+            }
+
+        }catch (Exception e){
+            Log.e(TAG, "", e);
+        }
+    }
+
+    private static String convertToOpenMRSDate(String value){
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = simpleDateFormat.parse(value);
+
+            SimpleDateFormat openmrsDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return openmrsDateFormat.format(date);
+        }catch (Exception e){
+            Log.e(TAG, "", e);
+        }
         return null;
     }
 }

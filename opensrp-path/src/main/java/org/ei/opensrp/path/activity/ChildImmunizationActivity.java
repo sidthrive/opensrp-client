@@ -136,7 +136,7 @@ public class ChildImmunizationActivity extends BaseActivity
         ((LinearLayout)findViewById(R.id.profile_name_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchDetailActivity(ChildImmunizationActivity.this,childDetails,null);
+                launchDetailActivity(ChildImmunizationActivity.this, childDetails, null);
             }
         });
         // TODO: update all views using child data
@@ -392,7 +392,11 @@ public class ChildImmunizationActivity extends BaseActivity
     public void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
         Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("location_name",toolbar.getCurrentLocation());
+        try {
+            bundle.putString("location_name", JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(), toolbar.getCurrentLocation()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
         bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
         intent.putExtras(bundle);
