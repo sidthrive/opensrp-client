@@ -552,7 +552,10 @@ public class Tools {
      * @param context
      */
 
-    public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
+    public static void saveAndClose(android.content.Context context, String entityId,
+                                    boolean updated, FacialProcessing objFace, int arrayPossition,
+                                    Bitmap storedBitmap,
+                                    String className) {
 
         byte[] faceVector;
 
@@ -613,7 +616,24 @@ public class Tools {
 
         new ImageConfirmation().finish();
 
-        Intent resultIntent = new Intent(appContext.applicationContext(), VaksinatorDetailActivity.class);
+        Class<?> origin_class = null;
+
+
+        if(className.equals(VaksinatorDetailActivity.class.getSimpleName())){
+            origin_class = VaksinatorDetailActivity.class;
+        }
+//        else if(className.equals(KBDetailActivity.class.getSimpleName())){
+//            origin_class = KBDetailActivity.class;
+//        } else if(className.equals(ANCDetailActivity.class.getSimpleName())){
+//            origin_class = ANCDetailActivity.class;
+//        } else if(className.equals(PNCDetailActivity.class.getSimpleName())){
+//            origin_class = PNCDetailActivity.class;
+//        }
+//        else if(className.equals(AnakDetailActivity.class.getSimpleName())){
+//            origin_class = AnakDetailActivity.class;
+//        }
+
+        Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
 //        setResult(RESULT_OK, resultIntent);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

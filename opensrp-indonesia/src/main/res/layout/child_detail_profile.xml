@@ -13,7 +13,7 @@
 
         <ImageView
             android:layout_width="@dimen/client_profile_pic_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/client_profile_pic_height"
             android:id="@+id/childdetailprofileview"
             android:src="@drawable/child_boy_infant"
             android:layout_margin="5dp"

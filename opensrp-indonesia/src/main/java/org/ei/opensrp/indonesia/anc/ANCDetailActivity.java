@@ -62,6 +62,9 @@ public class ANCDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient ancclient;
+    //    static String bindobject;
+//    static String entityid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -324,124 +327,22 @@ public class ANCDetailActivity extends Activity {
             }
         });
 
-        kiview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-                bindobject = "anc";
-                entityid = ancclient.entityId();
-                Log.e(TAG, "onClick: " + entityid);
-                dispatchTakePictureIntent(kiview);
+//        kiview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
+//                bindobject = "anc";
+//                entityid = ancclient.entityId();
+//                Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(kiview);
 
-            }
-        });
-
-
-
-    }
-
-
-
-    String mCurrentPhotoPath;
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static ImageView mImageView;
-    static File currentfile;
-    static String bindobject;
-    static String entityid;
-
-    private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
 //            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-            startActivityForResult(takePictureIntent, 1);
-//            }
-        }
-    }
+//        });
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-            mImageView.setImageBitmap(bitmap);
-        }
-    }
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
-        mImageThumbSize = 300;
-        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
-
-
-        ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
-        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
-        mImageFetcher.setLoadingImage(placeholder);
-        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
-
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
-    }
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
 
 
     }
+
     @Override
     public void onBackPressed() {
         finish();
@@ -450,4 +351,106 @@ public class ANCDetailActivity extends Activity {
 
 
     }
+
+//
+//
+//    String mCurrentPhotoPath;
+//
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String imageFileName = "JPEG_" + timeStamp + "_";
+//        File storageDir = Environment.getExternalStoragePublicDirectory(
+//                Environment.DIRECTORY_PICTURES);
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                storageDir      /* directory */
+//        );
+//
+//        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+//        return image;
+//    }
+//    static final int REQUEST_TAKE_PHOTO = 1;
+//    static ImageView mImageView;
+//    static File currentfile;
+//
+//    private void dispatchTakePictureIntent(ImageView imageView) {
+//        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+//        mImageView = imageView;
+//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+////        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+//        // Ensure that there's a camera activity to handle the intent
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            // Create the File where the photo should go
+////            File photoFile = null;
+////            try {
+////                photoFile = createImageFile();
+////            } catch (IOException ex) {
+////                // Error occurred while creating the File
+////
+////            }
+////            // Continue only if the File was successfully created
+////            if (photoFile != null) {
+////                currentfile = photoFile;
+////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+////
+//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+//            startActivityForResult(takePictureIntent, 1);
+////            }
+//        }
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+////            Bundle extras = data.getExtras();
+////            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
+////            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
+//            HashMap<String,String> details = new HashMap<String,String>();
+//            details.put("profilepic",currentfile.getAbsolutePath());
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
+//            mImageView.setImageBitmap(bitmap);
+//        }
+//    }
+//    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
+//        mImageThumbSize = 300;
+//        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
+//
+//
+//        ImageCache.ImageCacheParams cacheParams =
+//                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
+//        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
+//        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
+//        mImageFetcher.setLoadingImage(placeholder);
+//        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
+////        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
+//        mImageFetcher.loadImage("file:///"+file,view);
+//
+////        Uri.parse(new File("/sdcard/cats.jpg")
+//
+//
+//
+//
+//
+////        BitmapFactory.Options options = new BitmapFactory.Options();
+////        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+////        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
+////        view.setImageBitmap(bitmap);
+//    }
+//    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+//        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+//        File externalFile = new File(file);
+//        Uri external = Uri.fromFile(externalFile);
+//        view.setImageURI(external);
+//
+//
+//    }
+
 }

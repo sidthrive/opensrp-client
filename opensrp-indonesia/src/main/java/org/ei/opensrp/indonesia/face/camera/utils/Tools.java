@@ -26,10 +26,24 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
+import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
+import org.ei.opensrp.indonesia.child.AnakDetailActivity;
+import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.ImageConfirmation;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
+import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
+import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
+import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
+import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
 import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
+import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
+import org.ei.opensrp.indonesia.kb.KBDetailActivity;
+import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
+import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
+import org.ei.opensrp.indonesia.pnc.PNCDetailActivity;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -547,7 +561,8 @@ public class Tools {
                                     boolean updated,
                                     FacialProcessing objFace,
                                     int arrayPossition,
-                                    Bitmap storedBitmap) {
+                                    Bitmap storedBitmap,
+                                    String className) {
 
         byte[] faceVector;
 
@@ -598,7 +613,23 @@ public class Tools {
 
         new ImageConfirmation().finish();
 
-        Intent resultIntent = new Intent(appContext.applicationContext(), KIDetailActivity.class);
+        Class<?> origin_class = null;
+
+        if(className.equals(KIDetailActivity.class.getSimpleName())){
+            origin_class = KIDetailActivity.class;
+        }
+//        else if(className.equals(KBDetailActivity.class.getSimpleName())){
+//            origin_class = KBDetailActivity.class;
+//        } else if(className.equals(ANCDetailActivity.class.getSimpleName())){
+//            origin_class = ANCDetailActivity.class;
+//        } else if(className.equals(PNCDetailActivity.class.getSimpleName())){
+//            origin_class = PNCDetailActivity.class;
+//        }
+        else if(className.equals(AnakDetailActivity.class.getSimpleName())){
+            origin_class = AnakDetailActivity.class;
+        }
+
+        Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         appContext.applicationContext().startActivity(resultIntent);

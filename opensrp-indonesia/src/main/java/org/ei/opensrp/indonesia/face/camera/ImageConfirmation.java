@@ -299,16 +299,15 @@ public class ImageConfirmation extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                Log.e(TAG, "onClick: identify " + identifyPerson);
-                Log.e(TAG, "onClick: base_id " + entityId);
 
                 if (!identifyPerson) {
 
                     Log.e(TAG, "onClick: class origin "+str_origin_class );
 
-                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
                 } else {
+                    Log.e(TAG, "onClick: not identify ");
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
                     // TODO: detect origin class

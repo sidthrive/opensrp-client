@@ -552,7 +552,9 @@ public class Tools {
      * @param context
      */
 
-    public static void saveAndClose(android.content.Context context, String entityId, boolean updated, FacialProcessing objFace, int arrayPossition, Bitmap storedBitmap) {
+    public static void saveAndClose(android.content.Context context, String entityId, boolean updated,
+                                    FacialProcessing objFace, int arrayPossition,
+                                    Bitmap storedBitmap, String className) {
 
         byte[] faceVector;
 
@@ -612,6 +614,12 @@ public class Tools {
         }
 
         new ImageConfirmation().finish();
+
+        Class<?> origin_class = null;
+
+        if(className.equals(ChildDetailActivity.class.getSimpleName())){
+            origin_class = ChildDetailActivity.class;
+        }
 
         Intent resultIntent = new Intent(appContext.applicationContext(), ChildDetailActivity.class);
 //        setResult(RESULT_OK, resultIntent);

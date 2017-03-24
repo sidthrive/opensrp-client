@@ -28,6 +28,8 @@ import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -236,15 +238,17 @@ public class PNCDetailActivity extends Activity {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ibuparent);
+        // Set Image
+        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ibuparent.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+
+//        if(ibuparent.getDetails().get("profilepic")!= null){
+//            setImagetoHolderFromUri(PNCDetailActivity.this, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+//        }
+//        else {
+//            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+//        }
 
         txt_hariKeKF.setText(String.format(": %s", humanizeAndDoUPPERCASE(kiobject.getColumnmaps().get("hariKeKF") != null ? kiobject.getColumnmaps().get("hariKeKF") : "-")));
-
-        if(ibuparent.getDetails().get("profilepic")!= null){
-            setImagetoHolderFromUri(PNCDetailActivity.this, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-        }
-        else {
-            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
-        }
         txt_tandaVitalTDDiastolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik") != null ? ibuparent.getDetails().get("tandaVitalTDDiastolik") : "-")));
         txt_tandaVitalTDSistolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDSistolik") != null ? ibuparent.getDetails().get("tandaVitalTDSistolik") : "-")));
 
@@ -317,70 +321,70 @@ public class PNCDetailActivity extends Activity {
         });
 
 
-        kiview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-                bindobject = "kartu_ibu";
-                entityid = pncclient.entityId();
-                Log.e(TAG, "onClick: " + entityid);
-                dispatchTakePictureIntent(kiview);
-
-            }
-        });
-
-
-
-    }
-
-
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
-
-
-    }
-
-
-    String mCurrentPhotoPath;
-
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static ImageView mImageView;
-    static File currentfile;
-    static String bindobject;
-    static String entityid;
-
-
-    private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
+//        kiview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
+//                bindobject = "kartu_ibu";
+//                entityid = pncclient.entityId();
+//                Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(kiview);
 //
 //            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-            startActivityForResult(takePictureIntent, 1);
-//            }
-        }
+//        });
+
+
+
     }
+
+//
+//    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+//        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+//        File externalFile = new File(file);
+//        Uri external = Uri.fromFile(externalFile);
+//        view.setImageURI(external);
+//
+//
+//    }
+//
+//
+//    String mCurrentPhotoPath;
+//
+//    static final int REQUEST_TAKE_PHOTO = 1;
+//    static ImageView mImageView;
+//    static File currentfile;
+//    static String bindobject;
+//    static String entityid;
+//
+//
+//    private void dispatchTakePictureIntent(ImageView imageView) {
+//        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+//        mImageView = imageView;
+//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+////        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+//        // Ensure that there's a camera activity to handle the intent
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            // Create the File where the photo should go
+////            File photoFile = null;
+////            try {
+////                photoFile = createImageFile();
+////            } catch (IOException ex) {
+////                // Error occurred while creating the File
+////
+////            }
+////            // Continue only if the File was successfully created
+////            if (photoFile != null) {
+////                currentfile = photoFile;
+////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+////
+//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+//            startActivityForResult(takePictureIntent, 1);
+////            }
+//        }
+//    }
 
 
 }
