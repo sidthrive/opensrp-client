@@ -11,14 +11,19 @@ import org.ei.opensrp.view.controller.ANMController;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
-public class TestNavigationController extends org.ei.opensrp.view.controller.NavigationController {
+public class SdidtkNavigationController extends org.ei.opensrp.view.controller.NavigationController {
     private Activity activity;
     private ANMController anmController;
+    private org.ei.opensrp.Context context;
 
-    public TestNavigationController(Activity activity, ANMController anmController) {
+    public SdidtkNavigationController(Activity activity, ANMController anmController) {
         super(activity,anmController);
         this.activity = activity;
         this.anmController = anmController;
+    }
+    public SdidtkNavigationController(Activity activity, ANMController anmController, org.ei.opensrp.Context context) {
+        this(activity,anmController);
+        this.context=context;
     }
     @Override
     public void startECSmartRegistry() {

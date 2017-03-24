@@ -76,7 +76,7 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
             }
         });
 
-        ziggyService = context.ziggyService();
+        ziggyService = context().ziggyService();
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -183,7 +183,7 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
-                    displayFormFragment.loadFormData();
+                 //   displayFormFragment.loadFormData();
                     displayFormFragment.setRecordId(entityId);
                     displayFormFragment.setFieldOverides(metaData);
                 }
@@ -213,7 +213,7 @@ public class FormulirDdtkSmartRegisterActivity extends SecuredNativeSmartRegiste
                 if (displayFormFragment != null) {
                     displayFormFragment.hideTranslucentProgressDialog();
                     displayFormFragment.setFormData(null);
-                    displayFormFragment.loadFormData();
+                  //  displayFormFragment.loadFormData();
                 }
 
                 displayFormFragment.setRecordId(null);

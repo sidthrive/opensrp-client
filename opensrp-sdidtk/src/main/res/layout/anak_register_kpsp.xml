@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/client_anak_status_layout"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_margin="2dp"
+    android:layout_weight="14">
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/lbl_anak_tanggal"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/label_date"
+        android:textStyle="normal" />
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/txt_tgl"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/lbl_anak_tanggal" />
+
+
+    <!--                            -->
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/lbl_tinggi"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/lbl_anak_tanggal"
+        android:text="@string/label_height"
+        android:textStyle="normal" />
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/txt_tinggi"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_anak_tanggal"
+        android:layout_toRightOf="@id/lbl_tinggi"
+        android:text="50 CM"
+        android:textStyle="normal" />
+
+
+    <!--                            -->
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/lbl_berat_lahir"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/lbl_tinggi"
+        android:text="@string/label_weight"
+        android:textStyle="normal" />
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/txt_berat_lahir"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_tinggi"
+        android:layout_toRightOf="@id/lbl_berat_lahir"
+        android:text="3300"
+        android:textStyle="normal" />
+
+    <!--                            -->
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/lbl_ling_kepala"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/lbl_berat_lahir"
+        android:text="Ling. Kepala :" />
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/tipe_lahir"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_berat_lahir"
+        android:layout_toRightOf="@id/lbl_ling_kepala"
+        android:text="30"
+        android:textStyle="normal" />
+</RelativeLayout>

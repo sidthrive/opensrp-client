@@ -297,7 +297,7 @@
     <string name="str_child_illness_sam">sam</string>
     <string name="str_pnc_visit_button_label">PNC Visit</string>
 
-    <string name="label_date">Tanggal:</string>
+    <string name="label_date">Tgl:</string>
     <string name="label_weight">Berat:</string>
     <string name="label_height">Tinggi:</string>
     <string name="label_head_cir">Ling Kepala:</string>
