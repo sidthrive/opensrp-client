@@ -90,6 +90,7 @@ public class SpinnerFactory implements FormWidgetFactory {
             spinner.setSelection(indexToSelect + 1, true);
             spinner.setOnItemSelectedListener(listener);
         }
+        ((JsonApi) context).addFormDataView(spinner);
         views.add(spinner);
         if (relevance != null && context instanceof JsonApi) {
             spinner.setTag(R.id.relevance, relevance);
