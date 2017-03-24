@@ -27,8 +27,8 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.face.camera.ClientsList;
 import org.ei.opensrp.gizi.face.camera.ImageConfirmation;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
+import org.ei.opensrp.gizi.gizi.GiziDetailActivity;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.view.activity.ChildDetailActivity;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -617,11 +617,11 @@ public class Tools {
 
         Class<?> origin_class = null;
 
-        if(className.equals(ChildDetailActivity.class.getSimpleName())){
-            origin_class = ChildDetailActivity.class;
+        if(className.equals(GiziDetailActivity.class.getSimpleName())){
+            origin_class = GiziDetailActivity.class;
         }
 
-        Intent resultIntent = new Intent(appContext.applicationContext(), ChildDetailActivity.class);
+        Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
 //        setResult(RESULT_OK, resultIntent);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

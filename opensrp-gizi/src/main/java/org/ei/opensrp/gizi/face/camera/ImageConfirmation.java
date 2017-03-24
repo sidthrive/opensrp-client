@@ -21,11 +21,9 @@ import android.widget.Toast;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
-import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.R;
 
 import org.ei.opensrp.gizi.face.camera.util.FaceConstants;
@@ -33,17 +31,14 @@ import org.ei.opensrp.gizi.face.camera.util.Tools;
 
 import org.ei.opensrp.gizi.fragment.GiziIbuSmartRegisterFragment;
 import org.ei.opensrp.gizi.fragment.GiziSmartRegisterFragment;
+import org.ei.opensrp.gizi.gizi.GiziDetailActivity;
 import org.ei.opensrp.gizi.gizi.GiziSmartRegisterActivity;
 import org.ei.opensrp.gizi.giziIbu.IbuSmartRegisterActivity;
-import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
 
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
@@ -304,13 +299,13 @@ public class ImageConfirmation extends Activity {
                 if (!identifyPerson) {
 
 //                  saveAndClose(entityId);
-                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
-                    ChildDetailActivity.childclient = (CommonPersonObjectClient) arg0.getTag();
-                    Log.e(TAG, "onClick: " + ChildDetailActivity.childclient);
+                    GiziDetailActivity.childclient = (CommonPersonObjectClient) arg0.getTag();
+                    Log.e(TAG, "onClick: " + GiziDetailActivity.childclient);
 //                    Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);
                     Log.e(TAG, "onClick: " + selectedPersonName);
 //                    startActivity(intent);
@@ -387,7 +382,7 @@ public class ImageConfirmation extends Activity {
 
         ImageConfirmation.this.finish();
 
-        Intent resultIntent = new Intent(this, ChildDetailActivity.class);
+        Intent resultIntent = new Intent(this, GiziDetailActivity.class);
         setResult(RESULT_OK, resultIntent);
         startActivityForResult(resultIntent, 1);
 

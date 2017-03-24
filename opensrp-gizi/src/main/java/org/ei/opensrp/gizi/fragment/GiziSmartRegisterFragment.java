@@ -26,8 +26,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.gizi.LoginActivity;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
-import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
-import org.ei.opensrp.gizi.gizi.FlurryFacade;
+import org.ei.opensrp.gizi.gizi.GiziDetailActivity;
 import org.ei.opensrp.gizi.gizi.GiziGrowthChartActivity;
 import org.ei.opensrp.gizi.gizi.GiziServiceModeOption;
 import org.ei.opensrp.gizi.gizi.GiziSmartClientsProvider;
@@ -282,7 +281,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                     CharSequence selections[] = new CharSequence[] {"Detail View", "Charts"};
-                    ChildDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
+                    GiziDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
                     GiziGrowthChartActivity.client = (CommonPersonObjectClient)view.getTag();
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("");
@@ -292,7 +291,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                             // the user clicked on colors[which]
                             if(which == 0)
                             {
-                                Intent intent = new Intent(getActivity(),ChildDetailActivity.class);
+                                Intent intent = new Intent(getActivity(),GiziDetailActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
                             }

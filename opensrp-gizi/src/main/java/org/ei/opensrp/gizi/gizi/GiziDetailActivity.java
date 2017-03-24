@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,23 +15,18 @@ import android.widget.TextView;
 import com.flurry.android.FlurryAgent;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
 import org.ei.opensrp.gizi.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.Log;
-import org.w3c.dom.Text;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,23 +34,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import util.ImageCache;
 import util.ImageFetcher;
-import util.KMS.KmsCalc;
-import util.KMS.KmsPerson;
 import util.growthChart.GrowthChartGenerator;
 
 /**
  * Created by Iq on 26/04/16.
  */
-public class ChildDetailActivity extends Activity {
+public class GiziDetailActivity extends Activity {
     public static CommonPersonObjectClient kiclient;
 
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
-    private static final String TAG = ChildDetailActivity.class.getSimpleName();
+    private static final String TAG = GiziDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
   //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -126,7 +114,7 @@ public class ChildDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(ChildDetailActivity.this, GiziSmartRegisterActivity.class));
+                startActivity(new Intent(GiziDetailActivity.this, GiziSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
 
                 String DetailEnd = timer.format(new Date());
@@ -141,21 +129,36 @@ public class ChildDetailActivity extends Activity {
         System.out.println("columnmaps: " + childclient.getColumnmaps().toString());
         System.out.println("details: "+childclient.getDetails().toString());
 
-        if(childclient.getDetails().get("profilepic")!= null){
-            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
 
-            }
+        String mgender = childclient.getDetails().containsKey("gender") ? childclient.getDetails().get("gender"):"laki";
+
+
+        //start profile image
+
+        int placeholderDrawable= mgender.equalsIgnoreCase("male") ? R.drawable.child_boy_infant:R.drawable.child_girl_infant;
+
+        childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
+        if(childclient.getCaseId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
+
         }
-        else {
-            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") ) {
-                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
-            } else {
-                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
-            }
-        }
+
+//        if(childclient.getDetails().get("profilepic")!= null){
+//            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+//                setImagetoHolderFromUri(GiziDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+//            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+//                setImagetoHolderFromUri(GiziDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
+//
+//            }
+//        }
+//        else {
+//            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") ) {
+//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
+//            } else {
+//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
+//            }
+//        }
 
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
@@ -287,7 +290,7 @@ public class ChildDetailActivity extends Activity {
 
                 }
 
-                Intent intent = new Intent(ChildDetailActivity.this, SmartShutterActivity.class);
+                Intent intent = new Intent(GiziDetailActivity.this, SmartShutterActivity.class);
                 intent.putExtra("IdentifyPerson", false);
                 intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
                 intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name

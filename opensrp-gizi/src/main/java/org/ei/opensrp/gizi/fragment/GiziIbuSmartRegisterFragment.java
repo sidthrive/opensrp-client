@@ -1,8 +1,6 @@
 package org.ei.opensrp.gizi.fragment;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -24,11 +22,8 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.gizi.LoginActivity;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
-import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 import org.ei.opensrp.gizi.gizi.FlurryFacade;
-import org.ei.opensrp.gizi.gizi.GiziGrowthChartActivity;
 import org.ei.opensrp.gizi.giziIbu.IbuServiceModeOption;
-import org.ei.opensrp.gizi.gizi.GiziSmartClientsProvider;
 import org.ei.opensrp.gizi.gizi.GiziSmartRegisterActivity;
 import org.ei.opensrp.gizi.gizi.KICommonObjectFilterOption;
 import org.ei.opensrp.gizi.giziIbu.IbuSmartClientsProvider;
@@ -46,7 +41,6 @@ import org.ei.opensrp.view.dialog.DialogOptionMapper;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
-import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
@@ -277,7 +271,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
             switch (view.getId()) {
 //                case R.id.profile_info_layout:
 //                    CharSequence selections[] = new CharSequence[] {"Detail View", "Charts"};
-//                    ChildDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
+//                    GiziDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
 //                    GiziGrowthChartActivity.client = (CommonPersonObjectClient)view.getTag();
 //                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //                    builder.setTitle("");
@@ -287,7 +281,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
 //                            // the user clicked on colors[which]
 //                            if(which == 0)
 //                            {
-//                                Intent intent = new Intent(getActivity(),ChildDetailActivity.class);
+//                                Intent intent = new Intent(getActivity(),GiziDetailActivity.class);
 //                                startActivity(intent);
 //                                getActivity().finish();
 //                            }

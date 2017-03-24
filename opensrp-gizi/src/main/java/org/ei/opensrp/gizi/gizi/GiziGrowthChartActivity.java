@@ -13,7 +13,6 @@ import com.jjoe64.graphview.GraphView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.gizi.R;
-import org.w3c.dom.Text;
 
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
@@ -46,8 +45,8 @@ public class GiziGrowthChartActivity extends Activity{
             @Override
             public void onClick(View v) {
                 finish();
-                ChildDetailActivity.childclient = client;
-                startActivity(new Intent(GiziGrowthChartActivity.this, ChildDetailActivity.class));
+                GiziDetailActivity.childclient = client;
+                startActivity(new Intent(GiziGrowthChartActivity.this, GiziDetailActivity.class));
                 overridePendingTransition(0, 0);
             }
         });

@@ -38,7 +38,7 @@
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
-        <activity android:name=".gizi.ChildDetailActivity"
+        <activity android:name=".gizi.GiziDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"

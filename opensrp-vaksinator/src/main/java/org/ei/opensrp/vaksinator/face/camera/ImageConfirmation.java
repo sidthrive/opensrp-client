@@ -312,7 +312,7 @@ public class ImageConfirmation extends Activity {
                 if (!identifyPerson) {
 
 //                  saveAndClose(entityId);
-                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
