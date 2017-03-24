@@ -65,7 +65,6 @@ import static android.view.View.INVISIBLE;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-    private  LocationPickerView clinicSelection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -167,7 +166,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
         }
 
-        updateLocationText(clinicSelection, clinicSelection.getSelectedItem());
+        updateLocationText();
     }
 
     @Override
@@ -197,22 +196,11 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         updateSearchView();
         populateClientListHeaderView(view);
 
-
-        View viewParent = (View) appliedSortView.getParent();
-        viewParent.setVisibility(View.GONE);
-
-        clinicSelection = (LocationPickerView) view.findViewById(R.id.clinic_selection);
-        clinicSelection.init(context());
-
-
         View qrCode = view.findViewById(R.id.scan_qr_code);
+        qrCode.setOnClickListener(clientActionHandler);
+
         TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startQrCodeScanner();
-            }
-        });
+
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
         String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
         if (!preferredName.isEmpty()) {
@@ -236,12 +224,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
     }
 
-    private void updateLocationText(CustomFontTextView clinicSelection, String newLocation) {
-        clinicSelection.setText(newLocation);
-    }
-
     public LocationPickerView getLocationPickerView() {
-        return clinicSelection;
+        return getClinicSelection();
     }
 
     public void initializeQueries() {
@@ -317,6 +301,13 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                     break;
 
+                case R.id.global_search:
+                    ((ChildSmartRegisterActivity) getActivity()).startAdvancedSearch();
+                    break;
+
+                case R.id.scan_qr_code:
+                    ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
+                    break;
             }
         }
     }
@@ -422,12 +413,14 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
 
         ImageButton globalSearchButton = ((ImageButton) mView.findViewById(R.id.global_search));
-        globalSearchButton.setOnClickListener(new View.OnClickListener() {
+        globalSearchButton.setOnClickListener(clientActionHandler);
+
+/*        globalSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.show();
             }
-        });
+        }); */
     }
 
     private void search(EditText txtSearch, Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
@@ -479,10 +472,5 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         return null;
 
     }
-
-    private void startQrCodeScanner() {
-        ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
-    }
-
 
 }

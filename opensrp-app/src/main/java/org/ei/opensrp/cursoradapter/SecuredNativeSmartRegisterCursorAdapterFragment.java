@@ -150,7 +150,9 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
 
     protected void setupViews(View view) {
         setupNavBarViews(view);
-        populateClientListHeaderView(getDefaultOptionsProvider().serviceMode().getHeaderProvider(), view);
+        if(getDefaultOptionsProvider() != null) {
+            populateClientListHeaderView(getDefaultOptionsProvider().serviceMode().getHeaderProvider(), view);
+        }
 
         clientsProgressView = (ProgressBar) view.findViewById(R.id.client_list_progress);
         clientsView = (ListView) view.findViewById(R.id.list);
@@ -265,14 +267,16 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
 
     private void updateDefaultOptions() {
         currentSearchFilter = new ECSearchOption(null);
-        currentVillageFilter = getDefaultOptionsProvider().villageFilter();
-        currentServiceModeOption = getDefaultOptionsProvider().serviceMode();
-        currentSortOption = getDefaultOptionsProvider().sortOption();
+        if(getDefaultOptionsProvider() != null) {
+            currentVillageFilter = getDefaultOptionsProvider().villageFilter();
+            currentServiceModeOption = getDefaultOptionsProvider().serviceMode();
+            currentSortOption = getDefaultOptionsProvider().sortOption();
 
-        appliedSortView.setText(currentSortOption.name());
-        appliedVillageFilterView.setText(currentVillageFilter.name());
-        serviceModeView.setText(currentServiceModeOption.name());
-        titleLabelView.setText(getDefaultOptionsProvider().nameInShortFormForTitle());
+            appliedSortView.setText(currentSortOption.name());
+            appliedVillageFilterView.setText(currentVillageFilter.name());
+            serviceModeView.setText(currentServiceModeOption.name());
+            titleLabelView.setText(getDefaultOptionsProvider().nameInShortFormForTitle());
+        }
     }
 
     private void populateClientListHeaderView(SecuredNativeSmartRegisterActivity.ClientsHeaderProvider headerProvider, View view) {

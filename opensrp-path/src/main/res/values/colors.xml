@@ -63,4 +63,6 @@
     <color name="record_weight_grey_bg_st">#f4f4f4</color>
     <color name="record_weight_grey_bg_end">#ebebeb</color>
 
+    <color name="transparent_dark_blue">#ff196d99</color>
+
 </resources>
