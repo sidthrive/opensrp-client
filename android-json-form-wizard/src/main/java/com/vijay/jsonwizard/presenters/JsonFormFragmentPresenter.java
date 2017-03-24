@@ -113,10 +113,8 @@ public class JsonFormFragmentPresenter extends MvpBasePresenter<JsonFormFragment
     }
 
     public ValidationStatus writeValuesAndValidate(LinearLayout mainView) {
-        int childCount = mainView.getChildCount();
         ValidationStatus firstError = null;
-        for (int i = 0; i < childCount; i++) {
-            View childAt = mainView.getChildAt(i);
+        for (View childAt : formFragment.getJsonApi().getFormDataViews()) {
             String key = (String) childAt.getTag(R.id.key);
             String openMrsEntityParent = (String) childAt.getTag(R.id.openmrs_entity_parent);
             String openMrsEntity = (String) childAt.getTag(R.id.openmrs_entity);

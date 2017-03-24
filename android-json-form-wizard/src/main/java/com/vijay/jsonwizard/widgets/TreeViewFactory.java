@@ -143,6 +143,7 @@ public class TreeViewFactory implements FormWidgetFactory {
                 ((JsonApi) context).addConstrainedView(editText);
             }
 
+            ((JsonApi) context).addFormDataView(editText);
             views.add(editText);
         } catch (Exception e) {
             e.printStackTrace();

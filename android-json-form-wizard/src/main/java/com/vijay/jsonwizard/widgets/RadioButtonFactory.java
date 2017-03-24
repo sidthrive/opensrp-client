@@ -66,6 +66,7 @@ public class RadioButtonFactory implements FormWidgetFactory {
                 radioButton.setLayoutParams(getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, (int) context
                         .getResources().getDimension(R.dimen.extra_bottom_margin)));
             }
+            ((JsonApi) context).addFormDataView(radioButton);
             views.add(radioButton);
             if (relevance != null && context instanceof JsonApi) {
                 radioButton.setTag(R.id.relevance, relevance);
