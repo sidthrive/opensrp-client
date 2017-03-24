@@ -362,6 +362,10 @@
         "openmrs_choice_ids": {
           "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the place of birth"
         }
       },
       {
@@ -417,7 +421,7 @@
         "key": "Residential_Area",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "personal_address",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "address3",
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Child's residential area *",
@@ -460,7 +464,7 @@
         "key": "Residential_Area_Other",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "personal_address",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "address3",
         "type": "edit_text",
         "hint": "Other residential area *",
         "edit_type": "name",
@@ -479,7 +483,7 @@
         "key": "Residential_Address",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address1",
+        "openmrs_entity_id": "address2",
         "type": "edit_text",
         "hint": "Home address *",
         "edit_type": "name",
@@ -492,7 +496,7 @@
         "key": "Physical_Landmark",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
+        "openmrs_entity_id": "address1",
         "type": "edit_text",
         "hint": "Landmark",
         "edit_type": "name"
@@ -529,8 +533,8 @@
       {
         "key": "PMTCT_Status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "HIV exposure",
         "values": [
