@@ -35,7 +35,7 @@ public class UniqueIdRepository extends SQLiteOpenHelper{
     }
 
     public void saveUniqueId(String uniqueId) {
-        System.out.println("uniqueId on saveUniqueId method = "+uniqueId);
+        //System.out.println("uniqueId on saveUniqueId method = "+uniqueId);
         if(Long.parseLong(uniqueId.substring(0,8))>Long.parseLong("20000000"))
             uniqueId = "10000000";
         SQLiteDatabase database = this.getWritableDatabase();

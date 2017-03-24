@@ -151,7 +151,7 @@ public class UniqueIdService implements AdditionalSyncService {
                                     baseURL,
                                     UNIQUE_ID_PATH);
                     Response<String> refillResponse = httpAgent.fetch(uri);
-                    System.out.println(refillResponse.toString());
+                    //System.out.println(refillResponse.toString());
                     if (refillResponse.isFailure()) {
                             logError(format("Unique id pull failed"));
                             return fetchedFailed;
@@ -178,7 +178,7 @@ public class UniqueIdService implements AdditionalSyncService {
                     JSONObject ids = new JSONObject(payload);
                     JSONArray uniqueId = ids.getJSONArray("identifiers");
                     for (int i = 0; i < uniqueId.length(); i++) {
-                        System.out.println("unique id "+i+", : "+uniqueId.getString(i));
+                        //System.out.println("unique id "+i+", : "+uniqueId.getString(i));
                         }
                     for (int i = 0; i < uniqueId.length(); i++) {
                         uniqueIdController.saveUniqueId(uniqueId.getString(i));
