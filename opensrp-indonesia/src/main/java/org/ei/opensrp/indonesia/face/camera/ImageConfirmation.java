@@ -303,7 +303,7 @@ public class ImageConfirmation extends Activity {
 
                     Log.e(TAG, "onClick: class origin "+str_origin_class );
 
-//                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();

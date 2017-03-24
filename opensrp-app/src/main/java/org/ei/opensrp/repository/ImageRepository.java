@@ -33,10 +33,10 @@ public class ImageRepository extends DrishtiRepository {
     public static final String filecategory_COLUMN = "filecategory";
 
     public static final String filevector_COLUMN = "filevector";
-    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN,filecategory_COLUMN, filevector_COLUMN, bfrStatus_COLUMN};
+    public static final String[] Image_TABLE_COLUMNS = {ID_COLUMN, anm_ID_COLUMN, entityID_COLUMN, contenttype_COLUMN, filepath_COLUMN, syncStatus_COLUMN, filecategory_COLUMN, filevector_COLUMN, bfrStatus_COLUMN};
     public static final String Vector_TABLE_NAME = "VectorList";
     public static final String VID_COLUMN = "headerVector";
-    private static final String Vector_SQL = "CREATE TABLE VectorList("+ numberUser +" integer PRIMARY KEY, "+ VID_COLUMN +" TEXT NOT NULL UNIQUE)";
+    private static final String Vector_SQL = "CREATE TABLE VectorList(" + numberUser + " integer PRIMARY KEY, " + VID_COLUMN + " TEXT NOT NULL UNIQUE)";
     public static final String[] Vector_TABLE_COLUMNS = {
             numberUser,
             VID_COLUMN,
@@ -50,6 +50,7 @@ public class ImageRepository extends DrishtiRepository {
 
     public static String TYPE_Unbuffered = "Unbuffered";
     public static String TYPE_Buffered = "Buffered";
+    private String filePath_COLUMN;
 
     @Override
     protected void onCreate(SQLiteDatabase database) {
@@ -171,8 +172,8 @@ public class ImageRepository extends DrishtiRepository {
 
     }
 
-    public void insertOrUpdate(String entityId, String faceVector) {
-        Log.e(TAG, "insertOrUpdate: "+"start "+entityId );
+    public void createOrUpdate(String entityId, String faceVector) {
+        Log.e(TAG, "createOrUpdate: "+"start "+entityId );
         SQLiteDatabase db = masterRepository.getReadableDatabase();
         ContentValues values = new ContentValues();
 
@@ -192,7 +193,7 @@ public class ImageRepository extends DrishtiRepository {
 
 //        long id = db.insertWithOnConflict(Vector_TABLE_NAME, null, values,  SQLiteDatabase.CONFLICT_IGNORE);
         long id = db.insertWithOnConflict(Image_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        Log.e(TAG, "insertOrUpdate: id "+ id );
+        Log.e(TAG, "createOrUpdate: id "+ id );
         if (id == -1) {
 //            db.update(Vector_TABLE_NAME, values, entityID_COLUMN + "=?" , new String[]{String.valueOf(entityId)});
             db.update(Image_TABLE_NAME, values, entityID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
@@ -212,14 +213,14 @@ public class ImageRepository extends DrishtiRepository {
     }
 
 
-    public void insertOrUpdate(ProfileImage profileImage, String uid) {
+    public void createOrUpdate(ProfileImage profileImage, String uid) {
         SQLiteDatabase db = masterRepository.getReadableDatabase();
 
-        long id = db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-        Log.e(TAG, "insertOrUpdate: id insert new "+ id );
-        if (id == -1) {
-            Log.e(TAG, "insertOrUpdate: "+ "UPDATED" );
-            db.update(Vector_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
+        long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
+        Log.e(TAG, "createOrUpdate: id insert new "+ id );
+        if (id == 0) {
+            Log.e(TAG, "createOrUpdate: " );
+            db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
         }
 
         close(profileImage.getEntityID());
@@ -267,4 +268,31 @@ public class ImageRepository extends DrishtiRepository {
         return vectorHeader;
 
     }
+
+    public ArrayList<String> findAllUnDownloaded() {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+//            Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, filepath_COLUMN + " IS NULL OR "+ filepath_COLUMN+ " = ?", new String[]{""}, null, null, null, null);\
+        Cursor cursor = database.rawQuery("SELECT base_entity_id FROM ec_kartu_ibu \n" +
+                "UNION \n" +
+                "SELECT base_entity_id FROM ec_anak WHERE base_entity_id IS NOT NULL AND base_entity_id != ''", null);
+        ArrayList<String> mArrayList = new ArrayList<String>();
+        try {
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    mArrayList.add(cursor.getString(0)); //add the item
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "findAllUnDownloaded: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return mArrayList;
+    }
+
 }

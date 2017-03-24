@@ -23,6 +23,7 @@ import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -64,7 +65,7 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
         clientViewLayoutParams = new AbsListView.LayoutParams(MATCH_PARENT,
                 (int) context.getResources().getDimension(org.ei.opensrp.R.dimen.list_item_height));
         txtColorBlack = context.getResources().getColor(org.ei.opensrp.R.color.text_black);
-        mImageLoader = BidanApplication.getInstance().getCachedImageLoaderInstance();
+        mImageLoader = DrishtiApplication.getCachedImageLoaderInstance();
 
 
     }
@@ -152,9 +153,9 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
 
         String date = pc.getDetails().get("PNCDate") != null ? pc.getDetails().get("PNCDate") : "";
         String vit_a = pc.getDetails().get("pelayananfe") != null ? pc.getDetails().get("pelayananfe") : "";
-        viewHolder.tanggal_kunjungan.setText(context.getString(R.string.str_pnc_delivery_date) + " " + date);
+        viewHolder.tanggal_kunjungan.setText(String.format("%s %s", context.getString(R.string.str_pnc_delivery_date), date));
 
-        viewHolder.vit_a.setText(context.getString(R.string.fe) + " " + vit_a);
+        viewHolder.vit_a.setText(String.format("%s %s", context.getString(R.string.fe), vit_a));
 
         viewHolder.td_suhu.setText(humanize(pc.getDetails().get("tandaVitalSuhu") != null ? pc.getDetails().get("tandaVitalSuhu") : ""));
 
@@ -181,7 +182,7 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
                 pc.getDetails().get("highRiskLabourTBRisk"), null, null, null, null, null, viewHolder.img_hrl_badge);
 
         String kf_ke = pc.getDetails().get("hariKeKF")!=null?pc.getDetails().get("hariKeKF"):"";
-        viewHolder.KF.setText(context.getString(R.string.hari_ke_kf)+" "+ humanizeAndDoUPPERCASE(kf_ke));
+        viewHolder.KF.setText(String.format("%s %s", context.getString(R.string.hari_ke_kf), humanizeAndDoUPPERCASE(kf_ke)));
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
         viewHolder.village_name.setText(pc.getDetails().get("address1")!=null?pc.getDetails().get("address1"):"");
@@ -192,7 +193,7 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if (pc.getCaseId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            mImageLoader.getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
         //end profile image
 
