@@ -44,7 +44,9 @@ import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
 public class ANCDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+
+    private static final String TAG = ANCDetailActivity.class.getSimpleName();
+//    private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;

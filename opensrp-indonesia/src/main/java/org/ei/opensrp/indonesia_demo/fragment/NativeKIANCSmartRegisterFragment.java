@@ -202,14 +202,14 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         return "";
     }
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
+        return "CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
                 "WHEN alerts.status = 'normal' THEN '3'\n" +
                 "WHEN alerts.status = 'expired' THEN '4'\n" +
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void initializeQueries(String s){
         KIANCClientsProvider kiscp = new KIANCClientsProvider(getActivity(),clientActionHandler,context.alertService());
@@ -220,7 +220,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ibu");
         countqueryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        countSelect = countqueryBUilder.mainCondition(" ibu.isClosed !='true'  and ibu.type = 'anc'");
+        countSelect = countqueryBUilder.mainCondition(" ibu.isClosed != 'true' AND ibu.type = 'anc'");
 //        mainCondition = " isClosed !='true' and type = 'anc'";
 
         if (s == null || Objects.equals(s, "!")) {
@@ -230,8 +230,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 //        mainCondition = " isClosed !='true' and type = 'anc'";
         } else {
             Log.e(TAG, "initializeQueries: init " + s);
-
-        mainCondition = "isClosed !='true' and type = 'anc' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "isClosed !='true' and type = 'anc' AND kartuIbuId LIKE '%" + s + "%'";
         }
 
         super.CountExecute();
@@ -239,7 +238,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ibu", new String[]{"ibu.isClosed", "ibu.details", "ibu.ancDate", "ibu.ancKe","kartu_ibu.namalengkap","kartu_ibu.umur","kartu_ibu.namaSuami"});
         queryBUilder.customJoin("LEFT JOIN kartu_ibu ON ibu.kartuIbuId = kartu_ibu.id");
-        mainSelect = queryBUilder.mainCondition(" ibu.isClosed !='true' and ibu.type = 'anc'");
+        mainSelect = queryBUilder.mainCondition("ibu.isClosed !='true' AND ibu.type = 'anc'");
      //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
