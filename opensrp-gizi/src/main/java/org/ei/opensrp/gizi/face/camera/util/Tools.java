@@ -24,7 +24,6 @@ import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 import org.apache.commons.lang3.ArrayUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.gizi.face.camera.ClientsList;
 import org.ei.opensrp.gizi.face.camera.ImageConfirmation;
 import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
@@ -525,7 +524,7 @@ public class Tools {
                 // TODO : fetch vector from imagebitmap
                 profileImage.setFilevector(faceVector);
 
-                imageRepo.insertOrUpdate(profileImage, uid);
+                imageRepo.createOrUpdate(profileImage, uid);
 
             }
 

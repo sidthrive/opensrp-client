@@ -163,7 +163,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     String url= FileUtilities.getImageUrl(entityId);
 //                    Log.e(TAG, "getImageByClientId: "+url);
                     Log.e(TAG, "getImageByClientId: Image Not Found "+ entityId);
-                    get(url,opensrpImageListener);
+                    get(url, opensrpImageListener);
 
                 }
             }
@@ -192,6 +192,7 @@ public class OpenSRPImageLoader extends ImageLoader {
             Log.e(TAG, e.getMessage(), e);
         }
     }
+
 
     private class LoadBitmapFromDiskTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -477,6 +478,8 @@ public class OpenSRPImageLoader extends ImageLoader {
                 if (response.getBitmap() != null) {
                     view.setImageBitmap(response.getBitmap());
 
+                    final Object[] uid = new Object[1];
+
                     // perform I/O on non UI thread
                     if (!isImmediate) {
                     //pass the entity id to act as the file name . Remember to always set this value as a tag in the image view
@@ -494,6 +497,12 @@ public class OpenSRPImageLoader extends ImageLoader {
         };
     }
 
+
+
+//    public static OpenSRPImageListener getStaticImageListener(String uid) {
+//        ImageView view = new ImageView(and)
+//        return getStaticImageListener((ImageView) uid, 0, 0);
+//    }
     private static CompressFormat getCompressFormat(String absoluteFileName) {
         String[] parts = absoluteFileName.split("\\.");
         String imgExtension = parts[parts.length - 1];

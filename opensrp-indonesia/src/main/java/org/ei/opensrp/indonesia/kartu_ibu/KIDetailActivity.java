@@ -152,7 +152,6 @@ public class KIDetailActivity extends Activity {
         detailsRepository.updateDetails(kiclient);
 
         //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-        Log.e(TAG, "onCreate: " );
         DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
 
 
