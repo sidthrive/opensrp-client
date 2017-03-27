@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.service.AlertService;
@@ -29,20 +30,24 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import util.DateUtils;
 import util.ImageUtils;
+import util.VaccinateActionUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.fillValue;
 import static util.Utils.getName;
 import static util.Utils.getValue;
+import static util.VaccinatorUtils.generateScheduleList;
+import static util.VaccinatorUtils.nextVaccineDue;
+import static util.VaccinatorUtils.receivedVaccines;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -55,6 +60,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
     VaccineRepository vaccineRepository;
     WeightRepository weightRepository;
     private final AbsListView.LayoutParams clientViewLayoutParams;
+    private static final String VACCINES_FILE = "vaccines.json";
 
     public ChildSmartClientsProvider(Context context, View.OnClickListener onClickListener,
                                      AlertService alertService, VaccineRepository vaccineRepository, WeightRepository weightRepository) {
@@ -90,13 +96,10 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         }
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
-        String gender = getValue(pc.getColumnmaps(), "gender", true);
-        ((ImageView) convertView.findViewById(R.id.child_profilepic)).setImageResource(ImageUtils.profileImageResourceByGender(gender));
-
         String dobString = getValue(pc.getColumnmaps(), "dob", false);
         String duration = "";
         if (StringUtils.isNotBlank(dobString)) {
-            DateTime dateTime = new DateTime(getValue(pc.getColumnmaps(), "dob", false));
+            DateTime dateTime = new DateTime(dobString);
             duration = DateUtils.getDuration(dateTime);
             if (duration != null) {
                 fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
@@ -107,6 +110,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         if (client.entityId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            String gender = getValue(pc.getColumnmaps(), "gender", true);
             convertView.findViewById(R.id.child_profilepic).setTag(org.ei.opensrp.R.id.entity_id, pc.getCaseId());
             DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener((ImageView) convertView.findViewById(R.id.child_profilepic), ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
         }
@@ -135,50 +139,86 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         // Alerts
         List<Vaccine> vaccines = vaccineRepository.findByEntityId(pc.entityId());
-        Map<String, Triple<Long, Long, String>> map = vaccinesMap(vaccines, dobString);
+        Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+
+        List<Alert> alertList = alertService.findByEntityIdAndAlertNames(pc.entityId(),
+                VaccinateActionUtils.allAlertNames("child"));
+
+        List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
         State state = State.FULLY_IMMUNIZED;
         String stateKey = null;
-        for (Triple<Long, Long, String> triple : map.values()) {
-            Date dateDue = new Date(triple.getLeft());
 
-            Date dateDone = null;
-            if (triple.getMiddle() > 0l) {
-                dateDone = new Date(triple.getMiddle());
+        Map<String, Object> nv = null;
+        if (vaccines.isEmpty()) {
+            List<VaccineRepo.Vaccine> vList = new ArrayList<>();
+            vList.add(VaccineRepo.Vaccine.bcg);
+            vList.add(VaccineRepo.Vaccine.opv0);
+            nv = nextVaccineDue(sch, vList);
+        }
+
+        if(nv == null){
+            Date lastVaccine = null;
+            if (!vaccines.isEmpty()) {
+                Vaccine vaccine = vaccines.get(vaccines.size() - 1);
+                lastVaccine = vaccine.getDate();
             }
 
-            if (dateDone == null) {
+            nv = nextVaccineDue(sch, lastVaccine);
+        }
+
+        if (nv != null) {
+            DateTime dueDate = (DateTime) nv.get("date");
+            VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get("vaccine");
+            stateKey = VaccinateActionUtils.stateKey(vaccine);
+            if (nv.get("alert") == null) {
+                state = State.NO_ALERT;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("normal")) {
+                state = State.DUE;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("upcoming")) {
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
                 today.set(Calendar.MINUTE, 0);
                 today.set(Calendar.SECOND, 0);
                 today.set(Calendar.MILLISECOND, 0);
 
-                if (dateDue.getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    state = State.OVERDUE;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dateDue.getTime() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    state = State.DUE;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dateDue.getTime() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
+                if (dueDate.getMillis() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dueDate.getMillis() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
                     state = State.UPCOMING_NEXT_7_DAYS;
-                    stateKey = triple.getRight();
-                    break;
-                } else if (dateDue.getTime() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
+                } else {
                     state = State.UPCOMING;
-                    stateKey = triple.getRight();
-                    break;
                 }
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("urgent")) {
+                state = State.OVERDUE;
+            } else if (((Alert) nv.get("alert")).status().value().equalsIgnoreCase("expired")) {
+                state = State.EXPIRED;
             }
+        } else {
+            state = State.WAITING;
         }
+
+        recordVaccination.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
         if (state.equals(State.FULLY_IMMUNIZED)) {
             recordVaccination.setText("Fully\nimmunized");
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_check, 0, 0, 0);
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.INACTIVE)) {
+            recordVaccination.setText("Inactive");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_icon_status_inactive, 0, 0, 0);
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.WAITING)) {
+            recordVaccination.setText("Waiting");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.EXPIRED)) {
+            recordVaccination.setText("Expired");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setEnabled(false);
         } else if (state.equals(State.UPCOMING)) {
             recordVaccination.setText("Due\n" + stateKey);
@@ -188,18 +228,23 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         } else if (state.equals(State.UPCOMING_NEXT_7_DAYS)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_light_blue_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_light_blue_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.DUE)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_blue_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_blue_bg));
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.OVERDUE)) {
             recordVaccination.setText("Record\n" + stateKey);
             recordVaccination.setTextColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
-            recordVaccination.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
+            recordVaccination.setBackground(context.getResources().getDrawable(R.drawable.due_vaccine_red_bg));
             recordVaccination.setEnabled(true);
+        } else if (state.equals(State.NO_ALERT)) {
+            recordVaccination.setText("Due\n" + stateKey);
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setEnabled(false);
         }
 
     }
@@ -231,61 +276,15 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         return inflater;
     }
 
-    private Map<String, Triple<Long, Long, String>> vaccinesMap(List<Vaccine> vaccines, String
-            dobString) {
-        Map<String, Triple<Long, Long, String>> map = new LinkedHashMap<>();
-
-        int daysAfter = 0;
-        String text = "at birth";
-
-        map.put("OPV 0", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("BCG", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 42;
-        text = "6 weeks";
-
-        map.put("OPV 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Penta 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("PCV 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Rota 1", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-        daysAfter = 70;
-        text = "10 weeks";
-
-        map.put("OPV 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Penta 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("PCV 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-        map.put("Rota 2", Triple.of(dueDate(dobString, daysAfter), 0l, text));
-
-
-        if (vaccines != null) {
-            for (Vaccine vaccine : vaccines) {
-                if (map.containsKey(vaccine.getName()) && vaccine.getDate() != null) {
-                    Triple<Long, Long, String> triple = map.get(vaccine.getName());
-                    map.put(vaccine.getName(), Triple.of(triple.getLeft(), vaccine.getDate().getTime(), triple.getRight()));
-                }
-            }
-        }
-        return map;
-    }
-
-    private Long dueDate(String dobString, int daysAfter) {
-        if (StringUtils.isNotBlank(dobString)) {
-            Calendar dobCalender = Calendar.getInstance();
-            DateTime dateTime = new DateTime(dobString);
-            dobCalender.setTime(dateTime.toDate());
-            dobCalender.add(Calendar.DATE, daysAfter);
-            return dobCalender.getTimeInMillis();
-        }
-        return 0l;
-    }
-
     public enum State {
         DUE,
         OVERDUE,
         UPCOMING_NEXT_7_DAYS,
         UPCOMING,
         INACTIVE,
+        EXPIRED,
+        WAITING,
+        NO_ALERT,
         FULLY_IMMUNIZED
     }
 }

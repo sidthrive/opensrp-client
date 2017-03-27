@@ -20,7 +20,7 @@
         }
       },
       {
-        "name": "BCG 1",
+        "name": "BCG",
         "type": "BCG",
         "openmrs_date": {
           "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

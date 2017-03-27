@@ -149,6 +149,21 @@ public class AlertRepository extends DrishtiRepository {
         return readAllAlerts(cursor);
     }
 
+
+    public Alert findByEntityIdAndScheduleName(String entityId, String scheduleName) {
+        SQLiteDatabase database = masterRepository.getReadableDatabase();
+        String[] caseAndScheduleNameColumnValues = {entityId, scheduleName};
+
+        String caseAndScheduleNameColumnSelections = ALERTS_CASEID_COLUMN + " = ? AND " + ALERTS_SCHEDULE_NAME_COLUMN + " = ?";
+
+        Cursor cursor = database.query(ALERTS_TABLE_NAME, ALERTS_TABLE_COLUMNS, caseAndScheduleNameColumnSelections, caseAndScheduleNameColumnValues, null, null, null, null);
+        List<Alert> alertList =  readAllAlerts(cursor);
+        if(!alertList.isEmpty()) {
+            return alertList.get(0);
+        }
+        return null;
+    }
+
     private String insertPlaceholdersForInClause(int length) {
         return repeat("?", ",", length);
     }

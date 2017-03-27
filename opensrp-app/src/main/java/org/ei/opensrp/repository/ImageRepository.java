@@ -30,9 +30,13 @@ public class ImageRepository extends DrishtiRepository {
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
 
+    private static final String ENTITY_ID_INDEX = "CREATE INDEX " + Image_TABLE_NAME + "_" + entityID_COLUMN + "_index ON " + Image_TABLE_NAME + "(" + entityID_COLUMN + " COLLATE NOCASE);";
+
+
     @Override
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(Image_SQL);
+        database.execSQL(ENTITY_ID_INDEX);
     }
 
     public void add(ProfileImage Image) {

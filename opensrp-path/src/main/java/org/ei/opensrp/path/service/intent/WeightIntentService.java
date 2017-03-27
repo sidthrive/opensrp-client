@@ -21,6 +21,8 @@ import util.JsonFormUtils;
  */
 public class WeightIntentService extends IntentService {
     private static final String TAG = WeightIntentService.class.getCanonicalName();
+    public static final String EVENT_TYPE = "Growth Monitoring";
+    public static final String ENTITY_TYPE = "weight";
     private WeightRepository weightRepository;
 
 
@@ -35,8 +37,6 @@ public class WeightIntentService extends IntentService {
             List<Weight> weights = weightRepository.findUnSyncedBeforeTime(24);
             if (!weights.isEmpty()) {
                 for (Weight weight : weights) {
-                    String eventType = "Growth Monitoring";
-                    String entityType = "weight";
 
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(JsonFormUtils.KEY, "Weight_Kgs");
@@ -50,7 +50,7 @@ public class WeightIntentService extends IntentService {
                     JSONArray jsonArray = new JSONArray();
                     jsonArray.put(jsonObject);
 
-                    JsonFormUtils.createWeightEvent(getApplicationContext(), weight, eventType, entityType, jsonArray);
+                    JsonFormUtils.createWeightEvent(getApplicationContext(), weight, EVENT_TYPE, ENTITY_TYPE, jsonArray);
 
                     weightRepository.close(weight.getId());
                 }

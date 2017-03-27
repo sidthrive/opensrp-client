@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import org.apache.http.HttpResponse;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.R;
+import org.ei.opensrp.clientandeventmodel.Client;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -41,6 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -154,15 +156,28 @@ public class OpenSRPImageLoader extends ImageLoader {
 
             } else {
                 //get image record from the db
-                ImageRepository imageRepo = (ImageRepository)org.ei.opensrp.Context.getInstance().imageRepository();
-                ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
-                if(imageRecord!=null) {
-                    get(imageRecord, opensrpImageListener);
-                }else{
-                    String url= FileUtilities.getImageUrl(entityId);
-                    get(url,opensrpImageListener);
+                final OpenSRPImageLoader openSRPImageLoader = this;
+                startAsyncTask(new AsyncTask<Void, Void, ProfileImage>() {
 
-                }
+                    @Override
+                    protected ProfileImage doInBackground(Void... params) {
+                        ImageRepository imageRepo = org.ei.opensrp.Context.getInstance().imageRepository();
+                        ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
+                        return imageRecord;
+                    }
+
+                    @Override
+                    protected void onPostExecute(ProfileImage imageRecord) {
+                        if (imageRecord != null) {
+                            openSRPImageLoader.get(imageRecord, opensrpImageListener);
+                        } else {
+                            String url = FileUtilities.getImageUrl(entityId);
+                            openSRPImageLoader.get(url, opensrpImageListener);
+
+                        }
+                    }
+                }, null);
+
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -182,8 +197,9 @@ public class OpenSRPImageLoader extends ImageLoader {
             }
             opensrpImageListener.setAbsoluteFileName(image.getFilepath());
 
+            String[] filePathArray = { image.getFilepath() };
             LoadBitmapFromDiskTask loadBitmap = new LoadBitmapFromDiskTask(opensrpImageListener, image, this);
-            loadBitmap.execute(image.getFilepath());
+            startAsyncTask(loadBitmap, filePathArray);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -549,6 +565,20 @@ public class OpenSRPImageLoader extends ImageLoader {
                     }
                 }
             }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    protected <T> void  startAsyncTask(AsyncTask<T, ?, ?> asyncTask, T[] params) {
+        if (params == null) {
+            @SuppressWarnings("unchecked")
+            T[] arr = (T[]) new Void[0];
+            params = arr;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
+        } else {
+            asyncTask.execute(params);
         }
     }
 

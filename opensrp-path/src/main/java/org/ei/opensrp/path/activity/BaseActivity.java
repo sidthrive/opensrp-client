@@ -1,10 +1,12 @@
 package org.ei.opensrp.path.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -26,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
@@ -37,7 +40,6 @@ import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.sync.AfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -376,18 +378,31 @@ public abstract class BaseActivity extends AppCompatActivity
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(R.string.saving_dialog_title));
-        progressDialog.setMessage(getString(R.string.saving_dialog_message));
+        progressDialog.setMessage(getString(R.string.please_wait_message));
     }
 
-    protected  void showProgressDialog(){
-        if(progressDialog != null){
+    protected void showProgressDialog(String title, String message) {
+        if (progressDialog != null) {
+            if (StringUtils.isNotBlank(title)) {
+                progressDialog.setTitle(title);
+            }
+
+            if (StringUtils.isNotBlank(message)) {
+                progressDialog.setMessage(message);
+            }
+
             progressDialog.show();
         }
     }
 
-    protected  void hideProgressDialog(){
-        if(progressDialog != null){
+    protected void showProgressDialog() {
+        showProgressDialog(getString(R.string.saving_dialog_title), getString(R.string.please_wait_message));
+    }
+
+    protected void hideProgressDialog() {
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
+
 }

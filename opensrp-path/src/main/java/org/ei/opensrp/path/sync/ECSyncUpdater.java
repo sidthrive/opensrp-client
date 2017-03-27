@@ -64,7 +64,6 @@ public class ECSyncUpdater {
             }
 
             JSONObject jsonObject = new JSONObject((String) resp.payload());
-            Log.i(ECSyncUpdater.class.getName(), "FETCHED" + jsonObject.toString());
             return jsonObject;
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);

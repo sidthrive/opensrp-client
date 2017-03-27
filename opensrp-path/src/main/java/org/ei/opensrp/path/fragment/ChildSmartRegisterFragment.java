@@ -1,14 +1,11 @@
 package org.ei.opensrp.path.fragment;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -31,6 +28,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.CursorSortOption;
@@ -42,6 +40,7 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
@@ -65,6 +64,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.GlobalSearchUtils;
+import util.VaccinateActionUtils;
 
 import static android.view.View.INVISIBLE;
 
@@ -74,6 +74,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private static final long NO_RESULT_SHOW_DIALOG_DELAY = 1000l;
     private Handler showNoResultDialogHandler;
     private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
+    private TextView filterCount;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -198,6 +199,21 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(INVISIBLE);
 
+        final View filterSection = view.findViewById(R.id.filter_selection);
+        filterSection.setOnClickListener(clientActionHandler);
+
+        filterCount =  (TextView) view.findViewById(R.id.filter_count);
+        filterCount.setVisibility(View.GONE);
+        filterCount.setClickable(false);
+        filterCount.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(view.isClickable()) {
+                    filterSection.performClick();
+                }
+            }
+        });
+
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
         setServiceModeViewDrawableRight(null);
@@ -267,6 +283,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         countSelect = countqueryBUilder.mainCondition("");
         mainCondition = "";
         super.CountExecute();
+        countOverDue();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
@@ -307,7 +324,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            CommonPersonObjectClient client = null;
+            if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
+                client = (CommonPersonObjectClient) view.getTag();
+            }
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
@@ -323,6 +343,18 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 case R.id.record_vaccination:
                     registerClickables.setRecordAll(true);
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    break;
+                case R.id.filter_selection:
+                    String tagString = "PRESSED";
+                    if (view.getTag() == null) {
+                        filter("", "", filterSelectionCondition());
+                        view.setTag(tagString);
+                        view.setBackgroundResource(R.drawable.transparent_clicked_background);
+                    } else if (view.getTag().toString().equals(tagString)){
+                        filter("", "", "");
+                        view.setTag(null);
+                        view.setBackgroundResource(R.drawable.transparent_gray_background);
+                    }
                     break;
 
             }
@@ -517,7 +549,6 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                             ft.remove(prev);
                         }
                         ft.addToBackStack(null);
-
                         if(!notInCatchmentDialogFragment.isVisible()) {
                             notInCatchmentDialogFragment.show(ft, DIALOG_TAG);
                         }
@@ -531,4 +562,89 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             }
         }
     }*/
+
+    private String filterSelectionCondition() {
+        String mainCondition = "";
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+
+        for (int i = 0; i < vaccines.size(); i++) {
+            VaccineRepo.Vaccine vaccine = vaccines.get(i);
+            if (i == vaccines.size() - 1) {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' ";
+            } else {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' or ";
+            }
+        }
+
+        mainCondition += " or ";
+        for (int i = 0; i < vaccines.size(); i++) {
+            VaccineRepo.Vaccine vaccine = vaccines.get(i);
+            if (i == vaccines.size() - 1) {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'normal' ";
+            } else {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'normal' or ";
+            }
+        }
+
+        return mainCondition;
+    }
+
+
+    public void countOverDue() {
+        String mainCondition = "";
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+
+        for (int i = 0; i < vaccines.size(); i++) {
+            VaccineRepo.Vaccine vaccine = vaccines.get(i);
+            if (i == vaccines.size() - 1) {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' ";
+            } else {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' or ";
+            }
+        }
+
+        int count = 0;
+
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query = "";
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = sqb.countQueryFts(tablename, "", mainCondition, "");
+                List<String> ids = commonRepository().findSearchIds(sql);
+                query = sqb.toStringFts(ids, tablename + "." + CommonRepository.ID_COLUMN);
+                query = sqb.Endquery(query);
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(query);
+            }
+
+            Log.i(getClass().getName(), query);
+            c = commonRepository().RawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            count = c.getInt(0);
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        if (filterCount != null) {
+            if (count > 0) {
+                filterCount.setText(String.valueOf(count));
+                filterCount.setVisibility(View.VISIBLE);
+                filterCount.setClickable(true);
+            } else {
+                filterCount.setVisibility(View.GONE);
+                filterCount.setClickable(false);
+            }
+        }
+
+    }
+
 }

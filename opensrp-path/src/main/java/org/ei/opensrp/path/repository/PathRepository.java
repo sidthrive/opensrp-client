@@ -295,7 +295,6 @@ public class PathRepository extends Repository {
                     JSONObject cl = getClient(getWritableDatabase(), baseEntityId);
                     ev.put("client", cl);
                 }
-                Log.i(getClass().getName(), "Event Retrieved: " + ev.toString());
                 list.add(ev);
             }
         } catch (Exception e) {
@@ -340,8 +339,7 @@ public class PathRepository extends Repository {
                 }
 
                 cl.put("addresses", alist);
-                Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
-
+                
                 return cl;
             }
         } catch (Exception e) {
