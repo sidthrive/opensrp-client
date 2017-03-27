@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nested_scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/client_list_header_dark_grey"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:scrollbars="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -21,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/search_limits"
-            android:textSize="@dimen/advanced_search_text_size" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="@dimen/advanced_search_label_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,11 +29,9 @@
             android:orientation="horizontal">
 
             <RadioGroup
-                android:id="@+id/myRadioGroup"
+                android:id="@+id/search_limits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checkedButton="@+id/out_and_inside"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -42,21 +39,29 @@
                     android:id="@+id/out_and_inside"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
                     android:buttonTint="@color/light_blue"
+                    android:gravity="top|left"
                     android:text="@string/out_and_inside"
-                    android:textSize="@dimen/advanced_search_text_size" />
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/advanced_search_label_size" />
 
                 <RadioButton
                     android:id="@+id/my_catchment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
                     android:buttonTint="@color/light_blue"
+                    android:gravity="top|left"
                     android:text="@string/my_catchment_area"
-                    android:textSize="@dimen/advanced_search_text_size" />
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/advanced_search_label_size" />
             </RadioGroup>
         </LinearLayout>
 
@@ -66,12 +71,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/client_status"
-            android:textSize="@dimen/advanced_search_text_size" />
+            android:textColor="@color/client_list_grey"
+            android:textSize="@dimen/advanced_search_label_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -79,33 +86,38 @@
                 android:id="@+id/active"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.85"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
                 android:text="@string/active"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <CheckBox
                 android:id="@+id/inactive"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.85"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
                 android:text="@string/inactive"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <CheckBox
                 android:id="@+id/lost_to_follow_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.3"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
                 android:text="@string/lost_to_follow_up"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,7 +131,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/zeir_id"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/zeir_id"
@@ -127,6 +140,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/zeir_id_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -142,7 +157,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/first_name"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/first_name"
@@ -150,6 +166,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -165,7 +183,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/last_name"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/last_name"
@@ -173,6 +192,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -188,7 +209,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/mother_guardian_name"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/mother_guardian_name"
@@ -196,6 +218,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_name_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -211,7 +235,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/mother_guardian_nrc"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/mother_guardian_nrc"
@@ -219,6 +244,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_nrc_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -234,7 +261,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/mother_guardian_phone_number"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <EditText
                 android:id="@+id/mother_guardian_phone_number"
@@ -242,6 +270,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_phone_number_hint"
                 android:inputType="text"
+                android:textColor="@color/client_list_grey"
+                android:textColorHint="@color/light_grey"
                 android:textSize="@dimen/advanced_search_text_size" />
         </LinearLayout>
 
@@ -257,7 +287,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/date_birth_range"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/advanced_search_label_size" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -272,6 +303,8 @@
                     android:layout_weight="1"
                     android:hint="@string/start_date_hint"
                     android:inputType="text"
+                    android:textColor="@color/client_list_grey"
+                    android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size" />
 
                 <EditText
@@ -281,6 +314,8 @@
                     android:layout_weight="1"
                     android:hint="@string/end_date_hint"
                     android:inputType="text"
+                    android:textColor="@color/client_list_grey"
+                    android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size" />
 
             </LinearLayout>
@@ -290,6 +325,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -306,4 +342,4 @@
                 android:textSize="22sp" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

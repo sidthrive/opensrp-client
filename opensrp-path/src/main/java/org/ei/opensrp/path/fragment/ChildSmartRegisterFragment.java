@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -65,6 +66,7 @@ import static android.view.View.INVISIBLE;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
+    View filterSection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -188,6 +190,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(INVISIBLE);
+
+        filterSection = view.findViewById(R.id.filter_selection);
 
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
@@ -315,6 +319,13 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     public void updateSearchView() {
         getSearchView().removeTextChangedListener(textWatcher);
         getSearchView().addTextChangedListener(textWatcher);
+    }
+
+    public void triggerFilterSelection(){
+        if(filterSection != null){
+            filterSection.performClick();
+            Toast.makeText(getActivity(), "Triggered filter selection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void populateClientListHeaderView(View view) {

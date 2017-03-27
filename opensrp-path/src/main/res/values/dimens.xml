@@ -100,4 +100,5 @@
     <dimen name="vaccine_horizontal_spacing">20dp</dimen>
 
     <dimen name="advanced_search_text_size">28dp</dimen>
+    <dimen name="advanced_search_label_size">20dp</dimen>
 </resources>

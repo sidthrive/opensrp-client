@@ -145,7 +145,8 @@
     <string name="saving_dialog_message">Please wait</string>
 
     <!-- advanced search -->
-    <string name="out_and_inside">Outside and Inside My Catchment Area&#10;(Requires Internet Connection)</string>
+    <string name="advanced_search">Advanced Search</string>
+    <string name="out_and_inside">Outside and Inside\nMy Catchment Area\n(Requires Internet Connection)</string>
     <string name="my_catchment_area">My Catchment Area Only</string>
     <string name="search_limits">Search limits</string>
     <string name="client_status">Client Status</string>

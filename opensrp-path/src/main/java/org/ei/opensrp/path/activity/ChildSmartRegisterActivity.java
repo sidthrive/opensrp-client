@@ -297,6 +297,16 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         integ.initiateScan();
     }
 
+    public void filterSelection() {
+        if(currentPage != 0){
+            switchToBaseFragment(null);
+            BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(0);
+            if (registerFragment != null && registerFragment instanceof ChildSmartRegisterFragment) {
+                ((ChildSmartRegisterFragment)registerFragment).triggerFilterSelection();
+            }
+        }
+    }
+
     private void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(getClass().getName(), "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
