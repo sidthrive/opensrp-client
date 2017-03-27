@@ -9,6 +9,7 @@ import java.util.HashMap;
  * Created by keyman on 3/1/17.
  */
 public class Vaccine {
+    private static final String ZEIR_ID = "ZEIR_ID";
     Long id;
     String baseEntityId;
     String programClientId;
@@ -77,7 +78,7 @@ public class Vaccine {
         HashMap<String, String> identifiers = null;
         if (programClientId != null) {
             identifiers = new HashMap<>();
-            identifiers.put(Event.PROGRAM_CLIENT_ID, programClientId);
+            identifiers.put(ZEIR_ID, programClientId);
         }
         return identifiers;
     }
