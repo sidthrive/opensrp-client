@@ -142,7 +142,7 @@
         "hint": "First name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -159,7 +159,7 @@
           "err": "Please enter the last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -255,7 +255,7 @@
           "err": "Please enter the mother/guardian's first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -273,7 +273,7 @@
           "err": "Please enter the mother/guardian's last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -331,7 +331,7 @@
         "hint": "Father/guardian full name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -510,7 +510,7 @@
         "hint": "CHW name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },

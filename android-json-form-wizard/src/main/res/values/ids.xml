@@ -14,4 +14,5 @@
     <item type='id' name="openmrs_entity_id"/>
     <item type="id" name="relevance" />
     <item type="id" name="constraints" />
+    <item type="id" name="raw_value" />
 </resources>
