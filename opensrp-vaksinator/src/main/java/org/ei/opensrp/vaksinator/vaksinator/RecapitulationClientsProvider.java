@@ -3,6 +3,7 @@ package org.ei.opensrp.vaksinator.vaksinator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -19,7 +20,9 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.vaksinator.R;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -35,6 +38,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * Created by Dimas Ciputra on 2/16/15.
  */
 public class RecapitulationClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = RecapitulationClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -130,22 +134,39 @@ public class RecapitulationClientsProvider implements SmartRegisterCLientsProvid
         //set default image for mother berat_badan_saat_lahir
 
         //final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
-        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
-        if (pc.getDetails().get("profilepic") != null) {
-            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
-            childview.setTag(smartRegisterClient);
-        }
-        else if (pc.getDetails().get("gender") != null) {
-            if(viewHolder.profilepic==null){
+//        final ImageView childview = (ImageView)convertView.findViewById(R.id.profilepic);
 
-            }
-            else if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
+
+        Log.e(TAG, "getView: gender "+pc.getDetails().get("gender") );
+        if (pc.getCaseId() != null) {//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            if (pc.getDetails().get("gender") != null) {
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+                        OpenSRPImageLoader.getStaticImageListener(
+                                viewHolder.profilepic,
+                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+                                0)
+                );
             } else {
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+                Log.e(TAG, "getView: Gender is NOT SET");
             }
         }
 
+//        if (pc.getDetails().get("profilepic") != null) {
+////            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
+//            childview.setTag(smartRegisterClient);
+//        }
+//        else if (pc.getDetails().get("gender") != null) {
+//            if(viewHolder.profilepic==null){
+//
+//            }
+//            else if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
+//            } else {
+//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
+//            }
+//        }
+//
        /* viewHolder.motherName.setText(
                 pc.getDetails().get("namaIbu")!=null
                         ? pc.getDetails().get("namaIbu")

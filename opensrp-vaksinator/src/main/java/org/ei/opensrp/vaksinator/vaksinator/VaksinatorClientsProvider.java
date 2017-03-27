@@ -162,9 +162,19 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
 
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         if (pc.getCaseId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            if (pc.getDetails().get("gender") != null) {
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+                        OpenSRPImageLoader.getStaticImageListener(
+                                viewHolder.profilepic,
+                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+                                0)
+                );
+            } else {
+                Log.e(TAG, "getView: Gender is NOT SET");
+            }
         }
         //end profile image
 
