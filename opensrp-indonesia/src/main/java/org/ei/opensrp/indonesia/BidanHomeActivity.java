@@ -92,11 +92,11 @@ public class BidanHomeActivity extends SecuredActivity {
     public static CommonPersonObjectController childcontroller;
     public static CommonPersonObjectController pnccontroller;
     public static int kicount;
+    public static int paranacount;
     private int kbcount;
     private int anccount;
     private int pnccount;
     private int childcount;
-    private int paranacount;
 
     @Override
     protected void onCreation() {
@@ -223,6 +223,7 @@ public class BidanHomeActivity extends SecuredActivity {
         kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
         anakRegisterClientCountView.setText(valueOf(childcount));
         kohortKbCountView.setText(valueOf(kbcount));
+        ParanaClientCount.setText(valueOf(paranacount));
        // ParanaClientCount.setText(paranacount);
     }
 
