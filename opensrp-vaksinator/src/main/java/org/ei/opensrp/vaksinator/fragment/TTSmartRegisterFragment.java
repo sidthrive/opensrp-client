@@ -224,7 +224,7 @@ public class TTSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAda
                mainCondition = "ec_ibu.is_closed = 0 and pptest ='Positive' ";
            } else {
                Log.e(TAG, "initializeQueries: " + s);
-               mainCondition = "ec_ibu.is_closed = 0 and pptest ='Positive' AND object_id LIKE '%" + s + "%'";
+               mainCondition = "ec_ibu.is_closed = 0 and pptest ='Positive' AND ec_ibu.id LIKE '%" + s + "%'";
            }
 
            joinTable = "";
@@ -509,7 +509,7 @@ public class TTSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAda
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
-        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", VaksinatorSmartRegisterFragment.class.getSimpleName());
+        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TTSmartRegisterFragment.class.getSimpleName());
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
         startActivity(intent);

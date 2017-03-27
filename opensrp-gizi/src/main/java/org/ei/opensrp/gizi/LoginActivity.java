@@ -100,18 +100,6 @@ public class LoginActivity extends Activity {
         getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.gizi.R.mipmap.logo));
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.gizi.R.color.action_bar_background));
         setLanguage();
-        debugApp();
-
-    }
-
-    private void debugApp(){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.login, null);
-        if (context.userService().hasARegisteredUser()){
-            localLogin(view, "user28", "1Sampai8");
-        } else {
-            remoteLogin(view, "user28", "1Sampai8");
-        }
     }
 
     @Override
