@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.repository.UniqueIdRepository;
+import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.util.FileUtilities;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,13 +30,13 @@ import util.PathConstants;
  */
 public class PullUniqueIdsIntentService extends IntentService {
     private static final String TAG = PullUniqueIdsIntentService.class.getCanonicalName();
-    private final UniqueIdRepository uniqueIdRepo;
+    private UniqueIdRepository uniqueIdRepo;
 
 
     public PullUniqueIdsIntentService() {
 
         super("PullUniqueOpenMRSUniqueIdsService");
-        uniqueIdRepo = org.ei.opensrp.Context.getInstance().uniqueIdRepository();
+
 
     }
 
@@ -155,5 +156,11 @@ public class PullUniqueIdsIntentService extends IntentService {
             }
             uniqueIdRepo.bulkInserOpenmrsIds(ids);
         }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        uniqueIdRepo = VaccinatorApplication.getInstance().uniqueIdRepository();
+        return super.onStartCommand(intent, flags, startId);
     }
 }

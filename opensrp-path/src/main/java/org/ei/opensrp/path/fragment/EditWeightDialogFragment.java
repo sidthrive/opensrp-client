@@ -21,11 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.listener.WeightActionListener;
-import org.ei.opensrp.repository.WeightRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -157,7 +157,7 @@ public class EditWeightDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
-                WeightRepository weightRepository = org.ei.opensrp.Context.getInstance().weightRepository();
+                WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
                 weightRepository.delete(tag.getId());
 //                tag = null;
                 listener.onWeightTaken(null);

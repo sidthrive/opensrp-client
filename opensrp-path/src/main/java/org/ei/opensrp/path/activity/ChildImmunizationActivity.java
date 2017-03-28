@@ -34,8 +34,8 @@ import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.repository.VaccineRepository;
-import org.ei.opensrp.repository.WeightRepository;
+import org.ei.opensrp.path.repository.VaccineRepository;
+import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -136,14 +136,14 @@ public class ChildImmunizationActivity extends BaseActivity
         ((LinearLayout)findViewById(R.id.profile_name_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchDetailActivity(ChildImmunizationActivity.this,childDetails,null);
+                launchDetailActivity(ChildImmunizationActivity.this, childDetails, null);
             }
         });
         // TODO: update all views using child data
-        WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+        WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
         weight = weightRepository.findUnSyncedByEntityId(childDetails.entityId());
 
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
 
         updateGenderViews();
@@ -392,7 +392,11 @@ public class ChildImmunizationActivity extends BaseActivity
     public void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
         Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("location_name",toolbar.getCurrentLocation());
+        try {
+            bundle.putString("location_name", JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(), toolbar.getCurrentLocation()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
         bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
         intent.putExtras(bundle);
@@ -436,7 +440,7 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     public void onWeightTaken(WeightWrapper tag) {
         if (tag != null) {
-            WeightRepository weightRepository = getOpenSRPContext().weightRepository();
+            final WeightRepository weightRepository = VaccinatorApplication.getInstance().weightRepository();
             Weight weight = new Weight();
             if (tag.getDbKey() != null) {
                 weight = weightRepository.find(tag.getDbKey());
@@ -479,7 +483,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+                final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 Long dbKey = tag.getDbKey();
                 tag.setUpdatedVaccineDate(null, false);
                 tag.setRecordedDate(null);
@@ -546,7 +550,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void saveVaccine(VaccineWrapper tag) {
-        VaccineRepository vaccineRepository = getOpenSRPContext().vaccineRepository();
+        final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
 
         Vaccine vaccine = new Vaccine();
         if (tag.getDbKey() != null) {

@@ -185,6 +185,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             });
             editText.addTextChangedListener(genericTextWatcher);
 
+            ((JsonApi) context).addFormDataView(editText);
             views.add(dateViewRelativeLayout);
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);

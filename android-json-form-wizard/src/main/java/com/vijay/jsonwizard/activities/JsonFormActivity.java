@@ -44,6 +44,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     private PropertyManager propertyManager;
     private ArrayList<View> skipLogicViews;
     private ArrayList<View> constrainedViews;
+    private ArrayList<View> formDataViews;
     private String functionRegex;
     private HashMap<String, Comparison> comparisons;
 
@@ -197,6 +198,13 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
+    public void clearFormDataViews() {
+        formDataViews = new ArrayList<>();
+        clearSkipLogicViews();
+        clearConstrainedViews();
+    }
+
+    @Override
     public void addSkipLogicView(View view) {
         skipLogicViews.add(view);
     }
@@ -204,6 +212,16 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     @Override
     public void addConstrainedView(View view) {
         constrainedViews.add(view);
+    }
+
+    @Override
+    public void addFormDataView(View view) {
+        formDataViews.add(view);
+    }
+
+    @Override
+    public ArrayList<View> getFormDataViews() {
+        return formDataViews;
     }
 
     @Override
