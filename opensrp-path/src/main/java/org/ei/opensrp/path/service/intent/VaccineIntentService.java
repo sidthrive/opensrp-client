@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.application.VaccinatorApplication;
@@ -93,11 +94,20 @@ public class VaccineIntentService extends IntentService {
         try {
             for (int i = 0; i < availableVaccines.length(); i++) {
                 JSONObject curVaccineGroup = availableVaccines.getJSONObject(i);
-                for (int j = 0; j < curVaccineGroup.getJSONArray("vaccines").length(); j++) {
-                    if (curVaccineGroup.getJSONArray("vaccines").getJSONObject(j).getString("name")
-                            .equalsIgnoreCase(name)) {
-                        return curVaccineGroup.getJSONArray("vaccines").getJSONObject(j)
-                                .getJSONObject("openmrs_date").getString("parent_entity");
+                JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
+                for (int j = 0; j < vaccines.length(); j++) {
+                    JSONObject vaccine = vaccines.getJSONObject(j);
+                    if (vaccine.getString("name").equalsIgnoreCase(name)) {
+                        String parentEntityId = vaccine.getJSONObject("openmrs_date").getString("parent_entity");
+                        if (parentEntityId.contains("/")) {
+                            String[] parentEntityArray = parentEntityId.split("/");
+                            if (StringUtils.containsIgnoreCase(parentEntityId, "measles")) {
+                                parentEntityId = parentEntityArray[0];
+                            } else if (StringUtils.containsIgnoreCase(parentEntityId, "mr")) {
+                                parentEntityId = parentEntityArray[1];
+                            }
+                            return parentEntityId;
+                        }
                     }
                 }
             }

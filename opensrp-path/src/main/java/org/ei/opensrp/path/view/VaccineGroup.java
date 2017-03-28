@@ -148,8 +148,8 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
      * This method will update vaccine group views, and the vaccine cards corresponding to the list
      * of {@link VaccineWrapper}s specified
      *
-     * @param vaccinesToUpdate  List of vaccines who's views we want updated, or NULL if we want to
-     *                          update all vaccine views
+     * @param vaccinesToUpdate List of vaccines who's views we want updated, or NULL if we want to
+     *                         update all vaccine views
      */
     public void updateViews(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         this.state = State.IN_PAST;
@@ -301,7 +301,7 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
 
         for (Map<String, Object> m : sch) {
             VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) m.get("vaccine");
-            if (tag.getName().toLowerCase().equalsIgnoreCase(vaccine.display().toLowerCase())) {
+            if (tag.getName().toLowerCase().contains(vaccine.display().toLowerCase())) {
                 tag.setStatus(m.get("status").toString());
                 tag.setAlert((Alert) m.get("alert"));
 
@@ -334,6 +334,14 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                     tag.setRecordedDate(new DateTime(new Date(vaccine.getUpdatedAt())));
                     tag.setDbKey(vaccine.getId());
                     tag.setSynced(vaccine.getSyncStatus() != null && vaccine.getSyncStatus().equals(VaccineRepository.TYPE_Synced));
+                    if(tag.getName().contains("/")){
+                        String[] array = tag.getName().split("/");
+                        if((array[0]).toLowerCase().contains(vaccine.getName())){
+                            tag.setName(array[0]);
+                        } else if((array[1]).toLowerCase().contains(vaccine.getName())){
+                            tag.setName(array[1]);
+                        }
+                    }
                 }
             }
         }

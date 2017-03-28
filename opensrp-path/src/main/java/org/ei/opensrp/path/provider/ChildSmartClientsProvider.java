@@ -31,6 +31,7 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -151,9 +152,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         Map<String, Object> nv = null;
         if (vaccines.isEmpty()) {
-            List<VaccineRepo.Vaccine> vList = new ArrayList<>();
-            vList.add(VaccineRepo.Vaccine.bcg);
-            vList.add(VaccineRepo.Vaccine.opv0);
+            List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
             nv = nextVaccineDue(sch, vList);
         }
 

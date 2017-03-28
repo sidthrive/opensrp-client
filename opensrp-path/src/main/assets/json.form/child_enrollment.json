@@ -228,6 +228,7 @@
           "label": "Age"
         },
         "min_date": "01-01-1900",
+        "value":"01-01-1960",
         "max_date": "today-3650"
       },
       {

@@ -411,6 +411,22 @@ public class VaccinatorUtils {
                     if (m.get("vaccine") != null && vaccineList.contains((Vaccine) m.get("vaccine"))) {
                         v = m;
                     }
+                } else if (v.get("alert") != null && m.get("alert") != null) {
+                    if (m.get("vaccine") != null && vaccineList.contains((Vaccine) m.get("vaccine"))) {
+                        Alert vAlert = (Alert) v.get("alert");
+                        Alert mAlert = (Alert) m.get("alert");
+                        if (!vAlert.status().equals(AlertStatus.urgent)) {
+                            if (vAlert.status().equals(AlertStatus.upcoming)) {
+                                if (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent)) {
+                                    v = m;
+                                }
+                            } else if (vAlert.status().equals(AlertStatus.normal)) {
+                                if (mAlert.status().equals(AlertStatus.urgent)) {
+                                    v = m;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -426,8 +442,8 @@ public class VaccinatorUtils {
     /**
      * Returns a JSON String containing a list of supported vaccines
      *
-     * @param context   Current valid context to be used
-     * @return  JSON String with the supported vaccines or NULL if unable to obtain the list
+     * @param context Current valid context to be used
+     * @return JSON String with the supported vaccines or NULL if unable to obtain the list
      */
     public static String getSupportedVaccines(Context context) {
         String supportedVaccinesString = Utils.readAssetContents(context, "vaccines.json");
