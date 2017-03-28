@@ -63,6 +63,13 @@
           }
         },
         {
+          "column_name":"nrc_number",
+          "type":"Client",
+          "json_mapping":{
+            "field":"attributes.NRC_Number"
+          }
+        },
+        {
           "column_name":"provider_uc",
           "type":"Client",
           "json_mapping":{

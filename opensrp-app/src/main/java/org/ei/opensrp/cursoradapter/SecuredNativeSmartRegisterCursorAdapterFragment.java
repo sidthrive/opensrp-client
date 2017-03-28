@@ -72,7 +72,7 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
     public String countSelect;
     public String joinTable="";
 
-    private static final int LOADER_ID = 0;
+    protected static final int LOADER_ID = 0;
     private static final String INIT_LOADER = "init";
 
 
@@ -493,13 +493,12 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
 
     public void initialFilterandSortExecute() {
         Loader<Cursor> loader = getLoaderManager().getLoader(LOADER_ID);
-        if(loader != null) {
-            return;
-        }
-
         showProgressView();
-
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        if(loader != null) {
+            filterandSortExecute();
+        }else {
+            getLoaderManager().initLoader(LOADER_ID, null, this);
+        }
     }
 
     public void filterandSortExecute() {

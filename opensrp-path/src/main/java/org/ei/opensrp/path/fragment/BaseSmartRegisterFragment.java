@@ -179,4 +179,8 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     public LocationPickerView getClinicSelection() {
         return clinicSelection;
     }
+
+    public boolean onBackPressed(){
+        return false;
+    }
 }

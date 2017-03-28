@@ -256,6 +256,10 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     @Override
     public void onBackPressed() {
         if (currentPage != 0) {
+            BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(currentPage);
+            if(registerFragment.onBackPressed()){
+                return;
+            }
             new AlertDialog.Builder(this)
                     .setMessage(org.ei.opensrp.path.R.string.form_back_confirm_dialog_message)
                     .setTitle(org.ei.opensrp.path.R.string.form_back_confirm_dialog_title)
