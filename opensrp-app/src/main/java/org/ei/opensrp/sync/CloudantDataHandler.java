@@ -60,6 +60,7 @@ public class CloudantDataHandler {
         File path = this.mContext.getApplicationContext().getDir(DATASTORE_MANGER_DIR, Context.MODE_PRIVATE);
         DatastoreManager manager = new DatastoreManager(path.getAbsolutePath());
         this.mDatastore = manager.openDatastore(DATASTORE_NAME);
+
         this.mIndexManager = new IndexManager(mDatastore);
         List<Object> indexFields = new ArrayList<>();
         // indexFields.add("version");
@@ -311,6 +312,20 @@ public class CloudantDataHandler {
         return null;
     }
 
+    public Client addClient(Client client) {
+        DocumentRevision rev = new DocumentRevision();
+        rev.setBody(DocumentBodyFactory.create(client.asMap()));
+        try {
+
+                DocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
+                return Client.fromRevision(created);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        }
+
+        return null;
+    }
     /**
      * Creates a Event, assigning an ID.
      *

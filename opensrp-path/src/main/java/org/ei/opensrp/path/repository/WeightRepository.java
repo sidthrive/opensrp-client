@@ -32,8 +32,6 @@ public class WeightRepository extends BaseRepository {
     private static final String SYNC_STATUS_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + SYNC_STATUS + "_index ON " + WEIGHT_TABLE_NAME + "(" + SYNC_STATUS + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + WEIGHT_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
 
-    public static String TYPE_Unsynced = "Unsynced";
-    public static String TYPE_Synced = "Synced";
 
     public WeightRepository(PathRepository pathRepository) {
         super(pathRepository);
@@ -128,15 +126,17 @@ public class WeightRepository extends BaseRepository {
         }
         return weight;
     }
+
     public List<Weight> findLast5(String entityid) {
-        Cursor cursor =  getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ?", new String[]{entityid}, null, null, UPDATED_AT_COLUMN, null);
+        Cursor cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ?", new String[]{entityid}, null, null, UPDATED_AT_COLUMN, null);
         List<Weight> weights = readAllWeights(cursor);
 //        if (!weights.isEmpty()) {
-            return weights;
+        return weights;
 //        }
 
 //        return null;
     }
+
     public void delete(String entityID) {
         getPathRepository().getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityID,TYPE_Unsynced});
 
@@ -150,24 +150,30 @@ public class WeightRepository extends BaseRepository {
 
     private List<Weight> readAllWeights(Cursor cursor) {
         List<Weight> weights = new ArrayList<>();
+        try {
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    weights.add(
+                            new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
+                                    cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                                    cursor.getFloat(cursor.getColumnIndex(KG)),
+                                    new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                                    cursor.getString(cursor.getColumnIndex(ANMID)),
+                                    cursor.getString(cursor.getColumnIndex(LOCATIONID)),
+                                    cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
+                                    cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
+                            ));
 
-        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                weights.add(
-                        new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                                cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                                cursor.getFloat(cursor.getColumnIndex(KG)),
-                                new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
-                                cursor.getString(cursor.getColumnIndex(ANMID)),
-                                cursor.getString(cursor.getColumnIndex(LOCATIONID)),
-                                cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                                cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN))
-                        ));
-
-                cursor.moveToNext();
+                    cursor.moveToNext();
+                }
             }
+        } catch (Exception e) {
+          Log.e(TAG,e.getMessage());
+        } finally {
+            cursor.close();
         }
         return weights;
+
     }
 
 

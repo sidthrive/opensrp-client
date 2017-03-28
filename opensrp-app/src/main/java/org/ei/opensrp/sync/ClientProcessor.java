@@ -849,7 +849,7 @@ public class ClientProcessor {
         } else if (jsonObject instanceof JSONArray) {
             JSONArray jsonArray = (JSONArray) jsonObject;
             for (int i = 0; i < jsonArray.length(); i++) {
-                values.add((String) jsonArray.get(i));
+                values.add(jsonArray.get(i).toString());
             }
         } else {
             values.add(jsonObject.toString());

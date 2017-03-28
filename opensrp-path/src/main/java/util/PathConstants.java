@@ -10,7 +10,7 @@ public class PathConstants extends AllConstants{
         String baseUrl= org.ei.opensrp.Context.getInstance().allSharedPreferences().fetchBaseURL("");
         int lastIndex=baseUrl.lastIndexOf("/");
         baseUrl=baseUrl.substring(0,lastIndex)+"/openmrs";
-        return baseUrl;
+        return "http://46.101.51.199:8080/openmrs";
     }
     public static final String OPENMRS_IDGEN_URL = "/module/idgen/exportIdentifiers.form";
     public static final int OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE =250;
