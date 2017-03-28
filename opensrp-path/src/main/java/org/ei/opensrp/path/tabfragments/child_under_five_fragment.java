@@ -146,7 +146,7 @@ public class child_under_five_fragment extends Fragment  {
             title.setAllCaps(true);
             title.setTextAppearance(getActivity(),  android.R.style.TextAppearance_Medium);
             title.setTextColor(getResources().getColor(R.color.text_black));
-            title.setText("Immunizations");
+            title.setText("Immunisations");
             vaccineGroupCanvasLL.addView(title);
 
         String supportedVaccinesString = readAssetContents(VACCINES_FILE);

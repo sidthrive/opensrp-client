@@ -125,6 +125,11 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if(vaccineGroups!=null){
+            LinearLayout vaccineGroupCanvasLL = (LinearLayout) findViewById(R.id.vaccine_group_canvas_ll);
+            vaccineGroupCanvasLL.removeAllViews();
+            vaccineGroups = null;
+        }
         updateViews();
     }
 
