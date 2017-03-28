@@ -118,7 +118,7 @@ public class WeightRepository extends DrishtiRepository {
 //        return null;
     }
     public void delete(String entityID) {
-        masterRepository.getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ?", new String[]{entityID});
+        masterRepository.getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityID,TYPE_Unsynced});
     }
 
     public void close(Long caseId) {

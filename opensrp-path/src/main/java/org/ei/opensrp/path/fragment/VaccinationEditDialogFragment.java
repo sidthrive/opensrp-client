@@ -76,11 +76,12 @@ public class VaccinationEditDialogFragment extends DialogFragment {
         nameView.setText(tags.get(0).getPatientName());
         TextView numberView = (TextView) dialogView.findViewById(R.id.number);
         numberView.setText(tags.get(0).getPatientNumber());
-
+        TextView service_date = (TextView) dialogView.findViewById(R.id.service_date);
+        service_date.setText("Service date: ("+tags.get(0).getUpdatedVaccineDateAsString()+")");
         final LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
 
         if (tags.size() == 1) {
-            View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+            View vaccinationName = inflater.inflate(R.layout.vaccination_name_edit_dialog, null);
             TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
             VaccineWrapper vaccineWrapper = tags.get(0);
@@ -90,14 +91,14 @@ public class VaccinationEditDialogFragment extends DialogFragment {
             } else {
                 vaccineView.setText(vaccineWrapper.getName());
             }
-            CheckBox select = (CheckBox) vaccinationName.findViewById(R.id.select);
+            ImageView select = (ImageView) vaccinationName.findViewById(R.id.imageView);
 //            select.setVisibility(View.GONE);
 
             vaccinationNameLayout.addView(vaccinationName);
         } else {
             for (VaccineWrapper vaccineWrapper : tags) {
 
-                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+                View vaccinationName = inflater.inflate(R.layout.vaccination_name_edit_dialog, null);
                 TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
                 VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();

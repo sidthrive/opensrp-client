@@ -69,16 +69,25 @@
                 android:id="@+id/vaccination_name_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"/>
-
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/service_date"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="0dp"
+                android:text="number"
+                android:textColor="@color/client_list_grey"
+                android:textSize="24sp" />
             <Button
                 android:id="@+id/vaccinate_today"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/vaccination_earlier_bg"
