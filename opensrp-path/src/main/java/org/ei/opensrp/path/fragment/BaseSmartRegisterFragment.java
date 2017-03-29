@@ -19,14 +19,18 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.BaseRegisterActivity;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
+import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
+import org.ei.opensrp.view.customControls.CustomFontTextView;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+
+    private LocationPickerView clinicSelection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -75,6 +79,18 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     public void openVaccineCard(final String filterString) {
         FilterForClientTask filterForClientTask = new FilterForClientTask();
         filterForClientTask.execute(filterString);
+    }
+
+    @Override
+    protected void setupViews(View view) {
+        super.setupViews(view);
+
+        View viewParent = (View) appliedSortView.getParent();
+        viewParent.setVisibility(View.GONE);
+
+        clinicSelection = (LocationPickerView) view.findViewById(R.id.clinic_selection);
+        clinicSelection.init(context());
+
     }
 
     protected void filter(String filterString, String joinTableString, String mainConditionString) {
@@ -155,5 +171,19 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                         DIALOG_TAG, searchQuery);
             }
         }
+    }
+
+    protected void updateLocationText() {
+        if(clinicSelection != null) {
+            clinicSelection.setText(clinicSelection.getSelectedItem());
+        }
+    }
+
+    public LocationPickerView getClinicSelection() {
+        return clinicSelection;
+    }
+
+    public boolean onBackPressed(){
+        return false;
     }
 }

@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -75,6 +76,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private Handler showNoResultDialogHandler;
     private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
     private TextView filterCount;
+    View filterSection;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -176,7 +178,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
         }
 
-        updateLocationText(clinicSelection, clinicSelection.getSelectedItem());
+        updateLocationText();
     }
 
     @Override
@@ -221,22 +223,11 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         updateSearchView();
         populateClientListHeaderView(view);
 
-
-        View viewParent = (View) appliedSortView.getParent();
-        viewParent.setVisibility(View.GONE);
-
-        clinicSelection = (LocationPickerView) view.findViewById(R.id.clinic_selection);
-        clinicSelection.init(context());
-
-
         View qrCode = view.findViewById(R.id.scan_qr_code);
+        qrCode.setOnClickListener(clientActionHandler);
+
         TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startQrCodeScanner();
-            }
-        });
+
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
         String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
         if (!preferredName.isEmpty()) {
@@ -260,12 +251,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
     }
 
-    private void updateLocationText(CustomFontTextView clinicSelection, String newLocation) {
-        clinicSelection.setText(newLocation);
-    }
-
     public LocationPickerView getLocationPickerView() {
-        return clinicSelection;
+        return getClinicSelection();
     }
 
     public void initializeQueries() {
@@ -357,6 +344,13 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                     }
                     break;
 
+                case R.id.global_search:
+                    ((ChildSmartRegisterActivity) getActivity()).startAdvancedSearch();
+                    break;
+
+                case R.id.scan_qr_code:
+                    ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
+                    break;
             }
         }
     }
@@ -364,6 +358,13 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     public void updateSearchView() {
         getSearchView().removeTextChangedListener(textWatcher);
         getSearchView().addTextChangedListener(textWatcher);
+    }
+
+    public void triggerFilterSelection(){
+        if(filterSection != null){
+            filterSection.performClick();
+            Toast.makeText(getActivity(), "Triggered filter selection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void populateClientListHeaderView(View view) {
@@ -462,12 +463,14 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
 
         ImageButton globalSearchButton = ((ImageButton) mView.findViewById(R.id.global_search));
-        globalSearchButton.setOnClickListener(new View.OnClickListener() {
+        globalSearchButton.setOnClickListener(clientActionHandler);
+
+/*        globalSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.show();
             }
-        });
+        }); */
     }
 
     private void search(EditText txtSearch, Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
