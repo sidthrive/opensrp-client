@@ -142,6 +142,9 @@
     <string name="ic_check">&#xe038;</string>
     <string name="no_record">No Record(s) Found!</string>
     <string name="overdue_due">Overdue/Due (%1$s)</string>
+    <string name="record_weight_with_nl">Record\nweight</string>
+    <string name="record_weight">Record weight</string>
+
 
     <string name="saving_dialog_title">Saving…</string>
     <string name="updating_dialog_title">Updating…</string>

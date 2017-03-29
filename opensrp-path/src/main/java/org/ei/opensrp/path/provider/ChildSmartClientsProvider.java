@@ -98,22 +98,27 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
         String dobString = getValue(pc.getColumnmaps(), "dob", false);
-        String duration = "";
+        String durationString = "";
         if (StringUtils.isNotBlank(dobString)) {
             DateTime dateTime = new DateTime(dobString);
-            duration = DateUtils.getDuration(dateTime);
+            String duration = DateUtils.getDuration(dateTime);
             if (duration != null) {
-                fillValue((TextView) convertView.findViewById(R.id.child_age), duration);
+                durationString = duration;
             }
         }
+        fillValue((TextView) convertView.findViewById(R.id.child_age), durationString);
 
         fillValue((TextView) convertView.findViewById(R.id.child_card_number), pc.getColumnmaps(), "epi_card_number", false);
 
+        String gender = getValue(pc.getColumnmaps(), "gender", true);
+        int defaultImageResId = ImageUtils.profileImageResourceByGender(gender);
+
+        ImageView profilePic = (ImageView)  convertView.findViewById(R.id.child_profilepic);
+        profilePic.setImageResource(defaultImageResId);
         if (client.entityId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            String gender = getValue(pc.getColumnmaps(), "gender", true);
-            convertView.findViewById(R.id.child_profilepic).setTag(org.ei.opensrp.R.id.entity_id, pc.getCaseId());
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener((ImageView) convertView.findViewById(R.id.child_profilepic), ImageUtils.profileImageResourceByGender(gender), ImageUtils.profileImageResourceByGender(gender)));
+            profilePic.setTag(org.ei.opensrp.R.id.entity_id, pc.getCaseId());
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(profilePic, 0, 0));
         }
 
         convertView.findViewById(R.id.child_profile_info_layout).setTag(client);
@@ -130,6 +135,15 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
             ImageView recordWeightCheck = (ImageView) convertView.findViewById(R.id.record_weight_check);
             recordWeightCheck.setVisibility(View.VISIBLE);
+
+            recordWeight.setClickable(false);
+        } else {
+            TextView recordWeightText = (TextView) convertView.findViewById(R.id.record_weight_text);
+            recordWeightText.setText(context.getString(R.string.record_weight_with_nl));
+
+            ImageView recordWeightCheck = (ImageView) convertView.findViewById(R.id.record_weight_check);
+            recordWeightCheck.setVisibility(View.GONE);
+            recordWeight.setClickable(true);
         }
 
         Button recordVaccination = (Button) convertView.findViewById(R.id.record_vaccination);
@@ -241,6 +255,11 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             recordVaccination.setEnabled(true);
         } else if (state.equals(State.NO_ALERT)) {
             recordVaccination.setText("Due\n" + stateKey);
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setEnabled(false);
+        } else {
+            recordVaccination.setText("");
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setEnabled(false);
