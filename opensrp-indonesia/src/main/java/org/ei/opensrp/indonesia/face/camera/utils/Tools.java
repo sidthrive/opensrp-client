@@ -95,6 +95,8 @@ public class Tools {
 
     static String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
     private static String headerOne = emptyAlbum;
+    static String singleHeader = "[76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0]";
+
     private byte[] allFileVector;
 
     public Tools() {
@@ -676,8 +678,38 @@ public class Tools {
 
     }
 
-    private static String[] getHeaderBaseUserCount(int i) {
-        String headerNew = imageRepo.findByUserCount(i);
+    private static String[] getHeaderBaseUserCount(int n) {
+        String headerNew = imageRepo.findByUserCount(n);
+        /*
+// start formula
+        int n0 = 76;
+//        int seriesLength = 63; // 64 item
+        int max = 128;
+        int min = -128;
+
+        int range = max - min;
+
+        int idx0,idx1, idx2,idx3,idx4;
+
+
+        idx0 = (((n0 + max) + (n * 44)) % range) + min;
+
+        idx1 = (1+n)+(((n0) + (n * 44)) / range);
+        idx2 = (idx1+128) % 256 - 128;
+
+        idx3 = n / 218;
+        idx4 = (1+n+128) % 256 - 128;
+
+        String[] newHeader = singleHeader.substring(1, headerNew.length() - 1).split(", ");
+
+        newHeader[0] = String.valueOf(idx0);
+        newHeader[1] = String.valueOf(idx2);
+        newHeader[2] = String.valueOf(idx3);
+        newHeader[28] = String.valueOf(idx4);
+
+        return newHeader;
+// end formula
+*/
         return headerNew.substring(1, headerNew.length() -1).split(", ");
     }
 
@@ -780,244 +812,6 @@ public class Tools {
                 }
             }
         }
-    }
-
-    public void parseSavedVector(Context context) {
-
-        hash = retrieveHash(context.applicationContext());
-
-        list = imageRepo.getAllVectorImages();
-
-        if (list.size() != 0) {
-            if (SmartShutterActivity.faceProc == null) {
-                SmartShutterActivity.faceProc = FacialProcessing.getInstance();
-            }
-
-            FacialProcessing objFace = SmartShutterActivity.faceProc;
-
-            boolean resSetBitmap = objFace.setBitmap(helperImage);
-
-            FaceData[] faceData = objFace.getFaceData();
-            byte[] initContentBuffered = null;
-
-            if (resSetBitmap) {
-//                Log.e(TAG, "parseSavedVector: before"+ Arrays.toString(objFace.serializeRecogntionAlbum()));
-                resetAlbum();
-
-                for (int i = 0; i < list.size(); i++) {
-
-
-                    Log.e(TAG, "loadAlbum: start" + i);
-                    loadAlbum(context.applicationContext().getApplicationContext());
-                    Log.e(TAG, "parseSavedVector: after " + i + " - " + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-                    // Get vector fromm Existing buffer
-                    byte[] initBuffered = objFace.serializeRecogntionAlbum();
-                    Log.e(TAG, "parseSavedVector: initBuffered" + initBuffered.length);
-
-                    // Get Init Vector Content
-                    initContentBuffered = Arrays.copyOfRange(initBuffered, 32, initBuffered.length);
-
-                    String fileVector = list.get(i).getFilevector();
-                    String uid = list.get(i).getEntityID();
-
-
-                    // FIXME : ADDED PERSON TO GET NEW HEADER
-                    objFace.addPerson(0); // adding new vector of helper image, length and content has changed
-
-                    byte[] newBuffered = objFace.serializeRecogntionAlbum();
-
-                    Log.e(TAG, "parseSavedVector: len after add new " + newBuffered.length);
-
-                    String albumBufferArr = Arrays.toString(newBuffered);
-
-                    // Remove Last 300th byte[] array ( Helper Vector Content), copy new Array of header:
-                    // NEW HEADER + CONTENT
-                    byte[] tempHeaderBuffered = Arrays.copyOfRange(newBuffered, 0, newBuffered.length - 300);
-
-                    Log.e(TAG, "parseSavedVector: len new " + newBuffered.length);
-                    Log.e(TAG, "parseSavedVector: len temp " + tempHeaderBuffered.length);
-
-                    Log.e(TAG, "parseSavedVector: len new byte " + Arrays.toString(newBuffered));
-                    Log.e(TAG, "parseSavedVector: len temp byte " + Arrays.toString(tempHeaderBuffered));
-
-                    byte[] tempAddBuffered = null;
-
-                    if (fileVector != null) {
-//                        parseArray(fileVector);
-
-                        String[] splitStringArray = fileVector.substring(1,
-                                fileVector.length() - 1).split(", ");
-
-                        byte[] tempFileVector = new byte[splitStringArray.length];
-                        Log.e(TAG, "parseSavedVector: Parsing Data from DB len" + splitStringArray.length);
-                        for (int j = 0; j < splitStringArray.length; j++) {
-                            tempFileVector[j] = Byte.parseByte(splitStringArray[j].trim());
-                        }
-
-
-                        // Vector = Recent Number of Vector Header + DB content
-                        // TODO
-//                        tempAddBuffered = ArrayUtils.addAll(tempBuffered, tempFileVector );
-                        tempAddBuffered = ArrayUtils.addAll(initContentBuffered, tempFileVector);
-//                        tempAddBuffered = ArrayUtils.addAll(ArrayUtils.addAll(), tempFileVector );
-                        Log.e(TAG, "parseSavedVector: initcontent " + initContentBuffered.length);
-                        Log.e(TAG, "parseSavedVector: konten semuanya " + tempAddBuffered.length);
-
-
-                        // OK
-                        tempFileVector[0] = Byte.parseByte(String.valueOf(i));
-                        allFileVector = ArrayUtils.addAll(allFileVector, tempFileVector);
-                        Log.e(TAG, "parseSavedVector: length " + allFileVector.length);
-
-                    } else {
-                        Log.e(TAG, "parseSavedVector: Filevector Null");
-                    }
-
-
-                    tempAddBuffered = ArrayUtils.addAll(tempHeaderBuffered, tempAddBuffered);
-
-                    Log.e(TAG, "parseSavedVector: " + hash.size());
-                    if (!hash.containsKey(uid)) {
-                        hash.put(uid, String.valueOf(i));
-                        saveHash(hash, appContext.applicationContext().getApplicationContext());
-
-                        saveAlbum(Arrays.toString(tempAddBuffered), appContext.applicationContext().getApplicationContext());
-
-//                    tempAddBuffered = ArrayUtils.addAll(tempAddBuffered, tempAddBuffered, tempAddBuffered );
-
-                        Log.e(TAG, "parseSavedVector: hash tempBuffer len of " + uid + " - " + tempAddBuffered.length);
-
-                    } else {
-                        Log.e(TAG, "parseSavedVector: hash " + "Already Recorded");
-                    }
-
-//                    int offset = 300;
-//                    byte[] tempBuffered =  Arrays.copyOfRange(newBuffered, offset, newBuffered.length);
-
-                    String[] newBufferedVector = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
-
-                    // Get Face Vector Content Only by removing Header
-                    newBufferedVector = Arrays.copyOfRange(newBufferedVector, newBuffered.length - 300, newBuffered.length);
-
-//                    String[] albumBufferArr = ArrayUtils.addAll(oldBuffer, faceVector);
-
-
-                    Log.e(TAG, "parseSavedVector: after add " + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-                    SmartShutterActivity.faceProc.resetAlbum();
-//                    Log.e(TAG, "parseSavedVector: after reset " + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-                } // End for loop local db
-
-            } else {
-                Log.e(TAG, "parseSavedVector: " + "setBitmap helper failed!.");
-            }
-
-            // TODO : initialize start by checking HashMap
-
-        }
-
-    }
-
-    public void parseSavedVector2(Context context) {
-
-        hash = retrieveHash(context.applicationContext());
-        list = imageRepo.allVectorImages();
-
-//        Helper Face
-        Bitmap helperImage = BitmapFactory.decodeResource(context.applicationContext().getResources(), R.drawable.h8);//ok
-//        Bitmap helperImage = BitmapFactory.decodeResource( context.applicationContext().getResources(), R.drawable.h9);//OK
-
-        if (SmartShutterActivity.faceProc == null) {
-            SmartShutterActivity.faceProc = FacialProcessing.getInstance();
-        }
-
-        FacialProcessing objFace = SmartShutterActivity.faceProc;
-
-        Log.e(TAG, "parseSavedVector: list size" + list.size());
-
-
-        boolean resSetBitmap = objFace.setBitmap(helperImage);
-
-        FaceData[] faceData = objFace.getFaceData();
-
-        if (resSetBitmap) {
-            Log.e(TAG, "parseSavedVector: before" + Arrays.toString(objFace.serializeRecogntionAlbum()));
-            loadAlbum(context.applicationContext().getApplicationContext());
-            objFace.addPerson(0);
-
-            Log.e(TAG, "parseSavedVector: after" + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-        } else {
-            Log.e(TAG, "parseSavedVector: " + "setBitmap helper failed!.");
-        }
-
-        // TODO : initialize start by checking HashMap
-//        int i = hash.size();
-        int i = 0;
-        for (ProfileImage pi : list) {
-
-            String uid = pi.getEntityID();
-            String filevector = pi.getFilevector();
-            Log.e(TAG, "parseSavedVector: " + filevector);
-
-            // Skip if already exist
-
-            if (!hash.containsKey(uid)) {
-//                Log.e(TAG, "parseSavedVector: " +uid+ "key not exist");
-                hash.put(Integer.toString(i), uid);
-
-                saveHash(hash, appContext.applicationContext());
-
-                if (filevector != null) {
-                    String[] res = filevector.substring(1, filevector.length() - 1).split(",");
-
-                    SharedPreferences settings = appContext.applicationContext().
-                            getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-                    SharedPreferences.Editor editor = settings.edit();
-
-                    String[] faceVector = parseArray(filevector);
-                    faceVector[0] = String.valueOf(100);
-//                    Log.e(TAG, "parseSavedVector: "+settings.getString(FaceConstants.ALBUM_ARRAY, null) );
-                    if (i == 0 || settings.getString(FaceConstants.ALBUM_ARRAY, null) == null) {
-
-                        Log.e(TAG, "parseSavedVector: " + "album NULL");
-
-                        setAlbumBuffer(filevector);
-
-                    } else {
-
-                        // TODO : albumBuffer not null but not initialize
-//                        if (getAlbumBuffer() == null) setAlbumBuffer();
-
-//                        Log.e(TAG, "parseSavedVector: albumBuffer "+ i +" "+ getAlbumBuffer());
-                        String[] oldBuffer = parseArray(getAlbumBuffer());
-
-                        String[] albumBufferArr = ArrayUtils.addAll(oldBuffer, faceVector);
-
-                        setAlbumBuffer(Arrays.toString(albumBufferArr));
-
-//                        albumBuffer = Arrays.toString(albumBufferArr);
-                    }
-//                    Log.e(TAG, "parseSavedVector: "+getAlbumBuffer() );
-
-//                    Log.e(TAG, "parseSavedVector: " + hash.size());
-//                    Log.e(TAG, "parseSavedVector: " + albumBuffer.length());
-                    editor.putString(FaceConstants.ALBUM_ARRAY, getAlbumBuffer());
-                    editor.apply();
-
-
-                }
-
-            } else {
-                Log.e(TAG, "parseSavedVector: " + "persons exist");
-            }
-            i++;
-            if (i == list.size()) break;
-        }
-
-
     }
 
     public static void initVector() {

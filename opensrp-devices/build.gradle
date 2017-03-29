@@ -17,7 +17,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "org.ei.opensrp.device"
+        applicationId "org.ei.opensrp.devices"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
