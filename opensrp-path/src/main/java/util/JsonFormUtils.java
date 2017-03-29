@@ -1339,14 +1339,27 @@ public class JsonFormUtils {
                             vaccineTypeConstraints.put(curVaccine.getString("type"),
                                     new ArrayList<JSONObject>());
                         }
+                        ArrayList<String> vaccineNamesDefined = new ArrayList<>();
+                        if (curVaccine.has("vaccine_separator")) {
+                            String unsplitNames = curVaccine.getString("name");
+                            String separator = curVaccine.getString("vaccine_separator");
+                            String[] splitValues = unsplitNames.split(separator);
+                            for (int k = 0; k < splitValues.length; k++) {
+                                vaccineNamesDefined.add(splitValues[k]);
+                            }
+                        } else {
+                            vaccineNamesDefined.add(curVaccine.getString("name"));
+                        }
 
-                        JSONObject curConstraint = new JSONObject();
-                        curConstraint.put("vaccine", curVaccine.getString("name"));
-                        curConstraint.put("type", "array");
-                        curConstraint.put("ex",
-                                "notEqualTo(step1:" + curVaccineGroup.getString("id") + ", \"[\"" + curVaccine.getString("name") + "\"]\")");
-                        curConstraint.put("err", "Cannot be given with the other " + curVaccine.getString("type") + " dose");
-                        vaccineTypeConstraints.get(curVaccine.getString("type")).add(curConstraint);
+                        for (String curVaccineName : vaccineNamesDefined) {
+                            JSONObject curConstraint = new JSONObject();
+                            curConstraint.put("vaccine", curVaccineName);
+                            curConstraint.put("type", "array");
+                            curConstraint.put("ex",
+                                    "notEqualTo(step1:" + curVaccineGroup.getString("id") + ", \"[\"" + curVaccineName + "\"]\")");
+                            curConstraint.put("err", "Cannot be given with the other " + curVaccine.getString("type") + " dose");
+                            vaccineTypeConstraints.get(curVaccine.getString("type")).add(curConstraint);
+                        }
                     }
                 }
 
@@ -1364,29 +1377,43 @@ public class JsonFormUtils {
                     JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
                     JSONArray options = new JSONArray();
                     for (int j = 0; j < vaccines.length(); j++) {
-                        JSONObject curVaccines = new JSONObject();
-                        curVaccines.put("key", vaccines.getJSONObject(j).getString("name"));
-                        curVaccines.put("text", vaccines.getJSONObject(j).getString("name"));
-                        curVaccines.put("value", "false");
-                        JSONArray constraints = new JSONArray();
+                        ArrayList<String> definedVaccineNames = new ArrayList<>();
+                        if (vaccines.getJSONObject(j).has("vaccine_separator")) {
+                            String rawNames = vaccines.getJSONObject(j).getString("name");
+                            String separator = vaccines.getJSONObject(j).getString("vaccine_separator");
+                            String[] split = rawNames.split(separator);
+                            for (int k = 0; k < split.length; k++) {
+                                definedVaccineNames.add(split[k]);
+                            }
+                        } else {
+                            definedVaccineNames.add(vaccines.getJSONObject(j).getString("name"));
+                        }
 
-                        // Add the constraints
-                        if (vaccineTypeConstraints.containsKey(vaccines.getJSONObject(j).getString("type"))) {
-                            for (JSONObject curConstraint : vaccineTypeConstraints.get(vaccines.getJSONObject(j).getString("type"))) {
-                                if (!curConstraint.getString("vaccine")
-                                        .equals(vaccines.getJSONObject(j).getString("name"))) {
-                                    JSONObject constraintClone = new JSONObject(curConstraint.toString());
-                                    constraintClone.remove("vaccine");
-                                    constraints.put(constraintClone);
+                        for (String curVaccineName : definedVaccineNames) {
+                            JSONObject curVaccines = new JSONObject();
+                            curVaccines.put("key", curVaccineName);
+                            curVaccines.put("text", curVaccineName);
+                            curVaccines.put("value", "false");
+                            JSONArray constraints = new JSONArray();
+
+                            // Add the constraints
+                            if (vaccineTypeConstraints.containsKey(vaccines.getJSONObject(j).getString("type"))) {
+                                for (JSONObject curConstraint : vaccineTypeConstraints.get(vaccines.getJSONObject(j).getString("type"))) {
+                                    if (!curConstraint.getString("vaccine")
+                                            .equals(curVaccineName)) {
+                                        JSONObject constraintClone = new JSONObject(curConstraint.toString());
+                                        constraintClone.remove("vaccine");
+                                        constraints.put(constraintClone);
+                                    }
                                 }
                             }
-                        }
 
-                        if (constraints.length() > 0) {
-                            curVaccines.put("constraints", constraints);
-                        }
+                            if (constraints.length() > 0) {
+                                curVaccines.put("constraints", constraints);
+                            }
 
-                        options.put(curVaccines);
+                            options.put(curVaccines);
+                        }
                     }
 
                     curQuestion.put("options", options);
