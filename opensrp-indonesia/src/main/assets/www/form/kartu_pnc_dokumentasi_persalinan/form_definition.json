@@ -246,7 +246,7 @@
           },
           {
             "name": "tanggalLahirAnak",
-            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/tanggal_lahir_anak"
+            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/tanggal_lahir"
           },
           {
             "name": "jenisKelamin",
