@@ -1,8 +1,13 @@
 package util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -16,13 +21,14 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,6 +73,7 @@ public class JsonFormUtils {
     public static final String FIELDS = "fields";
     public static final String KEY = "key";
     private static final String ENTITY_ID = "entity_id";
+    private static final String RELATIONAL_ID = "relational_id";
     private static final String ENCOUNTER_TYPE = "encounter_type";
     public static final String STEP1 = "step1";
     private static final String METADATA = "metadata";
@@ -75,6 +82,7 @@ public class JsonFormUtils {
 
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
+    private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
     public static void save(Context context, org.ei.opensrp.Context openSrpContext,
                             String jsonString, String providerId, String imageKey, String bindType,
@@ -85,6 +93,9 @@ public class JsonFormUtils {
         }
 
         try {
+            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
             JSONObject jsonForm = new JSONObject(jsonString);
 
@@ -108,7 +119,7 @@ public class JsonFormUtils {
             Client s = null;
 
             if (StringUtils.isNotBlank(subBindType)) {
-                s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+                s = JsonFormUtils.createSubformClient(context, fields, c, subBindType,null);
             }
 
             Event se = null;
@@ -123,27 +134,29 @@ public class JsonFormUtils {
                 }
             }
 
-            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
             if (c != null) {
-                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(c);
-                cloudantDataHandler.createClientDocument(client);
+                JSONObject clientJson = new JSONObject(gson.toJson(c));
+
+                ecUpdater.addClient(c.getBaseEntityId(), clientJson);
+
             }
 
             if (e != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-                cloudantDataHandler.createEventDocument(event);
+                JSONObject eventJson = new JSONObject(gson.toJson(e));
+                ecUpdater.addEvent(e.getBaseEntityId(), eventJson);
             }
 
             if (s != null) {
-                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(s);
-                cloudantDataHandler.createClientDocument(client);
+                JSONObject clientJson = new JSONObject(gson.toJson(s));
+
+                ecUpdater.addClient(c.getBaseEntityId(), clientJson);
 
             }
 
             if (se != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(se);
-                cloudantDataHandler.createEventDocument(event);
+                JSONObject eventJson = new JSONObject(gson.toJson(se));
+                ecUpdater.addEvent(e.getBaseEntityId(), eventJson);
             }
 
             String zeirId = c.getIdentifier(ZEIR_ID);
@@ -153,7 +166,10 @@ public class JsonFormUtils {
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
 
-            ClientProcessor.getInstance(context).processClient();
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastSyncDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate));
+            allSharedPreferences.saveLastSyncDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
             Log.e(TAG, "", e);
@@ -165,10 +181,12 @@ public class JsonFormUtils {
         }
 
         try {
+            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
 
             JSONObject jsonForm = new JSONObject(jsonString);
 
             String entityId = getString(jsonForm, ENTITY_ID);
+            String relationalId = getString(jsonForm, RELATIONAL_ID);
             if (StringUtils.isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
@@ -182,50 +200,77 @@ public class JsonFormUtils {
 
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
-            Client c = JsonFormUtils.createBaseClient(fields, entityId);
+            Client baseClient = JsonFormUtils.createBaseClient(fields, entityId);
             Event e = JsonFormUtils.createEvent(openSrpContext, fields, metadata, entityId, encounterType, providerId, bindType);
 
-            Client s = null;
+            Client subFormClient = null;
 
             if (StringUtils.isNotBlank(subBindType)) {
-                s = JsonFormUtils.createSubformClient(context, fields, c, subBindType);
+                subFormClient = JsonFormUtils.createSubformClient(context, fields, baseClient, subBindType,relationalId);
             }
             Event se = null;
-            if (s != null && e != null) {
+            if (subFormClient != null && e != null) {
                 JSONObject subBindTypeJson = getJSONObject(jsonForm, subBindType);
                 if (subBindTypeJson != null) {
                     String subBindTypeEncounter = getString(subBindTypeJson, ENCOUNTER_TYPE);
                     if (StringUtils.isNotBlank(subBindTypeEncounter)) {
-                        se = JsonFormUtils.createSubFormEvent(null, metadata, e, s.getBaseEntityId(), subBindTypeEncounter, providerId, subBindType);
+                        se = JsonFormUtils.createSubFormEvent(null, metadata, e, subFormClient.getBaseEntityId(), subBindTypeEncounter, providerId, subBindType);
                     }
                 }
             }
-            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
-            if (c != null) {
-                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(c);
-                cloudantDataHandler.createClientDocument(client);
+            if (baseClient != null) {
+                mergeAndSaveClient(context,baseClient);
+
             }
             if (e != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-                cloudantDataHandler.createEventDocument(event);
+
+                JSONObject eventJson = new JSONObject(gson.toJson(e));
+                ecUpdater.addEvent(e.getBaseEntityId(),eventJson);
+
             }
-            if (s != null) {
-                org.ei.opensrp.cloudant.models.Client client = new org.ei.opensrp.cloudant.models.Client(s);
-                cloudantDataHandler.createClientDocument(client);
+            if (subFormClient != null) {
+                mergeAndSaveClient(context, subFormClient);
+
             }
             if (se != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(se);
-                cloudantDataHandler.createEventDocument(event);
+                JSONObject eventJson = new JSONObject(gson.toJson(se));
+                ecUpdater.addEvent(se.getBaseEntityId(),eventJson);
             }
-            ClientProcessor.getInstance(context).processClient();
 
 
-//            EventsProcessor
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastSyncDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate));
+            allSharedPreferences.saveLastSyncDate(lastSyncDate.getTime());
+
         } catch (Exception e) {
             Log.e(TAG, "", e);
         }
     }
 
+    public static void mergeAndSaveClient(Context context,Client baseClient ) throws Exception {
+        ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
+
+        JSONObject updatedClientJson = new JSONObject(gson.toJson(baseClient));
+
+        JSONObject originalClientJsonObject = ecUpdater.getClient(baseClient.getBaseEntityId());
+
+        JSONObject mergedJson= merge(originalClientJsonObject, updatedClientJson);
+
+        //TODO Save edit log
+
+        //save the updated client (the one updated and generated from the form) as EditClient to keep an edit log of the client doc
+       // originalClient.setType("PristineClient");
+        //originalClient.setRev(null);
+        //cloudantDataHandler.addClient(originalClient);
+
+        ecUpdater.addClient(baseClient.getBaseEntityId(),mergedJson);
+
+
+    }
     public static void saveImage(Context context, String providerId, String entityId, String imageLocation) {
         if (StringUtils.isBlank(imageLocation)) {
             return;
@@ -355,7 +400,7 @@ public class JsonFormUtils {
         try {
             encounterLocation = metadata.getString("encounter_location");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
 
         Event e = (Event) new Event()
@@ -766,13 +811,13 @@ public class JsonFormUtils {
         }
     }
 
-    public static Client createSubformClient(Context context, JSONArray fields, Client parent, String bindType) throws ParseException {
+    public static Client createSubformClient(Context context, JSONArray fields, Client parent, String bindType, String relationalId) throws ParseException {
 
         if (StringUtils.isBlank(bindType)) {
             return null;
         }
 
-        String entityId = generateRandomUUIDString();
+        String entityId = relationalId==null?generateRandomUUIDString():relationalId;
         String firstName = getSubFormFieldValue(fields, FormEntityConstants.Person.first_name, bindType);
         String gender = getSubFormFieldValue(fields, FormEntityConstants.Person.gender, bindType);
         String bb = getSubFormFieldValue(fields, FormEntityConstants.Person.birthdate, bindType);
@@ -835,6 +880,34 @@ public class JsonFormUtils {
         return c;
     }
 
+    private static JSONObject merge(JSONObject json1, JSONObject json2) {
+        JSONObject mergedJSON = new JSONObject();
+        try {
+            mergedJSON = new JSONObject(json1, getNames(json1));
+            for (String crunchifyKey : getNames(json2)) {
+                mergedJSON.put(crunchifyKey, json2.get(crunchifyKey));
+            }
+
+        } catch (JSONException e) {
+            throw new RuntimeException("JSON Exception" + e);
+        }
+        return mergedJSON;
+    }
+
+    private static String[] getNames(JSONObject jo) {
+        int length = jo.length();
+        if (length == 0) {
+            return null;
+        }
+        Iterator i = jo.keys();
+        String[] names = new String[length];
+        int j = 0;
+        while (i.hasNext()) {
+            names[j] = (String) i.next();
+            j += 1;
+        }
+        return names;
+    }
     public static Event createSubFormEvent(JSONArray fields, JSONObject metadata, Event parent, String entityId, String encounterType, String providerId, String bindType) {
 
 

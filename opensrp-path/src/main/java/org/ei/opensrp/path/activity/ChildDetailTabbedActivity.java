@@ -264,6 +264,8 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             JsonFormUtils.addChildRegLocHierarchyQuestions(form, lpv.getSelectedItem(), context);
             if (form != null) {
                 form.put("entity_id", childDetails.entityId());
+                form.put("relational_id",childDetails.getColumnmaps().get("relational_id"));
+
                 Intent intent = new Intent(getApplicationContext(), JsonFormActivity.class);
                 //inject zeir id into the form
                 JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
@@ -360,6 +362,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                         jsonObject.remove(JsonFormUtils.VALUE);
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "PMTCT_Status", true));
                     }
+
                 }
 //            intent.putExtra("json", form.toString());
 //            startActivityForResult(intent, REQUEST_CODE_GET_JSON);
