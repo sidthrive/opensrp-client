@@ -700,6 +700,8 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         if (weightlist.size() > 0) {
             weightWrapper.setWeight(weightlist.get(0).getKg());
             weightWrapper.setUpdatedWeightDate(new DateTime(weightlist.get(0).getDate()), false);
+//            weightWrapper.setWeight(weight.getKg());
+            weightWrapper.setDbKey(weightlist.get(0).getId());
         }
         weightWrapper.setGender(gender.toString());
         weightWrapper.setPatientName(childName);
