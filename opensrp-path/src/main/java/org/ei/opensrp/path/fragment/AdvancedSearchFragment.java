@@ -61,9 +61,12 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private View listViewLayout;
     private View advancedSearchForm;
 
+    private TextView filterCount;
+
     private List<Integer> editedList = new ArrayList<>();
-    Map<String, String> editMap = new HashMap<>();
-    boolean listMode = false;
+    private Map<String, String> editMap = new HashMap<>();
+    private boolean listMode = false;
+    private int overdueCount = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,9 +113,10 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         final View filterSection = view.findViewById(R.id.filter_selection);
         filterSection.setOnClickListener(clientActionHandler);
 
-        TextView filterCount = (TextView) view.findViewById(R.id.filter_count);
-        filterCount.setClickable(false);
-        filterCount.setText("1");
+        filterCount = (TextView) view.findViewById(R.id.filter_count);
+        if(overdueCount > 0){
+            filterCount.setText(String.valueOf(overdueCount));
+        }
         filterCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,15 +124,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             }
         });
 
-        View backToHome = view.findViewById(R.id.btn_back_to_home);
-        backToHome.setOnClickListener(clientActionHandler);
-
-        View titleLayout = view.findViewById(R.id.title_layout);
-        titleLayout.setOnClickListener(clientActionHandler);
-        titleLayout.setPadding(1, 0, 0, 0);
-
-        TextView titleView = (TextView) view.findViewById(R.id.txt_title_label);
-        titleView.setText(getString(R.string.advanced_search));
+        if (titleLabelView != null) {
+            titleLabelView.setText(getString(R.string.advanced_search));
+        }
 
         View nameInitials = view.findViewById(R.id.name_inits);
         nameInitials.setVisibility(View.GONE);
@@ -156,13 +154,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.global_search:
-                case R.id.btn_back_to_home:
-                case R.id.title_layout:
-                    if (listMode) {
-                        switchViews(false);
-                    } else {
-                        ((ChildSmartRegisterActivity) getActivity()).switchToBaseFragment(null);
-                    }
+                    goBack();
                     break;
                 case R.id.filter_selection:
                     ((ChildSmartRegisterActivity) getActivity()).filterSelection();
@@ -418,6 +410,15 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         return false;
     }
 
+    @Override
+    protected void goBack() {
+        if (listMode) {
+            switchViews(false);
+        } else {
+            ((ChildSmartRegisterActivity) getActivity()).switchToBaseFragment(null);
+        }
+    }
+
     private String getMainConditionString(String tableName) {
 
         String startDateKey = "start_date";
@@ -601,6 +602,20 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 search.setClickable(false);
             }
         }
+    }
+
+    public void updateFilterCount(int count) {
+        if (filterCount != null) {
+            if (count > 0) {
+                filterCount.setText(String.valueOf(count));
+                filterCount.setVisibility(View.VISIBLE);
+                filterCount.setClickable(true);
+            } else {
+                filterCount.setVisibility(View.GONE);
+                filterCount.setClickable(false);
+            }
+        }
+            overdueCount = count;
     }
 
 }

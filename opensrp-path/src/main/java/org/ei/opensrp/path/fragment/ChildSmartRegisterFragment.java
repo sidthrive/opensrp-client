@@ -20,11 +20,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -52,7 +52,6 @@ import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
@@ -76,7 +75,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private Handler showNoResultDialogHandler;
     private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
     private TextView filterCount;
-    View filterSection;
+    private View filterSection;
+    private ImageView backButton;
+    private TextView nameInitials;
+    private int dueOverdueCount = 0;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -201,16 +203,16 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(INVISIBLE);
 
-        final View filterSection = view.findViewById(R.id.filter_selection);
+        filterSection = view.findViewById(R.id.filter_selection);
         filterSection.setOnClickListener(clientActionHandler);
 
         filterCount =  (TextView) view.findViewById(R.id.filter_count);
         filterCount.setVisibility(View.GONE);
         filterCount.setClickable(false);
-        filterCount.setOnClickListener(new View.OnClickListener(){
+        filterCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view.isClickable()) {
+                if (view.isClickable()) {
                     filterSection.performClick();
                 }
             }
@@ -226,7 +228,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         View qrCode = view.findViewById(R.id.scan_qr_code);
         qrCode.setOnClickListener(clientActionHandler);
 
-        TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
+        backButton = (ImageView) view.findViewById(R.id.back_button);
+        nameInitials = (TextView) view.findViewById(R.id.name_inits);
 
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
         String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
@@ -245,10 +248,23 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     @Override
     protected void goBack() {
-        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        if (!drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.openDrawer(GravityCompat.START);
+        if(filterMode()){
+            toggleFilterSelection();
+        } else {
+            DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.openDrawer(GravityCompat.START);
+            }
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (filterMode()) {
+            toggleFilterSelection();
+            return true;
+        }
+        return false;
     }
 
     public LocationPickerView getLocationPickerView() {
@@ -271,6 +287,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         mainCondition = "";
         super.CountExecute();
         countOverDue();
+        countDueOverDue();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
@@ -332,16 +349,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                     break;
                 case R.id.filter_selection:
-                    String tagString = "PRESSED";
-                    if (view.getTag() == null) {
-                        filter("", "", filterSelectionCondition());
-                        view.setTag(tagString);
-                        view.setBackgroundResource(R.drawable.transparent_clicked_background);
-                    } else if (view.getTag().toString().equals(tagString)){
-                        filter("", "", "");
-                        view.setTag(null);
-                        view.setBackgroundResource(R.drawable.transparent_gray_background);
-                    }
+                    toggleFilterSelection();
                     break;
 
                 case R.id.global_search:
@@ -351,6 +359,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 case R.id.scan_qr_code:
                     ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
                     break;
+
             }
         }
     }
@@ -361,9 +370,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     }
 
     public void triggerFilterSelection(){
-        if(filterSection != null){
+        if(filterSection != null && !filterMode()){
             filterSection.performClick();
-            Toast.makeText(getActivity(), "Triggered filter selection", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -523,10 +531,6 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     }
 
-    private void startQrCodeScanner() {
-        ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
-    }
-
     /*@Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         super.onLoadFinished(loader, cursor);
@@ -566,7 +570,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
     }*/
 
-    private String filterSelectionCondition() {
+    private String filterSelectionCondition(boolean urgentOnly) {
         String mainCondition = "";
         ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
 
@@ -577,6 +581,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             } else {
                 mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' or ";
             }
+        }
+
+        if(urgentOnly){
+            return mainCondition;
         }
 
         mainCondition += " or ";
@@ -594,17 +602,30 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
 
     public void countOverDue() {
-        String mainCondition = "";
-        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+        String mainCondition = filterSelectionCondition(true);
+        int count = count(mainCondition);
 
-        for (int i = 0; i < vaccines.size(); i++) {
-            VaccineRepo.Vaccine vaccine = vaccines.get(i);
-            if (i == vaccines.size() - 1) {
-                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' ";
+        if (filterCount != null) {
+            if (count > 0) {
+                filterCount.setText(String.valueOf(count));
+                filterCount.setVisibility(View.VISIBLE);
+                filterCount.setClickable(true);
             } else {
-                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' or ";
+                filterCount.setVisibility(View.GONE);
+                filterCount.setClickable(false);
             }
         }
+
+        ((ChildSmartRegisterActivity) getActivity()).updateAdvancedSearchFilterCount(count);
+    }
+
+    public void countDueOverDue() {
+        String mainCondition = filterSelectionCondition(false);
+        int count = count(mainCondition);
+        dueOverdueCount = count;
+    }
+
+    private int count(String mainConditionString){
 
         int count = 0;
 
@@ -614,7 +635,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
             String query = "";
             if (isValidFilterForFts(commonRepository())) {
-                String sql = sqb.countQueryFts(tablename, "", mainCondition, "");
+                String sql = sqb.countQueryFts(tablename, "", mainConditionString, "");
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename + "." + CommonRepository.ID_COLUMN);
                 query = sqb.Endquery(query);
@@ -637,17 +658,45 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             }
         }
 
-        if (filterCount != null) {
-            if (count > 0) {
-                filterCount.setText(String.valueOf(count));
-                filterCount.setVisibility(View.VISIBLE);
-                filterCount.setClickable(true);
-            } else {
-                filterCount.setVisibility(View.GONE);
-                filterCount.setClickable(false);
+        return count;
+
+    }
+
+    private void switchViews(boolean filterSelected){
+        if(filterSelected){
+            if(titleLabelView != null){
+                titleLabelView.setText(String.format(getString(R.string.overdue_due), dueOverdueCount));
+            }
+            nameInitials.setVisibility(View.GONE);
+            backButton.setVisibility(View.VISIBLE);
+        } else {
+            if(titleLabelView != null){
+                titleLabelView.setText(getString(R.string.zeir));
+            }
+            nameInitials.setVisibility(View.VISIBLE);
+            backButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void toggleFilterSelection(){
+        if(filterSection != null) {
+            String tagString = "PRESSED";
+            if (filterSection.getTag() == null) {
+                filter("", "", filterSelectionCondition(false));
+                filterSection.setTag(tagString);
+                filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
+                switchViews(true);
+            } else if (filterSection.getTag().toString().equals(tagString)) {
+                filter("", "", "");
+                filterSection.setTag(null);
+                filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
+                switchViews(false);
             }
         }
+    }
 
+    private boolean filterMode(){
+        return filterSection != null && filterSection.getTag() != null;
     }
 
 }

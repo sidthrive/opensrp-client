@@ -13,9 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
@@ -25,12 +22,10 @@ import org.ei.opensrp.event.Event;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.adapter.PathRegisterActivityPagerAdapter;
-import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.fragment.AdvancedSearchFragment;
 import org.ei.opensrp.path.fragment.BaseSmartRegisterFragment;
 import org.ei.opensrp.path.fragment.ChildSmartRegisterFragment;
 import org.ei.opensrp.path.receiver.ServiceReceiver;
-import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
@@ -39,7 +34,6 @@ import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.viewpager.OpenSRPViewPager;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -61,6 +55,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private static final int REQUEST_CODE_GET_JSON = 3432;
     private static final int REQUEST_CODE_RECORD_OUT_OF_CATCHMENT = 1131;
     private int currentPage;
+    private int advancedSearchPosition;
 
     private android.support.v4.app.Fragment mBaseFragment = null;
     private AdvancedSearchFragment advancedSearchFragment;
@@ -79,6 +74,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         mBaseFragment = new ChildSmartRegisterFragment();
         advancedSearchFragment = new AdvancedSearchFragment();
         Fragment[] otherFragments = {new AdvancedSearchFragment()};
+        advancedSearchPosition = 1;
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new PathRegisterActivityPagerAdapter(getSupportFragmentManager(), mBaseFragment, otherFragments);
@@ -164,11 +160,18 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     public void startAdvancedSearch() {
         try {
-            mPager.setCurrentItem(1, false);
+            mPager.setCurrentItem(advancedSearchPosition, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateAdvancedSearchFilterCount(int count) {
+        AdvancedSearchFragment advancedSearchFragment = (AdvancedSearchFragment) findFragmentByPosition(advancedSearchPosition);
+        if(advancedSearchFragment != null){
+            advancedSearchFragment.updateFilterCount(count);
+        }
     }
 
     @Override
@@ -229,11 +232,11 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     @Override
     public void onBackPressed() {
+        BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(currentPage);
+        if (registerFragment.onBackPressed()) {
+            return;
+        }
         if (currentPage != 0) {
-            BaseSmartRegisterFragment registerFragment = (BaseSmartRegisterFragment) findFragmentByPosition(currentPage);
-            if(registerFragment.onBackPressed()){
-                return;
-            }
             new AlertDialog.Builder(this)
                     .setMessage(org.ei.opensrp.path.R.string.form_back_confirm_dialog_message)
                     .setTitle(org.ei.opensrp.path.R.string.form_back_confirm_dialog_title)
