@@ -76,6 +76,7 @@ public class ImagePickerFactory implements FormWidgetFactory {
                 uploadButton.setEnabled(!readOnly);
             }
         }
+        ((JsonApi) context).addFormDataView(imageView);
         views.add(imageView);
 
         uploadButton.setText(jsonObject.getString("uploadButtonText"));

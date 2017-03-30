@@ -31,6 +31,7 @@ import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -46,6 +47,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     private PropertyManager propertyManager;
     private HashMap<String, View> skipLogicViews;
     private HashMap<String, View> constrainedViews;
+    private ArrayList<View> formDataViews;
     private String functionRegex;
     private HashMap<String, Comparison> comparisons;
     private HashMap<Integer, OnActivityResultListener> onActivityResultListeners;
@@ -210,6 +212,13 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
+    public void clearFormDataViews() {
+        formDataViews = new ArrayList<>();
+        clearSkipLogicViews();
+        clearConstrainedViews();
+    }
+
+    @Override
     public void addSkipLogicView(View view) {
         skipLogicViews.put(getViewKey(view), view);
     }
@@ -228,8 +237,17 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
         return key;
     }
 
+    public void addFormDataView(View view) {
+        formDataViews.add(view);
+    }
+
     @Override
-    public void refreshSkipLogic(String parentKey, String childKey) {
+    public ArrayList<View> getFormDataViews() {
+        return formDataViews;
+    }
+
+    @Override
+        public void refreshSkipLogic(String parentKey, String childKey) {
         initComparisons();
         for (View curView : skipLogicViews.values()) {
             String relevanceTag = (String) curView.getTag(R.id.relevance);

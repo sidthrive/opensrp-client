@@ -125,6 +125,24 @@ public class JsonFormUtils {
 
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
+            // Replace values for location questions with their corresponding location IDs
+            for (int i = 0; i < fields.length(); i++) {
+                String key = fields.getJSONObject(i).getString("key");
+                if (key.equals("Home_Facility")
+                        || key.equals("Birth_Facility_Name")
+                        || key.equals("Residential_Area")) {
+                    try {
+                        String rawValue = fields.getJSONObject(i).getString("value");
+                        JSONArray valueArray = new JSONArray(rawValue);
+                        if (valueArray.length() > 0) {
+                            fields.getJSONObject(i).put("value", getOpenMrsLocationId(openSrpContext,
+                                    valueArray.getString(valueArray.length() - 1)));
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
             Client c = JsonFormUtils.createBaseClient(fields, entityId);
             Event e = JsonFormUtils.createEvent(openSrpContext, fields, metadata, entityId, encounterType, providerId, bindType);
 

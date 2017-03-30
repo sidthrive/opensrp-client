@@ -78,7 +78,10 @@ public class CheckBoxFactory implements FormWidgetFactory {
                 checkboxLayout.setLayoutParams(getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, (int) context
                         .getResources().getDimension(R.dimen.extra_bottom_margin)));
             }
+
             views.add(checkboxLayout);
+            ((JsonApi) context).addFormDataView(checkBox);
+
             if (relevance != null && context instanceof JsonApi) {
                 checkBox.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(checkBox);
