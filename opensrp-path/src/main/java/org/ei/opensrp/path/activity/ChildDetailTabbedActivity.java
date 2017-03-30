@@ -85,7 +85,7 @@ import static util.Utils.getValue;
 
 public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener, WeightActionListener {
 
-    private Menu overflow;
+    public Menu overflow;
     private Toolbar detailtoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -141,7 +141,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         ((TextView) detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
 
-        detailtoolbar.setNavigationIcon(R.drawable.back_button);
+//        detailtoolbar.setNavigationIcon(R.drawable.back_button);
 //        detailtoolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.ic_menu));
         saveButton = (TextView) detailtoolbar.findViewById(R.id.save);
         saveButton.setVisibility(View.INVISIBLE);
@@ -214,6 +214,18 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
         overflow = menu;
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+        List <Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+        if(vaccineList.size() ==0){
+            overflow.getItem(2).setEnabled(false);
+
+        }
+        WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
+        List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
+        if(weightlist.size() ==0){
+            overflow.getItem(1).setEnabled(false);
+
+        }
         return true;
     }
 
