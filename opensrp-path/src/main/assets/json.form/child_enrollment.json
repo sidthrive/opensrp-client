@@ -186,7 +186,7 @@
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
         "hint": "Child's DOB *",
-        "expanded": true,
+        "expanded": false,
         "duration": {
           "label": "Age"
         },
@@ -205,7 +205,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "hint": "Date first seen *",
-        "expanded": true,
+        "expanded": false,
         "min_date": "today-1825",
         "max_date": "today",
         "v_required": {

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.util.ViewUtil;
@@ -48,8 +49,12 @@ public class TreeViewFactory implements FormWidgetFactory {
             String relevance = jsonObject.optString("relevance");
             String constraints = jsonObject.optString("constraints");
 
-            final MaterialEditText editText = (MaterialEditText) LayoutInflater.from(context).inflate(
+            JSONArray canvasIds = new JSONArray();
+            RelativeLayout rootLayout = (RelativeLayout) LayoutInflater.from(context).inflate(
                     R.layout.item_edit_text, null);
+            rootLayout.setId(ViewUtil.generateViewId());
+            canvasIds.put(rootLayout.getId());
+            final MaterialEditText editText = (MaterialEditText) rootLayout.findViewById(R.id.edit_text);
             editText.setHint(jsonObject.getString("hint"));
             editText.setFloatingLabelText(jsonObject.getString("hint"));
             editText.setId(ViewUtil.generateViewId());
@@ -145,9 +150,10 @@ public class TreeViewFactory implements FormWidgetFactory {
                 editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
                 ((JsonApi) context).addConstrainedView(editText);
             }
+            editText.setTag(R.id.canvas_ids, canvasIds.toString());
 
             ((JsonApi) context).addFormDataView(editText);
-            views.add(editText);
+            views.add(rootLayout);
         } catch (Exception e) {
             e.printStackTrace();
         }

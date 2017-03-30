@@ -272,13 +272,23 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         }
                     }
 
-                    if (ok) {
-                        curView.setEnabled(true);
-                        curView.setVisibility(View.VISIBLE);
-                    } else {
-                        curView.setEnabled(false);
-                        curView.setVisibility(View.GONE);
+                    try {
+                        JSONArray canvasViewIds = new JSONArray((String) curView.getTag(R.id.canvas_ids));
+                        for (int i = 0; i < canvasViewIds.length(); i++) {
+                            int curId = canvasViewIds.getInt(i);
+                            View curCanvasView = findViewById(curId);
+                            if (ok) {
+                                curCanvasView.setEnabled(true);
+                                curCanvasView.setVisibility(View.VISIBLE);
+                            } else {
+                                curCanvasView.setEnabled(false);
+                                curCanvasView.setVisibility(View.GONE);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

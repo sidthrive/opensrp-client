@@ -36,6 +36,7 @@ public class SpinnerFactory implements FormWidgetFactory {
         String relevance = jsonObject.optString("relevance");
 
         List<View> views = new ArrayList<>(1);
+        JSONArray canvasIds = new JSONArray();
         MaterialSpinner spinner = (MaterialSpinner) LayoutInflater.from(context).inflate(R.layout.item_spinner, null);
 
         String hint = jsonObject.optString("hint");
@@ -45,6 +46,7 @@ public class SpinnerFactory implements FormWidgetFactory {
         }
 
         spinner.setId(ViewUtil.generateViewId());
+        canvasIds.put(spinner.getId());
 
         spinner.setTag(R.id.key, jsonObject.getString("key"));
         spinner.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
@@ -92,6 +94,7 @@ public class SpinnerFactory implements FormWidgetFactory {
         }
         ((JsonApi) context).addFormDataView(spinner);
         views.add(spinner);
+        spinner.setTag(R.id.canvas_ids, canvasIds.toString());
         if (relevance != null && context instanceof JsonApi) {
             spinner.setTag(R.id.relevance, relevance);
             ((JsonApi) context).addSkipLogicView(spinner);

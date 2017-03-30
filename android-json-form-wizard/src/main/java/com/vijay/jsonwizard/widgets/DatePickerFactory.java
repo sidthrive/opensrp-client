@@ -25,6 +25,7 @@ import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.validators.edittext.RequiredValidator;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -190,6 +191,11 @@ public class DatePickerFactory implements FormWidgetFactory {
                 }
             });
             editText.addTextChangedListener(genericTextWatcher);
+
+            JSONArray canvasIds = new JSONArray();
+            dateViewRelativeLayout.setId(ViewUtil.generateViewId());
+            canvasIds.put(dateViewRelativeLayout.getId());
+            editText.setTag(R.id.canvas_ids, canvasIds.toString());
 
             ((JsonApi) context).addFormDataView(editText);
             views.add(dateViewRelativeLayout);
