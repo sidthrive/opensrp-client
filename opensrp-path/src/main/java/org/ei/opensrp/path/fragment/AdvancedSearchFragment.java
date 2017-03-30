@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -27,17 +28,24 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
+import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.GlobalSearchUtils;
+import util.JsonFormUtils;
 import util.Utils;
 
 public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
@@ -67,8 +75,27 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private Map<String, String> editMap = new HashMap<>();
     private boolean listMode = false;
     private int overdueCount = 0;
+    private boolean outOfArea = false;
+    private AdvancedMatrixCursor matrixCursor;
+
+    private static final String ZEIR_ID = "zeir_id";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String NRC_NUMBER = "nrc_number";
+
+    private static final String CONTACT_PHONE_NUMBER = "contact_phone_number";
+    private static final String BIRTH_DATE = "birth_date";
+
+    private static final String MOTHER_GUARDIAN_FIRST_NAME = "mother_first_name";
+    private static final String MOTHER_GUARDIAN_LAST_NAME = "mother_last_name";
+    private static final String MOTHER_GUARDIAN_NRC_NUMBER = "mother_nrc_number";
+    private static final String MOTHER_GUARDIAN_PHONE_NUMBER = "mother_contact_phone_number";
+    private static final String START_DATE = "start_date";
+    private static final String END_DATE = "end_date";
+
 
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -114,7 +141,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         filterSection.setOnClickListener(clientActionHandler);
 
         filterCount = (TextView) view.findViewById(R.id.filter_count);
-        if(overdueCount > 0){
+        if (overdueCount > 0) {
             filterCount.setText(String.valueOf(overdueCount));
         }
         filterCount.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +250,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
         String searchCriteriaString = "Search criteria: Include: ";
 
-        boolean outOfArea = false;
         if (searchLimits.getCheckedRadioButtonId() == R.id.out_and_inside) {
             outOfArea = true;
             searchCriteriaString += " \"Outside and Inside My Catchment Area\", ";
@@ -256,49 +282,79 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         String zeirIdString = zeirId.getText().toString();
         if (StringUtils.isNotBlank(zeirIdString)) {
             searchCriteriaString += " ZEIR ID: \"" + zeirIdString + "\",";
-            editMap.put(tableName + ".zeir_id", zeirIdString.trim());
+            String key = ZEIR_ID;
+            if (!outOfArea) {
+                key = tableName + "." + ZEIR_ID;
+            }
+            editMap.put(key, zeirIdString.trim());
         }
 
         String firstNameString = firstName.getText().toString();
         if (StringUtils.isNotBlank(firstNameString)) {
             searchCriteriaString += " First name: \"" + firstNameString + "\",";
-            editMap.put(tableName + ".first_name", firstNameString.trim());
+            String key = "name";//FIRST_NAME;
+            if (!outOfArea) {
+                key = tableName + "." + FIRST_NAME;
+            }
+            editMap.put(key, firstNameString.trim());
         }
 
         String lastNameString = lastName.getText().toString();
         if (StringUtils.isNotBlank(lastNameString)) {
             searchCriteriaString += " Last name: \"" + lastNameString + "\",";
-            editMap.put(tableName + ".last_name", lastNameString.trim());
+            String key = LAST_NAME;
+            if (!outOfArea) {
+                key = tableName + "." + LAST_NAME;
+            }
+            editMap.put(key, lastNameString.trim());
         }
 
         String motherGuardianNameString = motherGuardianName.getText().toString();
         if (StringUtils.isNotBlank(motherGuardianNameString)) {
             searchCriteriaString += " Mother/Guardian name: \"" + motherGuardianNameString + "\",";
-            editMap.put(parentTableName + ".first_name", motherGuardianNameString.trim());
+            String key = MOTHER_GUARDIAN_FIRST_NAME;
+            if (!outOfArea) {
+                key = parentTableName + "." + FIRST_NAME;
+            }
+            editMap.put(key, motherGuardianNameString.trim());
+
+            key = MOTHER_GUARDIAN_LAST_NAME;
+            if (!outOfArea) {
+                key = parentTableName + "." + LAST_NAME;
+            }
+            editMap.put(key, motherGuardianNameString.trim());
         }
 
         String motherGuardianNrcString = motherGuardianNrc.getText().toString();
         if (StringUtils.isNotBlank(motherGuardianNrcString)) {
             searchCriteriaString += " Mother/Guardian nrc: \"" + motherGuardianNrcString + "\",";
-            editMap.put(parentTableName + ".nrc_number", motherGuardianNrcString.trim());
+            String key = MOTHER_GUARDIAN_NRC_NUMBER;
+            if (!outOfArea) {
+                key = parentTableName + "." + NRC_NUMBER;
+            }
+            editMap.put(key, motherGuardianNrcString.trim());
         }
 
         String motherGuardianPhoneNumberString = motherGuardianPhoneNumber.getText().toString();
         if (StringUtils.isNotBlank(motherGuardianPhoneNumberString)) {
             searchCriteriaString += " Mother/Guardian phone number: \"" + motherGuardianPhoneNumberString + "\",";
-            editMap.put(parentTableName + ".contact_phone_number", motherGuardianPhoneNumberString.trim());
+            String key = MOTHER_GUARDIAN_PHONE_NUMBER;
+            if (!outOfArea) {
+                key = parentTableName + "." + CONTACT_PHONE_NUMBER;
+            }
+            editMap.put(key, motherGuardianPhoneNumberString.trim());
         }
 
         String startDateString = startDate.getText().toString();
         if (StringUtils.isNotBlank(startDateString)) {
             searchCriteriaString += " Start date: \"" + startDateString + "\",";
-            editMap.put("start_date", startDateString.trim());
+            editMap.put(START_DATE, startDateString.trim());
         }
 
         String endDateString = endDate.getText().toString();
         if (StringUtils.isNotBlank(endDateString)) {
             searchCriteriaString += " End date: \"" + endDateString + "\",";
-            editMap.put("end_date", endDateString.trim());
+            editMap.put(END_DATE, endDateString.trim());
         }
 
         if (searchCriteria != null) {
@@ -314,7 +370,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
     }
 
-    private void localSearch() {
+    private void initListMode() {
         switchViews(true);
 
         String tableName = "ec_child";
@@ -324,18 +380,93 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
-        /*SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
-        countqueryBUilder.SelectInitiateMainTableCounts(tableName);
-        countSelect = countqueryBUilder.mainCondition(getMainConditionString(tableName));
-        mainCondition = "";
-        CountExecute();*/
+    }
 
-        super.filterandSortInInitializeQueries();
-        //refresh();
+    private void localSearch() {
+
+        initListMode();
+
+        filterandSortInInitializeQueries();
     }
 
     private void globalSearch() {
 
+        initListMode();
+
+        final AdvancedSearchFragment advancedSearchFragment = this;
+
+
+        final Listener<JSONArray> listener = new Listener<JSONArray>() {
+            public void onEvent(final JSONArray jsonArray) {
+
+
+                String[] columns = new String[]{"_id", "relationalid", FIRST_NAME, "middle_name", LAST_NAME, "gender", "dob", ZEIR_ID, "epi_card_number", MOTHER_GUARDIAN_FIRST_NAME, MOTHER_GUARDIAN_LAST_NAME};
+                matrixCursor = new AdvancedMatrixCursor(columns);
+
+                if (jsonArray != null) {
+                    int len = jsonArray.length();
+                    for (int i = 0; i < len; i++) {
+                        JSONObject client = getJsonObject(jsonArray, i);
+
+                        String entityId = getJsonString(client, "baseEntityId");
+                        String firstName = getJsonString(client, "firstName");
+                        String middleName = getJsonString(client, "middleName");
+                        String lastName = getJsonString(client, "lastName");
+
+                        String gender = getJsonString(client, "gender");
+                        String dob = getJsonString(client, "birthdate");
+                        if (StringUtils.isNotBlank(dob) && StringUtils.isNumeric(dob)) {
+                            try {
+                                Long dobLong = Long.valueOf(dob);
+                                Date date = new Date(dobLong);
+                                dob = DateUtil.yyyyMMddTHHmmssSSSZ.format(date);
+                            } catch (Exception e) {
+                                Log.e(getClass().getName(), e.toString(), e);
+                            }
+                        }
+                        String zeirId = getJsonString(getJsonObject(client, "identifiers"), JsonFormUtils.ZEIR_ID);
+                        String epiCardNumber = getJsonString(getJsonObject(client, "attributes"), "Child_Register_Card_Number");
+
+                        String motherFirstName = "";
+                        String motherLastName = "";
+
+                        if (client.has("mother")) {
+                            JSONObject mother = getJsonObject(client, "mother");
+                            motherFirstName = getJsonString(mother, "firstName");
+                            motherLastName = getJsonString(mother, "lastName");
+                        }
+
+                        matrixCursor.addRow(new Object[]{entityId, null, firstName, middleName, lastName, gender, dob, zeirId, epiCardNumber, motherFirstName, motherLastName});
+                    }
+
+                    advancedSearchFragment.filterandSortInInitializeQueries();
+                }
+
+
+            }
+        };
+
+        globalSearch(listener, clientsProgressView, null);
+    }
+
+    private void globalSearch(Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
+        Date date0 = new Date(0);
+        String startDate = DateUtil.yyyyMMdd.format(date0);
+
+        Date now = new Date();
+        String endDate = DateUtil.yyyyMMdd.format(now);
+
+        if (editMap.containsKey(START_DATE)) {
+            startDate = editMap.remove(START_DATE);
+        }
+        if (editMap.containsKey(END_DATE)) {
+            endDate = editMap.remove(END_DATE);
+        }
+
+        String bDate = startDate + ":" + endDate;
+        editMap.put(BIRTH_DATE, bDate);
+
+        GlobalSearchUtils.backgroundSearch(editMap, listener, progressBar, button);
     }
 
     @Override
@@ -421,8 +552,8 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
     private String getMainConditionString(String tableName) {
 
-        String startDateKey = "start_date";
-        String endDateKey = "end_date";
+        String startDateKey = START_DATE;
+        String endDateKey = END_DATE;
 
         String mainConditionString = "";
         for (Map.Entry<String, String> entry : editMap.entrySet()) {
@@ -524,23 +655,27 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 return new CursorLoader(getActivity()) {
                     @Override
                     public Cursor loadInBackground() {
-                        String query = filterandSortQuery();
-                        Cursor cursor = commonRepository().RawCustomQueryForAdapter(query);
-                        totalcount = cursor.getCount();
-                        Log.v("total count here", "" + totalcount);
-                        currentlimit = 20;
-                        currentoffset = 0;
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refresh();
-                                hideProgressView();
-                            }
+                        if (!outOfArea) {
+                            String query = filterandSortQuery();
+                            Cursor cursor = commonRepository().RawCustomQueryForAdapter(query);
+                            totalcount = cursor.getCount();
+                            Log.v("total count here", "" + totalcount);
+                            currentlimit = 20;
+                            currentoffset = 0;
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refresh();
+                                    hideProgressView();
+                                }
 
-                            ;
-                        });
+                                ;
+                            });
 
-                        return cursor;
+                            return cursor;
+                        } else {
+                            return matrixCursor;
+                        }
                     }
                 };
             default:
@@ -615,7 +750,65 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 filterCount.setClickable(false);
             }
         }
-            overdueCount = count;
+        overdueCount = count;
     }
+
+    private String getJsonString(JSONObject jsonObject, String field) {
+        try {
+            if (jsonObject != null && jsonObject.has(field)) {
+                String string = jsonObject.getString(field);
+                if (string.equals("null")) {
+                    return "";
+                } else {
+                    return string;
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(getClass().getName(), "", e);
+        }
+        return "";
+
+    }
+
+    private JSONObject getJsonObject(JSONObject jsonObject, String field) {
+        try {
+            if (jsonObject != null && jsonObject.has(field)) {
+                return jsonObject.getJSONObject(field);
+            }
+        } catch (JSONException e) {
+            Log.e(getClass().getName(), "", e);
+        }
+        return null;
+
+    }
+
+    private JSONObject getJsonObject(JSONArray jsonArray, int position) {
+        try {
+            if (jsonArray != null && jsonArray.length() > 0) {
+                return jsonArray.getJSONObject(position);
+            }
+        } catch (JSONException e) {
+            Log.e(getClass().getName(), "", e);
+        }
+        return null;
+
+    }
+
+    private class AdvancedMatrixCursor extends net.sqlcipher.MatrixCursor {
+        public AdvancedMatrixCursor(String[] columnNames) {
+            super(columnNames);
+        }
+
+        @Override
+        public long getLong(int column) {
+            try {
+                return super.getLong(column);
+            } catch (NumberFormatException e) {
+                return (new Date()).getTime();
+            }
+        }
+    }
+
+    ;
 
 }

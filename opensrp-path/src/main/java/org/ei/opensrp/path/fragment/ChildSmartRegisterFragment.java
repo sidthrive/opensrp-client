@@ -1,7 +1,5 @@
 package org.ei.opensrp.path.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,24 +7,18 @@ import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
@@ -173,7 +165,6 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             initializeQueries();
         }
         updateSearchView();
-        updateGlobalSearchView();
         try {
             LoginActivity.setLanguage();
         } catch (Exception e) {
@@ -243,6 +234,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             }
             nameInitials.setText(initials);
         }
+
+        View globalSearchButton = mView.findViewById(R.id.global_search);
+        globalSearchButton.setOnClickListener(clientActionHandler);
 
     }
 
@@ -382,152 +376,6 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         LinearLayout headerLayout = (LinearLayout) getLayoutInflater(null).inflate(R.layout.smart_register_child_header, null);
         clientsView.addHeaderView(headerLayout);
         clientsView.setEmptyView(getActivity().findViewById(R.id.empty_view));
-
-    }
-
-    private void updateGlobalSearchView() {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.global_search, null);
-
-        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
-        final EditText txtSearch = (EditText) view.findViewById(R.id.text_search);
-        final ListView listView = (ListView) view.findViewById(R.id.list_view);
-        final TextView emptyView = (TextView) view.findViewById(R.id.empty);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view).setPositiveButton(R.string.search, null).setNegativeButton(R.string.cancel, null);
-        final AlertDialog alertDialog = builder.create();
-
-        final Listener<JSONArray> listener = new Listener<JSONArray>() {
-            public void onEvent(final JSONArray jsonArray) {
-
-                if (jsonArray != null) {
-                    List<JSONObject> list = new ArrayList<JSONObject>();
-                    int len = jsonArray.length();
-                    for (int i = 0; i < len; i++) {
-                        list.add(getJsonObject(jsonArray, i));
-                    }
-
-                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, list) {
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-                            View view = super.getView(position, convertView, parent);
-                            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                            TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
-                            JSONObject jsonObject = getJsonObject(jsonArray, position);
-
-                            String name = getJsonString(jsonObject, "firstName") + " " +
-                                    getJsonString(jsonObject, "middleName") + " " +
-                                    getJsonString(jsonObject, "lastName");
-
-                            String other = "Gender: " + getJsonString(jsonObject, "gender") + " Birthday: " +
-                                    getJsonString(jsonObject, "birthdate") + " Program Id: " +
-                                    getJsonString(getJsonObject(jsonObject, "identifiers"), "Program Client ID");
-
-
-                            text1.setText(name);
-                            text2.setText(other);
-                            return view;
-                        }
-                    };
-                    listView.setAdapter(adapter);
-                } else {
-                    listView.setAdapter(null);
-                }
-                listView.setEmptyView(emptyView);
-                listView.setVisibility(View.VISIBLE);
-            }
-        };
-
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
-            @Override
-            public void onShow(DialogInterface dialog) {
-
-                final Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View searchButton) {
-                        if (StringUtils.isNotBlank(txtSearch.getText().toString())) {
-                            search(txtSearch, listener, progressBar, button);
-
-                        }
-                    }
-                });
-
-                txtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                            search(txtSearch, listener, progressBar, button);
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-            }
-        });
-
-
-        ImageButton globalSearchButton = ((ImageButton) mView.findViewById(R.id.global_search));
-        globalSearchButton.setOnClickListener(clientActionHandler);
-
-/*        globalSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.show();
-            }
-        }); */
-    }
-
-    private void search(EditText txtSearch, Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
-        button.setEnabled(false);
-        // hide keyboard
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(txtSearch.getWindowToken(), 0);
-
-        GlobalSearchUtils.backgroundSearch(txtSearch.getText().toString(), listener, progressBar, button);
-    }
-
-    private String getJsonString(JSONObject jsonObject, String field) {
-        try {
-            if (jsonObject != null && jsonObject.has(field)) {
-                String string = jsonObject.getString(field);
-                if (string.equals("null")) {
-                    return "";
-                } else {
-                    return string;
-                }
-            }
-        } catch (JSONException e) {
-            Log.e(getClass().getName(), "", e);
-        }
-        return "";
-
-    }
-
-    private JSONObject getJsonObject(JSONObject jsonObject, String field) {
-        try {
-            if (jsonObject != null && jsonObject.has(field)) {
-                return jsonObject.getJSONObject(field);
-            }
-        } catch (JSONException e) {
-            Log.e(getClass().getName(), "", e);
-        }
-        return null;
-
-    }
-
-    private JSONObject getJsonObject(JSONArray jsonArray, int position) {
-        try {
-            if (jsonArray != null && jsonArray.length() > 0) {
-                return jsonArray.getJSONObject(position);
-            }
-        } catch (JSONException e) {
-            Log.e(getClass().getName(), "", e);
-        }
-        return null;
 
     }
 
