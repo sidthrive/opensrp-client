@@ -1,4 +1,4 @@
-{"name":"Kunjungan_Gizi_NewStructure-mapped","title":"Kunjungan Gizi","sms_keyword":"kunjungan_gizi_new","default_language":"Bahasa","instance":{"encounter_type":"Kunjungan Gizi"},"version":"201607140246","id_string":"kunjungan_gizi_new","type":"survey","children":[
+{"name":"gizi_history_tinggi","title":"Kunjungan Gizi","sms_keyword":"kunjungan_gizi_new","default_language":"Bahasa","instance":{"encounter_type":"Kunjungan Gizi"},"version":"201607140246","id_string":"kunjungan_gizi_new","type":"survey","children":[
   {"instance":{"openmrs_entity_id":"encounter_start","openmrs_entity":"encounter"},"type":"start","name":"start"},
   {"instance":{"openmrs_entity_id":"encounter_date","openmrs_entity":"encounter"},"type":"today","name":"today"},
   {"type":"deviceid","name":"deviceid"},
