@@ -451,7 +451,7 @@
     <string name="place_place">Place:</string>
     <string name="plan_type">Type:</string>
     <string name="mother_title">Mother</string>
-    <string name="child_title">Child</string>
+    <string name="child_title">CHILD</string>
     <string name="dob_title">DOB:</string>
     <string name="header_dok_persalinan">DELIVERY DOCUMENTATION</string>
     <string name="header_birth_status">STATUS</string>
@@ -555,6 +555,16 @@
     <string name="desc">Photo Confirmation</string>
     <string name="desc_approval">Approval Desc</string>
     <string name="desc_trash">Trash Description</string>
+
+    <string name="years_unit">yrs</string>
+    <string name="month_unit">mth</string>
+    <string name="hours_unit">hrs</string>
+    <string name="weight_unit">Kg</string>
+    <string name="length_unit">Cm</string>
+    <string name="x_axis_label">Month</string>
+    <string name="chart_title">CHILD GROWTH CHART</string>
+    <string name="lfa_string">Length for Age</string>
+    <string name="hfa_string">Height for Age</string>
 
 
     <string name="path_circle">

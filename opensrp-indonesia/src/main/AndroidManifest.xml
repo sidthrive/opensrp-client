@@ -78,6 +78,18 @@
             android:name=".child.AnakDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
+        <activity
+            android:name=".child.ChildDetailActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoTitle"/>
+        <activity
+            android:name=".child.ChildGrowthChartActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoTitle"/>
+        <activity
+            android:name=".child.ChildZScoreChartActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoTitle"/>
 
         <activity android:name=".face.camera.SmartShutterActivity" />
         <activity android:name=".face.camera.ImageConfirmation" />
