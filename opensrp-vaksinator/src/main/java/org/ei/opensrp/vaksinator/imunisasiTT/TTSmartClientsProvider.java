@@ -142,7 +142,7 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
             DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
 
-        System.out.println("details: "+pc.getDetails().toString());
+        ////System.out.println("details: "+pc.getDetails().toString());
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap") != null ? pc.getColumnmaps().get("namalengkap") : "");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");

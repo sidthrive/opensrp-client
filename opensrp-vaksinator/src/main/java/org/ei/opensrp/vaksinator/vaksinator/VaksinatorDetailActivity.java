@@ -169,7 +169,7 @@ public class VaksinatorDetailActivity extends Activity {
         uid.setText(": "+(controller.getDetails().get("UniqueId")!=null ? controller.getDetails().get("UniqueId") : "-"));
         nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
 
-        System.out.println("details: "+controller.getDetails().toString());
+        //System.out.println("details: "+controller.getDetails().toString());
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);

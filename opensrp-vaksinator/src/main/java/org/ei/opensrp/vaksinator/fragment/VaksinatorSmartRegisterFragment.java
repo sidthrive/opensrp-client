@@ -424,7 +424,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " namaBayi !='' ";
+                        mainCondition = " namaBayi !='' AND is_closed = 0";
                         return null;
                     }
 
@@ -532,27 +532,22 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 //                                        getCurrentSearchFilter(), getCurrentSortOption());
 //
 
-                            filters = cs.toString();
-                            joinTable = "";
-                            mainCondition = "nama_bayi !=''";
-                            Log.e(TAG, "doInBackground: " + filters);
-                            return null;
-                        }
-//
-//                    @Override
-//                    protected void onPostExecute(Object o) {
-////                        clientsAdapter
-////                                .refreshList(currentVillageFilter, currentServiceModeOption,
-////                                        currentSearchFilter, currentSortOption);
-////                        getClientsAdapter().refreshClients(filteredClients);
-////                        getClientsAdapter().notifyDataSetChanged();
-//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-//                        CountExecute();
-//                        filterandSortExecute();
-//                        super.onPostExecute(o);
-//                    }
-                    }).execute();
-                }
+                        filters = cs.toString();
+                        joinTable = "";
+                        mainCondition = " namaBayi !='' AND is_closed = 0";
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+//                        getClientsAdapter().notifyDataSetChanged();
+                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                        filterandSortExecute();
+                        super.onPostExecute(o);
+                    }
+                }).execute();
+
+            }
 
                 @Override
                 public void afterTextChanged(Editable editable) {

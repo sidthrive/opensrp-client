@@ -124,6 +124,7 @@
     <string name="pnc_edit">Edit PNC</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="pnc_pospartum_kb">Postpartum KB</string>
+    <string name="date_of_birth">Tanggal Lahir : </string>
 
     <!-- BIDAN -->
     <string name="header_resiko">Resiko</string>
@@ -480,4 +481,5 @@
 
     <string name="Nutrition_status">Status Gizi:</string>
     <string name="mother_already_registered_in_fp">Mother already registered</string>
+    <string name="dho_site">kia-report.sid-indonesia.org</string>
 </resources>
