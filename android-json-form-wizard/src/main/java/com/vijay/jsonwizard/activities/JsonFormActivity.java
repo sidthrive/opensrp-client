@@ -275,6 +275,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
                     try {
                         JSONArray canvasViewIds = new JSONArray((String) curView.getTag(R.id.canvas_ids));
+                        curView.setEnabled(ok);
                         for (int i = 0; i < canvasViewIds.length(); i++) {
                             int curId = canvasViewIds.getInt(i);
                             View curCanvasView = findViewById(curId);

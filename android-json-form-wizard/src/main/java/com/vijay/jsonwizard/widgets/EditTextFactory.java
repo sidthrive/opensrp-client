@@ -63,11 +63,12 @@ public class EditTextFactory implements FormWidgetFactory {
 
         if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
             editText.setText(jsonObject.optString("value"));
-            if (jsonObject.has("read_only")) {
-                boolean readyOnly = jsonObject.getBoolean("read_only");
-                editText.setEnabled(!readyOnly);
-                editText.setFocusable(!readyOnly);
-            }
+        }
+
+        if (jsonObject.has("read_only")) {
+            boolean readyOnly = jsonObject.getBoolean("read_only");
+            editText.setEnabled(!readyOnly);
+            editText.setFocusable(!readyOnly);
         }
 
         //add validators

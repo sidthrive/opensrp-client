@@ -80,11 +80,12 @@ public class BarcodeFactory implements FormWidgetFactory {
 
             if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
                 editText.setText(jsonObject.optString("value"));
-                if (jsonObject.has("read_only")) {
-                    boolean readOnly = jsonObject.getBoolean("read_only");
-                    editText.setEnabled(!readOnly);
-                    editText.setFocusable(!readOnly);
-                }
+            }
+
+            if (jsonObject.has("read_only")) {
+                boolean readOnly = jsonObject.getBoolean("read_only");
+                editText.setEnabled(!readOnly);
+                editText.setFocusable(!readOnly);
             }
 
             editText.setOnClickListener(new View.OnClickListener() {
