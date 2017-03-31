@@ -104,7 +104,7 @@ public class child_under_five_fragment extends Fragment  {
 //        View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         fragmentcontainer.removeAllViews();
-        fragmentcontainer.addView(createPTCMTVIEW("PTCMT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
+        fragmentcontainer.addView(createPTCMTVIEW("PMTCT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
         LinkedHashMap<String,String> weightmap = new LinkedHashMap<>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
@@ -131,10 +131,10 @@ public class child_under_five_fragment extends Fragment  {
                     formattedAge = DateUtils.getDuration(timeDiff);
                 }
             }
-            weightmap.put(formattedAge,weightlist.get(i).getKg()+" Kg");
+            weightmap.put(formattedAge,weightlist.get(i).getKg()+" kg");
         }
         if(weightmap.size()<5) {
-            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " Kg");
+            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " kg");
         }
 
 
@@ -148,7 +148,7 @@ public class child_under_five_fragment extends Fragment  {
 
         LinearLayout.LayoutParams barlayout= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
         barlayout.setMargins(0,10,0,10);
-        view.setBackgroundColor(getResources().getColor(R.color.client_list_header_dark_grey));
+        view.setBackgroundColor(getResources().getColor(R.color.white));
         fragmentcontainer.addView(view,barlayout);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
         updateVaccinationViews(fragmentcontainer,editmode);

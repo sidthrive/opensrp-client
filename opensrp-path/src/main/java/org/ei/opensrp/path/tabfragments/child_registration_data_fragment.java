@@ -95,8 +95,8 @@ public class child_registration_data_fragment extends Fragment {
         layout.addView(wd.createTableRow(inflater,container,"Age",formattedAge));
 
 
-        layout.addView(wd.createTableRow(inflater,container,"Date First Seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(Detailsmap,"Birth_Weight",true)+ " Kg"));
+        layout.addView(wd.createTableRow(inflater,container,"Date first seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Birth weight",Utils.getValue(Detailsmap,"Birth_Weight",true)+ " kg"));
 
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian first name",Utils.getValue(childDetails.getColumnmaps(),"mother_first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian last name",Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true)));

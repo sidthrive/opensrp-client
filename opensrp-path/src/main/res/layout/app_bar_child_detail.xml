@@ -9,6 +9,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="#FAFAFA">
 
+
         <include layout="@layout/toolbar_child_details" />
 
         <LinearLayout
