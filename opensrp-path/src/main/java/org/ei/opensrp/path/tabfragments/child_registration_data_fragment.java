@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -57,16 +58,23 @@ public class child_registration_data_fragment extends Fragment {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
+
 //        Detailsmap = childDetails.getColumnmaps();
         WidgetFactory wd = new WidgetFactory();
 
+        String homeFacility =Utils.getValue(Detailsmap,"Home_Facility",false);
+        if(homeFacility.split(",").length>0){
+            homeFacility = homeFacility.split(",")[ homeFacility.split(",").length -1].replace("\"","").replace("]","");
+        } else if(homeFacility.split(",").length == 0){
+            homeFacility = homeFacility.replace("\"","").replace("]","").replace("[\"","");
+        }
 
-        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", Utils.getValue(childDetails.getColumnmaps(),"Home_Facility",false)));
+        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", homeFacility));
         layout.addView(wd.createTableRow(inflater,container,"Child's ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"zeir_id",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's register card number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's birth certificate number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
-        layout.addView(wd.createTableRow(inflater,container,"First Name",Utils.getValue(childDetails.getColumnmaps(),"first_name",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Last Name",Utils.getValue(childDetails.getColumnmaps(),"last_name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"First name",Utils.getValue(childDetails.getColumnmaps(),"first_name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Last name",Utils.getValue(childDetails.getColumnmaps(),"last_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Sex",Utils.getValue(childDetails.getColumnmaps(),"gender",true)));
         layout.addView(wd.createTableRow(inflater,container,"Child's DOB",ChildDetailTabbedActivity.DATE_FORMAT.format( new DateTime(Utils.getValue(childDetails.getColumnmaps(),"dob",true)).toDate())));
 
@@ -88,18 +96,26 @@ public class child_registration_data_fragment extends Fragment {
 
 
         layout.addView(wd.createTableRow(inflater,container,"Date First Seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(childDetails.getColumnmaps(),"Birth_Weight",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(Detailsmap,"Birth_Weight",true)+ " Kg"));
 
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian first name",Utils.getValue(childDetails.getColumnmaps(),"mother_first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian last name",Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian DOB",Utils.getValue(Detailsmap,"Mother_Guardian_Date_Birth",true)));
 
-        layout.addView(wd.createTableRow(inflater,container,"Mother/Guardian NRC",Utils.getValue(Detailsmap,"Mother_Guardian_NRC",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Mother/guardian NRC number",Utils.getValue(Detailsmap,"Mother_Guardian_NRC",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian phone number",Utils.getValue(Detailsmap,"Mother_Guardian_Number",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Father/guardian name",Utils.getValue(Detailsmap,"Father_Guardian_Name",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Father/guardian NRC",Utils.getValue(Detailsmap,"Father_Guardian_NRC",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Place of birth",Utils.getValue(Detailsmap,"Place_Birth",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",Utils.getValue(Detailsmap,"Birth_Facility_Name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Father/guardian full name",Utils.getValue(Detailsmap,"Father_Guardian_Name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Father/guardian NRC number",Utils.getValue(Detailsmap,"Father_Guardian_NRC",true)));
+
+        String placeofnearth_Choice = Utils.getValue(Detailsmap,"Place_Birth",true);
+        if(placeofnearth_Choice.equalsIgnoreCase("1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")){
+            placeofnearth_Choice = "Health facility";
+        }
+        if(placeofnearth_Choice.equalsIgnoreCase("1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")){
+            placeofnearth_Choice = "Home";
+        }
+        layout.addView(wd.createTableRow(inflater,container,"Place of birth",placeofnearth_Choice));
+        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",getLastNode("Birth_Facility_Name")));
         layout.addView(wd.createTableRow(inflater,container,"Child's residential area",Utils.getValue(Detailsmap,"Residential_Area",true)));
         layout.addView(wd.createTableRow(inflater,container,"Other residential area",Utils.getValue(Detailsmap,"Residential_Area_Other",true)));
         layout.addView(wd.createTableRow(inflater,container,"Home address",Utils.getValue(Detailsmap,"Residential_Address",true)));
@@ -107,7 +123,7 @@ public class child_registration_data_fragment extends Fragment {
         layout.addView(wd.createTableRow(inflater,container,"Landmark",Utils.getValue(Detailsmap,"Physical_Landmark",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW name",Utils.getValue(Detailsmap,"CHW_Name",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW phone number",Utils.getValue(Detailsmap,"CHW_Phone_Number",true)));
-        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(Detailsmap,"PMTCT_Status",true)));
+        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
 
 
 //        layout.addView(createTableRow(inflater,container,"Catchment Area","Linda"));
@@ -126,7 +142,15 @@ public class child_registration_data_fragment extends Fragment {
         // Inflate the layout for this fragment
         return fragmentview;
     }
-
+    public String getLastNode(String columnName){
+        String homeFacility =Utils.getValue(Detailsmap,columnName,false);
+        if(homeFacility.split(",").length>0){
+            homeFacility = homeFacility.split(",")[ homeFacility.split(",").length -1].replace("\"","").replace("]","");
+        } else if(homeFacility.split(",").length == 0){
+            homeFacility = homeFacility.replace("\"","").replace("]","").replace("[\"","");
+        }
+        return homeFacility;
+    }
 
 
 

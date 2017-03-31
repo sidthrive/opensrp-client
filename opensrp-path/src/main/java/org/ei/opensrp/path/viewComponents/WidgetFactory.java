@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.ei.opensrp.Context;
@@ -36,18 +37,29 @@ public class WidgetFactory {
         value.setText(valueString);
         return rows;
     }
+    public View createTableRowForWeight(LayoutInflater inflater, ViewGroup container, String labelString, String valueString){
+        View rows = inflater.inflate(R.layout.tablerows_weight, container, false);
+        TextView label = (TextView)rows.findViewById(R.id.label);
+        TextView value = (TextView)rows.findViewById(R.id.value);
+
+        label.setText(labelString);
+        value.setText(valueString);
+        return rows;
+    }
     public View createWeightWidget(LayoutInflater inflater, ViewGroup container, HashMap<String,String> last_five_weight_map){
         View weightwidget = inflater.inflate(R.layout.weightwidget, container, false);
         LinearLayout tableLayout = (LinearLayout) weightwidget.findViewById(R.id.weightvalues);
         ViewGroup.LayoutParams weightvaluesparams = tableLayout.getLayoutParams();
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,last_five_weight_map.size()*35 ,Context.getInstance().applicationContext().getResources().getDisplayMetrics());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,last_five_weight_map.size()*40 ,Context.getInstance().applicationContext().getResources().getDisplayMetrics());
 
         weightvaluesparams.height = height;
         tableLayout.setLayoutParams(weightvaluesparams);
 
         for (Map.Entry<String, String> entry : last_five_weight_map.entrySet())
         {
-            tableLayout.addView(createTableRow(inflater,tableLayout,""+entry.getKey(),""+entry.getValue()));
+            View view = createTableRowForWeight(inflater,tableLayout,""+entry.getKey(),""+entry.getValue());
+
+            tableLayout.addView(view);
         }
 
         return weightwidget;
@@ -59,6 +71,7 @@ public class WidgetFactory {
         TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        layoutParams.
 //        immunizationholder.setPadding(10,10,10,10);
+
         layoutParams.setMargins(10, 10, 10, 10);
         for(int i = 0 ;i<vaccines.size();i++){
             immunizationholder.addView(createImmunizationRow(inflater,container,vaccines.get(i),editmode),layoutParams);

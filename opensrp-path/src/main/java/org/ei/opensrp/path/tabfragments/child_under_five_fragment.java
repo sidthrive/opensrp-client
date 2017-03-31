@@ -3,11 +3,15 @@ package org.ei.opensrp.path.tabfragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
@@ -20,6 +24,7 @@ import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
+import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -33,8 +38,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import util.DateUtils;
 import util.Utils;
@@ -52,6 +59,7 @@ public class child_under_five_fragment extends Fragment  {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
+    private Map<String, String> Detailsmap;
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -82,6 +90,8 @@ public class child_under_five_fragment extends Fragment  {
 
         VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+        Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
 
         loadview(false);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
@@ -94,7 +104,8 @@ public class child_under_five_fragment extends Fragment  {
 //        View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         fragmentcontainer.removeAllViews();
-        HashMap<String,String> weightmap = new HashMap<String, String>();
+        fragmentcontainer.addView(createPTCMTVIEW("PTCMT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
+        LinkedHashMap<String,String> weightmap = new LinkedHashMap<>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
 //        weightmap.put("7 m","6.7 Kg");
@@ -102,6 +113,7 @@ public class child_under_five_fragment extends Fragment  {
 //        weightmap.put("5 m","5.0 Kg");
         WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
         List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
+
 
         for(int i = 0;i<weightlist.size();i++){
 //            String formattedDob = "";
@@ -121,11 +133,23 @@ public class child_under_five_fragment extends Fragment  {
             }
             weightmap.put(formattedAge,weightlist.get(i).getKg()+" Kg");
         }
+        if(weightmap.size()<5) {
+            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " Kg");
+        }
+
+
 //        weightlist.size();
         WidgetFactory wd = new WidgetFactory();
         if(weightmap.size()>0) {
             fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
         }
+        View view = new View(getActivity());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1 , Context.getInstance().applicationContext().getResources().getDisplayMetrics());
+
+        LinearLayout.LayoutParams barlayout= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
+        barlayout.setMargins(0,10,0,10);
+        view.setBackgroundColor(getResources().getColor(R.color.client_list_header_dark_grey));
+        fragmentcontainer.addView(view,barlayout);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
         updateVaccinationViews(fragmentcontainer,editmode);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
@@ -133,6 +157,17 @@ public class child_under_five_fragment extends Fragment  {
 
 
     }
+
+    private View createPTCMTVIEW(String labelString,String valueString) {
+        View rows = inflater.inflate(R.layout.tablerows_ptcmt, container, false);
+        TextView label = (TextView)rows.findViewById(R.id.label);
+        TextView value = (TextView)rows.findViewById(R.id.value);
+
+        label.setText(labelString);
+        value.setText(valueString);
+        return rows;
+    }
+
     private void updateVaccinationViews(ViewGroup v,boolean editmode) {
         if (vaccineGroups != null) {
             vaccineGroups.clear();

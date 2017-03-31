@@ -25,13 +25,13 @@
             android:text="See All"
             android:id="@+id/see_all"
             android:textColor="#0A84D9"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_margin="20dp"
         android:id="@+id/weightvalues"
         android:layout_height="wrap_content">
 

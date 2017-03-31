@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_checked"
+        android:src="@drawable/ic_yes_large"
         android:tint="@color/alert_complete_green"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitXY" />
 
     <org.ei.opensrp.view.customControls.CustomFontTextView
         android:id="@+id/vaccine"
@@ -21,5 +21,6 @@
         android:layout_height="wrap_content"
         android:text="vaccine"
         android:textColor="@color/text_black"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:layout_gravity="center_vertical" />
 </LinearLayout>
