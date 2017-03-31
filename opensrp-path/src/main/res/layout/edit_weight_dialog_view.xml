@@ -140,12 +140,12 @@
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/service_date"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="service date"
                 android:textColor="@color/client_list_grey"
                 android:textSize="22sp"
-                android:layout_marginRight="10dp" />
+                android:gravity="center" />
 
             <Button
                 android:id="@+id/weight_taken_earlier"
@@ -153,14 +153,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/vaccination_earlier_bg"
-                android:paddingBottom="10dp"
-                android:paddingTop="20dp"
-                android:text="Change Service Date"
+                android:text="Change service date"
                 android:textAllCaps="false"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/client_list_grey"
                 android:textSize="22sp"
-                android:layout_margin="20dp" />
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp" />
 
             <DatePicker
                 android:id="@+id/earlier_date_picker"
@@ -177,15 +180,18 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/alert_urgent_red"
-                android:paddingBottom="20dp"
-                android:paddingTop="10dp"
-                android:text="Delete Service"
+                android:background="@drawable/vaccination_earlier_bg"
+                android:text="Delete service"
                 android:textAllCaps="false"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/white"
+                android:textColor="@color/client_list_grey"
                 android:textSize="22sp"
-                android:layout_margin="20dp" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

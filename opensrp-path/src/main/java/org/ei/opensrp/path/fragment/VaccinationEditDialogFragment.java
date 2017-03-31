@@ -77,7 +77,7 @@ public class VaccinationEditDialogFragment extends DialogFragment {
         TextView numberView = (TextView) dialogView.findViewById(R.id.number);
         numberView.setText(tags.get(0).getPatientNumber());
         TextView service_date = (TextView) dialogView.findViewById(R.id.service_date);
-        service_date.setText("Service date: ("+tags.get(0).getUpdatedVaccineDateAsString()+")");
+        service_date.setText("Service date: "+tags.get(0).getUpdatedVaccineDateAsString()+"");
         final LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
 
         if (tags.size() == 1) {

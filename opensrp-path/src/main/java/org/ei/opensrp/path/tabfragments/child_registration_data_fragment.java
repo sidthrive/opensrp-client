@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class child_registration_data_fragment extends Fragment {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
+
 //        Detailsmap = childDetails.getColumnmaps();
         WidgetFactory wd = new WidgetFactory();
 
@@ -94,7 +96,7 @@ public class child_registration_data_fragment extends Fragment {
 
 
         layout.addView(wd.createTableRow(inflater,container,"Date First Seen",Utils.getValue(Detailsmap,"First_Health_Facility_Contact",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(Detailsmap,"Birth_Weight",true)+ "Kg"));
+        layout.addView(wd.createTableRow(inflater,container,"Birth Weight",Utils.getValue(Detailsmap,"Birth_Weight",true)+ " Kg"));
 
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian first name",Utils.getValue(childDetails.getColumnmaps(),"mother_first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian last name",Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true)));
@@ -113,7 +115,7 @@ public class child_registration_data_fragment extends Fragment {
             placeofnearth_Choice = "Home";
         }
         layout.addView(wd.createTableRow(inflater,container,"Place of birth",placeofnearth_Choice));
-        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",Utils.getValue(Detailsmap,"Birth_Facility_Name",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",getLastNode("Birth_Facility_Name")));
         layout.addView(wd.createTableRow(inflater,container,"Child's residential area",Utils.getValue(Detailsmap,"Residential_Area",true)));
         layout.addView(wd.createTableRow(inflater,container,"Other residential area",Utils.getValue(Detailsmap,"Residential_Area_Other",true)));
         layout.addView(wd.createTableRow(inflater,container,"Home address",Utils.getValue(Detailsmap,"Residential_Address",true)));
@@ -121,7 +123,7 @@ public class child_registration_data_fragment extends Fragment {
         layout.addView(wd.createTableRow(inflater,container,"Landmark",Utils.getValue(Detailsmap,"Physical_Landmark",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW name",Utils.getValue(Detailsmap,"CHW_Name",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW phone number",Utils.getValue(Detailsmap,"CHW_Phone_Number",true)));
-        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(Detailsmap,"PMTCT_Status",true)));
+        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
 
 
 //        layout.addView(createTableRow(inflater,container,"Catchment Area","Linda"));
@@ -140,7 +142,15 @@ public class child_registration_data_fragment extends Fragment {
         // Inflate the layout for this fragment
         return fragmentview;
     }
-
+    public String getLastNode(String columnName){
+        String homeFacility =Utils.getValue(Detailsmap,columnName,false);
+        if(homeFacility.split(",").length>0){
+            homeFacility = homeFacility.split(",")[ homeFacility.split(",").length -1].replace("\"","").replace("]","");
+        } else if(homeFacility.split(",").length == 0){
+            homeFacility = homeFacility.replace("\"","").replace("]","").replace("[\"","");
+        }
+        return homeFacility;
+    }
 
 
 

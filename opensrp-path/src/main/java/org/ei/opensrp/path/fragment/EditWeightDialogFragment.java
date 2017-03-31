@@ -165,7 +165,7 @@ public class EditWeightDialogFragment extends DialogFragment {
             }
         });
         if(tag.getUpdatedWeightDate()!=null) {
-            ((TextView) dialogView.findViewById(R.id.service_date)).setText("Service date: (" + tag.getUpdatedWeightDate().dayOfMonth().get()+"-"+ tag.getUpdatedWeightDate().monthOfYear().get()+"-"+ tag.getUpdatedWeightDate().year().get()+")");
+            ((TextView) dialogView.findViewById(R.id.service_date)).setText("Service date: " + tag.getUpdatedWeightDate().dayOfMonth().get()+"-"+ tag.getUpdatedWeightDate().monthOfYear().get()+"-"+ tag.getUpdatedWeightDate().year().get()+"");
         }else{
             ((TextView) dialogView.findViewById(R.id.service_date)).setVisibility(View.GONE);
             weightDelete.setVisibility(View.GONE);
