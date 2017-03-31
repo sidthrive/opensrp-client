@@ -187,6 +187,20 @@
           }
         },
         {
+          "column_name":"inactive",
+          "type":"Client",
+          "json_mapping":{
+            "field":"identifiers.Inactive"
+          }
+        },
+        {
+          "column_name":"lost_to_follow_up",
+          "type":"Client",
+          "json_mapping":{
+            "field":"identifiers.Lost_to_Follow_Up"
+          }
+        },
+        {
           "column_name": "relational_id",
           "type": "Client",
           "json_mapping": {

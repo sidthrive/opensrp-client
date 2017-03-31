@@ -7,8 +7,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.domain.DownloadStatus;
 import org.ei.opensrp.domain.FetchStatus;
@@ -30,6 +28,7 @@ import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
@@ -43,7 +42,7 @@ import static org.ei.opensrp.domain.FetchStatus.nothingFetched;
 import static org.ei.opensrp.util.Log.logInfo;
 
 public class PathUpdateActionsTask {
-    private static final String EVENTS_SYNC_PATH ="/rest/event/add" ;
+    private static final String EVENTS_SYNC_PATH = "/rest/event/add";
     private final LockingBackgroundTask task;
     private ActionService actionService;
     private Context context;
@@ -64,7 +63,7 @@ public class PathUpdateActionsTask {
         this.additionalSyncService = null;
         task = new LockingBackgroundTask(progressIndicator);
         this.db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
-        this.httpAgent= org.ei.opensrp.Context.getInstance().getHttpAgent();
+        this.httpAgent = org.ei.opensrp.Context.getInstance().getHttpAgent();
     }
 
     public void setAdditionalSyncService(AdditionalSyncService additionalSyncService) {
@@ -169,7 +168,7 @@ public class PathUpdateActionsTask {
 
     public void pushToServer() {
         boolean keepSyncing = true;
-        int limit=50;
+        int limit = 50;
         try {
             while (keepSyncing) {
                 Map<String, Object> pendingEvents = null;
@@ -179,28 +178,34 @@ public class PathUpdateActionsTask {
                 if (pendingEvents.isEmpty()) {
                     return;
                 }
-                if (pendingEvents.size() < limit) {
-                    keepSyncing = false;
-                }
+
                 String baseUrl = org.ei.opensrp.Context.getInstance().configuration().dristhiBaseURL();
                 if (baseUrl.endsWith("/")) {
                     baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf("/"));
                 }
-                String jsonPayload = new Gson().toJson(pendingEvents);
+                // create request body
+                JSONObject request = new JSONObject();
+                if (pendingEvents.containsKey("clients")) {
+                    request.put("clients", pendingEvents.get("clients"));
+                }
+                if (pendingEvents.containsKey("events")) {
+                    request.put("events", pendingEvents.get("events"));
+                }
+                String jsonPayload = request.toString();
                 Response<String> response = httpAgent.post(
                         MessageFormat.format("{0}/{1}",
                                 baseUrl,
                                 EVENTS_SYNC_PATH),
                         jsonPayload);
                 if (response.isFailure()) {
-                    Log.e(getClass().getName(),"Events sync failed. Submissions");
+                    Log.e(getClass().getName(), "Events sync failed.");
                     return;
                 }
                 db.markEventsAsSynced(pendingEvents);
-                Log.i(getClass().getName(),"Events synced successfully. Submissions");
+                Log.i(getClass().getName(), "Events synced successfully.");
             }
         } catch (JSONException e) {
-            Log.e(getClass().getName(),e.getMessage());
+            Log.e(getClass().getName(), e.getMessage());
         } catch (ParseException e) {
             Log.e(getClass().getName(), e.getMessage());
         } catch (UnsupportedEncodingException e) {

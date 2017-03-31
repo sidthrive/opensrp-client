@@ -115,6 +115,15 @@ public class ECSyncUpdater {
         return new ArrayList<>();
     }
 
+    public List<JSONObject> getEvents(Date lastSyncDate,String syncStatus) {
+        try {
+            return db.getEvents(lastSyncDate,syncStatus);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+        return new ArrayList<>();
+    }
+
     public JSONObject getClient(String baseEntityId) {
         try {
             return db.getClientByBaseEntityId(baseEntityId);
