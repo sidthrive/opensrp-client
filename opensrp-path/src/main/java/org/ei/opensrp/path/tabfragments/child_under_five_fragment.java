@@ -24,6 +24,7 @@ import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
+import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -37,8 +38,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import util.DateUtils;
 import util.Utils;
@@ -56,6 +59,7 @@ public class child_under_five_fragment extends Fragment  {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
+    private Map<String, String> Detailsmap;
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -86,6 +90,8 @@ public class child_under_five_fragment extends Fragment  {
 
         VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+        Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
 
         loadview(false);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
@@ -99,7 +105,7 @@ public class child_under_five_fragment extends Fragment  {
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         fragmentcontainer.removeAllViews();
         fragmentcontainer.addView(createPTCMTVIEW("PTCMT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
-        HashMap<String,String> weightmap = new HashMap<String, String>();
+        LinkedHashMap<String,String> weightmap = new LinkedHashMap<>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
 //        weightmap.put("7 m","6.7 Kg");
@@ -107,6 +113,7 @@ public class child_under_five_fragment extends Fragment  {
 //        weightmap.put("5 m","5.0 Kg");
         WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
         List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
+
 
         for(int i = 0;i<weightlist.size();i++){
 //            String formattedDob = "";
@@ -126,6 +133,11 @@ public class child_under_five_fragment extends Fragment  {
             }
             weightmap.put(formattedAge,weightlist.get(i).getKg()+" Kg");
         }
+        if(weightmap.size()<5) {
+            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " Kg");
+        }
+
+
 //        weightlist.size();
         WidgetFactory wd = new WidgetFactory();
         if(weightmap.size()>0) {

@@ -25,7 +25,8 @@
             android:text="See All"
             android:id="@+id/see_all"
             android:textColor="#0A84D9"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
