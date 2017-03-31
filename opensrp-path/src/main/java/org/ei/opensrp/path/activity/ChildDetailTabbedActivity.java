@@ -4,8 +4,6 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,7 +18,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -33,6 +30,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
+import org.ei.opensrp.clientandeventmodel.Event;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
@@ -154,7 +152,6 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         detailtoolbar = (ChildDetailsToolbar) findViewById(R.id.child_detail_toolbar);
 
-        ((TextView) detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
 
         saveButton = (TextView) detailtoolbar.findViewById(R.id.save);
         saveButton.setVisibility(View.INVISIBLE);
@@ -178,7 +175,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        getSupportActionBar().
-        initiallization(savedInstanceState);
+        initiallization();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -220,11 +217,13 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     }
 
-    private void initiallization(Bundle savedInstanceState) {
+    private void initiallization() {
 
         DetailsRepository detailsRepository = getOpenSRPContext().detailsRepository();
         detailmaps = detailsRepository.getAllDetailsForClient(childDetails.entityId());
         profileWidget();
+        ((TextView) detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
+
     }
 
     @Override
@@ -369,10 +368,11 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Child_Birth_Certificate", true));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_First_Name")) {
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(), "mother_first_name", true));
+                        jsonObject.put(JsonFormUtils.VALUE, (Utils.getValue(childDetails.getColumnmaps(), "mother_first_name", true).isEmpty()?Utils.getValue(childDetails.getDetails(), "mother_first_name", true):Utils.getValue(childDetails.getColumnmaps(), "mother_first_name", true)));
+
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Last_Name")) {
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true));
+                        jsonObject.put(JsonFormUtils.VALUE, (Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true).isEmpty() ? Utils.getValue(childDetails.getDetails(), "mother_last_name", true) : Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true)));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_NRC")) {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Mother_Guardian_NRC", true));
@@ -961,6 +961,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     private void updateClientAttribute(String attributeName, Object attributeValue) {
         try {
+            Date date= new Date();
             PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
             ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(this);
 
@@ -978,6 +979,20 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             contentValues.put(attributeName.toLowerCase(), attributeValue.toString());
             int id = db.getWritableDatabase().update("ec_child", contentValues, "base_entity_id" + "=?", new String[]{childDetails.entityId()});
 
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(childDetails.entityId())
+                    .withEventDate(new Date())
+                    .withEventType(JsonFormUtils.encounterType)
+                    .withLocationId(allSharedPreferences.fetchCurrentLocality())
+                    .withProviderId(allSharedPreferences.fetchRegisteredANM())
+                    .withEntityType("child")
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+           JsonFormUtils.addMetaData(this, event, date);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            db.addEvent(childDetails.entityId(),eventJson);
             long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
             ClientProcessor.getInstance(this).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
@@ -998,6 +1013,10 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     protected void onResume() {
         super.onResume();
         details = detailsRepository.getAllDetailsForClient(childDetails.entityId());
-        details.putAll(childDetails.getColumnmaps());
+        //details.putAll(childDetails.getColumnmaps());
+        //):( prrrr
+        childDetails.getColumnmaps().putAll(details);
+        updateActivityTitle();
+        initiallization();
     }
 }

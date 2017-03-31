@@ -35,11 +35,12 @@ import org.ei.opensrp.path.fragment.UndoVaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
-import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
-import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
+import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -55,13 +56,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import util.DateUtils;
 import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
-import util.VaccinatorUtils;
 import util.VaccinateActionUtils;
+import util.VaccinatorUtils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
@@ -87,12 +89,15 @@ public class ChildImmunizationActivity extends BaseActivity
     // Data
     private CommonPersonObjectClient childDetails;
     private RegisterClickables registerClickables;
+    private DetailsRepository detailsRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+
         toolbar = (LocationSwitcherToolbar) getToolbar();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +169,10 @@ public class ChildImmunizationActivity extends BaseActivity
             }
         });
         // TODO: update all views using child data
-
+        Map<String, String> details = detailsRepository.getAllDetailsForClient(childDetails.entityId());
+        //details.putAll(childDetails.getColumnmaps());
+        //):( prrrr
+        childDetails.getColumnmaps().putAll(details);
         updateGenderViews();
         toolbar.setTitle(updateActivityTitle());
         updateAgeViews();

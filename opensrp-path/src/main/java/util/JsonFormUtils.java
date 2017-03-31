@@ -2,19 +2,18 @@ package util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -30,12 +29,12 @@ import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.repository.BaseRepository;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
-import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
+import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
@@ -55,6 +54,7 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -96,6 +96,7 @@ public class JsonFormUtils {
     public static final String M_ZEIR_ID = "M_ZEIR_ID";
     public static final String attributes = "attributes";
     public static final  String encounterType = "Update Birth Registration";
+    private static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
 
@@ -1995,5 +1996,38 @@ public class JsonFormUtils {
             Log.d(TAG, "form is " + form.toString());
             context.startActivityForResult(intent, jsonFormActivityRequestCode);
         }
+    }
+
+    public static Event addMetaData(Context context,Event event,Date start) throws JSONException {
+        Map<String,String> metaFields= new HashMap<String,String>();
+        metaFields.put("deviceid","163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        metaFields.put("end","163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        metaFields.put("start","163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        Calendar calendar = Calendar.getInstance();
+
+        String end = DATE_TIME_FORMAT.format(calendar.getTime());
+
+        Obs obs= new Obs();
+        obs.setFieldCode("163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        obs.setValue(DATE_TIME_FORMAT.format(start));
+        obs.setFieldType("concept");
+        obs.setFieldDataType("start");
+        event.addObs(obs);
+
+
+        obs.setFieldCode("163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        obs.setValue(DATE_TIME_FORMAT.format(end));
+        obs.setFieldDataType("end");
+        event.addObs(obs);
+
+        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+        String deviceId = mTelephonyManager.getSimSerialNumber();
+
+        obs.setFieldCode("163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        obs.setValue(deviceId);
+        obs.setFieldDataType("deviceid");
+        event.addObs(obs);
+        return event;
     }
 }
