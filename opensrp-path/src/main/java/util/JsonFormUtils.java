@@ -29,6 +29,7 @@ import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.repository.BaseRepository;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.path.repository.UniqueIdRepository;
@@ -41,6 +42,7 @@ import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,10 +94,16 @@ public class JsonFormUtils {
     private static final String METADATA = "metadata";
     public static final String ZEIR_ID = "ZEIR_ID";
     public static final String M_ZEIR_ID = "M_ZEIR_ID";
+    public static final String attributes = "attributes";
+    public static final  String encounterType = "Update Birth Registration";
+
 
 
     public static final SimpleDateFormat FORM_DATE = new SimpleDateFormat("dd-MM-yyyy");
-    private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+    //public static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+    //2007-03-31T04:00:00.000Z
+    public static  Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
+
 
     public static void saveForm(Context context, org.ei.opensrp.Context openSrpContext,
                                 String jsonString, String providerId) {
@@ -195,13 +203,13 @@ public class JsonFormUtils {
             if (s != null) {
                 JSONObject clientJson = new JSONObject(gson.toJson(s));
 
-                ecUpdater.addClient(c.getBaseEntityId(), clientJson);
+                ecUpdater.addClient(s.getBaseEntityId(), clientJson);
 
             }
 
             if (se != null) {
                 JSONObject eventJson = new JSONObject(gson.toJson(se));
-                ecUpdater.addEvent(e.getBaseEntityId(), eventJson);
+                ecUpdater.addEvent(se.getBaseEntityId(), eventJson);
             }
 
             String zeirId = c.getIdentifier(ZEIR_ID);
@@ -211,10 +219,10 @@ public class JsonFormUtils {
             String imageLocation = getFieldValue(fields, imageKey);
             saveImage(context, providerId, entityId, imageLocation);
 
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastSyncDate(0);
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate));
-            allSharedPreferences.saveLastSyncDate(lastSyncDate.getTime());
+            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
             Log.e(TAG, "", e);
@@ -242,7 +250,6 @@ public class JsonFormUtils {
                 return;
             }
 
-            String encounterType = "Update Birth Registration";
 
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
@@ -284,14 +291,12 @@ public class JsonFormUtils {
             }
 
 
-
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastSyncDate(0);
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate));
-            allSharedPreferences.saveLastSyncDate(lastSyncDate.getTime());
-            PathClientProcessor.getInstance(context).processClient();
+            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate,BaseRepository.TYPE_Unsynced));
+            allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
             Log.e(TAG, "", e);
@@ -978,7 +983,7 @@ public class JsonFormUtils {
         }
     }
 
-    private static String generateRandomUUIDString() {
+    public static String generateRandomUUIDString() {
         return UUID.randomUUID().toString();
     }
 
