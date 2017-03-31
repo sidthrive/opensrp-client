@@ -194,7 +194,7 @@ public class ImmunizationRowCard extends LinearLayout {
                 break;
             case OVERDUE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
-                statusIV.setBackgroundColor(getResources().getColor(R.color.alert_urgent_red));
+                statusIV.setBackgroundColor(getResources().getColor(R.color.due_vaccine_red));
 //                if(editmode) {
 //                    undoB.setVisibility(VISIBLE);
 //                }else{
