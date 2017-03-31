@@ -86,7 +86,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/imageView2"
+                        android:id="@+id/statusimage"
                         android:src="@drawable/ic_icon_status_active"
                         android:layout_gravity="center_horizontal"
                         android:tint="@color/alert_completed"
@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Active"
-                        android:id="@+id/textView2"
+                        android:id="@+id/statusname"
                         android:textColor="#31B404"
                         android:layout_gravity="center_horizontal" />
 
@@ -105,9 +105,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="status"
-                        android:id="@+id/textView"
+                        android:id="@+id/status"
+                        android:singleLine="false"
+                        android:gravity="center"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="#A9A9A9" />
+                        android:textColor="@color/dark_grey"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -129,5 +132,6 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:textAlignment="center" />
 </android.support.design.widget.CoordinatorLayout>

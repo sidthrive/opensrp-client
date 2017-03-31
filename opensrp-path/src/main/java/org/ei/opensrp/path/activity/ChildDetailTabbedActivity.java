@@ -4,6 +4,8 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -233,7 +235,13 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         overflow = menu;
         VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         List <Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
-        if(vaccineList.size() ==0){
+        boolean all_synced = true;
+        for(int i = 0;i < vaccineList.size();i++){
+           if(vaccineList.get(i).getSyncStatus().equalsIgnoreCase(VaccineRepository.TYPE_Unsynced)){
+               all_synced = false;
+           }
+        }
+        if(vaccineList.size() ==0 || all_synced){
             overflow.getItem(2).setEnabled(false);
 
         }
@@ -302,6 +310,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     updateClientAttribute(inactive, true);
 
                 }
+                updateStatus();
                 return true;
             case R.id.mark_as_lost_to_followup:
                 if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
@@ -310,7 +319,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     updateClientAttribute(lostToFollowUp, true);
 
                 }
-
+                updateStatus();
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -544,6 +553,36 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             }
         }
         updateProfilePicture(gender);
+        updateStatus();
+    }
+
+    public void updateStatus() {
+        ImageView statusImage = (ImageView)findViewById(R.id.statusimage);
+        TextView status_name = (TextView)findViewById(R.id.statusname);
+        TextView status = (TextView)findViewById(R.id.status);
+        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+            statusImage.clearColorFilter();
+            statusImage.setImageResource(R.drawable.ic_icon_status_inactive);
+            status_name.setText("Inactive");
+            status_name.setTextColor(getResources().getColor(R.color.dark_grey));
+            status_name.setVisibility(View.VISIBLE);
+            status.setText("status");
+        }
+        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+            statusImage.clearColorFilter();
+            statusImage.setImageResource(R.drawable.ic_icon_status_losttofollowup);
+//            status_name.setText("Lost to");
+            status_name.setVisibility(View.GONE);
+            status.setText("Lost to\nFollow-Up");
+        }
+        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true"))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")))){
+            statusImage.setImageResource(R.drawable.ic_icon_status_active);
+            statusImage.setColorFilter(getResources().getColor(R.color.alert_completed));
+            status_name.setText("Active");
+            status_name.setTextColor(getResources().getColor(R.color.alert_completed));
+            status_name.setVisibility(View.VISIBLE);
+            status.setText("status");
+        }
     }
 
     private String updateActivityTitle() {
