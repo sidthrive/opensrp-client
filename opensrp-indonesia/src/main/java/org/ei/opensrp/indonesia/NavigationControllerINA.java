@@ -31,12 +31,10 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
     @Override
     public void startECSmartRegistry() {
            activity.startActivity(new Intent(activity, NativeKISmartRegisterActivity.class));
-        ///  activity.startActivity(new Intent(activity, HouseHoldSmartRegisterActivity.class));
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(this.activity);
 
         if(sharedPreferences.getBoolean("firstlauch",true)) {
             sharedPreferences.edit().putBoolean("firstlauch",false).commit();
-            //     activity.startActivity(new Intent(activity, tutorialCircleViewFlow.class));
         }
     }
     @Override

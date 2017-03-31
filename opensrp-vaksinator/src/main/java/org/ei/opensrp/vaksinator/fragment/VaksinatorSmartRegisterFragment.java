@@ -126,8 +126,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
-                //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
-                //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
                 String locationjson = context().anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
@@ -173,10 +171,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
-//        if (clientProvider == null) {
-//            clientProvider = new HouseHoldSmartClientsProvider(
-//                    getActivity(),clientActionHandler , context.alertService());
-//        }
         return null;
     }
 
@@ -186,7 +180,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
     @Override
     protected void onInitialization() {
-        //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 
     @Override
@@ -198,12 +191,12 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
-//        list.setBackgroundColor(Color.RED);
         initializeQueries(getCriteria());
     }
     private String filterStringForAll(){
         return "";
     }
+
     private String sortByAlertmethod() {
         return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
@@ -230,20 +223,17 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
         }
 
         countSelect = countqueryBUilder.mainCondition(" is_closed = 0 ");
-      //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ec_anak", new String[]{"ec_anak.relationalid","ec_anak.is_closed","ec_anak.details","tanggalLahirAnak","namaBayi"});
         mainSelect = queryBUilder.mainCondition(" is_closed = 0 ");
-     //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
         currentoffset = 0;
 
         super.filterandSortInInitializeQueries();
 
-//        setServiceModeViewDrawableRight(null);
         updateSearchView();
         refresh();
 
@@ -324,30 +314,16 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
         }
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
-
-
-            /*if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
-                CommonPersonObjectClient pc = KIDetailActivity.kiclient;
-                if(pc.getColumnmaps().get("ibu.type")!= null) {
-                    if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }*/
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
 
     @Override
     protected void onResumption() {
-//        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
             initializeQueries("!");
         }
-        //     updateSearchView();
-//
         try{
             LoginActivity.setLanguage();
         }catch (Exception e){
@@ -355,58 +331,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
         }
 
     }
-
-//    @Override
-//    public void setupSearchView(View view) {
-//        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
-//        searchView.setHint(getNavBarOptionsProvider().searchHint());
-//        searchView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-//
-//                (new AsyncTask() {
-//                    SmartRegisterClients filteredClients;
-//
-//                    @Override
-//                    protected Object doInBackground(Object[] params) {
-////                        currentSearchFilter =
-////                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-////                        filteredClients = getClientsAdapter().getListItemProvider()
-////                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-////                                        getCurrentSearchFilter(), getCurrentSortOption());
-////
-//                        filters = cs.toString();
-//                        joinTable = "";
-//                        mainCondition = " namaBayi !='' ";
-//                        return null;
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Object o) {
-////                        clientsAdapter
-////                                .refreshList(currentVillageFilter, currentServiceModeOption,
-////                                        currentSearchFilter, currentSortOption);
-////                        getClientsAdapter().refreshClients(filteredClients);
-////                        getClientsAdapter().notifyDataSetChanged();
-//                        getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
-//                        CountExecute();
-//                        filterandSortExecute();
-//                        super.onPostExecute(o);
-//                    }
-//                }).execute();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//        searchCancelView = view.findViewById(org.ei.opensrp.R.id.btn_search_cancel);
-//        searchCancelView.setOnClickListener(searchCancelHandler);
-//    }
 
     public void updateSearchView(){
         getSearchView().addTextChangedListener(new TextWatcher() {
@@ -430,7 +354,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                     @Override
                     protected void onPostExecute(Object o) {
-//                        getClientsAdapter().notifyDataSetChanged();
                         getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                         filterandSortExecute();
                         super.onPostExecute(o);
@@ -463,7 +386,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
     //    WD
     public void setCriteria(String criteria) {
-        this.criteria = criteria;
+        VaksinatorSmartRegisterFragment.criteria = criteria;
     }
 
     public static String getCriteria() {
@@ -521,16 +444,9 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                     Log.e(TAG, "onTextChanged: " + searchView.getText());
                     (new AsyncTask() {
-//                    SmartRegisterClients filteredClients;
 
                         @Override
                         protected Object doInBackground(Object[] params) {
-//                        currentSearchFilter =
-//                        setCurrentSearchFilter(new HHSearchOption(cs.toString()));
-//                        filteredClients = getClientsAdapter().getListItemProvider()
-//                                .updateClients(getCurrentVillageFilter(), getCurrentServiceModeOption(),
-//                                        getCurrentSearchFilter(), getCurrentSortOption());
-//
 
                         filters = cs.toString();
                         joinTable = "";
@@ -540,7 +456,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                     @Override
                     protected void onPostExecute(Object o) {
-//                        getClientsAdapter().notifyDataSetChanged();
                         getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                         filterandSortExecute();
                         super.onPostExecute(o);
