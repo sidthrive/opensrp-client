@@ -45,6 +45,7 @@ import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
+import org.ei.opensrp.path.toolbar.ChildDetailsToolbar;
 import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
 import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
@@ -86,7 +87,7 @@ import static util.Utils.getValue;
 public class ChildDetailTabbedActivity extends BaseActivity implements VaccinationActionListener, WeightActionListener {
 
     private Menu overflow;
-    private Toolbar detailtoolbar;
+    private ChildDetailsToolbar detailtoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView saveButton;
@@ -137,7 +138,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         child_under_five_Fragment.setArguments(this.getIntent().getExtras());
 
 
-        detailtoolbar = (Toolbar) findViewById(R.id.child_detail_toolbar);
+        detailtoolbar = (ChildDetailsToolbar) findViewById(R.id.child_detail_toolbar);
 
         ((TextView) detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
 
@@ -212,18 +213,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
+        super.onCreateOptionsMenu(menu);
         overflow = menu;
         return true;
     }
 
     @Override
-    public void initViews() {
-
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.registration_data:
                 String formmetadata = getmetaDataForEditForm();
@@ -413,17 +410,15 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     Log.e(TAG, e.getMessage());
                 }
             }
-        }
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            String imageLocation = currentfile.getAbsolutePath();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+        } else if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                String imageLocation = currentfile.getAbsolutePath();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            JsonFormUtils.saveImage(this, allSharedPreferences.fetchRegisteredANM(), childDetails.entityId(), imageLocation);
-            updateProfilePicture(gender);
+                JsonFormUtils.saveImage(this, allSharedPreferences.fetchRegisteredANM(), childDetails.entityId(), imageLocation);
+                updateProfilePicture(gender);
+            }
         }
     }
 

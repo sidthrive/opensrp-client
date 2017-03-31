@@ -86,8 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(getContentView());
         toolbar = (BaseToolbar) findViewById(getToolbarId());
         setSupportActionBar(toolbar);
-        if (getToolbarId() != R.id.child_detail_toolbar) {
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(getDrawerLayoutId());
         BaseActivityToggle toggle = new BaseActivityToggle(
@@ -98,7 +96,6 @@ public abstract class BaseActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         toggleIsSyncing();
-         }
 
         pathAfterFetchListener = new PathAfterFetchListener() {
             @Override

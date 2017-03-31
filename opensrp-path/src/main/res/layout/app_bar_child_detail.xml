@@ -9,7 +9,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="#FAFAFA">
 
-        <org.ei.opensrp.path.toolbar.LocationSwitcherToolbar
+        <org.ei.opensrp.path.toolbar.ChildDetailsToolbar
             android:id="@+id/child_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -36,7 +36,7 @@
                     android:layout_marginRight="10dp" />
             </FrameLayout>
 
-        </org.ei.opensrp.path.toolbar.LocationSwitcherToolbar>
+        </org.ei.opensrp.path.toolbar.ChildDetailsToolbar>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
