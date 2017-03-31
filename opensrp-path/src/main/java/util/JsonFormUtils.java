@@ -158,10 +158,12 @@ public class JsonFormUtils {
                         String rawValue = fields.getJSONObject(i).getString("value");
                         JSONArray valueArray = new JSONArray(rawValue);
                         if (valueArray.length() > 0) {
-                            fields.getJSONObject(i).put("value", getOpenMrsLocationId(openSrpContext,
-                                    valueArray.getString(valueArray.length() - 1)));
+                            String lastLocationName = valueArray.getString(valueArray.length() - 1);
+                            String lastLocationId = getOpenMrsLocationId(openSrpContext, lastLocationName);
+                            fields.getJSONObject(i).put("value", lastLocationId);
                         }
                     } catch (Exception e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
                     }
                 }
             }
@@ -1669,7 +1671,7 @@ public class JsonFormUtils {
 
     public static String getOpenMrsLocationId(org.ei.opensrp.Context context,
                                        String locationName) throws JSONException {
-        String response = null;
+        String response = locationName;
 
         if (locationName != null) {
             JSONObject locationData = new JSONObject(context.anmLocationController().get());
