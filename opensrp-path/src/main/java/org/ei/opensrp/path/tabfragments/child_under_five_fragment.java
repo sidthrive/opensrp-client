@@ -103,55 +103,58 @@ public class child_under_five_fragment extends Fragment  {
     public void loadview(boolean editmode){
 //        View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
-        fragmentcontainer.removeAllViews();
-        fragmentcontainer.addView(createPTCMTVIEW("PMTCT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
-        LinkedHashMap<String,String> weightmap = new LinkedHashMap<>();
+        if(fragmentcontainer != null) {
+            fragmentcontainer.removeAllViews();
+            fragmentcontainer.addView(createPTCMTVIEW("PMTCT: ", Utils.getValue(childDetails.getColumnmaps(), "pmtct_status", true)));
+            LinkedHashMap<String, String> weightmap = new LinkedHashMap<>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
 //        weightmap.put("7 m","6.7 Kg");
 //        weightmap.put("6 m","5.6 Kg");
 //        weightmap.put("5 m","5.0 Kg");
-        WeightRepository wp =  VaccinatorApplication.getInstance().weightRepository();
-        List <Weight> weightlist =  wp.findLast5(childDetails.entityId());
+            WeightRepository wp = VaccinatorApplication.getInstance().weightRepository();
+            List<Weight> weightlist = wp.findLast5(childDetails.entityId());
 
 
-        for(int i = 0;i<weightlist.size();i++){
+            for (int i = 0; i < weightlist.size(); i++) {
 //            String formattedDob = "";
-            String formattedAge = "";
-            if (weightlist.get(i).getDate() != null) {
+                String formattedAge = "";
+                if (weightlist.get(i).getDate() != null) {
 
-                Date weighttaken = weightlist.get(i).getDate();;
+                    Date weighttaken = weightlist.get(i).getDate();
+                    ;
 //                formattedDob = DATE_FORMAT.format(weighttaken);
-                String birthdate = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
-                DateTime birthday = new DateTime(birthdate);
-                Date birth = birthday.toDate();
-                long timeDiff = weighttaken.getTime() - birth.getTime();
+                    String birthdate = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
+                    DateTime birthday = new DateTime(birthdate);
+                    Date birth = birthday.toDate();
+                    long timeDiff = weighttaken.getTime() - birth.getTime();
 
-                if (timeDiff >= 0) {
-                    formattedAge = DateUtils.getDuration(timeDiff);
+                    if (timeDiff >= 0) {
+                        formattedAge = DateUtils.getDuration(timeDiff);
+                    }
                 }
+                weightmap.put(formattedAge, weightlist.get(i).getKg() + " kg");
             }
-            weightmap.put(formattedAge,weightlist.get(i).getKg()+" kg");
-        }
-        if(weightmap.size()<5) {
-            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " kg");
-        }
+            if (weightmap.size() < 5) {
+                weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " kg");
+            }
 
 
 //        weightlist.size();
-        WidgetFactory wd = new WidgetFactory();
-        if(weightmap.size()>0) {
-            fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
-        }
-        View view = new View(getActivity());
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1 , Context.getInstance().applicationContext().getResources().getDisplayMetrics());
+            WidgetFactory wd = new WidgetFactory();
+            if (weightmap.size() > 0) {
+                fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
+            }
+            View view = new View(getActivity());
+            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, Context.getInstance().applicationContext().getResources().getDisplayMetrics());
 
-        LinearLayout.LayoutParams barlayout= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
-        barlayout.setMargins(0,10,0,10);
-        view.setBackgroundColor(getResources().getColor(R.color.white));
-        fragmentcontainer.addView(view,barlayout);
+            LinearLayout.LayoutParams barlayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+            barlayout.setMargins(0, 10, 0, 10);
+            view.setBackgroundColor(getResources().getColor(R.color.white));
+            fragmentcontainer.addView(view, barlayout);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
-        updateVaccinationViews(fragmentcontainer,editmode);
+            updateVaccinationViews(fragmentcontainer, editmode);
+        }
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
 
 
