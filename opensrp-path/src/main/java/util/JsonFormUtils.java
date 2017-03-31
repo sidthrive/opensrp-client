@@ -2016,7 +2016,7 @@ public class JsonFormUtils {
 
 
         obs.setFieldCode("163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        obs.setValue(DATE_TIME_FORMAT.format(end));
+        obs.setValue(end);
         obs.setFieldDataType("end");
         event.addObs(obs);
 
