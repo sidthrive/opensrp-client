@@ -10,14 +10,15 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:id="@+id/tablerowcontainer">
+            android:id="@+id/tablerowcontainer"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.ClientList.NoPadding"
                 android:textColor="@color/dark_grey"
                 android:text="Catchment area"
                 android:id="@+id/label"

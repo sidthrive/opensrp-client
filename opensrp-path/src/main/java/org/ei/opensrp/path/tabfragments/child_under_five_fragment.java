@@ -3,12 +3,15 @@ package org.ei.opensrp.path.tabfragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
@@ -95,6 +98,7 @@ public class child_under_five_fragment extends Fragment  {
 //        View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         fragmentcontainer.removeAllViews();
+        fragmentcontainer.addView(createPTCMTVIEW("PTCMT: ",Utils.getValue(childDetails.getColumnmaps(),"pmtct_status",true)));
         HashMap<String,String> weightmap = new HashMap<String, String>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
@@ -127,6 +131,13 @@ public class child_under_five_fragment extends Fragment  {
         if(weightmap.size()>0) {
             fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
         }
+        View view = new View(getActivity());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1 , Context.getInstance().applicationContext().getResources().getDisplayMetrics());
+
+        LinearLayout.LayoutParams barlayout= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
+        barlayout.setMargins(0,10,0,10);
+        view.setBackgroundColor(getResources().getColor(R.color.client_list_header_dark_grey));
+        fragmentcontainer.addView(view,barlayout);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,new ArrayList<Vaccine>(),true));
         updateVaccinationViews(fragmentcontainer,editmode);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,true));
@@ -134,6 +145,17 @@ public class child_under_five_fragment extends Fragment  {
 
 
     }
+
+    private View createPTCMTVIEW(String labelString,String valueString) {
+        View rows = inflater.inflate(R.layout.tablerows_ptcmt, container, false);
+        TextView label = (TextView)rows.findViewById(R.id.label);
+        TextView value = (TextView)rows.findViewById(R.id.value);
+
+        label.setText(labelString);
+        value.setText(valueString);
+        return rows;
+    }
+
     private void updateVaccinationViews(ViewGroup v,boolean editmode) {
         if (vaccineGroups != null) {
             vaccineGroups.clear();
