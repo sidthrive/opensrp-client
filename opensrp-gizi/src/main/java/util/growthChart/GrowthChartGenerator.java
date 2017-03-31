@@ -1,13 +1,10 @@
 package util.growthChart;
 
 import android.graphics.Color;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
-import org.ei.opensrp.gizi.gizi.ChildDetailActivity;
 
 import java.util.ArrayList;
 

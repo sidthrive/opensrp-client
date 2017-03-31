@@ -114,8 +114,16 @@ public class ProfileImage {
 
 
     public String getFilevector() {
-//        filevector = "getFileVector";
-//        Log.e("TAG", "getFilevector: "+filevector );
+//        Log.e("ProfileImage", "getFilevector: "+filevector );
+//        String[] splitStringArray = filevector.substring(1,
+//                filevector.length() - 1).split(", ");
+//
+//        byte[] tempFileVector = new byte[splitStringArray.length];
+//        Log.e("TAG", "parseSavedVector: Parsing Data from DB"+ splitStringArray.length );
+//        for (int i = 0; i < splitStringArray.length; i++) {
+//            tempFileVector[i] = Byte.parseByte(splitStringArray[i]);
+//        }
+
         return filevector;
     }
 

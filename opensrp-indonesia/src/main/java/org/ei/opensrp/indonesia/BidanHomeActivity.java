@@ -13,8 +13,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
-import org.ei.opensrp.indonesia.face.camera.util.MultimediaProcessor;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
@@ -66,19 +65,13 @@ public class BidanHomeActivity extends SecuredActivity {
             }
             updateRegisterCounts();
 
-            Tools mtool = new Tools(context());
+            Tools mTools = new Tools(context());
 
-//            try {
-//                MultimediaProcessor.getInstance(getApplicationContext()).processMultimediaClient();
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            mtool.findAllUnStored();
-            mtool.setVectorfromAPI();
-            mtool.parseSaveVector();
+//            Tools.download_images();
+            Tools.setVectorfromAPI(getApplicationContext());
 
-//            mtool.vector_findAllUnsaved();
+            Tools.setVectorsBuffered();
+
         }
     };
 
@@ -348,4 +341,11 @@ public class BidanHomeActivity extends SecuredActivity {
             }
         }
     };
+
+
+    public void helpMenu(){
+        Toast.makeText(getApplicationContext(), String.valueOf(1), Toast.LENGTH_LONG).show();
+
+    }
+
 }

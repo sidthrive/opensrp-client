@@ -17,8 +17,6 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.repository.DetailsRepository;
 
-import java.util.StringTokenizer;
-
 import util.ZScore.ZScoreSystemCalculation;
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
@@ -128,8 +126,8 @@ public class GiziZScoreChartActivity extends Activity{
             @Override
             public void onClick(View v) {
                 finish();
-                ChildDetailActivity.childclient = client;
-                startActivity(new Intent(GiziZScoreChartActivity.this, ChildDetailActivity.class));
+                GiziDetailActivity.childclient = client;
+                startActivity(new Intent(GiziZScoreChartActivity.this, GiziDetailActivity.class));
                 overridePendingTransition(0, 0);
             }
         });

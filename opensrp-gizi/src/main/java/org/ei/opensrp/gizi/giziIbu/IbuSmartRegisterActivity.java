@@ -1,5 +1,8 @@
 package org.ei.opensrp.gizi.giziIbu;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -59,6 +62,8 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
 
     ZiggyService ziggyService;
 
+    GiziIbuSmartRegisterFragment nf = new GiziIbuSmartRegisterFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +74,41 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
         String GiziStart = timer.format(new Date());
                 Map<String, String> Gizi = new HashMap<String, String>();
                 Gizi.put("start", GiziStart);
-                FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
+//                FlurryAgent.logEvent("Gizi_dashboard",Gizi, true );
        // FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
-        mBaseFragment = new GiziIbuSmartRegisterFragment();
+
+        //        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face) {
+                nf.setCriteria(base_id);
+                mBaseFragment = new GiziIbuSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: id " + base_id);
+//                showToast("id "+base_id);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Person ?");
+//                builder.setTitle("Is it Right Clients ?" + base_id);
+//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
+
+                // TODO : get name by base_id
+//                builder.setMessage("Process Time : " + proc_time + " s");
+
+                builder.setNegativeButton("CANCEL", listener );
+                builder.setPositiveButton("YES", listener );
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new GiziIbuSmartRegisterFragment();
+        }
+
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);
@@ -370,5 +405,24 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
         return currentPage != 0;
     }
 
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(IbuSmartRegisterActivity.this, IbuSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+
+
+        }
+    };
 
 }

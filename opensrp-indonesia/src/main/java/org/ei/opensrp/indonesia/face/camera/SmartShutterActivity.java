@@ -34,7 +34,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
@@ -44,8 +43,8 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
-import org.ei.opensrp.indonesia.face.camera.util.FaceConstants;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceConstants;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
@@ -60,7 +59,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -142,8 +140,6 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         kidetail = extras.getParcelable("org.sid.sidface.ImageConfirmation.kidetail");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
 
-        Log.e(TAG, "onCreate: " + kidetail);
-
         initializeFlags();
 
         initializeCheckBoxes();
@@ -157,7 +153,6 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         settingsButtonPress = false;
 
         chooseCameraActionListener();
-//        switchCameraActionListener();
         galleryActionListener();
         cameraActionListener();
         settingsActionListener();
@@ -170,7 +165,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         initCamera();
 
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        loadAlbum();
+
+        Tools.loadAlbum(getApplicationContext());
+
+
     }
 
     @Override
@@ -230,6 +228,10 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             if (faceProc == null) {
                 faceProc = FacialProcessing.getInstance();
             }
+//            byte[] dataFace = faceProc.serializeRecogntionAlbum();
+
+//            Log.e(TAG, "onCreate: "+ dataFace.length );
+
 //            faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_STILL); // Static Image
             faceProc.setProcessingMode(FacialProcessing.FP_MODES.FP_MODE_VIDEO);
 
@@ -309,8 +311,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                         Class<?> origin_class = this.getClass();
 
-                        Log.e(TAG, "onPreviewFrame: init" + origin_class.getSimpleName());
-                        Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
+                        Log.e(TAG, "onPreviewFrame: init " + origin_class.getSimpleName());
+                        Log.e(TAG, "onPreviewFrame: origin " + str_origin_class);
 
                         if (str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())) {
                             origin_class = NativeKISmartRegisterActivity.class;
@@ -512,18 +514,18 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             faceProc.setRecognitionConfidence(Tools.CONFIDENCE_VALUE);
 
 //            Tools tools = new Tools();
-            loadAlbum();
+//            Tools.loadAlbum(getApplicationContext());
 
         } else if (!isDevCompat && !activityStartedOnce) {
             Log.e(TAG, "Feature is NOT supported");
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SmartShutterActivity.this);
 
             // set title
-            alertDialogBuilder.setTitle("Not Supported");
+            alertDialogBuilder.setTitle(FaceConstants.UNSUPPORTED_TITLE);
 
             // set dialog message
             alertDialogBuilder
-                    .setMessage("Your device does not support Qualcomm's FacialActivity Processing Feature. Continue with the normal camera.")
+                    .setMessage(FaceConstants.UNSUPPORTED_MSG)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -976,14 +978,13 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
      * Function to take the raw YUV byte array and do the necessary conversions to save it.
      */
     private void savePicture(byte[] data) {
-        Log.e(TAG, "savePicture: "+entityId );
         Intent intent = new Intent(this, ImageConfirmation.class);
         // This is when smart shutter feature is not ON. Take the photo generally.
         if (data != null) {
-            intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation", data);
+            intent.putExtra("org.sid.sidface.ImageConfirmation", data);
         }
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera", switchCamera);
-        intent.putExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation", displayAngle);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.switchCamera", switchCamera);
+        intent.putExtra("org.sid.sidface.ImageConfirmation.orientation", displayAngle);
         intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityId);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", identifyPerson);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) kidetail);

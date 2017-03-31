@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ei.opensrp.gizi.NativeHomeActivity"
+        <activity android:name=".GiziHomeActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
         <activity android:name="org.ei.opensrp.gizi.gizi.GiziSmartRegisterActivity"
@@ -38,7 +38,7 @@
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
-        <activity android:name=".gizi.ChildDetailActivity"
+        <activity android:name=".gizi.GiziDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
@@ -60,8 +60,8 @@
             android:screenOrientation="landscape"/>
 
 
-        <activity android:name=".face.camera.SmartShutterActivity" />
-        <activity android:name=".face.camera.ImageConfirmation" />
+        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
         <activity android:name=".face.camera.ClientsList" />
 
     </application>

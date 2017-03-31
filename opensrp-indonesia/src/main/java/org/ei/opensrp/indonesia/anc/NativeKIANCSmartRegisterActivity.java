@@ -1,5 +1,8 @@
 package org.ei.opensrp.indonesia.anc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,6 +16,7 @@ import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
+import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -65,6 +69,8 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     ZiggyService ziggyService;
 
+    NativeKIANCSmartRegisterFragment nf = new NativeKIANCSmartRegisterFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +84,31 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
         KI.put("start", KIStart);
         FlurryAgent.logEvent("ANC_dashboard", KI, true);
         formNames = this.buildFormNameList();
+
+        //        WD
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
+            String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
+            double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
+//            Log.e(TAG, "onCreate: "+proc_time );
+
+            if (mode_face){
+                nf.setCriteria(base_id);
+                mBaseFragment = new NativeKIANCSmartRegisterFragment();
+
+                Log.e(TAG, "onCreate: " + base_id);
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setTitle("Is it Right Clients ?");
+                builder.setMessage("Process Time : " + proc_time + " s");
+                builder.setNegativeButton( "CANCEL", listener );
+                builder.setPositiveButton( "YES", listener );
+                builder.show();
+            }
+        } else {
+            mBaseFragment = new NativeKIANCSmartRegisterFragment();
+        }
+
         mBaseFragment = new NativeKIANCSmartRegisterFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
@@ -314,4 +345,25 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
     private boolean currentActivityIsShowingForm(){
         return currentPage != 0;
     }
+
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+//            mBaseFragment = new NativeKISmartRegisterFragment();
+
+            if (which == -1 ){
+                nf.setCriteria("!");
+                currentPage = 0;
+
+            } else {
+                nf.setCriteria("");
+                onBackPressed();
+
+                Intent intent= new Intent(NativeKIANCSmartRegisterActivity.this, NativeKIANCSmartRegisterActivity.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
+
+        }
+    };
 }

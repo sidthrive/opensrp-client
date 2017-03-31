@@ -21,13 +21,17 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
         transitive = true;
     }
+    compile files('libs/sd-sdk-facial-processing.jar')
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.google.code.gson:gson:2.8.0'
+
 }
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "org.ei.opensrp.test"
+        applicationId "org.ei.opensrp.vaksinator"
         minSdkVersion 16
         targetSdkVersion 21
 

@@ -28,6 +28,8 @@ import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.IOException;
@@ -175,34 +177,34 @@ public class PNCDetailActivity extends Activity {
             }
         });
 
-        txt_keadaanIbu.setText(": "+ humanize(pncclient.getDetails().get("keadaanIbu") != null ? pncclient.getDetails().get("keadaanIbu") : "-"));
-        txt_keadaanBayi.setText(": "+ humanize(pncclient.getDetails().get("keadaanBayi") != null ? pncclient.getDetails().get("keadaanBayi") : "-"));
-        txt_beratLahir.setText(": "+ humanize(pncclient.getDetails().get("beratLahir") != null ? pncclient.getDetails().get("beratLahir") : "-"));
-        txt_persalinan.setText(": "+ humanize(pncclient.getDetails().get("persalinan") != null ? pncclient.getDetails().get("persalinan") : "-"));
-        txt_jamKalaIAktif.setText(": "+ humanize(pncclient.getDetails().get("jamKalaIAktif") != null ? pncclient.getDetails().get("jamKalaIAktif") : "-"));
-        txt_jamKalaII.setText(": "+ humanize(pncclient.getDetails().get("jamKalaII") != null ? pncclient.getDetails().get("jamKalaII") : "-"));
-        txt_jamPlasentaLahir.setText(": "+humanize (pncclient.getDetails().get("jamPlasentaLahir") != null ? pncclient.getDetails().get("jamPlasentaLahir") : "-"));
-        txt_perdarahanKalaIV2JamPostpartum.setText(": "+ humanize(pncclient.getDetails().get("perdarahanKalaIV2JamPostpartum") != null ? pncclient.getDetails().get("perdarahanKalaIV2JamPostpartum") : "-"));
-        txt_persentasi.setText(": "+ (pncclient.getDetails().get("persentasi") != null ? pncclient.getDetails().get("persentasi") : "-"));
-        txt_tempatBersalin.setText(": "+ humanize(pncclient.getDetails().get("tempatBersalin") != null ? pncclient.getDetails().get("tempatBersalin") : "-"));
-        txt_penolong.setText(": "+ humanize(pncclient.getDetails().get("penolong") != null ? pncclient.getDetails().get("penolong") : "-"));
-        txt_caraPersalinanIbu.setText(": "+humanize (pncclient.getDetails().get("caraPersalinanIbu") != null ? pncclient.getDetails().get("caraPersalinanIbu") : "-"));
-        txt_namaBayi.setText(": "+ humanize(pncclient.getDetails().get("namaBayi") != null ? pncclient.getDetails().get("namaBayi") : "-"));
-        txt_jenisKelamin.setText(": "+humanize (pncclient.getDetails().get("jenisKelamin") != null ? pncclient.getDetails().get("jenisKelamin") : "-"));
-        txt_tanggalLahirAnak.setText(": "+ humanize(pncclient.getDetails().get("anak.tanggalLahirAnak") != null ? pncclient.getDetails().get("anak.tanggalLahirAnak") : "-"));
+        txt_keadaanIbu.setText(String.format(": %s", humanize(pncclient.getDetails().get("keadaanIbu") != null ? pncclient.getDetails().get("keadaanIbu") : "-")));
+        txt_keadaanBayi.setText(String.format(": %s", humanize(pncclient.getDetails().get("keadaanBayi") != null ? pncclient.getDetails().get("keadaanBayi") : "-")));
+        txt_beratLahir.setText(String.format(": %s", humanize(pncclient.getDetails().get("beratLahir") != null ? pncclient.getDetails().get("beratLahir") : "-")));
+        txt_persalinan.setText(String.format(": %s", humanize(pncclient.getDetails().get("persalinan") != null ? pncclient.getDetails().get("persalinan") : "-")));
+        txt_jamKalaIAktif.setText(String.format(": %s", humanize(pncclient.getDetails().get("jamKalaIAktif") != null ? pncclient.getDetails().get("jamKalaIAktif") : "-")));
+        txt_jamKalaII.setText(String.format(": %s", humanize(pncclient.getDetails().get("jamKalaII") != null ? pncclient.getDetails().get("jamKalaII") : "-")));
+        txt_jamPlasentaLahir.setText(String.format(": %s", humanize(pncclient.getDetails().get("jamPlasentaLahir") != null ? pncclient.getDetails().get("jamPlasentaLahir") : "-")));
+        txt_perdarahanKalaIV2JamPostpartum.setText(String.format(": %s", humanize(pncclient.getDetails().get("perdarahanKalaIV2JamPostpartum") != null ? pncclient.getDetails().get("perdarahanKalaIV2JamPostpartum") : "-")));
+        txt_persentasi.setText(String.format(": %s", pncclient.getDetails().get("persentasi") != null ? pncclient.getDetails().get("persentasi") : "-"));
+        txt_tempatBersalin.setText(String.format(": %s", humanize(pncclient.getDetails().get("tempatBersalin") != null ? pncclient.getDetails().get("tempatBersalin") : "-")));
+        txt_penolong.setText(String.format(": %s", humanize(pncclient.getDetails().get("penolong") != null ? pncclient.getDetails().get("penolong") : "-")));
+        txt_caraPersalinanIbu.setText(String.format(": %s", humanize(pncclient.getDetails().get("caraPersalinanIbu") != null ? pncclient.getDetails().get("caraPersalinanIbu") : "-")));
+        txt_namaBayi.setText(String.format(": %s", humanize(pncclient.getDetails().get("namaBayi") != null ? pncclient.getDetails().get("namaBayi") : "-")));
+        txt_jenisKelamin.setText(String.format(": %s", humanize(pncclient.getDetails().get("jenisKelamin") != null ? pncclient.getDetails().get("jenisKelamin") : "-")));
+        txt_tanggalLahirAnak.setText(String.format(": %s", humanize(pncclient.getDetails().get("anak.tanggalLahirAnak") != null ? pncclient.getDetails().get("anak.tanggalLahirAnak") : "-")));
 
-        txt_tandaVitalSuhu.setText(": "+ humanize(pncclient.getDetails().get("tandaVitalSuhu") != null ? pncclient.getDetails().get("tandaVitalSuhu") : "-"));
-        txt_pelayananfe.setText(": "+ humanize(pncclient.getDetails().get("pelayananfe") != null ? pncclient.getDetails().get("pelayananfe") : "-"));
-        txt_vitaminA2jamPP.setText(": "+ humanize(pncclient.getDetails().get("vitaminA2jamPP") != null ? pncclient.getDetails().get("vitaminA2jamPP") : "-"));
-        txt_vitaminA24jamPP.setText(": "+ humanize(pncclient.getDetails().get("vitaminA24jamPP") != null ? pncclient.getDetails().get("vitaminA24jamPP") : "-"));
-        txt_integrasiProgramAntiMalaria.setText(": "+ humanize(pncclient.getDetails().get("integrasiProgramAntiMalaria") != null ? pncclient.getDetails().get("integrasiProgramAntiMalaria") : "-"));
-        txt_integrasiProgramantitb.setText(": "+humanize (pncclient.getDetails().get("integrasiProgramantitb") != null ? pncclient.getDetails().get("integrasiProgramantitb") : "-"));
+        txt_tandaVitalSuhu.setText(String.format(": %s", humanize(pncclient.getDetails().get("tandaVitalSuhu") != null ? pncclient.getDetails().get("tandaVitalSuhu") : "-")));
+        txt_pelayananfe.setText(String.format(": %s", humanize(pncclient.getDetails().get("pelayananfe") != null ? pncclient.getDetails().get("pelayananfe") : "-")));
+        txt_vitaminA2jamPP.setText(String.format(": %s", humanize(pncclient.getDetails().get("vitaminA2jamPP") != null ? pncclient.getDetails().get("vitaminA2jamPP") : "-")));
+        txt_vitaminA24jamPP.setText(String.format(": %s", humanize(pncclient.getDetails().get("vitaminA24jamPP") != null ? pncclient.getDetails().get("vitaminA24jamPP") : "-")));
+        txt_integrasiProgramAntiMalaria.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramAntiMalaria") != null ? pncclient.getDetails().get("integrasiProgramAntiMalaria") : "-")));
+        txt_integrasiProgramantitb.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramantitb") != null ? pncclient.getDetails().get("integrasiProgramantitb") : "-")));
 
 
-        txt_integrasiProgramFotoThorax.setText(": "+ humanize(pncclient.getDetails().get("integrasiProgramFotoThorax") != null ? pncclient.getDetails().get("integrasiProgramFotoThorax") : "-"));
-        txt_komplikasi.setText(": "+humanize (pncclient.getDetails().get("komplikasi") != null ? pncclient.getDetails().get("komplikasi") : "-"));
-        txt_daruratNifas.setText(": "+humanize (pncclient.getDetails().get("daruratNifas") != null ? pncclient.getDetails().get("daruratNifas") : "-"));
-        txt_penangananNifas.setText(": "+humanize (pncclient.getDetails().get("penangananNifas") != null ? pncclient.getDetails().get("penangananNifas") : "-"));
+        txt_integrasiProgramFotoThorax.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramFotoThorax") != null ? pncclient.getDetails().get("integrasiProgramFotoThorax") : "-")));
+        txt_komplikasi.setText(String.format(": %s", humanize(pncclient.getDetails().get("komplikasi") != null ? pncclient.getDetails().get("komplikasi") : "-")));
+        txt_daruratNifas.setText(String.format(": %s", humanize(pncclient.getDetails().get("daruratNifas") != null ? pncclient.getDetails().get("daruratNifas") : "-")));
+        txt_penangananNifas.setText(String.format(": %s", humanize(pncclient.getDetails().get("penangananNifas") != null ? pncclient.getDetails().get("penangananNifas") : "-")));
 
         //risk detail
 
@@ -236,44 +238,46 @@ public class PNCDetailActivity extends Activity {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ibuparent);
+        // Set Image
+        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ibuparent.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
 
-        txt_hariKeKF.setText(": "+ humanizeAndDoUPPERCASE(kiobject.getColumnmaps().get("hariKeKF") != null ? kiobject.getColumnmaps().get("hariKeKF") : "-"));
+//        if(ibuparent.getDetails().get("profilepic")!= null){
+//            setImagetoHolderFromUri(PNCDetailActivity.this, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+//        }
+//        else {
+//            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+//        }
 
-        if(ibuparent.getDetails().get("profilepic")!= null){
-            setImagetoHolderFromUri(PNCDetailActivity.this, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-        }
-        else {
-            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
-        }
-        txt_tandaVitalTDDiastolik.setText(": "+humanize (ibuparent.getDetails().get("tandaVitalTDDiastolik") != null ? ibuparent.getDetails().get("tandaVitalTDDiastolik") : "-"));
-        txt_tandaVitalTDSistolik.setText(": "+humanize (ibuparent.getDetails().get("tandaVitalTDSistolik") != null ? ibuparent.getDetails().get("tandaVitalTDSistolik") : "-"));
+        txt_hariKeKF.setText(String.format(": %s", humanizeAndDoUPPERCASE(kiobject.getColumnmaps().get("hariKeKF") != null ? kiobject.getColumnmaps().get("hariKeKF") : "-")));
+        txt_tandaVitalTDDiastolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik") != null ? ibuparent.getDetails().get("tandaVitalTDDiastolik") : "-")));
+        txt_tandaVitalTDSistolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDSistolik") != null ? ibuparent.getDetails().get("tandaVitalTDSistolik") : "-")));
 
 
-        nama.setText(getResources().getString(R.string.name)+ humanize(ibuparent.getColumnmaps().get("namalengkap") != null ? ibuparent.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+humanize (ibuparent.getDetails().get("nik") != null ? ibuparent.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ humanize(ibuparent.getColumnmaps().get("namaSuami") != null ? ibuparent.getColumnmaps().get("namaSuami") : "-"));
+        nama.setText(String.format("%s%s", getResources().getString(R.string.name), humanize(ibuparent.getColumnmaps().get("namalengkap") != null ? ibuparent.getColumnmaps().get("namalengkap") : "-")));
+        nik.setText(String.format("%s%s", getResources().getString(R.string.nik), humanize(ibuparent.getDetails().get("nik") != null ? ibuparent.getDetails().get("nik") : "-")));
+        husband_name.setText(String.format("%s%s", getResources().getString(R.string.husband_name), humanize(ibuparent.getColumnmaps().get("namaSuami") != null ? ibuparent.getColumnmaps().get("namaSuami") : "-")));
         String tgl = ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-";
         String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
-        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
+        dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
         //dob.setText(getResources().getString(R.string.dob)+ humanize(ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-"));
-        phone.setText("No HP: "+ (ibuparent.getDetails().get("NomorTelponHp") != null ? ibuparent.getDetails().get("NomorTelponHp") : "-"));
+        phone.setText(String.format("No HP: %s", ibuparent.getDetails().get("NomorTelponHp") != null ? ibuparent.getDetails().get("NomorTelponHp") : "-"));
 
 
 
         //risk
         if(ibuparent.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiobject.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyYoungMaternalAge), humanize(kiobject.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(ibuparent.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(kiobject.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyOldMaternalAge), humanize(kiobject.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(ibuparent.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
                 || ibuparent.getDetails().get("HighRiskPregnancyAbortus") != null
                 || ibuparent.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
                 ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(ibuparent.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(ibuparent.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(ibuparent.getDetails().get("HighRiskLabourSectionCesareaRecord")));
+            risk2.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition), humanize(ibuparent.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition"))));
+            risk3.setText(String.format("%s%s", getResources().getString(R.string.HighRiskPregnancyAbortus), humanize(ibuparent.getDetails().get("HighRiskPregnancyAbortus"))));
+            risk4.setText(String.format("%s%s", getResources().getString(R.string.HighRiskLabourSectionCesareaRecord), humanize(ibuparent.getDetails().get("HighRiskLabourSectionCesareaRecord"))));
 
         }
         txt_highRiskLabourTBRisk.setText(humanize(ibuparent.getDetails().get("highRiskLabourTBRisk") != null ? ibuparent.getDetails().get("highRiskLabourTBRisk") : "-"));
@@ -317,70 +321,70 @@ public class PNCDetailActivity extends Activity {
         });
 
 
-        kiview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-                bindobject = "kartu_ibu";
-                entityid = pncclient.entityId();
-                Log.e(TAG, "onClick: " + entityid);
-                dispatchTakePictureIntent(kiview);
-
-            }
-        });
-
-
-
-    }
-
-
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
-
-
-    }
-
-
-    String mCurrentPhotoPath;
-
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static ImageView mImageView;
-    static File currentfile;
-    static String bindobject;
-    static String entityid;
-
-
-    private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
+//        kiview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
+//                bindobject = "kartu_ibu";
+//                entityid = pncclient.entityId();
+//                Log.e(TAG, "onClick: " + entityid);
+//                dispatchTakePictureIntent(kiview);
 //
 //            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-            startActivityForResult(takePictureIntent, 1);
-//            }
-        }
+//        });
+
+
+
     }
+
+//
+//    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+//        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+//        File externalFile = new File(file);
+//        Uri external = Uri.fromFile(externalFile);
+//        view.setImageURI(external);
+//
+//
+//    }
+//
+//
+//    String mCurrentPhotoPath;
+//
+//    static final int REQUEST_TAKE_PHOTO = 1;
+//    static ImageView mImageView;
+//    static File currentfile;
+//    static String bindobject;
+//    static String entityid;
+//
+//
+//    private void dispatchTakePictureIntent(ImageView imageView) {
+//        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+//        mImageView = imageView;
+//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+////        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
+//        // Ensure that there's a camera activity to handle the intent
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            // Create the File where the photo should go
+////            File photoFile = null;
+////            try {
+////                photoFile = createImageFile();
+////            } catch (IOException ex) {
+////                // Error occurred while creating the File
+////
+////            }
+////            // Continue only if the File was successfully created
+////            if (photoFile != null) {
+////                currentfile = photoFile;
+////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+////
+//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+//            startActivityForResult(takePictureIntent, 1);
+////            }
+//        }
+//    }
 
 
 }

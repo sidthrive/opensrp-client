@@ -13,7 +13,6 @@ import com.qualcomm.snapdragon.sdk.face.FaceData;
 
 import org.ei.opensrp.vaksinator.face.camera.util.FaceConstants;
 
-
 public class PaintFaceView extends SurfaceView {
 
     public FaceData[]mFaceArray;

@@ -19,8 +19,10 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.vaksinator.R;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -128,11 +130,16 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
             pc.setDetails(details);
         }
 
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if (pc.getDetails().get("profilepic") != null) {
-        }
-        else {
-            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        if (pc.getDetails().get("profilepic") != null) {
+//        }
+//        else {
+//            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//        }
+        viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
 
         ////System.out.println("details: "+pc.getDetails().toString());
@@ -148,16 +155,16 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
         viewHolder.edd_due.setText(context.getString(R.string.edd_label));
         viewHolder.htpt.setText(pc.getDetails().get("htp")!=null?pc.getDetails().get("htp"):"-");
 
-        viewHolder.ki_lila_bb.setText((pc.getDetails().get("hasilPemeriksaanLILA")!=null?pc.getDetails().get("hasilPemeriksaanLILA"):"-")+" "+context.getString(R.string.cm));
-        viewHolder.beratbadan_tb.setText((pc.getDetails().get("bbKg")!=null?pc.getDetails().get("bbKg"):"-")+" "+context.getString(R.string.kg));
+        viewHolder.ki_lila_bb.setText(String.format("%s %s", pc.getDetails().get("hasilPemeriksaanLILA") != null ? pc.getDetails().get("hasilPemeriksaanLILA") : "-", context.getString(R.string.cm)));
+        viewHolder.beratbadan_tb.setText(String.format("%s %s", pc.getDetails().get("bbKg") != null ? pc.getDetails().get("bbKg") : "-", context.getString(R.string.kg)));
 
         String AncDate = pc.getDetails().get("ancDate")!=null?pc.getDetails().get("ancDate"):"-";
         String AncKe = pc.getDetails().get("ancKe")!=null?pc.getDetails().get("ancKe"):"-";
         String KunjunganKe = pc.getDetails().get("kunjunganKe")!=null?pc.getDetails().get("kunjunganKe"):"-";
 
-        viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.last_visit_date) + " " + AncDate);
-        viewHolder.anc_number.setText(context.getString(R.string.anc_ke) + " " + AncKe);
-        viewHolder.kunjugan_ke.setText(context.getString(R.string.visit_number) + KunjunganKe);
+        viewHolder.tanggal_kunjungan_anc.setText(String.format("%s %s", context.getString(R.string.last_visit_date), AncDate));
+        viewHolder.anc_number.setText(String.format("%s %s", context.getString(R.string.anc_ke), AncKe));
+        viewHolder.kunjugan_ke.setText(String.format("%s%s", context.getString(R.string.visit_number), KunjunganKe));
 
         viewHolder.status_type.setText("");
         viewHolder.status_date.setText("");
@@ -212,7 +219,7 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        View View = (ViewGroup) inflater().inflate(R.layout.smart_register_tt_client, null);
+        View View = inflater().inflate(R.layout.smart_register_tt_client, null);
         return View;
     }
 

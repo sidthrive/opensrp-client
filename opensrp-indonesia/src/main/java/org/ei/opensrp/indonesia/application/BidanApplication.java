@@ -32,16 +32,20 @@ public class BidanApplication extends DrishtiApplication {
     public void onCreate() {
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
         super.onCreate();
+
         //  ACRA.init(this);
 
         DrishtiSyncScheduler.setReceiverClass(SyncBroadcastReceiver.class);
         ErrorReportingFacade.initErrorHandler(getApplicationContext());
         FlurryFacade.init(this);
+
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
         applyUserLanguagePreference();
         cleanUpSyncState();
+
     }
 
     @Override

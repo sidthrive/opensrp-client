@@ -53,6 +53,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
+
     public KIClientsProvider(Context context,
                              View.OnClickListener onClickListener,
                              AlertService alertService) {
@@ -121,14 +122,14 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         detailsRepository.updateDetails(pc);
 
         //set image
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if (pc.getDetails().get("profilepic") != null) {
-            KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-            kiview.setTag(smartRegisterClient);
-        }
-        else {
-            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
-        }
+//        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        if (pc.getDetails().get("profilepic") != null) {
+//            KIDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
+//            kiview.setTag(smartRegisterClient);
+//        }
+//        else {
+//            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
+//        }
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
@@ -146,6 +147,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.anc_status_layout.setText("");
         viewHolder.date_status.setText("");
         viewHolder.visit_status.setText("");
+
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
@@ -225,6 +227,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         convertView.setLayoutParams(clientViewLayoutParams);
       //  return convertView;
+
     }
 
     

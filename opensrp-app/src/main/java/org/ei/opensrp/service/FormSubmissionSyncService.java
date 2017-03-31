@@ -1,6 +1,7 @@
 package org.ei.opensrp.service;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -59,7 +60,8 @@ public class FormSubmissionSyncService {
 
             mCountDownLatch.await();
             //pushToServer();
-            Intent intent = new Intent(DrishtiApplication.getInstance().getApplicationContext(),ImageUploadSyncService.class);
+            Intent intent = new Intent(DrishtiApplication.getInstance().getApplicationContext(), ImageUploadSyncService.class);
+            Log.e("TAG", "sync: here" );
             DrishtiApplication.getInstance().getApplicationContext().startService(intent);
             return FetchStatus.fetched;
         }catch (Exception e) {

@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ei.opensrp.vaksinator.NativeHomeActivity"
+        <activity android:name=".VaksinatorHomeActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
         <activity android:name="org.ei.opensrp.vaksinator.vaksinator.VaksinatorSmartRegisterActivity"
@@ -55,8 +55,8 @@
             android:screenOrientation="landscape"/>
 
 
-        <activity android:name=".face.camera.SmartShutterActivity" />
-        <activity android:name=".face.camera.ImageConfirmation" />
+        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
         <activity android:name=".face.camera.ClientsList" />
 
     </application>

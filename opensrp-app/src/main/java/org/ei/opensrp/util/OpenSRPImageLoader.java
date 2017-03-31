@@ -135,7 +135,7 @@ public class OpenSRPImageLoader extends ImageLoader {
      * retrieve it using url of the source image.
      * The assumption here is that this method will be used to fetch profile images whereby the name of the file is equals to the client's base entity id
      *
-     * @param entityId- The id of the image to be retrieved
+     * @param entityId - The id of the image to be retrieved
      * @return ImageContainer that will contain either the specified default bitmap or the loaded bitmap. If the default was returned, the
      * {@link OpenSRPImageLoader} will be invoked when the request is fulfilled.
      */
@@ -161,8 +161,9 @@ public class OpenSRPImageLoader extends ImageLoader {
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
-                    Log.e(TAG, "getImageByClientId: "+url);
-                    get(url,opensrpImageListener);
+//                    Log.e(TAG, "getImageByClientId: "+url);
+                    Log.e(TAG, "getImageByClientId: Image Not Found "+ entityId);
+                    get(url, opensrpImageListener);
 
                 }
             }
@@ -192,6 +193,7 @@ public class OpenSRPImageLoader extends ImageLoader {
         }
     }
 
+
     private class LoadBitmapFromDiskTask extends AsyncTask<String, Void, Bitmap> {
 
         private OpenSRPImageListener opensrpImageListener;
@@ -220,6 +222,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                  * Display image loaded from disk if reference is not NULL
                  */
                 if (result != null) {
+                    Log.d(TAG, "Found image on local storage, no download needed");
                     Log.i(TAG, "Found image on local storage, no download needed");
                     ImageContainer imgContainer = new ImageContainer(result, null, null, opensrpImageListener);
                     if (opensrpImageListener != null) {
@@ -475,6 +478,8 @@ public class OpenSRPImageLoader extends ImageLoader {
                 if (response.getBitmap() != null) {
                     view.setImageBitmap(response.getBitmap());
 
+                    final Object[] uid = new Object[1];
+
                     // perform I/O on non UI thread
                     if (!isImmediate) {
                     //pass the entity id to act as the file name . Remember to always set this value as a tag in the image view
@@ -492,6 +497,12 @@ public class OpenSRPImageLoader extends ImageLoader {
         };
     }
 
+
+
+//    public static OpenSRPImageListener getStaticImageListener(String uid) {
+//        ImageView view = new ImageView(and)
+//        return getStaticImageListener((ImageView) uid, 0, 0);
+//    }
     private static CompressFormat getCompressFormat(String absoluteFileName) {
         String[] parts = absoluteFileName.split("\\.");
         String imgExtension = parts[parts.length - 1];
@@ -512,6 +523,7 @@ public class OpenSRPImageLoader extends ImageLoader {
      */
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image) {
+        Log.e(TAG, "saveStaticImageToDisk: "+ entityId );
         if (image != null) {
             OutputStream os = null;
             try {
@@ -530,10 +542,13 @@ public class OpenSRPImageLoader extends ImageLoader {
                     }
                     // insert into the db
                     ProfileImage profileImage= new ProfileImage();
-                    profileImage.setImageid(UUID.randomUUID().toString());
+//                    profileImage.setImageid(UUID.randomUUID().toString());
+                    // Image Id assumption is one user one image
+                    profileImage.setImageid(entityId);
                     // TODO : get anmID from ?
-                    profileImage.setAnmId("anmID");
+//                    profileImage.setAnmId("anmID");
                     profileImage.setEntityID(entityId);
+                    profileImage.setContenttype("jpeg");
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
@@ -541,7 +556,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 //                    profileImage.setFilevector();
 //                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-                    imageRepo.add(profileImage);
+                    imageRepo.add(profileImage, entityId);
                 }
 
             } catch (FileNotFoundException e) {

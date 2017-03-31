@@ -5,40 +5,32 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.indonesia.face.camera.util.Tools;
+import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import util.ImageCache;
 import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -63,6 +55,7 @@ public class KIDetailActivity extends Activity {
     public static CommonPersonObjectClient kiclient;
 
     private static HashMap<String, String> hash;
+    private boolean updateMode = false;
     private String mode;
 
     @Override
@@ -159,48 +152,47 @@ public class KIDetailActivity extends Activity {
         detailsRepository.updateDetails(kiclient);
 
         //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-        Log.e(TAG, "onCreate: " );
-        BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
 
 
-        nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
-        nik.setText(getResources().getString(R.string.nik)+ (kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
-        husband_name.setText(getResources().getString(R.string.husband_name)+ (kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
+        nama.setText(String.format("%s%s", getResources().getString(R.string.name), kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
+        nik.setText(String.format("%s%s", getResources().getString(R.string.nik), kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
+        husband_name.setText(String.format("%s%s", getResources().getString(R.string.husband_name), kiclient.getColumnmaps().get("namaSuami") != null ? kiclient.getColumnmaps().get("namaSuami") : "-"));
         String tgl = kiclient.getDetails().get("tanggalLahir") != null ? kiclient.getDetails().get("tanggalLahir") : "-";
         String tgl_lahir = tgl.substring(0, tgl.indexOf("T"));
-        dob.setText(getResources().getString(R.string.dob)+ tgl_lahir);
-        phone.setText("No HP: "+ (kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
+        dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
+        phone.setText(String.format("No HP: %s", kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
 
         //risk
         if(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyYoungMaternalAge), humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(kiclient.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
-            risk1.setText(getResources().getString(R.string.highRiskPregnancyOldMaternalAge)+humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge")));
+            risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyOldMaternalAge), humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
         }
         if(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition") != null
                 || kiclient.getDetails().get("HighRiskPregnancyAbortus") != null
                 || kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord" ) != null
                 ){
-            risk2.setText(getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition)+humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition")));
-            risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus")));
-            risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord")));
+            risk2.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyProteinEnergyMalnutrition), humanize(kiclient.getDetails().get("highRiskPregnancyProteinEnergyMalnutrition"))));
+            risk3.setText(String.format("%s%s", getResources().getString(R.string.HighRiskPregnancyAbortus), humanize(kiclient.getDetails().get("HighRiskPregnancyAbortus"))));
+            risk4.setText(String.format("%s%s", getResources().getString(R.string.HighRiskLabourSectionCesareaRecord), humanize(kiclient.getDetails().get("HighRiskLabourSectionCesareaRecord"))));
         }
 
         show_risk.setText(getResources().getString(R.string.show_more_button));
         show_detail.setText(getResources().getString(R.string.show_less_button));
 
         //detail
-        village.setText(": "+humanize(kiclient.getDetails().get("cityVillage") != null ? kiclient.getDetails().get("cityVillage") : "-"));
-        subvillage.setText(": "+humanize (kiclient.getDetails().get("address1") != null ? kiclient.getDetails().get("address1") : "-"));
-        age.setText(": "+humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-"));
-        alamat.setText(": "+humanize(kiclient.getDetails().get("address3") != null ? kiclient.getDetails().get("address3") : "-"));
-        education.setText(": "+humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-"));
-        religion.setText(": "+humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-"));
-        job.setText(": "+humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-"));
-        gakin.setText(": "+humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-"));
-        blood_type.setText(": "+humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-"));
-        asuransi.setText(": "+humanize(kiclient.getDetails().get("asuransiJiwa") != null ? kiclient.getDetails().get("asuransiJiwa") : "-"));
+        village.setText(String.format(": %s", humanize(kiclient.getDetails().get("cityVillage") != null ? kiclient.getDetails().get("cityVillage") : "-")));
+        subvillage.setText(String.format(": %s", humanize(kiclient.getDetails().get("address1") != null ? kiclient.getDetails().get("address1") : "-")));
+        age.setText(String.format(": %s", humanize(kiclient.getColumnmaps().get("umur") != null ? kiclient.getColumnmaps().get("umur") : "-")));
+        alamat.setText(String.format(": %s", humanize(kiclient.getDetails().get("address3") != null ? kiclient.getDetails().get("address3") : "-")));
+        education.setText(String.format(": %s", humanize(kiclient.getDetails().get("pendidikan") != null ? kiclient.getDetails().get("pendidikan") : "-")));
+        religion.setText(String.format(": %s", humanize(kiclient.getDetails().get("agama") != null ? kiclient.getDetails().get("agama") : "-")));
+        job.setText(String.format(": %s", humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-")));
+        gakin.setText(String.format(": %s", humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-")));
+        blood_type.setText(String.format(": %s", humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-")));
+        asuransi.setText(String.format(": %s", humanize(kiclient.getDetails().get("asuransiJiwa") != null ? kiclient.getDetails().get("asuransiJiwa") : "-")));
 
         //risk detail
         highRiskSTIBBVs.setText(humanize(kiclient.getDetails().get("highRiskSTIBBVs") != null ? kiclient.getDetails().get("highRiskSTIBBVs") : "-"));
@@ -267,13 +259,22 @@ public class KIDetailActivity extends Activity {
                 bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
 //                Log.e(TAG, "onClick: "+hash.size() );
-//                Log.e(TAG, "onClick: "+hash.containsValue(entityid) );
+                Log.e(TAG, "onClick: Value "+hash.containsValue(entityid) );
+                Log.e(TAG, "onClick: Key "+hash.containsKey(entityid) );
                 if(hash.containsValue(entityid)){
                     Log.e(TAG, "onClick: "+entityid+" updated" );
                     mode = "updated";
+                    updateMode = true;
 
                 }
-                dispatchTakePictureIntent(kiview, mode);
+//                dispatchTakePictureIntent(kiview, updateMode);
+                Intent takePictureIntent = new Intent(KIDetailActivity.this, SmartShutterActivity.class);
+                takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", updateMode);
+                takePictureIntent.putExtra("IdentifyPerson", false);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivity(takePictureIntent);
+
 
             }
         });
@@ -299,17 +300,18 @@ public class KIDetailActivity extends Activity {
     static String bindobject;
     static String entityid;
 
-    private void dispatchTakePictureIntent(ImageView imageView, String mode) {
-        Log.e(TAG, "dispatchTakePictureIntent: "+"klik" );
+    private void dispatchTakePictureIntent(ImageView imageView, boolean modeUpdate) {
+
+        Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
+
         mImageView = imageView;
         Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
-        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", true);
+        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
 
 
         //FIXME USE SmartShutterActivity INSTEAD
 //     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go

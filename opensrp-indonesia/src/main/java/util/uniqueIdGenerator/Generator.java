@@ -24,6 +24,7 @@ import java.util.List;
  * Created by Null on 2016-10-13.
  */
 public class Generator {
+    private static final String TAG = Generator.class.getSimpleName();
     private UniqueIdRepository uniqueIdRepository;
     private Cache<List<Long>> uIdsCache;
     private AllSettingsINA allSettingsINA;
@@ -39,7 +40,8 @@ public class Generator {
 
     public Generator(Context context, String username, String password){
         this.context=context;
-        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replace("opensrp","openmrs");
+        // TODO
+        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replaceFirst("[^/]*$", "openmrs");
         url =   DRISTHI_BASE_URL+
                 "/module/idgen/exportIdentifiers.form?source=1"+
                 "&numberToGenerate="+Integer.toString(UNIQUE_ID_LENGTH_REQUEST)+

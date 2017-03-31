@@ -87,7 +87,7 @@ public class CloudantSyncHandler {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
 
-           // String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+            // String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
 
             String port = AllConstants.CloudantSync.COUCHDB_PORT;
             String databaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME;
@@ -105,7 +105,7 @@ public class CloudantSyncHandler {
             filterParams.put(AllConstants.SyncFilters.FILTER_LOCATION_ID,locationAnmids);
             PullFilter pullFilter = new PullFilter(filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID), filterParams);
             this.cloudantFilter = filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) +":"+ filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID);
-            Log.d(LOG_TAG, "Filter fetched: " + filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) + ", locationId: " + filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID));
+            //Log.d(LOG_TAG, "Filter fetched: " + filterDoc.concat("/").concat(AllConstants.SyncFilters.FILTER_LOCATION_ID) + ", locationId: " + filterParams.get(AllConstants.SyncFilters.FILTER_LOCATION_ID));
 
 
             this.reloadReplicationSettings(pullFilter);
@@ -191,7 +191,8 @@ public class CloudantSyncHandler {
         CloudantDataHandler mCloudantDataHandler = CloudantDataHandler.getInstance(mContext);
         Datastore mDatastore = mCloudantDataHandler.getDatastore();
 
-        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
+//        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
+        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(uri);
         ReplicatorBuilder.Push mPushBuilder = ReplicatorBuilder.push().from(mDatastore).to(uri);
 
         String username = AllConstants.CloudantSync.COUCH_DATABASE_USER;
