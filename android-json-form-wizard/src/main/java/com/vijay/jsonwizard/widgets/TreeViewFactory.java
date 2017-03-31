@@ -75,11 +75,12 @@ public class TreeViewFactory implements FormWidgetFactory {
 
             if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
                 changeEditTextValue(editText, jsonObject.optString("value"));
-                if (jsonObject.has("read_only")) {
-                    boolean readOnly = jsonObject.getBoolean("read_only");
-                    editText.setEnabled(!readOnly);
-                    editText.setFocusable(!readOnly);
-                }
+            }
+
+            if (jsonObject.has("read_only")) {
+                boolean readOnly = jsonObject.getBoolean("read_only");
+                editText.setEnabled(!readOnly);
+                editText.setFocusable(!readOnly);
             }
 
             ArrayList<String> defaultValue = new ArrayList<>();

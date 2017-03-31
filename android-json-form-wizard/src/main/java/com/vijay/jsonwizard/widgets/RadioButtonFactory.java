@@ -71,6 +71,7 @@ public class RadioButtonFactory implements FormWidgetFactory {
                 radioButton.setChecked(true);
             }
             radioButton.setEnabled(!readOnly);
+            radioButton.setFocusable(!readOnly);
             if (i == options.length() - 1) {
                 radioButton.setLayoutParams(getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, (int) context
                         .getResources().getDimension(R.dimen.extra_bottom_margin)));

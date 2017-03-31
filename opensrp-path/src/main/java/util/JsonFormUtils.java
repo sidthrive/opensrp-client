@@ -90,6 +90,7 @@ public class JsonFormUtils {
     private static final String RELATIONAL_ID = "relational_id";
     private static final String ENCOUNTER_TYPE = "encounter_type";
     public static final String STEP1 = "step1";
+    public static final String READ_ONLY = "read_only";
     private static final String METADATA = "metadata";
     public static final String ZEIR_ID = "ZEIR_ID";
     public static final String M_ZEIR_ID = "M_ZEIR_ID";

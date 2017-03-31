@@ -216,7 +216,7 @@
         "constraints": [
           {
             "type": "date",
-            "ex": "greaterThanEqualTo(step1:Date_Birth)",
+            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
             "err": "Date first seen can't occur before date of birth"
           }
         ]
