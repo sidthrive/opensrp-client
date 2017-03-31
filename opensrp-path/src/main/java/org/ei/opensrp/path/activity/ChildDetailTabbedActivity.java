@@ -95,7 +95,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     static final int REQUEST_TAKE_PHOTO = 1;
     public static Gender gender;
     //////////////////////////////////////////////////
-    private static final String TAG = "ChildImmunoActivity";
+    private static final String TAG = "ChildDetails";
     private static final String VACCINES_FILE = "vaccines.json";
     public static final String EXTRA_CHILD_DETAILS = "child_details";
     private static final String EXTRA_REGISTER_CLICKABLES = "register_clickables";
@@ -142,8 +142,6 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
         ((TextView) detailtoolbar.findViewById(R.id.title)).setText(updateActivityTitle());
 
-        detailtoolbar.setNavigationIcon(R.drawable.back_button);
-//        detailtoolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.ic_menu));
         saveButton = (TextView) detailtoolbar.findViewById(R.id.save);
         saveButton.setVisibility(View.INVISIBLE);
         saveButton.setOnClickListener(new View.OnClickListener() {

@@ -9,38 +9,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="#FAFAFA">
 
-        <org.ei.opensrp.path.toolbar.ChildDetailsToolbar
-            android:id="@+id/child_detail_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/AppThemeNoActionBarAndTitleWithEditButton"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <org.ei.opensrp.view.customControls.CustomFontTextView
-                    android:id="@+id/title"
-                    style="@style/CustomFontTextViewStyle.NavBar.Black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent" />
-                <org.ei.opensrp.view.customControls.CustomFontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/CustomFontTextViewStyle.NavBar"
-                    android:text="Save"
-                    android:id="@+id/save"
-                    android:textSize="@dimen/activity_title_size"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="10dp" />
-            </FrameLayout>
+        <include layout="@layout/toolbar_child_details" />
 
-        </org.ei.opensrp.path.toolbar.ChildDetailsToolbar>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="horizontal"
