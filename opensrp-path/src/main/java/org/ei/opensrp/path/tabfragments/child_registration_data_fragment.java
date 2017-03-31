@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.path.R;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.Map;
 
 import util.DateUtils;
+import util.JsonFormUtils;
 import util.Utils;
 
 
@@ -69,7 +71,7 @@ public class child_registration_data_fragment extends Fragment {
             homeFacility = homeFacility.replace("\"","").replace("]","").replace("[\"","");
         }
 
-        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", homeFacility));
+        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), homeFacility)));
         layout.addView(wd.createTableRow(inflater,container,"Child's ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"zeir_id",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's register card number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's birth certificate number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
@@ -115,8 +117,8 @@ public class child_registration_data_fragment extends Fragment {
             placeofnearth_Choice = "Home";
         }
         layout.addView(wd.createTableRow(inflater,container,"Place of birth",placeofnearth_Choice));
-        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",getLastNode("Birth_Facility_Name")));
-        layout.addView(wd.createTableRow(inflater,container,"Child's residential area",Utils.getValue(Detailsmap,"Residential_Area",true)));
+        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap, "Birth_Facility_Name",false))));
+        layout.addView(wd.createTableRow(inflater,container,"Child's residential area",JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap,"Residential_Area",true))));
         layout.addView(wd.createTableRow(inflater,container,"Other residential area",Utils.getValue(Detailsmap,"Residential_Area_Other",true)));
         layout.addView(wd.createTableRow(inflater,container,"Home address",Utils.getValue(Detailsmap,"Residential_Address",true)));
 
@@ -141,15 +143,6 @@ public class child_registration_data_fragment extends Fragment {
 
         // Inflate the layout for this fragment
         return fragmentview;
-    }
-    public String getLastNode(String columnName){
-        String homeFacility =Utils.getValue(Detailsmap,columnName,false);
-        if(homeFacility.split(",").length>0){
-            homeFacility = homeFacility.split(",")[ homeFacility.split(",").length -1].replace("\"","").replace("]","");
-        } else if(homeFacility.split(",").length == 0){
-            homeFacility = homeFacility.replace("\"","").replace("]","").replace("[\"","");
-        }
-        return homeFacility;
     }
 
 

@@ -1715,6 +1715,64 @@ public class JsonFormUtils {
         return null;
     }
 
+    public static String getOpenMrsLocationName(org.ei.opensrp.Context context,
+                                              String locationId) {
+        String response = locationId;
+        try {
+            if (locationId != null) {
+                JSONObject locationData = new JSONObject(context.anmLocationController().get());
+                Log.d(TAG, "Location data is "+locationData);
+                if (locationData.has("locationsHierarchy")
+                        && locationData.getJSONObject("locationsHierarchy").has("map")) {
+                    JSONObject map = locationData.getJSONObject("locationsHierarchy").getJSONObject("map");
+                    Iterator<String> keys = map.keys();
+                    while (keys.hasNext()) {
+                        String curKey = keys.next();
+                        String curResult = getOpenMrsLocationName(locationId, map.getJSONObject(curKey));
+
+                        if (curResult != null) {
+                            response = curResult;
+                            break;
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "locationData doesn't have locationHierarchy");
+                }
+            } else {
+                Log.e(TAG, "Location id is null");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return response;
+    }
+
+    private static String getOpenMrsLocationName(String locationId, JSONObject openMrsLocations)
+            throws JSONException {
+        String id = openMrsLocations.getJSONObject("node").getString("locationId");
+        Log.d(TAG, "Current location id is "+id);
+        if (locationId.equals(id)) {
+            return openMrsLocations.getJSONObject("node").getString("name");
+        }
+
+        if (openMrsLocations.has("children")) {
+            Iterator<String> childIterator = openMrsLocations.getJSONObject("children").keys();
+            while (childIterator.hasNext()) {
+                String curChildKey = childIterator.next();
+                String curResult = getOpenMrsLocationName(locationId,
+                        openMrsLocations.getJSONObject("children").getJSONObject(curChildKey));
+                if (curResult != null) {
+                    return curResult;
+                }
+            }
+        } else {
+            Log.d(TAG, id+" does not have children");
+        }
+
+        return null;
+    }
+
 
     public static void saveReportDeceased(Context context, org.ei.opensrp.Context openSrpContext,
                                            String jsonString, String providerId, String locationId, String entityId){
