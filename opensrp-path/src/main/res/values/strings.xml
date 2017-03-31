@@ -132,6 +132,15 @@
     <string name="today">today</string>
     <string name="select_location">Select Location</string>
     <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="edit_registration_data">Edit registration data</string>
+    <string name="edit_weight_data">Edit weight data</string>
+    <string name="edit_immunization_data">Edit immunisation data</string>
+    <string name="mark_inactive">Mark inactive</string>
+    <string name="mark_active">Mark active</string>
+    <string name="mark_as_lost_to_followup">Mark as lost to followup</string>
+    <string name="mark_as_not_lost_to_followup">Mark as not lost to followup</string>
+    <string name="report_deceased">Report deceased</string>
+    <string name="report_adverse_event">Report adverse event</string>
     <string name="syncing">Syncing...</string>
     <string name="sync_">Sync%1$s</string>
     <string name="last_sync">(last %1$s)</string>

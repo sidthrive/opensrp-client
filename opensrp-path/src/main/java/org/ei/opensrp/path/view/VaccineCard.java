@@ -1,9 +1,11 @@
 package org.ei.opensrp.path.view;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,7 +18,10 @@ import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import util.DisplayUtils;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 21/02/2017.
@@ -25,6 +30,7 @@ import java.util.Date;
 public class VaccineCard extends LinearLayout {
     private static final String TAG = "VaccineCard";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("dd/MM");
     private Context context;
     private ImageView statusIV;
     private TextView nameTV;
@@ -174,7 +180,13 @@ public class VaccineCard extends LinearLayout {
                 undoB.setVisibility(VISIBLE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
-                nameTV.setText(getVaccineName());
+
+                SimpleDateFormat dateFormatToUse = SHORT_DATE_FORMAT;
+                if(DisplayUtils.getScreenSize((Activity) context) > 7.2) {
+                    dateFormatToUse = DATE_FORMAT;
+                }
+
+                nameTV.setText(getVaccineName() + " - " + dateFormatToUse.format(getDateDone()));
                 setClickable(false);
                 break;
             case DONE_CAN_NOT_BE_UNDONE:
@@ -183,7 +195,7 @@ public class VaccineCard extends LinearLayout {
                 undoB.setVisibility(GONE);
                 nameTV.setVisibility(VISIBLE);
                 nameTV.setTextColor(context.getResources().getColor(R.color.silver));
-                nameTV.setText(getVaccineName());
+                nameTV.setText(getVaccineName() + " - " + DATE_FORMAT.format(getDateDone()));
                 setClickable(false);
                 break;
             case OVERDUE:

@@ -31,6 +31,7 @@ import com.vijay.jsonwizard.interfaces.OnActivityResultListener;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.PropertyManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -46,6 +47,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     private PropertyManager propertyManager;
     private HashMap<String, View> skipLogicViews;
     private HashMap<String, View> constrainedViews;
+    private ArrayList<View> formDataViews;
     private String functionRegex;
     private HashMap<String, Comparison> comparisons;
     private HashMap<Integer, OnActivityResultListener> onActivityResultListeners;
@@ -210,6 +212,13 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
+    public void clearFormDataViews() {
+        formDataViews = new ArrayList<>();
+        clearSkipLogicViews();
+        clearConstrainedViews();
+    }
+
+    @Override
     public void addSkipLogicView(View view) {
         skipLogicViews.put(getViewKey(view), view);
     }
@@ -229,7 +238,17 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
-    public void refreshSkipLogic(String parentKey, String childKey) {
+    public void addFormDataView(View view) {
+        formDataViews.add(view);
+    }
+
+    @Override
+    public ArrayList<View> getFormDataViews() {
+        return formDataViews;
+    }
+
+    @Override
+        public void refreshSkipLogic(String parentKey, String childKey) {
         initComparisons();
         for (View curView : skipLogicViews.values()) {
             String relevanceTag = (String) curView.getTag(R.id.relevance);
@@ -254,13 +273,24 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                         }
                     }
 
-                    if (ok) {
-                        curView.setEnabled(true);
-                        curView.setVisibility(View.VISIBLE);
-                    } else {
-                        curView.setEnabled(false);
-                        curView.setVisibility(View.GONE);
+                    try {
+                        JSONArray canvasViewIds = new JSONArray((String) curView.getTag(R.id.canvas_ids));
+                        curView.setEnabled(ok);
+                        for (int i = 0; i < canvasViewIds.length(); i++) {
+                            int curId = canvasViewIds.getInt(i);
+                            View curCanvasView = findViewById(curId);
+                            if (ok) {
+                                curCanvasView.setEnabled(true);
+                                curCanvasView.setVisibility(View.VISIBLE);
+                            } else {
+                                curCanvasView.setEnabled(false);
+                                curCanvasView.setVisibility(View.GONE);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

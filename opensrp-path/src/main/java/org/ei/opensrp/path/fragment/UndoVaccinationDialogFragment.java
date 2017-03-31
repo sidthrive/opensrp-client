@@ -103,7 +103,7 @@ public class UndoVaccinationDialogFragment extends DialogFragment {
                 dismiss();
 
                 tag.setName(tag.getDefaultName());
-                listener.onUndoVaccination(tag);
+                listener.onUndoVaccination(tag, view);
             }
         });
 

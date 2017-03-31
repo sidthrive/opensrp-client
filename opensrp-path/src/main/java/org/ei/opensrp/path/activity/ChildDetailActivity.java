@@ -257,7 +257,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     @Override
-    public void onVaccinateToday(ArrayList<VaccineWrapper> tags) {
+    public void onVaccinateToday(ArrayList<VaccineWrapper> tags, View view) {
         for (VaccineWrapper tag : tags) {
             TableRow tableRow = findRow(tag);
             if (tableRow != null) {
@@ -267,7 +267,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     @Override
-    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags) {
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags, View view) {
         for (VaccineWrapper tag : tags) {
             TableRow tableRow = findRow(tag);
             if (tableRow != null) {
@@ -277,7 +277,7 @@ public class ChildDetailActivity extends DetailActivity implements VaccinationAc
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag) {
+    public void onUndoVaccination(VaccineWrapper tag, View view) {
         TableRow tableRow = findRow(tag);
         if (tableRow != null) {
             VaccinateActionUtils.undoVaccination(this, tableRow, tag);

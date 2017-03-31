@@ -175,7 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
-    private void initViews() {
+    public void initViews() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Button logoutButton = (Button) navigationView.findViewById(R.id.logout_b);
         logoutButton.setOnClickListener(new View.OnClickListener() {

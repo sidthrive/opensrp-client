@@ -232,7 +232,7 @@ public class VaccinationDialogFragment extends DialogFragment {
                         }
                     }
                 }
-                listener.onVaccinateEarlier(tagsToUpdate);
+                listener.onVaccinateEarlier(tagsToUpdate, view);
 
             }
         });
@@ -267,7 +267,7 @@ public class VaccinationDialogFragment extends DialogFragment {
                     }
                 }
 
-                listener.onVaccinateToday(tagsToUpdate);
+                listener.onVaccinateToday(tagsToUpdate, view);
 
             }
         });

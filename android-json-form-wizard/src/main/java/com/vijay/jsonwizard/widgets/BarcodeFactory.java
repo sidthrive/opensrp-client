@@ -3,10 +3,12 @@ package com.vijay.jsonwizard.widgets;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.util.ViewUtil;
@@ -21,6 +23,7 @@ import com.vijay.jsonwizard.utils.zxing.IntentIntegrator;
 import com.vijay.jsonwizard.utils.zxing.IntentResult;
 import com.vijay.jsonwizard.validators.edittext.RequiredValidator;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -51,9 +54,14 @@ public class BarcodeFactory implements FormWidgetFactory {
             String relevance = jsonObject.optString("relevance");
             final String constraints = jsonObject.optString("constraints");
 
-            final MaterialEditText editText = (MaterialEditText) LayoutInflater.from(context).inflate(
-                    R.layout.item_edit_text, null);
+            RelativeLayout rootLayout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
+            final int canvasId = ViewUtil.generateViewId();
+            rootLayout.setId(canvasId);
+            final MaterialEditText editText = (MaterialEditText) rootLayout.findViewById(R.id.edit_text);
             editText.setHint(jsonObject.getString("hint"));
+            JSONArray canvasIdsArray = new JSONArray();
+            canvasIdsArray.put(canvasId);
+            editText.setTag(R.id.canvas_ids, canvasIdsArray.toString());
             editText.setFloatingLabelText(jsonObject.getString("hint"));
             editText.setId(ViewUtil.generateViewId());
             editText.setTag(R.id.key, jsonObject.getString("key"));
@@ -72,21 +80,13 @@ public class BarcodeFactory implements FormWidgetFactory {
 
             if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
                 editText.setText(jsonObject.optString("value"));
-                if (jsonObject.has("read_only")) {
-                    boolean readOnly = jsonObject.getBoolean("read_only");
-                    editText.setEnabled(!readOnly);
-                    editText.setFocusable(!readOnly);
-                }
             }
 
-            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
-                    }
-                }
-            });
+            if (jsonObject.has("read_only")) {
+                boolean readOnly = jsonObject.getBoolean("read_only");
+                editText.setEnabled(!readOnly);
+                editText.setFocusable(!readOnly);
+            }
 
             editText.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,7 +122,17 @@ public class BarcodeFactory implements FormWidgetFactory {
                 });
             }
 
-            editText.addTextChangedListener(new GenericTextWatcher(stepName, formFragment, editText));
+            GenericTextWatcher textWatcher = new GenericTextWatcher(stepName, formFragment, editText);
+            textWatcher.addOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
+                    }
+                }
+            });
+
+            editText.addTextChangedListener(textWatcher);
             if (relevance != null && context instanceof JsonApi) {
                 editText.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(editText);
@@ -133,7 +143,7 @@ public class BarcodeFactory implements FormWidgetFactory {
                 ((JsonApi) context).addConstrainedView(editText);
             }
 
-            views.add(editText);
+            views.add(rootLayout);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import util.Utils;
@@ -105,6 +106,46 @@ public class ECSyncUpdater {
         }
         return new ArrayList<>();
     }
+    public List<JSONObject> getEvents(Date lastSyncDate) {
+        try {
+            return db.getEvents(lastSyncDate);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+        return new ArrayList<>();
+    }
+
+    public List<JSONObject> getEvents(Date lastSyncDate,String syncStatus) {
+        try {
+            return db.getEvents(lastSyncDate,syncStatus);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+        return new ArrayList<>();
+    }
+
+    public JSONObject getClient(String baseEntityId) {
+        try {
+            return db.getClientByBaseEntityId(baseEntityId);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+        return null;
+    }
+    public void addClient(String baseEntityId, JSONObject jsonObject) {
+        try {
+            db.addorUpdateClient(baseEntityId,jsonObject);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+    }
+    public void addEvent(String baseEntityId, JSONObject jsonObject) {
+        try {
+            db.addEvent(baseEntityId, jsonObject);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+    }
 
     public long getLastSyncTimeStamp(){
         return Long.parseLong(Utils.getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
@@ -122,10 +163,11 @@ public class ECSyncUpdater {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
-    private long batchSave(JSONArray events, JSONArray clients) throws Exception{
+    public long batchSave(JSONArray events, JSONArray clients) throws Exception{
         db.batchInsertClients(clients);
         return db.batchInsertEvents(events, getLastSyncTimeStamp());
     }
+
 
 
 

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rengwuxian.materialedittext.validation.RegexpValidator;
@@ -24,6 +25,7 @@ import com.vijay.jsonwizard.validators.edittext.MinNumericValidator;
 import com.vijay.jsonwizard.validators.edittext.RequiredValidator;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,8 +49,9 @@ public class EditTextFactory implements FormWidgetFactory {
         int minLength = MIN_LENGTH;
         int maxLength= MAX_LENGTH;
         List<View> views = new ArrayList<>(1);
-        MaterialEditText editText = (MaterialEditText) LayoutInflater.from(context).inflate(
+        RelativeLayout rootLayout = (RelativeLayout) LayoutInflater.from(context).inflate(
                 R.layout.item_edit_text, null);
+        MaterialEditText editText = (MaterialEditText) rootLayout.findViewById(R.id.edit_text);
         editText.setHint(jsonObject.getString("hint"));
         editText.setFloatingLabelText(jsonObject.getString("hint"));
         editText.setId(ViewUtil.generateViewId());
@@ -60,11 +63,12 @@ public class EditTextFactory implements FormWidgetFactory {
 
         if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
             editText.setText(jsonObject.optString("value"));
-            if (jsonObject.has("read_only")) {
-                boolean readyOnly = jsonObject.getBoolean("read_only");
-                editText.setEnabled(!readyOnly);
-                editText.setFocusable(!readyOnly);
-            }
+        }
+
+        if (jsonObject.has("read_only")) {
+            boolean readyOnly = jsonObject.getBoolean("read_only");
+            editText.setEnabled(!readyOnly);
+            editText.setFocusable(!readyOnly);
         }
 
         //add validators
@@ -173,7 +177,13 @@ public class EditTextFactory implements FormWidgetFactory {
             ((JsonApi) context).addConstrainedView(editText);
         }
 
-        views.add(editText);
+        JSONArray canvasIds = new JSONArray();
+        rootLayout.setId(ViewUtil.generateViewId());
+        canvasIds.put(rootLayout.getId());
+        editText.setTag(R.id.canvas_ids, canvasIds.toString());
+
+        ((JsonApi) context).addFormDataView(editText);
+        views.add(rootLayout);
         return views;
     }
 

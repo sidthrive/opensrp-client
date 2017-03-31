@@ -1,5 +1,6 @@
 package org.ei.opensrp.path.repository;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -9,6 +10,7 @@ import com.google.gson.Gson;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.db.Address;
 import org.ei.opensrp.path.db.Client;
@@ -22,23 +24,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import util.JsonFormUtils;
 import util.PathConstants;
-import util.Utils;
 
 public class PathRepository extends Repository {
 
     private static final String TAG = PathRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public PathRepository(Context context) {
         super(context, PathConstants.DATABASE_NAME, PathConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), VaccinatorApplication.createCommonFtsObject(), org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
@@ -76,18 +84,18 @@ public class PathRepository extends Repository {
 
     @Override
     public synchronized SQLiteDatabase getReadableDatabase(String password) {
-       try {
-           if (readableDatabase == null || !readableDatabase.isOpen()) {
-               if (readableDatabase != null) {
-                   readableDatabase.close();
-               }
-               readableDatabase = super.getReadableDatabase(password);
-           }
-           return readableDatabase;
-       }catch(Exception e){
-           Log.e(TAG,"Database Error. "+e.getMessage());
-           return null;
-       }
+        try {
+            if (readableDatabase == null || !readableDatabase.isOpen()) {
+                if (readableDatabase != null) {
+                    readableDatabase.close();
+                }
+                readableDatabase = super.getReadableDatabase(password);
+            }
+            return readableDatabase;
+        } catch (Exception e) {
+            Log.e(TAG, "Database Error. " + e.getMessage());
+            return null;
+        }
 
     }
 
@@ -114,71 +122,119 @@ public class PathRepository extends Repository {
         super.close();
     }
 
-    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
-        insert(db, cls, table, cols, null, null, o);
+    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, Object o, JSONObject serverJsonObject) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
+        insert(db, cls, table, cols, null, null, o, serverJsonObject);
     }
 
-    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
-        Map<Column, Object> fm = new HashMap<Column, Object>();
-
-        for (Column c : cols) {
-            if (c.name().equalsIgnoreCase(referenceColumn)) {
-                continue;//skip reference column as it is already appended
-            }
-            Field f = null;
-            try {
-                f = cls.getDeclaredField(c.name());// 1st level
-            } catch (NoSuchFieldException e) {
-                try {
-                    f = cls.getSuperclass().getDeclaredField(c.name()); // 2nd level
-                } catch (NoSuchFieldException e2) {
-                    continue;
-                }
-            }
-
-            f.setAccessible(true);
-            Object v = f.get(o);
-            fm.put(c, v);
-        }
-
-        String columns = referenceColumn == null ? "" : ("`" + referenceColumn + "`,");
-        String values = referenceColumn == null ? "" : ("'" + referenceValue + "',");
-        for (Column c : fm.keySet()) {
-            columns += "`" + c.name() + "`,";
-            values += formatValue(fm.get(c), c.column()) + ",";
-        }
-
-        columns = removeEndingComma(columns);
-        values = removeEndingComma(values);
-
-        String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
-        Log.i("", sql);
-        db.execSQL(sql);
-    }
-
-    public void insert(SQLiteDatabase db, Client client) {
+    private void insert(SQLiteDatabase db, Class<?> cls, Table table, Column[] cols, String referenceColumn, String referenceValue, Object o, JSONObject serverJsonObject) throws IllegalAccessException, IllegalArgumentException, NoSuchFieldException {
         try {
-            JSONObject jsonClient = getClient(db, client.getBaseEntityId());
-            if (jsonClient != null) {
+            Map<Column, Object> fm = new HashMap<Column, Object>();
+            if (!table.name().equalsIgnoreCase("obs") && !table.name().equalsIgnoreCase("address")) {
+                fm.put(client_column.json, serverJsonObject);
+                fm.put(client_column.baseEntityId, serverJsonObject.getString(client_column.baseEntityId.name()));
+                fm.put(client_column.syncStatus, BaseRepository.TYPE_Synced);
+                fm.put(client_column.updatedAt, new DateTime(new Date().getTime()));
+            } else {
                 return;
             }
-            insert(db, Client.class, Table.client, client_column.values(), client);
+
+            for (Column c : cols) {
+                if (c.name().equalsIgnoreCase(referenceColumn)) {
+                    continue;//skip reference column as it is already appended
+                }
+                Field f = null;
+                try {
+                    f = cls.getDeclaredField(c.name());// 1st level
+                } catch (NoSuchFieldException e) {
+                    try {
+                        f = cls.getSuperclass().getDeclaredField(c.name()); // 2nd level
+                    } catch (NoSuchFieldException e2) {
+                        continue;
+                    }
+                }
+
+                f.setAccessible(true);
+                Object v = f.get(o);
+                fm.put(c, v);
+            }
+
+            String columns = referenceColumn == null ? "" : ("`" + referenceColumn + "`,");
+            String values = referenceColumn == null ? "" : ("'" + referenceValue + "',");
+            ContentValues cv = new ContentValues();
+
+            for (Column c : fm.keySet()) {
+                columns += "`" + c.name() + "`,";
+                values += formatValue(fm.get(c), c.column()) + ",";
+
+                cv.put(c.name(), formatValue(fm.get(c), c.column())); //These Fields should be your String values of actual column names
+
+            }
+            String beid = fm.get(client_column.baseEntityId).toString();
+
+
+            if (table.name().equalsIgnoreCase("client") && checkIfExists(table, beid)) {
+                //check if a client exists
+                if (cv.containsKey(client_column.baseEntityId.name())) {
+                    cv.remove(client_column.baseEntityId.name());//this tends to avoid unique constraint exception :)
+                }
+                int id = db.update(table.name(), cv, client_column.baseEntityId.name() + "=?", new String[]{beid});
+
+            } else {
+//for events just insert
+                columns = removeEndingComma(columns);
+                values = removeEndingComma(values);
+
+                String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
+                Log.i("", sql);
+                db.execSQL(sql);
+            }
+
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private Boolean checkIfExists(Table table, String baseEntityId) {
+        Cursor mCursor = null;
+        try {
+            String query = "SELECT " + event_column.baseEntityId + " FROM " + table.name() + " WHERE " + event_column.baseEntityId + " = '" + baseEntityId + "'";
+            mCursor = getWritableDatabase().rawQuery(query, null);
+            if (mCursor != null && mCursor.moveToFirst()) {
+
+                return true;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (mCursor != null) mCursor.close();
+        }
+        return false;
+    }
+
+    public void insert(SQLiteDatabase db, Client client, JSONObject serverJsonObject) {
+        try {
+//            JSONObject jsonClient = getClient(db, client.getBaseEntityId());
+//            if (jsonClient != null) {
+//                return;
+//            }
+            insert(db, Client.class, Table.client, client_column.values(), client, serverJsonObject);
             for (Address a : client.getAddresses()) {
-                insert(db, Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a);
+                insert(db, Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a, serverJsonObject);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
         }
     }
 
-    public void insert(SQLiteDatabase db, Event event) {
+    public void insert(SQLiteDatabase db, Event event, JSONObject serverJsonObject) {
         try {
             if (StringUtils.isBlank(event.getFormSubmissionId())) {
                 event.setFormSubmissionId(generateRandomUUIDString());
             }
-            insert(db, Event.class, Table.event, event_column.values(), event);
+            insert(db, Event.class, Table.event, event_column.values(), event, serverJsonObject);
             for (Obs o : event.getObs()) {
-                insert(db, Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o);
+                insert(db, Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o, serverJsonObject);
             }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
@@ -200,7 +256,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Client c = convert(jo, Client.class);
                 if (c != null) {
-                    insert(getWritableDatabase(), c);
+                    insert(getWritableDatabase(), c, jo);
                     if (c.getServerVersion() > 01) {
                         lastServerVersion = c.getServerVersion();
                     }
@@ -228,7 +284,7 @@ public class PathRepository extends Repository {
                 JSONObject jo = (JSONObject) o;
                 Event e = convert(jo, Event.class);
                 if (e != null) {
-                    insert(getWritableDatabase(), e);
+                    insert(getWritableDatabase(), e, jo);
                     if (e.getServerVersion() > 01) {
                         lastServerVersion = e.getServerVersion();
                     }
@@ -246,7 +302,7 @@ public class PathRepository extends Repository {
             return null;
         }
         try {
-            return Utils.getLongDateAwareGson().fromJson(jo.toString(), t);
+            return JsonFormUtils.gson.fromJson(jo.toString(), t);
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
             Log.e(getClass().getName(), "Unable to convert: " + jo.toString());
@@ -258,37 +314,18 @@ public class PathRepository extends Repository {
         List<JSONObject> list = new ArrayList<JSONObject>();
         Cursor cursor = null;
         try {
-            cursor = getWritableDatabase().rawQuery("SELECT * FROM " + Table.event.name() +
+            cursor = getWritableDatabase().rawQuery("SELECT json FROM " + Table.event.name() +
                     " WHERE " + event_column.serverVersion.name() + " > " + startServerVersion +
                     " AND " + event_column.serverVersion.name() + " <= " + lastServerVersion +
                     " ORDER BY " + event_column.serverVersion.name()
                     , null);
             while (cursor.moveToNext()) {
-                JSONObject ev = new JSONObject();
-                for (Column ec : Table.event.columns()) {
-                    ev.put(ec.name(), getValue(cursor, ec));
-                }
+                String jsonEventStr = cursor.getString(0);
 
-                JSONArray olist = new JSONArray();
-                Cursor cursorObs = null;
-                try {
-                    cursorObs = getWritableDatabase().rawQuery("SELECT * FROM " + Table.obs.name() + " WHERE " + obs_column.formSubmissionId.name() + "='" + ev.getString(event_column.formSubmissionId.name()) + "'", null);
-                    while (cursorObs.moveToNext()) {
-                        JSONObject o = new JSONObject();
-                        for (Column oc : Table.obs.columns()) {
-                            if (!oc.name().equalsIgnoreCase(event_column.formSubmissionId.name())) {//skip reference column
-                                o.put(oc.name(), getValue(cursorObs, oc));
-                            }
-                        }
-                        olist.put(o);
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                } finally {
-                    if (cursorObs != null)
-                        cursorObs.close();
-                }
-                ev.put("obs", olist);
+                jsonEventStr = jsonEventStr.replaceAll("'", "");
+
+                JSONObject ev = new JSONObject(jsonEventStr);
+
 
                 if (ev.has(event_column.baseEntityId.name())) {
                     String baseEntityId = ev.getString(event_column.baseEntityId.name());
@@ -306,40 +343,237 @@ public class PathRepository extends Repository {
         return list;
     }
 
+    public List<JSONObject> getEvents(Date lastSyncDate) throws JSONException, ParseException, UnsupportedEncodingException {
+
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        String lastSyncString = DateUtil.yyyyMMddHHmmss.format(lastSyncDate);
+
+        List<JSONObject> eventAndAlerts = new ArrayList<JSONObject>();
+
+        String query = "select " + event_column.json + "," + event_column.updatedAt + " from " + Table.event.name() + " where " + event_column.updatedAt + " > '" + lastSyncString + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc ";
+        Log.i(getClass().getName(), query);
+        Cursor cursor = getWritableDatabase().rawQuery(query, null);
+
+        try {
+            while (cursor.moveToNext()) {
+                String jsonEventStr = (cursor.getString(0));
+                // String jsonEventStr = new String(json, "UTF-8");
+                if (StringUtils.isBlank(jsonEventStr) || jsonEventStr.equals("{}")) { // Skip blank/empty json string
+                    continue;
+                }
+
+                JSONObject jsonObectEventOrAlert = new JSONObject(jsonEventStr);
+                String type = jsonObectEventOrAlert.has("type") ? jsonObectEventOrAlert.getString("type") : null;
+                if (StringUtils.isBlank(type)) { // Skip blank types
+                    continue;
+                }
+
+                if (!type.equals("Event") && !type.equals("Action")) { // Skip type that isn't Event or Action
+                    continue;
+                }
+                if (jsonObectEventOrAlert.has(event_column.baseEntityId.name())) {
+                    String baseEntityId = jsonObectEventOrAlert.getString(event_column.baseEntityId.name());
+                    JSONObject cl = getClientByBaseEntityId(baseEntityId);
+                    jsonObectEventOrAlert.put("client", cl);
+                }
+
+                eventAndAlerts.add(jsonObectEventOrAlert);
+                try {
+                    lastSyncDate.setTime(DateUtil.yyyyMMddHHmmss.parse(cursor.getString(1)).getTime());
+                } catch (ParseException e) {
+                    Log.e(TAG, e.toString(), e);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        if (eventAndAlerts.isEmpty()) {
+            return eventAndAlerts;
+        }
+
+
+        Collections.sort(eventAndAlerts, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject lhs, JSONObject rhs) {
+                try {
+                    String lhvar = "version";
+                    String rhvar = "version";
+                    if (lhs.getString("type") == "Action") {
+                        lhvar = "timeStamp";
+                    }
+
+                    if (rhs.getString("type") == "Action") {
+                        rhvar = "timeStamp";
+                    }
+
+                    if (!lhs.has(lhvar)) {
+                        return 1;
+                    }
+                    if (!rhs.has(rhvar)) {
+                        return -1;
+                    }
+                    if (lhs.getLong(lhvar) > rhs.getLong(rhvar)) {
+                        return 1;
+                    }
+                    if (lhs.getLong(lhvar) < rhs.getLong(rhvar)) {
+                        return -1;
+                    }
+                    return 0;
+                } catch (JSONException e) {
+                    return -1;
+                }
+            }
+        });
+
+        return eventAndAlerts;
+    }
+
+    public List<JSONObject> getEvents(Date lastSyncDate, String syncStatus) throws JSONException, ParseException, UnsupportedEncodingException {
+
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        String lastSyncString = DateUtil.yyyyMMddHHmmss.format(lastSyncDate);
+
+        List<JSONObject> eventAndAlerts = new ArrayList<JSONObject>();
+
+        String query = "select " + event_column.json + "," + event_column.updatedAt + " from " + Table.event.name() + " where " + event_column.syncStatus + " = '" + syncStatus + "' and " + event_column.updatedAt + " > '" + lastSyncString + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc ";
+        Log.i(getClass().getName(), query);
+        Cursor cursor = getWritableDatabase().rawQuery(query, null);
+
+        try {
+            while (cursor.moveToNext()) {
+                String jsonEventStr = (cursor.getString(0));
+                // String jsonEventStr = new String(json, "UTF-8");
+                if (StringUtils.isBlank(jsonEventStr) || jsonEventStr.equals("{}")) { // Skip blank/empty json string
+                    continue;
+                }
+
+                JSONObject jsonObectEventOrAlert = new JSONObject(jsonEventStr);
+                String type = jsonObectEventOrAlert.has("type") ? jsonObectEventOrAlert.getString("type") : null;
+                if (StringUtils.isBlank(type)) { // Skip blank types
+                    continue;
+                }
+
+                if (!type.equals("Event") && !type.equals("Action")) { // Skip type that isn't Event or Action
+                    continue;
+                }
+                if (jsonObectEventOrAlert.has(event_column.baseEntityId.name())) {
+                    String baseEntityId = jsonObectEventOrAlert.getString(event_column.baseEntityId.name());
+                    JSONObject cl = getClientByBaseEntityId(baseEntityId);
+                    jsonObectEventOrAlert.put("client", cl);
+                }
+
+                eventAndAlerts.add(jsonObectEventOrAlert);
+                try {
+                    lastSyncDate.setTime(DateUtil.yyyyMMddHHmmss.parse(cursor.getString(1)).getTime());
+                } catch (ParseException e) {
+                    Log.e(TAG, e.toString(), e);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        if (eventAndAlerts.isEmpty()) {
+            return eventAndAlerts;
+        }
+
+
+        Collections.sort(eventAndAlerts, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject lhs, JSONObject rhs) {
+                try {
+                    String lhvar = "version";
+                    String rhvar = "version";
+                    if (lhs.getString("type") == "Action") {
+                        lhvar = "timeStamp";
+                    }
+
+                    if (rhs.getString("type") == "Action") {
+                        rhvar = "timeStamp";
+                    }
+
+                    if (!lhs.has(lhvar)) {
+                        return 1;
+                    }
+                    if (!rhs.has(rhvar)) {
+                        return -1;
+                    }
+                    if (lhs.getLong(lhvar) > rhs.getLong(rhvar)) {
+                        return 1;
+                    }
+                    if (lhs.getLong(lhvar) < rhs.getLong(rhvar)) {
+                        return -1;
+                    }
+                    return 0;
+                } catch (JSONException e) {
+                    return -1;
+                }
+            }
+        });
+
+        return eventAndAlerts;
+    }
+
+    public Map<String, Object> getUnSyncedEvents(int limit) throws JSONException, ParseException, UnsupportedEncodingException {
+        Map<String, Object> result = new HashMap<>();
+        List<JSONObject> clients = new ArrayList<JSONObject>();
+        List<JSONObject> events = new ArrayList<JSONObject>();
+
+        String query = "select " + event_column.json + "," + event_column.syncStatus + " from " + Table.event.name() + " where " + event_column.syncStatus + " = '" + BaseRepository.TYPE_Unsynced + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc limit " + limit;
+        Log.i(getClass().getName(), query);
+        Cursor cursor = null;
+        try {
+            cursor = getWritableDatabase().rawQuery(query, null);
+
+            while (cursor.moveToNext()) {
+                String jsonEventStr = (cursor.getString(0));
+                if (StringUtils.isBlank(jsonEventStr) || jsonEventStr.equals("{}")) { // Skip blank/empty json string
+                    continue;
+                }
+
+                JSONObject jsonObectEvent = new JSONObject(jsonEventStr);
+                events.add(jsonObectEvent);
+                if (jsonObectEvent.has(event_column.baseEntityId.name())) {
+                    String baseEntityId = jsonObectEvent.getString(event_column.baseEntityId.name());
+                    JSONObject cl = getUnSyncedClientByBaseEntityId(baseEntityId);
+                    if (cl != null) {
+                        clients.add(cl);
+                    }
+                }
+
+            }
+            if (!clients.isEmpty()) {
+                result.put("clients", clients);
+            }
+            if (!events.isEmpty()) {
+                result.put("events", events);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        return result;
+    }
+
     public JSONObject getClient(SQLiteDatabase db, String baseEntityId) {
         Cursor cursor = null;
         try {
-            cursor = db.rawQuery("SELECT * FROM " + Table.client.name() +
+            cursor = db.rawQuery("SELECT json FROM " + Table.client.name() +
                     " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
             if (cursor.moveToNext()) {
-                JSONObject cl = new JSONObject();
-                for (Column cc : Table.client.columns()) {
-                    cl.put(cc.name(), getValue(cursor, cc));
-                }
+                String jsonEventStr = (cursor.getString(0));
+                jsonEventStr = jsonEventStr.replaceAll("'", "");
+                JSONObject cl = new JSONObject(jsonEventStr);
 
-                JSONArray alist = new JSONArray();
-                Cursor ares = null;
-                try {
-                    ares = db.rawQuery("SELECT * FROM " + Table.address.name() + " WHERE " + address_column.baseEntityId.name() + "='" + cl.getString(client_column.baseEntityId.name()) + "'", null);
-                    while (ares.moveToNext()) {
-                        JSONObject a = new JSONObject();
-                        for (Column cc : Table.address.columns()) {
-                            if (!cc.name().equalsIgnoreCase(client_column.baseEntityId.name())) {//skip reference column
-                                a.put(cc.name(), getValue(ares, cc));
-                            }
-                        }
-                        alist.put(a);
-                    }
+                Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
 
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                } finally {
-                    if (ares != null)
-                        ares.close();
-                }
-
-                cl.put("addresses", alist);
-                
                 return cl;
             }
         } catch (Exception e) {
@@ -351,6 +585,164 @@ public class PathRepository extends Repository {
         return null;
     }
 
+    public JSONObject getEvent(SQLiteDatabase db, String baseEntityId) {
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT json FROM " + Table.event.name() +
+                    " WHERE " + event_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
+            if (cursor.moveToNext()) {
+                JSONObject cl = new JSONObject(cursor.getString(0));
+
+                return cl;
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    public JSONObject getClientByBaseEntityId(String baseEntityId) {
+        Cursor cursor = null;
+        try {
+            cursor = getWritableDatabase().rawQuery("SELECT " + client_column.json + " FROM " + Table.client.name() +
+                    " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
+            if (cursor.moveToNext()) {
+                String jsonString=cursor.getString(0);
+                jsonString=jsonString.replaceAll("'","");
+                JSONObject cl = new JSONObject(jsonString);
+
+                return cl;
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    public JSONObject getUnSyncedClientByBaseEntityId(String baseEntityId) {
+        Cursor cursor = null;
+        try {
+            cursor = getWritableDatabase().rawQuery("SELECT " + client_column.json + " FROM " + Table.client.name() +
+                    " WHERE " + client_column.syncStatus.name() + "='" + BaseRepository.TYPE_Unsynced + "' and " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
+            if (cursor.moveToNext()) {
+                JSONObject cl = new JSONObject(cursor.getString(0));
+
+                return cl;
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    public void addorUpdateClient(String baseEntityId, JSONObject jsonObject) {
+        Cursor cursor = null;
+        try {
+            cursor = getWritableDatabase().rawQuery("SELECT baseEntityId FROM " + Table.client.name() +
+                    " WHERE " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
+            if (cursor.moveToNext()) {
+                String beid = cursor.getString(0);
+                if (beid != null) {
+                    ContentValues values = new ContentValues();
+                    values.put(client_column.json.name(), jsonObject.toString());
+                    values.put(client_column.updatedAt.name(), dateFormat.format(new Date()));
+                    values.put(client_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+                    getWritableDatabase().update(Table.client.name(), values, client_column.baseEntityId.name() + " = ?", new String[]{baseEntityId});
+                }
+            } else {
+                ContentValues values = new ContentValues();
+                values.put(client_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+                values.put(client_column.updatedAt.name(), dateFormat.format(new Date()));
+                values.put(client_column.json.name(), jsonObject.toString());
+                values.put(client_column.baseEntityId.name(), baseEntityId);
+
+                getWritableDatabase().insert(Table.client.name(), null, values);
+
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+    }
+
+    public void addEvent(String baseEntityId, JSONObject jsonObject) {
+        try {
+
+            ContentValues values = new ContentValues();
+            values.put(event_column.json.name(), jsonObject.toString());
+            values.put(event_column.eventType.name(), jsonObject.has("eventType") ? jsonObject.getString("eventType") : "");
+            values.put(event_column.updatedAt.name(), dateFormat.format(new Date()));
+            values.put(event_column.baseEntityId.name(), baseEntityId);
+            values.put(event_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+
+            getWritableDatabase().insert(Table.event.name(), null, values);
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+    }
+
+    public void markEventAsSynced(String baseEntityId) {
+        try {
+
+            ContentValues values = new ContentValues();
+            values.put(event_column.baseEntityId.name(), baseEntityId);
+            values.put(event_column.syncStatus.name(), BaseRepository.TYPE_Synced);
+
+            getWritableDatabase().update(Table.event.name(), values, event_column.baseEntityId.name() + " = ?", new String[]{baseEntityId});
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+    }
+
+    public void markClientAsSynced(String baseEntityId) {
+        try {
+
+            ContentValues values = new ContentValues();
+            values.put(client_column.baseEntityId.name(), baseEntityId);
+            values.put(client_column.syncStatus.name(), BaseRepository.TYPE_Synced);
+
+            getWritableDatabase().update(Table.client.name(), values, client_column.baseEntityId.name() + " = ?", new String[]{baseEntityId});
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+    }
+
+    public void markEventsAsSynced(Map<String, Object> syncedEvents) {
+        try {
+            List<JSONObject> clients = syncedEvents.containsKey("clients") ? (List<JSONObject>) syncedEvents.get("clients") : null;
+            List<JSONObject> events = syncedEvents.containsKey("events") ? (List<JSONObject>) syncedEvents.get("events") : null;
+
+            if (clients != null && !clients.isEmpty()) {
+                for (JSONObject client : clients) {
+                    String baseEntityId = client.getString(client_column.baseEntityId.name());
+                    markClientAsSynced(baseEntityId);
+                }
+            }
+            if (events != null && !events.isEmpty()) {
+                for (JSONObject event : events) {
+                    String baseEntityId = event.getString(client_column.baseEntityId.name());
+                    markEventAsSynced(baseEntityId);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+
+    }
 
     private String getCreateTableColumn(Column col) {
         ColumnAttribute c = col.column();
@@ -396,7 +788,7 @@ public class PathRepository extends Repository {
             return cur.getInt(ind) == 0 ? false : true;
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.date.name())) {
-            return new DateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cur.getString(ind)).getTime());
+            return new DateTime(dateFormat.parse(cur.getString(ind)).getTime());
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.list.name())) {
             return new JSONArray(cur.getString(ind));
@@ -505,6 +897,8 @@ public class PathRepository extends Repository {
         voidReason(ColumnAttribute.Type.text, false, false),
 
         baseEntityId(ColumnAttribute.Type.text, true, true),
+        syncStatus(ColumnAttribute.Type.text, false, true),
+        json(ColumnAttribute.Type.text, false, false),
         identifiers(ColumnAttribute.Type.map, false, true),
         attributes(ColumnAttribute.Type.map, false, true),
         firstName(ColumnAttribute.Type.text, false, false),
@@ -516,7 +910,9 @@ public class PathRepository extends Repository {
         deathdateApprox(ColumnAttribute.Type.bool, false, false),
         gender(ColumnAttribute.Type.text, false, false),
         relationships(ColumnAttribute.Type.map, false, false),
+        updatedAt(ColumnAttribute.Type.date, false, true),
         serverVersion(ColumnAttribute.Type.longnum, false, true);
+
 
         private client_column(ColumnAttribute.Type type, boolean pk, boolean index) {
             this.column = new ColumnAttribute(type, pk, index);
@@ -570,6 +966,8 @@ public class PathRepository extends Repository {
 
         eventId(ColumnAttribute.Type.text, true, false),
         baseEntityId(ColumnAttribute.Type.text, false, true),
+        syncStatus(ColumnAttribute.Type.text, false, true),
+        json(ColumnAttribute.Type.text, false, false),
         locationId(ColumnAttribute.Type.text, false, false),
         eventDate(ColumnAttribute.Type.date, false, true),
         eventType(ColumnAttribute.Type.text, false, true),
@@ -578,6 +976,7 @@ public class PathRepository extends Repository {
         entityType(ColumnAttribute.Type.text, false, false),
         details(ColumnAttribute.Type.map, false, false),
         version(ColumnAttribute.Type.text, false, false),
+        updatedAt(ColumnAttribute.Type.date, false, true),
         serverVersion(ColumnAttribute.Type.longnum, false, true);
 
         private event_column(ColumnAttribute.Type type, boolean pk, boolean index) {

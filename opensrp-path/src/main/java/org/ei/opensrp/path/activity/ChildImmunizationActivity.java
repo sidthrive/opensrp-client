@@ -35,11 +35,12 @@ import org.ei.opensrp.path.fragment.UndoVaccinationDialogFragment;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
-import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
-import org.ei.opensrp.path.view.VaccineGroup;
-import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
+import org.ei.opensrp.path.toolbar.LocationSwitcherToolbar;
+import org.ei.opensrp.path.view.VaccineGroup;
+import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -55,13 +56,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import util.DateUtils;
 import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
-import util.VaccinatorUtils;
 import util.VaccinateActionUtils;
+import util.VaccinatorUtils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
@@ -87,12 +89,15 @@ public class ChildImmunizationActivity extends BaseActivity
     // Data
     private CommonPersonObjectClient childDetails;
     private RegisterClickables registerClickables;
+    private DetailsRepository detailsRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+
         toolbar = (LocationSwitcherToolbar) getToolbar();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +149,11 @@ public class ChildImmunizationActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if(vaccineGroups!=null){
+            LinearLayout vaccineGroupCanvasLL = (LinearLayout) findViewById(R.id.vaccine_group_canvas_ll);
+            vaccineGroupCanvasLL.removeAllViews();
+            vaccineGroups = null;
+        }
         updateViews();
     }
 
@@ -152,8 +162,17 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void updateViews() {
+        ((LinearLayout)findViewById(R.id.profile_name_layout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchDetailActivity(ChildImmunizationActivity.this, childDetails, null);
+            }
+        });
         // TODO: update all views using child data
-
+        Map<String, String> details = detailsRepository.getAllDetailsForClient(childDetails.entityId());
+        //details.putAll(childDetails.getColumnmaps());
+        //):( prrrr
+        childDetails.getColumnmaps().putAll(details);
         updateGenderViews();
         toolbar.setTitle(updateActivityTitle());
         updateAgeViews();
@@ -407,6 +426,20 @@ public class ChildImmunizationActivity extends BaseActivity
 
         fromContext.startActivity(intent);
     }
+    public void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
+        Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
+        Bundle bundle = new Bundle();
+        try {
+            bundle.putString("location_name", JsonFormUtils.getOpenMrsLocationId(getOpenSRPContext(), toolbar.getCurrentLocation()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        bundle.putSerializable(EXTRA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(EXTRA_REGISTER_CLICKABLES, registerClickables);
+        intent.putExtras(bundle);
+
+        fromContext.startActivity(intent);
+    }
 
     private String updateActivityTitle() {
         String name = "";
@@ -469,7 +502,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onVaccinateToday(ArrayList<VaccineWrapper> tags) {
+    public void onVaccinateToday(ArrayList<VaccineWrapper> tags, View v) {
         if (tags != null && !tags.isEmpty()) {
             View view = getLastOpenedView();
             saveVaccine(tags, view);
@@ -477,7 +510,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags) {
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags, View v) {
         if (tags != null && !tags.isEmpty()) {
             View view = getLastOpenedView();
             saveVaccine(tags, view);
@@ -485,7 +518,7 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     @Override
-    public void onUndoVaccination(VaccineWrapper tag) {
+    public void onUndoVaccination(VaccineWrapper tag, View v) {
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
