@@ -4,18 +4,21 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import util.JsonFormUtils;
+import util.VaccinatorUtils;
 
 
 /**
@@ -23,8 +26,10 @@ import util.JsonFormUtils;
  */
 public class VaccineIntentService extends IntentService {
     private static final String TAG = VaccineIntentService.class.getCanonicalName();
+    public static final String EVENT_TYPE = "Vaccination";
+    public static final String ENTITY_TYPE = "vaccination";
     private VaccineRepository vaccineRepository;
-
+    private JSONArray availableVaccines;
 
     public VaccineIntentService() {
         super("VaccineService");
@@ -32,38 +37,43 @@ public class VaccineIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
+        if (availableVaccines == null) {
+            try {
+                availableVaccines = new JSONArray(VaccinatorUtils.getSupportedVaccines(this));
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
         final String entityId = "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         final String calId = "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         final String dateDataType = "date";
         final String calculationDataType = "calculate";
         final String concept = "concept";
 
-
         try {
             List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(24);
             if (!vaccines.isEmpty()) {
                 for (Vaccine vaccine : vaccines) {
-                    String eventType = "Vaccination";
-                    String entityType = "vaccination";
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String formatedDate = simpleDateFormat.format(vaccine.getDate());
+                    String formattedDate = simpleDateFormat.format(vaccine.getDate());
 
                     JSONArray jsonArray = new JSONArray();
 
+                    String vaccineName = vaccine.getName().replace(" ", "_");
+
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(JsonFormUtils.KEY, vaccine.getName().toLowerCase().replace(" ", "_"));
+                    jsonObject.put(JsonFormUtils.KEY, vaccineName);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, entityId);
                     jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));
                     jsonObject.put(JsonFormUtils.OPENMRS_DATA_TYPE, dateDataType);
-                    jsonObject.put(JsonFormUtils.VALUE, formatedDate);
+                    jsonObject.put(JsonFormUtils.VALUE, formattedDate);
                     jsonArray.put(jsonObject);
 
                     if (vaccine.getCalculation() != null && vaccine.getCalculation().intValue() >= 0) {
                         jsonObject = new JSONObject();
-                        jsonObject.put(JsonFormUtils.KEY, vaccine.getName().toLowerCase().replace(" ", "_") + "_dose");
+                        jsonObject.put(JsonFormUtils.KEY, vaccineName + "_dose");
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY, concept);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, calId);
                         jsonObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, getParentId(vaccine.getName()));
@@ -71,7 +81,7 @@ public class VaccineIntentService extends IntentService {
                         jsonObject.put(JsonFormUtils.VALUE, vaccine.getCalculation());
                         jsonArray.put(jsonObject);
                     }
-                    JsonFormUtils.createVaccineEvent(getApplicationContext(), vaccine, eventType, entityType, jsonArray);
+                    JsonFormUtils.createVaccineEvent(getApplicationContext(), vaccine, EVENT_TYPE, ENTITY_TYPE, jsonArray);
                     vaccineRepository.close(vaccine.getId());
                 }
             }
@@ -81,23 +91,30 @@ public class VaccineIntentService extends IntentService {
     }
 
     private String getParentId(String name) {
-        name = name.split("\\s+")[0];
-        switch (name) {
-            case "BCG":
-                return "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "OPV":
-                return "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "PCV":
-                return "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Penta":
-                return "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Rota":
-                return "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "Measles":
-                return "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            case "MR":
-                return "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        try {
+            for (int i = 0; i < availableVaccines.length(); i++) {
+                JSONObject curVaccineGroup = availableVaccines.getJSONObject(i);
+                JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
+                for (int j = 0; j < vaccines.length(); j++) {
+                    JSONObject vaccine = vaccines.getJSONObject(j);
+                    if (vaccine.getString("name").equalsIgnoreCase(name)) {
+                        String parentEntityId = vaccine.getJSONObject("openmrs_date").getString("parent_entity");
+                        if (parentEntityId.contains("/")) {
+                            String[] parentEntityArray = parentEntityId.split("/");
+                            if (StringUtils.containsIgnoreCase(parentEntityId, "measles")) {
+                                parentEntityId = parentEntityArray[0];
+                            } else if (StringUtils.containsIgnoreCase(parentEntityId, "mr")) {
+                                parentEntityId = parentEntityArray[1];
+                            }
+                            return parentEntityId;
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
+
         return "";
     }
 

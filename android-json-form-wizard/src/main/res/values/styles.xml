@@ -16,4 +16,10 @@
         <item name="actionMenuTextColor">#FFFFFF</item>
         <item name="android:textSize">@dimen/default_text_size</item>
     </style>
+
+    <style name="CheckBoxStyle" parent="Material.Drawable.CheckBox">
+        <item name="cbd_width">36dp</item>
+        <item name="cbd_height">36dp</item>
+        <item name="cbd_boxSize">28dp</item>
+    </style>
 </resources>

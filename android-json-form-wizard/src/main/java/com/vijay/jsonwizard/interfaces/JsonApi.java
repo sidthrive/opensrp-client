@@ -43,11 +43,13 @@ public interface JsonApi {
 
     void addConstrainedView(View view);
 
+    void refreshSkipLogic(String parentKey, String childKey);
+
     void addFormDataView(View view);
 
     ArrayList<View> getFormDataViews();
 
-    void refreshSkipLogic();
+    void refreshConstraints(String parentKey, String childKey);
 
-    void refreshConstraints();
+    void addOnActivityResultListener(Integer requestCode, OnActivityResultListener onActivityResultListener);
 }

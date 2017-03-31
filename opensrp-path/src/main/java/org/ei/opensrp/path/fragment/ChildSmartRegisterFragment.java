@@ -3,7 +3,9 @@ package org.ei.opensrp.path.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectFilterOption;
 import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.CursorSortOption;
@@ -37,6 +41,7 @@ import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
@@ -47,7 +52,6 @@ import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
-import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
@@ -60,12 +64,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.GlobalSearchUtils;
+import util.VaccinateActionUtils;
 
 import static android.view.View.INVISIBLE;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private  LocationPickerView clinicSelection;
+    private static final long NO_RESULT_SHOW_DIALOG_DELAY = 1000l;
+    private Handler showNoResultDialogHandler;
+    private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
+    private TextView filterCount;
+    private View filterSection;
+    private ImageView backButton;
+    private TextView nameInitials;
+    private int dueOverdueCount = 0;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -167,7 +180,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
         }
 
-        updateLocationText(clinicSelection, clinicSelection.getSelectedItem());
+        updateLocationText();
     }
 
     @Override
@@ -190,6 +203,21 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(INVISIBLE);
 
+        filterSection = view.findViewById(R.id.filter_selection);
+        filterSection.setOnClickListener(clientActionHandler);
+
+        filterCount =  (TextView) view.findViewById(R.id.filter_count);
+        filterCount.setVisibility(View.GONE);
+        filterCount.setClickable(false);
+        filterCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.isClickable()) {
+                    filterSection.performClick();
+                }
+            }
+        });
+
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
         setServiceModeViewDrawableRight(null);
@@ -197,22 +225,12 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         updateSearchView();
         populateClientListHeaderView(view);
 
-
-        View viewParent = (View) appliedSortView.getParent();
-        viewParent.setVisibility(View.GONE);
-
-        clinicSelection = (LocationPickerView) view.findViewById(R.id.clinic_selection);
-        clinicSelection.init(context());
-
-
         View qrCode = view.findViewById(R.id.scan_qr_code);
-        TextView nameInitials = (TextView) view.findViewById(R.id.name_inits);
-        qrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startQrCodeScanner();
-            }
-        });
+        qrCode.setOnClickListener(clientActionHandler);
+
+        backButton = (ImageView) view.findViewById(R.id.back_button);
+        nameInitials = (TextView) view.findViewById(R.id.name_inits);
+
         AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
         String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
         if (!preferredName.isEmpty()) {
@@ -230,18 +248,27 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     @Override
     protected void goBack() {
-        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        if (!drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.openDrawer(GravityCompat.START);
+        if(filterMode()){
+            toggleFilterSelection();
+        } else {
+            DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.openDrawer(GravityCompat.START);
+            }
         }
     }
 
-    private void updateLocationText(CustomFontTextView clinicSelection, String newLocation) {
-        clinicSelection.setText(newLocation);
+    @Override
+    public boolean onBackPressed() {
+        if (filterMode()) {
+            toggleFilterSelection();
+            return true;
+        }
+        return false;
     }
 
     public LocationPickerView getLocationPickerView() {
-        return clinicSelection;
+        return getClinicSelection();
     }
 
     public void initializeQueries() {
@@ -259,6 +286,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         countSelect = countqueryBUilder.mainCondition("");
         mainCondition = "";
         super.CountExecute();
+        countOverDue();
+        countDueOverDue();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{
@@ -299,7 +328,10 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            CommonPersonObjectClient client = null;
+            if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
+                client = (CommonPersonObjectClient) view.getTag();
+            }
             RegisterClickables registerClickables = new RegisterClickables();
 
             switch (view.getId()) {
@@ -316,6 +348,17 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                     registerClickables.setRecordAll(true);
                     ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                     break;
+                case R.id.filter_selection:
+                    toggleFilterSelection();
+                    break;
+
+                case R.id.global_search:
+                    ((ChildSmartRegisterActivity) getActivity()).startAdvancedSearch();
+                    break;
+
+                case R.id.scan_qr_code:
+                    ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
+                    break;
 
             }
         }
@@ -324,6 +367,12 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     public void updateSearchView() {
         getSearchView().removeTextChangedListener(textWatcher);
         getSearchView().addTextChangedListener(textWatcher);
+    }
+
+    public void triggerFilterSelection(){
+        if(filterSection != null && !filterMode()){
+            filterSection.performClick();
+        }
     }
 
     private void populateClientListHeaderView(View view) {
@@ -422,12 +471,14 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
 
         ImageButton globalSearchButton = ((ImageButton) mView.findViewById(R.id.global_search));
-        globalSearchButton.setOnClickListener(new View.OnClickListener() {
+        globalSearchButton.setOnClickListener(clientActionHandler);
+
+/*        globalSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.show();
             }
-        });
+        }); */
     }
 
     private void search(EditText txtSearch, Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
@@ -480,9 +531,172 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     }
 
-    private void startQrCodeScanner() {
-        ((ChildSmartRegisterActivity) getActivity()).startQrCodeScanner();
+    /*@Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        super.onLoadFinished(loader, cursor);
+        // Check if query was issued
+        if (searchView != null && searchView.getText().toString().length() > 0) {
+            if (cursor.getCount() == 0) {// No search result found
+                if (showNoResultDialogHandler != null) {
+                    showNoResultDialogHandler.removeCallbacksAndMessages(null);
+                    showNoResultDialogHandler = null;
+                }
+
+                showNoResultDialogHandler = new Handler();
+                showNoResultDialogHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (notInCatchmentDialogFragment == null) {
+                            notInCatchmentDialogFragment = new NotInCatchmentDialogFragment();
+                        }
+
+                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(DIALOG_TAG);
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+                        if(!notInCatchmentDialogFragment.isVisible()) {
+                            notInCatchmentDialogFragment.show(ft, DIALOG_TAG);
+                        }
+                    }
+                }, NO_RESULT_SHOW_DIALOG_DELAY);
+            } else {
+                if (showNoResultDialogHandler != null) {
+                    showNoResultDialogHandler.removeCallbacksAndMessages(null);
+                    showNoResultDialogHandler = null;
+                }
+            }
+        }
+    }*/
+
+    private String filterSelectionCondition(boolean urgentOnly) {
+        String mainCondition = "";
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+
+        for (int i = 0; i < vaccines.size(); i++) {
+            VaccineRepo.Vaccine vaccine = vaccines.get(i);
+            if (i == vaccines.size() - 1) {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' ";
+            } else {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'urgent' or ";
+            }
+        }
+
+        if(urgentOnly){
+            return mainCondition;
+        }
+
+        mainCondition += " or ";
+        for (int i = 0; i < vaccines.size(); i++) {
+            VaccineRepo.Vaccine vaccine = vaccines.get(i);
+            if (i == vaccines.size() - 1) {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'normal' ";
+            } else {
+                mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = 'normal' or ";
+            }
+        }
+
+        return mainCondition;
     }
 
+
+    public void countOverDue() {
+        String mainCondition = filterSelectionCondition(true);
+        int count = count(mainCondition);
+
+        if (filterCount != null) {
+            if (count > 0) {
+                filterCount.setText(String.valueOf(count));
+                filterCount.setVisibility(View.VISIBLE);
+                filterCount.setClickable(true);
+            } else {
+                filterCount.setVisibility(View.GONE);
+                filterCount.setClickable(false);
+            }
+        }
+
+        ((ChildSmartRegisterActivity) getActivity()).updateAdvancedSearchFilterCount(count);
+    }
+
+    public void countDueOverDue() {
+        String mainCondition = filterSelectionCondition(false);
+        int count = count(mainCondition);
+        dueOverdueCount = count;
+    }
+
+    private int count(String mainConditionString){
+
+        int count = 0;
+
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query = "";
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = sqb.countQueryFts(tablename, "", mainConditionString, "");
+                List<String> ids = commonRepository().findSearchIds(sql);
+                query = sqb.toStringFts(ids, tablename + "." + CommonRepository.ID_COLUMN);
+                query = sqb.Endquery(query);
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(query);
+            }
+
+            Log.i(getClass().getName(), query);
+            c = commonRepository().RawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            count = c.getInt(0);
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return count;
+
+    }
+
+    private void switchViews(boolean filterSelected){
+        if(filterSelected){
+            if(titleLabelView != null){
+                titleLabelView.setText(String.format(getString(R.string.overdue_due), dueOverdueCount));
+            }
+            nameInitials.setVisibility(View.GONE);
+            backButton.setVisibility(View.VISIBLE);
+        } else {
+            if(titleLabelView != null){
+                titleLabelView.setText(getString(R.string.zeir));
+            }
+            nameInitials.setVisibility(View.VISIBLE);
+            backButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void toggleFilterSelection(){
+        if(filterSection != null) {
+            String tagString = "PRESSED";
+            if (filterSection.getTag() == null) {
+                filter("", "", filterSelectionCondition(false));
+                filterSection.setTag(tagString);
+                filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
+                switchViews(true);
+            } else if (filterSection.getTag().toString().equals(tagString)) {
+                filter("", "", "");
+                filterSection.setTag(null);
+                filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
+                switchViews(false);
+            }
+        }
+    }
+
+    private boolean filterMode(){
+        return filterSection != null && filterSection.getTag() != null;
+    }
 
 }

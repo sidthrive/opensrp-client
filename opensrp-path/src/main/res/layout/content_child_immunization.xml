@@ -163,7 +163,7 @@
                                 android:id="@+id/record_weight_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Record weight"
+                                android:text="@string/record_weight"
                                 android:textAllCaps="false"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:textColor="@color/text_black"

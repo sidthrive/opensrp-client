@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.RadioButton;
@@ -34,19 +36,26 @@ public class RadioButtonFactory implements FormWidgetFactory {
         String relevance = jsonObject.optString("relevance");
 
         List<View> views = new ArrayList<>(1);
-        views.add(getTextViewWith(context, 20, jsonObject.getString("label"), jsonObject.getString("key"),
+
+        JSONArray canvasIds = new JSONArray();
+        TextView textView = getTextViewWith(context, 27, jsonObject.getString("label"), jsonObject.getString("key"),
                 jsonObject.getString("type"), openMrsEntityParent, openMrsEntity, openMrsEntityId,
                 relevance,
-                getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, 0), FONT_BOLD_PATH));
+                getLayoutParams(MATCH_PARENT, WRAP_CONTENT, 0, 0, 0, 0), FONT_BOLD_PATH);
+        canvasIds.put(textView.getId());
+
+        views.add(textView);
         boolean readOnly = false;
         if (jsonObject.has("read_only")) {
             readOnly = jsonObject.getBoolean("read_only");
         }
         JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        ArrayList<RadioButton> radioButtons = new ArrayList<>();
         for (int i = 0; i < options.length(); i++) {
             JSONObject item = options.getJSONObject(i);
             RadioButton radioButton = (RadioButton) LayoutInflater.from(context).inflate(R.layout.item_radiobutton,
                     null);
+            radioButton.setId(ViewUtil.generateViewId());
             radioButton.setText(item.getString("text"));
             radioButton.setTag(R.id.key, jsonObject.getString("key"));
             radioButton.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
@@ -67,12 +76,21 @@ public class RadioButtonFactory implements FormWidgetFactory {
                         .getResources().getDimension(R.dimen.extra_bottom_margin)));
             }
             ((JsonApi) context).addFormDataView(radioButton);
+
+            canvasIds.put(radioButton.getId());
+            radioButtons.add(radioButton);
+
             views.add(radioButton);
             if (relevance != null && context instanceof JsonApi) {
                 radioButton.setTag(R.id.relevance, relevance);
                 ((JsonApi) context).addSkipLogicView(radioButton);
             }
         }
+
+        for (RadioButton radioButton : radioButtons) {
+            radioButton.setTag(R.id.canvas_ids, canvasIds.toString());
+        }
+
         return views;
     }
 }

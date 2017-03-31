@@ -31,6 +31,7 @@ import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import util.ImageUtils;
 @SuppressLint("ValidFragment")
 public class VaccinationEditDialogFragment extends DialogFragment {
     private final Context context;
-    private final List<VaccineWrapper> tags;
+    private final ArrayList<VaccineWrapper> tags;
     private final View viewGroup;
     private VaccinationActionListener listener;
     public static final String DIALOG_TAG = "VaccinationEditDialogFragment";
@@ -47,7 +48,7 @@ public class VaccinationEditDialogFragment extends DialogFragment {
     private VaccinationEditDialogFragment(Context context,
                                           List<VaccineWrapper> tags, View viewGroup) {
         this.context = context;
-        this.tags = tags;
+        this.tags = new ArrayList<>(tags);
         this.viewGroup = viewGroup;
     }
 

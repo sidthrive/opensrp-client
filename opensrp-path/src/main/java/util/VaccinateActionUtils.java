@@ -18,17 +18,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.form.FormSubmission;
-import org.ei.opensrp.path.db.VaccineRepo;
-import org.ei.opensrp.service.ZiggyService;
-import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.service.ZiggyService;
+import org.ei.opensrp.util.FormUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static org.ei.opensrp.AllConstants.ENTITY_ID_PARAM;
@@ -148,7 +149,9 @@ public class VaccinateActionUtils {
                         ft.remove(prev);
                     }
                     ft.addToBackStack(null);
-                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(context, Arrays.asList(tag), null);
+                    ArrayList<VaccineWrapper> list = new ArrayList<VaccineWrapper>();
+                    list.add(tag);
+                    VaccinationDialogFragment vaccinationDialogFragment = VaccinationDialogFragment.newInstance(list);
                     vaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
                 }
@@ -237,41 +240,111 @@ public class VaccinateActionUtils {
         }
 
         VaccineRepo.Vaccine vaccine = tag.getVaccine();
-            switch (vaccine) {
-                case penta1:
-                case pcv1:
-                case opv1:
-                    if (age > 35)
-                        addHook = true;
-                    break;
-                case penta2:
-                case pcv2:
-                case opv2:
-                    if (age > 63)
-                        addHook = true;
-                    break;
-                case penta3:
-                case pcv3:
-                case opv3:
-                case ipv:
-                    if (age > 91)
-                        addHook = true;
-                    break;
-                case measles1:
-                    if (age > 250)
-                        addHook = true;
-                    break;
-                case measles2:
-                    if (age > 340)
-                        addHook = true;
-                    break;
-                default:
+        switch (vaccine) {
+            case penta1:
+            case pcv1:
+            case opv1:
+                if (age > 35)
                     addHook = true;
-                    break;
-            }
+                break;
+            case penta2:
+            case pcv2:
+            case opv2:
+                if (age > 63)
+                    addHook = true;
+                break;
+            case penta3:
+            case pcv3:
+            case opv3:
+            case ipv:
+                if (age > 91)
+                    addHook = true;
+                break;
+            case measles1:
+                if (age > 250)
+                    addHook = true;
+                break;
+            case measles2:
+                if (age > 340)
+                    addHook = true;
+                break;
+            default:
+                addHook = true;
+                break;
+        }
 
         return addHook;
 
     }
 
+
+    public static String stateKey(VaccineRepo.Vaccine vaccine) {
+
+        switch (vaccine) {
+            case opv0:
+            case bcg:
+                return "at birth";
+
+            case opv1:
+            case penta1:
+            case pcv1:
+            case rota1:
+                return "6 weeks";
+
+            case opv2:
+            case penta2:
+            case pcv2:
+            case rota2:
+                return "10 weeks";
+
+            case opv3:
+            case penta3:
+            case opv4:
+                return "14 weeks";
+
+            case measles1:
+            case mr1:
+            case pcv3:
+                return "9 Months";
+
+            case measles2:
+            case mr2:
+                return "18 Months";
+        }
+
+        return "";
+    }
+
+    public static String[] allAlertNames(String category) {
+        if (category == null) {
+            return null;
+        }
+        if (category.equals("child")) {
+
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+            List<String> names = new ArrayList<>();
+
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+                names.add(vaccine.display());
+                names.add(vaccine.name());
+            }
+
+            return names.toArray(new String[names.size()]);
+        }
+        return null;
+    }
+
+    public static String addHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace(" ", "_");
+        }
+        return s;
+    }
+
+    public static String removeHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace("_", " ");
+        }
+        return s;
+    }
 }

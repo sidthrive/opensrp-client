@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
@@ -19,6 +20,7 @@ import com.vijay.jsonwizard.utils.ImageUtils;
 import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -93,6 +95,11 @@ public class ImagePickerFactory implements FormWidgetFactory {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, dp2px(context, 20));
         uploadButton.setLayoutParams(params);
+
+        JSONArray canvasIds = new JSONArray();
+        uploadButton.setId(ViewUtil.generateViewId());
+        canvasIds.put(uploadButton.getId());
+        uploadButton.setTag(R.id.canvas_ids, canvasIds.toString());
 
         views.add(uploadButton);
         if (relevance != null && context instanceof JsonApi) {

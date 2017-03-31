@@ -7,7 +7,12 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.drishti.dto.AlertStatus;
+import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
+import org.ei.opensrp.service.AlertService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,18 +21,19 @@ import java.util.List;
 
 public class VaccineRepository extends BaseRepository {
     private static final String TAG = VaccineRepository.class.getCanonicalName();
-    private static final String VACCINE_SQL = "CREATE TABLE vaccines (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,calculation INTEGER,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL, UNIQUE(base_entity_id, name) ON CONFLICT IGNORE)";
+    private static final String VACCINE_SQL = "CREATE TABLE vaccines (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,program_client_id VARCHAR NULL,name VARCHAR NOT NULL,calculation INTEGER,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL, UNIQUE(base_entity_id, program_client_id, name) ON CONFLICT IGNORE)";
     public static final String VACCINE_TABLE_NAME = "vaccines";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String PROGRAM_CLIENT_ID = "program_client_id";
     public static final String NAME = "name";
     public static final String CALCULATION = "calculation";
-    private static final String DATE = "date";
-    private static final String ANMID = "anmid";
-    private static final String LOCATIONID = "location_id";
-    private static final String SYNC_STATUS = "sync_status";
+    public static final String DATE = "date";
+    public static final String ANMID = "anmid";
+    public static final String LOCATIONID = "location_id";
+    public static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
+    public static final String[] VACCINE_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, PROGRAM_CLIENT_ID, NAME, CALCULATION, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + VACCINE_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + VACCINE_TABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + VACCINE_TABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
@@ -35,8 +41,13 @@ public class VaccineRepository extends BaseRepository {
     public static String TYPE_Unsynced = "Unsynced";
     public static String TYPE_Synced = "Synced";
 
-    public VaccineRepository(PathRepository pathRepository) {
+    private CommonFtsObject commonFtsObject;
+    private AlertService alertService;
+
+    public VaccineRepository(PathRepository pathRepository, CommonFtsObject commonFtsObject, AlertService alertService) {
         super(pathRepository);
+        this.commonFtsObject = commonFtsObject;
+        this.alertService = alertService;
     }
 
     protected static void createTable(SQLiteDatabase database) {
@@ -64,6 +75,7 @@ public class VaccineRepository extends BaseRepository {
             String idSelection = ID_COLUMN + " = ?";
             database.update(VACCINE_TABLE_NAME, createValuesFor(vaccine), idSelection, new String[]{vaccine.getId().toString()});
         }
+        updateFtsSearch(vaccine);
     }
 
     public List<Vaccine> findUnSyncedBeforeTime(int hours) {
@@ -114,7 +126,12 @@ public class VaccineRepository extends BaseRepository {
     }
 
     public void deleteVaccine(Long caseId) {
-        getPathRepository().getWritableDatabase().delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
+        Vaccine vaccine = find(caseId);
+        if(vaccine != null) {
+            getPathRepository().getWritableDatabase().delete(VACCINE_TABLE_NAME, ID_COLUMN + "= ?", new String[]{caseId.toString()});
+
+            updateFtsSearch(vaccine.getBaseEntityId(), vaccine.getName());
+        }
     }
 
     public void close(Long caseId) {
@@ -130,10 +147,15 @@ public class VaccineRepository extends BaseRepository {
 
             if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
+                    String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
+                    if (vaccineName != null) {
+                        vaccineName = removeHyphen(vaccineName);
+                    }
                     vaccines.add(
                             new Vaccine(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
                                     cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                                    cursor.getString(cursor.getColumnIndex(NAME)),
+                                    cursor.getString(cursor.getColumnIndex(PROGRAM_CLIENT_ID)),
+                                    vaccineName,
                                     cursor.getInt(cursor.getColumnIndex(CALCULATION)),
                                     new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
                                     cursor.getString(cursor.getColumnIndex(ANMID)),
@@ -158,7 +180,8 @@ public class VaccineRepository extends BaseRepository {
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, vaccine.getId());
         values.put(BASE_ENTITY_ID, vaccine.getBaseEntityId());
-        values.put(NAME, vaccine.getName());
+        values.put(PROGRAM_CLIENT_ID, vaccine.getProgramClientId());
+        values.put(NAME, vaccine.getName() != null ? addHyphen(vaccine.getName().toLowerCase()): null);
         values.put(CALCULATION, vaccine.getCalculation());
         values.put(DATE, vaccine.getDate() != null ? vaccine.getDate().getTime() : null);
         values.put(ANMID, vaccine.getAnmId());
@@ -166,5 +189,70 @@ public class VaccineRepository extends BaseRepository {
         values.put(SYNC_STATUS, vaccine.getSyncStatus());
         values.put(UPDATED_AT_COLUMN, vaccine.getUpdatedAt() != null ? vaccine.getUpdatedAt() : null);
         return values;
+    }
+
+    //-----------------------
+    // FTS methods
+    public void updateFtsSearch(Vaccine vaccine) {
+        try{
+            if (commonFtsObject != null && alertService() != null) {
+                String entityId = vaccine.getBaseEntityId();
+                String vaccineName = vaccine.getName();
+                if(vaccineName != null){
+                    vaccineName = removeHyphen(vaccineName);
+                }
+                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+
+                String bindType = commonFtsObject.getAlertBindType(scheduleName);
+
+                if (StringUtils.isNotBlank(bindType) && StringUtils.isNotBlank(scheduleName) && StringUtils.isNotBlank(entityId)) {
+                    String field = addHyphen(scheduleName);
+                    // update vaccine status
+                    alertService().updateFtsSearchInACR(bindType, entityId, field, AlertStatus.complete.value());
+                }
+            }
+        }catch (Exception e){
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+    }
+
+    public void updateFtsSearch(String entityId, String vaccineName) {
+        try {
+            if (commonFtsObject != null && alertService() != null) {
+                if (vaccineName != null) {
+                    vaccineName = removeHyphen(vaccineName);
+                }
+
+                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+                if (StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)) {
+                    Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
+                    alertService().updateFtsSearch(alert, true);
+                }
+            }
+        } catch (Exception e){
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    public AlertService alertService() {
+        if(alertService == null){
+            alertService = Context.getInstance().alertService();
+        };
+        return alertService;
+    }
+
+    public static String addHyphen(String s) {
+        if(StringUtils.isNotBlank(s)){
+            return  s.replace(" ", "_");
+        }
+        return s;
+    }
+
+    public static String removeHyphen(String s) {
+        if(StringUtils.isNotBlank(s)){
+            return  s.replace("_", " ");
+        }
+        return s;
     }
 }

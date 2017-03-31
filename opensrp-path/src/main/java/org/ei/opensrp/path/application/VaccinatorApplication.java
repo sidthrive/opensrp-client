@@ -5,13 +5,14 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
+import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.path.activity.LoginActivity;
-import org.ei.opensrp.path.receiver.ConfigSyncReceiver;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
 import org.ei.opensrp.path.repository.PathRepository;
 import org.ei.opensrp.path.repository.UniqueIdRepository;
@@ -21,9 +22,14 @@ import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import util.VaccinateActionUtils;
 
 import static org.ei.opensrp.util.Log.logInfo;
 
@@ -54,7 +60,6 @@ public class VaccinatorApplication extends DrishtiApplication {
 
         applyUserLanguagePreference();
         cleanUpSyncState();
-        ConfigSyncReceiver.scheduleFirstSync(getApplicationContext());
         setCrashlyticsUser(context);
     }
 
@@ -112,9 +117,23 @@ public class VaccinatorApplication extends DrishtiApplication {
         return null;
     }
 
-
     private static String[] getFtsSortFields(String tableName){
-        if(tableName.equals("ec_child") || tableName.equals("ec_mother")) {
+
+
+        if (tableName.equals("ec_child")) {
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+            List<String> names = new ArrayList<>();
+            names.add("first_name");
+            names.add("dob");
+            names.add("zeir_id");
+            names.add("last_interacted_with");
+
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+                names.add( "alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
+            }
+
+            return names.toArray(new String[names.size()]);
+        } else if (tableName.equals("ec_mother")) {
             String[] sortFields = {"first_name", "dob", "zeir_id", "last_interacted_with"};
             return sortFields;
         }
@@ -126,6 +145,15 @@ public class VaccinatorApplication extends DrishtiApplication {
         return ftsTables;
     }
 
+    public static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+        Map<String, Pair<String, Boolean>> map = new HashMap<String, Pair<String, Boolean>>();
+        for (VaccineRepo.Vaccine vaccine : vaccines) {
+            map.put(vaccine.display(), Pair.create("ec_child", false));
+        }
+        return map;
+    }
+
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
@@ -134,6 +162,7 @@ public class VaccinatorApplication extends DrishtiApplication {
                 commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             }
         }
+        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
         return commonFtsObject;
     }
 
@@ -178,7 +207,7 @@ public class VaccinatorApplication extends DrishtiApplication {
 
     public VaccineRepository vaccineRepository() {
         if (vaccineRepository == null) {
-            vaccineRepository = new VaccineRepository((PathRepository) getRepository());
+            vaccineRepository = new VaccineRepository((PathRepository) getRepository(), createCommonFtsObject(), context.alertService());
         }
         return vaccineRepository;
     }

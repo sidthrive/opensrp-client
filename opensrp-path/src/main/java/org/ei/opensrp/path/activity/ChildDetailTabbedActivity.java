@@ -268,7 +268,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("child_enrollment");
             LocationPickerView lpv = new LocationPickerView(getApplicationContext());
             lpv.init(context);
-            JsonFormUtils.addChildRegLocHierarchyQuestions(form, lpv.getSelectedItem(), context);
+            JsonFormUtils.addChildRegLocHierarchyQuestions(form, context);
             if (form != null) {
                 form.put("entity_id", childDetails.entityId());
                 form.put("relational_id",childDetails.getColumnmaps().get("relational_id"));
@@ -619,14 +619,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
     }
 
     @Override
-    public void onVaccinateToday(List<VaccineWrapper> tags, View view) {
+    public void onVaccinateToday(ArrayList<VaccineWrapper> tags, View view) {
         if (tags != null && !tags.isEmpty()) {
             saveVaccine(tags, view);
         }
     }
 
     @Override
-    public void onVaccinateEarlier(List<VaccineWrapper> tags, View view) {
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags, View view) {
         if (tags != null && !tags.isEmpty()) {
             saveVaccine(tags, view);
         }

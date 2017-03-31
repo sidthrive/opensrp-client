@@ -105,52 +105,6 @@
         }
       },
       {
-        "key": "First_Name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name",
-        "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
-      },
-      {
-        "key": "Last_Name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
-      },
-      {
-        "key": "Sex",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex *",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        }
-      },
-      {
         "key": "ZEIR_ID",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -181,6 +135,114 @@
         "hint": "Child's birth certificate number"
       },
       {
+        "key": "First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "First name",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the last name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "Sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex *",
+        "values": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Child's DOB *",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-1825",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        }
+      },
+      {
+        "key": "First_Health_Facility_Contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "hint": "Date first seen *",
+        "expanded": false,
+        "min_date": "today-1825",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Enter the date that the child was first seen at a health facility for immunization services"
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(step1:Date_Birth)",
+            "err": "Date first seen can't occur before date of birth"
+          }
+        ]
+      },
+      {
+        "key": "Birth_Weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Birth weight (kg) *",
+        "v_min": {
+          "value": "0.1",
+          "err": "Weight must be greater than 0"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid weight"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the child's birth weight"
+        }
+      },
+      {
         "key": "Mother_Guardian_First_Name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -194,7 +256,7 @@
           "err": "Please enter the mother/guardian's first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -212,7 +274,7 @@
           "err": "Please enter the mother/guardian's last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -224,11 +286,12 @@
         "entity_id": "mother",
         "type": "date_picker",
         "hint": "Mother/guardian DOB",
-        "expanded": true,
+        "expanded": false,
         "duration": {
           "label": "Age"
         },
         "min_date": "01-01-1900",
+        "value":"01-01-1960",
         "max_date": "today-3650"
       },
       {
@@ -267,10 +330,10 @@
         "openmrs_entity_id": "1594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Father/guardian name",
+        "hint": "Father/guardian full name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -284,68 +347,6 @@
         "v_regex": {
           "value": "([0-9]{6}/[0-9]{2}/[0-9])|\s*",
           "err": "Number must take the format of ######/##/#"
-        }
-      },
-      {
-        "key": "Date_Birth",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
-        "type": "date_picker",
-        "hint": "Child's DOB *",
-        "expanded": true,
-        "duration": {
-          "label": "Age"
-        },
-        "min_date": "today-1825",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of birth"
-        }
-      },
-      {
-        "key": "First_Health_Facility_Contact",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "date",
-        "type": "date_picker",
-        "hint": "Date first seen *",
-        "expanded": true,
-        "min_date": "today-1825",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Enter the date that the child was first seen at a health facility for immunization services"
-        },
-        "constraints": [
-          {
-            "type": "date",
-            "ex": "greaterThanEqualTo(step1:Date_Birth)",
-            "err": "Date first seen can't occur before date of birth"
-          }
-        ]
-      },
-      {
-        "key": "Birth_Weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Birth weight (kg) *",
-        "v_min": {
-          "value": "0.1",
-          "err": "Weight must be greater than 0"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter a valid weight"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Enter the child's birth weight"
         }
       },
       {
@@ -363,6 +364,10 @@
         "openmrs_choice_ids": {
           "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the place of birth"
         }
       },
       {
@@ -410,7 +415,7 @@
         "relevance": {
           "step1:Place_Birth": {
             "type": "string",
-            "ex": "equalTo(Health facility)"
+            "ex": "equalTo(., \"Health facility\")"
           }
         }
       },
@@ -418,7 +423,7 @@
         "key": "Residential_Area",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "personal_address",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "address3",
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Child's residential area *",
@@ -461,7 +466,7 @@
         "key": "Residential_Area_Other",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "personal_address",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "address3",
         "type": "edit_text",
         "hint": "Other residential area *",
         "edit_type": "name",
@@ -472,7 +477,7 @@
         "relevance": {
           "step1:Residential_Area": {
             "type": "string",
-            "ex": "equalTo([\"Other\"])"
+            "ex": "equalTo(., \"[\"Other\"]\")"
           }
         }
       },
@@ -480,7 +485,7 @@
         "key": "Residential_Address",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address1",
+        "openmrs_entity_id": "address2",
         "type": "edit_text",
         "hint": "Home address *",
         "edit_type": "name",
@@ -493,7 +498,7 @@
         "key": "Physical_Landmark",
         "openmrs_entity_parent": "usual_residence",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
+        "openmrs_entity_id": "address1",
         "type": "edit_text",
         "hint": "Landmark",
         "edit_type": "name"
@@ -507,7 +512,7 @@
         "hint": "CHW name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\s\.\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -530,8 +535,8 @@
       {
         "key": "PMTCT_Status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "HIV exposure",
         "values": [

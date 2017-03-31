@@ -16,17 +16,18 @@ import java.util.List;
 
 public class WeightRepository extends BaseRepository {
     private static final String TAG = WeightRepository.class.getCanonicalName();
-    private static final String WEIGHT_SQL = "CREATE TABLE weights (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL)";
+    private static final String WEIGHT_SQL = "CREATE TABLE weights (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,program_client_id VARCHAR NULL,kg REAL NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,sync_status VARCHAR,updated_at INTEGER NULL)";
     public static final String WEIGHT_TABLE_NAME = "weights";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String PROGRAM_CLIENT_ID = "program_client_id";// ID to be used to identify entity when base_entity_id is unavailable
     public static final String KG = "kg";
-    private static final String DATE = "date";
-    private static final String ANMID = "anmid";
-    private static final String LOCATIONID = "location_id";
-    private static final String SYNC_STATUS = "sync_status";
+    public static final String DATE = "date";
+    public static final String ANMID = "anmid";
+    public static final String LOCATIONID = "location_id";
+    public static final String SYNC_STATUS = "sync_status";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, KG, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
+    public static final String[] WEIGHT_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, PROGRAM_CLIENT_ID, KG, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + WEIGHT_TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String SYNC_STATUS_INDEX = "CREATE INDEX " + WEIGHT_TABLE_NAME + "_" + SYNC_STATUS + "_index ON " + WEIGHT_TABLE_NAME + "(" + SYNC_STATUS + " COLLATE NOCASE);";
@@ -156,6 +157,7 @@ public class WeightRepository extends BaseRepository {
                     weights.add(
                             new Weight(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
                                     cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
+                                    cursor.getString(cursor.getColumnIndex(PROGRAM_CLIENT_ID)),
                                     cursor.getFloat(cursor.getColumnIndex(KG)),
                                     new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
                                     cursor.getString(cursor.getColumnIndex(ANMID)),
@@ -181,6 +183,7 @@ public class WeightRepository extends BaseRepository {
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, weight.getId());
         values.put(BASE_ENTITY_ID, weight.getBaseEntityId());
+        values.put(PROGRAM_CLIENT_ID, weight.getProgramClientId());
         values.put(KG, weight.getKg());
         values.put(DATE, weight.getDate() != null ? weight.getDate().getTime() : null);
         values.put(ANMID, weight.getAnmId());
