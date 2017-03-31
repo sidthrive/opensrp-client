@@ -235,7 +235,13 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         overflow = menu;
         VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         List <Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
-        if(vaccineList.size() ==0){
+        boolean all_synced = true;
+        for(int i = 0;i < vaccineList.size();i++){
+           if(vaccineList.get(i).getSyncStatus().equalsIgnoreCase(VaccineRepository.TYPE_Unsynced)){
+               all_synced = false;
+           }
+        }
+        if(vaccineList.size() ==0 || all_synced){
             overflow.getItem(2).setEnabled(false);
 
         }
