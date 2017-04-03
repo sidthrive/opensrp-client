@@ -4,7 +4,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.repository.WeightRepository;
@@ -14,6 +13,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import util.JsonFormUtils;
+import util.PathConstants;
 
 
 /**
@@ -34,7 +34,7 @@ public class WeightIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         try {
-            List<Weight> weights = weightRepository.findUnSyncedBeforeTime(24);
+            List<Weight> weights = weightRepository.findUnSyncedBeforeTime(PathConstants.VACCINE_SYNC_TIME);
             if (!weights.isEmpty()) {
                 for (Weight weight : weights) {
 
