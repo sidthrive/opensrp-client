@@ -561,6 +561,54 @@ public class PathRepository extends Repository {
 
         return result;
     }
+    public void markAllAsUnSynced() throws JSONException, ParseException, UnsupportedEncodingException {
+
+        String events = "select " + event_column.baseEntityId + "," + event_column.syncStatus + " from " + Table.event.name();
+        String clients = "select " + client_column.baseEntityId + "," + client_column.syncStatus + " from " + Table.client.name();
+        Cursor cursor = null;
+        try {
+            cursor = getWritableDatabase().rawQuery(clients, null);
+
+            while (cursor.moveToNext()) {
+                String beid = (cursor.getString(0));
+                if (StringUtils.isBlank(beid) || beid.equals("{}")) { // Skip blank/empty json string
+                    continue;
+                }
+
+                ContentValues values = new ContentValues();
+                values.put(client_column.baseEntityId.name(), beid);
+                values.put(client_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+
+                getWritableDatabase().update(Table.client.name(), values, client_column.baseEntityId.name() + " = ?", new String[]{beid});
+
+
+            }
+            cursor.close();
+            cursor = getWritableDatabase().rawQuery(events, null);
+
+            while (cursor.moveToNext()) {
+                String beid = (cursor.getString(0));
+                if (StringUtils.isBlank(beid) || beid.equals("{}")) { // Skip blank/empty json string
+                    continue;
+                }
+
+                ContentValues values = new ContentValues();
+                values.put(event_column.baseEntityId.name(), beid);
+                values.put(event_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+
+                getWritableDatabase().update(Table.event.name(), values, event_column.baseEntityId.name() + " = ?", new String[]{beid});
+
+
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+
+    }
 
     public JSONObject getClient(SQLiteDatabase db, String baseEntityId) {
         Cursor cursor = null;
@@ -631,7 +679,9 @@ public class PathRepository extends Repository {
             cursor = getWritableDatabase().rawQuery("SELECT " + client_column.json + " FROM " + Table.client.name() +
                     " WHERE " + client_column.syncStatus.name() + "='" + BaseRepository.TYPE_Unsynced + "' and " + client_column.baseEntityId.name() + "='" + baseEntityId + "' ", null);
             if (cursor.moveToNext()) {
-                JSONObject cl = new JSONObject(cursor.getString(0));
+                String json=cursor.getString(0);
+                json=json.replaceAll("'","");
+                JSONObject cl = new JSONObject(json);
 
                 return cl;
             }

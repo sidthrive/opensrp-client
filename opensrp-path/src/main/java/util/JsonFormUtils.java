@@ -30,6 +30,7 @@ import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.repository.BaseRepository;
+import org.ei.opensrp.path.repository.PathRepository;
 import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
@@ -38,7 +39,6 @@ import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.sync.ClientProcessor;
-import org.ei.opensrp.sync.CloudantDataHandler;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -1612,7 +1612,9 @@ public class JsonFormUtils {
 
     public static void createWeightEvent(Context context, Weight weight, String eventType, String entityType, JSONArray fields) {
         try {
-            Event e = (Event) new Event()
+            PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
+
+            Event event = (Event) new Event()
                     .withBaseEntityId(weight.getBaseEntityId())
                     .withIdentifiers(weight.getIdentifiers())
                     .withEventDate(weight.getDate())
@@ -1628,15 +1630,15 @@ public class JsonFormUtils {
                     JSONObject jsonObject = getJSONObject(fields, i);
                     String value = getString(jsonObject, VALUE);
                     if (StringUtils.isNotBlank(value)) {
-                        addObservation(e, jsonObject);
+                        addObservation(event, jsonObject);
                     }
                 }
 
-            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
-            if (e != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-                cloudantDataHandler.createEventDocument(event);
+            if (event != null) {
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                db.addEvent(event.getBaseEntityId(), eventJson);
+
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -1645,7 +1647,9 @@ public class JsonFormUtils {
 
     public static void createVaccineEvent(Context context, Vaccine vaccine, String eventType, String entityType, JSONArray fields) {
         try {
-            Event e = (Event) new Event()
+            PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
+
+            Event event = (Event) new Event()
                     .withBaseEntityId(vaccine.getBaseEntityId())
                     .withIdentifiers(vaccine.getIdentifiers())
                     .withEventDate(vaccine.getDate())
@@ -1661,15 +1665,14 @@ public class JsonFormUtils {
                     JSONObject jsonObject = getJSONObject(fields, i);
                     String value = getString(jsonObject, VALUE);
                     if (StringUtils.isNotBlank(value)) {
-                        addObservation(e, jsonObject);
+                        addObservation(event, jsonObject);
                     }
                 }
 
-            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
-            if (e != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-                cloudantDataHandler.createEventDocument(event);
+            if (event != null) {
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                db.addEvent(event.getBaseEntityId(), eventJson);
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -1787,6 +1790,8 @@ public class JsonFormUtils {
                                            String jsonString, String providerId, String locationId, String entityId){
 
         try {
+            PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
+
             JSONObject jsonForm = new JSONObject(jsonString);
 
             JSONArray fields = fields(jsonForm);
@@ -1808,7 +1813,7 @@ public class JsonFormUtils {
                 }
             }
 
-            Event e = (Event) new Event()
+            Event event = (Event) new Event()
                     .withBaseEntityId(entityId)//should be different for main and subform
                     .withEventDate(encounterDate)
                     .withEventType(encounterType)
@@ -1822,7 +1827,7 @@ public class JsonFormUtils {
                 JSONObject jsonObject = getJSONObject(fields, i);
                 String value = getString(jsonObject, VALUE);
                 if (StringUtils.isNotBlank(value)) {
-                    addObservation(e, jsonObject);
+                    addObservation(event, jsonObject);
                 }
             }
 
@@ -1838,13 +1843,13 @@ public class JsonFormUtils {
                         if (entityVal != null) {
                             if (entityVal.equals(CONCEPT)) {
                                 addToJSONObject(jsonObject, KEY, key);
-                                addObservation(e, jsonObject);
+                                addObservation(event, jsonObject);
                             } else if (entityVal.equals(ENCOUNTER)) {
                                 String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
                                 if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
                                     Date eDate = formatDate(value, false);
                                     if (eDate != null) {
-                                        e.setEventDate(eDate);
+                                        event.setEventDate(eDate);
                                     }
                                 }
                             }
@@ -1853,11 +1858,11 @@ public class JsonFormUtils {
                 }
             }
 
-            CloudantDataHandler cloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
 
-            if (e != null) {
-                org.ei.opensrp.cloudant.models.Event event = new org.ei.opensrp.cloudant.models.Event(e);
-                cloudantDataHandler.createEventDocument(event);
+            if (event != null) {
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                db.addEvent(event.getBaseEntityId(), eventJson);
+
             }
 
         }catch (Exception e){

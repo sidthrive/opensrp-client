@@ -84,7 +84,7 @@ public class GlobalSearchUtils {
             }
 
         }
-        String uri = baseUrl + "/rest/search/search" + paramString;
+        String uri = baseUrl + "/rest/search/path" + paramString;
 
         Response<String> response = context.getHttpAgent().fetch(uri);
         return response;

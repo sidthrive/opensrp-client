@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.repository.VaccineRepository;
-import org.ei.opensrp.path.repository.WeightRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import util.JsonFormUtils;
+import util.PathConstants;
 import util.VaccinatorUtils;
 
 
@@ -51,7 +50,7 @@ public class VaccineIntentService extends IntentService {
         final String concept = "concept";
 
         try {
-            List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(24);
+            List<Vaccine> vaccines = vaccineRepository.findUnSyncedBeforeTime(PathConstants.VACCINE_SYNC_TIME);
             if (!vaccines.isEmpty()) {
                 for (Vaccine vaccine : vaccines) {
 
