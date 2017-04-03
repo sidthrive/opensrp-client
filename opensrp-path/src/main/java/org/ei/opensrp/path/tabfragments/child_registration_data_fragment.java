@@ -95,7 +95,11 @@ public class child_registration_data_fragment extends Fragment {
 
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian first name",Utils.getValue(childDetails.getColumnmaps(),"mother_first_name",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian last name",Utils.getValue(childDetails.getColumnmaps(),"mother_last_name",true)));
-        layout.addView(wd.createTableRow(inflater,container,"Mother/guardian DOB",Utils.getValue(Detailsmap,"Mother_Guardian_Date_Birth",true)));
+        String motherDob = Utils.getValue(Detailsmap,"Mother_Guardian_Date_Birth",true);
+        if (motherDob != null && motherDob.equals(JsonFormUtils.MOTHER_DEFAULT_DOB)) {
+            motherDob = "";
+        }
+        layout.addView(wd.createTableRow(inflater, container, "Mother/guardian DOB", motherDob));
 
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian NRC number",Utils.getValue(Detailsmap,"Mother_Guardian_NRC",true)));
         layout.addView(wd.createTableRow(inflater,container,"Mother/guardian phone number",Utils.getValue(Detailsmap,"Mother_Guardian_Number",true)));

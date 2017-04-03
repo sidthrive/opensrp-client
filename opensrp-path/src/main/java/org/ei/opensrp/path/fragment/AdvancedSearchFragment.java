@@ -809,6 +809,10 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
     }
 
+    public EditText getZeirId() {
+        return this.zeirId;
+    }
+
     ;
 
 }
