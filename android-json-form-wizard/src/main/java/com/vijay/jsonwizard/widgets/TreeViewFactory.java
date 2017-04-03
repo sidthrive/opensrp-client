@@ -62,6 +62,7 @@ public class TreeViewFactory implements FormWidgetFactory {
             editText.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
             editText.setTag(R.id.openmrs_entity, openMrsEntity);
             editText.setTag(R.id.openmrs_entity_id, openMrsEntityId);
+            editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
             if (jsonObject.has("v_required")) {
                 JSONObject requiredObject = jsonObject.optJSONObject("v_required");
                 String requiredValue = requiredObject.getString("value");
@@ -148,7 +149,6 @@ public class TreeViewFactory implements FormWidgetFactory {
             }
             if (constraints != null && context instanceof JsonApi) {
                 editText.setTag(R.id.constraints, constraints);
-                editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
                 ((JsonApi) context).addConstrainedView(editText);
             }
             editText.setTag(R.id.canvas_ids, canvasIds.toString());

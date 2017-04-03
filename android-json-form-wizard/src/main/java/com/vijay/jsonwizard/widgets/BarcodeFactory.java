@@ -62,6 +62,7 @@ public class BarcodeFactory implements FormWidgetFactory {
             JSONArray canvasIdsArray = new JSONArray();
             canvasIdsArray.put(canvasId);
             editText.setTag(R.id.canvas_ids, canvasIdsArray.toString());
+            editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
             editText.setFloatingLabelText(jsonObject.getString("hint"));
             editText.setId(ViewUtil.generateViewId());
             editText.setTag(R.id.key, jsonObject.getString("key"));
@@ -139,9 +140,10 @@ public class BarcodeFactory implements FormWidgetFactory {
             }
             if (constraints != null && context instanceof JsonApi) {
                 editText.setTag(R.id.constraints, constraints);
-                editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
                 ((JsonApi) context).addConstrainedView(editText);
             }
+
+            ((JsonApi) context).addFormDataView(editText);
 
             views.add(rootLayout);
         } catch (Exception e) {

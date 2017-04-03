@@ -3,6 +3,7 @@ package com.vijay.jsonwizard.widgets;
 import android.content.Context;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ import java.util.List;
  * Created by vijay on 24-05-2015.
  */
 public class EditTextFactory implements FormWidgetFactory {
-
+    private static final String TAG = "EditTextFactory";
     public static final int MIN_LENGTH = 0;
     public static final int MAX_LENGTH = 100;
     @Override
@@ -60,6 +61,7 @@ public class EditTextFactory implements FormWidgetFactory {
         editText.setTag(R.id.openmrs_entity, openMrsEntity);
         editText.setTag(R.id.openmrs_entity_id, openMrsEntityId);
         editText.setTag(R.id.type, jsonObject.getString("type"));
+        editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
 
         if (!TextUtils.isEmpty(jsonObject.optString("value"))) {
             editText.setText(jsonObject.optString("value"));
@@ -173,7 +175,6 @@ public class EditTextFactory implements FormWidgetFactory {
 
         if (constraints != null && context instanceof JsonApi) {
             editText.setTag(R.id.constraints, constraints);
-            editText.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
             ((JsonApi) context).addConstrainedView(editText);
         }
 

@@ -67,8 +67,8 @@
         "constraints": [
           {
             "type": "date",
-            "ex": "greaterThanEqualTo(step1:Date_Birth)",
-            "err": "Date first seen can't occur before date of birth"
+            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
+            "err": "Date of death can't occur before date of birth"
           }
         ]
       },
@@ -110,12 +110,7 @@
         "type": "date_picker",
         "hint": "Child's DOB",
         "read_only": true,
-        "relevance": {
-          "step1:Date_of_Death": {
-            "type": "string",
-            "ex": "equalTo(not found)"
-          }
-        }
+        "hidden": true
       }
     ]
   }

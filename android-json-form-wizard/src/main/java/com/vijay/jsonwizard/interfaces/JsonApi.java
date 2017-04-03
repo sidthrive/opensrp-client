@@ -43,6 +43,8 @@ public interface JsonApi {
 
     void addConstrainedView(View view);
 
+    void refreshHiddenViews();
+
     void refreshSkipLogic(String parentKey, String childKey);
 
     void addFormDataView(View view);

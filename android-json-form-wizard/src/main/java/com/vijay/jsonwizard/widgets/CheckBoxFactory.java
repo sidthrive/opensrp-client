@@ -68,6 +68,7 @@ public class CheckBoxFactory implements FormWidgetFactory {
             checkBox.setTag(R.id.openmrs_entity, openMrsEntity);
             checkBox.setTag(R.id.openmrs_entity_id, openMrsEntityId);
             checkBox.setTag(R.id.childKey, item.getString("key"));
+            checkBox.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
             //checkBox.setTextSize(context.getResources().getDimension(R.dimen.default_text_size));
             checkBox.setOnCheckedChangeListener(listener);
             checkboxLayout.setClickable(true);
@@ -100,7 +101,6 @@ public class CheckBoxFactory implements FormWidgetFactory {
             String constraints = item.optString("constraints");
             if (constraints != null && context instanceof JsonApi) {
                 checkBox.setTag(R.id.constraints, constraints);
-                checkBox.setTag(R.id.address, stepName + ":" + jsonObject.getString("key"));
                 ((JsonApi) context).addConstrainedView(checkBox);
             }
         }

@@ -221,6 +221,22 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
     }
 
     @Override
+    public void refreshHiddenViews() {
+        for (View curView : formDataViews) {
+            String addressString = (String) curView.getTag(R.id.address);
+            String[] address = addressString.split(":");
+            try {
+                JSONObject viewData = getObjectUsingAddress(address);
+                if(viewData.has("hidden") && viewData.getBoolean("hidden")) {
+                    toggleViewVisibility(curView, false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public void addSkipLogicView(View view) {
         skipLogicViews.put(getViewKey(view), view);
     }
@@ -292,29 +308,31 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                             }
                         }
                     }
-
-                    try {
-                        JSONArray canvasViewIds = new JSONArray((String) curView.getTag(R.id.canvas_ids));
-                        curView.setEnabled(ok);
-                        for (int i = 0; i < canvasViewIds.length(); i++) {
-                            int curId = canvasViewIds.getInt(i);
-                            View curCanvasView = findViewById(curId);
-                            if (ok) {
-                                curCanvasView.setEnabled(true);
-                                curCanvasView.setVisibility(View.VISIBLE);
-                            } else {
-                                curCanvasView.setEnabled(false);
-                                curCanvasView.setVisibility(View.GONE);
-                            }
-                        }
-                    } catch (JSONException e) {
-                        Log.e(TAG, Log.getStackTraceString(e));
-                    }
-
+                    toggleViewVisibility(curView, ok);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private void toggleViewVisibility(View view, boolean visible) {
+        try {
+            JSONArray canvasViewIds = new JSONArray((String) view.getTag(R.id.canvas_ids));
+            view.setEnabled(visible);
+            for (int i = 0; i < canvasViewIds.length(); i++) {
+                int curId = canvasViewIds.getInt(i);
+                View curCanvasView = findViewById(curId);
+                if (visible) {
+                    curCanvasView.setEnabled(true);
+                    curCanvasView.setVisibility(View.VISIBLE);
+                } else {
+                    curCanvasView.setEnabled(false);
+                    curCanvasView.setVisibility(View.GONE);
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
     }
 

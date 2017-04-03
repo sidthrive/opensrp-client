@@ -16,6 +16,7 @@ import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 import com.vijay.jsonwizard.interfaces.JsonApi;
+import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.ImageUtils;
 import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.views.JsonFormFragmentView;
@@ -42,15 +43,19 @@ public class ImagePickerFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.getString("openmrs_entity");
         String openMrsEntityId = jsonObject.getString("openmrs_entity_id");
         String relevance = jsonObject.optString("relevance");
+        JSONArray canvasIds = new JSONArray();
 
         List<View> views = new ArrayList<>(1);
         ImageView imageView = new ImageView(context);
+        imageView.setId(ViewUtil.generateViewId());
+        canvasIds.put(imageView.getId());
         imageView.setImageDrawable(context.getResources().getDrawable(R.mipmap.grey_bg));
         imageView.setTag(R.id.key, jsonObject.getString("key"));
         imageView.setTag(R.id.openmrs_entity_parent, openMrsEntityParent);
         imageView.setTag(R.id.openmrs_entity, openMrsEntity);
         imageView.setTag(R.id.openmrs_entity_id, openMrsEntityId);
         imageView.setTag(R.id.type, jsonObject.getString("type"));
+        imageView.setTag(R.id.address,  stepName + ":" + jsonObject.getString("key"));
         if (relevance != null && context instanceof JsonApi) {
             imageView.setTag(R.id.relevance, relevance);
             ((JsonApi) context).addSkipLogicView(imageView);
@@ -99,7 +104,6 @@ public class ImagePickerFactory implements FormWidgetFactory {
         params.setMargins(0, 0, 0, dp2px(context, 20));
         uploadButton.setLayoutParams(params);
 
-        JSONArray canvasIds = new JSONArray();
         uploadButton.setId(ViewUtil.generateViewId());
         canvasIds.put(uploadButton.getId());
         uploadButton.setTag(R.id.canvas_ids, canvasIds.toString());
