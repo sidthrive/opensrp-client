@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Event extends BaseDataObject{
-    public static final String PROGRAM_CLIENT_ID = "zeir_id";
 
     @JsonProperty
     private String eventId;
