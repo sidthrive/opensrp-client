@@ -55,7 +55,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     private static final int REQUEST_CODE_GET_JSON = 3432;
     private static final int REQUEST_CODE_RECORD_OUT_OF_CATCHMENT = 1131;
     private int currentPage;
-    private int advancedSearchPosition;
+    public static final int ADVANCED_SEARCH_POSITION = 1;
 
     private android.support.v4.app.Fragment mBaseFragment = null;
     private AdvancedSearchFragment advancedSearchFragment;
@@ -74,7 +74,6 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
         mBaseFragment = new ChildSmartRegisterFragment();
         advancedSearchFragment = new AdvancedSearchFragment();
         Fragment[] otherFragments = {new AdvancedSearchFragment()};
-        advancedSearchPosition = 1;
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new PathRegisterActivityPagerAdapter(getSupportFragmentManager(), mBaseFragment, otherFragments);
@@ -160,7 +159,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
 
     public void startAdvancedSearch() {
         try {
-            mPager.setCurrentItem(advancedSearchPosition, false);
+            mPager.setCurrentItem(ADVANCED_SEARCH_POSITION, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,7 +167,7 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
     }
 
     public void updateAdvancedSearchFilterCount(int count) {
-        AdvancedSearchFragment advancedSearchFragment = (AdvancedSearchFragment) findFragmentByPosition(advancedSearchPosition);
+        AdvancedSearchFragment advancedSearchFragment = (AdvancedSearchFragment) findFragmentByPosition(ADVANCED_SEARCH_POSITION);
         if(advancedSearchFragment != null){
             advancedSearchFragment.updateFilterCount(count);
         }

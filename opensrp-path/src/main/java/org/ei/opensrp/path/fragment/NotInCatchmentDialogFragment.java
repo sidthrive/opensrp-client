@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.BaseRegisterActivity;
+import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 
 /**
  * Created by Jason Rogena - jrogena@ona.io on 14/03/2017.
@@ -67,7 +69,15 @@ public class NotInCatchmentDialogFragment extends DialogFragment implements View
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.search_b) {
-
+            if (parentActivity instanceof ChildSmartRegisterActivity) {
+                this.dismiss();
+                ((ChildSmartRegisterActivity) parentActivity).startAdvancedSearch();
+                android.support.v4.app.Fragment currentFragment =
+                        ((ChildSmartRegisterActivity) parentActivity).
+                                findFragmentByPosition(ChildSmartRegisterActivity
+                                        .ADVANCED_SEARCH_POSITION);
+                ((AdvancedSearchFragment) currentFragment).getZeirId().setText(zeirId);
+            }
         } else if (v.getId() == R.id.record_b) {
             parentActivity.startFormActivity("out_of_catchment_service", zeirId, "");
         } else if (v.getId() == R.id.cancel_b) {
