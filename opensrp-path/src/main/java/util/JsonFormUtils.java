@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class JsonFormUtils {
     public static final String OPENMRS_ENTITY_PARENT = "openmrs_entity_parent";
     public static final String OPENMRS_CHOICE_IDS = "openmrs_choice_ids";
     public static final String OPENMRS_DATA_TYPE = "openmrs_data_type";
+    public static final String MOTHER_DEFAULT_DOB = "01-01-1960";
 
     private static final String PERSON_ATTRIBUTE = "person_attribute";
     private static final String PERSON_INDENTIFIER = "person_identifier";
@@ -165,6 +167,10 @@ public class JsonFormUtils {
                         }
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
+                    }
+                } else if (key.equals("Mother_Guardian_Date_Birth")) {
+                    if(TextUtils.isEmpty(fields.getJSONObject(i).optString("value"))) {
+                        fields.getJSONObject(i).put("value", MOTHER_DEFAULT_DOB);
                     }
                 }
             }
