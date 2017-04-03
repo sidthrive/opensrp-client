@@ -78,6 +78,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private boolean outOfArea = false;
     private AdvancedMatrixCursor matrixCursor;
 
+    private static final String INACTIVE = "inactive";
+    private static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
+
     private static final String ZEIR_ID = "zeir_id";
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
@@ -122,6 +125,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             switchViews(false);
             updateLocationText();
             updateSeachLimits();
+            resetForm();
         }
     }
 
@@ -161,9 +165,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         ImageView backButton = (ImageView) view.findViewById(R.id.back_button);
         backButton.setVisibility(View.VISIBLE);
 
-        searchCriteria = (TextView) view.findViewById(R.id.search_criteria);
-        searchCriteria.setVisibility(View.GONE);
-
         populateFormViews(view);
     }
 
@@ -194,11 +195,8 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     }
 
     private void populateFormViews(View view) {
+        searchCriteria = (TextView) view.findViewById(R.id.search_criteria);
         search = (Button) view.findViewById(R.id.search);
-        search.setOnClickListener(clientActionHandler);
-        search.setClickable(false);
-        search.setEnabled(false);
-
         searchLimits = (RadioGroup) view.findViewById(R.id.search_limits);
 
         active = (CheckBox) view.findViewById(R.id.active);
@@ -206,31 +204,59 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         lostToFollowUp = (CheckBox) view.findViewById(R.id.lost_to_follow_up);
 
         zeirId = (EditText) view.findViewById(R.id.zeir_id);
-        zeirId.addTextChangedListener(advancedSearchWatcher);
-
         firstName = (EditText) view.findViewById(R.id.first_name);
-        firstName.addTextChangedListener(advancedSearchWatcher);
-
         lastName = (EditText) view.findViewById(R.id.last_name);
-        lastName.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianName = (EditText) view.findViewById(R.id.mother_guardian_name);
-        motherGuardianName.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianNrc = (EditText) view.findViewById(R.id.mother_guardian_nrc);
-        motherGuardianNrc.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianPhoneNumber = (EditText) view.findViewById(R.id.mother_guardian_phone_number);
-        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchWatcher);
 
         startDate = (EditText) view.findViewById(R.id.start_date);
+        endDate = (EditText) view.findViewById(R.id.end_date);
+
+        resetForm();
+    }
+
+    private void resetForm() {
+        clearSearchCriteria();
+
+        search.setOnClickListener(clientActionHandler);
+        search.setClickable(false);
+        search.setEnabled(false);
+
+        active.setChecked(true);
+        inactive.setChecked(false);
+        lostToFollowUp.setChecked(false);
+
+        zeirId.setText("");
+        zeirId.addTextChangedListener(advancedSearchWatcher);
+
+        firstName.setText("");
+        firstName.addTextChangedListener(advancedSearchWatcher);
+
+        lastName.setText("");
+        lastName.addTextChangedListener(advancedSearchWatcher);
+
+        motherGuardianName.setText("");
+        motherGuardianName.addTextChangedListener(advancedSearchWatcher);
+
+        motherGuardianNrc.setText("");
+        motherGuardianNrc.addTextChangedListener(advancedSearchWatcher);
+
+        motherGuardianPhoneNumber.setText("");
+        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchWatcher);
+
+        startDate.setText("");
         startDate.addTextChangedListener(advancedSearchWatcher);
         setDatePicker(startDate);
 
-        endDate = (EditText) view.findViewById(R.id.end_date);
+        endDate.setText("");
         endDate.addTextChangedListener(advancedSearchWatcher);
         setDatePicker(endDate);
+    }
 
+    private void clearSearchCriteria() {
+        searchCriteria.setVisibility(View.GONE);
+        searchCriteria.setText("");
     }
 
     private void updateSeachLimits() {
@@ -248,36 +274,73 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (!search.isEnabled()) {
             return;
         }
+
+        String tableName = "ec_child";
+        String parentTableName = "ec_mother";
+
+        editMap.clear();
+
         String searchCriteriaString = "Search criteria: Include: ";
 
         if (searchLimits.getCheckedRadioButtonId() == R.id.out_and_inside) {
             outOfArea = true;
             searchCriteriaString += " \"Outside and Inside My Catchment Area\", ";
         } else {
+            outOfArea = false;
             searchCriteriaString += " \"My Catchment Area\", ";
         }
 
         boolean isActive = active.isChecked();
         boolean isInactive = inactive.isChecked();
-        boolean isLostToFollowUp = lostToFollowUp.isChecked();
 
-        if (isActive || isInactive || isLostToFollowUp) {
-            searchCriteriaString += " \" ";
+        if (!(isActive && isInactive)) {
+            boolean inActiveStatus = false;
             if (isActive) {
-                searchCriteriaString += "Active";
+                inActiveStatus = false;
+            } else if (isInactive) {
+                inActiveStatus = true;
             }
-            if (isInactive) {
-                searchCriteriaString += ", Inactive";
-            }
-            if (isLostToFollowUp) {
-                searchCriteriaString += ", Lost to Follow-up";
-            }
-            searchCriteriaString += "\"; ";
 
+            String inActiveKey = INACTIVE;
+            if (!outOfArea) {
+                inActiveKey = tableName + "." + INACTIVE;
+            }
+            editMap.put(inActiveKey, Boolean.toString(inActiveStatus));
         }
 
-        String tableName = "ec_child";
-        String parentTableName = "ec_mother";
+        boolean isLostToFollowUp = lostToFollowUp.isChecked();
+        if (isLostToFollowUp) {
+            String lostToFollowUpKey = LOST_TO_FOLLOW_UP;
+            if (!outOfArea) {
+                lostToFollowUpKey = tableName + "." + LOST_TO_FOLLOW_UP;
+            }
+            editMap.put(lostToFollowUpKey, Boolean.toString(isLostToFollowUp));
+        }
+
+        if (isActive || isInactive || isLostToFollowUp) {
+            String statusString = " \" ";
+            if (isActive) {
+                statusString += "Active";
+            }
+            if (isInactive) {
+                if (statusString.contains("ctive")) {
+                    statusString += ", Inactive";
+                } else {
+                    statusString += "Inactive";
+                }
+            }
+            if (isLostToFollowUp) {
+                if (statusString.contains("ctive")) {
+                    statusString += ", Lost to Follow-up";
+                } else {
+                    statusString += "Lost to Follow-up";
+                }
+            }
+            statusString += "\"; ";
+
+            searchCriteriaString += statusString;
+        }
+
 
         String zeirIdString = zeirId.getText().toString();
         if (StringUtils.isNotBlank(zeirIdString)) {
@@ -292,7 +355,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         String firstNameString = firstName.getText().toString();
         if (StringUtils.isNotBlank(firstNameString)) {
             searchCriteriaString += " First name: \"" + firstNameString + "\",";
-            String key = "name";//FIRST_NAME;
+            String key = FIRST_NAME;
             if (!outOfArea) {
                 key = tableName + "." + FIRST_NAME;
             }
@@ -441,8 +504,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
                     advancedSearchFragment.filterandSortInInitializeQueries();
                 }
-
-
             }
         };
 
@@ -561,9 +622,29 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             String value = entry.getValue();
             if (!key.equals(startDateKey) && !key.equals(endDateKey)) {
                 if (StringUtils.isBlank(mainConditionString)) {
-                    mainConditionString += " " + key + " Like '%" + value + "%'";
+                    if (key.contains(LOST_TO_FOLLOW_UP)) {
+                        mainConditionString += " " + key + " = '" + value + "'";
+                    } else if (key.contains(INACTIVE)) {
+                        if (value.equalsIgnoreCase("true")) {
+                            mainConditionString += " " + key + " = '" + value + "'";
+                        } else {
+                            mainConditionString += " (" + key + " = '" + value + "' OR " + key + " is null OR " + key + " = '')";
+                        }
+                    } else {
+                        mainConditionString += " " + key + " Like '%" + value + "%'";
+                    }
                 } else {
-                    mainConditionString += " AND " + key + " Like '%" + value + "%'";
+                    if (key.contains(LOST_TO_FOLLOW_UP)) {
+                        mainConditionString += " AND " + key + " = '" + value + "'";
+                    } else if (key.contains(INACTIVE)) {
+                        if (value.equalsIgnoreCase("true")) {
+                            mainConditionString += " AND " + key + " = '" + value + "'";
+                        } else {
+                            mainConditionString += " AND (" + key + " = '" + value + "' OR " + key + " is null OR " + key + " = '')";
+                        }
+                    } else {
+                        mainConditionString += " AND " + key + " Like '%" + value + "%'";
+                    }
                 }
             }
         }
@@ -602,6 +683,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             showProgressView();
             listMode = true;
         } else {
+            clearSearchCriteria();
             advancedSearchForm.setVisibility(View.VISIBLE);
             listViewLayout.setVisibility(View.GONE);
             clientsView.setVisibility(View.INVISIBLE);
