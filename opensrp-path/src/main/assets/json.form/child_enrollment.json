@@ -191,7 +191,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-1825",
+        "min_date": "today-5y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -207,7 +207,7 @@
         "type": "date_picker",
         "hint": "Date first seen *",
         "expanded": false,
-        "min_date": "today-1825",
+        "min_date": "today-5y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -291,7 +291,7 @@
           "label": "Age"
         },
         "min_date": "01-01-1900",
-        "max_date": "today-3650"
+        "max_date": "today-10y"
       },
       {
         "key": "Mother_Guardian_NRC",

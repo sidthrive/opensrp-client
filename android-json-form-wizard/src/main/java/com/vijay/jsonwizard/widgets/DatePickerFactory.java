@@ -345,15 +345,22 @@ public class DatePickerFactory implements FormWidgetFactory {
         if (dayString != null && dayString.trim().length() > 0) {
             dayString = dayString.trim().toLowerCase();
             if (!dayString.equals("today")) {
-                Pattern pattern = Pattern.compile("today\\s*([-\\+])\\s*(\\d+)");
+                Pattern pattern = Pattern.compile("today\\s*([-\\+])\\s*(\\d+)([dmyDMY]{1})");
                 Matcher matcher = pattern.matcher(dayString);
                 if (matcher.find()) {
-                    int noDays = Integer.parseInt(matcher.group(2));
+                    int timeValue = Integer.parseInt(matcher.group(2));
                     if (matcher.group(1).equals("-")) {
-                        noDays = noDays * -1;
+                        timeValue = timeValue * -1;
                     }
 
-                    calendarDate.add(Calendar.DATE, noDays);
+                    int field = Calendar.DATE;
+                    if (matcher.group(3).toLowerCase().equals("y")) {
+                        field = Calendar.YEAR;
+                    } else if (matcher.group(3).toLowerCase().equals("m")) {
+                        field = Calendar.MONTH;
+                    }
+
+                    calendarDate.add(field, timeValue);
                 } else {
                     try {
                         calendarDate.setTime(DATE_FORMAT.parse(dayString));
