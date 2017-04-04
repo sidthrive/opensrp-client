@@ -56,6 +56,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1368,9 +1369,12 @@ public class JsonFormUtils {
                     getFormJsonData(array, map.getJSONObject(curKey), allowedLevels);
                 }
             }
+
+            array = sortTreeViewQuestionOptions(array);
         } catch (JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
+
         if (withOtherOption) {
             try {
                 JSONObject other = new JSONObject();
@@ -2040,5 +2044,33 @@ public class JsonFormUtils {
         obs.setFieldDataType("deviceid");
         event.addObs(obs);
         return event;
+    }
+
+    /**
+     * This method sorts the options provided for a native form tree view question
+     *
+     * @return The sorted options
+     */
+    private static JSONArray sortTreeViewQuestionOptions(JSONArray treeViewOptions) throws JSONException {
+        JSONArray sortedTree = new JSONArray();
+
+        HashMap<String, JSONObject> sortMap = new HashMap<>();
+        for (int i = 0; i < treeViewOptions.length(); i++) {
+            sortMap.put(treeViewOptions.getJSONObject(i).getString("name"), treeViewOptions.getJSONObject(i));
+        }
+
+        ArrayList<String> sortedKeys = new ArrayList<>(sortMap.keySet());
+        Collections.sort(sortedKeys);
+
+        for (String curOptionName : sortedKeys) {
+            JSONObject curOption = sortMap.get(curOptionName);
+            if (curOption.has("nodes")) {
+                curOption.put("nodes", sortTreeViewQuestionOptions(curOption.getJSONArray("nodes")));
+            }
+
+            sortedTree.put(curOption);
+        }
+
+        return sortedTree;
     }
 }
