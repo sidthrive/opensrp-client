@@ -60,6 +60,10 @@
       {
         "name": "registrationDate",
         "bind": "/model/instance/penutupan_anak_mapped/today"
+      },
+      {
+        "name": "isClosed",
+        "value": "true"
       }
     ]
   }

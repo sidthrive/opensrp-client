@@ -101,7 +101,7 @@ public class GiziApplication extends DrishtiApplication {
 
     private String[] getFtsMainConditions(String tableName){
         if(tableName.equals("anak")){
-            String[] mainConditions = { "isClosed", "ibuCaseId" };
+            String[] mainConditions = { "isClosed", "ibuCaseId", "details" };
             return mainConditions;
         } else if(tableName.equals("ibu")){
             String[] mainConditions = { "isClosed", "type", "kartuIbuId" };

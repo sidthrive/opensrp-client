@@ -310,41 +310,6 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     }
 
-    /*@Override
-    public void startFormActivity(String formName, String entityId, String metaData) {
-       // Log.v("fieldoverride", metaData);
-        String start = timer.format(new Date());
-                        Map<String, String> FS = new HashMap<String, String>();
-                        FS.put("start", start);
-                        FlurryAgent.logEvent(formName,FS, true );
-        //FlurryFacade.logEvent(formName);
-        try {
-            int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
-            if (entityId != null || metaData != null){
-                String data = null;
-                //check if there is previously saved data for the form
-                data = getPreviouslySavedDataForForm(formName, metaData, entityId);
-                if (data == null){
-                    data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
-                }
-
-                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
-                if (displayFormFragment != null) {
-                    displayFormFragment.setFormData(data);
-                    displayFormFragment.loadFormData();
-                    displayFormFragment.setRecordId(entityId);
-                    displayFormFragment.setFieldOverides(metaData);
-                }
-            }
-
-            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }*/
-
     public void switchToBaseFragment(final String data) {
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -234,34 +235,47 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
 //        mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
 
+        Cursor demoCursor = context.commonrepository("anak").RawCustomQueryForAdapter(
+                new SmartRegisterQueryBuilder().dummyQuery("anak", "details not LIKE '%\"form_ditutup\"%'"));
+        demoCursor.moveToFirst();
+        while(!demoCursor.isAfterLast()){
+            for(int i=0;i<demoCursor.getColumnCount();i++){
+                System.out.println(demoCursor.getColumnName(i)+" : "+demoCursor.getString(i));
+            }
+            System.out.println();
+            demoCursor.moveToNext();
+        }
+        demoCursor.close();
+
         if (s == null || s.equals("!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
 //            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
-            mainCondition = "namaBayi !=''";
+            mainCondition = "namaBayi !='' AND ((isClosed IS NULL) OR isClosed = 'false') ";
         } else {
             Log.e(TAG, "initializeQueries: " + s);
-            mainCondition = "namaBayi !='' AND object_id LIKE '%" + s + "%'";
+            mainCondition = "namaBayi !='' AND ((isClosed IS NULL) OR isClosed = 'false') AND object_id LIKE '%" + s + "%'";
         }
 
 
-        countSelect = countqueryBUilder.mainCondition("details not LIKE '%\"form_ditutup\": \"yes\"\"%'");
+        countSelect = countqueryBUilder.mainCondition(mainCondition);
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("anak", new String[]{"anak.isClosed","anak.details","tanggalLahirAnak","namaBayi"});
-        mainSelect = queryBUilder.mainCondition(" details not LIKE '%\"form_ditutup\":yes\"\"%' ");
+        mainSelect = queryBUilder.mainCondition(mainCondition);
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
         currentoffset = 0;
+
+
 
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
         updateSearchView();
         refresh();
-
 
     }
 
@@ -440,7 +454,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //
 
                         filters = cs.toString();
-                        joinTable = "";
+                        joinTable = null;
                         mainCondition = "namaBayi !=''";
                         return null;
                     }
@@ -560,7 +574,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //
 
                             filters = cs.toString();
-                            joinTable = "";
+                            joinTable = null;
                             mainCondition = "nama_bayi !=''";
                             Log.e(TAG, "doInBackground: " + filters);
                             return null;
