@@ -443,7 +443,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                         filters = cs.toString();
                         joinTable = null;
-                        mainCondition = "namaBayi !=''";
+                        mainCondition = "namaBayi !='' AND ((isClosed IS NULL) OR isClosed = 'false')";
                         return null;
                     }
 
@@ -563,7 +563,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
                             filters = cs.toString();
                             joinTable = null;
-                            mainCondition = "nama_bayi !=''";
+                            mainCondition = "nama_bayi !='' AND ((isClosed IS NULL) OR isClosed = 'false')";
                             Log.e(TAG, "doInBackground: " + filters);
                             return null;
                         }
