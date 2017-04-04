@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -267,7 +269,7 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.confirm_form_close)
                 .setMessage(R.string.confirm_form_close_explanation)
                 .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -280,7 +282,9 @@ public class JsonFormActivity extends AppCompatActivity implements JsonApi {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 })
-                .show();
+                .create();
+
+        dialog.show();
     }
 
     @Override
