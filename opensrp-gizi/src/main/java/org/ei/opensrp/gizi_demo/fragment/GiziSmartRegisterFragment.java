@@ -235,18 +235,6 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         countqueryBUilder.SelectInitiateMainTableCounts("anak");
 //        mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
 
-        Cursor demoCursor = context.commonrepository("anak").RawCustomQueryForAdapter(
-                new SmartRegisterQueryBuilder().dummyQuery("anak", "details not LIKE '%\"form_ditutup\"%'"));
-        demoCursor.moveToFirst();
-        while(!demoCursor.isAfterLast()){
-            for(int i=0;i<demoCursor.getColumnCount();i++){
-                System.out.println(demoCursor.getColumnName(i)+" : "+demoCursor.getString(i));
-            }
-            System.out.println();
-            demoCursor.moveToNext();
-        }
-        demoCursor.close();
-
         if (s == null || s.equals("!")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
 //            mainCondition = "details not LIKE '%\"form_ditutup\":yes\"\"%'";
