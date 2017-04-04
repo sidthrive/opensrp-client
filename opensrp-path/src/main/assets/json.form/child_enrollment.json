@@ -68,7 +68,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Child's home health facility*",
+        "hint": "Child's home health facility *",
         "tree": [
           {
             "name": "Node 1",
@@ -109,9 +109,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "ZEIR_ID",
-        "type": "edit_text",
+        "type": "barcode",
+        "barcode_type": "qrcode",
         "hint": "Child's ZEIR ID",
-        "read_only": true,
+        "scanButtonText": "Scan QR Code",
         "value": "0",
         "v_numeric": {
           "value": "true",

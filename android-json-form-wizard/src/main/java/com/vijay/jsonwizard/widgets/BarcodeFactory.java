@@ -3,15 +3,18 @@ package com.vijay.jsonwizard.widgets;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.util.ViewUtil;
+import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.R;
 import com.vijay.jsonwizard.customviews.GenericTextWatcher;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -54,10 +57,12 @@ public class BarcodeFactory implements FormWidgetFactory {
             String relevance = jsonObject.optString("relevance");
             final String constraints = jsonObject.optString("constraints");
 
-            RelativeLayout rootLayout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.item_edit_text, null);
+            LinearLayout rootLayout = (LinearLayout) LayoutInflater.from(context)
+                    .inflate(R.layout.item_barcode, null);
             final int canvasId = ViewUtil.generateViewId();
             rootLayout.setId(canvasId);
-            final MaterialEditText editText = (MaterialEditText) rootLayout.findViewById(R.id.edit_text);
+            final MaterialEditText editText = (MaterialEditText) rootLayout
+                    .findViewById(R.id.edit_text);
             editText.setHint(jsonObject.getString("hint"));
             JSONArray canvasIdsArray = new JSONArray();
             canvasIdsArray.put(canvasId);
@@ -74,7 +79,8 @@ public class BarcodeFactory implements FormWidgetFactory {
                 String requiredValue = requiredObject.getString("value");
                 if (!TextUtils.isEmpty(requiredValue)) {
                     if (Boolean.TRUE.toString().equalsIgnoreCase(requiredValue)) {
-                        editText.addValidator(new RequiredValidator(requiredObject.getString("err")));
+                        editText.addValidator(
+                                new RequiredValidator(requiredObject.getString("err")));
                     }
                 }
             }
@@ -83,16 +89,11 @@ public class BarcodeFactory implements FormWidgetFactory {
                 editText.setText(jsonObject.optString("value"));
             }
 
-            if (jsonObject.has("read_only")) {
-                boolean readOnly = jsonObject.getBoolean("read_only");
-                editText.setEnabled(!readOnly);
-                editText.setFocusable(!readOnly);
-            }
-
             editText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
+                    launchBarcodeScanner((Activity) context, editText,
+                            jsonObject.optString("barcode_type"));
                 }
             });
 
@@ -123,15 +124,41 @@ public class BarcodeFactory implements FormWidgetFactory {
                 });
             }
 
-            GenericTextWatcher textWatcher = new GenericTextWatcher(stepName, formFragment, editText);
+            GenericTextWatcher textWatcher = new GenericTextWatcher(stepName,
+                    formFragment,
+                    editText);
             textWatcher.addOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                        launchBarcodeScanner((Activity) context, editText, jsonObject.optString("barcode_type"));
+                        launchBarcodeScanner((Activity) context, editText,
+                                jsonObject.optString("barcode_type"));
                     }
                 }
             });
+
+            Button scanButton = (Button) rootLayout.findViewById(R.id.scan_button);
+            scanButton.setText(jsonObject.getString("scanButtonText"));
+            scanButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    launchBarcodeScanner((Activity) context, editText,
+                            jsonObject.optString("barcode_type"));
+                }
+            });
+
+            if (jsonObject.has("read_only")) {
+                boolean readOnly = jsonObject.getBoolean("read_only");
+                editText.setEnabled(!readOnly);
+                editText.setFocusable(!readOnly);
+                if (readOnly) {
+                    scanButton.setBackgroundDrawable(new ColorDrawable(context.getResources()
+                            .getColor(android.R.color.darker_gray)));
+                    scanButton.setClickable(false);
+                    scanButton.setEnabled(false);
+                    scanButton.setFocusable(false);
+                }
+            }
 
             editText.addTextChangedListener(textWatcher);
             if (relevance != null && context instanceof JsonApi) {
@@ -154,7 +181,8 @@ public class BarcodeFactory implements FormWidgetFactory {
     }
 
     private void launchBarcodeScanner(Activity activity, MaterialEditText editText, String barcodeType) {
-        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(editText.getWindowToken(), HIDE_NOT_ALWAYS);
         IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
         if(barcodeType != null && barcodeType.equals(TYPE_QR)) {

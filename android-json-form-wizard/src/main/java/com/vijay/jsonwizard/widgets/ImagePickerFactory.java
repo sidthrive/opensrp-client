@@ -90,6 +90,13 @@ public class ImagePickerFactory implements FormWidgetFactory {
         views.add(imageView);
 
         uploadButton.setText(jsonObject.getString("uploadButtonText"));
+        uploadButton.setTextColor(context.getResources().getColor(android.R.color.white));
+        uploadButton.setTextSize(context.getResources().getDimension(R.dimen.button_text_size));
+        uploadButton.setPadding(
+                context.getResources().getDimensionPixelSize(R.dimen.button_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.button_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.button_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.button_padding));
         uploadButton.setLayoutParams(getLayoutParams(WRAP_CONTENT, WRAP_CONTENT, 0, 0, 0, (int) context
                 .getResources().getDimension(R.dimen.default_bottom_margin)));
         uploadButton.setOnClickListener(listener);

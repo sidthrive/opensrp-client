@@ -57,6 +57,7 @@
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "ZEIR ID *",
+        "scanButtonText": "Scan QR Code",
         "read_only": true,
         "value": "",
         "v_required": {

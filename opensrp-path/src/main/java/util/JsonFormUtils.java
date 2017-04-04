@@ -1980,7 +1980,7 @@ public class JsonFormUtils {
                     JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
                     for (int i = 0; i < fields.length(); i++) {
                         if(fields.getJSONObject(i).getString("key").equals("ZEIR_ID")) {
-                            fields.getJSONObject(i).put("read_only", false);
+                            fields.getJSONObject(i).put(READ_ONLY, false);
                             break;
                         }
                     }
