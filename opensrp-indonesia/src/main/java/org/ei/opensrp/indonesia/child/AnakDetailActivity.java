@@ -28,6 +28,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.ChildDetailActivity;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
@@ -106,8 +107,18 @@ public class AnakDetailActivity extends Activity {
         TextView pol4 = (TextView) findViewById(R.id.txt_tanggalpemberianimunisasiDPTHB3Polio4);
         TextView campak = (TextView) findViewById(R.id.txt_tanggalpemberianimunisasiCampak);
 
-
+//        TextView growthChartButton = (TextView)findViewById(R.id.chart_label);
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
+
+//        growthChartButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//                ChildDetailActivity.childclient = childclient;
+//                startActivity(new Intent(AnakDetailActivity.this, ChildDetailActivity.class));
+//                overridePendingTransition(0, 0);
+//            }
+//        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

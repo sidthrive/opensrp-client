@@ -558,13 +558,14 @@ public class Tools {
      * @param context
      */
 
-    public static void saveAndClose(android.content.Context context,
-                                    String entityId,
-                                    boolean updated,
-                                    FacialProcessing objFace,
-                                    int arrayPossition,
-                                    Bitmap storedBitmap,
-                                    String className) {
+    public static void saveAndClose(
+            android.content.Context context,
+            String entityId,
+            boolean updated,
+            FacialProcessing objFace,
+            int arrayPossition,
+            Bitmap storedBitmap,
+            String className) {
 
         byte[] faceVector;
 
@@ -700,7 +701,7 @@ public class Tools {
         idx3 = n / 218;
         idx4 = (1+n+128) % 256 - 128;
 
-        String[] newHeader = singleHeader.substring(1, headerNew.length() - 1).split(", ");
+        String[] newHeader = singleHeader.substring(1, singleHeader.length() - 1).split(", ");
 
         newHeader[0] = String.valueOf(idx0);
         newHeader[1] = String.valueOf(idx2);
