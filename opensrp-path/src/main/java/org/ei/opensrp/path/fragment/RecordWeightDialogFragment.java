@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +115,10 @@ public class RecordWeightDialogFragment extends DialogFragment {
             if (tag.getId() != null) {//image already in local storage most likey ):
                 //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
                 mImageView.setTag(org.ei.opensrp.R.id.entity_id, tag.getId());
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tag.getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, ImageUtils.profileImageResourceByGender(tag.getGender()), ImageUtils.profileImageResourceByGender(tag.getGender())));
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tag.getId(),
+                        OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView,
+                                ImageUtils.profileImageResourceByGender(tag.getGender()),
+                                ImageUtils.profileImageResourceByGender(tag.getGender())));
             }
         }
 

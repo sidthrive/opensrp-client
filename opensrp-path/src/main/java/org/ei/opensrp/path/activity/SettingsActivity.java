@@ -41,7 +41,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             Preference baseUrlPreference = findPreference("DRISHTI_BASE_URL");
             if (baseUrlPreference != null) {
-                Log.d("Settings", "Setting is not null");
                 EditTextPreference baseUrlEditTextPreference = (EditTextPreference) baseUrlPreference;
                 baseUrlEditTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
@@ -52,9 +51,6 @@ public class SettingsActivity extends PreferenceActivity {
                         return true;
                     }
                 });
-            } else
-            {
-                Log.d("Settings", "Setting is null");
             }
         }
 

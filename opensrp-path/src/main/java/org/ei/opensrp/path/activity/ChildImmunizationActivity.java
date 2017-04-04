@@ -334,7 +334,7 @@ public class ChildImmunizationActivity extends BaseActivity
     private void updateRecordWeightView(Weight weight) {
 
         String childName = constructChildName();
-        String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
+        String gender = getValue(childDetails.getColumnmaps(), "gender", true);
         String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
         if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
             childName = "B/o " + motherFirstName.trim();
