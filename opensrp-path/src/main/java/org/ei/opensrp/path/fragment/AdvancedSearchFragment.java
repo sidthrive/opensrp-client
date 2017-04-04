@@ -703,7 +703,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 int mMonth = mcurrentDate.get(Calendar.MONTH);
                 int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(Calendar.YEAR, selectedyear);

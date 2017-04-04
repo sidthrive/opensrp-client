@@ -112,7 +112,7 @@ public class DatePickerFactory implements FormWidgetFactory {
             Calendar date = getDate(editText.getText().toString());
             final android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(
                     context,
-                    AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
+                    AlertDialog.THEME_HOLO_LIGHT,
                     new android.app.DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
