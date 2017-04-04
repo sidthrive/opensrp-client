@@ -102,6 +102,10 @@
       {
         "name": "submissionDate",
         "bind": "/model/instance/registrasi_vaksinator/today"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
       }
     ]
   }
