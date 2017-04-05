@@ -1,5 +1,6 @@
 package util;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -15,6 +16,9 @@ import org.ei.opensrp.view.ProgressIndicator;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import static android.view.View.VISIBLE;
@@ -24,21 +28,12 @@ import static android.view.View.VISIBLE;
  */
 public class GlobalSearchUtils {
 
-    public static void backgroundSearch(final Map<String, String> map, final Listener<JSONArray> listener, final ProgressBar progressBar, final View searchButton) {
-        LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
-            @Override
-            public void setVisible() {
-                progressBar.setVisibility(VISIBLE);
-            }
+    public static void backgroundSearch(final Map<String, String> map, final Listener<JSONArray> listener, final ProgressBar progressBar) {
 
+        Utils.startAsyncTask(new AsyncTask<Void, Void, JSONArray>() {
             @Override
-            public void setInvisible() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-
-        task.doActionInBackground(new BackgroundAction<JSONArray>() {
-            public JSONArray actionToDoInBackgroundThread() {
+            protected JSONArray doInBackground(Void... params) {
+                publishProgress();
                 Response<String> response = globalSearch(map);
                 if (response.isFailure()) {
                     return null;
@@ -46,21 +41,24 @@ public class GlobalSearchUtils {
                     try {
                         JSONArray jsonArray = new JSONArray(response.payload());
                         return jsonArray;
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         Log.e(getClass().getName(), "", e);
                         return null;
                     }
-
                 }
             }
 
-            public void postExecuteInUIThread(JSONArray result) {
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                progressBar.setVisibility(VISIBLE);
+            }
+
+            @Override
+            protected void onPostExecute(JSONArray result) {
                 listener.onEvent(result);
-                if (searchButton != null) {
-                    searchButton.setEnabled(true);
-                }
+                progressBar.setVisibility(View.GONE);
             }
-        });
+        }, null);
     }
 
     public static Response<String> globalSearch(Map<String, String> map) {
@@ -72,7 +70,9 @@ public class GlobalSearchUtils {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
+
                 if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(value)) {
+                    value = urlEncode(value);
                     String param = key.trim() + "=" + value.trim();
                     if (StringUtils.isBlank(paramString)) {
                         paramString = "?" + param;
@@ -88,5 +88,13 @@ public class GlobalSearchUtils {
 
         Response<String> response = context.getHttpAgent().fetch(uri);
         return response;
+    }
+
+    private static String urlEncode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return value;
+        }
     }
 }
