@@ -676,6 +676,18 @@ public class ChildImmunizationActivity extends BaseActivity
         }
     }
 
+    private void showRecordWeightNotification() {
+        showNotification(R.string.record_weight_notification, R.string.record_weight,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        View recordWeight = findViewById(R.id.record_weight);
+                        showWeightDialog(recordWeight);
+                        hideNotification();
+                    }
+                });
+    }
+
     private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Pair<ArrayList<VaccineWrapper>, List<Vaccine>>> {
 
         private View view;
@@ -698,6 +710,11 @@ public class ChildImmunizationActivity extends BaseActivity
         protected void onPostExecute(Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair) {
             hideProgressDialog();
             updateVaccineGroupViews(view, pair.first, pair.second);
+            View recordWeight = findViewById(R.id.record_weight);
+            WeightWrapper weightWrapper = (WeightWrapper) recordWeight.getTag();
+            if (weightWrapper == null || weightWrapper.getWeight() == null) {
+                showRecordWeightNotification();
+            }
         }
 
         @Override
