@@ -184,4 +184,5 @@
     <string name="date_birth_range">Date of Birth Range</string>
     <string name="start_date_hint">Select start date</string>
     <string name="end_date_hint">Select end date</string>
+    <string name="record_weight_notification">"Don't forget to record child's weight"</string>
 </resources>

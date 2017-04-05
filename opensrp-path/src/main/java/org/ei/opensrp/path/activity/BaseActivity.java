@@ -24,8 +24,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -275,6 +278,9 @@ public abstract class BaseActivity extends AppCompatActivity
                 .findViewById(android.R.id.content)).getChildAt(0);
         viewGroup.setBackground(new ColorDrawable(getResources().getColor(lightSade)));
 
+        LinearLayout notification = (LinearLayout) findViewById(R.id.notification);
+        notification.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
+
         return new int[]{darkShade, normalShade, lightSade};
     }
 
@@ -290,6 +296,68 @@ public abstract class BaseActivity extends AppCompatActivity
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
+        }
+    }
+
+    protected void showNotification(int message, int positiveButtonText,
+                                    View.OnClickListener positiveButtonCLick) {
+        showNotification(getString(message), getString(positiveButtonText), positiveButtonCLick);
+    }
+
+    protected void showNotification(String message, String positiveButtonText,
+                                    View.OnClickListener positiveButtonOnClick) {
+        TextView notiMessage = (TextView) findViewById(R.id.noti_message);
+        notiMessage.setText(message);
+        Button notiPositiveButton = (Button) findViewById(R.id.noti_positive_button);
+        notiPositiveButton.setText(positiveButtonText);
+        notiPositiveButton.setOnClickListener(positiveButtonOnClick);
+
+        final LinearLayout notification = (LinearLayout) findViewById(R.id.notification);
+
+        if (notification.getVisibility() == View.GONE) {
+            Animation slideDownAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+            slideDownAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    notification.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            notification.clearAnimation();
+            notification.startAnimation(slideDownAnimation);
+        }
+    }
+
+    protected void hideNotification() {
+        final LinearLayout notification = (LinearLayout) findViewById(R.id.notification);
+        if (notification.getVisibility() == View.VISIBLE) {
+            Animation slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+            slideUpAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    notification.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            notification.startAnimation(slideUpAnimation);
         }
     }
 

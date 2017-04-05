@@ -11,6 +11,7 @@ import com.crashlytics.android.Crashlytics;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.path.BuildConfig;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.receiver.PathSyncBroadcastReceiver;
@@ -51,7 +52,9 @@ public class VaccinatorApplication extends DrishtiApplication {
 
         mInstance = this;
         context = Context.getInstance();
-        Fabric.with(this, new Crashlytics());
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(this, new Crashlytics());
+        }
         DrishtiSyncScheduler.setReceiverClass(PathSyncBroadcastReceiver.class);
 
         context = Context.getInstance();
@@ -167,12 +170,14 @@ public class VaccinatorApplication extends DrishtiApplication {
     }
 
     /**
-     * This method sets the Crashlytics user to whichever username was used to log in last
+     * This method sets the Crashlytics user to whichever username was used to log in last. It only
+     * does so if the app is not built for debugging
      *
      * @param context The user's context
      */
     public static void setCrashlyticsUser(Context context) {
-        if (context != null && context.userService() != null
+        if (!BuildConfig.DEBUG
+                && context != null && context.userService() != null
                 && context.userService().getAllSharedPreferences() != null) {
             Crashlytics.setUserName(context.userService().getAllSharedPreferences().fetchRegisteredANM());
         }
