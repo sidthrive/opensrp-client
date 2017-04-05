@@ -95,11 +95,6 @@ public class BidanHomeActivity extends SecuredActivity {
     private TextView kartuIbuPNCRegisterClientCountView;
     private TextView anakRegisterClientCountView;
     private TextView kohortKbCountView;
-//    public static CommonPersonObjectController kicontroller;
-//    public static CommonPersonObjectController anccontroller;
-//    public static CommonPersonObjectController kbcontroller;
-//    public static CommonPersonObjectController childcontroller;
-//    public static CommonPersonObjectController pnccontroller;
     public static int kicount;
 
     @Override
@@ -112,7 +107,8 @@ public class BidanHomeActivity extends SecuredActivity {
         FlurryAgent.logEvent("home_dashboard",Home, true );
 
         setContentView(R.layout.smart_registers_home_bidan);
-        navigationController = new NavigationControllerINA(this, anmController);
+//        navigationController = new NavigationControllerINA(this, anmController);
+        navigationController = new NavigationControllerINA(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -131,7 +127,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
-        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
+//        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
 
         ecRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_register_client_count);
         kartuIbuANCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_anc_register_client_count);
@@ -334,12 +330,12 @@ public class BidanHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
-                case R.id.btn_videos:
+//                case R.id.btn_videos:
 //                    navigationController.startVideos();
-                    break;
+//                    break;
             }
         }
     };
