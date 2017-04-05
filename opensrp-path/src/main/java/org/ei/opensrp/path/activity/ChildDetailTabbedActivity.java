@@ -1000,6 +1000,9 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
             //update details
             details = detailsRepository.getAllDetailsForClient(childDetails.entityId());
+            if(childDetails.getColumnmaps().containsKey(attributeName)){
+                childDetails.getColumnmaps().put(attributeName,attributeValue.toString());
+            }
             details.putAll(childDetails.getColumnmaps());
 
 
