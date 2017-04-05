@@ -1,4 +1,4 @@
-package com.thedevices.id;
+package org.opensrp.id;
 
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ihealth.communication.control.Bp3lControl;
 import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
+import com.opensrp.id.R;
 
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener{

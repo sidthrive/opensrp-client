@@ -1,6 +1,5 @@
 rootProject.name = 'opensrp-app-parent'
 
-
 include ':opensrp-app',
         ':opensrp-drishti',
         ':opensrp-mcare',
@@ -8,7 +7,7 @@ include ':opensrp-app',
         ':opensrp-vaccinator',
         ':opensrp-gizi',
         ':opensrp-vaksinator',
-        ':opensrp-devices', ':thedevice'
+        ':opensrp-devices'
 /*
 include ':opensrp-app', ':opensrp-drishti', ':opensrp-gizi', 'opensrp-indonesia'
 */

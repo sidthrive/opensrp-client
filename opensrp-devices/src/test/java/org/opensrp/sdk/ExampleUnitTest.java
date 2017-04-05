@@ -1,4 +1,4 @@
-package com.thedevices.sdk;
+package org.opensrp.sdk;
 
 import org.junit.Test;
 
