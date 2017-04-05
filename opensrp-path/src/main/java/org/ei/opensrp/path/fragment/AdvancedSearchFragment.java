@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
@@ -31,6 +34,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
+import org.ei.opensrp.path.adapter.AdvancedSearchPaginatedCursorAdapter;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.json.JSONArray;
@@ -56,12 +60,12 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private CheckBox active;
     private CheckBox inactive;
     private CheckBox lostToFollowUp;
-    private EditText zeirId;
-    private EditText firstName;
-    private EditText lastName;
-    private EditText motherGuardianName;
-    private EditText motherGuardianNrc;
-    private EditText motherGuardianPhoneNumber;
+    private MaterialEditText zeirId;
+    private MaterialEditText firstName;
+    private MaterialEditText lastName;
+    private MaterialEditText motherGuardianName;
+    private MaterialEditText motherGuardianNrc;
+    private MaterialEditText motherGuardianPhoneNumber;
     private EditText startDate;
     private EditText endDate;
 
@@ -96,6 +100,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private static final String START_DATE = "start_date";
     private static final String END_DATE = "end_date";
 
+    AdvancedSearchPaginatedCursorAdapter clientAdapter;
 
     @Override
 
@@ -133,7 +138,8 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     public void setupViews(View view) {
         super.setupViews(view);
 
-        listViewLayout = view.findViewById(R.id.list_view_layout);
+        listViewLayout = view.findViewById(R.id.advanced_search_list);
+        listViewLayout.setVisibility(View.GONE);
         advancedSearchForm = view.findViewById(R.id.advanced_search_form);
 
         ImageButton imageButton = (ImageButton) view.findViewById(R.id.global_search);
@@ -188,7 +194,11 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     ((ChildSmartRegisterActivity) getActivity()).filterSelection();
                     break;
                 case R.id.search:
-                    search();
+                    if (editedList.isEmpty()) {
+                        Toast.makeText(getActivity(), getString(R.string.update_search_params), Toast.LENGTH_LONG).show();
+                    } else {
+                        search();
+                    }
                     break;
             }
         }
@@ -203,15 +213,35 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         inactive = (CheckBox) view.findViewById(R.id.inactive);
         lostToFollowUp = (CheckBox) view.findViewById(R.id.lost_to_follow_up);
 
-        zeirId = (EditText) view.findViewById(R.id.zeir_id);
-        firstName = (EditText) view.findViewById(R.id.first_name);
-        lastName = (EditText) view.findViewById(R.id.last_name);
-        motherGuardianName = (EditText) view.findViewById(R.id.mother_guardian_name);
-        motherGuardianNrc = (EditText) view.findViewById(R.id.mother_guardian_nrc);
-        motherGuardianPhoneNumber = (EditText) view.findViewById(R.id.mother_guardian_phone_number);
+        zeirId = (MaterialEditText) view.findViewById(R.id.zeir_id);
+        firstName = (MaterialEditText) view.findViewById(R.id.first_name);
+        lastName = (MaterialEditText) view.findViewById(R.id.last_name);
+        motherGuardianName = (MaterialEditText) view.findViewById(R.id.mother_guardian_name);
+        motherGuardianNrc = (MaterialEditText) view.findViewById(R.id.mother_guardian_nrc);
+        motherGuardianPhoneNumber = (MaterialEditText) view.findViewById(R.id.mother_guardian_phone_number);
 
         startDate = (EditText) view.findViewById(R.id.start_date);
         endDate = (EditText) view.findViewById(R.id.end_date);
+
+        //Add listeners
+        if (!search.hasOnClickListeners()) {
+            search.setOnClickListener(clientActionHandler);
+        }
+        //search.setClickable(false);
+        //search.setEnabled(false);
+
+        zeirId.addTextChangedListener(advancedSearchWatcher);
+        firstName.addTextChangedListener(advancedSearchWatcher);
+        lastName.addTextChangedListener(advancedSearchWatcher);
+        motherGuardianName.addTextChangedListener(advancedSearchWatcher);
+        motherGuardianNrc.addTextChangedListener(advancedSearchWatcher);
+        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchWatcher);
+
+        startDate.addTextChangedListener(advancedSearchWatcher);
+        setDatePicker(startDate);
+
+        endDate.addTextChangedListener(advancedSearchWatcher);
+        setDatePicker(endDate);
 
         resetForm();
     }
@@ -219,39 +249,19 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private void resetForm() {
         clearSearchCriteria();
 
-        search.setOnClickListener(clientActionHandler);
-        search.setClickable(false);
-        search.setEnabled(false);
-
         active.setChecked(true);
         inactive.setChecked(false);
         lostToFollowUp.setChecked(false);
 
         zeirId.setText("");
-        zeirId.addTextChangedListener(advancedSearchWatcher);
-
         firstName.setText("");
-        firstName.addTextChangedListener(advancedSearchWatcher);
-
         lastName.setText("");
-        lastName.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianName.setText("");
-        motherGuardianName.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianNrc.setText("");
-        motherGuardianNrc.addTextChangedListener(advancedSearchWatcher);
-
         motherGuardianPhoneNumber.setText("");
-        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchWatcher);
 
         startDate.setText("");
-        startDate.addTextChangedListener(advancedSearchWatcher);
-        setDatePicker(startDate);
-
         endDate.setText("");
-        endDate.addTextChangedListener(advancedSearchWatcher);
-        setDatePicker(endDate);
     }
 
     private void clearSearchCriteria() {
@@ -440,14 +450,22 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         setTablename(tableName);
         ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
                 clientActionHandler, context().alertService(), VaccinatorApplication.getInstance().vaccineRepository(), VaccinatorApplication.getInstance().weightRepository());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
+        clientAdapter = new AdvancedSearchPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
+
+        SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
+        countqueryBUilder.SelectInitiateMainTableCounts(getTablename());
+        countSelect = countqueryBUilder.mainCondition("");
 
     }
 
     private void localSearch() {
 
         initListMode();
+
+        CountExecute();
+
+        refresh();
 
         filterandSortInInitializeQueries();
     }
@@ -456,89 +474,37 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
         initListMode();
 
-        final AdvancedSearchFragment advancedSearchFragment = this;
+        if (editMap.containsKey(START_DATE) || editMap.containsKey(END_DATE)) {
 
+            Date date0 = new Date(0);
+            String startDate = DateUtil.yyyyMMdd.format(date0);
 
-        final Listener<JSONArray> listener = new Listener<JSONArray>() {
-            public void onEvent(final JSONArray jsonArray) {
+            Date now = new Date();
+            String endDate = DateUtil.yyyyMMdd.format(now);
 
-
-                String[] columns = new String[]{"_id", "relationalid", FIRST_NAME, "middle_name", LAST_NAME, "gender", "dob", ZEIR_ID, "epi_card_number", MOTHER_GUARDIAN_FIRST_NAME, MOTHER_GUARDIAN_LAST_NAME};
-                matrixCursor = new AdvancedMatrixCursor(columns);
-
-                if (jsonArray != null) {
-                    int len = jsonArray.length();
-                    for (int i = 0; i < len; i++) {
-                        JSONObject client = getJsonObject(jsonArray, i);
-
-                        String entityId = getJsonString(client, "baseEntityId");
-                        String firstName = getJsonString(client, "firstName");
-                        String middleName = getJsonString(client, "middleName");
-                        String lastName = getJsonString(client, "lastName");
-
-                        String gender = getJsonString(client, "gender");
-                        String dob = getJsonString(client, "birthdate");
-                        if (StringUtils.isNotBlank(dob) && StringUtils.isNumeric(dob)) {
-                            try {
-                                Long dobLong = Long.valueOf(dob);
-                                Date date = new Date(dobLong);
-                                dob = DateUtil.yyyyMMddTHHmmssSSSZ.format(date);
-                            } catch (Exception e) {
-                                Log.e(getClass().getName(), e.toString(), e);
-                            }
-                        }
-                        String zeirId = getJsonString(getJsonObject(client, "identifiers"), JsonFormUtils.ZEIR_ID);
-                        String epiCardNumber = getJsonString(getJsonObject(client, "attributes"), "Child_Register_Card_Number");
-
-                        String motherFirstName = "";
-                        String motherLastName = "";
-
-                        if (client.has("mother")) {
-                            JSONObject mother = getJsonObject(client, "mother");
-                            motherFirstName = getJsonString(mother, "firstName");
-                            motherLastName = getJsonString(mother, "lastName");
-                        }
-
-                        matrixCursor.addRow(new Object[]{entityId, null, firstName, middleName, lastName, gender, dob, zeirId, epiCardNumber, motherFirstName, motherLastName});
-                    }
-
-                    advancedSearchFragment.filterandSortInInitializeQueries();
-                }
+            if (editMap.containsKey(START_DATE)) {
+                startDate = editMap.remove(START_DATE);
             }
-        };
+            if (editMap.containsKey(END_DATE)) {
+                endDate = editMap.remove(END_DATE);
+            }
 
-        globalSearch(listener, clientsProgressView, null);
-    }
-
-    private void globalSearch(Listener<JSONArray> listener, ProgressBar progressBar, Button button) {
-        Date date0 = new Date(0);
-        String startDate = DateUtil.yyyyMMdd.format(date0);
-
-        Date now = new Date();
-        String endDate = DateUtil.yyyyMMdd.format(now);
-
-        if (editMap.containsKey(START_DATE)) {
-            startDate = editMap.remove(START_DATE);
-        }
-        if (editMap.containsKey(END_DATE)) {
-            endDate = editMap.remove(END_DATE);
+            String bDate = startDate + ":" + endDate;
+            editMap.put(BIRTH_DATE, bDate);
         }
 
-        String bDate = startDate + ":" + endDate;
-        editMap.put(BIRTH_DATE, bDate);
-
-        GlobalSearchUtils.backgroundSearch(editMap, listener, progressBar, button);
+        GlobalSearchUtils.backgroundSearch(editMap, listener, clientsProgressView);
     }
 
     @Override
     public void CountExecute() {
+
         Cursor c = null;
 
         try {
+
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-            String query = "";
-            sqb.addCondition("");
-            query = sqb.orderbyCondition("");
+            String query = sqb.mainCondition(getMainConditionString(getTablename()));
             query = sqb.Endquery(query);
 
             Log.i(getClass().getName(), query);
@@ -559,7 +525,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     }
 
     public String filterandSortQuery() {
-        String tableName = "ec_child";
+        String tableName = getTablename();
         String parentTableName = "ec_mother";
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -585,12 +551,15 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                                 tableName + ".provider_id",
                                 tableName + ".provider_location_id",
                                 tableName + ".client_reg_date",
-                                tableName + ".last_interacted_with"
+                                tableName + ".last_interacted_with",
+                                tableName + ".inactive",
+                                tableName + ".lost_to_follow_up"
                         }
 
         );
         queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
-        return queryBUilder.mainCondition(getMainConditionString(tableName));
+        String query = queryBUilder.mainCondition(getMainConditionString(tableName));
+        return queryBUilder.Endquery(queryBUilder.addlimitandOffset(query, currentlimit, currentoffset));
     }
 
     @Override
@@ -627,8 +596,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     } else if (key.contains(INACTIVE)) {
                         if (value.equalsIgnoreCase("true")) {
                             mainConditionString += " " + key + " = '" + value + "'";
-                        } else {
-                            mainConditionString += " (" + key + " = '" + value + "' OR " + key + " is null OR " + key + " = '')";
                         }
                     } else {
                         mainConditionString += " " + key + " Like '%" + value + "%'";
@@ -639,8 +606,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     } else if (key.contains(INACTIVE)) {
                         if (value.equalsIgnoreCase("true")) {
                             mainConditionString += " AND " + key + " = '" + value + "'";
-                        } else {
-                            mainConditionString += " AND (" + key + " = '" + value + "' OR " + key + " is null OR " + key + " = '')";
                         }
                     } else {
                         mainConditionString += " AND " + key + " Like '%" + value + "%'";
@@ -740,14 +705,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                         if (!outOfArea) {
                             String query = filterandSortQuery();
                             Cursor cursor = commonRepository().RawCustomQueryForAdapter(query);
-                            totalcount = cursor.getCount();
-                            Log.v("total count here", "" + totalcount);
-                            currentlimit = 20;
-                            currentoffset = 0;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    refresh();
                                     hideProgressView();
                                 }
 
@@ -764,6 +724,16 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 // An invalid id was passed in
                 return null;
         }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        clientAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        clientAdapter.swapCursor(null);
     }
 
     protected TextWatcher advancedSearchWatcher = new TextWatcher() {
@@ -805,19 +775,19 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 editedList.add(editTextId);
             }
 
-            if (search != null && !search.isEnabled()) {
+            /*if (search != null && !search.isEnabled()) {
                 search.setEnabled(true);
                 search.setClickable(true);
-            }
+            }*/
         } else {
             if (editedList.contains(editTextId)) {
                 editedList.remove(editTextId);
             }
 
-            if (editedList.isEmpty() && search != null && search.isEnabled()) {
+            /*if (editedList.isEmpty() && search != null && search.isEnabled()) {
                 search.setEnabled(false);
                 search.setClickable(false);
-            }
+            }*/
         }
     }
 
@@ -876,7 +846,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
     }
 
-    private class AdvancedMatrixCursor extends net.sqlcipher.MatrixCursor {
+    public class AdvancedMatrixCursor extends net.sqlcipher.MatrixCursor {
         public AdvancedMatrixCursor(String[] columnNames) {
             super(columnNames);
         }
@@ -895,6 +865,88 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         return this.zeirId;
     }
 
-    ;
+    final Listener<JSONArray> listener = new Listener<JSONArray>() {
+        public void onEvent(final JSONArray jsonArray) {
+
+
+            String[] columns = new String[]{"_id", "relationalid", FIRST_NAME, "middle_name", LAST_NAME, "gender", "dob", ZEIR_ID, "epi_card_number", MOTHER_GUARDIAN_FIRST_NAME, MOTHER_GUARDIAN_LAST_NAME, "inactive", "lost_to_follow_up"};
+            matrixCursor = new AdvancedMatrixCursor(columns);
+
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i = 0; i < len; i++) {
+                    String entityId = "";
+                    String firstName = "";
+                    String middleName = "";
+                    String lastName = "";
+                    String gender = "";
+                    String dob = "";
+                    String zeirId = "";
+                    String epiCardNumber = "";
+                    String inactive = "";
+                    String lostToFollowUp = "";
+
+                    JSONObject client = getJsonObject(jsonArray, i);
+                    if (client == null) {
+                        continue;
+                    }
+
+                    if (client.has("child")) {
+                        JSONObject child = getJsonObject(client, "child");
+                        entityId = getJsonString(child, "baseEntityId");
+                        firstName = getJsonString(child, "firstName");
+                        middleName = getJsonString(child, "middleName");
+                        lastName = getJsonString(child, "lastName");
+
+                        gender = getJsonString(child, "gender");
+                        dob = getJsonString(child, "birthdate");
+                        if (StringUtils.isNotBlank(dob) && StringUtils.isNumeric(dob)) {
+                            try {
+                                Long dobLong = Long.valueOf(dob);
+                                Date date = new Date(dobLong);
+                                dob = DateUtil.yyyyMMddTHHmmssSSSZ.format(date);
+                            } catch (Exception e) {
+                                Log.e(getClass().getName(), e.toString(), e);
+                            }
+                        }
+                        zeirId = getJsonString(getJsonObject(child, "identifiers"), JsonFormUtils.ZEIR_ID);
+                        if (StringUtils.isNotBlank(zeirId)) {
+                            zeirId = zeirId.replace("-", "");
+                        }
+
+                        epiCardNumber = getJsonString(getJsonObject(child, "attributes"), "Child_Register_Card_Number");
+
+                        inactive = getJsonString(getJsonObject(child, "attributes"), "inactive");
+                        lostToFollowUp = getJsonString(getJsonObject(child, "attributes"), "lost_to_follow_up");
+
+                    }
+
+
+                    String motherFirstName = "";
+                    String motherLastName = "";
+
+                    if (client.has("mother")) {
+                        JSONObject mother = getJsonObject(client, "mother");
+                        motherFirstName = getJsonString(mother, "firstName");
+                        motherLastName = getJsonString(mother, "lastName");
+                    }
+
+                    matrixCursor.addRow(new Object[]{entityId, null, firstName, middleName, lastName, gender, dob, zeirId, epiCardNumber, motherFirstName, motherLastName, inactive, lostToFollowUp});
+                }
+            }
+
+            totalcount = matrixCursor.getCount();
+            Log.v("total count here", "" + totalcount);
+            currentlimit = 20;
+            if (totalcount > 0) {
+                currentlimit = totalcount;
+            }
+            currentoffset = 0;
+
+            refresh();
+
+            filterandSortInInitializeQueries();
+        }
+    };
 
 }

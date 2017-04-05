@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nested_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:scrollbars="vertical">
 
     <LinearLayout
@@ -38,7 +38,7 @@
                 <RadioButton
                     android:id="@+id/out_and_inside"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
@@ -52,7 +52,7 @@
                 <RadioButton
                     android:id="@+id/my_catchment"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
@@ -76,7 +76,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -85,7 +85,7 @@
             <CheckBox
                 android:id="@+id/active"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.85"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
@@ -97,7 +97,7 @@
             <CheckBox
                 android:id="@+id/inactive"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.85"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
@@ -109,7 +109,7 @@
             <CheckBox
                 android:id="@+id/lost_to_follow_up"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.3"
                 android:backgroundTint="@color/white"
                 android:buttonTint="@color/light_blue"
@@ -122,157 +122,133 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/zeir_id"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/zeir_id"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/zeir_id_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/zeir_id"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/first_name"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/first_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/first_name"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/last_name"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/last_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/last_name"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/mother_guardian_name"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mother_guardian_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_name_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/mother_guardian_name"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/mother_guardian_nrc"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mother_guardian_nrc"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_nrc_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/mother_guardian_nrc"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="@string/mother_guardian_phone_number"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/advanced_search_label_size" />
-
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/mother_guardian_phone_number"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mother_guardian_phone_number_hint"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textColor="@color/client_list_grey"
                 android:textColorHint="@color/light_grey"
-                android:textSize="@dimen/advanced_search_text_size" />
+                android:textSize="@dimen/advanced_search_text_size"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="@string/mother_guardian_phone_number"
+                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                app:met_primaryColor="@color/light_blue"
+                app:met_singleLineEllipsis="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -303,6 +279,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="@string/start_date_hint"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/client_list_grey"
                     android:textColorHint="@color/light_grey"
@@ -315,6 +292,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="@string/end_date_hint"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/client_list_grey"
                     android:textColorHint="@color/light_grey"
@@ -337,6 +315,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/advanced_search_bg"
+                android:imeOptions="actionDone"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="@string/search"
                 android:textAllCaps="false"
                 android:textAppearance="?android:textAppearanceSmall"

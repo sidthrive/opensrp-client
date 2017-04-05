@@ -409,7 +409,7 @@ public class Utils {
                     JsonObject je = e.getAsJsonObject();
                     return new DateTime(je.get("iMillis").getAsLong());
                 } else if (e.isJsonPrimitive()) {
-                    return new DateTime(e.getAsLong());
+                    return new DateTime(e.getAsString());
                 } else return null;
             }
 

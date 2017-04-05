@@ -98,5 +98,6 @@ dependencies {
         transitive = true;
     }
     compile 'id.zelory:compressor:1.0.4'
+    compile 'com.twotoasters.SectionCursorAdapter:library:1.0.+'
     //compile 'com.github.vijayrawatsan:android-json-form-wizard:1.1.1-SNAPSHOT'
 }

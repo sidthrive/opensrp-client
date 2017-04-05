@@ -190,14 +190,14 @@
           "column_name":"inactive",
           "type":"Client",
           "json_mapping":{
-            "field":"identifiers.Inactive"
+            "field":"identifiers.inactive"
           }
         },
         {
           "column_name":"lost_to_follow_up",
           "type":"Client",
           "json_mapping":{
-            "field":"identifiers.Lost_to_Follow_Up"
+            "field":"identifiers.lost_to_follow_up"
           }
         },
         {
