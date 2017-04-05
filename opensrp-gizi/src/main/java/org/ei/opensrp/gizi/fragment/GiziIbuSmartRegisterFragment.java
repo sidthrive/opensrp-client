@@ -224,7 +224,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
                 mainCondition = "ec_ibu.is_closed = 0 AND pptest ='Positive' ";
             } else {
                 Log.e(TAG, "initializeQueries: " + s);
-                mainCondition = "ec_ibu.is_closed = 0 AND pptest ='Positive' AND object_id LIKE '%" + s + "%'";
+                mainCondition = "ec_ibu.is_closed = 0 AND pptest ='Positive' AND ec_ibu.id LIKE '%" + s + "%'";
             }
 
             joinTable = "";

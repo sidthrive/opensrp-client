@@ -67,7 +67,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
             Tools mTools = new Tools(context());
 
-//            Tools.download_images();
+            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
 
             Tools.setVectorsBuffered();
