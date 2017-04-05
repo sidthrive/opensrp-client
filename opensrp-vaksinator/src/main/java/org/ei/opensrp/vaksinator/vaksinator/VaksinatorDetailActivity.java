@@ -183,7 +183,7 @@ public class VaksinatorDetailActivity extends Activity {
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
+        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? transformToddmmyyyy(controller.getDetails().get("namaAyah") : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
                 ? controller.getDetails().get("namaIbu")
                 : controller.getDetails().get("nama_orang_tua")!=null
@@ -203,7 +203,7 @@ public class VaksinatorDetailActivity extends Activity {
         );
 */
 
-        dateOfBirth.setText(": " + (controller.getColumnmaps().get("tanggalLahirAnak") != null ? controller.getColumnmaps().get("tanggalLahirAnak").substring(0,10) : "-"));
+        dateOfBirth.setText(": " + (controller.getColumnmaps().get("tanggalLahirAnak") != null ? transformToddmmyyyy(controller.getColumnmaps().get("tanggalLahirAnak").substring(0,10)) : "-"));
         birthWeight.setText(": " + (controller.getDetails().get("beratLahir") != null
                                     ? Double.toString(Integer.parseInt(controller.getDetails()
                                                         .get("beratLahir"))/1000)
@@ -211,26 +211,26 @@ public class VaksinatorDetailActivity extends Activity {
                                     : "-"));
         antipiretik.setText(": " + (controller.getDetails().get("antipiretik") != null ? yesNo(controller.getDetails().get("antipiretik").toLowerCase().contains("y")) : "-"));
 
-        hb1Under7.setText(": " + (hasDate(controller,"hb0")
+        hb1Under7.setText(": " + transformToddmmyyyy(hasDate(controller,"hb0")
                 ? controller.getDetails().get("hb0")
                 : hasDate(controller,"hb1_kurang_7_hari")
                     ? controller.getDetails().get("hb1_kurang_7_hari")
                     :"-"));
 
-        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? controller.getDetails().get("bcg") : "-"));
-        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? controller.getDetails().get("polio1") : "-"));
-        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? controller.getDetails().get("dptHb1") : "-"));
-        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? controller.getDetails().get("polio2") : "-"));
-        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? controller.getDetails().get("dptHb2") : "-"));
-        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? controller.getDetails().get("polio3") : "-"));
-        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? controller.getDetails().get("dptHb3") : "-"));
-        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? controller.getDetails().get("polio4") : "-"));
-        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? controller.getDetails().get("ipv") : "-"));
-        measles.setText(": " + (controller.getDetails().get("campak") != null ? controller.getDetails().get("campak") : "-"));
+        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? transformToddmmyyyy(controller.getDetails().get("bcg")) : "-"));
+        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? transformToddmmyyyy(controller.getDetails().get("polio1")) : "-"));
+        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb1")) : "-"));
+        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? transformToddmmyyyy(controller.getDetails().get("polio2")) : "-"));
+        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb2")) : "-"));
+        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? transformToddmmyyyy(controller.getDetails().get("polio3")) : "-"));
+        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb3")) : "-"));
+        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? transformToddmmyyyy(controller.getDetails().get("polio4")) : "-"));
+        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? transformToddmmyyyy(controller.getDetails().get("ipv")) : "-"));
+        measles.setText(": " + (controller.getDetails().get("campak") != null ? transformToddmmyyyy(controller.getDetails().get("campak")) : "-"));
 
         complete.setText(": " + yesNo(isComplete()));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
 
 
         String mgender = controller.getDetails().containsKey("gender") ? controller.getDetails().get("gender"):"laki";
@@ -344,5 +344,13 @@ public class VaksinatorDetailActivity extends Activity {
         return (Integer.parseInt(date2.substring(0,3)) - Integer.parseInt(date1.substring(0,3)))*360
                 + (Integer.parseInt(date2.substring(5,7)) - Integer.parseInt(date1.substring(5,7)))*30
                 + (Integer.parseInt(date2.substring(8)) - Integer.parseInt(date1.substring(8)));
+    }
+
+    public String transformToddmmyyyy(String date){
+        if(date.length()>3) {
+            if (date.charAt(4) == '-')
+                date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
+        }
+        return date;
     }
 }
