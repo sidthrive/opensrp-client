@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,6 +59,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import util.DateUtils;
 import util.ImageUtils;
@@ -362,6 +365,7 @@ public class ChildImmunizationActivity extends BaseActivity
         if (weight != null) {
             weightWrapper.setWeight(weight.getKg());
             weightWrapper.setDbKey(weight.getId());
+            weightWrapper.setUpdatedWeightDate(new DateTime(weight.getDate()), false);
         }
 
         updateRecordWeightView(weightWrapper);
@@ -369,6 +373,15 @@ public class ChildImmunizationActivity extends BaseActivity
 
     private void updateRecordWeightView(WeightWrapper weightWrapper) {
         View recordWeight = findViewById(R.id.record_weight);
+        recordWeight.setClickable(true);
+        recordWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showWeightDialog(view);
+            }
+        });
+
+        recordWeight.setBackground(getResources().getDrawable(R.drawable.record_weight_bg));
         if (weightWrapper.getDbKey() != null && weightWrapper.getWeight() != null) {
             String weight = weightWrapper.getWeight().toString();
             TextView recordWeightText = (TextView) findViewById(R.id.record_weight_text);
@@ -376,15 +389,21 @@ public class ChildImmunizationActivity extends BaseActivity
 
             ImageView recordWeightCheck = (ImageView) findViewById(R.id.record_weight_check);
             recordWeightCheck.setVisibility(View.VISIBLE);
+
+            if (weightWrapper.getUpdatedWeightDate() != null) {
+                long timeDiff = Calendar.getInstance().getTimeInMillis()
+                        - weightWrapper.getUpdatedWeightDate().getMillis();
+
+                if (timeDiff < TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) {
+                    //disable the button
+                    recordWeight.setClickable(false);
+                    recordWeight.setBackground(new ColorDrawable(getResources()
+                            .getColor(android.R.color.transparent)));
+                }
+            }
         }
 
         recordWeight.setTag(weightWrapper);
-        recordWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showWeightDialog(view);
-            }
-        });
 
     }
 

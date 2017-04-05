@@ -1,6 +1,7 @@
 package org.ei.opensrp.path.provider;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         convertView.findViewById(R.id.child_profile_info_layout).setOnClickListener(onClickListener);
 
         View recordWeight = convertView.findViewById(R.id.record_weight);
+        recordWeight.setBackground(context.getResources().getDrawable(R.drawable.record_weight_bg));
         recordWeight.setTag(client);
         recordWeight.setOnClickListener(onClickListener);
 
@@ -137,6 +139,8 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             recordWeightCheck.setVisibility(View.VISIBLE);
 
             recordWeight.setClickable(false);
+            recordWeight.setBackground(new ColorDrawable(context.getResources()
+                    .getColor(android.R.color.transparent)));
         } else {
             TextView recordWeightText = (TextView) convertView.findViewById(R.id.record_weight_text);
             recordWeightText.setText(context.getString(R.string.record_weight_with_nl));
