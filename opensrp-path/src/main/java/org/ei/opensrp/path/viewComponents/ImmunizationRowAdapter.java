@@ -98,7 +98,13 @@ public class ImmunizationRowAdapter extends BaseAdapter {
                 vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 
-                updateWrapper(vaccineWrapper);
+//                updateWrapper(vaccineWrapper);
+//                vaccineCard.setVaccineWrapper(vaccineWrapper);
+//
+//                vaccineCards.put(vaccineName, vaccineCard);
+//                vaccineGroup.toggleRecordAllTV();
+                vaccineGroup.updateWrapper(vaccineWrapper);
+                vaccineGroup.updateWrapperStatus(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 
                 vaccineCards.put(vaccineName, vaccineCard);
@@ -113,10 +119,18 @@ public class ImmunizationRowAdapter extends BaseAdapter {
         return null;
     }
 
-    public void update() {
+    public void update(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         if (vaccineCards != null) {
-            for (ImmunizationRowCard curCard : vaccineCards.values()) {
-                if (curCard != null) curCard.updateState();
+            if (vaccinesToUpdate == null) {// Update all vaccines
+                for (ImmunizationRowCard curCard : vaccineCards.values()) {
+                    if (curCard != null) curCard.updateState();
+                }
+            } else {// Update just the vaccines specified
+                for (VaccineWrapper currWrapper : vaccinesToUpdate) {
+                    if (vaccineCards.containsKey(currWrapper.getName())) {
+                        vaccineCards.get(currWrapper.getName()).updateState();
+                    }
+                }
             }
         }
     }

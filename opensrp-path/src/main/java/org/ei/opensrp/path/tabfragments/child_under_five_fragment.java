@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
@@ -25,6 +26,7 @@ import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -45,6 +47,7 @@ import java.util.TreeMap;
 
 import util.DateUtils;
 import util.Utils;
+import util.VaccinateActionUtils;
 
 
 public class child_under_five_fragment extends Fragment  {
@@ -60,6 +63,9 @@ public class child_under_five_fragment extends Fragment  {
     private static final String VACCINES_FILE = "vaccines.json";
     private static final String DIALOG_TAG = "ChildImmunoActivity_DIALOG_TAG";
     private Map<String, String> Detailsmap;
+    private AlertService alertService;
+    private List<Alert> alertList;
+    private VaccineRepository vaccineRepository;
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -88,8 +94,10 @@ public class child_under_five_fragment extends Fragment  {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+        vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+        alertService = Context.getInstance().alertService();
+
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
 
@@ -177,6 +185,7 @@ public class child_under_five_fragment extends Fragment  {
         }
 
             vaccineGroups = new ArrayList<>();
+            vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
             LinearLayout vaccineGroupCanvasLL = new LinearLayout(getActivity());
             vaccineGroupCanvasLL.setOrientation(LinearLayout.VERTICAL);
             v.addView(vaccineGroupCanvasLL,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -186,13 +195,17 @@ public class child_under_five_fragment extends Fragment  {
             title.setTextColor(getResources().getColor(R.color.text_black));
             title.setText("Immunisations");
             vaccineGroupCanvasLL.addView(title);
+        if (alertService != null) {
+            alertList = alertService.findByEntityIdAndAlertNames(childDetails.entityId(),
+                    VaccinateActionUtils.allAlertNames("child"));
+        }
 
         String supportedVaccinesString = readAssetContents(VACCINES_FILE);
             try {
                 JSONArray supportedVaccines = new JSONArray(supportedVaccinesString);
                 for (int i = 0; i < supportedVaccines.length(); i++) {
                     ImmunizationRowGroup curGroup = new ImmunizationRowGroup(getActivity(),editmode);
-                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails, vaccineList);
+                    curGroup.setData(supportedVaccines.getJSONObject(i), childDetails, vaccineList,alertList);
                     curGroup.setOnVaccineUndoClickListener(new ImmunizationRowGroup.OnVaccineUndoClickListener() {
                         @Override
                         public void onUndoClick(ImmunizationRowGroup vaccineGroup, VaccineWrapper vaccine) {
@@ -253,4 +266,8 @@ public class child_under_five_fragment extends Fragment  {
         VaccinationEditDialogFragment vaccinationDialogFragment = VaccinationEditDialogFragment.newInstance(getActivity(), vaccineWrappers, vaccineGroup);
         vaccinationDialogFragment.show(ft, DIALOG_TAG);
     }
+    public void setAlertService(AlertService alertService) {
+        this.alertService = alertService;
+    }
+
 }

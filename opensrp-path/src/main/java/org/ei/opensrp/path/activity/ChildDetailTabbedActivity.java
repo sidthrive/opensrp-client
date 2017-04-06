@@ -52,6 +52,7 @@ import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.ChildDetailsToolbar;
 import org.ei.opensrp.path.view.LocationPickerView;
+import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -734,14 +735,20 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         if (tag != null) {
 
             if (tag.getDbKey() != null) {
-                VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+                final VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
                 Long dbKey = tag.getDbKey();
+                vaccineRepository.deleteVaccine(dbKey);
+
                 tag.setUpdatedVaccineDate(null, false);
                 tag.setRecordedDate(null);
                 tag.setDbKey(null);
 
-                vaccineRepository.deleteVaccine(dbKey);
-                updateVaccineGroupViews(view);
+
+                List<Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+
+                ArrayList<VaccineWrapper> wrappers = new ArrayList<>();
+                wrappers.add(tag);
+                updateVaccineGroupViews(view, wrappers, vaccineList, true);
             }
         }
     }
@@ -913,6 +920,34 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 @Override
                 public void run() {
                     vaccineGroup.updateViews();
+                }
+            });
+        }
+    }
+    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
+        if (view == null || !(view instanceof ImmunizationRowGroup)) {
+            return;
+        }
+        final ImmunizationRowGroup vaccineGroup = (ImmunizationRowGroup) view;
+        vaccineGroup.setModalOpen(false);
+
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            if(undo){
+                vaccineGroup.setVaccineList(vaccineList);
+                vaccineGroup.updateWrapperStatus(wrappers);
+            }
+            vaccineGroup.updateViews(wrappers);
+
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(undo){
+                        vaccineGroup.setVaccineList(vaccineList);
+                        vaccineGroup.updateWrapperStatus(wrappers);
+                    }
+                    vaccineGroup.updateViews(wrappers);
                 }
             });
         }

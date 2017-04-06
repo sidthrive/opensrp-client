@@ -124,21 +124,20 @@ public class ImmunizationRowCard extends LinearLayout {
                     }
                 }
 
-                /*
-                Calendar today = Calendar.getInstance();
-                today.set(Calendar.HOUR_OF_DAY, 0);
-                today.set(Calendar.MINUTE, 0);
-                today.set(Calendar.SECOND, 0);
-                today.set(Calendar.MILLISECOND, 0);
-                if (dateDue.getTime() > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    // Vaccination due more than one day from today
-                    this.state = State.NOT_DUE;
-                } else if (dateDue.getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
-                    // Vaccination overdue
-                    this.state = State.OVERDUE;
-                } else {
-                    this.state = State.DUE;
-                } */
+//                Calendar today = Calendar.getInstance();
+//                today.set(Calendar.HOUR_OF_DAY, 0);
+//                today.set(Calendar.MINUTE, 0);
+//                today.set(Calendar.SECOND, 0);
+//                today.set(Calendar.MILLISECOND, 0);
+//                if (getDateDue().getTime() > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
+//                    // Vaccination due more than one day from today
+//                    this.state = State.NOT_DUE;
+//                } else if (getDateDue().getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
+//                    // Vaccination overdue
+//                    this.state = State.OVERDUE;
+//                } else {
+//                    this.state = State.DUE;
+//                }
             }
         }
 
@@ -190,8 +189,8 @@ public class ImmunizationRowCard extends LinearLayout {
                 break;
             case DONE_CAN_BE_UNDONE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
-//                statusIV.setBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-                statusIV.setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
+                statusIV.setBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+//                statusIV.setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
                 if(editmode) {
                     undoB.setVisibility(VISIBLE);
                 }else{
@@ -205,8 +204,8 @@ public class ImmunizationRowCard extends LinearLayout {
                 break;
             case DONE_CAN_NOT_BE_UNDONE:
                 setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
-//                statusIV.setBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-                statusIV.setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
+                statusIV.setBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+//                statusIV.setBackgroundDrawable(getResources().getDrawable(R.drawable.vaccine_card_background_white));
                 if(editmode) {
                     undoB.setVisibility(VISIBLE);
                 }else{
