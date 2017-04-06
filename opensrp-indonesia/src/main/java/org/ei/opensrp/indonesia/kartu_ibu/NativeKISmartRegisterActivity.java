@@ -80,7 +80,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         String KIStart = timer.format(new Date());
-        Map<String, String> KI = new HashMap<String, String>();
+        Map<String, String> KI = new HashMap<>();
         KI.put("start", KIStart);
         FlurryAgent.logEvent("KI_dashboard", KI, true);
         
@@ -100,12 +100,8 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 nf.setCriteria(base_id);
                 mBaseFragment = new NativeKISmartRegisterFragment();
 
-//                CommonPersonObject cpo = new CommonPersonObject(base_id, null, null, null);
-//                CommonPersonObjectClient pc = new CommonPersonObjectClient(base_id, null, null);
-//                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
-//                final CommonPersonObject ibuparent = iburep.findByCaseID(pc.entityId());
-
                 Log.e(TAG, "onCreate: id " + base_id);
+
                 showToast("id "+base_id);
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
                 builder.setTitle("Is it Right Person ?");
@@ -383,13 +379,15 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
+                Log.e(TAG, "onClick: YES "+currentPage);
 
             } else {
                 nf.setCriteria("");
-                onBackPressed();
-
-                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+                Log.e(TAG, "onClick: NO "+currentPage);
+//                onBackPressed();
+//
+//                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
             }
 //            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
 

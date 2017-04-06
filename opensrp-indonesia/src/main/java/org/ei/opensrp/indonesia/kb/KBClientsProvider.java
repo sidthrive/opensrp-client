@@ -21,6 +21,7 @@ import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -59,7 +60,7 @@ public class KBClientsProvider implements SmartRegisterCLientsProviderForCursorA
         clientViewLayoutParams = new AbsListView.LayoutParams(MATCH_PARENT,
                 (int) context.getResources().getDimension(org.ei.opensrp.R.dimen.list_item_height));
         txtColorBlack = context.getResources().getColor(org.ei.opensrp.R.color.text_black);
-        mImageLoader = BidanApplication.getInstance().getCachedImageLoaderInstance();
+        mImageLoader = DrishtiApplication.getCachedImageLoaderInstance();
 
     }
 
@@ -101,8 +102,8 @@ public class KBClientsProvider implements SmartRegisterCLientsProviderForCursorA
             viewHolder.follow_status = (TextView) convertView.findViewById(R.id. follow_status);
             viewHolder.follow_due = (TextView) convertView.findViewById(R.id. follow_up_due);
 
-            viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
-            viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
+            viewHolder.profilepic =(ImageView) convertView.findViewById(R.id.img_profile);
+            viewHolder.follow_up = (ImageButton) convertView.findViewById(R.id.btn_edit);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
@@ -139,7 +140,7 @@ public class KBClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }
         //end profile image
 

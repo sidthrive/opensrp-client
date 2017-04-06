@@ -110,6 +110,7 @@ public class Tools {
     }
 
 
+
     public void setAlbumBuffer(String albumBuffer) {
         this.albumBuffer = albumBuffer;
     }
@@ -145,14 +146,6 @@ public class Tools {
             fos.close();
             Log.e(TAG, "Wrote image to " + pictureFile);
 
-//            MediaScannerConnection.scanFile(context, new String[]{
-//                            pictureFile.toString()}, null,
-//                    new MediaScannerConnection.OnScanCompletedListener() {
-//                        public void onScanCompleted(String path, Uri uri) {
-//                            Log.i("ExternalStorage", "Scanned " + path + ":");
-//                            Log.i("ExternalStorage", "-> uri=" + uri);
-//                        }
-//                    });
             String photoPath = pictureFile.toString();
             Log.e(TAG, "Photo Path = " + photoPath);
 
@@ -632,9 +625,11 @@ public class Tools {
             origin_class = AnakDetailActivity.class;
         }
 
+        // TODO Crash saved after long time no use
+        if (appContext == null) {
+        }
         Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         appContext.applicationContext().startActivity(resultIntent);
 
         Log.e(TAG, "saveAndClose: " + "end");

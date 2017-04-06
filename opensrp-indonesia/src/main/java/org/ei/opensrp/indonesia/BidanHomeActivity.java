@@ -65,7 +65,7 @@ public class BidanHomeActivity extends SecuredActivity {
             }
             updateRegisterCounts();
 
-            Tools mTools = new Tools(context());
+            new Tools(context());
 
             Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());

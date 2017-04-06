@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
@@ -44,8 +42,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
 
 public class ImageConfirmation extends Activity {
 
@@ -175,7 +171,7 @@ public class ImageConfirmation extends Activity {
                         // Default name is the person is unknown
                         selectedPersonName = "Not Identified";
                         while (iter.hasNext()) {
-                            Log.e(TAG, "In");
+                            Log.e(TAG, "process_img: Identified" );
                             HashMap.Entry<String, String> entry = iter.next();
                             if (entry.getValue().equals(selectedPersonId)) {
                                 selectedPersonName = entry.getKey();
@@ -244,17 +240,8 @@ public class ImageConfirmation extends Activity {
 
     public void showDetailUser(String selectedPersonName) {
 
-        AllCommonsRepository ibuRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        CommonPersonObject kiclient = ibuRepository.findByCaseID(selectedPersonName);
-
-//        Log.e(TAG, "onCreate: IbuRepo "+ibuRepository );
-//        Log.e(TAG, "onCreate: Id "+selectedPersonName );
-//        Log.e(TAG, "onCreate: KiClient "+kiclient.getCaseId() );
-
+        Log.e(TAG, "showDetailUser: " );
         Class<?> origin_class = this.getClass();
-
-//        Log.e(TAG, "showDetailUser: "+ origin_class.getSimpleName() );
-//        Log.e(TAG, "showDetailUser: "+ str_origin_class);
 
         if(str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())){
             origin_class = NativeKISmartRegisterActivity.class;
@@ -308,8 +295,6 @@ public class ImageConfirmation extends Activity {
 
                 } else {
                     Log.e(TAG, "onClick: not identify ");
-//                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-//                    Cursor cursor = getApplicationContext().
                     // TODO: detect origin class
                     KIDetailActivity.kiclient = (CommonPersonObjectClient) arg0.getTag();
                     Log.e(TAG, "onClick: " + KIDetailActivity.kiclient);
