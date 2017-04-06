@@ -98,7 +98,13 @@ public class ImmunizationRowAdapter extends BaseAdapter {
                 vaccineWrapper.setPatientNumber(zeirId);
                 vaccineWrapper.setPatientName(getValue(vaccineGroup.getChildDetails().getColumnmaps(), "first_name", true) + " " + getValue(vaccineGroup.getChildDetails().getColumnmaps(), "last_name", true));
 
-                updateWrapper(vaccineWrapper);
+//                updateWrapper(vaccineWrapper);
+//                vaccineCard.setVaccineWrapper(vaccineWrapper);
+//
+//                vaccineCards.put(vaccineName, vaccineCard);
+//                vaccineGroup.toggleRecordAllTV();
+                vaccineGroup.updateWrapper(vaccineWrapper);
+                vaccineGroup.updateWrapperStatus(vaccineWrapper);
                 vaccineCard.setVaccineWrapper(vaccineWrapper);
 
                 vaccineCards.put(vaccineName, vaccineCard);
