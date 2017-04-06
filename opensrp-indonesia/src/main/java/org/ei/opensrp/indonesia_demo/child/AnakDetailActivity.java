@@ -272,7 +272,7 @@ public class AnakDetailActivity extends Activity {
     public void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
         Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(), anmId, entityid, "Image", details.get("profilepic"), ImageRepository.TYPE_Unsynced, "dp");
+        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(), anmId, entityid, "Image", details.get("profilepic"), ImageRepository.TYPE_Unsynced, "dp", null, null);
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                childclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();

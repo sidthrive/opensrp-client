@@ -12,6 +12,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
+import org.ei.opensrp.indonesia_demo.face.camera.util.Tools;
 import org.ei.opensrp.indonesia_demo.lib.FlurryFacade;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
@@ -53,8 +54,23 @@ public class BidanHomeActivity extends SecuredActivity {
                 updateMenuItem.setActionView(null);
             }
             updateRegisterCounts();
+
+            facialRecognitionInit();
         }
     };
+
+    private void facialRecognitionInit() {
+
+
+        new Tools(context);
+
+//        Tools.download_images();
+//        Tools.setVectorfromAPI(getApplicationContext());
+
+        Tools.setVectorsBuffered();
+
+
+    }
 
     private Listener<String> onFormSubmittedListener = new Listener<String>() {
         @Override

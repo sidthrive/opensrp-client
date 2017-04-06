@@ -95,6 +95,18 @@ public class LoginActivity extends Activity {
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.indonesia_demo.R.color.action_bar_background));
         setLanguage();
 
+        debugApp();
+
+    }
+
+    private void debugApp(){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.login, null);
+        if (context.userService().hasARegisteredUser()){
+            localLogin(view, "demo1", "Satu2345");
+        } else {
+            remoteLogin(view, "demo1", "Satu2345");
+        }
     }
 
     @Override

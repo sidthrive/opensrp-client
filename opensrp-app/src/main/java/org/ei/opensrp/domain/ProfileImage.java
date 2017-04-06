@@ -8,8 +8,11 @@ public class ProfileImage {
     private  String filepath;
     private  String syncStatus;
     private String filecategory;
+    // FR
+    private String filevector;
+    private String bfrstatus;
 
-    public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory) {
+    public ProfileImage(String imageid, String anmId, String entityID, String contenttype, String filepath, String syncStatus, String filecategory, String filevector, String bfrStatus) {
         this.imageid = imageid;
         this.entityID = entityID;
         this.anmId = anmId;
@@ -17,6 +20,12 @@ public class ProfileImage {
         this.filepath = filepath;
         this.syncStatus = syncStatus;
         this.filecategory = filecategory;
+        this.filevector = filevector;
+        this.bfrstatus = bfrStatus;
+    }
+
+    public ProfileImage() {
+
     }
 
     public String getFilecategory() {
@@ -73,5 +82,18 @@ public class ProfileImage {
 
     public void setSyncStatus(String syncStatus) {
         this.syncStatus = syncStatus;
+    }
+
+    // FR
+    public String getFilevector() {
+        return filevector;
+    }
+
+    public void setFilevector(String filevector) {
+        this.filevector = filevector;
+    }
+
+    public byte[] getBfrstatus() {
+        return new byte[0];
     }
 }

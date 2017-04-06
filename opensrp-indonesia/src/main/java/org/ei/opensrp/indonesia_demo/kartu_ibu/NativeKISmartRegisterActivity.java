@@ -82,7 +82,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 builder.setTitle("Is it Right Clients ?");
                 builder.setMessage("Process Time : " + proc_time + " s");
                 builder.setNegativeButton("CANCEL", listener);
-                builder.setPositiveButton("YES",                         new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // do all your stuff here

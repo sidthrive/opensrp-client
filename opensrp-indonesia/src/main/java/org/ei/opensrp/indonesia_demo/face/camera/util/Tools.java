@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia_demo.face.camera.util;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,10 +21,14 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia_demo.child.AnakDetailActivity;
 import org.ei.opensrp.indonesia_demo.face.camera.ClientsList;
+import org.ei.opensrp.indonesia_demo.face.camera.ImageConfirmation;
 import org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity;
 //import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.indonesia_demo.kartu_ibu.KIDetailActivity;
@@ -34,7 +39,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,66 +54,30 @@ public class Tools {
     private static final String TAG = Tools.class.getSimpleName();
     public static final int CONFIDENCE_VALUE = 58;
     private static String bindobject;
+    private static ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+    private static Context appContext;
+    private static HashMap<String, String> hash;
+    private static ProfileImage profileImage = new ProfileImage();
+    private static String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+
     private Canvas canvas = null;
     SmartShutterActivity ss = new SmartShutterActivity();
     ClientsList cl = new ClientsList();
     private static String photoPath;
 
-    public static boolean SavePictureToFile(android.content.Context context, Bitmap bitmap, String entityId) {
-        for (int i = 0; i < 2; i++) {
-            File pictureFile = getOutputMediaFile(i, entityId);
-
-            if (pictureFile == null) {
-                Log.e(TAG, "Error creating media file, check path permissions!");
-                return false;
-            }
-
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                fos.close();
-                Log.e(TAG, "Wrote image to " + pictureFile);
-
-                MediaScannerConnection.scanFile(context,
-                        new String[]{pictureFile.toString()}, null,
-                        new MediaScannerConnection.OnScanCompletedListener() {
-                            public void onScanCompleted(String path, Uri uri) {
-                                Log.i("ExternalStorage", "Scanned " + path + ":");
-                                Log.i("ExternalStorage", "-> uri=" + uri);
-                            }
-                        });
-                String photoPath = pictureFile.toString();
-                Log.e(TAG, "Photo Path = " + photoPath);
-
-//            Database
-//                DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
-
-//                Long tsLong = System.currentTimeMillis()/1000;
-//                detailsRepository.add(entityId, "profilepic"+i, photoPath, tsLong);
-
-//            kiclient.getDetails().get("profilepic");
-
-                return true;
-
-            } catch (FileNotFoundException e) {
-                Log.d(TAG, "File not found: " + e.getMessage());
-            } catch (IOException e) {
-                Log.d(TAG, "Error accessing file: " + e.getMessage());
-            }
-
-            if (i == 1) {
-                final int THUMBSIZE = FaceConstants.THUMBSIZE;
-                Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(""),
-                        THUMBSIZE, THUMBSIZE);
-            }
+    static String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
+    private static String headerOne = emptyAlbum;
+    static String singleHeader = "[76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0]";
 
 
-        }
-        return false;
+    public Tools(Context context) {
+        this.appContext = context;
     }
 
-    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, String bind_name) {
+    public Tools() {
+    }
+
+    public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
         File thumbs_photo = getOutputMediaFile(1, entityId);
@@ -121,14 +93,6 @@ public class Tools {
             fos.close();
             Log.e(TAG, "Wrote image to " + pictureFile);
 
-            MediaScannerConnection.scanFile(context, new String[]{
-                            pictureFile.toString()}, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.i("ExternalStorage", "Scanned " + path + ":");
-                            Log.i("ExternalStorage", "-> uri=" + uri);
-                        }
-                    });
             String photoPath = pictureFile.toString();
             Log.e(TAG, "Photo Path = " + photoPath);
 
@@ -140,45 +104,13 @@ public class Tools {
                     THUMBSIZE, THUMBSIZE);
             ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, tfos);
             tfos.close();
-            Log.e(TAG, "Wrote image to " + thumbs_photo);
+            Log.e(TAG, "Wrote Thumbs image to " + thumbs_photo);
 
-//            TODO
-            if (bind_name.equals(KIDetailActivity.class.getSimpleName())) {
-                bindobject = "kartu_ibu";
-            } else if (bind_name.equals(AnakDetailActivity.class.getSimpleName())) {
+//           FIXME File & Database Stored
+//            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector), updated);
 
-                bindobject = "anak";
-            }
-            Log.e(TAG, "WritePictureToFile: bindobject" + bindobject );
-            HashMap<String, String> details = new HashMap<>();
+            saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated);
 
-//            details.put("profilepic", photoPath);
-            details.put("profilepic", thumbs_photo.toString());
-
-            saveimagereference(bindobject, entityId, details);
-
-            setPhotoPath(thumbs_photo.toString());
-//            KIDetailActivity.details = new HashMap<>();
-//            HashMap<String,String> details = new HashMap<>();
-//            KIDetailActivity.details.put("profilepic",photoPath);
-
-//            Database Stored
-//            DetailsRepository detailsRepository = Context.getInstance().detailsRepository();
-//            Long tsLong = System.currentTimeMillis()/1000;
-//            detailsRepository.add(entityId, "profilepic", photoPath, tsLong);
-//            detailsRepository.add(entityId, "profilepic", thumbs_photo.toString(), tsLong);
-
-//            String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-//            ProfileImage profileImage = new ProfileImage(
-//                    UUID.randomUUID().toString(),
-//                    entityId,
-//                    anmId,
-//                    entityId,
-//                    "Image",
-//                    details.get("profilepic"),
-//                    ImageRepository.TYPE_Unsynced,
-//                    "dp");
-//            ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
             return true;
 
         } catch (FileNotFoundException e) {
@@ -187,6 +119,70 @@ public class Tools {
             Log.d(TAG, "Error accessing file: " + e.getMessage());
         }
         return false;
+    }
+
+    public static void saveStaticImageToDisk(String entityId, Bitmap image, String contentVector, boolean updated) {
+//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+
+        String[] res = contentVector.substring(1, contentVector.length() - 1).split(",");
+
+        String[] faceVector = Arrays.copyOfRange(res, 32, 332);
+
+        if (image != null) {
+            OutputStream os = null;
+            try {
+
+                if (entityId != null && !entityId.isEmpty()) {
+
+                    String folder_main = "SIDCR";
+
+                    File f = new File(Environment.getExternalStorageDirectory(), folder_main);
+                    if (!f.exists()) {
+                        f.mkdirs();
+                    }
+
+//                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+                    final String absoluteFileName = f.toString() + File.separator + entityId + ".JPEG";
+
+                    File outputFile = new File(absoluteFileName);
+                    os = new FileOutputStream(outputFile);
+                    Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+                    if (compressFormat != null) {
+                        image.compress(compressFormat, 100, os);
+                    } else {
+                        throw new IllegalArgumentException(
+                                "Failed to save static image, could not retrieve image compression format from name "
+                                        + absoluteFileName);
+                    }
+
+                    // insert into the db local
+                    ProfileImage profileImage = new ProfileImage();
+
+                    profileImage.setImageid(entityId);
+                    profileImage.setAnmId(anmId);
+                    profileImage.setEntityID(entityId);
+                    profileImage.setContenttype("jpeg");
+                    profileImage.setFilepath(absoluteFileName);
+                    profileImage.setFilecategory("profilepic");
+                    profileImage.setFilevector(Arrays.toString(faceVector));
+                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+                    imageRepo.add(profileImage, entityId);
+                }
+
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "Failed to save static image to disk");
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                    }
+                }
+            }
+        }
     }
 
     private static File getOutputMediaFile(Integer mode, String entityId) {
@@ -305,17 +301,25 @@ public class Tools {
         return photoPath;
     }
 
-    public void saveHash(HashMap<String, String> hashMap, android.content.Context context) {
+    /**
+     * Stored list detected Base entity ID to Shared Preference for buffered
+     *
+     * @param hashMap HashMap
+     * @param context context
+     */
+    public static void saveHash(HashMap<String, String> hashMap, android.content.Context context) {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
 
         SharedPreferences.Editor editor = settings.edit();
         editor.clear();
-        Log.e(TAG, "Hash Save Size = " + hashMap.size());
+//        Log.e(TAG, "Hash Save Size = " + hashMap.size());
         for (String s : hashMap.keySet()) {
+//            Log.e(TAG, "saveHash: " + s);
             editor.putString(s, hashMap.get(s));
         }
         editor.apply();
     }
+
 
     public static HashMap<String, String> retrieveHash(android.content.Context context) {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
@@ -324,15 +328,17 @@ public class Tools {
         return hash;
     }
 
-    public void saveAlbum() {
-//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
-//		saveCloud(albumBuffer);
-//        Log.e(TAG, "Size of byte Array =" + albumBuffer.length);
-//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putString("albumArray", Arrays.toString(albumBuffer));
-//        editor.apply();
+    /**
+     * Save Vector array to xml
+     */
+    public static void saveAlbum(String albumBuffer, android.content.Context context) {
+        Log.e(TAG, "saveAlbum: " );
+        SharedPreferences settings = context.getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(FaceConstants.ALBUM_ARRAY, albumBuffer);
+        editor.apply();
     }
+
 
     public void loadAlbum() {
 //        Toast.makeText(this, "Load FacialActivity Album", Toast.LENGTH_SHORT).show();
@@ -399,49 +405,253 @@ public class Tools {
         }
     };
 
-//    private HashMap<String, String> retrieveHash() {
+    //    private HashMap<String, String> retrieveHash() {
 //        SharedPreferences appPrefs = getSharedPreferences(FaceConstants.HASH_NAME, MODE_PRIVATE);
 //        HashMap<String, String> hash = new HashMap<String, String>();
 //        hash.putAll((Map<? extends String, ? extends String>) appPrefs.getAll());
 //        return hash;
 //    }
+    private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated) {
+
+        Log.e(TAG, "saveToDb: " + "start");
+        // insert into the db local
+        if (!updated) {
+//            profileImage.setImageid(anmId);
+//            profileImage.setAnmId(anmId);
+//            profileImage.setEntityID(entityId);
+//            profileImage.setContenttype("jpeg");
+//            profileImage.setFilepath(absoluteFileName);
+//            profileImage.setFilecategory("profilepic");
+//            profileImage.setFilevector(faceVector);
+//            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+//
+//            imageRepo.add(profileImage, entityId);
+
+            // insert into the db local
+            ProfileImage profileImage = new ProfileImage();
+
+            profileImage.setImageid(entityId);
+            profileImage.setAnmId(anmId);
+            profileImage.setEntityID(entityId);
+            profileImage.setContenttype("jpeg");
+            profileImage.setFilepath(absoluteFileName);
+            profileImage.setFilecategory("profilepic");
+            profileImage.setFilevector(faceVector);
+            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+            ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+            imageRepo.add(profileImage, entityId);
+
+
+        } else {
+            imageRepo.updateByEntityId(entityId, faceVector);
+        }
+        Log.e(TAG, "saveToDb: " + "done");
+
+    }
 
     public static void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
         Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
         ProfileImage profileImage = new ProfileImage(
-                UUID.randomUUID().toString(),
+                anmId,
                 anmId,
                 entityid,
                 "Image",
                 details.get("profilepic"),
                 ImageRepository.TYPE_Unsynced,
-                "dp");
+                "dp",
+                null, null
+                );
 
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
 
-    public void resetAlbum() {
+//    public void resetAlbum() {
+//
+//        Log.e(TAG, "resetAlbum: " + "start");
+//        boolean result = SmartShutterActivity.faceProc.resetAlbum();
+//
+//        if (result) {
+//            // Clear data
+//            // TODO: Null getApplication COntext
+//            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
+//            hashMap.clear();
+//            saveHash(hashMap, cl.getApplicationContext());
+//            saveAlbum();
+//
+//            Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
+//        } else {
+//            Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
+//
+//        }
+//        Log.e(TAG, "resetAlbum: " + "finish");
+//    }
 
-        Log.e(TAG, "resetAlbum: " + "start");
-        boolean result = SmartShutterActivity.faceProc.resetAlbum();
+    public static void setVectorsBuffered() {
 
-        if (result) {
-            // Clear data
-            // TODO: Null getApplication COntext
-            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
-            hashMap.clear();
-            saveHash(hashMap, cl.getApplicationContext());
-            saveAlbum();
+        List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
 
-            Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
+        if (vectorList.size() != 0) {
+
+            hash = retrieveHash(appContext.applicationContext().getApplicationContext());
+
+            String[] albumBuffered = new String[]{};
+
+            int i = 0;
+            for (ProfileImage profileImage : vectorList) {
+                String[] vectorFace;
+                if (profileImage.getFilevector() != null) {
+
+                    vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
+                    vectorFace[0] = String.valueOf(i);
+
+                    albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
+                    hash.put(profileImage.getEntityID(), String.valueOf(i));
+
+                } else {
+                    Log.e(TAG, "setVectorsBuffered: Profile Image Null");
+                }
+                i++;
+
+            }
+
+            albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);
+
+            saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
+            saveHash(hash, appContext.applicationContext());
+
         } else {
-            Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
-
+            Log.e(TAG, "setVectorsBuffered: " + "Multimedia Table Not ready");
         }
-        Log.e(TAG, "resetAlbum: " + "finish");
+
+    }
+
+    private static String[] getHeaderBaseUserCount(int n) {
+//        String headerNew = imageRepo.findByUserCount(n);
+// start formula
+        int n0 = 76;
+//        int seriesLength = 63; // 64 item
+        int max = 128;
+        int min = -128;
+
+        int range = max - min;
+
+        int idx0, idx1, idx2, idx3, idx4;
+
+
+        idx0 = (((n0 + max) + (n * 44)) % range) + min;
+
+        idx1 = (1 + n) + (((n0) + (n * 44)) / range);
+        idx2 = (idx1 + 128) % 256 - 128;
+
+        idx3 = n / 218;
+        idx4 = (1 + n + 128) % 256 - 128;
+
+        String[] newHeader = singleHeader.substring(1, singleHeader.length() - 1).split(", ");
+
+        newHeader[0] = String.valueOf(idx0);
+        newHeader[1] = String.valueOf(idx2);
+        newHeader[2] = String.valueOf(idx3);
+        newHeader[28] = String.valueOf(idx4);
+
+        return newHeader;
+// end formula
+//        return headerNew.substring(1, headerNew.length() -1).split(", ");
+    }
+
+    /**
+     * Save to Buffer from Local DB
+     *
+     * @param context
+     */
+
+    public static void saveAndClose(
+
+            android.content.Context context,
+            String entityId,
+            boolean updated,
+            FacialProcessing objFace,
+            int arrayPossition,
+            Bitmap storedBitmap,
+            String className) {
+
+        byte[] faceVector;
+
+        if (!updated) {
+
+            int result = objFace.addPerson(arrayPossition);
+            faceVector = objFace.serializeRecogntionAlbum();
+
+            saveAlbum(Arrays.toString(faceVector), context);
+
+            String albumBufferArr = Arrays.toString(faceVector);
+
+            String[] faceVectorContent = albumBufferArr.substring(1, albumBufferArr.length() - 1).split(", ");
+
+
+            // Get Face Vector Contnt Only by removing Header
+            faceVectorContent = Arrays.copyOfRange(faceVectorContent, faceVector.length - 300, faceVector.length);
+
+            boolean savedFile = WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
+
+            if (savedFile){
+                hash = retrieveHash(context);
+
+                hash.put(entityId, Integer.toString(result));
+
+                // Save Hash
+                saveHash(hash, context);
+            }
+
+            // Reset Album to get Single Face Vector
+
+        } else {
+
+            int update_result = objFace.updatePerson(Integer.parseInt(hash.get(entityId)), 0);
+
+            if (update_result == 0) {
+
+                Log.e(TAG, "saveAndClose: " + "success");
+
+            } else {
+
+                Log.e(TAG, "saveAndClose: " + "Maximum Reached Limit for Face");
+
+            }
+
+            faceVector = objFace.serializeRecogntionAlbum();
+
+            // TODO : update only face vector
+            saveAlbum(Arrays.toString(faceVector), context);
+        }
+
+        new ImageConfirmation().finish();
+
+        Class<?> origin_class = null;
+
+        if (className.equals(KIDetailActivity.class.getSimpleName())) {
+            origin_class = KIDetailActivity.class;
+        }
+//        else if(className.equals(KBDetailActivity.class.getSimpleName())){
+//            origin_class = KBDetailActivity.class;
+//        } else if(className.equals(ANCDetailActivity.class.getSimpleName())){
+//            origin_class = ANCDetailActivity.class;
+//        } else if(className.equals(PNCDetailActivity.class.getSimpleName())){
+//            origin_class = PNCDetailActivity.class;
+//        }
+        else if (className.equals(AnakDetailActivity.class.getSimpleName())) {
+            origin_class = AnakDetailActivity.class;
+        }
+
+        // TODO Crash saved after long time no use
+        if (appContext == null) {
+        }
+        Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.applicationContext().startActivity(resultIntent);
+
+        Log.e(TAG, "saveAndClose: " + "end");
     }
 
 }
