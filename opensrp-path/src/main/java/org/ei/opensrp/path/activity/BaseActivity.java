@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -278,9 +280,6 @@ public abstract class BaseActivity extends AppCompatActivity
                 .findViewById(android.R.id.content)).getChildAt(0);
         viewGroup.setBackground(new ColorDrawable(getResources().getColor(lightSade)));
 
-        LinearLayout notification = (LinearLayout) findViewById(R.id.notification);
-        notification.setBackground(new ColorDrawable(getResources().getColor(normalShade)));
-
         return new int[]{darkShade, normalShade, lightSade};
     }
 
@@ -299,18 +298,34 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
-    protected void showNotification(int message, int positiveButtonText,
-                                    View.OnClickListener positiveButtonCLick) {
-        showNotification(getString(message), getString(positiveButtonText), positiveButtonCLick);
+    protected void showNotification(int message, int notificationIcon, int positiveButtonText,
+                                    View.OnClickListener positiveButtonClick,
+                                    int negativeButtonText,
+                                    View.OnClickListener negativeButtonClick) {
+        showNotification(getString(message), getResources().getDrawable(notificationIcon),
+                getString(positiveButtonText), positiveButtonClick,
+                getString(negativeButtonText), negativeButtonClick);
     }
 
-    protected void showNotification(String message, String positiveButtonText,
-                                    View.OnClickListener positiveButtonOnClick) {
+    protected void showNotification(String message, Drawable notificationIcon, String positiveButtonText,
+                                    View.OnClickListener positiveButtonOnClick,
+                                    String negativeButtonText,
+                                    View.OnClickListener negativeButtonOnClick) {
         TextView notiMessage = (TextView) findViewById(R.id.noti_message);
         notiMessage.setText(message);
         Button notiPositiveButton = (Button) findViewById(R.id.noti_positive_button);
         notiPositiveButton.setText(positiveButtonText);
         notiPositiveButton.setOnClickListener(positiveButtonOnClick);
+        Button notiNegativeButton = (Button) findViewById(R.id.noti_negative_button);
+        notiNegativeButton.setText(negativeButtonText);
+        notiNegativeButton.setOnClickListener(negativeButtonOnClick);
+        ImageView notiIcon = (ImageView) findViewById(R.id.noti_icon);
+        if (notificationIcon != null) {
+            notiIcon.setVisibility(View.VISIBLE);
+            notiIcon.setImageDrawable(notificationIcon);
+        } else {
+            notiIcon.setVisibility(View.GONE);
+        }
 
         final LinearLayout notification = (LinearLayout) findViewById(R.id.notification);
 

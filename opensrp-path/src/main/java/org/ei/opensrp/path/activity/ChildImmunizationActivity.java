@@ -696,12 +696,18 @@ public class ChildImmunizationActivity extends BaseActivity
     }
 
     private void showRecordWeightNotification() {
-        showNotification(R.string.record_weight_notification, R.string.record_weight,
+        showNotification(R.string.record_weight_notification, R.drawable.ic_weight_notification,
+                R.string.record_weight,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         View recordWeight = findViewById(R.id.record_weight);
                         showWeightDialog(recordWeight);
+                        hideNotification();
+                    }
+                }, R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         hideNotification();
                     }
                 });
