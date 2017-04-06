@@ -304,7 +304,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 tableName + ".provider_id",
                 tableName + ".provider_location_id",
                 tableName + ".client_reg_date",
-                tableName + ".last_interacted_with"
+                tableName + ".last_interacted_with",
+                tableName + ".inactive",
+                tableName + ".lost_to_follow_up"
         });
         queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
         mainSelect = queryBUilder.mainCondition("");

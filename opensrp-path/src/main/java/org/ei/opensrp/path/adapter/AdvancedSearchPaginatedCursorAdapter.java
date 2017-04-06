@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.twotoasters.sectioncursoradapter.SectionCursorAdapter;
@@ -14,16 +15,18 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.fragment.AdvancedSearchFragment;
+import org.ei.opensrp.path.provider.AdvancedSearchClientsProvider;
 
 /**
  * Created by keyman on 4/5/17.
  */
 public class AdvancedSearchPaginatedCursorAdapter extends SectionCursorAdapter {
-    private final SmartRegisterCLientsProviderForCursorAdapter listItemProvider;
+    private final AdvancedSearchClientsProvider listItemProvider;
     Context context;
     CommonRepository commonRepository;
 
-    public AdvancedSearchPaginatedCursorAdapter(Context context, Cursor c, SmartRegisterCLientsProviderForCursorAdapter listItemProvider, CommonRepository commonRepository) {
+    public AdvancedSearchPaginatedCursorAdapter(Context context, Cursor c, AdvancedSearchClientsProvider listItemProvider, CommonRepository commonRepository) {
         super(context, c);
         this.listItemProvider = listItemProvider;
         this.context = context;
@@ -40,8 +43,7 @@ public class AdvancedSearchPaginatedCursorAdapter extends SectionCursorAdapter {
         CommonPersonObject personinlist = commonRepository.readAllcommonforCursorAdapter(cursor);
         CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(), personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
         pClient.setColumnmaps(personinlist.getColumnmaps());
-        listItemProvider.getView(pClient, view);
-
+        listItemProvider.getView(cursor, pClient, view);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class AdvancedSearchPaginatedCursorAdapter extends SectionCursorAdapter {
                 inactive = cursor.getString(index);
             }
 
-            if (StringUtils.isNotBlank(inactive) && inactive.equals("true")) {
+            if (StringUtils.isNotBlank(inactive) && inactive.equals(Boolean.TRUE.toString())) {
                 return "INACTIVE OR LOST TO FOLLOW-UP";
             }
 
@@ -64,7 +66,7 @@ public class AdvancedSearchPaginatedCursorAdapter extends SectionCursorAdapter {
                 lostToFollowUp = cursor.getString(index);
             }
 
-            if (StringUtils.isNotBlank(lostToFollowUp) && lostToFollowUp.equals("true")) {
+            if (StringUtils.isNotBlank(lostToFollowUp) && lostToFollowUp.equals(Boolean.TRUE.toString())) {
                 return "INACTIVE OR LOST TO FOLLOW-UP";
             }
         }

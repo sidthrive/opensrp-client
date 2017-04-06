@@ -262,14 +262,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         //super.onPrepareOptionsMenu(menu);
         //getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
 
-        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
             menu.findItem(R.id.mark_as_lost_to_followup).setTitle(getResources().getString(R.string.mark_as_not_lost_to_followup));
         }else{
             menu.findItem(R.id.mark_as_lost_to_followup).setTitle(getResources().getString(R.string.mark_as_lost_to_followup));
 
         }
 
-        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
             menu.findItem(R.id.mark_inactive).setTitle(getResources().getString(R.string.mark_active));
         }else{
             menu.findItem(R.id.mark_inactive).setTitle(getResources().getString(R.string.mark_inactive));
@@ -307,7 +307,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 startFormActivity("report_deceased", childDetails.entityId(), reportDeceasedMetadata);
                 return true;
             case R.id.mark_inactive:
-                if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+                if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
                     updateClientAttribute(inactive, false);
 
                 } else {
@@ -317,7 +317,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 updateStatus();
                 return true;
             case R.id.mark_as_lost_to_followup:
-                if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+                if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
                     updateClientAttribute(lostToFollowUp, false);
                 } else {
                     updateClientAttribute(lostToFollowUp, true);
@@ -571,7 +571,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         ImageView statusImage = (ImageView)findViewById(R.id.statusimage);
         TextView status_name = (TextView)findViewById(R.id.statusname);
         TextView status = (TextView)findViewById(R.id.status);
-        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
             statusImage.setImageResource(R.drawable.ic_icon_status_inactive);
             status_name.setText("Inactive");
@@ -579,14 +579,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             status_name.setVisibility(View.VISIBLE);
             status.setText("status");
         }
-        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
             statusImage.setImageResource(R.drawable.ic_icon_status_losttofollowup);
 //            status_name.setText("Lost to");
             status_name.setVisibility(View.GONE);
             status.setText("Lost to\nFollow-Up");
         }
-        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true"))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")))){
+        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString()))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())))){
             statusImage.setImageResource(R.drawable.ic_icon_status_active);
             statusImage.setColorFilter(getResources().getColor(R.color.alert_completed));
             status_name.setText("Active");

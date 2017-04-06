@@ -114,7 +114,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         String gender = getValue(pc.getColumnmaps(), "gender", true);
         int defaultImageResId = ImageUtils.profileImageResourceByGender(gender);
 
-        ImageView profilePic = (ImageView)  convertView.findViewById(R.id.child_profilepic);
+        ImageView profilePic = (ImageView) convertView.findViewById(R.id.child_profilepic);
         profilePic.setImageResource(defaultImageResId);
         if (client.entityId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
@@ -174,7 +174,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             nv = nextVaccineDue(sch, vList);
         }
 
-        if(nv == null){
+        if (nv == null) {
             Date lastVaccine = null;
             if (!vaccines.isEmpty()) {
                 Vaccine vaccine = vaccines.get(vaccines.size() - 1);
@@ -215,6 +215,17 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
 
         recordVaccination.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
+        // Update active/inactive/lostToFollowup status
+        String lostToFollowUp = getValue(pc.getColumnmaps(), "lost_to_follow_up", false);
+        if (lostToFollowUp.equals(Boolean.TRUE.toString())) {
+            state = State.LOST_TO_FOLLOW_UP;
+        }
+
+        String inactive = getValue(pc.getColumnmaps(), "inactive", false);
+        if (inactive.equals(Boolean.TRUE.toString())) {
+            state = State.INACTIVE;
+        }
+
         if (state.equals(State.FULLY_IMMUNIZED)) {
             recordVaccination.setText("Fully\nimmunized");
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
@@ -226,6 +237,12 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
             recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
             recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
             recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_icon_status_inactive, 0, 0, 0);
+            recordVaccination.setEnabled(false);
+        } else if (state.equals(State.LOST_TO_FOLLOW_UP)) {
+            recordVaccination.setText("Lost to\nFollow-Up");
+            recordVaccination.setTextColor(context.getResources().getColor(R.color.client_list_grey));
+            recordVaccination.setBackgroundColor(context.getResources().getColor(R.color.white));
+            recordVaccination.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_icon_status_losttofollowup, 0, 0, 0);
             recordVaccination.setEnabled(false);
         } else if (state.equals(State.WAITING)) {
             recordVaccination.setText("Waiting");
@@ -304,6 +321,7 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         UPCOMING_NEXT_7_DAYS,
         UPCOMING,
         INACTIVE,
+        LOST_TO_FOLLOW_UP,
         EXPIRED,
         WAITING,
         NO_ALERT,

@@ -419,7 +419,7 @@ public class JsonFormUtils {
                 JSONArray options = curField.getJSONArray("options");
                 for (int j = 0; j < options.length(); j++) {
                     JSONObject curOption = options.getJSONObject(j);
-                    if (curOption.getString("value").toLowerCase().equals("true")) {
+                    if (curOption.getString("value").toLowerCase().equals(Boolean.TRUE.toString())) {
                         Vaccine curVaccine = new Vaccine();
                         curVaccine.setBaseEntityId("");
                         curVaccine.setName(curOption.getString("key"));
