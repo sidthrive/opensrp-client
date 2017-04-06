@@ -73,6 +73,7 @@ import static util.Utils.getValue;
  * Class containing some static utility methods.
  */
 public class VaccinatorUtils {
+    private static final String TAG = "VaccinatorUtils";
     public static HashMap<String, String> providerDetails() {
         org.ei.opensrp.Context context = org.ei.opensrp.Context.getInstance();
         org.ei.opensrp.util.Log.logDebug("ANM DETAILS" + context.anmController().get());
@@ -476,5 +477,36 @@ public class VaccinatorUtils {
         }
         return map;
 
+    }
+
+    /**
+     * This method retrieves the human readable name corresponding to the vaccine name from {@code Vaccine.getName()}
+     * @param vaccineDbName
+     * @return
+     */
+    public static String getVaccineDisplayName(Context context, final String vaccineDbName) {
+        String readableName = vaccineDbName;
+
+        boolean found = false;
+        try {
+            JSONArray availableVaccines = new JSONArray(getSupportedVaccines(context));
+            for (int i = 0; i < availableVaccines.length(); i++) {
+                JSONObject currVaccineGroup = availableVaccines.getJSONObject(i);
+                for (int j = 0; j < currVaccineGroup.getJSONArray("vaccines").length(); j++) {
+                    JSONObject curVaccine = currVaccineGroup.getJSONArray("vaccines").getJSONObject(j);
+                    if (curVaccine.getString("name").toLowerCase().equals(vaccineDbName.toLowerCase())) {
+                        readableName = curVaccine.getString("name");
+                        found = true;
+                    }
+
+                    if (found) break;
+                }
+                if (found) break;
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return readableName;
     }
 }

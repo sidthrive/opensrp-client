@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
@@ -60,6 +61,7 @@ import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 
@@ -73,6 +75,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +83,7 @@ import util.DateUtils;
 import util.ImageUtils;
 import util.JsonFormUtils;
 import util.Utils;
+import util.VaccinatorUtils;
 
 import static util.Utils.getName;
 import static util.Utils.getValue;
@@ -319,6 +323,12 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 
                 }
                 updateStatus();
+                return true;
+            case R.id.report_adverse_event:
+                String metaData = getAdverseEventMetaData();
+                if (metaData != null) {
+                    startFormActivity("adverse_event", childDetails.entityId(), getAdverseEventMetaData());
+                }
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -957,6 +967,65 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             Log.e(TAG, e.getMessage());
         }
         return "";
+    }
+
+    private String getAdverseEventMetaData() {
+        try {
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("adverse_event");
+            if (form != null) {
+                JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+                for (int i = 0; i < fields.length(); i++) {
+                    if (fields.getJSONObject(i).getString("key").equals("Reaction_Vaccine")) {
+                        boolean result = insertVaccinesGivenAsOptions(fields.getJSONObject(i));
+                        if (result == false) {
+                            return null;
+                        }
+                    }
+                }
+                return form.toString();
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        return null;
+    }
+
+    private boolean insertVaccinesGivenAsOptions(JSONObject question) throws JSONException {
+        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+        JSONObject omrsChoicesTemplate = question.getJSONObject("openmrs_choice_ids");
+        JSONObject omrsChoices = new JSONObject();
+        JSONArray choices = new JSONArray();
+        List<Vaccine> vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
+
+        boolean ok = false;
+        if (vaccineList != null && vaccineList.size() > 0) {
+            ok = true;
+            for (int i = vaccineList.size() - 1; i >= 0; i--) {
+                Vaccine curVaccine = vaccineList.get(i);
+                String name = VaccinatorUtils.getVaccineDisplayName(this, curVaccine.getName())
+                        + " (" + DATE_FORMAT.format(curVaccine.getDate()) + ")";
+                choices.put(name);
+
+                Iterator<String> vaccineGroupNames = omrsChoicesTemplate.keys();
+                while (vaccineGroupNames.hasNext()) {
+                    String curGroupName = vaccineGroupNames.next();
+                    if (curVaccine.getName().toLowerCase().contains(curGroupName.toLowerCase())) {
+                        omrsChoices.put(name, omrsChoicesTemplate.getString(curGroupName));
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!ok) {
+            Toast.makeText(this, R.string.no_vaccine_record_found, Toast.LENGTH_LONG).show();
+        }
+
+        question.put("values", choices);
+        question.put("openmrs_choice_ids", omrsChoices);
+
+        return ok;
     }
 
     private void updateClientAttribute(String attributeName, Object attributeValue) {
