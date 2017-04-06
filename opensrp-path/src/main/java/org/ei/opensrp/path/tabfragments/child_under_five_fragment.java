@@ -65,6 +65,7 @@ public class child_under_five_fragment extends Fragment  {
     private Map<String, String> Detailsmap;
     private AlertService alertService;
     private List<Alert> alertList;
+    private VaccineRepository vaccineRepository;
 
     public child_under_five_fragment() {
         // Required empty public constructor
@@ -93,7 +94,7 @@ public class child_under_five_fragment extends Fragment  {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+        vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
         alertService = Context.getInstance().alertService();
 
@@ -184,6 +185,7 @@ public class child_under_five_fragment extends Fragment  {
         }
 
             vaccineGroups = new ArrayList<>();
+            vaccineList = vaccineRepository.findByEntityId(childDetails.entityId());
             LinearLayout vaccineGroupCanvasLL = new LinearLayout(getActivity());
             vaccineGroupCanvasLL.setOrientation(LinearLayout.VERTICAL);
             v.addView(vaccineGroupCanvasLL,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));

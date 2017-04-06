@@ -119,10 +119,18 @@ public class ImmunizationRowAdapter extends BaseAdapter {
         return null;
     }
 
-    public void update() {
+    public void update(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         if (vaccineCards != null) {
-            for (ImmunizationRowCard curCard : vaccineCards.values()) {
-                if (curCard != null) curCard.updateState();
+            if (vaccinesToUpdate == null) {// Update all vaccines
+                for (ImmunizationRowCard curCard : vaccineCards.values()) {
+                    if (curCard != null) curCard.updateState();
+                }
+            } else {// Update just the vaccines specified
+                for (VaccineWrapper currWrapper : vaccinesToUpdate) {
+                    if (vaccineCards.containsKey(currWrapper.getName())) {
+                        vaccineCards.get(currWrapper.getName()).updateState();
+                    }
+                }
             }
         }
     }

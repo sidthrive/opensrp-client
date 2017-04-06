@@ -59,6 +59,7 @@ public class ImmunizationRowGroup extends LinearLayout implements View.OnClickLi
     private OnVaccineClickedListener onVaccineClickedListener;
     private OnVaccineUndoClickListener onVaccineUndoClickListener;
     private SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
+    private boolean modalOpen;
 
     private static enum State {
         IN_PAST,
@@ -128,12 +129,29 @@ public class ImmunizationRowGroup extends LinearLayout implements View.OnClickLi
         this.alertList = alerts;
         updateViews();
     }
+    public void setVaccineList(List<Vaccine> vaccineList) {
+        this.vaccineList = vaccineList;
+    }
 
     public void setOnVaccineUndoClickListener(OnVaccineUndoClickListener onVaccineUndoClickListener) {
         this.onVaccineUndoClickListener = onVaccineUndoClickListener;
     }
 
+    /**
+     * This method will update all views, including vaccine cards in this group
+     */
     public void updateViews() {
+        updateViews(null);
+    }
+
+    /**
+     * This method will update vaccine group views, and the vaccine cards corresponding to the list
+     * of {@link VaccineWrapper}s specified
+     *
+     * @param vaccinesToUpdate List of vaccines who's views we want updated, or NULL if we want to
+     *                         update all vaccine views
+     */
+    public void updateViews(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         this.state = State.IN_PAST;
         if (this.vaccineData != null) {
             String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
@@ -155,7 +173,7 @@ public class ImmunizationRowGroup extends LinearLayout implements View.OnClickLi
                 this.state = State.CURRENT;
             }
             updateStatusViews();
-            updateVaccineCards();
+            updateVaccineCards(vaccinesToUpdate);
         }
     }
 
@@ -185,7 +203,7 @@ public class ImmunizationRowGroup extends LinearLayout implements View.OnClickLi
         }
     }
 
-    private void updateVaccineCards() {
+    private void updateVaccineCards(ArrayList<VaccineWrapper> vaccinesToUpdate) {
         if (vaccineCardAdapter == null) {
             try {
                 vaccineCardAdapter = new ImmunizationRowAdapter(context, this,editmode);
@@ -196,10 +214,18 @@ public class ImmunizationRowGroup extends LinearLayout implements View.OnClickLi
         }
 
         if (vaccineCardAdapter != null) {
-            vaccineCardAdapter.update();
+            vaccineCardAdapter.update(vaccinesToUpdate);
             toggleRecordAllTV();
         }
     }
+    public boolean isModalOpen() {
+        return modalOpen;
+    }
+
+    public void setModalOpen(boolean modalOpen) {
+        this.modalOpen = modalOpen;
+    }
+
 
     public void toggleRecordAllTV() {
         if (vaccineCardAdapter.getDueVaccines().size() > 0) {
