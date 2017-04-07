@@ -15,11 +15,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.drishti.dto.AlertStatus;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
@@ -27,8 +27,10 @@ import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccinateFormSubmissionWrapper;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationDialogFragment;
+import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -355,18 +357,24 @@ public class VaccinateActionUtils {
         return s;
     }
 
-    public static void populateDefaultAlerts(List<Vaccine> vaccineList, List<Alert> alertList, String entityId, Date birthDate, VaccineRepo.Vaccine[] vList) {
+    public static void populateDefaultAlerts(AlertService alertService, List<Vaccine> vaccineList, List<Alert> alertList, String entityId, DateTime birthDateTime, VaccineRepo.Vaccine[] vList) {
 
         if (vList == null || vList.length == 0) {
             return;
         }
 
+        List<Alert> defaultAlerts = new ArrayList<Alert>();
         for (VaccineRepo.Vaccine v : vList) {
             if (!VaccinateActionUtils.hasVaccine(vaccineList, v)) {
                 if (!VaccinateActionUtils.hasAlert(alertList, v)) {
-                    alertList.add(VaccinateActionUtils.createDummyAlert(v, entityId, birthDate));
+                    defaultAlerts.add(VaccinateActionUtils.createDefaultAlert(v, entityId, birthDateTime));
                 }
             }
+        }
+
+        for (Alert alert : defaultAlerts) {
+            alertService.create(alert);
+            alertService.updateFtsSearch(alert, true);
         }
 
     }
@@ -412,7 +420,7 @@ public class VaccinateActionUtils {
         return false;
     }
 
-    public static Alert createDummyAlert(VaccineRepo.Vaccine vaccine, String entityId, Date birthDate) {
+    public static Alert createDefaultAlert(VaccineRepo.Vaccine vaccine, String entityId, DateTime birthDateTime) {
 
 
         AlertStatus alertStatus = AlertStatus.upcoming;
@@ -421,7 +429,10 @@ public class VaccinateActionUtils {
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
-        if (birthDate.getTime() > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
+        Date birthDate = birthDateTime.toDate();
+        if (birthDateTime != null && birthDateTime.plusDays(vaccine.expiryDays()).isBefore(DateTime.now())) {
+            alertStatus = AlertStatus.expired;
+        } else if (birthDate.getTime() > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
             // Vaccination due more than one day from today
             alertStatus = AlertStatus.upcoming;
         } else if (birthDate.getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(10, TimeUnit.DAYS))) {
@@ -431,7 +442,7 @@ public class VaccinateActionUtils {
             alertStatus = AlertStatus.normal;
         }
 
-        return new Alert(entityId, vaccine.name(), vaccine.name(), alertStatus, DateUtil.yyyyMMdd.format(birthDate), null);
+        return new Alert(entityId, vaccine.display(), vaccine.name(), alertStatus, DateUtil.yyyyMMdd.format(birthDate), null);
 
     }
 }

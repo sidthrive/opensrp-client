@@ -47,7 +47,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.ei.drishti.dto.AlertStatus;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.domain.EditWrapper;
@@ -518,7 +518,7 @@ public class Utils {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static <T> void  startAsyncTask(AsyncTask<T, ?, ?> asyncTask, T[] params) {
+    public static <T> void startAsyncTask(AsyncTask<T, ?, ?> asyncTask, T[] params) {
         if (params == null) {
             @SuppressWarnings("unchecked")
             T[] arr = (T[]) new Void[0];

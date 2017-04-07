@@ -36,7 +36,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.drishti.dto.AlertStatus;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.path.R;

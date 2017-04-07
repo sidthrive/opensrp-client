@@ -3,10 +3,10 @@ package org.ei.opensrp.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.Action;
-import org.ei.drishti.dto.AlertStatus;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.repository.AlertRepository;
 import org.ei.opensrp.util.Log;
 

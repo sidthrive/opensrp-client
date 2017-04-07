@@ -9,11 +9,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ei.drishti.dto.AlertStatus;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.repository.AlertRepository;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -368,7 +368,7 @@ public class ClientProcessor {
             for (int i = 0; i < closesCase.length(); i++) {
                 String tableName = closesCase.getString(i);
                 closeCase(tableName, baseEntityId);
-                updateFTSsearch(tableName, baseEntityId);
+                updateFTSsearch(tableName, baseEntityId, null);
             }
             return true;
         } catch (JSONException e) {
@@ -504,7 +504,7 @@ public class ClientProcessor {
 
                 // save the values to db
                 Long id = executeInsertStatement(contentValues, clientType);
-                updateFTSsearch(clientType, baseEntityId);
+                updateFTSsearch(clientType, baseEntityId, contentValues);
                 Long timestamp = getEventDate(event.get("eventDate"));
                 addContentValuesToDetailsTable(contentValues, timestamp);
                 updateClientDetailsTable(event, client);
@@ -523,7 +523,7 @@ public class ClientProcessor {
      * @param values
      * @param eventDate
      */
-    private void addContentValuesToDetailsTable(ContentValues values, Long eventDate) {
+    protected void addContentValuesToDetailsTable(ContentValues values, Long eventDate) {
         try {
             String baseEntityId = values.getAsString("base_entity_id");
             Iterator<String> it = values.keySet().iterator();
@@ -868,7 +868,7 @@ public class ClientProcessor {
         return new Date().getTime();
     }
 
-    public void updateFTSsearch(String tableName, String entityId) {
+    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
         Log.i(TAG, "Starting updateFTSsearch table: " + tableName);
         AllCommonsRepository allCommonsRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects(tableName);
         if (allCommonsRepository != null) {

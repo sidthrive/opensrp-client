@@ -297,14 +297,9 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
 
         List<Alert> alertList = getAlertList();
 
-        String dobString = Utils.getValue(getChildDetails().getColumnmaps(), "dob", false);
-        DateTime birthDateTime = new DateTime(dobString);
-
-        VaccineRepo.Vaccine[] vArray = {VaccineRepo.Vaccine.opv0, VaccineRepo.Vaccine.bcg};
-        VaccinateActionUtils.populateDefaultAlerts(vaccineList, alertList, getChildDetails().entityId(), birthDateTime.toDate(), vArray);
-
         Map<String, Date> recievedVaccines = receivedVaccines(vaccineList);
 
+        String dobString = Utils.getValue(getChildDetails().getColumnmaps(), "dob", false);
         List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
         for (Map<String, Object> m : sch) {

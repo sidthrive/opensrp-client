@@ -11,12 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.ei.opensrp.Context;
@@ -27,7 +23,6 @@ import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.CursorSortOption;
 import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
-import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
@@ -48,21 +43,17 @@ import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import util.GlobalSearchUtils;
 import util.VaccinateActionUtils;
 
 import static android.view.View.INVISIBLE;
 
 public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-    private  LocationPickerView clinicSelection;
+    private LocationPickerView clinicSelection;
     private static final long NO_RESULT_SHOW_DIALOG_DELAY = 1000l;
     private Handler showNoResultDialogHandler;
     private NotInCatchmentDialogFragment notInCatchmentDialogFragment;
@@ -172,6 +163,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
 
         updateLocationText();
+        if (filterMode()) {
+            toggleFilterSelection();
+        }
     }
 
     @Override
@@ -197,7 +191,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         filterSection = view.findViewById(R.id.filter_selection);
         filterSection.setOnClickListener(clientActionHandler);
 
-        filterCount =  (TextView) view.findViewById(R.id.filter_count);
+        filterCount = (TextView) view.findViewById(R.id.filter_count);
         filterCount.setVisibility(View.GONE);
         filterCount.setClickable(false);
         filterCount.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +236,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     @Override
     protected void goBack() {
-        if(filterMode()){
+        if (filterMode()) {
             toggleFilterSelection();
         } else {
             DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
@@ -367,8 +361,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         getSearchView().addTextChangedListener(textWatcher);
     }
 
-    public void triggerFilterSelection(){
-        if(filterSection != null && !filterMode()){
+    public void triggerFilterSelection() {
+        if (filterSection != null && !filterMode()) {
             filterSection.performClick();
         }
     }
@@ -423,7 +417,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
     }*/
 
     private String filterSelectionCondition(boolean urgentOnly) {
-        String mainCondition = "";
+        String mainCondition = " (inactive != 'true' and lost_to_follow_up != 'true') AND ( ";
         ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
 
         for (int i = 0; i < vaccines.size(); i++) {
@@ -435,8 +429,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             }
         }
 
-        if(urgentOnly){
-            return mainCondition;
+        if (urgentOnly) {
+            return mainCondition + " ) ";
         }
 
         mainCondition += " or ";
@@ -449,7 +443,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
             }
         }
 
-        return mainCondition;
+        return mainCondition + " ) ";
     }
 
 
@@ -477,7 +471,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         dueOverdueCount = count;
     }
 
-    private int count(String mainConditionString){
+    private int count(String mainConditionString) {
 
         int count = 0;
 
@@ -514,15 +508,15 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
 
     }
 
-    private void switchViews(boolean filterSelected){
-        if(filterSelected){
-            if(titleLabelView != null){
+    private void switchViews(boolean filterSelected) {
+        if (filterSelected) {
+            if (titleLabelView != null) {
                 titleLabelView.setText(String.format(getString(R.string.overdue_due), dueOverdueCount));
             }
             nameInitials.setVisibility(View.GONE);
             backButton.setVisibility(View.VISIBLE);
         } else {
-            if(titleLabelView != null){
+            if (titleLabelView != null) {
                 titleLabelView.setText(getString(R.string.zeir));
             }
             nameInitials.setVisibility(View.VISIBLE);
@@ -530,8 +524,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
     }
 
-    private void toggleFilterSelection(){
-        if(filterSection != null) {
+    private void toggleFilterSelection() {
+        if (filterSection != null) {
             String tagString = "PRESSED";
             if (filterSection.getTag() == null) {
                 filter("", "", filterSelectionCondition(false));
@@ -547,7 +541,7 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
         }
     }
 
-    private boolean filterMode(){
+    private boolean filterMode() {
         return filterSection != null && filterSection.getTag() != null;
     }
 

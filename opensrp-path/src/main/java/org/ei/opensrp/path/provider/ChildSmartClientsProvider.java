@@ -168,9 +168,6 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         List<Alert> alertList = alertService.findByEntityIdAndAlertNames(pc.entityId(),
                 VaccinateActionUtils.allAlertNames("child"));
 
-        VaccineRepo.Vaccine[] vArray = {VaccineRepo.Vaccine.opv0, VaccineRepo.Vaccine.bcg};
-        VaccinateActionUtils.populateDefaultAlerts(vaccines, alertList, pc.entityId(), birthDateTime.toDate(), vArray);
-
         List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
         State state = State.FULLY_IMMUNIZED;

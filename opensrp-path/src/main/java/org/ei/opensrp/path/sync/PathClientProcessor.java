@@ -9,22 +9,28 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
+import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.service.intent.VaccineIntentService;
 import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
+import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import util.VaccinateActionUtils;
 
 public class PathClientProcessor extends ClientProcessor {
 
@@ -304,6 +310,31 @@ public class PathClientProcessor extends ClientProcessor {
             Log.e(TAG, e.toString(), e);
         }
         return null;
+    }
+
+    @Override
+    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
+        super.updateFTSsearch(tableName, entityId, contentValues);
+
+        if (contentValues != null && StringUtils.containsIgnoreCase(tableName, "child")) {
+            String dob = contentValues.getAsString("dob");
+
+            if (StringUtils.isBlank(dob)) {
+                return;
+            }
+
+            VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
+            AlertService alertService = org.ei.opensrp.Context.getInstance().alertService();
+
+            DateTime birthDateTime = new DateTime(dob);
+            List<Vaccine> vaccines = vaccineRepository.findByEntityId(entityId);
+
+            List<Alert> alertList = alertService.findByEntityIdAndAlertNames(entityId,
+                    VaccinateActionUtils.allAlertNames("child"));
+
+            VaccineRepo.Vaccine[] vArray = {VaccineRepo.Vaccine.opv0, VaccineRepo.Vaccine.bcg};
+            VaccinateActionUtils.populateDefaultAlerts(alertService, vaccines, alertList, entityId, birthDateTime, vArray);
+        }
     }
 
     private Integer parseInt(String string) {
