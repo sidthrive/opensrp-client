@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -316,6 +315,13 @@ public class ChildImmunizationActivity extends BaseActivity
                 }
             } catch (JSONException e) {
                 Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
+
+        showCheckBcgScarNotification(null);
+        if (alerts != null) {
+            for (Alert curAlert : alerts) {
+
             }
         }
     }
@@ -710,7 +716,38 @@ public class ChildImmunizationActivity extends BaseActivity
                     public void onClick(View v) {
                         hideNotification();
                     }
-                });
+                }, null);
+    }
+
+    private void showCheckBcgScarNotification(Alert alert) {
+        showNotification(R.string.check_child_bcg_scar, R.drawable.ic_check_bcg_scar,
+                R.string.ok_button_label, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        hideNotification();
+                        Alert alert = (Alert) v.getTag();
+                        if(alert != null) {
+                            new MarkAlertAsDoneTask(getOpenSRPContext().alertService())
+                                    .execute(alert);
+                        }
+                    }
+                }, 0, null, alert);
+    }
+
+    private class MarkAlertAsDoneTask extends AsyncTask<Alert, Void, Void> {
+        private final AlertService alertService;
+
+        public MarkAlertAsDoneTask(AlertService alertService) {
+            this.alertService = alertService;
+        }
+
+        @Override
+        protected Void doInBackground(Alert... params) {
+            for (int i = 0; i < params.length; i++) {
+                alertService.changeAlertStatusToComplete(params[i].caseId(), params[i].visitCode());
+            }
+            return null;
+        }
     }
 
     private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Pair<ArrayList<VaccineWrapper>, List<Vaccine>>> {

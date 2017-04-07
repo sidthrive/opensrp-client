@@ -188,8 +188,7 @@
     <string name="update_search_params">Please update at least one search parameter</string>
     <string name="no_vaccine_record_found">No vaccination record found</string>
     <string name="matching_results">%1$s matching results found</string>
-
+    <string name="check_child_bcg_scar">"Check for child's BCG scar"</string>
     <string name="move_to_catchment_confirm_dialog_title">Confirm move</string>
     <string name="move_to_catchment_confirm_dialog_message">Are you sure you want to move this record to your catchment area?</string>
-
 </resources>
