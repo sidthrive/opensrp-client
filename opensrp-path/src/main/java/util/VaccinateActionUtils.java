@@ -385,6 +385,20 @@ public class VaccinateActionUtils {
         return false;
     }
 
+    public static Alert getAlert(List<Alert> alerts, VaccineRepo.Vaccine vaccine) {
+        if (alerts == null || alerts.isEmpty() || vaccine == null) {
+            return null;
+        }
+
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())
+                    || alert.visitCode().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())) {
+                return alert;
+            }
+        }
+        return null;
+    }
+
     public static boolean hasVaccine(List<Vaccine> vaccineList, VaccineRepo.Vaccine v) {
         if (vaccineList == null || vaccineList.isEmpty() || v == null) {
             return false;

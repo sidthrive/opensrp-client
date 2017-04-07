@@ -27,6 +27,7 @@ import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.Photo;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.domain.VaccineWrapper;
@@ -318,10 +319,12 @@ public class ChildImmunizationActivity extends BaseActivity
             }
         }
 
-        showCheckBcgScarNotification(null);
-        if (alerts != null) {
-            for (Alert curAlert : alerts) {
-
+        if (!VaccinateActionUtils.hasVaccine(vaccineList, VaccineRepo.Vaccine.bcg2)) {
+            if (VaccinateActionUtils.hasAlert(alerts, VaccineRepo.Vaccine.bcg2)) {
+                Alert alert = VaccinateActionUtils.getAlert(alerts, VaccineRepo.Vaccine.bcg2);
+                if (!alert.isComplete()) {
+                    showCheckBcgScarNotification(alert);
+                }
             }
         }
     }
