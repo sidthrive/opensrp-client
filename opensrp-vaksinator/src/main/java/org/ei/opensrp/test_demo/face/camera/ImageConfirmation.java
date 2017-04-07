@@ -27,11 +27,9 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.test_demo.R;
 import org.ei.opensrp.test_demo.face.camera.util.FaceConstants;
 import org.ei.opensrp.test_demo.face.camera.util.Tools;
-import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.test_demo.fragment.TTSmartRegisterFragment;
 import org.ei.opensrp.test_demo.fragment.VaksinatorSmartRegisterFragment;
-import org.ei.opensrp.test_demo.imunisasiTT.TTSmartRegisterActivity;
 import org.ei.opensrp.test_demo.vaksinator.VaksinatorDetailActivity;
+import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.test_demo.vaksinator.VaksinatorSmartRegisterActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -68,6 +66,9 @@ public class ImageConfirmation extends Activity {
     byte[] data;
     int angle;
     boolean switchCamera;
+
+    private boolean updated = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,13 +213,13 @@ public class ImageConfirmation extends Activity {
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
         data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
-
         angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
         switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
+        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
 
     }
 
@@ -238,8 +239,6 @@ public class ImageConfirmation extends Activity {
 
         if(str_origin_class.equals(VaksinatorSmartRegisterFragment.class.getSimpleName())){
             origin_class = VaksinatorSmartRegisterActivity.class;
-        } else if(str_origin_class.equals(TTSmartRegisterFragment.class.getSimpleName())){
-            origin_class = TTSmartRegisterActivity.class;
         }
 
         Intent intent = new Intent(ImageConfirmation.this, origin_class);
@@ -259,13 +258,8 @@ public class ImageConfirmation extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                Log.e(TAG, "onClick: identify " + identifyPerson);
-                Log.e(TAG, "onClick: base_id " + entityId);
 
                 Class<?> origin_class = this.getClass();
-
-                Log.e(TAG, "onPreviewFrame: init"+ origin_class.getSimpleName() );
-                Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
 
                 if(str_origin_class.equals(VaksinatorDetailActivity.class.getSimpleName())){
                     origin_class = VaksinatorDetailActivity.class;
@@ -273,18 +267,12 @@ public class ImageConfirmation extends Activity {
 
                 if (!identifyPerson) {
 
-                    Log.e(TAG, "onClick: "+ origin_class.getSimpleName() );
-
-                    saveAndClose(entityId, origin_class.getSimpleName());
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
                 } else {
-//                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-//                    Cursor cursor = getApplicationContext().
                     VaksinatorDetailActivity.kiclient = (CommonPersonObjectClient) arg0.getTag();
                     Log.e(TAG, "onClick: " + VaksinatorDetailActivity.kiclient);
-//                    Intent intent = new Intent(ImageConfirmation.this,KIDetailActivity.class);
                     Log.e(TAG, "onClick: " + selectedPersonName);
-//                    startActivity(intent);
                 }
             }
 
@@ -334,42 +322,6 @@ public class ImageConfirmation extends Activity {
 
     }
 
-    /*
-    Save File and DB
-     */
-    private void saveAndClose(String entityId, String s_class) {
-        Log.e(TAG, "saveAndClose: position"+ arrayPossition );
-        Log.e(TAG, "saveAndClose: " + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-        Log.e(TAG, "saveAndClose: "+ s_class );
-//        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
-        saveAlbum();
-        int result = objFace.addPerson(arrayPossition);
-        clientList.put(entityId, Integer.toString(result));
-        saveHash(clientList, getApplicationContext());
-
-
-        ImageConfirmation.this.finish();
-
-        Class<?> origin_class = this.getClass();
-
-        if(s_class.equals(VaksinatorDetailActivity.class.getSimpleName())){
-            origin_class = VaksinatorDetailActivity.class;
-        }
-
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, origin_class.getSimpleName());
-
-        Log.e(TAG, "saveAndClose: "+ origin_class.getName() );
-
-        Intent resultIntent = new Intent(this, origin_class );
-
-//        resultIntent.putExtra("SmartShutterActivity.thumbnail", thumbnail);
-        setResult(RESULT_OK, resultIntent);
-        startActivityForResult(resultIntent, 1);
-
-        Log.e(TAG, "saveAndClose: "+"end" );
-    }
-
     public void saveHash(HashMap<String, String> hashMap, android.content.Context context) {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);
 
@@ -404,5 +356,19 @@ public class ImageConfirmation extends Activity {
 //        ref.setValue(imageEncoded);
     }
 
+    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
+        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+        ProfileImage profileImage = new ProfileImage(
+                UUID.randomUUID().toString(),
+                anmId,
+                entityid,
+                "Image",
+                details.get("profilepic"),
+                ImageRepository.TYPE_Unsynced,"dp", null, null);
+        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
+//                kiclient.entityId();
+//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
+    }
 
 }
