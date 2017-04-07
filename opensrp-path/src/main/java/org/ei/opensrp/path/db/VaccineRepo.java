@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class VaccineRepo {
     public enum Vaccine {
         bcg("BCG", 1, null, 366, 0, 0, 4, 366, "child"),
+        bcg2("BCG 2", 20, null, 366, 0, 0, 4, 366, "child"),
         penta1("PENTA 1", 3, null, 366, 42, 0, 4, 366, "child"),
         penta2("PENTA 2", 7, penta1, 366, 70, 28, 4, 366, "child"),
         penta3("PENTA 3", 11, penta2, 366, 98, 28, 4, 366, "child"),
