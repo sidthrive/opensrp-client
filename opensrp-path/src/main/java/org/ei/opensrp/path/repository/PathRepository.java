@@ -185,7 +185,6 @@ public class PathRepository extends Repository {
                 values = removeEndingComma(values);
 
                 String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
-                Log.i("", sql);
                 db.execSQL(sql);
             }
 
@@ -351,7 +350,6 @@ public class PathRepository extends Repository {
         List<JSONObject> eventAndAlerts = new ArrayList<JSONObject>();
 
         String query = "select " + event_column.json + "," + event_column.updatedAt + " from " + Table.event.name() + " where " + event_column.updatedAt + " > '" + lastSyncString + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc ";
-        Log.i(getClass().getName(), query);
         Cursor cursor = getWritableDatabase().rawQuery(query, null);
 
         try {
@@ -439,7 +437,6 @@ public class PathRepository extends Repository {
         List<JSONObject> eventAndAlerts = new ArrayList<JSONObject>();
 
         String query = "select " + event_column.json + "," + event_column.updatedAt + " from " + Table.event.name() + " where " + event_column.syncStatus + " = '" + syncStatus + "' and " + event_column.updatedAt + " > '" + lastSyncString + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc ";
-        Log.i(getClass().getName(), query);
         Cursor cursor = getWritableDatabase().rawQuery(query, null);
 
         try {
@@ -525,7 +522,6 @@ public class PathRepository extends Repository {
         List<JSONObject> events = new ArrayList<JSONObject>();
 
         String query = "select " + event_column.json + "," + event_column.syncStatus + " from " + Table.event.name() + " where " + event_column.syncStatus + " = '" + BaseRepository.TYPE_Unsynced + "'  and length(" + event_column.json + ")>2 order by " + event_column.updatedAt + " asc limit " + limit;
-        Log.i(getClass().getName(), query);
         Cursor cursor = null;
         try {
             cursor = getWritableDatabase().rawQuery(query, null);
@@ -620,8 +616,6 @@ public class PathRepository extends Repository {
                 String jsonEventStr = (cursor.getString(0));
                 jsonEventStr = jsonEventStr.replaceAll("'", "");
                 JSONObject cl = new JSONObject(jsonEventStr);
-
-                Log.i(getClass().getName(), "Client Retrieved: " + cl.toString());
 
                 return cl;
             }
