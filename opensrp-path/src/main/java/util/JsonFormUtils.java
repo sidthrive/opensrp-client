@@ -123,6 +123,11 @@ public class JsonFormUtils {
         }
     }
 
+    public static void saveAdverseEvent(String jsonString, String locationId, String baseEntityId,
+                                        String providerId) {
+        new SaveAdverseEventTask(jsonString, locationId, baseEntityId, providerId).execute();
+    }
+
     private static void saveBirthRegistration(Context context, org.ei.opensrp.Context openSrpContext,
                             String jsonString, String providerId, String imageKey, String bindType,
                             String subBindType) {
@@ -1922,6 +1927,107 @@ public class JsonFormUtils {
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
+            return null;
+        }
+    }
+
+    private static class SaveAdverseEventTask extends AsyncTask<Void, Void, Void> {
+        private final String jsonString;
+        private final String locationId;
+        private final String baseEntityId;
+        private final String providerId;
+
+        public SaveAdverseEventTask(String jsonString, String locationId, String baseEntityId,
+                                    String providerId) {
+            this.jsonString = jsonString;
+            this.locationId = locationId;
+            this.baseEntityId = baseEntityId;
+            this.providerId = providerId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
+
+                JSONObject jsonForm = new JSONObject(jsonString);
+
+                JSONArray fields = fields(jsonForm);
+                if (fields == null) {
+                    return null;
+                }
+
+                String bindType = "child";
+                String encounterDateField = getFieldValue(fields, "Date_Reaction");
+
+                String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+                JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+                Date encounterDate = new Date();
+                if (StringUtils.isNotBlank(encounterDateField)) {
+                    Date dateTime = formatDate(encounterDateField, false);
+                    if (dateTime != null) {
+                        encounterDate = dateTime;
+                    }
+                }
+
+                Event event = (Event) new Event()
+                        .withBaseEntityId(baseEntityId)//should be different for main and subform
+                        .withEventDate(encounterDate)
+                        .withEventType(encounterType)
+                        .withLocationId(locationId)
+                        .withProviderId(providerId)
+                        .withEntityType(bindType)
+                        .withFormSubmissionId(generateRandomUUIDString())
+                        .withDateCreated(new Date());
+
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject jsonObject = getJSONObject(fields, i);
+                    String value = getString(jsonObject, VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        addObservation(event, jsonObject);
+                    }
+                }
+
+                if (metadata != null) {
+                    Iterator<?> keys = metadata.keys();
+
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        JSONObject jsonObject = getJSONObject(metadata, key);
+                        String value = getString(jsonObject, VALUE);
+                        if (StringUtils.isNotBlank(value)) {
+                            String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+                            if (entityVal != null) {
+                                if (entityVal.equals(CONCEPT)) {
+                                    addToJSONObject(jsonObject, KEY, key);
+                                    addObservation(event, jsonObject);
+                                } else if (entityVal.equals(ENCOUNTER)) {
+                                    String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+                                    if (entityIdVal.equals(
+                                            FormEntityConstants.Encounter.encounter_date.name())) {
+                                        Date eDate = formatDate(value, false);
+                                        if (eDate != null) {
+                                            event.setEventDate(eDate);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                if (event != null) {
+                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                    db.addEvent(event.getBaseEntityId(), eventJson);
+
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+
             return null;
         }
     }

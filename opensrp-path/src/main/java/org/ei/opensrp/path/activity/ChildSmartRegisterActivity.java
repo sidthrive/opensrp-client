@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.adapter.SmartRegisterPaginatedAdapter;
@@ -42,6 +43,8 @@ import util.JsonFormUtils;
 import util.barcode.Barcode;
 import util.barcode.BarcodeIntentIntegrator;
 import util.barcode.BarcodeIntentResult;
+
+import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 
 /**
  * Created by Ahmed on 13-Oct-15.
@@ -336,5 +339,11 @@ public class ChildSmartRegisterActivity extends BaseRegisterActivity {
             registerFragment.openVaccineCard(filterString);
         }
     }
+
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), HIDE_NOT_ALWAYS);
+    }
+
 
 }

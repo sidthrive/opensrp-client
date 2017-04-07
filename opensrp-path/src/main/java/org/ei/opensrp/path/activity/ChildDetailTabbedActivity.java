@@ -332,17 +332,19 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 updateStatus();
                 return true;
             case R.id.report_adverse_event:
-                String metaData = getAdverseEventMetaData();
-                if (metaData != null) {
-                    startFormActivity("adverse_event", childDetails.entityId(), getAdverseEventMetaData());
-                }
-                return true;
+                return launchAdverseEventForm();
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private boolean launchAdverseEventForm() {
+        LaunchAdverseEventFormTask task = new LaunchAdverseEventFormTask();
+        task.execute();
+        return true;
     }
 
     private String getmetaDataForEditForm() {
@@ -517,6 +519,9 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                         JsonFormUtils.saveReportDeceased(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), location_name, childDetails.entityId());
                     } else if (form.getString("encounter_type").equals("Birth Registration")) {
                         JsonFormUtils.editsave(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
+                    } else if (form.getString("encounter_type").equals("AEFI")) {
+                        JsonFormUtils.saveAdverseEvent(jsonString, location_name,
+                                childDetails.entityId(), allSharedPreferences.fetchRegisteredANM());
                     }
                 child_data_fragment.LoadData();
                 } catch (Exception e) {
@@ -959,6 +964,44 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         }
     }
 
+    private class LaunchAdverseEventFormTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                JSONObject form = FormUtils.getInstance(getApplicationContext())
+                        .getFormJson("adverse_event");
+                if (form != null) {
+                    JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+                    for (int i = 0; i < fields.length(); i++) {
+                        if (fields.getJSONObject(i).getString("key").equals("Reaction_Vaccine")) {
+                            boolean result = insertVaccinesGivenAsOptions(fields.getJSONObject(i));
+                            if (result == false) {
+                                return null;
+                            }
+                        }
+                    }
+                    return form.toString();
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String metaData) {
+            super.onPostExecute(metaData);
+            if (metaData != null) {
+                startFormActivity("adverse_event", childDetails.entityId(), metaData);
+            } else {
+                Toast.makeText(ChildDetailTabbedActivity.this, R.string.no_vaccine_record_found,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     private class SaveVaccinesTask extends AsyncTask<VaccineWrapper, Void, Void> {
 
         private View view;
@@ -1086,28 +1129,6 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         return "";
     }
 
-    private String getAdverseEventMetaData() {
-        try {
-            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("adverse_event");
-            if (form != null) {
-                JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
-                for (int i = 0; i < fields.length(); i++) {
-                    if (fields.getJSONObject(i).getString("key").equals("Reaction_Vaccine")) {
-                        boolean result = insertVaccinesGivenAsOptions(fields.getJSONObject(i));
-                        if (result == false) {
-                            return null;
-                        }
-                    }
-                }
-                return form.toString();
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-        return null;
-    }
-
     private boolean insertVaccinesGivenAsOptions(JSONObject question) throws JSONException {
         VaccineRepository vaccineRepository = VaccinatorApplication.getInstance().vaccineRepository();
         JSONObject omrsChoicesTemplate = question.getJSONObject("openmrs_choice_ids");
@@ -1133,10 +1154,6 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     }
                 }
             }
-        }
-
-        if (!ok) {
-            Toast.makeText(this, R.string.no_vaccine_record_found, Toast.LENGTH_LONG).show();
         }
 
         question.put("values", choices);

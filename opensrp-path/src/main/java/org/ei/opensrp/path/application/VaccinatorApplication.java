@@ -130,6 +130,8 @@ public class VaccinatorApplication extends DrishtiApplication {
             names.add("dob");
             names.add("zeir_id");
             names.add("last_interacted_with");
+            names.add("inactive");
+            names.add("lost_to_follow_up");
 
             for (VaccineRepo.Vaccine vaccine : vaccines) {
                 names.add( "alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));

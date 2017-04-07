@@ -15,8 +15,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.drishti.dto.AlertStatus;
+import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.db.VaccineRepo;
@@ -29,8 +33,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static org.ei.opensrp.AllConstants.ENTITY_ID_PARAM;
 import static org.ei.opensrp.AllConstants.FORM_NAME_PARAM;
@@ -346,5 +353,85 @@ public class VaccinateActionUtils {
             return s.replace("_", " ");
         }
         return s;
+    }
+
+    public static void populateDefaultAlerts(List<Vaccine> vaccineList, List<Alert> alertList, String entityId, Date birthDate, VaccineRepo.Vaccine[] vList) {
+
+        if (vList == null || vList.length == 0) {
+            return;
+        }
+
+        for (VaccineRepo.Vaccine v : vList) {
+            if (!VaccinateActionUtils.hasVaccine(vaccineList, v)) {
+                if (!VaccinateActionUtils.hasAlert(alertList, v)) {
+                    alertList.add(VaccinateActionUtils.createDummyAlert(v, entityId, birthDate));
+                }
+            }
+        }
+
+    }
+
+    public static boolean hasAlert(List<Alert> alerts, VaccineRepo.Vaccine vaccine) {
+        if (alerts == null || alerts.isEmpty() || vaccine == null) {
+            return false;
+        }
+
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())
+                    || alert.visitCode().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Alert getAlert(List<Alert> alerts, VaccineRepo.Vaccine vaccine) {
+        if (alerts == null || alerts.isEmpty() || vaccine == null) {
+            return null;
+        }
+
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())
+                    || alert.visitCode().replaceAll(" ", "").equalsIgnoreCase(vaccine.name())) {
+                return alert;
+            }
+        }
+        return null;
+    }
+
+    public static boolean hasVaccine(List<Vaccine> vaccineList, VaccineRepo.Vaccine v) {
+        if (vaccineList == null || vaccineList.isEmpty() || v == null) {
+            return false;
+        }
+
+        for (Vaccine vaccine : vaccineList) {
+            if (vaccine.getName().equalsIgnoreCase(v.display().toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Alert createDummyAlert(VaccineRepo.Vaccine vaccine, String entityId, Date birthDate) {
+
+
+        AlertStatus alertStatus = AlertStatus.upcoming;
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        if (birthDate.getTime() > (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))) {
+            // Vaccination due more than one day from today
+            alertStatus = AlertStatus.upcoming;
+        } else if (birthDate.getTime() < (today.getTimeInMillis() - TimeUnit.MILLISECONDS.convert(10, TimeUnit.DAYS))) {
+            // Vaccination overdue
+            alertStatus = AlertStatus.urgent;
+        } else {
+            alertStatus = AlertStatus.normal;
+        }
+
+        return new Alert(entityId, vaccine.name(), vaccine.name(), alertStatus, DateUtil.yyyyMMdd.format(birthDate), null);
+
     }
 }

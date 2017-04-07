@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import util.Utils;
+import util.VaccinateActionUtils;
 
 import static util.VaccinatorUtils.generateScheduleList;
 import static util.VaccinatorUtils.receivedVaccines;
@@ -295,8 +296,15 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
         List<Vaccine> vaccineList = getVaccineList();
 
         List<Alert> alertList = getAlertList();
-        Map<String, Date> recievedVaccines = receivedVaccines(vaccineList);
+
         String dobString = Utils.getValue(getChildDetails().getColumnmaps(), "dob", false);
+        DateTime birthDateTime = new DateTime(dobString);
+
+        VaccineRepo.Vaccine[] vArray = {VaccineRepo.Vaccine.opv0, VaccineRepo.Vaccine.bcg};
+        VaccinateActionUtils.populateDefaultAlerts(vaccineList, alertList, getChildDetails().entityId(), birthDateTime.toDate(), vArray);
+
+        Map<String, Date> recievedVaccines = receivedVaccines(vaccineList);
+
         List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
         for (Map<String, Object> m : sch) {
@@ -334,11 +342,13 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                     tag.setRecordedDate(new DateTime(new Date(vaccine.getUpdatedAt())));
                     tag.setDbKey(vaccine.getId());
                     tag.setSynced(vaccine.getSyncStatus() != null && vaccine.getSyncStatus().equals(VaccineRepository.TYPE_Synced));
-                    if(tag.getName().contains("/")){
+                    if (tag.getName().contains("/")) {
                         String[] array = tag.getName().split("/");
-                        if((array[0]).toLowerCase().contains(vaccine.getName())){
+
+                        if((array[0]).toLowerCase().contains(vaccine.getName().toLowerCase())){
                             tag.setName(array[0]);
-                        } else if((array[1]).toLowerCase().contains(vaccine.getName())){
+                        } else if((array[1]).toLowerCase().contains(vaccine.getName().toLowerCase())){
+
                             tag.setName(array[1]);
                         }
                     }

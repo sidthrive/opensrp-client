@@ -301,24 +301,50 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void showNotification(int message, int notificationIcon, int positiveButtonText,
                                     View.OnClickListener positiveButtonClick,
                                     int negativeButtonText,
-                                    View.OnClickListener negativeButtonClick) {
+                                    View.OnClickListener negativeButtonClick,
+                                    Object tag) {
+        String posBtnText = null;
+        if (positiveButtonText != 0 && positiveButtonClick != null) {
+            posBtnText = getString(positiveButtonText);
+        }
+
+        String negBtnText = null;
+        if (negativeButtonText != 0 && negativeButtonClick != null) {
+            negBtnText = getString(negativeButtonText);
+        }
+
         showNotification(getString(message), getResources().getDrawable(notificationIcon),
-                getString(positiveButtonText), positiveButtonClick,
-                getString(negativeButtonText), negativeButtonClick);
+                posBtnText, positiveButtonClick,
+                negBtnText, negativeButtonClick, tag);
     }
 
     protected void showNotification(String message, Drawable notificationIcon, String positiveButtonText,
                                     View.OnClickListener positiveButtonOnClick,
                                     String negativeButtonText,
-                                    View.OnClickListener negativeButtonOnClick) {
+                                    View.OnClickListener negativeButtonOnClick,
+                                    Object tag) {
         TextView notiMessage = (TextView) findViewById(R.id.noti_message);
         notiMessage.setText(message);
         Button notiPositiveButton = (Button) findViewById(R.id.noti_positive_button);
-        notiPositiveButton.setText(positiveButtonText);
-        notiPositiveButton.setOnClickListener(positiveButtonOnClick);
+        notiPositiveButton.setTag(tag);
+        if (positiveButtonText != null) {
+            notiPositiveButton.setVisibility(View.VISIBLE);
+            notiPositiveButton.setText(positiveButtonText);
+            notiPositiveButton.setOnClickListener(positiveButtonOnClick);
+        } else {
+            notiPositiveButton.setVisibility(View.GONE);
+        }
+
         Button notiNegativeButton = (Button) findViewById(R.id.noti_negative_button);
-        notiNegativeButton.setText(negativeButtonText);
-        notiNegativeButton.setOnClickListener(negativeButtonOnClick);
+        notiNegativeButton.setTag(tag);
+        if (negativeButtonText != null) {
+            notiNegativeButton.setVisibility(View.VISIBLE);
+            notiNegativeButton.setText(negativeButtonText);
+            notiNegativeButton.setOnClickListener(negativeButtonOnClick);
+        } else {
+            notiNegativeButton.setVisibility(View.GONE);
+        }
+
         ImageView notiIcon = (ImageView) findViewById(R.id.noti_icon);
         if (notificationIcon != null) {
             notiIcon.setVisibility(View.VISIBLE);
