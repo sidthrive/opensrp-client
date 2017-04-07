@@ -155,8 +155,8 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age),KiSortByNameAZ()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age_desc),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age),KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age_desc),KiSortByAgeDesc()),
                 };
             }
 
