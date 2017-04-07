@@ -2,6 +2,7 @@ package org.ei.opensrp.path.provider;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -98,13 +98,18 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         }
         fillValue((TextView) convertView.findViewById(R.id.child_mothername), motherName);
 
+        DateTime birthDateTime = new DateTime((new Date()).getTime());
         String dobString = getValue(pc.getColumnmaps(), "dob", false);
         String durationString = "";
         if (StringUtils.isNotBlank(dobString)) {
-            DateTime dateTime = new DateTime(dobString);
-            String duration = DateUtils.getDuration(dateTime);
-            if (duration != null) {
-                durationString = duration;
+            try {
+                birthDateTime = new DateTime(dobString);
+                String duration = DateUtils.getDuration(birthDateTime);
+                if (duration != null) {
+                    durationString = duration;
+                }
+            } catch (Exception e) {
+                Log.e(getClass().getName(), e.toString(), e);
             }
         }
         fillValue((TextView) convertView.findViewById(R.id.child_age), durationString);
@@ -163,10 +168,14 @@ public class ChildSmartClientsProvider implements SmartRegisterCLientsProviderFo
         List<Alert> alertList = alertService.findByEntityIdAndAlertNames(pc.entityId(),
                 VaccinateActionUtils.allAlertNames("child"));
 
+        VaccineRepo.Vaccine[] vArray = {VaccineRepo.Vaccine.opv0, VaccineRepo.Vaccine.bcg};
+        VaccinateActionUtils.populateDefaultAlerts(vaccines, alertList, pc.entityId(), birthDateTime.toDate(), vArray);
+
         List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(dobString), recievedVaccines, alertList);
 
         State state = State.FULLY_IMMUNIZED;
         String stateKey = null;
+
 
         Map<String, Object> nv = null;
         if (vaccines.isEmpty()) {
