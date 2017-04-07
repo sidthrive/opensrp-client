@@ -1384,6 +1384,7 @@ public class JsonFormUtils {
             try {
                 JSONObject other = new JSONObject();
                 other.put("name", "Other");
+                other.put("key", "Other");
                 other.put("level", "");
                 array.put(other);
             } catch (JSONException e) {
@@ -1439,7 +1440,9 @@ public class JsonFormUtils {
 
     private static void getFormJsonData(JSONArray allLocationData, JSONObject openMrsLocationData, ArrayList<String> allowedLevels) throws JSONException {
         JSONObject jsonFormObject = new JSONObject();
-        jsonFormObject.put("name", openMrsLocationData.getJSONObject("node").getString("name"));
+        String name = openMrsLocationData.getJSONObject("node").getString("name");
+        jsonFormObject.put("name", getOpenMrsReadableName(name));
+        jsonFormObject.put("key", name);
         String level = "";
         try {
             level = openMrsLocationData.getJSONObject("node").getJSONArray("tags").getString(0);
@@ -1464,6 +1467,17 @@ public class JsonFormUtils {
         if (allowedLevels.contains(level)) {
             allLocationData.put(jsonFormObject);
         }
+    }
+
+    public static String getOpenMrsReadableName(String name) {
+        String readableName = new String(name);
+
+        if (readableName.contains(":")) {
+            String[] splitName = readableName.split(":");
+            readableName = splitName[splitName.length - 1].trim();
+        }
+
+        return readableName;
     }
 
     public static void addChildRegLocHierarchyQuestions(JSONObject form,

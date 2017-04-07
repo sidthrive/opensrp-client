@@ -69,36 +69,7 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Child's home health facility *",
-        "tree": [
-          {
-            "name": "Node 1",
-            "level": "Level 1"
-          },
-          {
-            "name": "Node 2",
-            "level": "Level 1",
-            "nodes": [
-              {
-                "name": "Node 3",
-                "level": "Level 2",
-                "nodes": [
-                  {
-                    "name": "Node 5",
-                    "level": "Level 3"
-                  },
-                  {
-                    "name": "Node 6",
-                    "level": "Level 3"
-                  }
-                ]
-              },
-              {
-                "name": "Node 4",
-                "level": "Level 2"
-              }
-            ]
-          }
-        ],
+        "tree": [],
         "v_required": {
           "value": true,
           "err": "Please enter the child's home facility"
@@ -382,36 +353,7 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Which health facility was the child born in? *",
-        "tree": [
-          {
-            "name": "Node 1",
-            "level": "Level 1"
-          },
-          {
-            "name": "Node 2",
-            "level": "Level 1",
-            "nodes": [
-              {
-                "name": "Node 3",
-                "level": "Level 2",
-                "nodes": [
-                  {
-                    "name": "Node 5",
-                    "level": "Level 3"
-                  },
-                  {
-                    "name": "Node 6",
-                    "level": "Level 3"
-                  }
-                ]
-              },
-              {
-                "name": "Node 4",
-                "level": "Level 2"
-              }
-            ]
-          }
-        ],
+        "tree": [],
         "v_required": {
           "value": true,
           "err": "Please enter the birth facility name"
@@ -431,36 +373,7 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Child's residential area *",
-        "tree": [
-          {
-            "name": "Node 2",
-            "level": "Level 1",
-            "nodes": [
-              {
-                "name": "Node 3",
-                "level": "Level 2",
-                "nodes": [
-                  {
-                    "name": "Node 5",
-                    "level": "Level 3"
-                  },
-                  {
-                    "name": "Node 6",
-                    "level": "Level 3"
-                  }
-                ]
-              },
-              {
-                "name": "Node 4",
-                "level": "Level 2"
-              }
-            ]
-          },
-          {
-            "name": "Other",
-            "level": "Level 1"
-          }
-        ],
+        "tree": [],
         "v_required": {
           "value": true,
           "err": "Please enter the child's residential area"

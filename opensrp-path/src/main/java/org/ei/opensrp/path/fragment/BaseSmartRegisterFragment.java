@@ -24,6 +24,8 @@ import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 
+import util.JsonFormUtils;
+
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -175,7 +177,8 @@ public class BaseSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     protected void updateLocationText() {
         if(clinicSelection != null) {
-            clinicSelection.setText(clinicSelection.getSelectedItem());
+            clinicSelection.setText(JsonFormUtils.getOpenMrsReadableName(
+                    clinicSelection.getSelectedItem()));
         }
     }
 

@@ -155,6 +155,7 @@
         android:background="@drawable/transparent_gray_background"
         android:gravity="center"
         android:minWidth="@dimen/loc_picker_text_min_width"
+        android:maxWidth="@dimen/loc_picker_text_max_width"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:textSize="21sp" />
