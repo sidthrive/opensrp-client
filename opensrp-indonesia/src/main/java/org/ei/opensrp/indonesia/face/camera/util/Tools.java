@@ -114,6 +114,8 @@ public class Tools {
 
             saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated, className);
 
+            setPhotoPath(thumbs_photo.toString());
+
             return true;
 
         } catch (FileNotFoundException e) {
