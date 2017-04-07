@@ -1140,33 +1140,35 @@ public class PathRepository extends Repository {
             String searchSql = "create virtual table "
                     + CommonFtsObject.searchTableName(originalTableName) + newTableNameSuffix
                     + " using fts4 (" + joinedSearchColumns + ");";
+            Log.d(TAG, "Create query is\n---------------------------\n" + searchSql);
 
             database.execSQL(searchSql);
 
             // Run insert query
             ArrayList<String> newlyAddedFields = new ArrayList<>();
-            newlyAddedFields.add("alerts.BCG_2");
+            newlyAddedFields.add("BCG_2");
             newlyAddedFields.add("inactive");
             newlyAddedFields.add("lost_to_follow_up");
-            String[] oldSortFields = new String[sortFields.length - newlyAddedFields.size()];
+            ArrayList<String> oldFields = new ArrayList<>();
 
-            int j = 0;
-            for (int i = 0; i < sortFields.length; i++) {
-                if (!newlyAddedFields.contains(sortFields[i])) {
-                    if (sortFields[i].startsWith("alerts.")) {
-                        sortFields[i] = sortFields[i].split("\\.")[1];
-                    }
-                    oldSortFields[j] = sortFields[i];
-                    j++;
+            for (String curColumn : searchColumns) {
+                curColumn = curColumn.trim();
+                if (curColumn.contains(" ")) {
+                    String[] curColumnParts = curColumn.split(" ");
+                    curColumn = curColumnParts[0];
+                }
+
+                if (!newlyAddedFields.contains(curColumn)) {
+                    oldFields.add(curColumn);
                 } else {
-                    Log.d(TAG, "Skipping field " + sortFields[i] + " from the select query");
+                    Log.d(TAG, "Skipping field " + curColumn + " from the select query");
                 }
             }
 
             String insertQuery = "insert into "
                     + CommonFtsObject.searchTableName(originalTableName) + newTableNameSuffix
-                    + " (" + StringUtils.join(oldSortFields, ", ") + ")"
-                    + " select " + StringUtils.join(oldSortFields, ", ") + " from "
+                    + " (" + StringUtils.join(oldFields, ", ") + ")"
+                    + " select " + StringUtils.join(oldFields, ", ") + " from "
                     + CommonFtsObject.searchTableName(originalTableName);
 
             Log.d(TAG, "Insert query is\n---------------------------\n" + insertQuery);
