@@ -2,11 +2,13 @@ package org.ei.opensrp.path.fragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,14 +32,15 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
+import org.ei.opensrp.path.activity.ChildImmunizationActivity;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.adapter.AdvancedSearchPaginatedCursorAdapter;
 import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.path.db.Event;
+import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.provider.AdvancedSearchClientsProvider;
-import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
 import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,8 +58,6 @@ import util.GlobalSearchUtils;
 import util.JsonFormUtils;
 import util.MoveToMyCatchmentUtils;
 import util.Utils;
-
-import static util.Utils.getValue;
 
 public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private View mView;
@@ -199,6 +200,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
                 client = (CommonPersonObjectClient) view.getTag();
             }
+            RegisterClickables registerClickables = new RegisterClickables();
             switch (view.getId()) {
                 case R.id.global_search:
                     goBack();
@@ -206,16 +208,35 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 case R.id.filter_selection:
                     ((ChildSmartRegisterActivity) getActivity()).filterSelection();
                     break;
+                case R.id.search_layout:
                 case R.id.search:
-                    search();
+                    search(view);
+                    break;
+                case R.id.child_profile_info_layout:
+                    ChildImmunizationActivity.launchActivity(getActivity(), client, null);
                     break;
                 case R.id.record_weight:
-                    String zeirId = client == null ? null : getValue(client.getColumnmaps(), "zeir_id", false);
-                    ((ChildSmartRegisterActivity) getActivity()).startFormActivity("out_of_catchment_service", zeirId, null);
+                    if (client == null) {
+                        if (view.getTag() != null && view.getTag() instanceof String) {
+                            String zeirId = view.getTag().toString();
+                            ((ChildSmartRegisterActivity) getActivity()).startFormActivity("out_of_catchment_service", zeirId, null);
+                        }
+                    } else {
+                        registerClickables.setRecordWeight(true);
+                        ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    }
                     break;
+
                 case R.id.record_vaccination:
-                    String entityId = client == null ? null : client.entityId();
-                    MoveToMyCatchmentUtils.moveToMyCatchment(entityId, moveToMyCatchmentListener, clientsProgressView);
+                    if (client == null) {
+                        if (view.getTag() != null && view.getTag() instanceof String) {
+                            String entityId = view.getTag().toString();
+                            moveToMyCatchmentArea(entityId);
+                        }
+                    } else {
+                        registerClickables.setRecordAll(true);
+                        ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
+                    }
                     break;
             }
         }
@@ -282,7 +303,11 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
     }
 
-    private void search() {
+    public void search(final View view) {
+        android.util.Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
+        ((ChildSmartRegisterActivity) getActivity()).hideKeyboard();
+        view.setClickable(false);
+
         if (!hasSearchParams()) {
             Toast.makeText(getActivity(), getString(R.string.update_search_params), Toast.LENGTH_LONG).show();
             return;
@@ -388,7 +413,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(zeirIdString))
 
         {
-            searchCriteriaString += " ZEIR ID: \"" + zeirIdString + "\",";
+            searchCriteriaString += " ZEIR ID: \"" + bold(zeirIdString) + "\",";
             String key = ZEIR_ID;
             if (!outOfArea) {
                 key = tableName + "." + ZEIR_ID;
@@ -400,7 +425,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(firstNameString))
 
         {
-            searchCriteriaString += " First name: \"" + firstNameString + "\",";
+            searchCriteriaString += " First name: \"" + bold(firstNameString) + "\",";
             String key = FIRST_NAME;
             if (!outOfArea) {
                 key = tableName + "." + FIRST_NAME;
@@ -412,7 +437,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(lastNameString))
 
         {
-            searchCriteriaString += " Last name: \"" + lastNameString + "\",";
+            searchCriteriaString += " Last name: \"" + bold(lastNameString) + "\",";
             String key = LAST_NAME;
             if (!outOfArea) {
                 key = tableName + "." + LAST_NAME;
@@ -424,7 +449,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(motherGuardianNameString))
 
         {
-            searchCriteriaString += " Mother/Guardian name: \"" + motherGuardianNameString + "\",";
+            searchCriteriaString += " Mother/Guardian name: \"" + bold(motherGuardianNameString) + "\",";
             String key = MOTHER_GUARDIAN_FIRST_NAME;
             if (!outOfArea) {
                 key = parentTableName + "." + FIRST_NAME;
@@ -442,7 +467,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(motherGuardianNrcString))
 
         {
-            searchCriteriaString += " Mother/Guardian nrc: \"" + motherGuardianNrcString + "\",";
+            searchCriteriaString += " Mother/Guardian nrc: \"" + bold(motherGuardianNrcString) + "\",";
             String key = MOTHER_GUARDIAN_NRC_NUMBER;
             if (!outOfArea) {
                 key = parentTableName + "." + NRC_NUMBER;
@@ -454,7 +479,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(motherGuardianPhoneNumberString))
 
         {
-            searchCriteriaString += " Mother/Guardian phone number: \"" + motherGuardianPhoneNumberString + "\",";
+            searchCriteriaString += " Mother/Guardian phone number: \"" + bold(motherGuardianPhoneNumberString) + "\",";
             String key = MOTHER_GUARDIAN_PHONE_NUMBER;
             if (!outOfArea) {
                 key = parentTableName + "." + CONTACT_PHONE_NUMBER;
@@ -466,7 +491,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(startDateString))
 
         {
-            searchCriteriaString += " Start date: \"" + startDateString + "\",";
+            searchCriteriaString += " Start date: \"" + bold(startDateString) + "\",";
             editMap.put(START_DATE, startDateString.trim());
         }
 
@@ -474,26 +499,24 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         if (StringUtils.isNotBlank(endDateString))
 
         {
-            searchCriteriaString += " End date: \"" + endDateString + "\",";
+            searchCriteriaString += " End date: \"" + bold(endDateString) + "\",";
             editMap.put(END_DATE, endDateString.trim());
         }
 
         if (searchCriteria != null)
 
         {
-            searchCriteria.setText(removeLastComma(searchCriteriaString));
+            searchCriteria.setText(Html.fromHtml(removeLastComma(searchCriteriaString)));
             searchCriteria.setVisibility(View.VISIBLE);
         }
 
-        if (outOfArea)
-
-        {
+        if (outOfArea) {
             globalSearch();
-        } else
-
-        {
+        } else {
             localSearch();
         }
+
+        view.setClickable(true);
 
     }
 
@@ -503,7 +526,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         String tableName = "ec_child";
         setTablename(tableName);
         AdvancedSearchClientsProvider hhscp = new AdvancedSearchClientsProvider(getActivity(),
-                clientActionHandler, context().alertService(), VaccinatorApplication.getInstance().vaccineRepository(), VaccinatorApplication.getInstance().weightRepository());
+                clientActionHandler, context().alertService(), VaccinatorApplication.getInstance().vaccineRepository(), VaccinatorApplication.getInstance().weightRepository(), commonRepository());
         clientAdapter = new AdvancedSearchPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
 
@@ -932,6 +955,29 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
     }
 
+    private void moveToMyCatchmentArea(final String entityId) {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.move_to_catchment_confirm_dialog_message)
+                .setTitle(R.string.move_to_catchment_confirm_dialog_title)
+                .setCancelable(false)
+                .setPositiveButton(org.ei.opensrp.path.R.string.yes_button_label,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                MoveToMyCatchmentUtils.moveToMyCatchment(entityId, moveToMyCatchmentListener, clientsProgressView);
+                            }
+                        })
+                .setNegativeButton(org.ei.opensrp.path.R.string.no_button_label,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                .show();
+    }
+
+    private String bold(String textToBold) {
+        return "<b>" + textToBold + "</b> ";
+    }
+
     final Listener<JSONArray> listener = new Listener<JSONArray>() {
         public void onEvent(final JSONArray jsonArray) {
 
@@ -1085,7 +1131,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     }
 
                     PathClientProcessor.getInstance(getActivity()).processClient(ecUpdater.getEventsByBaseEnityId(baseEntityId));
-                    filterandSortInInitializeQueries();
+                    clientAdapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
                     Log.e(getClass().getName(), "Exception", e);
