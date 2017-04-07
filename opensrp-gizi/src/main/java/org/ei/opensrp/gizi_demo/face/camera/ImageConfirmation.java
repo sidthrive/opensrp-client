@@ -409,7 +409,7 @@ public class ImageConfirmation extends Activity {
                 entityid,
                 "Image",
                 details.get("profilepic"),
-                ImageRepository.TYPE_Unsynced,"dp");
+                ImageRepository.TYPE_Unsynced,"dp", null, null);
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
 //        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();

@@ -58,7 +58,7 @@ public class Tools {
     public static final int CONFIDENCE_VALUE = 58;
     private static String bindobject;
     private static ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-    private static Context appContext;
+    public static Context appContext;
     private static HashMap<String, String> hash;
     private static ProfileImage profileImage = new ProfileImage();
     private static String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
@@ -74,13 +74,13 @@ public class Tools {
 
 
     public Tools(Context context) {
-        this.appContext = context;
+        appContext = context;
     }
 
     public Tools() {
     }
 
-    public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated) {
+    public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated, String className) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
         File thumbs_photo = getOutputMediaFile(1, entityId);
@@ -112,7 +112,7 @@ public class Tools {
 //           FIXME File & Database Stored
 //            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector), updated);
 
-            saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated);
+            saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated, className);
 
             return true;
 
@@ -414,7 +414,7 @@ public class Tools {
 //        hash.putAll((Map<? extends String, ? extends String>) appPrefs.getAll());
 //        return hash;
 //    }
-    private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated) {
+    private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated, String className) {
 
         Log.e(TAG, "saveToDb: " + "start");
         // insert into the db local
@@ -445,6 +445,16 @@ public class Tools {
             ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
             imageRepo.add(profileImage, entityId);
 
+            // insert into details
+            Map<String, String> details = new HashMap<>();
+            details.put("profilepic", absoluteFileName);
+            if (className.equals(KIDetailActivity.class.getSimpleName())) {
+                bindobject = "kartu_ibu";
+            } else {
+                bindobject = "anak";
+            }
+            Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityId, details);
+
 
         } else {
             imageRepo.updateByEntityId(entityId, faceVector);
@@ -455,19 +465,6 @@ public class Tools {
 
     public static void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
         Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(
-                anmId,
-                anmId,
-                entityid,
-                "Image",
-                details.get("profilepic"),
-                ImageRepository.TYPE_Unsynced,
-                "dp",
-                null, null
-                );
-
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
     }
 
 //    public void resetAlbum() {
@@ -596,7 +593,7 @@ public class Tools {
             // Get Face Vector Contnt Only by removing Header
             faceVectorContent = Arrays.copyOfRange(faceVectorContent, faceVector.length - 300, faceVector.length);
 
-            boolean savedFile = WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated);
+            boolean savedFile = WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated, className);
 
             if (savedFile){
                 hash = retrieveHash(context);

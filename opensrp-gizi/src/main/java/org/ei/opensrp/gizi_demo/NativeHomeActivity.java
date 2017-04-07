@@ -1,6 +1,7 @@
 package org.ei.opensrp.gizi_demo;
 
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
 import org.ei.opensrp.gizi_demo.R;
+import org.ei.opensrp.gizi_demo.face.camera.util.Tools;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -141,6 +143,9 @@ public class NativeHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
+
+        new Tools(context);
+        Log.e("TAG", "onResumption: "+ Tools.appContext );
     }
 
     private void updateRegisterCounts() {

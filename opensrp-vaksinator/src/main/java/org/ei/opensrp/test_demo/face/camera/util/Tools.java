@@ -48,6 +48,14 @@ public class Tools {
     ClientsList cl = new ClientsList();
     private static String photoPath;
 
+    public static Context appContext;
+
+    public Tools(Context context) {
+        appContext = context;
+    }
+
+    public Tools() {
+    }
     public static boolean SavePictureToFile(android.content.Context context, Bitmap bitmap, String entityId) {
         for (int i = 0; i < 2; i++) {
             File pictureFile = getOutputMediaFile(i, entityId);
@@ -414,7 +422,7 @@ public class Tools {
                 "Image",
                 details.get("profilepic"),
                 ImageRepository.TYPE_Unsynced,
-                "dp");
+                "dp", null, null);
 
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
 //                kiclient.entityId();
