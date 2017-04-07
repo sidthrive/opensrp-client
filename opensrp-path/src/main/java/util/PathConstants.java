@@ -8,6 +8,7 @@ import org.ei.opensrp.path.BuildConfig;
  */
 public class PathConstants extends AllConstants {
     public static final String OPENMRS_URL = BuildConfig.OPENMRS_URL;
+    public static final int DATABASE_VERSION = BuildConfig.DATABASE_VERSION;
 
     public static String openmrsUrl() {
         String baseUrl = org.ei.opensrp.Context.getInstance().allSharedPreferences().fetchBaseURL("");

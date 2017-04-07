@@ -11,6 +11,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.db.Address;
 import org.ei.opensrp.path.db.Client;
@@ -34,8 +35,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import util.JsonFormUtils;
@@ -69,6 +72,7 @@ public class PathRepository extends Repository {
         Log.w(PathRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        upgradeToVersion2(db, oldVersion);
         //db.execSQL("DROP TABLE IF EXISTS " + SmsTarseelTables.unsubmitted_outbound);
     }
 
@@ -1094,5 +1098,91 @@ public class PathRepository extends Repository {
 
     private String generateRandomUUIDString() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * Version 2 added some columns to the ec_child table
+     *
+     * @param database
+     * @param oldVersion
+     */
+    private void upgradeToVersion2(SQLiteDatabase database, int oldVersion) {
+        if (oldVersion < 2) {
+            // Create the new ec_child table
+            String newTableNameSuffix = "_v2";
+            String originalTableName = "ec_child";
+
+            Set<String> searchColumns = new LinkedHashSet<String>();
+            searchColumns.add(CommonFtsObject.idColumn);
+            searchColumns.add(CommonFtsObject.relationalIdColumn);
+            searchColumns.add(CommonFtsObject.phraseColumn);
+            searchColumns.add(CommonFtsObject.isClosedColumn);
+
+            String[] mainConditions = this.commonFtsObject.getMainConditions(originalTableName);
+            if (mainConditions != null)
+                for (String mainCondition : mainConditions) {
+                    if (!mainCondition.equals(CommonFtsObject.isClosedColumnName))
+                        searchColumns.add(mainCondition);
+                }
+
+            String[] sortFields = this.commonFtsObject.getSortFields(originalTableName);
+            if (sortFields != null) {
+                for (String sortValue : sortFields) {
+                    if (sortValue.startsWith("alerts.")) {
+                        sortValue = sortValue.split("\\.")[1];
+                    }
+                    searchColumns.add(sortValue);
+                }
+            }
+
+            String joinedSearchColumns = StringUtils.join(searchColumns, ",");
+
+            String searchSql = "create virtual table "
+                    + CommonFtsObject.searchTableName(originalTableName) + newTableNameSuffix
+                    + " using fts4 (" + joinedSearchColumns + ");";
+
+            database.execSQL(searchSql);
+
+            // Run insert query
+            ArrayList<String> newlyAddedFields = new ArrayList<>();
+            newlyAddedFields.add("alerts.BCG_2");
+            newlyAddedFields.add("inactive");
+            newlyAddedFields.add("lost_to_follow_up");
+            String[] oldSortFields = new String[sortFields.length - newlyAddedFields.size()];
+
+            int j = 0;
+            for (int i = 0; i < sortFields.length; i++) {
+                if (!newlyAddedFields.contains(sortFields[i])) {
+                    if (sortFields[i].startsWith("alerts.")) {
+                        sortFields[i] = sortFields[i].split("\\.")[1];
+                    }
+                    oldSortFields[j] = sortFields[i];
+                    j++;
+                } else {
+                    Log.d(TAG, "Skipping field " + sortFields[i] + " from the select query");
+                }
+            }
+
+            String insertQuery = "insert into "
+                    + CommonFtsObject.searchTableName(originalTableName) + newTableNameSuffix
+                    + " (" + StringUtils.join(oldSortFields, ", ") + ")"
+                    + " select " + StringUtils.join(oldSortFields, ", ") + " from "
+                    + CommonFtsObject.searchTableName(originalTableName);
+
+            Log.d(TAG, "Insert query is\n---------------------------\n" + insertQuery);
+            database.execSQL(insertQuery);
+
+            // Run the drop query
+            String dropQuery = "drop table " + CommonFtsObject.searchTableName(originalTableName);
+            Log.d(TAG, "Drop query is\n---------------------------\n" + dropQuery);
+            database.execSQL(dropQuery);
+
+            // Run rename query
+            String renameQuery = "alter table "
+                    + CommonFtsObject.searchTableName(originalTableName) + newTableNameSuffix
+                    + " rename to " + CommonFtsObject.searchTableName(originalTableName);
+            Log.d(TAG, "Rename query is\n---------------------------\n" + renameQuery);
+            database.execSQL(renameQuery);
+        }
     }
 }
