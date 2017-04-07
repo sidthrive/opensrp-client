@@ -385,8 +385,23 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Last_Name")) {
                         jsonObject.put(JsonFormUtils.VALUE, (Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true).isEmpty() ? Utils.getValue(childDetails.getDetails(), "mother_last_name", true) : Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true)));
                     }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Date_Birth")) {
+
+                        if(Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true)!=null || Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true).equalsIgnoreCase(""))
+                        {
+                            try {
+                                jsonObject.put(JsonFormUtils.READ_ONLY, true);
+                                DateTime dateTime = new DateTime(Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true));
+                                Date dob = dateTime.toDate();
+                                jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_NRC")) {
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Mother_Guardian_NRC", true));
+                        jsonObject.put(JsonFormUtils.READ_ONLY, true);
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(), "mother_nrc_number", true));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Number")) {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Mother_Guardian_Number", true));
@@ -443,6 +458,9 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("CHW_Name")) {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "CHW_Name", true));
                     }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("CHW_Phone_Number")) {
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "CHW_Phone_Number", true));
+                    }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("PMTCT_Status")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "pmtct_status", true));
@@ -494,6 +512,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     } else if (form.getString("encounter_type").equals("Birth Registration")) {
                         JsonFormUtils.editsave(this, getOpenSRPContext(), jsonString, allSharedPreferences.fetchRegisteredANM(), "Child_Photo", "child", "mother");
                     }
+                child_data_fragment.LoadData();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
