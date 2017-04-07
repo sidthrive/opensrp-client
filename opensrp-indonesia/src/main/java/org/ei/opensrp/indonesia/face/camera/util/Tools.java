@@ -419,17 +419,6 @@ public class Tools {
         Log.e(TAG, "saveToDb: " + "start");
         // insert into the db local
         if (!updated) {
-//            profileImage.setImageid(anmId);
-//            profileImage.setAnmId(anmId);
-//            profileImage.setEntityID(entityId);
-//            profileImage.setContenttype("jpeg");
-//            profileImage.setFilepath(absoluteFileName);
-//            profileImage.setFilecategory("profilepic");
-//            profileImage.setFilevector(faceVector);
-//            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-//
-//            imageRepo.add(profileImage, entityId);
-
             // insert into the db local
             ProfileImage profileImage = new ProfileImage();
 
@@ -574,7 +563,7 @@ public class Tools {
             FacialProcessing objFace,
             int arrayPossition,
             Bitmap storedBitmap,
-            String className) {
+            String str_origin_class) {
 
         byte[] faceVector;
 
@@ -593,7 +582,7 @@ public class Tools {
             // Get Face Vector Contnt Only by removing Header
             faceVectorContent = Arrays.copyOfRange(faceVectorContent, faceVector.length - 300, faceVector.length);
 
-            boolean savedFile = WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated, className);
+            boolean savedFile = WritePictureToFile(storedBitmap, entityId, faceVectorContent, updated, str_origin_class);
 
             if (savedFile){
                 hash = retrieveHash(context);
@@ -630,7 +619,7 @@ public class Tools {
 
         Class<?> origin_class = null;
 
-        if (className.equals(KIDetailActivity.class.getSimpleName())) {
+        if (str_origin_class.equals(KIDetailActivity.class.getSimpleName())) {
             origin_class = KIDetailActivity.class;
         }
 //        else if(className.equals(KBDetailActivity.class.getSimpleName())){
@@ -640,7 +629,7 @@ public class Tools {
 //        } else if(className.equals(PNCDetailActivity.class.getSimpleName())){
 //            origin_class = PNCDetailActivity.class;
 //        }
-        else if (className.equals(AnakDetailActivity.class.getSimpleName())) {
+        else if (str_origin_class.equals(AnakDetailActivity.class.getSimpleName())) {
             origin_class = AnakDetailActivity.class;
         }
 

@@ -67,6 +67,9 @@ public class ImageConfirmation extends Activity {
     int angle;
     boolean switchCamera;
 
+    private boolean updated = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,13 +213,13 @@ public class ImageConfirmation extends Activity {
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
         data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
-
         angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
         switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
         identifyPerson = extras.getBoolean("org.sid.sidface.ImageConfirmation.identify");
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
+        updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
 
     }
 
@@ -255,13 +258,8 @@ public class ImageConfirmation extends Activity {
 
             @Override
             public void onClick(View arg0) {
-                Log.e(TAG, "onClick: identify " + identifyPerson);
-                Log.e(TAG, "onClick: base_id " + entityId);
 
                 Class<?> origin_class = this.getClass();
-
-                Log.e(TAG, "onPreviewFrame: init"+ origin_class.getSimpleName() );
-                Log.e(TAG, "onPreviewFrame: origin" + str_origin_class);
 
                 if(str_origin_class.equals(ChildDetailActivity.class.getSimpleName())){
                     origin_class = ChildDetailActivity.class;
@@ -269,9 +267,11 @@ public class ImageConfirmation extends Activity {
 
                 if (!identifyPerson) {
 
-                    Log.e(TAG, "onClick: "+ origin_class.getSimpleName() );
+//                    saveAndClose(entityId, origin_class.getSimpleName());
+                    // Bidan
+//                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
-                    saveAndClose(entityId, origin_class.getSimpleName());
+                    Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
 
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
@@ -333,38 +333,31 @@ public class ImageConfirmation extends Activity {
     /*
     Save File and DB
      */
-    private void saveAndClose(String entityId, String s_class) {
-        Log.e(TAG, "saveAndClose: position"+ arrayPossition );
-        Log.e(TAG, "saveAndClose: " + Arrays.toString(objFace.serializeRecogntionAlbum()));
-
-        Log.e(TAG, "saveAndClose: "+ s_class );
-//        SmartShutterActivity.WritePictureToFile(ImageConfirmation.this, storedBitmap);
-        saveAlbum();
-        int result = objFace.addPerson(arrayPossition);
-        clientList.put(entityId, Integer.toString(result));
-        saveHash(clientList, getApplicationContext());
-
-
-        ImageConfirmation.this.finish();
-
-        Class<?> origin_class = this.getClass();
-
-        if(s_class.equals(ChildDetailActivity.class.getSimpleName())){
-            origin_class = ChildDetailActivity.class;
-        }
-
-        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, origin_class.getSimpleName());
-
-        Log.e(TAG, "saveAndClose: "+ origin_class.getName() );
-
-        Intent resultIntent = new Intent(this, origin_class );
-
-//        resultIntent.putExtra("SmartShutterActivity.thumbnail", thumbnail);
-        setResult(RESULT_OK, resultIntent);
-        startActivityForResult(resultIntent, 1);
-
-        Log.e(TAG, "saveAndClose: "+"end" );
-    }
+//    private void saveAndClose(String entityId, String originClass) {
+//
+//        saveAlbum();
+//
+//        int result = objFace.addPerson(arrayPossition);
+//        clientList.put(entityId, Integer.toString(result));
+//        saveHash(clientList, getApplicationContext());
+//
+//        ImageConfirmation.this.finish();
+//
+//        Class<?> origin_class = this.getClass();
+//
+//        if(originClass.equals(ChildDetailActivity.class.getSimpleName())){
+//            origin_class = ChildDetailActivity.class;
+//        }
+//
+//        Tools.WritePictureToFile(ImageConfirmation.this, storedBitmap, entityId, origin_class.getSimpleName());
+//
+//        Intent resultIntent = new Intent(this, origin_class );
+//
+//        setResult(RESULT_OK, resultIntent);
+//        startActivityForResult(resultIntent, 1);
+//
+//        Log.e(TAG, "saveAndClose: "+"end" );
+//    }
 
     public void saveHash(HashMap<String, String> hashMap, android.content.Context context) {
         SharedPreferences settings = context.getSharedPreferences(FaceConstants.HASH_NAME, 0);

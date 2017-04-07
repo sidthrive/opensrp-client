@@ -233,7 +233,6 @@ public class ImageConfirmation extends Activity {
     private void init_extras() {
         Bundle extras = getIntent().getExtras();
         data = getIntent().getByteArrayExtra("com.qualcomm.sdk.smartshutterapp.ImageConfirmation");
-        Log.e(TAG, "init_extras: "+ extras.toString() );
         angle = extras.getInt("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.orientation");
         switchCamera = extras.getBoolean("com.qualcomm.sdk.smartshutterapp.ImageConfirmation.switchCamera");
         entityId = extras.getString("org.sid.sidface.ImageConfirmation.id");
