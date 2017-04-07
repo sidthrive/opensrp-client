@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -52,7 +53,6 @@ import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
 import org.ei.opensrp.path.toolbar.ChildDetailsToolbar;
 import org.ei.opensrp.path.view.LocationPickerView;
-import org.ei.opensrp.path.view.VaccineGroup;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -613,27 +613,29 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         TextView status = (TextView)findViewById(R.id.status);
         if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
+            statusImage.setColorFilter(Color.TRANSPARENT);
             statusImage.setImageResource(R.drawable.ic_icon_status_inactive);
             status_name.setText("Inactive");
             status_name.setTextColor(getResources().getColor(R.color.dark_grey));
             status_name.setVisibility(View.VISIBLE);
             status.setText("status");
         }
-        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
+        else if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
             statusImage.setImageResource(R.drawable.ic_icon_status_losttofollowup);
+            statusImage.setColorFilter(Color.TRANSPARENT);
 //            status_name.setText("Lost to");
             status_name.setVisibility(View.GONE);
             status.setText("Lost to\nFollow-Up");
         }
-        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString()))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())))){
-            statusImage.setImageResource(R.drawable.ic_icon_status_active);
-            statusImage.setColorFilter(getResources().getColor(R.color.alert_completed));
-            status_name.setText("Active");
-            status_name.setTextColor(getResources().getColor(R.color.alert_completed));
-            status_name.setVisibility(View.VISIBLE);
-            status.setText("status");
-        }
+//        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString()))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())))){
+//            statusImage.setImageResource(R.drawable.ic_icon_status_active);
+//            statusImage.setColorFilter(getResources().getColor(R.color.alert_completed));
+//            status_name.setText("Active");
+//            status_name.setTextColor(getResources().getColor(R.color.alert_completed));
+//            status_name.setVisibility(View.VISIBLE);
+//            status.setText("status");
+//        }
     }
 
     private String updateActivityTitle() {
