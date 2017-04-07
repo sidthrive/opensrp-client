@@ -415,7 +415,17 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Place_Birth")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Place_Birth", true));
+
+                        String placeofnearth_Choice = Utils.getValue(detailmaps,"Place_Birth",true);
+                        if(placeofnearth_Choice.equalsIgnoreCase("Health facility")){
+                            placeofnearth_Choice = "Health facility";
+                        }
+                        if(placeofnearth_Choice.equalsIgnoreCase("Home")){
+                            placeofnearth_Choice = "Home";
+                        }
+                        jsonObject.put(JsonFormUtils.VALUE, placeofnearth_Choice);
+
+//                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Place_Birth", true));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Birth_Facility_Name")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
@@ -435,7 +445,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("PMTCT_Status")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "PMTCT_Status", true));
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "pmtct_status", true));
                     }
 
                 }

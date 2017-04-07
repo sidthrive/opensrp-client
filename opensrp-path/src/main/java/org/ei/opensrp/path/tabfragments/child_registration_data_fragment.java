@@ -64,7 +64,7 @@ public class child_registration_data_fragment extends Fragment {
 //        Detailsmap = childDetails.getColumnmaps();
         WidgetFactory wd = new WidgetFactory();
 
-        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap,"Home_Facility",false))));
+        layout.addView(wd.createTableRow(inflater,container,"Child's home health facility", fixlocationview(JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap,"Home_Facility",false)))));
         layout.addView(wd.createTableRow(inflater,container,"Child's ZEIR ID",Utils.getValue(childDetails.getColumnmaps(),"zeir_id",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's register card number",Utils.getValue(Detailsmap,"Child_Register_Card_Number",false)));
         layout.addView(wd.createTableRow(inflater,container,"Child's birth certificate number",Utils.getValue(Detailsmap,"Child_Birth_Certificate",false)));
@@ -114,15 +114,15 @@ public class child_registration_data_fragment extends Fragment {
             placeofnearth_Choice = "Home";
         }
         layout.addView(wd.createTableRow(inflater,container,"Place of birth",placeofnearth_Choice));
-        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap, "Birth_Facility_Name",false))));
-        layout.addView(wd.createTableRow(inflater,container,"Child's residential area",JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap,"Residential_Area",true))));
+        layout.addView(wd.createTableRow(inflater,container,"Health facility the child was born in",fixlocationview(JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap, "Birth_Facility_Name",false)))));
+        layout.addView(wd.createTableRow(inflater,container,"Child's residential area",fixlocationview(JsonFormUtils.getOpenMrsLocationName(Context.getInstance(), Utils.getValue(Detailsmap,"Residential_Area",true)))));
         layout.addView(wd.createTableRow(inflater,container,"Other residential area",Utils.getValue(Detailsmap,"Residential_Area_Other",true)));
         layout.addView(wd.createTableRow(inflater,container,"Home address",Utils.getValue(Detailsmap,"address2",true)));
 
         layout.addView(wd.createTableRow(inflater,container,"Landmark",Utils.getValue(Detailsmap,"address1",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW name",Utils.getValue(Detailsmap,"CHW_Name",true)));
         layout.addView(wd.createTableRow(inflater,container,"CHW phone number",Utils.getValue(Detailsmap,"CHW_Phone_Number",true)));
-        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(Detailsmap,"PMTCT_Status",true)));
+        layout.addView(wd.createTableRow(inflater,container,"HIV exposure",Utils.getValue(Detailsmap,"pmtct_status",true)));
 
 
 //        layout.addView(createTableRow(inflater,container,"Catchment Area","Linda"));
@@ -140,6 +140,20 @@ public class child_registration_data_fragment extends Fragment {
 
         // Inflate the layout for this fragment
         return fragmentview;
+    }
+    public String fixlocationview(String value){
+        if(value.contains("[")){
+            value = value.replace("[","").replace("]","");
+            if(value.contains(",")){
+                value = value.split(",")[value.split(",").length-1];
+            }
+            if(value.contains("\"")){
+                value = value.replace("\"","");
+            }
+            return value;
+        }else{
+            return value;
+        }
     }
 
 
