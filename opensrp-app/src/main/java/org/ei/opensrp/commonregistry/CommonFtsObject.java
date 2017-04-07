@@ -95,6 +95,12 @@ public class CommonFtsObject {
         if(StringUtils.isBlank(schedule)){
             return null;
         }
+
+        for(String key: alertsScheduleMap.keySet()){
+            if(key.equalsIgnoreCase(schedule)){
+                schedule = key;
+            }
+        }
         Pair<String, Boolean> pair =  alertsScheduleMap.get(schedule);
         if(pair == null){
             return null;
