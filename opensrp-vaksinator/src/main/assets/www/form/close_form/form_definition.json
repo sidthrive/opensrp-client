@@ -97,7 +97,12 @@
         "name": "registrationDate",
         "bind": "/model/instance/penutupan_anak_mapped/today",
         "shouldLoadValue": true
+      },
+      {
+        "name": "isClosed",
+        "value": "true"
       }
+
     ]
   }
 }

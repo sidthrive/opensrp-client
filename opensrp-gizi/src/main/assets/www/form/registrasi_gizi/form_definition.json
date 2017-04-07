@@ -73,6 +73,10 @@
         "shouldLoadValue": true
       },
       {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
         "name": "namaBayi",
         "bind": "/model/instance/Registrasi_Gizi-NewStructure-map/nama_anak"
 

@@ -158,7 +158,7 @@ public class NativeHomeActivity extends SecuredActivity {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 
         Cursor childcountcursor = context.commonrepository("anak").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("anak", "details not LIKE '%\"form_ditutup\": \"yes\"%'"));
+                sqb.queryForCountOnRegisters("anak", "details not LIKE '%\"form_ditutup\"%'"));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
         childcountcursor.close();

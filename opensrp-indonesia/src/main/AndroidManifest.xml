@@ -1,17 +1,17 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.ei.opensrp.indonesia_demo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.ei.opensrp.indonesia">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application android:allowBackup="true"
         android:label="@string/app_name"
-        android:name="org.ei.opensrp.indonesia_demo.application.BidanApplication"
+        android:name="org.ei.opensrp.indonesia.application.BidanApplication"
         >
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b74c58c94d8965151212e8ecf1f4fdfbf5b7f4e4" />
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.LoginActivity"
+            android:name="org.ei.opensrp.indonesia.LoginActivity"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="landscape"
@@ -22,58 +22,58 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ei.opensrp.indonesia_demo.BidanHomeActivity"
+        <activity android:name="org.ei.opensrp.indonesia.BidanHomeActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
-        <activity android:name="org.ei.opensrp.indonesia_demo.kartu_ibu.NativeKISmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.kartu_ibu.KIDetailActivity"
+            android:name="org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name="org.ei.opensrp.indonesia_demo.kb.NativeKBSmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.kb.KBDetailActivity"
+            android:name="org.ei.opensrp.indonesia.kb.KBDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name="org.ei.opensrp.indonesia_demo.anc.NativeKIANCSmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.anc.ANCDetailActivity"
+            android:name="org.ei.opensrp.indonesia.anc.ANCDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name="org.ei.opensrp.indonesia_demo.pnc.NativeKIPNCSmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.pnc.PNCDetailActivity"
+            android:name="org.ei.opensrp.indonesia.pnc.PNCDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name="org.ei.opensrp.indonesia_demo.child.NativeKIAnakSmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="org.ei.opensrp.indonesia_demo.child.AnakDetailActivity"
+            android:name="org.ei.opensrp.indonesia.child.AnakDetailActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle"/>
 
-        <activity android:name="org.ei.opensrp.indonesia_demo.face.camera.SmartShutterActivity" android:noHistory="true" />
-        <activity android:name="org.ei.opensrp.indonesia_demo.face.camera.ImageConfirmation" android:noHistory="true" />
-        <activity android:name="org.ei.opensrp.indonesia_demo.face.camera.ClientsList" />
+        <activity android:name="org.ei.opensrp.indonesia.face.camera.SmartShutterActivity" android:noHistory="true" />
+        <activity android:name="org.ei.opensrp.indonesia.face.camera.ImageConfirmation" android:noHistory="true" />
+        <activity android:name="org.ei.opensrp.indonesia.face.camera.ClientsList" />
 
     </application>
 

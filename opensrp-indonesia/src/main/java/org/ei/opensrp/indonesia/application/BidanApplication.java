@@ -1,16 +1,12 @@
-package org.ei.opensrp.gizi_demo.application;
-
+package org.ei.opensrp.indonesia.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 
-import org.acra.ACRA;
-import org.acra.ReportingInteractionMode;
-import org.acra.annotation.ReportsCrashes;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
-import org.ei.opensrp.gizi_demo.LoginActivity;
-import org.ei.opensrp.gizi_demo.gizi.ErrorReportingFacade;
-import org.ei.opensrp.gizi_demo.gizi.FlurryFacade;
+import org.ei.opensrp.indonesia.LoginActivity;
+import org.ei.opensrp.indonesia.lib.ErrorReportingFacade;
+import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
@@ -18,11 +14,8 @@ import static org.ei.opensrp.util.Log.logInfo;
 
 import java.util.Locale;
 
-/**
- * Created by koros on 1/22/16.
- */
 
-public class GiziApplication extends DrishtiApplication {
+public class BidanApplication extends DrishtiApplication {
 
     @Override
     public void onCreate() {
@@ -78,8 +71,11 @@ public class GiziApplication extends DrishtiApplication {
     }
 
     private String[] getFtsSearchFields(String tableName){
-        if(tableName.equals("anak")){
-            String[] ftsSearchFields =  { "namaBayi","details" };
+        if(tableName.equals("kartu_ibu")){
+            String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
+            return ftsSearchFields;
+        } else if(tableName.equals("anak")){
+            String[] ftsSearchFields =  { "namaBayi" };
             return ftsSearchFields;
         } else if (tableName.equals("ibu")){
             String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
@@ -89,8 +85,11 @@ public class GiziApplication extends DrishtiApplication {
     }
 
     private String[] getFtsSortFields(String tableName){
-        if(tableName.equals("anak")){
-            String[] sortFields = { "namaBayi", "tanggalLahirAnak","details" };
+        if(tableName.equals("kartu_ibu")) {
+            String[] sortFields = { "namalengkap", "umur",  "noIbu", "htp" };
+            return sortFields;
+        } else if(tableName.equals("anak")){
+            String[] sortFields = { "namaBayi", "tanggalLahirAnak" };
             return sortFields;
         } else if(tableName.equals("ibu")){
             String[] sortFields = { "namalengkap", "umur", "noIbu", "htp" };
@@ -100,8 +99,11 @@ public class GiziApplication extends DrishtiApplication {
     }
 
     private String[] getFtsMainConditions(String tableName){
-        if(tableName.equals("anak")){
-            String[] mainConditions = { "isClosed", "ibuCaseId", "details" };
+        if(tableName.equals("kartu_ibu")) {
+            String[] mainConditions = { "isClosed", "details" };
+            return mainConditions;
+        } else if(tableName.equals("anak")){
+            String[] mainConditions = { "isClosed", "ibuCaseId" };
             return mainConditions;
         } else if(tableName.equals("ibu")){
             String[] mainConditions = { "isClosed", "type", "kartuIbuId" };
@@ -109,6 +111,7 @@ public class GiziApplication extends DrishtiApplication {
         }
         return null;
     }
+
     private String getFtsCustomRelationalId(String tableName){
         if(tableName.equals("anak")){
             String customRelationalId = "ibuCaseId";
@@ -121,7 +124,7 @@ public class GiziApplication extends DrishtiApplication {
     }
 
     private String[] getFtsTables(){
-        String[] ftsTables = { "anak", "ibu" };
+        String[] ftsTables = { "kartu_ibu", "anak", "ibu" };
         return ftsTables;
     }
 
@@ -135,4 +138,5 @@ public class GiziApplication extends DrishtiApplication {
         }
         return commonFtsObject;
     }
+
 }

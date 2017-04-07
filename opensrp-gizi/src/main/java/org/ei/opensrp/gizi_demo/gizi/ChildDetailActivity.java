@@ -128,7 +128,8 @@ public class ChildDetailActivity extends Activity {
         });
 
 
-        System.out.println("details: "+childclient.getColumnmaps().toString());
+        System.out.println("cl maps: "+childclient.getColumnmaps().toString());
+        System.out.println("details: " +  childclient.getDetails().toString());
 
 
         //        Profile Picture

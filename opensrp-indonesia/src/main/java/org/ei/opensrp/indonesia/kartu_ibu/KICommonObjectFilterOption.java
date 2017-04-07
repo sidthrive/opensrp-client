@@ -1,4 +1,4 @@
-package org.ei.opensrp.test_demo.vaksinator;
+package org.ei.opensrp.indonesia.kartu_ibu;
 
 import org.ei.opensrp.cursoradapter.CursorFilterOption;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
@@ -11,8 +11,7 @@ public class KICommonObjectFilterOption implements CursorFilterOption {
     @Override
     public String filter() {
 
-
-        return " and anak.details LIKE '%"+criteria+"%' AND anak.details NOT LIKE '%\"+criteria+\"I%'";
+        return " and kartu_ibu.details LIKE '%"+criteria+"%' AND kartu_ibu.details NOT LIKE '%"+criteria+"I%'";
     }
 
 
