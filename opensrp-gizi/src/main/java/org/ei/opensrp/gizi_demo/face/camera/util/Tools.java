@@ -70,63 +70,6 @@ public class Tools {
     public Tools() {
     }
 
-    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, String bind_name) {
-
-        File pictureFile = getOutputMediaFile(0, entityId);
-        File thumbs_photo = getOutputMediaFile(1, entityId);
-
-        if (pictureFile == null || thumbs_photo == null) {
-            Log.e(TAG, "Error creating media file, check storage permissions!");
-            return false;
-        }
-
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.close();
-            Log.e(TAG, "Wrote image to " + pictureFile);
-
-            MediaScannerConnection.scanFile(context, new String[]{
-                            pictureFile.toString()}, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.i("ExternalStorage", "Scanned " + path + ":");
-                            Log.i("ExternalStorage", "-> uri=" + uri);
-                        }
-                    });
-            String photoPath = pictureFile.toString();
-            Log.e(TAG, "Photo Path = " + photoPath);
-
-//            Create Thumbs
-            FileOutputStream tfos = new FileOutputStream(thumbs_photo);
-            final int THUMBSIZE = FaceConstants.THUMBSIZE;
-
-            Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath),
-                    THUMBSIZE, THUMBSIZE);
-            ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, tfos);
-            tfos.close();
-            Log.e(TAG, "Wrote image to " + thumbs_photo);
-
-            bindobject = "anak";
-
-            HashMap<String, String> details = new HashMap<>();
-
-            details.put("profilepic", thumbs_photo.toString());
-
-            saveimagereference(bindobject, entityId, details);
-
-            setPhotoPath(thumbs_photo.toString());
-
-            return true;
-
-        } catch (FileNotFoundException e) {
-            Log.d(TAG, "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d(TAG, "Error accessing file: " + e.getMessage());
-        }
-        return false;
-    }
-
     private static File getOutputMediaFile(Integer mode, String entityId) {
         // Mode 0 = Original
         // Mode 1 = Thumbs
@@ -151,67 +94,6 @@ public class Tools {
 //        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 //        String filename = entity);
         return new File(String.format("%s%s%s.jpg", mediaStorageDir.getPath(), File.separator, entityId));
-    }
-
-    public static Bitmap getThumbnail(ContentResolver cr, String path) throws Exception {
-
-        Cursor ca = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.MediaColumns._ID}, MediaStore.MediaColumns.DATA + "=?", new String[]{path}, null);
-        if (ca != null && ca.moveToFirst()) {
-            int id = ca.getInt(ca.getColumnIndex(MediaStore.MediaColumns._ID));
-            ca.close();
-            return MediaStore.Images.Thumbnails.getThumbnail(cr, id, MediaStore.Images.Thumbnails.MICRO_KIND, null);
-        }
-
-        assert ca != null;
-        ca.close();
-        return null;
-
-    }
-
-    public static void drawInfo(Rect rect, Bitmap mutableBitmap, float pixelDensity, String personName) {
-        Log.e(TAG, "drawInfo: ");
-//        Rect rect = faceDatas[i].rect;
-        // Extra padding around the faeRects
-        rect.set(rect.left -= 20, rect.top -= 20, rect.right += 20, rect.bottom += 20);
-        Canvas canvas = new Canvas(mutableBitmap);
-        Paint paintForRectFill = new Paint(); // Draw rect
-        // fill
-        paintForRectFill.setStyle(Paint.Style.FILL);
-        paintForRectFill.setColor(Color.WHITE);
-        paintForRectFill.setAlpha(80);
-        // Draw rect strokes
-        Paint paintForRectStroke = new Paint();
-        paintForRectStroke.setStyle(Paint.Style.STROKE);
-        paintForRectStroke.setColor(Color.GREEN);
-        paintForRectStroke.setStrokeWidth(5);
-        canvas.drawRect(rect, paintForRectFill);
-        canvas.drawRect(rect, paintForRectStroke);
-
-//        float pixelDensity = getResources().getDisplayMetrics().density;
-        int textSize = (int) (rect.width() / 25 * pixelDensity);
-
-        Paint paintForText = new Paint();
-        Paint paintForTextBackground = new Paint();
-        Typeface tp = Typeface.SERIF;
-        Rect backgroundRect = new Rect(rect.left, rect.bottom, rect.right, (rect.bottom + textSize));
-
-        paintForText.setColor(Color.WHITE);
-        paintForText.setTextSize(textSize);
-        paintForTextBackground.setStyle(Paint.Style.FILL);
-        paintForTextBackground.setColor(Color.BLACK);
-        paintForText.setTypeface(tp);
-        paintForTextBackground.setAlpha(80);
-
-        if (personName != null) {
-            canvas.drawRect(backgroundRect, paintForTextBackground);
-            canvas.drawText(personName, rect.left, rect.bottom + (textSize), paintForText);
-        } else {
-            canvas.drawRect(backgroundRect, paintForTextBackground);
-            canvas.drawText("Not identified", rect.left, rect.bottom + (textSize), paintForText);
-        }
-
-//        confirmationView.setImageBitmap(mutableBitmap);
-
     }
 
     public static void drawRectFace(Rect rect, Bitmap mutableBitmap, float pixelDensity) {
@@ -260,126 +142,6 @@ public class Tools {
         HashMap<String, String> hash = new HashMap<String, String>();
         hash.putAll((Map<? extends String, ? extends String>) settings.getAll());
         return hash;
-    }
-
-    public void saveAlbum() {
-//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
-//		saveCloud(albumBuffer);
-//        Log.e(TAG, "Size of byte Array =" + albumBuffer.length);
-//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putString("albumArray", Arrays.toString(albumBuffer));
-//        editor.apply();
-    }
-
-    public void loadAlbum() {
-//        Toast.makeText(this, "Load FacialActivity Album", Toast.LENGTH_SHORT).show();
-//        Log.e(TAG, "loadAlbum: ");
-//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
-//        String arrayOfString = settings.getString("albumArray", null);
-
-//        byte[] albumArray;
-//        if (arrayOfString != null) {
-//            String[] splitStringArray = arrayOfString.substring(1,
-//                    arrayOfString.length() - 1).split(", ");
-//
-//            albumArray = new byte[splitStringArray.length];
-//            for (int i = 0; i < splitStringArray.length; i++) {
-//                albumArray[i] = Byte.parseByte(splitStringArray[i]);
-//            }
-//            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
-//            Log.e(TAG, "De-Serialized Album Success!");
-//        }
-    }
-
-    public static void alertDialog(android.content.Context context, int opt) {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        Tools tools = new Tools();
-//        alertDialog.setMessage(message);
-        String message = "";
-        switch (opt) {
-            case 0:
-                message = "Are you sure to empty The Album?";
-//                doEmpty;
-                break;
-            case 1:
-                message = "Are you sure to delete item";
-                break;
-            default:
-                break;
-        }
-        alertDialog.setMessage(message);
-//        alertDialog.setButton("OK", do);
-        alertDialog.setPositiveButton("ERASE", tools.doEmpty);
-        alertDialog.show();
-    }
-
-    private DialogInterface.OnClickListener doEmpty = new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int id) {
-            boolean result = SmartShutterActivity.faceProc.resetAlbum();
-            if (result) {
-//                HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(getApplicationContext());
-//                HashMap<String, String> hashMap = retrieveHash(getApplicationContext());
-//                HashMap<String, String> hashMap = retrieveHash();
-//                hashMap.clear();
-//                SmartShutterActivity ss = new SmartShutterActivity();
-//                saveHash(hashMap, getApplicationContext());
-//                saveAlbum();
-//                Toast.makeText(getApplicationContext(),
-//                        "Album Reset Successful.",
-//                        Toast.LENGTH_LONG).show();
-            } else {
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        "Internal Error. Reset album failed",
-//                        Toast.LENGTH_LONG).show();
-            }
-        }
-    };
-
-//    private HashMap<String, String> retrieveHash() {
-//        SharedPreferences appPrefs = getSharedPreferences(FaceConstants.HASH_NAME, MODE_PRIVATE);
-//        HashMap<String, String> hash = new HashMap<String, String>();
-//        hash.putAll((Map<? extends String, ? extends String>) appPrefs.getAll());
-//        return hash;
-//    }
-
-    public static void saveimagereference(String bindobject, String entityid, Map<String, String> details) {
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(
-                UUID.randomUUID().toString(),
-                anmId,
-                entityid,
-                "Image",
-                details.get("profilepic"),
-                ImageRepository.TYPE_Unsynced,
-                "dp", null, null);
-
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
-
-    public void resetAlbum() {
-
-        Log.e(TAG, "resetAlbum: " + "start");
-        boolean result = SmartShutterActivity.faceProc.resetAlbum();
-
-        if (result) {
-            // Clear data
-            // TODO: Null getApplication COntext
-            HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(new ClientsList().getApplicationContext());
-            hashMap.clear();
-            saveHash(hashMap, cl.getApplicationContext());
-            saveAlbum();
-
-            Toast.makeText(cl.getApplicationContext(), "Reset Succesfully done!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(cl.getApplicationContext(), "Reset Failed!", Toast.LENGTH_LONG).show();
-
-        }
-        Log.e(TAG, "resetAlbum: " + "finish");
     }
 
     public static void saveAndClose(
@@ -534,11 +296,11 @@ public class Tools {
             // insert into details
             Map<String, String> details = new HashMap<>();
             details.put("profilepic", absoluteFileName);
-            if (className.equals(ChildDetailActivity.class.getSimpleName())) {
-                bindobject = "kartu_ibu";
-            } else {
+//            if (className.equals(ChildDetailActivity.class.getSimpleName())) {
+//                bindobject = "kartu_ibu";
+//            } else {
                 bindobject = "anak";
-            }
+//            }
             Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityId, details);
 
 
@@ -558,8 +320,6 @@ public class Tools {
         editor.putString(FaceConstants.ALBUM_ARRAY, albumBuffer);
         editor.apply();
     }
-
-
 
     public static void setVectorsBuffered() {
 
@@ -622,4 +382,89 @@ public class Tools {
 
         return newHeader;
     }
+
+
+    public void saveAlbum() {
+//        byte[] albumBuffer = SmartShutterActivity.faceProc.serializeRecogntionAlbum();
+//		saveCloud(albumBuffer);
+//        Log.e(TAG, "Size of byte Array =" + albumBuffer.length);
+//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putString("albumArray", Arrays.toString(albumBuffer));
+//        editor.apply();
+    }
+
+    public void loadAlbum() {
+//        Toast.makeText(this, "Load FacialActivity Album", Toast.LENGTH_SHORT).show();
+//        Log.e(TAG, "loadAlbum: ");
+//        SharedPreferences settings = getSharedPreferences(FaceConstants.ALBUM_NAME, 0);
+//        String arrayOfString = settings.getString("albumArray", null);
+
+//        byte[] albumArray;
+//        if (arrayOfString != null) {
+//            String[] splitStringArray = arrayOfString.substring(1,
+//                    arrayOfString.length() - 1).split(", ");
+//
+//            albumArray = new byte[splitStringArray.length];
+//            for (int i = 0; i < splitStringArray.length; i++) {
+//                albumArray[i] = Byte.parseByte(splitStringArray[i]);
+//            }
+//            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumArray);
+//            Log.e(TAG, "De-Serialized Album Success!");
+//        }
+    }
+
+    public static void alertDialog(android.content.Context context, int opt) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        Tools tools = new Tools();
+//        alertDialog.setMessage(message);
+        String message = "";
+        switch (opt) {
+            case 0:
+                message = "Are you sure to empty The Album?";
+//                doEmpty;
+                break;
+            case 1:
+                message = "Are you sure to delete item";
+                break;
+            default:
+                break;
+        }
+        alertDialog.setMessage(message);
+//        alertDialog.setButton("OK", do);
+        alertDialog.setPositiveButton("ERASE", tools.doEmpty);
+        alertDialog.show();
+    }
+
+    private DialogInterface.OnClickListener doEmpty = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            boolean result = SmartShutterActivity.faceProc.resetAlbum();
+            if (result) {
+//                HashMap<String, String> hashMap = SmartShutterActivity.retrieveHash(getApplicationContext());
+//                HashMap<String, String> hashMap = retrieveHash(getApplicationContext());
+//                HashMap<String, String> hashMap = retrieveHash();
+//                hashMap.clear();
+//                SmartShutterActivity ss = new SmartShutterActivity();
+//                saveHash(hashMap, getApplicationContext());
+//                saveAlbum();
+//                Toast.makeText(getApplicationContext(),
+//                        "Album Reset Successful.",
+//                        Toast.LENGTH_LONG).show();
+            } else {
+//                Toast.makeText(
+//                        getApplicationContext(),
+//                        "Internal Error. Reset album failed",
+//                        Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+//    private HashMap<String, String> retrieveHash() {
+//        SharedPreferences appPrefs = getSharedPreferences(FaceConstants.HASH_NAME, MODE_PRIVATE);
+//        HashMap<String, String> hash = new HashMap<String, String>();
+//        hash.putAll((Map<? extends String, ? extends String>) appPrefs.getAll());
+//        return hash;
+//    }
+
+
 }

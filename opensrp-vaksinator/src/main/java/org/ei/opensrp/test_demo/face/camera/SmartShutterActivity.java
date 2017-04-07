@@ -269,8 +269,11 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                 faceArray = faceProc.getFaceData();
 
                 if (faceArray == null) {
+
                     Log.e(TAG, "Face array is null");
+
                 } else {
+
                     int surfaceWidth = mPreview.getWidth();
                     int surfaceHeight = mPreview.getHeight();
 
