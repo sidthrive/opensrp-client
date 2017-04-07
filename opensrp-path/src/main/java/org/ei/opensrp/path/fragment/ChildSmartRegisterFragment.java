@@ -294,6 +294,8 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 tableName + ".gender",
                 parentTableName + ".first_name as mother_first_name",
                 parentTableName + ".last_name as mother_last_name",
+                parentTableName + ".dob as mother_dob",
+                parentTableName + ".nrc_number as mother_nrc_number",
                 tableName + ".father_name",
                 tableName + ".dob",
                 tableName + ".epi_card_number",
@@ -304,7 +306,9 @@ public class ChildSmartRegisterFragment extends BaseSmartRegisterFragment {
                 tableName + ".provider_id",
                 tableName + ".provider_location_id",
                 tableName + ".client_reg_date",
-                tableName + ".last_interacted_with"
+                tableName + ".last_interacted_with",
+                tableName + ".inactive",
+                tableName + ".lost_to_follow_up"
         });
         queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
         mainSelect = queryBUilder.mainCondition("");

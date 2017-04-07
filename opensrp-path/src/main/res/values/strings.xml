@@ -187,4 +187,5 @@
     <string name="record_weight_notification">"Don't forget to record child's weight"</string>
     <string name="update_search_params">Please update at least one search parameter</string>
     <string name="no_vaccine_record_found">No vaccination record found</string>
+    <string name="matching_results">%1$s matching results found</string>
 </resources>

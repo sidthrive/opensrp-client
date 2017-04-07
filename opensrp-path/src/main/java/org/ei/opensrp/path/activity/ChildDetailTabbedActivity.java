@@ -262,14 +262,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         //super.onPrepareOptionsMenu(menu);
         //getMenuInflater().inflate(R.menu.menu_child_detail_settings, menu);
 
-        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
             menu.findItem(R.id.mark_as_lost_to_followup).setTitle(getResources().getString(R.string.mark_as_not_lost_to_followup));
         }else{
             menu.findItem(R.id.mark_as_lost_to_followup).setTitle(getResources().getString(R.string.mark_as_lost_to_followup));
 
         }
 
-        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
             menu.findItem(R.id.mark_inactive).setTitle(getResources().getString(R.string.mark_active));
         }else{
             menu.findItem(R.id.mark_inactive).setTitle(getResources().getString(R.string.mark_inactive));
@@ -307,7 +307,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 startFormActivity("report_deceased", childDetails.entityId(), reportDeceasedMetadata);
                 return true;
             case R.id.mark_inactive:
-                if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+                if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
                     updateClientAttribute(inactive, false);
 
                 } else {
@@ -317,7 +317,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 updateStatus();
                 return true;
             case R.id.mark_as_lost_to_followup:
-                if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+                if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
                     updateClientAttribute(lostToFollowUp, false);
                 } else {
                     updateClientAttribute(lostToFollowUp, true);
@@ -387,8 +387,23 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Last_Name")) {
                         jsonObject.put(JsonFormUtils.VALUE, (Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true).isEmpty() ? Utils.getValue(childDetails.getDetails(), "mother_last_name", true) : Utils.getValue(childDetails.getColumnmaps(), "mother_last_name", true)));
                     }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Date_Birth")) {
+
+                        if(Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true)!=null || Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true).equalsIgnoreCase(""))
+                        {
+                            try {
+                                jsonObject.put(JsonFormUtils.READ_ONLY, true);
+                                DateTime dateTime = new DateTime(Utils.getValue(childDetails.getColumnmaps(), "mother_dob", true));
+                                Date dob = dateTime.toDate();
+                                jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_NRC")) {
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Mother_Guardian_NRC", true));
+                        jsonObject.put(JsonFormUtils.READ_ONLY, true);
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails.getColumnmaps(), "mother_nrc_number", true));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Mother_Guardian_Number")) {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Mother_Guardian_Number", true));
@@ -417,7 +432,17 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Place_Birth")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Place_Birth", true));
+
+                        String placeofnearth_Choice = Utils.getValue(detailmaps,"Place_Birth",true);
+                        if(placeofnearth_Choice.equalsIgnoreCase("Health facility")){
+                            placeofnearth_Choice = "Health facility";
+                        }
+                        if(placeofnearth_Choice.equalsIgnoreCase("Home")){
+                            placeofnearth_Choice = "Home";
+                        }
+                        jsonObject.put(JsonFormUtils.VALUE, placeofnearth_Choice);
+
+//                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "Place_Birth", true));
                     }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Birth_Facility_Name")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
@@ -435,9 +460,12 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("CHW_Name")) {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "CHW_Name", true));
                     }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("CHW_Phone_Number")) {
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "CHW_Phone_Number", true));
+                    }
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("PMTCT_Status")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
-                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "PMTCT_Status", true));
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(detailmaps, "pmtct_status", true));
                     }
 
                 }
@@ -489,6 +517,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                         JsonFormUtils.saveAdverseEvent(jsonString, location_name,
                                 childDetails.entityId(), allSharedPreferences.fetchRegisteredANM());
                     }
+                child_data_fragment.LoadData();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -576,7 +605,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         ImageView statusImage = (ImageView)findViewById(R.id.statusimage);
         TextView status_name = (TextView)findViewById(R.id.statusname);
         TextView status = (TextView)findViewById(R.id.status);
-        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")) {
+        if (details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
             statusImage.setImageResource(R.drawable.ic_icon_status_inactive);
             status_name.setText("Inactive");
@@ -584,14 +613,14 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             status_name.setVisibility(View.VISIBLE);
             status.setText("status");
         }
-        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true")) {
+        if (details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString())) {
             statusImage.clearColorFilter();
             statusImage.setImageResource(R.drawable.ic_icon_status_losttofollowup);
 //            status_name.setText("Lost to");
             status_name.setVisibility(View.GONE);
             status.setText("Lost to\nFollow-Up");
         }
-        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase("true"))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase("true")))){
+        if (!((details.containsKey(lostToFollowUp) && details.get(lostToFollowUp).equalsIgnoreCase(Boolean.TRUE.toString()))||(details.containsKey(inactive) && details.get(inactive).equalsIgnoreCase(Boolean.TRUE.toString())))){
             statusImage.setImageResource(R.drawable.ic_icon_status_active);
             statusImage.setColorFilter(getResources().getColor(R.color.alert_completed));
             status_name.setText("Active");

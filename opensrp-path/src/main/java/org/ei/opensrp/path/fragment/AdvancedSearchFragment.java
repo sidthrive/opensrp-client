@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,20 +26,26 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
-import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.ChildSmartRegisterActivity;
 import org.ei.opensrp.path.adapter.AdvancedSearchPaginatedCursorAdapter;
 import org.ei.opensrp.path.application.VaccinatorApplication;
+import org.ei.opensrp.path.db.Event;
+import org.ei.opensrp.path.provider.AdvancedSearchClientsProvider;
 import org.ei.opensrp.path.provider.ChildSmartClientsProvider;
+import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +53,10 @@ import java.util.Map;
 
 import util.GlobalSearchUtils;
 import util.JsonFormUtils;
+import util.MoveToMyCatchmentUtils;
 import util.Utils;
+
+import static util.Utils.getValue;
 
 public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private View mView;
@@ -70,19 +76,21 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private EditText endDate;
 
     private TextView searchCriteria;
+    private TextView matchingResults;
     private View listViewLayout;
     private View advancedSearchForm;
 
     private TextView filterCount;
 
-    private List<Integer> editedList = new ArrayList<>();
+    //private List<Integer> editedList = new ArrayList<>();
     private Map<String, String> editMap = new HashMap<>();
     private boolean listMode = false;
     private int overdueCount = 0;
     private boolean outOfArea = false;
     private AdvancedMatrixCursor matrixCursor;
 
-    private static final String INACTIVE = "inactive";
+    public static final String ACTIVE = "active";
+    public static final String INACTIVE = "inactive";
     private static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
 
     private static final String ZEIR_ID = "zeir_id";
@@ -130,7 +138,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             switchViews(false);
             updateLocationText();
             updateSeachLimits();
-            resetForm();
+            //resetForm();
         }
     }
 
@@ -151,8 +159,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         filterSection.setOnClickListener(clientActionHandler);
 
         filterCount = (TextView) view.findViewById(R.id.filter_count);
+        filterCount.setVisibility(View.GONE);
         if (overdueCount > 0) {
-            filterCount.setText(String.valueOf(overdueCount));
+            updateFilterCount(overdueCount);
         }
         filterCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +195,10 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     private class ClientActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            CommonPersonObjectClient client = null;
+            if (view.getTag() != null && view.getTag() instanceof CommonPersonObjectClient) {
+                client = (CommonPersonObjectClient) view.getTag();
+            }
             switch (view.getId()) {
                 case R.id.global_search:
                     goBack();
@@ -194,11 +207,15 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     ((ChildSmartRegisterActivity) getActivity()).filterSelection();
                     break;
                 case R.id.search:
-                    if (editedList.isEmpty()) {
-                        Toast.makeText(getActivity(), getString(R.string.update_search_params), Toast.LENGTH_LONG).show();
-                    } else {
-                        search();
-                    }
+                    search();
+                    break;
+                case R.id.record_weight:
+                    String zeirId = client == null ? null : getValue(client.getColumnmaps(), "zeir_id", false);
+                    ((ChildSmartRegisterActivity) getActivity()).startFormActivity("out_of_catchment_service", zeirId, null);
+                    break;
+                case R.id.record_vaccination:
+                    String entityId = client == null ? null : client.entityId();
+                    MoveToMyCatchmentUtils.moveToMyCatchment(entityId, moveToMyCatchmentListener, clientsProgressView);
                     break;
             }
         }
@@ -206,6 +223,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
     private void populateFormViews(View view) {
         searchCriteria = (TextView) view.findViewById(R.id.search_criteria);
+        matchingResults = (TextView) view.findViewById(R.id.matching_results);
         search = (Button) view.findViewById(R.id.search);
         searchLimits = (RadioGroup) view.findViewById(R.id.search_limits);
 
@@ -223,24 +241,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         startDate = (EditText) view.findViewById(R.id.start_date);
         endDate = (EditText) view.findViewById(R.id.end_date);
 
-        //Add listeners
-        if (!search.hasOnClickListeners()) {
-            search.setOnClickListener(clientActionHandler);
-        }
-        //search.setClickable(false);
-        //search.setEnabled(false);
+        search.setOnClickListener(clientActionHandler);
 
-        zeirId.addTextChangedListener(advancedSearchWatcher);
-        firstName.addTextChangedListener(advancedSearchWatcher);
-        lastName.addTextChangedListener(advancedSearchWatcher);
-        motherGuardianName.addTextChangedListener(advancedSearchWatcher);
-        motherGuardianNrc.addTextChangedListener(advancedSearchWatcher);
-        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchWatcher);
-
-        startDate.addTextChangedListener(advancedSearchWatcher);
         setDatePicker(startDate);
-
-        endDate.addTextChangedListener(advancedSearchWatcher);
         setDatePicker(endDate);
 
         resetForm();
@@ -280,8 +283,8 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
     }
 
     private void search() {
-
-        if (!search.isEnabled()) {
+        if (!hasSearchParams()) {
+            Toast.makeText(getActivity(), getString(R.string.update_search_params), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -300,24 +303,26 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             searchCriteriaString += " \"My Catchment Area\", ";
         }
 
-        boolean isActive = active.isChecked();
+        //Inactive
         boolean isInactive = inactive.isChecked();
-
-        if (!(isActive && isInactive)) {
-            boolean inActiveStatus = false;
-            if (isActive) {
-                inActiveStatus = false;
-            } else if (isInactive) {
-                inActiveStatus = true;
-            }
-
+        if (isInactive) {
             String inActiveKey = INACTIVE;
             if (!outOfArea) {
                 inActiveKey = tableName + "." + INACTIVE;
             }
-            editMap.put(inActiveKey, Boolean.toString(inActiveStatus));
+            editMap.put(inActiveKey, Boolean.toString(isInactive));
+        }
+        //Active
+        boolean isActive = active.isChecked();
+        if (isActive) {
+            String activeKey = ACTIVE;
+            if (!outOfArea) {
+                activeKey = tableName + "." + ACTIVE;
+            }
+            editMap.put(activeKey, Boolean.toString(isActive));
         }
 
+        //Lost To Follow Up
         boolean isLostToFollowUp = lostToFollowUp.isChecked();
         if (isLostToFollowUp) {
             String lostToFollowUpKey = LOST_TO_FOLLOW_UP;
@@ -351,9 +356,38 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             searchCriteriaString += statusString;
         }
 
+        if (isActive == isInactive && isActive == isLostToFollowUp) {
+
+            if (editMap.containsKey(INACTIVE)) {
+                editMap.remove(INACTIVE);
+            }
+
+            if (editMap.containsKey(tableName + "." + INACTIVE)) {
+                editMap.remove(tableName + "." + INACTIVE);
+            }
+
+            if (editMap.containsKey(ACTIVE)) {
+                editMap.remove(ACTIVE);
+            }
+
+            if (editMap.containsKey(tableName + "." + ACTIVE)) {
+                editMap.remove(tableName + "." + ACTIVE);
+            }
+
+            if (editMap.containsKey(LOST_TO_FOLLOW_UP)) {
+                editMap.remove(LOST_TO_FOLLOW_UP);
+            }
+
+            if (editMap.containsKey(tableName + "." + LOST_TO_FOLLOW_UP)) {
+                editMap.remove(tableName + "." + LOST_TO_FOLLOW_UP);
+            }
+
+        }
 
         String zeirIdString = zeirId.getText().toString();
-        if (StringUtils.isNotBlank(zeirIdString)) {
+        if (StringUtils.isNotBlank(zeirIdString))
+
+        {
             searchCriteriaString += " ZEIR ID: \"" + zeirIdString + "\",";
             String key = ZEIR_ID;
             if (!outOfArea) {
@@ -363,7 +397,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String firstNameString = firstName.getText().toString();
-        if (StringUtils.isNotBlank(firstNameString)) {
+        if (StringUtils.isNotBlank(firstNameString))
+
+        {
             searchCriteriaString += " First name: \"" + firstNameString + "\",";
             String key = FIRST_NAME;
             if (!outOfArea) {
@@ -373,7 +409,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String lastNameString = lastName.getText().toString();
-        if (StringUtils.isNotBlank(lastNameString)) {
+        if (StringUtils.isNotBlank(lastNameString))
+
+        {
             searchCriteriaString += " Last name: \"" + lastNameString + "\",";
             String key = LAST_NAME;
             if (!outOfArea) {
@@ -383,7 +421,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String motherGuardianNameString = motherGuardianName.getText().toString();
-        if (StringUtils.isNotBlank(motherGuardianNameString)) {
+        if (StringUtils.isNotBlank(motherGuardianNameString))
+
+        {
             searchCriteriaString += " Mother/Guardian name: \"" + motherGuardianNameString + "\",";
             String key = MOTHER_GUARDIAN_FIRST_NAME;
             if (!outOfArea) {
@@ -399,7 +439,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String motherGuardianNrcString = motherGuardianNrc.getText().toString();
-        if (StringUtils.isNotBlank(motherGuardianNrcString)) {
+        if (StringUtils.isNotBlank(motherGuardianNrcString))
+
+        {
             searchCriteriaString += " Mother/Guardian nrc: \"" + motherGuardianNrcString + "\",";
             String key = MOTHER_GUARDIAN_NRC_NUMBER;
             if (!outOfArea) {
@@ -409,7 +451,9 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String motherGuardianPhoneNumberString = motherGuardianPhoneNumber.getText().toString();
-        if (StringUtils.isNotBlank(motherGuardianPhoneNumberString)) {
+        if (StringUtils.isNotBlank(motherGuardianPhoneNumberString))
+
+        {
             searchCriteriaString += " Mother/Guardian phone number: \"" + motherGuardianPhoneNumberString + "\",";
             String key = MOTHER_GUARDIAN_PHONE_NUMBER;
             if (!outOfArea) {
@@ -419,25 +463,35 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         }
 
         String startDateString = startDate.getText().toString();
-        if (StringUtils.isNotBlank(startDateString)) {
+        if (StringUtils.isNotBlank(startDateString))
+
+        {
             searchCriteriaString += " Start date: \"" + startDateString + "\",";
             editMap.put(START_DATE, startDateString.trim());
         }
 
         String endDateString = endDate.getText().toString();
-        if (StringUtils.isNotBlank(endDateString)) {
+        if (StringUtils.isNotBlank(endDateString))
+
+        {
             searchCriteriaString += " End date: \"" + endDateString + "\",";
             editMap.put(END_DATE, endDateString.trim());
         }
 
-        if (searchCriteria != null) {
+        if (searchCriteria != null)
+
+        {
             searchCriteria.setText(removeLastComma(searchCriteriaString));
             searchCriteria.setVisibility(View.VISIBLE);
         }
 
-        if (outOfArea) {
+        if (outOfArea)
+
+        {
             globalSearch();
-        } else {
+        } else
+
+        {
             localSearch();
         }
 
@@ -448,7 +502,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
         String tableName = "ec_child";
         setTablename(tableName);
-        ChildSmartClientsProvider hhscp = new ChildSmartClientsProvider(getActivity(),
+        AdvancedSearchClientsProvider hhscp = new AdvancedSearchClientsProvider(getActivity(),
                 clientActionHandler, context().alertService(), VaccinatorApplication.getInstance().vaccineRepository(), VaccinatorApplication.getInstance().weightRepository());
         clientAdapter = new AdvancedSearchPaginatedCursorAdapter(getActivity(), null, hhscp, Context.getInstance().commonrepository(tableName));
         clientsView.setAdapter(clientAdapter);
@@ -515,6 +569,8 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             currentlimit = 20;
             currentoffset = 0;
 
+            updateMatchingResults(totalcount);
+
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         } finally {
@@ -558,8 +614,15 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
 
         );
         queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
-        String query = queryBUilder.mainCondition(getMainConditionString(tableName));
+        queryBUilder.mainCondition(getMainConditionString(tableName));
+        String query = queryBUilder.orderbyCondition(sortByStatus());
         return queryBUilder.Endquery(queryBUilder.addlimitandOffset(query, currentlimit, currentoffset));
+    }
+
+    private String sortByStatus() {
+        return " CASE WHEN ec_child.inactive  != 'true' is null and ec_child.lost_to_follow_up != 'true' THEN 1 "
+                + " WHEN ec_child.inactive = 'true' THEN 2 "
+                + " WHEN ec_child.lost_to_follow_up = 'true' THEN 3 END ";
     }
 
     @Override
@@ -589,27 +652,12 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         for (Map.Entry<String, String> entry : editMap.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if (!key.equals(startDateKey) && !key.equals(endDateKey)) {
+            if (!key.equals(startDateKey) && !key.equals(endDateKey) && !key.contains(ACTIVE) && !key.contains(INACTIVE) && !key.contains(LOST_TO_FOLLOW_UP)) {
                 if (StringUtils.isBlank(mainConditionString)) {
-                    if (key.contains(LOST_TO_FOLLOW_UP)) {
-                        mainConditionString += " " + key + " = '" + value + "'";
-                    } else if (key.contains(INACTIVE)) {
-                        if (value.equalsIgnoreCase("true")) {
-                            mainConditionString += " " + key + " = '" + value + "'";
-                        }
-                    } else {
-                        mainConditionString += " " + key + " Like '%" + value + "%'";
-                    }
+                    mainConditionString += " " + key + " Like '%" + value + "%'";
                 } else {
-                    if (key.contains(LOST_TO_FOLLOW_UP)) {
-                        mainConditionString += " AND " + key + " = '" + value + "'";
-                    } else if (key.contains(INACTIVE)) {
-                        if (value.equalsIgnoreCase("true")) {
-                            mainConditionString += " AND " + key + " = '" + value + "'";
-                        }
-                    } else {
-                        mainConditionString += " AND " + key + " Like '%" + value + "%'";
-                    }
+                    mainConditionString += " AND " + key + " Like '%" + value + "%'";
+
                 }
             }
         }
@@ -634,6 +682,44 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             }
         }
 
+
+        String statusConditionString = "";
+        for (Map.Entry<String, String> entry : editMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (key.contains(ACTIVE) || key.contains(INACTIVE) || key.contains(LOST_TO_FOLLOW_UP)) {
+                if (key.contains(ACTIVE) && !key.contains(INACTIVE)) {
+                    key = tableName + "." + INACTIVE;
+                    boolean v = !Boolean.valueOf(value);
+                    value = Boolean.toString(v);
+                }
+
+                if (StringUtils.isBlank(statusConditionString)) {
+                    if (value.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                        statusConditionString += " " + key + " = '" + value + "'";
+                    } else {
+                        value = Boolean.TRUE.toString();
+                        statusConditionString += " " + key + " != '" + value + "'";
+                    }
+                } else {
+                    if (value.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                        statusConditionString += " OR " + key + " = '" + value + "'";
+                    } else {
+                        value = Boolean.TRUE.toString();
+                        statusConditionString += " OR " + key + " != '" + value + "'";
+                    }
+                }
+            }
+        }
+
+        if (!statusConditionString.isEmpty()) {
+            if (StringUtils.isBlank(mainConditionString)) {
+                mainConditionString += statusConditionString;
+            } else {
+                mainConditionString += " AND (" + statusConditionString + ")";
+            }
+        }
+
         return mainConditionString;
 
     }
@@ -645,6 +731,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             clientsView.setVisibility(View.VISIBLE);
             clientsProgressView.setVisibility(View.INVISIBLE);
 
+            updateMatchingResults(0);
             showProgressView();
             listMode = true;
         } else {
@@ -736,59 +823,32 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         clientAdapter.swapCursor(null);
     }
 
-    protected TextWatcher advancedSearchWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+    private boolean hasSearchParams() {
+        boolean hasSearchParams = false;
+        if (inactive.isChecked()) {
+            hasSearchParams = true;
+        } else if (active.isChecked()) {
+            hasSearchParams = true;
+        } else if (lostToFollowUp.isChecked()) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(zeirId.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(firstName.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(lastName.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(motherGuardianName.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(motherGuardianNrc.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(motherGuardianPhoneNumber.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(startDate.getText().toString())) {
+            hasSearchParams = true;
+        } else if (StringUtils.isNotEmpty(endDate.getText().toString())) {
+            hasSearchParams = true;
         }
-
-        @Override
-        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            if (zeirId.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, zeirId.getId());
-            } else if (firstName.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, firstName.getId());
-            } else if (lastName.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, lastName.getId());
-            } else if (motherGuardianName.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, motherGuardianName.getId());
-            } else if (motherGuardianNrc.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, motherGuardianNrc.getId());
-            } else if (motherGuardianPhoneNumber.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, motherGuardianPhoneNumber.getId());
-            } else if (startDate.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, startDate.getId());
-            } else if (endDate.getText().hashCode() == editable.hashCode()) {
-                updateSearchButton(editable, endDate.getId());
-            }
-        }
-    };
-
-    private void updateSearchButton(Editable editable, Integer editTextId) {
-        String textChanged = editable.toString();
-        if (StringUtils.isNotBlank(textChanged)) {
-            if (!editedList.contains(editTextId)) {
-                editedList.add(editTextId);
-            }
-
-            /*if (search != null && !search.isEnabled()) {
-                search.setEnabled(true);
-                search.setClickable(true);
-            }*/
-        } else {
-            if (editedList.contains(editTextId)) {
-                editedList.remove(editTextId);
-            }
-
-            /*if (editedList.isEmpty() && search != null && search.isEnabled()) {
-                search.setEnabled(false);
-                search.setClickable(false);
-            }*/
-        }
+        return hasSearchParams;
     }
 
     public void updateFilterCount(int count) {
@@ -859,10 +919,17 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                 return (new Date()).getTime();
             }
         }
+
     }
 
     public EditText getZeirId() {
         return this.zeirId;
+    }
+
+    private void updateMatchingResults(int count) {
+        if (matchingResults != null) {
+            matchingResults.setText(String.format(getString(R.string.matching_results), count));
+        }
     }
 
     final Listener<JSONArray> listener = new Listener<JSONArray>() {
@@ -873,8 +940,51 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             matrixCursor = new AdvancedMatrixCursor(columns);
 
             if (jsonArray != null) {
-                int len = jsonArray.length();
-                for (int i = 0; i < len; i++) {
+
+                List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    jsonValues.add(getJsonObject(jsonArray, i));
+                }
+
+                Collections.sort(jsonValues, new Comparator<JSONObject>() {
+                    @Override
+                    public int compare(JSONObject lhs, JSONObject rhs) {
+
+                        if (!lhs.has("child") || !rhs.has("child")) {
+                            return 0;
+                        }
+
+                        JSONObject lhsChild = getJsonObject(lhs, "child");
+                        JSONObject rhsChild = getJsonObject(rhs, "child");
+
+                        String lhsInactive = getJsonString(getJsonObject(lhsChild, "attributes"), "inactive");
+                        String rhsInactive = getJsonString(getJsonObject(rhsChild, "attributes"), "inactive");
+
+                        int aComp = 0;
+                        if (lhsInactive.equalsIgnoreCase(Boolean.TRUE.toString()) && !rhsInactive.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                            aComp = 1;
+                        } else if (!lhsInactive.equalsIgnoreCase(Boolean.TRUE.toString()) && rhsInactive.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                            aComp = -1;
+                        }
+
+                        if (aComp != 0) {
+                            return aComp;
+                        } else {
+                            String lhsLostToFollowUp = getJsonString(getJsonObject(lhsChild, "attributes"), "lost_to_follow_up");
+                            String rhsLostToFollowUp = getJsonString(getJsonObject(rhsChild, "attributes"), "lost_to_follow_up");
+                            if (lhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString()) && !rhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                                return 1;
+                            } else if (!lhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString()) && rhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString())) {
+                                return -1;
+                            }
+                        }
+
+                        return 0;
+
+                    }
+                });
+
+                for (JSONObject client : jsonValues) {
                     String entityId = "";
                     String firstName = "";
                     String middleName = "";
@@ -886,7 +996,6 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
                     String inactive = "";
                     String lostToFollowUp = "";
 
-                    JSONObject client = getJsonObject(jsonArray, i);
                     if (client == null) {
                         continue;
                     }
@@ -943,9 +1052,46 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
             }
             currentoffset = 0;
 
+            updateMatchingResults(totalcount);
+
             refresh();
 
             filterandSortInInitializeQueries();
+        }
+    };
+
+
+    final Listener<JSONObject> moveToMyCatchmentListener = new Listener<JSONObject>() {
+        public void onEvent(final JSONObject jsonObject) {
+            if (jsonObject != null) {
+                try {
+                    ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(getActivity());
+                    int eventsCount = jsonObject.has("no_of_events") ? jsonObject.getInt("no_of_events") : 0;
+                    if (eventsCount == 0) {
+                        return;
+                    }
+
+                    JSONArray events = jsonObject.has("events") ? jsonObject.getJSONArray("events") : new JSONArray();
+                    JSONArray clients = jsonObject.has("clients") ? jsonObject.getJSONArray("clients") : new JSONArray();
+
+                    ecUpdater.batchSave(events, clients);
+
+                    String baseEntityId = "";
+                    if (events != null && events.length() > 0 && events.get(0) instanceof JSONObject) {
+                        JSONObject jo = (JSONObject) events.get(0);
+                        if (jo.has("baseEntityId")) {
+                            baseEntityId = jo.getString("baseEntityId");
+                        }
+                    }
+
+                    PathClientProcessor.getInstance(getActivity()).processClient(ecUpdater.getEventsByBaseEnityId(baseEntityId));
+                    filterandSortInInitializeQueries();
+
+                } catch (Exception e) {
+                    Log.e(getClass().getName(), "Exception", e);
+                }
+
+            }
         }
     };
 

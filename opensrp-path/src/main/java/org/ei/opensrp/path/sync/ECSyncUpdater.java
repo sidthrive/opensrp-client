@@ -77,8 +77,8 @@ public class ECSyncUpdater {
 
             JSONObject jsonObject = fetchAsJsonObject(filterName, filterValue);
 
-            int eventsCount = jsonObject.has("no_of_events") ? jsonObject.getInt("no_of_events"): 0;
-            if(eventsCount == 0 ){
+            int eventsCount = jsonObject.has("no_of_events") ? jsonObject.getInt("no_of_events") : 0;
+            if (eventsCount == 0) {
                 return eventsCount;
             }
 
@@ -87,7 +87,7 @@ public class ECSyncUpdater {
 
             long lastSyncTimeStamp = batchSave(events, clients);
             if (lastSyncTimeStamp > 0l) {
-               updateLastSyncTimeStamp(lastSyncTimeStamp);
+                updateLastSyncTimeStamp(lastSyncTimeStamp);
             }
 
             return eventsCount;
@@ -106,6 +106,7 @@ public class ECSyncUpdater {
         }
         return new ArrayList<>();
     }
+
     public List<JSONObject> getEvents(Date lastSyncDate) {
         try {
             return db.getEvents(lastSyncDate);
@@ -115,9 +116,18 @@ public class ECSyncUpdater {
         return new ArrayList<>();
     }
 
-    public List<JSONObject> getEvents(Date lastSyncDate,String syncStatus) {
+    public List<JSONObject> getEventsByBaseEnityId(String baseEntityId) {
         try {
-            return db.getEvents(lastSyncDate,syncStatus);
+            return db.getEventsByBaseEntityId(baseEntityId);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), "Exception", e);
+        }
+        return new ArrayList<>();
+    }
+
+    public List<JSONObject> getEvents(Date lastSyncDate, String syncStatus) {
+        try {
+            return db.getEvents(lastSyncDate, syncStatus);
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
         }
@@ -132,13 +142,15 @@ public class ECSyncUpdater {
         }
         return null;
     }
+
     public void addClient(String baseEntityId, JSONObject jsonObject) {
         try {
-            db.addorUpdateClient(baseEntityId,jsonObject);
+            db.addorUpdateClient(baseEntityId, jsonObject);
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
         }
     }
+
     public void addEvent(String baseEntityId, JSONObject jsonObject) {
         try {
             db.addEvent(baseEntityId, jsonObject);
@@ -147,28 +159,26 @@ public class ECSyncUpdater {
         }
     }
 
-    public long getLastSyncTimeStamp(){
+    public long getLastSyncTimeStamp() {
         return Long.parseLong(Utils.getPreference(context, LAST_SYNC_TIMESTAMP, "0"));
     }
 
-    public void updateLastSyncTimeStamp(long lastSyncTimeStamp){
+    public void updateLastSyncTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
-    public long getLastCheckTimeStamp(){
+    public long getLastCheckTimeStamp() {
         return Long.parseLong(Utils.getPreference(context, LAST_CHECK_TIMESTAMP, "0"));
     }
 
-    public void updateLastCheckTimeStamp(long lastSyncTimeStamp){
+    public void updateLastCheckTimeStamp(long lastSyncTimeStamp) {
         Utils.writePreference(context, LAST_CHECK_TIMESTAMP, lastSyncTimeStamp + "");
     }
 
-    public long batchSave(JSONArray events, JSONArray clients) throws Exception{
+    public long batchSave(JSONArray events, JSONArray clients) throws Exception {
         db.batchInsertClients(clients);
         return db.batchInsertEvents(events, getLastSyncTimeStamp());
     }
-
-
 
 
 }

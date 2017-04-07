@@ -10,6 +10,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.event.Listener;
+import org.ei.opensrp.path.fragment.AdvancedSearchFragment;
 import org.ei.opensrp.view.BackgroundAction;
 import org.ei.opensrp.view.LockingBackgroundTask;
 import org.ei.opensrp.view.ProgressIndicator;
@@ -70,6 +71,12 @@ public class GlobalSearchUtils {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
+
+                if (key.contains(AdvancedSearchFragment.ACTIVE) && !key.contains(AdvancedSearchFragment.INACTIVE)) {
+                    key = AdvancedSearchFragment.INACTIVE;
+                    boolean v = !Boolean.valueOf(value);
+                    value = Boolean.toString(v);
+                }
 
                 if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(value)) {
                     value = urlEncode(value);
