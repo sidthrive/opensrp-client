@@ -344,9 +344,11 @@ public class VaccineGroup extends LinearLayout implements View.OnClickListener,
                     tag.setSynced(vaccine.getSyncStatus() != null && vaccine.getSyncStatus().equals(VaccineRepository.TYPE_Synced));
                     if (tag.getName().contains("/")) {
                         String[] array = tag.getName().split("/");
-                        if ((array[0]).toLowerCase().contains(vaccine.getName())) {
+
+                        if((array[0]).toLowerCase().contains(vaccine.getName().toLowerCase())){
                             tag.setName(array[0]);
-                        } else if ((array[1]).toLowerCase().contains(vaccine.getName())) {
+                        } else if((array[1]).toLowerCase().contains(vaccine.getName().toLowerCase())){
+
                             tag.setName(array[1]);
                         }
                     }

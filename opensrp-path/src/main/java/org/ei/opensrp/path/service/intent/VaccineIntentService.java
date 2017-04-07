@@ -96,13 +96,13 @@ public class VaccineIntentService extends IntentService {
                 JSONArray vaccines = curVaccineGroup.getJSONArray("vaccines");
                 for (int j = 0; j < vaccines.length(); j++) {
                     JSONObject vaccine = vaccines.getJSONObject(j);
-                    if (vaccine.getString("name").equalsIgnoreCase(name)) {
+                    if (StringUtils.containsIgnoreCase(vaccine.getString("name"), name)) {
                         String parentEntityId = vaccine.getJSONObject("openmrs_date").getString("parent_entity");
                         if (parentEntityId.contains("/")) {
                             String[] parentEntityArray = parentEntityId.split("/");
-                            if (StringUtils.containsIgnoreCase(parentEntityId, "measles")) {
+                            if (StringUtils.containsIgnoreCase(name, "measles")) {
                                 parentEntityId = parentEntityArray[0];
-                            } else if (StringUtils.containsIgnoreCase(parentEntityId, "mr")) {
+                            } else if (StringUtils.containsIgnoreCase(name, "mr")) {
                                 parentEntityId = parentEntityArray[1];
                             }
                             return parentEntityId;
