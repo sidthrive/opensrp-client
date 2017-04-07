@@ -147,9 +147,16 @@ public class NativeHomeActivity extends SecuredActivity {
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
 
-        // FR
+        facialRecognitionInit();
+
+    }
+
+    private void facialRecognitionInit() {
+
         new Tools(context);
         Log.e("TAG", "onResumption: "+ Tools.appContext );
+        Tools.setVectorsBuffered();
+
     }
 
     private void updateRegisterCounts() {

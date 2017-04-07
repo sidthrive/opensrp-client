@@ -157,22 +157,6 @@ public class ChildDetailActivity extends Activity {
         }
 
 
-//        if(childclient.getDetails().get("profilepic")!= null){
-//            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-//                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-//            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-//                setImagetoHolderFromUri(ChildDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-//
-//            }
-//        }
-//        else {
-//            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") || childclient.getDetails().get("gender").equalsIgnoreCase("laki-laki")) {
-//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
-//            } else {
-//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
-//            }
-//        }
-
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
         uniqueId.setText(getString(R.string.unique_id) + " " + (childclient.getDetails().get("unique_id") != null ? childclient.getDetails().get("unique_id"):"-"));
