@@ -185,6 +185,6 @@
     <string name="start_date_hint">Select start date</string>
     <string name="end_date_hint">Select end date</string>
     <string name="record_weight_notification">"Don't forget to record child's weight"</string>
-    <string name="update_search_params">Please update atleast one search parameter</string>
-    <string name="no_vaccine_record_found">No vaccine record found</string>
+    <string name="update_search_params">Please update at least one search parameter</string>
+    <string name="no_vaccine_record_found">No vaccination record found</string>
 </resources>
