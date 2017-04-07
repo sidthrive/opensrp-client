@@ -3,6 +3,7 @@ package org.ei.opensrp.path.tabfragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Alert;
+import org.ei.opensrp.domain.SyncStatus;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
@@ -21,6 +23,7 @@ import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationEditDialogFragment;
+import org.ei.opensrp.path.repository.BaseRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
@@ -101,58 +104,25 @@ public class child_under_five_fragment extends Fragment  {
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         Detailsmap  = detailsRepository.getAllDetailsForClient(childDetails.entityId());
 
-        loadview(false);
+        loadview(false,false);
 //        fragmentcontainer.addView(wd.createImmunizationWidget(inflater,container,vaccineList,false));
 
 
         // Inflate the layout for this fragment
         return fragmenttwo;
     }
-    public void loadview(boolean editmode){
+    public void loadview(boolean editmode,boolean editweightmode){
 //        View fragmenttwo = inflater.inflate(R.layout.child_under_five_fragment, container, false);
 //        LinearLayout fragmentcontainer = (LinearLayout)fragmenttwo.findViewById(R.id.container);
         if(fragmentcontainer != null) {
             fragmentcontainer.removeAllViews();
             fragmentcontainer.addView(createPTCMTVIEW("PMTCT: ", Utils.getValue(childDetails.getColumnmaps(), "pmtct_status", true)));
-            LinkedHashMap<String, String> weightmap = new LinkedHashMap<>();
 //        weightmap.put("9 m","8.4");
 //        weightmap.put("8 m","7.5 Kg");
 //        weightmap.put("7 m","6.7 Kg");
 //        weightmap.put("6 m","5.6 Kg");
 //        weightmap.put("5 m","5.0 Kg");
-            WeightRepository wp = VaccinatorApplication.getInstance().weightRepository();
-            List<Weight> weightlist = wp.findLast5(childDetails.entityId());
-
-
-            for (int i = 0; i < weightlist.size(); i++) {
-//            String formattedDob = "";
-                String formattedAge = "";
-                if (weightlist.get(i).getDate() != null) {
-
-                    Date weighttaken = weightlist.get(i).getDate();
-                    ;
-//                formattedDob = DATE_FORMAT.format(weighttaken);
-                    String birthdate = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
-                    DateTime birthday = new DateTime(birthdate);
-                    Date birth = birthday.toDate();
-                    long timeDiff = weighttaken.getTime() - birth.getTime();
-
-                    if (timeDiff >= 0) {
-                        formattedAge = DateUtils.getDuration(timeDiff);
-                    }
-                }
-                weightmap.put(formattedAge, weightlist.get(i).getKg() + " kg");
-            }
-            if (weightmap.size() < 5) {
-                weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " kg");
-            }
-
-
-//        weightlist.size();
-            WidgetFactory wd = new WidgetFactory();
-            if (weightmap.size() > 0) {
-                fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap));
-            }
+        createWeightLayout(editweightmode);
             View view = new View(getActivity());
             int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, Context.getInstance().applicationContext().getResources().getDisplayMetrics());
 
@@ -167,6 +137,66 @@ public class child_under_five_fragment extends Fragment  {
 
 
 
+    }
+
+    private void createWeightLayout(boolean editmode) {
+        LinkedHashMap<String, String> weightmap = new LinkedHashMap<>();
+        ArrayList<Boolean> weighteditmode = new ArrayList<Boolean>();
+        ArrayList<View.OnClickListener> listeners = new ArrayList<View.OnClickListener>();
+
+        WeightRepository wp = VaccinatorApplication.getInstance().weightRepository();
+        List<Weight> weightlist = wp.findLast5(childDetails.entityId());
+
+
+        for (int i = 0; i < weightlist.size(); i++) {
+//            String formattedDob = "";
+            String formattedAge = "";
+            if (weightlist.get(i).getDate() != null) {
+
+                Date weighttaken = weightlist.get(i).getDate();
+                ;
+//                formattedDob = DATE_FORMAT.format(weighttaken);
+                String birthdate = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
+                DateTime birthday = new DateTime(birthdate);
+                Date birth = birthday.toDate();
+                long timeDiff = weighttaken.getTime() - birth.getTime();
+                Log.v("timeDiff is ",timeDiff+"");
+                if (timeDiff >= 0) {
+                    formattedAge = DateUtils.getDuration(timeDiff);
+                    Log.v("age is ",formattedAge);
+                }
+            }
+            if(!formattedAge.equalsIgnoreCase("0d")) {
+                weightmap.put(formattedAge, weightlist.get(i).getKg() + " kg");
+                if (weightlist.get(i).getSyncStatus().equalsIgnoreCase(BaseRepository.TYPE_Unsynced)) {
+                    weighteditmode.add(editmode);
+                } else {
+                    weighteditmode.add(false);
+                }
+                final int finalI = i;
+                View.OnClickListener onclicklistener = new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        ((ChildDetailTabbedActivity) getActivity()).showWeightDialog(finalI);
+                    }
+                };
+                listeners.add(onclicklistener);
+            }
+
+        }
+        if (weightmap.size() < 5) {
+            weightmap.put(DateUtils.getDuration(0), Utils.getValue(Detailsmap, "Birth_Weight", true) + " kg");
+            weighteditmode.add(false);
+            listeners.add(null);
+        }
+
+
+//        weightlist.size();
+        WidgetFactory wd = new WidgetFactory();
+        if (weightmap.size() > 0) {
+            fragmentcontainer.addView(wd.createWeightWidget(inflater, container, weightmap,listeners,weighteditmode));
+        }
     }
 
     private View createPTCMTVIEW(String labelString,String valueString) {

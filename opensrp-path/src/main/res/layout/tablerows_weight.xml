@@ -5,10 +5,11 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tablerowcontainer"
             android:layout_marginTop="5dp"
@@ -22,7 +23,7 @@
                 android:textColor="@color/dark_grey"
                 android:text="Catchment area"
                 android:id="@+id/label"
-                android:layout_weight="1"/>
+                android:layout_weight="2"/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="0dp"
@@ -31,8 +32,20 @@
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:text="Linda"
                 android:id="@+id/value"
-                android:layout_weight="1"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:layout_weight="2" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:text="edit"
+                android:id="@+id/edit"
+                android:textColor="@color/text_blue"
+                android:visibility="invisible"
+                android:layout_weight="1" />
+
         </TableRow>
 
 

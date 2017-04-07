@@ -167,7 +167,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 for (int i = 0; i < overflow.size(); i++) {
                     overflow.getItem(i).setVisible(true);
                 }
-                child_under_five_Fragment.loadview(false);
+                child_under_five_Fragment.loadview(false,false);
 
                 saveButton.setVisibility(View.INVISIBLE);
             }
@@ -195,7 +195,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                     for (int i = 0; i < overflow.size(); i++) {
                         overflow.getItem(i).setVisible(true);
                     }
-                    child_under_five_Fragment.loadview(false);
+                    child_under_five_Fragment.loadview(false,false);
                 }
             }
 
@@ -291,7 +291,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
                 return true;
             case R.id.immunization_data:
                 viewPager.setCurrentItem(1);
-                child_under_five_Fragment.loadview(true);
+                child_under_five_Fragment.loadview(true,false);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
                     overflow.getItem(i).setVisible(false);
@@ -299,7 +299,13 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
 //                detailtoolbar.hideOverflowMenu();
                 return true;
             case R.id.weight_data:
-                showWeightDialog();
+//                showWeightDialog();
+                viewPager.setCurrentItem(1);
+                child_under_five_Fragment.loadview(false,true);
+                saveButton.setVisibility(View.VISIBLE);
+                for (int i = 0; i < overflow.size(); i++) {
+                    overflow.getItem(i).setVisible(false);
+                }
                 return true;
 
             case R.id.report_deceased:
@@ -801,11 +807,11 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             weightRepository.add(weight);
 
             tag.setDbKey(weight.getId());
-            child_under_five_Fragment.loadview(false);
+            child_under_five_Fragment.loadview(false,true);
 //            updateRecordWeightView(tag);
 //            setLastModified(true);
         } else {
-            child_under_five_Fragment.loadview(false);
+            child_under_five_Fragment.loadview(false,false);
         }
     }
 
@@ -855,6 +861,53 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         editWeightDialogFragment.show(ft, DIALOG_TAG);
 
     }
+    public void showWeightDialog(int i) {
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        android.app.Fragment prev = this.getFragmentManager().findFragmentByTag(DIALOG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+
+        String childName = constructChildName();
+        String gender = getValue(childDetails.getColumnmaps(), "gender", true) + " " + getValue(childDetails, "gender", true);
+        String motherFirstName = getValue(childDetails.getColumnmaps(), "mother_first_name", true);
+        if (StringUtils.isBlank(childName) && StringUtils.isNotBlank(motherFirstName)) {
+            childName = "B/o " + motherFirstName.trim();
+        }
+        String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
+        String duration = "";
+        String dobString = getValue(childDetails.getColumnmaps(), "dob", false);
+        if (StringUtils.isNotBlank(dobString)) {
+            DateTime dateTime = new DateTime(getValue(childDetails.getColumnmaps(), "dob", false));
+            duration = DateUtils.getDuration(dateTime);
+        }
+
+        Photo photo = ImageUtils.profilePhotoByClient(childDetails);
+
+        WeightWrapper weightWrapper = new WeightWrapper();
+        weightWrapper.setId(childDetails.entityId());
+        WeightRepository wp = VaccinatorApplication.getInstance().weightRepository();
+        List<Weight> weightlist = wp.findLast5(childDetails.entityId());
+//        if (weightlist.size() > i) {
+            weightWrapper.setWeight(weightlist.get(i).getKg());
+            weightWrapper.setUpdatedWeightDate(new DateTime(weightlist.get(i).getDate()), false);
+//            weightWrapper.setWeight(weight.getKg());
+            weightWrapper.setDbKey(weightlist.get(i).getId());
+//        }
+        weightWrapper.setGender(gender.toString());
+        weightWrapper.setPatientName(childName);
+        weightWrapper.setPatientNumber(zeirId);
+        weightWrapper.setPatientAge(duration);
+        weightWrapper.setPhoto(photo);
+        weightWrapper.setPmtctStatus(getValue(childDetails.getColumnmaps(), "pmtct_status", false));
+
+        EditWeightDialogFragment editWeightDialogFragment = EditWeightDialogFragment.newInstance(this, weightWrapper);
+        editWeightDialogFragment.show(ft, DIALOG_TAG);
+
+    }
+
 
     private String constructChildName() {
         String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
