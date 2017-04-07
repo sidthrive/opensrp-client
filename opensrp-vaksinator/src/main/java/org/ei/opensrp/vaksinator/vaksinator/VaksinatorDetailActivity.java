@@ -181,7 +181,7 @@ public class VaksinatorDetailActivity extends Activity {
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
+        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? transformToddmmyyyy(controller.getDetails().get("namaAyah")) : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
                 ? controller.getDetails().get("namaIbu")
                 : controller.getDetails().get("nama_orang_tua")!=null
@@ -215,20 +215,20 @@ public class VaksinatorDetailActivity extends Activity {
                     ? controller.getDetails().get("hb1_kurang_7_hari")
                     :"-"));
 
-        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? controller.getDetails().get("bcg") : "-"));
-        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? controller.getDetails().get("polio1") : "-"));
-        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? controller.getDetails().get("dptHb1") : "-"));
-        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? controller.getDetails().get("polio2") : "-"));
-        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? controller.getDetails().get("dptHb2") : "-"));
-        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? controller.getDetails().get("polio3") : "-"));
-        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? controller.getDetails().get("dptHb3") : "-"));
-        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? controller.getDetails().get("polio4") : "-"));
-        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? controller.getDetails().get("ipv") : "-"));
-        measles.setText(": " + (controller.getDetails().get("campak") != null ? controller.getDetails().get("campak") : "-"));
+        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? transformToddmmyyyy(controller.getDetails().get("bcg")) : "-"));
+        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? transformToddmmyyyy(controller.getDetails().get("polio1")) : "-"));
+        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb1")) : "-"));
+        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? transformToddmmyyyy(controller.getDetails().get("polio2")) : "-"));
+        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb2")) : "-"));
+        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? transformToddmmyyyy(controller.getDetails().get("polio3")) : "-"));
+        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb3")) : "-"));
+        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? transformToddmmyyyy(controller.getDetails().get("polio4")) : "-"));
+        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? transformToddmmyyyy(controller.getDetails().get("ipv")) : "-"));
+        measles.setText(": " + (controller.getDetails().get("campak") != null ? transformToddmmyyyy(controller.getDetails().get("campak")) : "-"));
 
         complete.setText(": " + yesNo(isComplete()));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
 
         if(controller.getDetails().get("profilepic")!= null){
             if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
@@ -403,6 +403,14 @@ public class VaksinatorDetailActivity extends Activity {
         overridePendingTransition(0, 0);
 
 
+    }
+
+    public String transformToddmmyyyy(String date){
+        if(date.length()>3) {
+            if (date.charAt(4) == '-')
+                date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
+        }
+        return date;
     }
 
     /*
