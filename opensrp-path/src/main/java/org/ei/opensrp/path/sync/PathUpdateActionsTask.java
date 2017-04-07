@@ -170,9 +170,10 @@ public class PathUpdateActionsTask {
         boolean keepSyncing = true;
         int limit = 50;
         try {
+           // db.markAllAsUnSynced();
+
             while (keepSyncing) {
                 Map<String, Object> pendingEvents = null;
-
                 pendingEvents = db.getUnSyncedEvents(limit);
 
                 if (pendingEvents.isEmpty()) {
