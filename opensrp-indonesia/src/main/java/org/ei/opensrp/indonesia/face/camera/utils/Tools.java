@@ -25,6 +25,7 @@ import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 import org.apache.commons.lang3.ArrayUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.indonesia.BidanHomeActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
@@ -109,17 +110,6 @@ public class Tools {
         Tools.appContext = appContext;
     }
 
-
-
-    public void setAlbumBuffer(String albumBuffer) {
-        this.albumBuffer = albumBuffer;
-    }
-
-    public String getAlbumBuffer() {
-
-        return albumBuffer;
-    }
-
     /**
      * Method to Stored Bitmap as File and Buffer
      *
@@ -129,7 +119,6 @@ public class Tools {
      * @param updated    capture mode
      * @return Boolean
      */
-//    public static boolean WritePictureToFile(android.content.Context context, Bitmap bitmap, String entityId, byte[] faceVector, boolean updated) {
     public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
@@ -627,11 +616,21 @@ public class Tools {
 
         // TODO Crash saved after long time no use
         if (appContext == null) {
-        }
-        Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
-        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.applicationContext().startActivity(resultIntent);
+            Log.e(TAG, "saveAndClose: Context NULL" );
 
+            appContext = getAppContext();
+//            Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
+            Intent resultIntent = new Intent(context, origin_class);
+            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appContext.applicationContext().startActivity(resultIntent);
+
+        } else {
+            Log.e(TAG, "saveAndClose: Context Opensrp "+ appContext.applicationContext() );
+            Log.e(TAG, "saveAndClose: Context Android "+ context );
+            Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
+            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appContext.applicationContext().startActivity(resultIntent);
+        }
         Log.e(TAG, "saveAndClose: " + "end");
     }
 
@@ -675,26 +674,22 @@ public class Tools {
     }
 
     private static String[] getHeaderBaseUserCount(int n) {
-        String headerNew = imageRepo.findByUserCount(n);
-        /*
-// start formula
+//        String headerNew = imageRepo.findByUserCount(n);
+//        return headerNew.substring(1, headerNew.length() -1).split(", ");
+
+        // start formula
         int n0 = 76;
-//        int seriesLength = 63; // 64 item
         int max = 128;
         int min = -128;
-
         int range = max - min;
-
         int idx0,idx1, idx2,idx3,idx4;
 
-
         idx0 = (((n0 + max) + (n * 44)) % range) + min;
-
         idx1 = (1+n)+(((n0) + (n * 44)) / range);
         idx2 = (idx1+128) % 256 - 128;
-
         idx3 = n / 218;
         idx4 = (1+n+128) % 256 - 128;
+        // end formula
 
         String[] newHeader = singleHeader.substring(1, singleHeader.length() - 1).split(", ");
 
@@ -704,53 +699,6 @@ public class Tools {
         newHeader[28] = String.valueOf(idx4);
 
         return newHeader;
-// end formula
-*/
-        return headerNew.substring(1, headerNew.length() -1).split(", ");
-    }
-
-    private static String generateHeader(int i) {
-
-        String vectorHeader = "";
-
-        if (SmartShutterActivity.faceProc == null) {
-            SmartShutterActivity.faceProc = FacialProcessing.getInstance();
-        }
-        FacialProcessing objFace = SmartShutterActivity.faceProc;
-
-        dummyImage = BitmapFactory.decodeResource(appContext.applicationContext().getResources(), R.drawable.h8);//ok
-
-        boolean resSetBitmap = objFace.setBitmap(dummyImage);
-
-        FaceData[] faceData = objFace.getFaceData();
-        byte[] initContentBuffered = null;
-
-        if (resSetBitmap) {
-
-            Log.e(TAG, "generateHeader: idx person " + objFace.addPerson(0));
-            Log.e(TAG, "generateHeader: " + faceData[0].getRecognitionConfidence());
-//            objFace.addPerson(0);
-
-            // HC
-
-            albumVectors = objFace.serializeRecogntionAlbum();
-
-            // Header
-            headerOfVector = Arrays.copyOfRange(objFace.serializeRecogntionAlbum(), 0, 32);
-            lastContentOfVector = Arrays.copyOfRange(objFace.serializeRecogntionAlbum(), objFace.serializeRecogntionAlbum().length - 300, objFace.serializeRecogntionAlbum().length);
-
-            albumVectors[albumVectors.length - 1] = Byte.parseByte(String.valueOf(i));
-
-            SmartShutterActivity.faceProc.deserializeRecognitionAlbum(albumVectors);
-
-        } else {
-            Log.e(TAG, "generateHeader: Failed setBitmap SDK");
-        }
-
-        String strHeader = Arrays.toString(headerOfVector);
-//        Arrays.toString(.substring(1, headerOfVector.length - 1).split(","));
-//        return Arrays.toString(headerOfVector);
-        return strHeader;
     }
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image, String contentVector, boolean updated) {
@@ -810,25 +758,41 @@ public class Tools {
         }
     }
 
-    public static void initVector() {
-
-//        imageRepo.importCSV(appContext);
-    }
-
 
     public static void download_images() {
+        Log.e(TAG, "download_images: START" );
         try {
             List<String> images = imageRepo.findAllUnDownloaded();
             for (String uid : images){
-                Log.e(TAG, "download_image: "+uid );
                 ImageView iv = new ImageView(appContext.applicationContext());
-                iv.setTag(1, uid);
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(uid, OpenSRPImageLoader.getStaticImageListener(iv, 0,0));
+                // TODO setTag+"The key must be an application-specific resource id"
+                iv.setTag(R.id.entity_id, uid);
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(uid, OpenSRPImageLoader.getStaticImageListener(iv, 0, 0));
+                Log.e(TAG, "download_images: done "+ uid );
 
             }
         } catch (Exception e){
-            Log.e(TAG, "download_image: "+ e.getMessage() );
+            Log.e(TAG, "download_images: "+ e.getMessage() );
         }
+        Log.e(TAG, "download_images: FINISHED" );
     }
+
+    public static void setAppContext(Context context) {
+        Tools.appContext = context;
+    }
+
+    public static Context getAppContext(){
+        return Tools.appContext;
+    }
+
+    public void setAlbumBuffer(String albumBuffer) {
+        this.albumBuffer = albumBuffer;
+    }
+
+    public String getAlbumBuffer() {
+
+        return albumBuffer;
+    }
+
 
 }

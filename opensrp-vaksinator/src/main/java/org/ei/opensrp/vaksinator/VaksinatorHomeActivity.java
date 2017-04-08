@@ -69,9 +69,8 @@ public class VaksinatorHomeActivity extends SecuredActivity {
             updateRegisterCounts();
 
             Tools mTools = new Tools(context());
-
+            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-
             Tools.setVectorsBuffered();
 
         }
@@ -154,6 +153,11 @@ public class VaksinatorHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
+        initFR();
+    }
+
+    private void initFR() {
+        new Tools(context());
     }
 
     private void updateRegisterCounts() {

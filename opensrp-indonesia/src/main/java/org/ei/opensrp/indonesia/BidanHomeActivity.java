@@ -1,5 +1,6 @@
 package org.ei.opensrp.indonesia;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,9 +68,11 @@ public class BidanHomeActivity extends SecuredActivity {
 
             new Tools(context());
 
+            Log.e("TAG", "onEvent: "+ context() );
+
+//            Tools.setAppContext(context());
             Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-
             Tools.setVectorsBuffered();
 
         }
@@ -157,7 +160,13 @@ public class BidanHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
+        initFR();
     }
+
+    private void initFR() {
+        new Tools(context());
+    }
+
 
     private void updateRegisterCounts() {
         NativeUpdateANMDetailsTask task = new NativeUpdateANMDetailsTask(Context.getInstance().anmController());

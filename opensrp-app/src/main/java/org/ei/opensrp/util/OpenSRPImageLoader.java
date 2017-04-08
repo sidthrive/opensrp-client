@@ -523,7 +523,6 @@ public class OpenSRPImageLoader extends ImageLoader {
      */
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image) {
-        Log.e(TAG, "saveStaticImageToDisk: "+ entityId );
         if (image != null) {
             OutputStream os = null;
             try {
