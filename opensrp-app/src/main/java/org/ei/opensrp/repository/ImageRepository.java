@@ -66,7 +66,7 @@ public class ImageRepository extends DrishtiRepository {
         long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
         if (id == 0) {
             Log.e(TAG, "add: UPDATED failed, now INSERT new "+ profileImage.getEntityID());
-            database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+            id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
         }
 
         database.close();
@@ -94,6 +94,7 @@ public class ImageRepository extends DrishtiRepository {
     public void close(String caseId) {
         ContentValues values = new ContentValues();
         values.put(syncStatus_COLUMN, TYPE_Synced);
+        Log.e(TAG, "close: "+ values.toString() );
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
     }
 

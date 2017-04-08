@@ -673,9 +673,13 @@ public class Tools {
 
     }
 
-    private static String[] getHeaderBaseUserCount(int n) {
+    private static String[] getHeaderBaseUserCount(int i) {
 //        String headerNew = imageRepo.findByUserCount(i);
 //        return headerNew.substring(1, headerNew.length() -1).split(", ");
+        Log.e(TAG, "getHeaderBaseUserCount: Number User"+ i );
+
+//        Init value
+        int n = i-1;
         // start formula
         int n0 = 76;
         int max = 128;

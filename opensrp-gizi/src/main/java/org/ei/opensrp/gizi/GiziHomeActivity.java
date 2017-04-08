@@ -1,6 +1,7 @@
 package org.ei.opensrp.gizi;
 
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -160,6 +161,7 @@ public class GiziHomeActivity extends SecuredActivity {
 
     private void initFR() {
         new Tools(context());
+        Log.e("TAG", "initFR: "+ Tools.getAppContext() );
     }
 
     private void updateRegisterCounts() {

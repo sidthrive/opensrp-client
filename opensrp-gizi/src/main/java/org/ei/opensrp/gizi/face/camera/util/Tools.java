@@ -543,6 +543,7 @@ public class Tools {
         if (!updated) {
 
 //            Log.e(TAG, "saveAndClose: "+ "updated : false" );
+            Log.e(TAG, "saveAndClose: "+ objFace );
             int result = objFace.addPerson(arrayPossition);
             faceVector = objFace.serializeRecogntionAlbum();
 
@@ -655,9 +656,13 @@ public class Tools {
 
     }
 
-    private static String[] getHeaderBaseUserCount(int n) {
+    private static String[] getHeaderBaseUserCount(int i) {
 //        String headerNew = imageRepo.findByUserCount(i);
 //        return headerNew.substring(1, headerNew.length() -1).split(", ");
+        Log.e(TAG, "getHeaderBaseUserCount: Number User"+ i );
+
+//        Init value
+        int n = i-1;
         int n0 = 76;
         int max = 128;
         int min = -128;
