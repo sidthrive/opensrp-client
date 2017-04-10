@@ -3,7 +3,7 @@ package org.ei.opensrp;
 public class AllConstants {
     public static final String DRISHTI_BASE_URL = "DRISHTI_BASE_URL";
     public static final String PROFILE_IMAGES_DOWNLOAD_PATH = "/multimedia/profileimage";
-    public static final String PROFILE_IMAGES_UPLOAD_PATH = "/multimedia-file";
+    public static final String PROFILE_IMAGES_UPLOAD_PATH = "/multimedia/upload";
 
 
     public static final String REPORT_CATEGORY = "reportCategory";
@@ -17,7 +17,12 @@ public class AllConstants {
     public static final String DATABASE_NAME="drishti.db";
     public static final int DATABASE_VERSION=1;
 
+    public static final String ENCRYPTED_PASSWORD_PREFIX = "crptPw-";
+    public static final String ENCRYPTED_GROUP_ID_PREFIX = "crptGrp-";
+    public static final String DEFAULT_LOCALITY_ID_PREFIX = "dfltLoc-";
+    public static final String PIONEER_USER = "pioneerUser";
     public static final String LANGUAGE_PREFERENCE_KEY = "locale";
+    public static final String CURRENT_LOCALITY = "current_locality";
     public static final String ENGLISH_LOCALE = "en";
     public static final String KANNADA_LOCALE = "kn";
     public static final String DEFAULT_LOCALE = ENGLISH_LOCALE;
@@ -337,9 +342,9 @@ public class AllConstants {
         public static final String DOCUMENTS_REPLICATED = "DOCUMENTS_REPLICATED";
         public static final String BATCHES_REPLICATED = "BATCHES_REPLICATED";
         public static final String COUCHDB_PORT = "5984";
-        public static final String COUCH_DATABASE_NAME = "test_db";
-        public static final String COUCH_DATABASE_USER = "";
-        public static final String COUCH_DATABASE_PASS = "";
+        public static final String COUCH_DATABASE_NAME = "opensrp";
+        public static final String COUCH_DATABASE_USER = "rootuser";
+        public static final String COUCH_DATABASE_PASS = "adminpass";
 
 
 

@@ -109,6 +109,7 @@ configurations.all {
 }
 
 dependencies {
+    compile 'net.zetetic:android-database-sqlcipher:3.5.6@aar'
     compile 'com.android.support:multidex:1.0.0'
     compile 'org.ei.drishti:drishti-interface:0.1-SNAPSHOT'
     compile 'com.android.support:appcompat-v7:21.0.3'
@@ -129,7 +130,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.cloudant:cloudant-http:2.6.0'
+    compile 'com.cloudant:cloudant-http:2.7.0'
 
 }
 

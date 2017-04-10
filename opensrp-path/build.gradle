@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:1.2.3"
+        classpath 'org.apache.commons:commons-lang3:3.3.2'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+/*dependencies {
+    compile project(':opensrp-app')
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+    compile 'id.zelory:compressor:1.0.4'
+}*/
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "org.ei.opensrp.path"
+        minSdkVersion 18
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.1.1"
+        multiDexEnabled true
+        dexOptions {
+            javaMaxHeapSize "4g"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", 'opensrp_url', '"http://zeir.smartregister.org/opensrp"'
+            buildConfigField "String", 'OPENMRS_URL', '"http://openmrs.zeir.smartregister.org/openmrs"'
+            buildConfigField "String", 'OPENMRS_IDGEN_URL', '"/module/idgen/exportIdentifiers.form"'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '24'
+            buildConfigField "int", "DATABASE_VERSION", '2'
+        }
+
+        debug {
+            resValue "string", 'opensrp_url', '"http://46.101.51.199:8080/opensrp"'
+            buildConfigField "String", 'OPENMRS_URL', '""'
+            buildConfigField "String", 'OPENMRS_IDGEN_URL', '"/module/idgen/exportIdentifiers.form"'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '0'
+            buildConfigField "int", "DATABASE_VERSION", '2'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+}
+
+dependencies {
+    compile(project(':android-json-form-wizard'))
+    compile(project(':opensrp-app')) {
+        exclude group: 'com.github.johnkil.print', module: 'print'
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+    }
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+    compile 'id.zelory:compressor:1.0.4'
+    compile 'com.twotoasters.SectionCursorAdapter:library:1.0.+'
+    //compile 'com.github.vijayrawatsan:android-json-form-wizard:1.1.1-SNAPSHOT'
+}
