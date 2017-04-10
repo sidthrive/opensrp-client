@@ -38,7 +38,6 @@ import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.util.AssetHandler;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -236,7 +235,7 @@ public class JsonFormUtils {
 
             long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
