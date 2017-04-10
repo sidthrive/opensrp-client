@@ -41,9 +41,19 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 style="@style/CustomFontTextViewStyle.NavBar.Black"
-            android:text="@string/child_title" />
+            android:text="@string/child_title"
+            android:paddingRight="100dp" />
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/chart_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:text="@string/chart_title" />
 
     </LinearLayout>
+
 
     <ImageView
             android:layout_width="@dimen/smart_register_nav_bar_separator"

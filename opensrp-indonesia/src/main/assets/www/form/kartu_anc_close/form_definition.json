@@ -15,6 +15,16 @@
                 "source": "ibu.kartu_ibu.id"
             },
             {
+                "name": "cityVillage",
+                "bind": "/model/instance/penutupan_anc_reviewed/Village",
+                "shouldLoadValue": true
+            },
+            {
+                "name": "existing_location",
+                "bind": "/model/instance/penutupan_anc_reviewed/existing_location",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "desa",
                 "bind": "/model/instance/penutupan_anc_reviewed/desa"
             },

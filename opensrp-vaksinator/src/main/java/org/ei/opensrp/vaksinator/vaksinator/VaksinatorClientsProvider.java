@@ -29,6 +29,8 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
 import java.text.SimpleDateFormat;
 
+import util.AsyncTask;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static org.joda.time.LocalDateTime.parse;
 
@@ -121,6 +123,7 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
+
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
 
         int umur = pc.getColumnmaps().get("tanggalLahirAnak") != null ? age(ages) : 0;
@@ -175,8 +178,8 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         }
 
         viewHolder.age.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null
-                ?     Integer.toString(age(ages)/12)+" "+ context.getResources().getString(R.string.year_short)
-                + ", "+Integer.toString(age(ages)%12)+" "+ context.getResources().getString(R.string.month_short)
+                ?     Integer.toString(age(ages)/12)+" "+ context.getResources().getString(R.string.year_short) +
+         ", "+Integer.toString(age(ages)%12)+" "+ context.getResources().getString(R.string.month_short)
                 : " ");
         viewHolder.gender.setText(pc.getDetails().get("jenis_kelamin") != null
                 ? pc.getDetails().get("jenis_kelamin").contains("em")
@@ -184,26 +187,26 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
                 : "Laki-laki"
                 : " ");
 
-        viewHolder.hb0.setText(latestDate(new String[]{pc.getDetails().get("hb0")}));
+        viewHolder.hb0.setText(transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("hb0")})));
 
         viewHolder.pol1.setText(
-                latestDate(new String[]{pc.getDetails().get("bcg"),pc.getDetails().get("polio1")})
-        );
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("bcg"), pc.getDetails().get("polio1")})
+                ));
 
         viewHolder.pol2.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb1"),pc.getDetails().get("polio2")})
-        );
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb1"), pc.getDetails().get("polio2")})
+                ));
 
         viewHolder.pol3.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb2"),pc.getDetails().get("polio3")})
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb2"), pc.getDetails().get("polio3")})
 
-        );
+                ));
 
         viewHolder.pol4.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb3"),pc.getDetails().get("polio4"),pc.getDetails().get("ipv")})
-        );
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb3"), pc.getDetails().get("polio4"), pc.getDetails().get("ipv")})
+                ));
 
-        viewHolder.campak.setText(pc.getDetails().get("campak") != null ? pc.getDetails().get("campak") : " ");
+        viewHolder.campak.setText(pc.getDetails().get("campak") != null ? transformToddmmyyyy(pc.getDetails().get("campak")) : " ");
 
 //----- logo visibility, sometimes the variable contains blank string that count as not null, so we must check both the availability and content
         boolean a = hasDate(pc,"hb0");
@@ -235,9 +238,9 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
                 continue;
             if(dates[i].length()<10)
                 continue;
-            max =   (((Integer.parseInt(max.substring(0,4))-Integer.parseInt(dates[i].substring(0,4)))*360)
-                    +((Integer.parseInt(max.substring(5,7))-Integer.parseInt(dates[i].substring(5,7)))*30)
-                    +(Integer.parseInt(max.substring(8,10))-Integer.parseInt(dates[i].substring(8,10)))
+            max =   (((Integer.parseInt(max.substring(0,4))-Integer.parseInt(dates[i].substring(0,4)))*360) +
+            ((Integer.parseInt(max.substring(5,7))-Integer.parseInt(dates[i].substring(5,7)))*30) +
+            (Integer.parseInt(max.substring(8,10))-Integer.parseInt(dates[i].substring(8,10)))
             )<0 ? dates[i]:max;
         }
         return max.equals("0000-00-00")? "" : max;
@@ -343,6 +346,14 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
     public View inflatelayoutForCursorAdapter() {
         View View = inflater().inflate(R.layout.smart_register_jurim_client, null);
         return View;
+    }
+
+    public String transformToddmmyyyy(String date){
+        if(date.length()>3) {
+            if (date.charAt(4) == '-')
+                date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
+            }
+        return date;
     }
 
     class ViewHolder {

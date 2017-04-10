@@ -10,6 +10,14 @@
         "shouldLoadValue": true
       },
       {
+        "name": "start",
+        "bind": "/model/instance/dok_persalinan_reviewed/start"
+      },
+      {
+        "name": "end",
+        "bind": "/model/instance/dok_persalinan_reviewed/end"
+      },
+      {
         "name": "cityVillage",
         "bind": "/model/instance/dok_persalinan_reviewed/Village",
         "shouldLoadValue": true
@@ -238,7 +246,7 @@
           },
           {
             "name": "tanggalLahirAnak",
-            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/tanggal_lahir_anak"
+            "bind": "/model/instance/dok_persalinan_reviewed/child_registration/tanggal_lahir"
           },
           {
             "name": "jenisKelamin",

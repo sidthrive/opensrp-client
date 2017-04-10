@@ -135,7 +135,7 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
         }
 
-        System.out.println("details: "+pc.getDetails().toString());
+        ////System.out.println("details: "+pc.getDetails().toString());
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap") != null ? pc.getColumnmaps().get("namalengkap") : "");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");

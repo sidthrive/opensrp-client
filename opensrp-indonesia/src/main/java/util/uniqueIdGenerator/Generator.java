@@ -46,7 +46,6 @@ public class Generator {
                 "&username="+username+
                 "&password="+password;
     }
-
     public AllSettingsINA allSettingsINA() {
         context.initializeRepositoryForUniqueId();
         if(allSettingsINA == null)

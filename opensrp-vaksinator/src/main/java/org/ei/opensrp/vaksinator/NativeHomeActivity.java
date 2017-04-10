@@ -97,7 +97,7 @@ public class NativeHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_jurim_home);
       //  FlurryFacade.logEvent("vaksinator_home_dashboard");
-        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController);
+        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -117,7 +117,7 @@ public class NativeHomeActivity extends SecuredActivity {
        // findViewById(R.id.btn_tt_register).setVisibility(View.INVISIBLE);
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
-        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
+//        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
 
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_vaksinator_register_client_count);
         ibuRegisterClientCountView = (TextView) findViewById(R.id.txt_TT_vaksinator_register_client_count);
@@ -295,10 +295,10 @@ public class NativeHomeActivity extends SecuredActivity {
                     break; */
 
             }
-          /*  String HomeEnd = timer.format(new Date());
+            String HomeEnd = timer.format(new Date());
             Map<String, String> Home = new HashMap<String, String>();
             Home.put("end", HomeEnd);
-            FlurryAgent.logEvent("vaksinator_home_dashboard",Home, true);*/
+            FlurryAgent.logEvent("vaksinator_home_dashboard",Home, true);
         }
     };
 
@@ -308,12 +308,12 @@ public class NativeHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
-                case R.id.btn_videos:
+//                case R.id.btn_videos:
 //                    navigationController.startVideos();
-                    break;
+//                    break;
             }
         }
     };

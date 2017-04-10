@@ -8,13 +8,13 @@ import com.google.gson.reflect.TypeToken;
 import org.ei.drishti.dto.form.FormSubmissionDTO;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.DristhiConfiguration;
+import org.ei.opensrp.sync.CloudantSyncHandler;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.AllSettings;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.FormDataRepository;
-import org.ei.opensrp.sync.CloudantSyncHandler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;

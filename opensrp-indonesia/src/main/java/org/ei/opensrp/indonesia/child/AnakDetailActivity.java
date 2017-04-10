@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,7 +21,9 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
+import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -43,7 +46,7 @@ import static org.ei.opensrp.util.StringUtil.humanize;
 public class AnakDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = AnakDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
@@ -92,8 +95,18 @@ public class AnakDetailActivity extends Activity {
         TextView pol4 = (TextView) findViewById(R.id.txt_tanggalpemberianimunisasiDPTHB3Polio4);
         TextView campak = (TextView) findViewById(R.id.txt_tanggalpemberianimunisasiCampak);
 
-
+        TextView growthChartButton = (TextView)findViewById(R.id.chart_label);
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
+
+        growthChartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                ChildDetailActivity.childclient = childclient;
+                startActivity(new Intent(AnakDetailActivity.this, ChildDetailActivity.class));
+                overridePendingTransition(0, 0);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,10 +148,10 @@ public class AnakDetailActivity extends Activity {
         nama.setText(getResources().getString(R.string.name)+humanize (childclient.getColumnmaps().get("namaBayi") != null ? childclient.getColumnmaps().get("namaBayi") : "-"));
         mother.setText(getResources().getString(R.string.child_details_mothers_name_label)+humanize (kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "-"));
         father.setText(getResources().getString(R.string.child_details_fathers_name_label)+ humanize(kiparent.getColumnmaps().get("namaSuami") != null ? kiparent.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak") : "-"));
+        dob.setText(getResources().getString(R.string.date_of_birth)+ humanize(childclient.getColumnmaps().get("tanggalLahirAnak") != null ? childclient.getColumnmaps().get("tanggalLahirAnak").substring(0,10) : "-"));
 
         txt_noBayi.setText( ": "+humanize (childclient.getDetails().get("noBayi") != null ? childclient.getDetails().get("noBayi") : "-"));
-        txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("jenisKelamin") != null ? childclient.getDetails().get("jenisKelamin") : "-"));
+        txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("gender") != null ? childclient.getDetails().get("gender") : "-"));
         txt_beratLahir.setText(": "+humanize (childclient.getDetails().get("beratLahir") != null ? childclient.getDetails().get("beratLahir") : "-"));
         tinggi.setText(": "+ humanize(childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") != null ? childclient.getDetails().get("hasilPengukuranTinggiBayihasilPengukuranTinggiBayi") : "-"));
         berat.setText(": "+humanize (childclient.getDetails().get("indikatorBeratBedanBayi") != null ? childclient.getDetails().get("indikatorBeratBedanBayi") : "-"));
@@ -164,6 +177,19 @@ public class AnakDetailActivity extends Activity {
 
             }
         });
+
+        childview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FlurryFacade.logEvent("taking_child_pictures_on_child_detail_view");
+                bindobject = "anak";
+                entityid = childclient.entityId();
+                Log.e(TAG, "onClick: "+entityid );
+                dispatchTakePictureIntent(childview);
+
+            }
+        });
+
 
     }
 
@@ -193,25 +219,31 @@ public class AnakDetailActivity extends Activity {
     static String bindobject;
     static String entityid;
     private void dispatchTakePictureIntent(ImageView imageView) {
+        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
         mImageView = imageView;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                currentfile = photoFile;
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                currentfile = photoFile;
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+            startActivityForResult(takePictureIntent, 1);
+//            }
         }
     }
 
@@ -223,20 +255,11 @@ public class AnakDetailActivity extends Activity {
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
-    }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                childclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;

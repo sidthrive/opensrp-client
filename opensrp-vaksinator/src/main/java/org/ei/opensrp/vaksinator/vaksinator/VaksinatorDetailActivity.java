@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.vaksinator.R;
+import org.ei.opensrp.vaksinator.face.camera.SmartShutterActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +53,6 @@ public class VaksinatorDetailActivity extends Activity {
     private static ImageFetcher mImageFetcher;
 
     //image retrieving
-
     public static CommonPersonObjectClient controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +64,10 @@ public class VaksinatorDetailActivity extends Activity {
         detailsRepository.updateDetails(controller);
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
-        CommonPersonObject childobject = childRepository.findByCaseID(controller.entityId());
+        CommonPersonObject controllers = childRepository.findByCaseID(controller.entityId());
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
+        final CommonPersonObject kiparent = kirep.findByCaseID(controllers.getColumnmaps().get("relational_id"));
 
         String DetailStart = timer.format(new Date());
         Map<String, String> Detail = new HashMap<String, String>();
@@ -166,7 +167,7 @@ public class VaksinatorDetailActivity extends Activity {
         uid.setText(": "+(controller.getDetails().get("UniqueId")!=null ? controller.getDetails().get("UniqueId") : "-"));
         nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
 
-        System.out.println("details: "+controller.getDetails().toString());
+        //System.out.println("details: "+controller.getDetails().toString());
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);
@@ -180,7 +181,7 @@ public class VaksinatorDetailActivity extends Activity {
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? controller.getDetails().get("namaAyah") : "-"));
+        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? transformToddmmyyyy(controller.getDetails().get("namaAyah")) : "-"));
         motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
                 ? controller.getDetails().get("namaIbu")
                 : controller.getDetails().get("nama_orang_tua")!=null
@@ -206,7 +207,7 @@ public class VaksinatorDetailActivity extends Activity {
                                                         .get("beratLahir"))/1000)
                                                         + " kg"
                                     : "-"));
-        antipiretik.setText(": " + (controller.getDetails().get("getAntypiretic") != null ? controller.getDetails().get("getAntypiretic") : "-"));
+        antipiretik.setText(": " + (controller.getDetails().get("antipiretik") != null ? yesNo(controller.getDetails().get("antipiretik").toLowerCase().contains("y")) : "-"));
 
         hb1Under7.setText(": " + (hasDate(controller,"hb0")
                 ? controller.getDetails().get("hb0")
@@ -214,20 +215,36 @@ public class VaksinatorDetailActivity extends Activity {
                     ? controller.getDetails().get("hb1_kurang_7_hari")
                     :"-"));
 
-        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? controller.getDetails().get("bcg") : "-"));
-        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? controller.getDetails().get("polio1") : "-"));
-        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? controller.getDetails().get("dptHb1") : "-"));
-        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? controller.getDetails().get("polio2") : "-"));
-        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? controller.getDetails().get("dptHb2") : "-"));
-        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? controller.getDetails().get("polio3") : "-"));
-        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? controller.getDetails().get("dptHb3") : "-"));
-        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? controller.getDetails().get("polio4") : "-"));
-        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? controller.getDetails().get("ipv") : "-"));
-        measles.setText(": " + (controller.getDetails().get("campak") != null ? controller.getDetails().get("campak") : "-"));
+        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? transformToddmmyyyy(controller.getDetails().get("bcg")) : "-"));
+        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? transformToddmmyyyy(controller.getDetails().get("polio1")) : "-"));
+        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb1")) : "-"));
+        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? transformToddmmyyyy(controller.getDetails().get("polio2")) : "-"));
+        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb2")) : "-"));
+        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? transformToddmmyyyy(controller.getDetails().get("polio3")) : "-"));
+        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb3")) : "-"));
+        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? transformToddmmyyyy(controller.getDetails().get("polio4")) : "-"));
+        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? transformToddmmyyyy(controller.getDetails().get("ipv")) : "-"));
+        measles.setText(": " + (controller.getDetails().get("campak") != null ? transformToddmmyyyy(controller.getDetails().get("campak")) : "-"));
 
         complete.setText(": " + yesNo(isComplete()));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? controller.getDetails().get("dpt_hb_campak_lanjutan") : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
+
+        if(controller.getDetails().get("profilepic")!= null){
+            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
+            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
+                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+
+            }
+        }
+        else {
+            if (controller.getDetails().get("gender").equalsIgnoreCase("male") ) {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
+            } else {
+                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
+            }
+        }
 
         /*if(controller.getDetails().get("profilepic")!= null){
             setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
@@ -242,9 +259,10 @@ public class VaksinatorDetailActivity extends Activity {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
                 bindobject = "anak";
                 entityid = controller.entityId();
+                android.util.Log.e(TAG, "onClick: " + entityid);
                 dispatchTakePictureIntent(photo);
 
             }
@@ -276,25 +294,31 @@ public class VaksinatorDetailActivity extends Activity {
     static String entityid;
 
     private void dispatchTakePictureIntent(ImageView imageView) {
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
         mImageView = imageView;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                currentfile = photoFile;
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                currentfile = photoFile;
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+//
+            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+            startActivityForResult(takePictureIntent, 1);
+//            }
         }
     }
 
@@ -320,14 +344,6 @@ public class VaksinatorDetailActivity extends Activity {
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
-    }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
@@ -362,6 +378,7 @@ public class VaksinatorDetailActivity extends Activity {
 
 
     }
+
     private boolean isComplete(){
         return (controller.getDetails().get("hb0") != null &&
                 controller.getDetails().get("bcg") != null &&
@@ -386,6 +403,14 @@ public class VaksinatorDetailActivity extends Activity {
         overridePendingTransition(0, 0);
 
 
+    }
+
+    public String transformToddmmyyyy(String date){
+        if(date.length()>3) {
+            if (date.charAt(4) == '-')
+                date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
+        }
+        return date;
     }
 
     /*

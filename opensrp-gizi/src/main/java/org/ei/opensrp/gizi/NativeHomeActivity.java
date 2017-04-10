@@ -98,7 +98,7 @@ public class NativeHomeActivity extends SecuredActivity {
         //home dashboard
         setContentView(R.layout.smart_registers_gizi_home);
         //  FlurryFacade.logEvent("gizi_home_dashboard");
-        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this,anmController);
+        navigationController = new org.ei.opensrp.gizi.GiziNavigationController(this,anmController,context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
@@ -107,7 +107,7 @@ public class NativeHomeActivity extends SecuredActivity {
         String HomeStart = timer.format(new Date());
         Map<String, String> Home = new HashMap<String, String>();
         Home.put("start", HomeStart);
-//        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
+        FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
 
     }
 
@@ -234,7 +234,7 @@ public class NativeHomeActivity extends SecuredActivity {
 //=======
                 this, context().actionService(), context().formSubmissionSyncService(),
                 new SyncProgressIndicator(), context().allFormVersionSyncService());
-        FlurryFacade.logEvent("click_update_from_server");
+        FlurryAgent.logEvent("click_update_from_server");
 //>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
         String locationjson = context().anmLocationController().get();
@@ -319,7 +319,7 @@ public class NativeHomeActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_reporting:
-//                    navigationController.startReports();
+                    navigationController.startReports();
                     break;
 
                 case R.id.btn_videos:

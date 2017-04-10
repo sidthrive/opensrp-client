@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 
@@ -13,6 +15,11 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.gizi.R;
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
@@ -29,6 +36,7 @@ public class GiziGrowthChartActivity extends Activity{
         super.onCreate(savedInstanceState);
         final Context context = Context.getInstance();
         setContentView(R.layout.gizi_chart_activity);
+        FlurryAgent.logEvent("Growth_chart_view");
 
         GraphView lfaGraph = (GraphView)findViewById(R.id.lfa_chart);
         GraphView hfaGraph = (GraphView)findViewById(R.id.hfa_chart);
@@ -39,6 +47,21 @@ public class GiziGrowthChartActivity extends Activity{
 
         TextView navBarDetails = (TextView)findViewById(R.id.chart_navbar_details);
         TextView navBarZScore = (TextView)findViewById(R.id.chart_navbar_z_score);
+        ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
+
+                back.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                        finish();
+                        startActivity(new Intent(GiziGrowthChartActivity.this, GiziSmartRegisterActivity.class));
+                        overridePendingTransition(0, 0);
+
+                         String DetailEnd = new SimpleDateFormat("hh:mm:ss").format(new Date());
+                            Map<String, String> Detail = new HashMap<String, String>();
+                            Detail.put("end", DetailEnd);
+                            FlurryAgent.logEvent("gizi_detail_view", Detail, true);
+                         }
+                });
 
         navBarDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +167,8 @@ public class GiziGrowthChartActivity extends Activity{
                 }
             }
         }
+        if (ageSeries.length()+lengthSeries.length()<2)
+            return "0#0";
         return ageSeries.substring(1,ageSeries.length())+"#"+lengthSeries.substring(1,lengthSeries.length());
     }
 

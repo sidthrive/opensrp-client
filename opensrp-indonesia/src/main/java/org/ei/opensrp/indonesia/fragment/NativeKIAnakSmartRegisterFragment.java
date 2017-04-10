@@ -211,13 +211,13 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         countqueryBUilder.SelectInitiateMainTableCounts("ec_anak");
         countqueryBUilder.customJoin("LEFT JOIN ec_kartu_ibu ON ec_kartu_ibu.id = ec_anak.relational_id");
         mainCondition = " is_closed = 0  and relational_id != ''";
-        countSelect = countqueryBUilder.mainCondition(mainCondition);
+        countSelect = countqueryBUilder.mainCondition("ec_anak_search.is_closed = 0  and relational_id != ''");
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("ec_anak", new String[]{"ec_anak.is_closed", "ec_anak.details", "namaBayi", "tanggalLahirAnak","imagelist.imageid"});
         queryBUilder.customJoin("LEFT JOIN ec_ibu ON ec_ibu.id =  ec_anak.relational_id LEFT JOIN ImageList imagelist ON ec_anak.id=imagelist.entityID");
-        mainSelect = queryBUilder.mainCondition(mainCondition);
+        mainSelect = queryBUilder.mainCondition("ec_anak.is_closed = 0  and relational_id != ''");
         Sortqueries = AnakNameShort();
 
         currentlimit = 20;
@@ -321,7 +321,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_anak.is_closed = 0 and relational_id != '' ";
+                mainCondition = " is_closed = 0 and relational_id != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -348,7 +348,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_anak.is_closed = 0 and relational_id != '' ";
+                mainCondition = " is_closed = 0 and relational_id != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
@@ -370,7 +370,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
             }else{
                 StringUtil.humanize(entry.getValue().getLabel());
                 String name = StringUtil.humanize(entry.getValue().getLabel());
-                dialogOptionslist.add(new ChildFilterOption(name, "location_name", name, "ec_kartu_ibu"));
+                dialogOptionslist.add(new ChildFilterOption(name, "location_name", name, "ec_ibu"));
 
             }
         }

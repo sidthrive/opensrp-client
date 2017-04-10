@@ -181,6 +181,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
+        view.findViewById(R.id.register_client).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
@@ -222,7 +223,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
             queryBUilder.SelectInitiateMainTable("ec_kartu_ibu", new String[]{"ec_kartu_ibu.relationalid","ec_kartu_ibu.is_closed", "ec_kartu_ibu.details", "ec_kartu_ibu.isOutOfArea", "namalengkap", "umur", "namaSuami", "imagelist.imageid"});
             queryBUilder.customJoin("LEFT JOIN ec_ibu on ec_kartu_ibu.id = ec_ibu.base_entity_id LEFT JOIN ImageList imagelist ON ec_ibu.base_entity_id=imagelist.entityID ");
 
-            mainSelect = queryBUilder.mainCondition(mainCondition);
+            mainSelect = queryBUilder.mainCondition(" ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0'");
             Sortqueries = KiSortByNameAZ();
 
             currentlimit = 20;
@@ -343,7 +344,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0' ";
+                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
 
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
@@ -370,7 +371,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " ec_kartu_ibu.is_closed = 0 and jenisKontrasepsi != '0' ";
+                mainCondition = " is_closed = 0 and jenisKontrasepsi != '0' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();

@@ -20,9 +20,14 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':opensrp-app')
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
-                transitive = true;
-            }
+        transitive = true;
+    }
+    compile files('libs/sd-sdk-facial-processing.jar')
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.jjoe64:graphview:4.0.1'
 }
+
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -33,7 +38,7 @@ android {
         targetSdkVersion 21
 
         versionCode 6
-        versionName "6.01"
+        versionName "6.03"
 
         multiDexEnabled true
 

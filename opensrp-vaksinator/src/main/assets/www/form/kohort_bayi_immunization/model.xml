@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <model>
   <instance>
-    <Baby_Immunization.xls encounter_type="Imunisasi Bayi" id="Baby_Immunization" version="201611210314">
+    <Baby_Immunization_openmrs encounter_type="Imunisasi Bayi" id="Baby_Immunization_1" version="201703160701">
       <formhub>
         <uuid/>
       </formhub>
@@ -17,10 +16,15 @@
       <Sub-village/>
       <generated_note_name_12/>
       <generated_note_name_13/>
+      <tanggal_lahir openmrs_entity="person" openmrs_entity_id="birthdate"/>
+      <nama_bayi openmrs_entity="Concept" openmrs_entity_id="1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+      <generated_note_name_19/>
+      <generated_note_name_20/>
       <child_existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
-      <generated_note_name_16/>
+      <generated_note_name_23/>
       <hb0 openmrs_entity="concept" openmrs_entity_id="1410AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="782AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <bcg openmrs_entity="concept" openmrs_entity_id="1410AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="886AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+      <getAntipyretic openmrs_entity="concept" openmrs_entity_parent="1417AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <polio1 openmrs_entity="concept" openmrs_entity_id="1410AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <dpt_hb1 openmrs_entity="concept" openmrs_entity_id="1410AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="162339AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
       <polio2 openmrs_entity="concept" openmrs_entity_id="1410AAAAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
@@ -36,6 +40,6 @@
       <meta>
         <instanceID/>
       </meta>
-    </Baby_Immunization.xls>
+    </Baby_Immunization_openmrs>
   </instance>
 </model>

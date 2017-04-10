@@ -56,7 +56,7 @@ public class VaksinatorRecapitulationActivity extends Activity{
 
         final org.ei.opensrp.commonregistry.CommonPersonObjectClients clients = new org.ei.opensrp.commonregistry.CommonPersonObjectClients();
         String query = "SELECT * FROM ec_anak where ec_anak.is_closed = 0";
-        System.out.println("search query = " + query);
+        //System.out.println("search query = " + query);
         Cursor cursor = context.commonrepository("ec_anak").RawCustomQueryForAdapter(query);
         cursor.moveToFirst();
         Map <String,String> details;
@@ -64,9 +64,9 @@ public class VaksinatorRecapitulationActivity extends Activity{
         for(int i=0;i<cursor.getCount();i++) {
             cursor.moveToPosition(i);
             String baseEntityId = cursor.getString(cursor.getColumnIndex("base_entity_id"));
-            System.out.println("base entity id: "+baseEntityId);
+            //System.out.println("base entity id: "+baseEntityId);
             details = context.detailsRepository().getAllDetailsForClient(baseEntityId);
-            System.out.println(details);
+            //System.out.println(details);
 
             clients.add(new CommonPersonObjectClient(baseEntityId,details,cursor.getString(cursor.getColumnIndex("namaBayi"))));
         }
@@ -75,9 +75,9 @@ public class VaksinatorRecapitulationActivity extends Activity{
 //        for(int i=1;i<childobject.size();i++){
 //            CommonPersonObject object = childRepository.findByCaseID(childobject.get(i).getCaseId());
 //            if(object.getDetails() != null)
-//                System.out.println("detail size of "+i+": "+object.getDetails().toString());
+//                //System.out.println("detail size of "+i+": "+object.getDetails().toString());
 //            else
-//                System.out.println("detail size of "+i+": ");
+//                //System.out.println("detail size of "+i+": ");
 //        }
 
 //        Context otherContext = Context.getInstance().updateApplicationContext(this.getApplicationContext());

@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
@@ -45,14 +47,14 @@ import static org.ei.opensrp.util.StringUtil.humanize;
 public class KBDetailActivity extends Activity {
 
     //image retrieving
-    private static final String TAG = "ImageGridFragment";
+    private static final String TAG = KBDetailActivity.class.getSimpleName();
     private static final String IMAGE_CACHE_DIR = "thumbs";
     //  private static KmsCalc  kmsCalc;
     private static int mImageThumbSize;
     private static int mImageThumbSpacing;
     private static String showbgm;
     private static ImageFetcher mImageFetcher;
-
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
 
     public static CommonPersonObjectClient kiclient;
@@ -61,6 +63,12 @@ public class KBDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         Context context = Context.getInstance();
         setContentView(R.layout.kb_detail_activity);
+
+
+        String DetailStart = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<String, String>();
+        Detail.put("start", DetailStart);
+        FlurryAgent.logEvent("KB_detail_view",Detail, true );
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
@@ -143,6 +151,10 @@ public class KBDetailActivity extends Activity {
                 finish();
                 startActivity(new Intent(KBDetailActivity.this, NativeKBSmartRegisterActivity.class));
                 overridePendingTransition(0, 0);
+                String DetailEnd = timer.format(new Date());
+                Map<String, String> Detail = new HashMap<String, String>();
+                Detail.put("end", DetailEnd);
+                FlurryAgent.logEvent("KB_detail_view", Detail, true);
             }
         });
 
@@ -330,20 +342,11 @@ public class KBDetailActivity extends Activity {
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
         }
-    }
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
     }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;

@@ -16,6 +16,8 @@
             <Sub-village/>
             <generated_note_name_13/>
             <generated_note_name_14/>
+            <generated_note_name_15/>
+            <htp openmrs_entity="concept" openmrs_entity_id="5596AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
             <provinsi openmrs_entity="person_address" openmrs_entity_id="stateProvince" openmrs_entity_parent="usual_residence"/>
             <kabupaten openmrs_entity="person_address" openmrs_entity_id="countyDistrict" openmrs_entity_parent="usual_residence"/>
