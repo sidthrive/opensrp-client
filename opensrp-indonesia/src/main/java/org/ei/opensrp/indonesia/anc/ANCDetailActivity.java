@@ -2,44 +2,28 @@ package org.ei.opensrp.indonesia.anc;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.application.BidanApplication;
-import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.contract.ANCDetail;
+import org.opensrp.bpm.MainBPM;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-
-import util.ImageCache;
-import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
 import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
@@ -49,21 +33,11 @@ import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
  */
 public class ANCDetailActivity extends Activity {
 
-    //image retrieving
     private static final String TAG = ANCDetailActivity.class.getSimpleName();
-    private static final String IMAGE_CACHE_DIR = "thumbs";
-    //  private static KmsCalc  kmsCalc;
-    private static int mImageThumbSize;
-    private static int mImageThumbSpacing;
-    private static String showbgm;
-    private static ImageFetcher mImageFetcher;
 
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
-    //image retrieving
 
     public static CommonPersonObjectClient ancclient;
-    //    static String bindobject;
-//    static String entityid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +160,7 @@ public class ANCDetailActivity extends Activity {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ancclient);
-        
+
         Keterangan_k1k4.setText(String.format(": %s", humanize(ancclient.getDetails().get("Keterangan_k1k4") != null ? ancclient.getDetails().get("Keterangan_k1k4") : "-")));
         tanggalHPHT.setText(String.format(": %s", humanize(ancclient.getDetails().get("tanggalHPHT") != null ? ancclient.getDetails().get("tanggalHPHT") : "-")));
         usiaKlinis.setText(String.format(": %s", humanize(ancclient.getDetails().get("usiaKlinis") != null ? ancclient.getDetails().get("usiaKlinis") : "-")));
@@ -226,10 +200,7 @@ public class ANCDetailActivity extends Activity {
         laboratoriumSifilis.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumSifilis") != null ? ancclient.getDetails().get("laboratoriumSifilis") : "-")));
         laboratoriumHbsAg.setText(String.format(": %s", humanize(ancclient.getDetails().get("laboratoriumHbsAg") != null ? ancclient.getDetails().get("laboratoriumHbsAg") : "-")));
 
-
-
         //risk detail
-
         txt_lbl_highRiskLabourFetusMalpresentation.setText(humanize(ancclient.getDetails().get("highRiskLabourFetusMalpresentation") != null ? ancclient.getDetails().get("highRiskLabourFetusMalpresentation") : "-"));
         txt_highRisklabourFetusNumber.setText(humanize(ancclient.getDetails().get("highRisklabourFetusNumber") != null ? ancclient.getDetails().get("highRisklabourFetusNumber") : "-"));
         txt_highRiskLabourFetusSize.setText(humanize(ancclient.getDetails().get("highRiskLabourFetusSize") != null ? ancclient.getDetails().get("highRiskLabourFetusSize") : "-"));
@@ -247,10 +218,6 @@ public class ANCDetailActivity extends Activity {
         highRiskPostPartumHemorrhage.setText(humanize(ancclient.getDetails().get("highRiskPostPartumHemorrhage") != null ? ancclient.getDetails().get("highRiskPostPartumHemorrhage") : "-"));
         highRiskPostPartumPIH.setText(humanize(ancclient.getDetails().get("highRiskPostPartumPIH") != null ? ancclient.getDetails().get("highRiskPostPartumPIH") : "-"));
         highRiskPostPartumDistosia.setText(humanize(ancclient.getDetails().get("highRiskPostPartumDistosia") != null ? ancclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
-
-
-
-
 
         ancKe.setText(String.format(": %s", ancclient.getDetails().get("ancKe") != null ? ancclient.getDetails().get("ancKe") : "-"));
 
@@ -327,19 +294,8 @@ public class ANCDetailActivity extends Activity {
             }
         });
 
-//        kiview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-//                bindobject = "anc";
-//                entityid = ancclient.entityId();
-//                Log.e(TAG, "onClick: " + entityid);
-//                dispatchTakePictureIntent(kiview);
-
-//            }
-//        });
-
-
+        tandaVitalTDDiastolik.setOnClickListener(bpmListener);
+        tandaVitalTDSistolik.setOnClickListener(bpmListener);
 
     }
 
@@ -348,109 +304,14 @@ public class ANCDetailActivity extends Activity {
         finish();
         startActivity(new Intent(this, NativeKIANCSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
-
-
     }
 
-//
-//
-//    String mCurrentPhotoPath;
-//
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                storageDir      /* directory */
-//        );
-//
-//        // Save a file: path for use with ACTION_VIEW intents
-//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-//        return image;
-//    }
-//    static final int REQUEST_TAKE_PHOTO = 1;
-//    static ImageView mImageView;
-//    static File currentfile;
-//
-//    private void dispatchTakePictureIntent(ImageView imageView) {
-//        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-//        mImageView = imageView;
-//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-////        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-//        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-////            File photoFile = null;
-////            try {
-////                photoFile = createImageFile();
-////            } catch (IOException ex) {
-////                // Error occurred while creating the File
-////
-////            }
-////            // Continue only if the File was successfully created
-////            if (photoFile != null) {
-////                currentfile = photoFile;
-////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-////
-//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-//            startActivityForResult(takePictureIntent, 1);
-////            }
-//        }
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-////            Bundle extras = data.getExtras();
-////            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-////            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-//            HashMap<String,String> details = new HashMap<String,String>();
-//            details.put("profilepic",currentfile.getAbsolutePath());
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-//            mImageView.setImageBitmap(bitmap);
-//        }
-//    }
-//    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
-//        mImageThumbSize = 300;
-//        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
-//
-//
-//        ImageCache.ImageCacheParams cacheParams =
-//                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
-//        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
-//        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
-//        mImageFetcher.setLoadingImage(placeholder);
-//        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-////        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-//        mImageFetcher.loadImage("file:///"+file,view);
-//
-////        Uri.parse(new File("/sdcard/cats.jpg")
-//
-//
-//
-//
-//
-////        BitmapFactory.Options options = new BitmapFactory.Options();
-////        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-////        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-////        view.setImageBitmap(bitmap);
-//    }
-//    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-//        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-//        File externalFile = new File(file);
-//        Uri external = Uri.fromFile(externalFile);
-//        view.setImageURI(external);
-//
-//
-//    }
+    private View.OnClickListener bpmListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
+            startActivity(intent);
+        }
+    };
 
 }

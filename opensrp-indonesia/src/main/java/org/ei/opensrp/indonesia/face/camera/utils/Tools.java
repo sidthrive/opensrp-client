@@ -92,7 +92,7 @@ public class Tools {
     private static String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
     private static ProfileImage profileImage = new ProfileImage();
     private static ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-    private FaceRepository faceRepo = (FaceRepository) new FaceRepository().faceRepository();
+//    private FaceRepository faceRepo = (FaceRepository) new FaceRepository().faceRepository();
 
     static String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
     private static String headerOne = emptyAlbum;
@@ -451,6 +451,7 @@ public class Tools {
      * Fetch data from API (json
      */
     public static void setVectorfromAPI(final android.content.Context context) {
+        Log.e(TAG, "setVectorfromAPI: Start" );
 //        AllSharedPreferences allSharedPreferences;
 
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
@@ -468,23 +469,31 @@ public class Tools {
 //        client.get(api_url, new JsonHttpResponseHandler(){
 //        });
 
+        getImages(client, api_url);
+
+        Log.e(TAG, "setVectorfromAPI: END" );
+    }
+
+    private static void getImages(final AsyncHttpClient client, final String api_url) {
         client.get(api_url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.e(TAG, "onSuccess: " + statusCode);
+
                 insertOrUpdate(responseBody);
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.e(TAG, "onFailure: " + api_url);
+                getImages(client, api_url);
             }
         });
-
-
     }
 
     private static void insertOrUpdate(byte[] responseBody) {
+        Log.e(TAG, "insertOrUpdate: START" );
 
         try {
             JSONArray response = new JSONArray(new String(responseBody));
@@ -496,6 +505,7 @@ public class Tools {
                 String anmId = data.getString("providerId");
 //                        String uid = data.getString("caseId");
 
+                Log.e(TAG, "insertOrUpdate: uid "+ uid );
                 // To AlbumArray
                 String faceVector = data.getJSONObject("attributes").getString("faceVector");
 
@@ -512,13 +522,18 @@ public class Tools {
                 // TODO : fetch vector from imagebitmap
                 profileImage.setFilevector(faceVector);
 
-                imageRepo.createOrUpdate(profileImage, uid);
+//                imageRepo.createOrUpdate(profileImage, uid);
+                imageRepo.add(profileImage, uid);
 
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        setVectorsBuffered();
+        download_images();
+        Log.e(TAG, "insertOrUpdate: END " );
 
     }
 
@@ -635,6 +650,7 @@ public class Tools {
     }
 
     public static void setVectorsBuffered() {
+        Log.e(TAG, "setVectorsBuffered: START" );
 
         List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
 

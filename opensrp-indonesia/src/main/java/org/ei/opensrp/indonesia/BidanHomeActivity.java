@@ -71,9 +71,9 @@ public class BidanHomeActivity extends SecuredActivity {
             Log.e("TAG", "onEvent: "+ context() );
 
 //            Tools.setAppContext(context());
-            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-            Tools.setVectorsBuffered();
+//            Tools.download_images();
+//            Tools.setVectorsBuffered();
 
         }
     };

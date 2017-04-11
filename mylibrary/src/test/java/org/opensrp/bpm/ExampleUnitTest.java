@@ -1,4 +1,4 @@
-package com.example.mylibrary;
+package org.opensrp.bpm;
 
 import org.junit.Test;
 

@@ -77,15 +77,11 @@ public class Tools {
     private static String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
     private static ProfileImage profileImage = new ProfileImage();
     private static ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-    private FaceRepository faceRepo = (FaceRepository) new FaceRepository().faceRepository();
+//    private FaceRepository faceRepo = (FaceRepository) new FaceRepository().faceRepository();
 
     static String emptyAlbum = "[32, 0, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0]";
     private static String headerOne = emptyAlbum;
     static String singleHeader = "[76, 1, 0, 0, 76, 65, -68, -20, 77, 116, 46, 83, 105, 110, 97, 105, 6, 0, 0, 0, -24, 3, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0]";
-
-
-
-
 //    FaceRepository faceRepo = (FaceRepository) faceRepository();
 
     public Tools() {
@@ -450,6 +446,7 @@ public class Tools {
      * Fetch data from API (json
      */
     public static void setVectorfromAPI(final android.content.Context context) {
+        Log.e(TAG, "setVectorfromAPI: " );
 //        AllSharedPreferences allSharedPreferences;
 
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();

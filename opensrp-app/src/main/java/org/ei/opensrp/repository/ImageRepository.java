@@ -54,21 +54,14 @@ public class ImageRepository extends DrishtiRepository {
     @Override
     protected void onCreate(SQLiteDatabase database) {
         database.execSQL(Image_SQL);
-
-        database.execSQL(Vector_SQL);
+//        database.execSQL(Vector_SQL);
 //        importCSV(Context.getInstance(), database);
     }
 
 
-    // If no record yet insert new, if exist just update
-    public void add(ProfileImage profileImage, String entityId) {
+    public void add(ProfileImage Image) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
-        long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
-        if (id == 0) {
-            Log.e(TAG, "add: UPDATED failed, now INSERT new "+ profileImage.getEntityID());
-            id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
-        }
-
+        database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
         database.close();
     }
 
@@ -94,7 +87,6 @@ public class ImageRepository extends DrishtiRepository {
     public void close(String caseId) {
         ContentValues values = new ContentValues();
         values.put(syncStatus_COLUMN, TYPE_Synced);
-        Log.e(TAG, "close: "+ values.toString() );
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId});
     }
 
@@ -102,21 +94,21 @@ public class ImageRepository extends DrishtiRepository {
         ContentValues values = new ContentValues();
 //        values.put(ID_COLUMN, image.getImageid());
         if (image.getEntityID() != null)
-        values.put(ID_COLUMN, image.getEntityID());
+            values.put(ID_COLUMN, image.getEntityID());
         if (image.getAnmId() != null)
-        values.put(anm_ID_COLUMN, image.getAnmId());
+            values.put(anm_ID_COLUMN, image.getAnmId());
         if (image.getContenttype() != null)
-        values.put(contenttype_COLUMN, image.getContenttype());
+            values.put(contenttype_COLUMN, image.getContenttype());
         if (image.getEntityID() != null)
-        values.put(entityID_COLUMN, image.getEntityID());
+            values.put(entityID_COLUMN, image.getEntityID());
         if (image.getFilepath() != null)
-        values.put(filepath_COLUMN, image.getFilepath());
+            values.put(filepath_COLUMN, image.getFilepath());
         if (image.getSyncStatus() != null)
-        values.put(syncStatus_COLUMN, image.getSyncStatus());
+            values.put(syncStatus_COLUMN, image.getSyncStatus());
         if (image.getFilecategory() != null)
-        values.put(filecategory_COLUMN, image.getFilecategory());
+            values.put(filecategory_COLUMN, image.getFilecategory());
         if (image.getFilevector() != null)
-        values.put(filevector_COLUMN, image.getFilevector());
+            values.put(filevector_COLUMN, image.getFilevector());
         return values;
     }
 
@@ -124,7 +116,7 @@ public class ImageRepository extends DrishtiRepository {
         List<ProfileImage> profileImages = new ArrayList<>();
 
         try {
-            if (cursor != null && cursor.getCount()>0 && cursor.moveToFirst()) {
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
                 while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
 
                     profileImages.add(new ProfileImage(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)));
@@ -134,7 +126,7 @@ public class ImageRepository extends DrishtiRepository {
             }
 
         } catch (Exception e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -149,6 +141,45 @@ public class ImageRepository extends DrishtiRepository {
 //        database.update(MOTHER_TABLE_NAME, createValuesFor(mother, TYPE_ANC), ID_COLUMN + " = ?", new String[]{mother.caseId()});
 //    }
 
+
+    // If no record yet insert new, if exist just update
+    public void add(ProfileImage profileImage, String entityId) {
+        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        if (!database.isOpen()) {
+            database = masterRepository.getWritableDatabase();
+
+            long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+            if (id == 0) {
+                database = masterRepository.getWritableDatabase();
+                Log.e(TAG, "add: UPDATED failed, now INSERT new " + profileImage.getEntityID());
+                if (!database.isOpen()) {
+                    database = masterRepository.getReadableDatabase();
+                    id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+
+                    Log.e(TAG, "add: DB Close " + id);
+                }
+//            id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+            }
+            Log.e(TAG, "add: Close " + entityId);
+            database.close();
+        } else if (database.isOpen()){
+
+            Log.e(TAG, "add: Database Open" );
+            long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+            if (id == 0) {
+                database = masterRepository.getWritableDatabase();
+                Log.e(TAG, "add: UPDATED failed, now INSERT new " + profileImage.getEntityID());
+                if (!database.isOpen()) {
+                    database = masterRepository.getReadableDatabase();
+                    id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+
+                    Log.e(TAG, "add: DB Close " + id);
+                }
+            id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+            }
+        }
+    }
+
     public List<ProfileImage> allVectorImages() {
 //        Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, null, null, null, null, null, null);
         SQLiteDatabase database = masterRepository.getReadableDatabase();
@@ -159,7 +190,7 @@ public class ImageRepository extends DrishtiRepository {
     public void updateByEntityId(String entityId, String faceVector) {
         ContentValues values = new ContentValues();
         values.put(filevector_COLUMN, faceVector);
-        Log.e(TAG, "updateByEntityId: "+values );
+        Log.e(TAG, "updateByEntityId: " + values);
         masterRepository.getWritableDatabase().update(Image_TABLE_NAME, values, "entityID" + " = ?", new String[]{entityId});
         close(entityId);
     }
@@ -185,15 +216,31 @@ public class ImageRepository extends DrishtiRepository {
     public void createOrUpdate(ProfileImage profileImage, String uid) {
         SQLiteDatabase db = masterRepository.getReadableDatabase();
 
-        long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?" , new String[]{profileImage.getEntityID()});
+        long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{profileImage.getEntityID()});
         if (id == 0) {
-            Log.e(TAG, "createOrUpdate: no UPDATE found, try INSERT"+profileImage.getEntityID() );
+            Log.e(TAG, "createOrUpdate: no UPDATE found, try INSERT" + profileImage.getEntityID());
             db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
         }
 
         close(profileImage.getEntityID());
 
     }
+
+    // If no record yet insert new, if exist just update
+//    public void add(ProfileImage profileImage, String entityId) {
+//        SQLiteDatabase database = masterRepository.getWritableDatabase();
+//        long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+//        if (id == 0) {
+//            Log.e(TAG, "add: UPDATED failed, now INSERT new "+ profileImage.getEntityID());
+//            if (database.isOpen()){
+//                id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+//            } else {
+//            }
+//        }
+//
+//        database.close();
+//    }
+
 
     public void importCSV(Context context, SQLiteDatabase database) {
 
@@ -202,10 +249,10 @@ public class ImageRepository extends DrishtiRepository {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
         String line;
-        String numUsr ;
-        String headerVector ;
+        String numUsr;
+        String headerVector;
         try {
-            while ((line = in.readLine()) != null){
+            while ((line = in.readLine()) != null) {
                 String[] rowdata = line.split("; ");
                 numUsr = rowdata[0];
                 headerVector = rowdata[1];
