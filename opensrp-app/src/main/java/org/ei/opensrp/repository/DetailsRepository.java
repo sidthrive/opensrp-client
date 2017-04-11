@@ -81,7 +81,7 @@ public class DetailsRepository extends DrishtiRepository {
         Map<String, String> clientDetails = new HashMap<String, String>();
         try {
             SQLiteDatabase db = masterRepository.getReadableDatabase();
-            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID_COLUMN + " = '"+baseEntityId+"'";
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID_COLUMN + " MATCH '\""+baseEntityId+"\"'";
             cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()){
                 do {
