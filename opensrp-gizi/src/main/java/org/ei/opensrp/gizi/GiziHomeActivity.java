@@ -1,6 +1,7 @@
 package org.ei.opensrp.gizi;
 
 import android.database.Cursor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,9 +70,8 @@ public class GiziHomeActivity extends SecuredActivity {
             updateRegisterCounts();
 
             Tools mTools = new Tools(context());
-
+            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-
             Tools.setVectorsBuffered();
 
         }
@@ -155,6 +155,13 @@ public class GiziHomeActivity extends SecuredActivity {
         updateRegisterCounts();
         updateSyncIndicator();
         updateRemainingFormsToSyncCount();
+
+        initFR();
+    }
+
+    private void initFR() {
+        new Tools(context());
+        Log.e("TAG", "initFR: "+ Tools.getAppContext() );
     }
 
     private void updateRegisterCounts() {
@@ -176,11 +183,7 @@ public class GiziHomeActivity extends SecuredActivity {
 
         anakRegisterClientCountView.setText(valueOf(childcount));
 
-//<<<<<<< HEAD
-//        Cursor ibucountcursor = context.commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu", "ec_ibu.is_closed=0 and ec_ibu.pptest ='Positive'"));
-//=======
         Cursor ibucountcursor = context().commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu", "ec_ibu.is_closed=0 and ec_ibu.pptest ='Positive'"));
-//>>>>>>> a226fad729247ae36c3882a71e1d3f15be4ade8a
         ibucountcursor.moveToFirst();
         ibucount = ibucountcursor.getInt(0);
         ibucountcursor.close();

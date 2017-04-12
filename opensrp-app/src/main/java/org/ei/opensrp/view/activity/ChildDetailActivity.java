@@ -1,5 +1,6 @@
 package org.ei.opensrp.view.activity;
 
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.event.CapturedPhotoInformation;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.view.controller.ChildDetailController;
@@ -7,6 +8,7 @@ import org.ei.opensrp.view.controller.ChildDetailController;
 import static org.ei.opensrp.event.Event.ON_PHOTO_CAPTURED;
 
 public class ChildDetailActivity extends SecuredWebActivity {
+    public static CommonPersonObjectClient childclient;
     private Listener<CapturedPhotoInformation> photoCaptureListener;
 
     @Override

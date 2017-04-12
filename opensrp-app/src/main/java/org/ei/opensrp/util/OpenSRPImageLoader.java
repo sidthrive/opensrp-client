@@ -161,8 +161,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
-//                    Log.e(TAG, "getImageByClientId: "+url);
-                    Log.e(TAG, "getImageByClientId: Image Not Found "+ entityId);
                     get(url, opensrpImageListener);
 
                 }
@@ -523,7 +521,6 @@ public class OpenSRPImageLoader extends ImageLoader {
      */
 
     public static void saveStaticImageToDisk(String entityId, Bitmap image) {
-        Log.e(TAG, "saveStaticImageToDisk: "+ entityId );
         if (image != null) {
             OutputStream os = null;
             try {
@@ -546,17 +543,14 @@ public class OpenSRPImageLoader extends ImageLoader {
                     // Image Id assumption is one user one image
                     profileImage.setImageid(entityId);
                     // TODO : get anmID from ?
-//                    profileImage.setAnmId("anmID");
                     profileImage.setEntityID(entityId);
                     profileImage.setContenttype("jpeg");
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
                     // TODO : fetch vector from imagebitmap
-//                    profileImage.setFilevector();
-//                    profileImage.setFilevector(profileImage.getfFaceVectorApi(org.ei.opensrp.Context.getInstance(), entityId));
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-                    imageRepo.add(profileImage, entityId);
+//                    imageRepo.add(profileImage);
                 }
 
             } catch (FileNotFoundException e) {
