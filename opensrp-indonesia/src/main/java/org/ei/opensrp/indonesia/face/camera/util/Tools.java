@@ -1,10 +1,8 @@
 package org.ei.opensrp.indonesia.face.camera.util;
 
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,41 +13,19 @@ import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
-import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.indonesia.BidanHomeActivity;
-import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.repository.AllSettings;
-import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
-import org.ei.opensrp.repository.SettingsRepository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
-import org.ei.opensrp.view.activity.LoginActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +35,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -67,8 +42,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
-
-import static org.ei.opensrp.util.Log.logError;
 
 /**
  * Created by wildan on 1/4/17.
@@ -517,54 +490,62 @@ public class Tools {
 
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
-        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
+        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
 
-        AsyncHttpClient client = new AsyncHttpClient();
 
-        RequestParams params = new RequestParams();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AsyncHttpClient client = new AsyncHttpClient();
+
+                RequestParams params = new RequestParams();
 
 //        Log.e(TAG, "setVectorfromAPI: "+ appContext.allSettings().fetchANMPassword() );
-        client.setBasicAuth(appContext.allSharedPreferences().fetchRegisteredANM(),
-                appContext.allSettings().fetchANMPassword());
+                client.setBasicAuth(appContext.allSharedPreferences().fetchRegisteredANM(),
+                        appContext.allSettings().fetchANMPassword());
 
-        client.get(api_url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                client.get(api_url, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                FaceRepository faceRepo = null;
-                try {
-                    JSONArray response = new JSONArray(new String(responseBody));
+                        FaceRepository faceRepo = null;
+                        try {
+                            JSONArray response = new JSONArray(new String(responseBody));
 
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject data = response.getJSONObject(i);
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject data = response.getJSONObject(i);
 
-                        // To HashMap
-                        String uid = data.getString("caseId");
+                                // To HashMap
+                                String uid = data.getString("caseId");
 
-                        // save Hash
+                                // save Hash
 
-                        // To AlbumArray
-                        String faceVector = data.getJSONObject("attributes").getString("faceVector");
+                                // To AlbumArray
+                                String faceVector = data.getJSONObject("attributes").getString("faceVector");
 
-                        imageRepo.updateByEntityId(uid, faceVector);
+                                imageRepo.updateByEntityId(uid, faceVector);
 
 //                        parseSaveVector(faceVector, i);
 
 //                        Log.e(TAG, "onSuccess: "+  data.getString("caseId"));
 //                        Log.e(TAG, "onSuccess: "+  data.getJSONObject("attributes").getString("faceVector"));
 
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Log.e(TAG, "onFailure: ");
+                    }
+                });
             }
+        }).start();
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: ");
-            }
-        });
+
 
 
     }
