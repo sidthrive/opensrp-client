@@ -158,24 +158,24 @@
         "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_distosia"
       },
       {
-        "name": "highRiskPostPartumPIH",
-        "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_PIH"
-      },
-      {
-        "name": "highRiskPostPartumHemorrhage",
-        "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_Hemorrhage"
-      },
-      {
         "name": "highRiskPostPartumInfection",
-        "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_infection"
+        "bind": "/model/instance/PNC_visit_reviewed/high_risk_post-partum_infection"
+      },
+      {
+        "name": "highRiskPostPartumPIH",
+        "bind": "/model/instance/PNC_visit_reviewed/high_risk_post-partum_PIH"
       },
       {
         "name": "highRiskPostPartumMaternalSepsis",
-        "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_maternal_sepsis"
+        "bind": "/model/instance/PNC_visit_reviewed/high_risk_post-partum_maternal_sepsis"
+      },
+      {
+        "name": "highRiskPostPartumHemorrhage",
+        "bind": "/model/instance/PNC_visit_reviewed/high_risk_post-partum_Hemorrhage"
       },
       {
         "name": "highRiskPostPartumMastitis",
-        "bind": "/model/instance/PNC_visit_reviewed/high_risk_postPartum_Mastitis"
+        "bind": "/model/instance/PNC_visit_reviewed/high_risk_post-partum_Mastitis"
       },
       {
         "name": "submissionDate",
