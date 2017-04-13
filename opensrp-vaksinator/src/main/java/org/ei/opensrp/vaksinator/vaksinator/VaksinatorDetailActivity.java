@@ -169,7 +169,7 @@ public class VaksinatorDetailActivity extends Activity {
         uid.setText(": "+(controller.getDetails().get("UniqueId")!=null ? controller.getDetails().get("UniqueId") : "-"));
         nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
 
-        //System.out.println("details: "+controller.getDetails().toString());
+        System.out.println("details: "+controller.getDetails().toString());
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);
@@ -229,8 +229,8 @@ public class VaksinatorDetailActivity extends Activity {
         measles.setText(": " + (controller.getDetails().get("campak") != null ? transformToddmmyyyy(controller.getDetails().get("campak")) : "-"));
 
         complete.setText(": " + yesNo(isComplete()));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("dpt_hb_campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_campak_lanjutan")) : "-"));
+        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_lanjutan")) : "-"));
+        additionalMeasles.setText(": " + (controller.getDetails().get("campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("campak_lanjutan")) : "-"));
 
 
         String mgender = controller.getDetails().containsKey("gender") ? controller.getDetails().get("gender"):"laki";
