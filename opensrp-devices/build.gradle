@@ -16,13 +16,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 21
+    buildToolsVersion '21'
 
     defaultConfig {
         applicationId "org.sid.bpm"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -43,8 +43,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+//    compile 'com.android.support:appcompat-v7:21.3.1'
+    //    compile 'com.android.support:appcompat-v7:21.1.0'
+//    compile 'com.android.support:design:21.3.1'
     compile files('libs/d2xx.jar')
     compile files('libs/pl2303driver.jar')
     compile files('libs/smartlinklib3.6.4_product.jar')
