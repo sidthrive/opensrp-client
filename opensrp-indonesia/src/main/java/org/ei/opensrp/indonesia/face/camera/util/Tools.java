@@ -13,6 +13,8 @@ import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -347,9 +349,9 @@ public class Tools {
 
         String[] res = contentVector.substring(1, contentVector.length() - 1).split(",");
 
-        Log.e(TAG, "saveStaticImageToDisk: "+res.length );
-        String[] faceVector = Arrays.copyOfRange(res, 32,332);
-        Log.e(TAG, "saveStaticImageToDisk: "+faceVector.length );
+        Log.e(TAG, "saveStaticImageToDisk: " + res.length);
+        String[] faceVector = Arrays.copyOfRange(res, 32, 332);
+        Log.e(TAG, "saveStaticImageToDisk: " + faceVector.length);
 
         if (image != null) {
             OutputStream os = null;
@@ -466,11 +468,11 @@ public class Tools {
                 if (settings.getString(FaceConstants.ALBUM_ARRAY, null) == null) {
                     albumBuffer = filevector;
                 } else {
-                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
+                    Log.e(TAG, "parseSaveVector: " + albumBuffer.length());
 //                    albumBuffer = settings.getString(FaceConstants.ALBUM_ARRAY, null).substring(0, albumBuffer.length() - 1) + "," + filevector + "]";
                 }
-                Log.e(TAG, "parseSaveVector: "+hash.size() );
-                Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
+                Log.e(TAG, "parseSaveVector: " + hash.size());
+                Log.e(TAG, "parseSaveVector: " + albumBuffer.length());
                 editor.putString("albumArray", albumBuffer);
                 editor.apply();
 
@@ -482,18 +484,9 @@ public class Tools {
 
     }
 
-
-    public void setVectorfromAPI() {
-
-        hash = retrieveHash(appContext.applicationContext());
-
-
-        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
-        String user = appContext.allSharedPreferences().fetchRegisteredANM();
-        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-
-
-        new Thread(new Runnable() {
+    private void process(final String api_url) {
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
                 AsyncHttpClient client = new AsyncHttpClient();
@@ -543,10 +536,20 @@ public class Tools {
                     }
                 });
             }
-        }).start();
+        };
+        mainHandler.post(myRunnable);
+    }
 
 
+    public void setVectorfromAPI() {
 
+        hash = retrieveHash(appContext.applicationContext());
+
+
+        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
+        String user = appContext.allSharedPreferences().fetchRegisteredANM();
+        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
+        process(api_url);
 
     }
 
