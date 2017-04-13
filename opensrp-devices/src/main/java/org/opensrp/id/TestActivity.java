@@ -1,9 +1,10 @@
 package org.opensrp.id;
 
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,8 @@ import com.ihealth.communication.manager.iHealthDevicesManager;
 import com.opensrp.id.R;
 
 
-public class TestActivity extends AppCompatActivity implements View.OnClickListener{
+public class TestActivity extends Activity implements View.OnClickListener{
+//public class TestActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "TestActivity";
     private static final int EXCEPT_NUM = 30000;
