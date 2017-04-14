@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.db;
+package org.ei.opensrp.db;
 
 import java.util.ArrayList;
 import java.util.List;

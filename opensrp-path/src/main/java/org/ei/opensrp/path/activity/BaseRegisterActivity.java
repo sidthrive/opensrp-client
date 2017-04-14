@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +17,11 @@ import android.widget.TextView;
 
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
+import org.ei.opensrp.repository.EcRepository;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -205,7 +206,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private String getLastSyncTime() {
         String lastSync = "";
-        long milliseconds = ECSyncUpdater.getInstance(this).getLastCheckTimeStamp();
+        long milliseconds = ECSyncUpdater.getInstance(this, (EcRepository)VaccinatorApplication.getInstance().getRepository()).getLastCheckTimeStamp();
         if (milliseconds > 0) {
             DateTime lastSyncTime = new DateTime(milliseconds);
             DateTime now = new DateTime(Calendar.getInstance());

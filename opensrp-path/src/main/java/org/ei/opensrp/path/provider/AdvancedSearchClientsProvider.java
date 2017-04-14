@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.ei.opensrp.commonregistry.CommonFtsObject;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonRepository;
 import org.ei.opensrp.path.R;

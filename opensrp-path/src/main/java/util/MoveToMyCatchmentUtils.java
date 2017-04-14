@@ -11,14 +11,11 @@ import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.domain.ResponseStatus;
 import org.ei.opensrp.event.Listener;
-import org.ei.opensrp.path.fragment.AdvancedSearchFragment;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
-import org.json.JSONArray;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Map;
 
 import static android.view.View.VISIBLE;
 

@@ -44,11 +44,9 @@ import org.ei.opensrp.path.domain.WeightWrapper;
 import org.ei.opensrp.path.fragment.EditWeightDialogFragment;
 import org.ei.opensrp.path.listener.VaccinationActionListener;
 import org.ei.opensrp.path.listener.WeightActionListener;
-import org.ei.opensrp.path.repository.BaseRepository;
 import org.ei.opensrp.path.repository.PathRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.ei.opensrp.path.tabfragments.child_registration_data_fragment;
 import org.ei.opensrp.path.tabfragments.child_under_five_fragment;
@@ -57,6 +55,9 @@ import org.ei.opensrp.path.view.LocationPickerView;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.repository.EcRepository;
+import org.ei.opensrp.repository.Repository;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -1168,7 +1169,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
         try {
             Date date= new Date();
             PathRepository db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
-            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(this);
+            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(this,(EcRepository) VaccinatorApplication.getInstance().getRepository());
 
             JSONObject client = db.getClientByBaseEntityId(childDetails.entityId());
             JSONObject attributes = client.getJSONObject(JsonFormUtils.attributes);
@@ -1200,7 +1201,7 @@ public class ChildDetailTabbedActivity extends BaseActivity implements Vaccinati
             db.addEvent(childDetails.entityId(),eventJson);
             long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            PathClientProcessor.getInstance(this).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            PathClientProcessor.getInstance(this).processClient(ecUpdater.getEvents(lastSyncDate, Repository.TYPE_Unsynced));
             allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
             //update details

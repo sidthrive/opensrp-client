@@ -32,7 +32,7 @@ public abstract class DrishtiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance=this;
+        mInstance = this;
         context = Context.getInstance();
         SQLiteDatabase.loadLibs(this);
     }
@@ -49,12 +49,13 @@ public abstract class DrishtiApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
     protected Repository repository;
 
-    public  Repository getRepository() {
+    public Repository getRepository() {
         ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
         DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
-        if(repository==null) {
+        if (repository == null) {
             repository = new Repository(getInstance().getApplicationContext(), null, drishtireposotoryarray);
         }
         return repository;
@@ -69,10 +70,11 @@ public abstract class DrishtiApplication extends Application {
         return memoryImageCache;
     }
 
-    public static String getAppDir(){
+    public static String getAppDir() {
         File appDir = DrishtiApplication.getInstance().getApplicationContext().getDir("opensrp", android.content.Context.MODE_PRIVATE); //Creating an internal dir;
         return appDir.getAbsolutePath();
     }
+
     public static OpenSRPImageLoader getCachedImageLoaderInstance() {
         if (cachedImageLoader == null) {
             cachedImageLoader = new OpenSRPImageLoader(DrishtiApplication.getInstance().getApplicationContext(), R.drawable.woman_placeholder)
@@ -83,14 +85,14 @@ public abstract class DrishtiApplication extends Application {
     }
 
 
-    public void setPassword(String password){
-        this.password=password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPassword(){
-        if(password==null) {
-            String username=context.userService().getAllSharedPreferences().fetchRegisteredANM();
-            password=context.userService().getGroupId(username);
+    public String getPassword() {
+        if (password == null) {
+            String username = context.userService().getAllSharedPreferences().fetchRegisteredANM();
+            password = context.userService().getGroupId(username);
         }
         return password;
     }

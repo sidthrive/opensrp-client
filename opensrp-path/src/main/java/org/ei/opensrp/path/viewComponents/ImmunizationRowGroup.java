@@ -19,7 +19,6 @@ import org.ei.opensrp.path.db.VaccineRepo;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.view.ExpandableHeightGridView;
-import org.ei.opensrp.path.view.VaccineCard;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import org.acra.ACRA;
 import org.ei.opensrp.R;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
 import org.ei.opensrp.sync.UpdateActionsTask;
@@ -59,7 +60,7 @@ public abstract class SecuredWebActivity extends SecuredActivity {
     public void updateFromServer() {
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(this, context().actionService(),
                 context().formSubmissionSyncService(), new SyncProgressIndicator(),
-                context().allFormVersionSyncService());
+                context().allFormVersionSyncService(), (EcRepository) DrishtiApplication.getInstance().getRepository());
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 

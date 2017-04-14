@@ -1,4 +1,4 @@
-package org.ei.opensrp.path.db;
+package org.ei.opensrp.db;
 public enum FilterType{
 		AND, OR
 	}

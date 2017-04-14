@@ -38,7 +38,8 @@ import org.ei.opensrp.path.adapter.AdvancedSearchPaginatedCursorAdapter;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.RegisterClickables;
 import org.ei.opensrp.path.provider.AdvancedSearchClientsProvider;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.repository.EcRepository;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -1111,7 +1112,7 @@ public class AdvancedSearchFragment extends BaseSmartRegisterFragment {
         public void onEvent(final JSONObject jsonObject) {
             if (jsonObject != null) {
                 try {
-                    ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(getActivity());
+                    ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(getActivity(), (EcRepository) VaccinatorApplication.getInstance().getRepository());
                     int eventsCount = jsonObject.has("no_of_events") ? jsonObject.getInt("no_of_events") : 0;
                     if (eventsCount == 0) {
                         return;

@@ -29,16 +29,18 @@ import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.path.repository.BaseRepository;
 import org.ei.opensrp.path.repository.PathRepository;
 import org.ei.opensrp.path.repository.UniqueIdRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.repository.EcRepository;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathClientProcessor;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.util.AssetHandler;
+import org.ei.opensrp.util.DateTimeTypeConverter;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.joda.time.DateTime;
@@ -136,7 +138,7 @@ public class JsonFormUtils {
         }
 
         try {
-            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
+            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context,(EcRepository) VaccinatorApplication.getInstance().getRepository());
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
@@ -235,7 +237,7 @@ public class JsonFormUtils {
 
             long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, Repository.TYPE_Unsynced));
             allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
@@ -249,7 +251,7 @@ public class JsonFormUtils {
         }
 
         try {
-            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
+            ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context,(EcRepository) VaccinatorApplication.getInstance().getRepository());
 
             JSONObject jsonForm = new JSONObject(jsonString);
 
@@ -309,7 +311,7 @@ public class JsonFormUtils {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate,BaseRepository.TYPE_Unsynced));
+            PathClientProcessor.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, Repository.TYPE_Unsynced));
             allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
@@ -318,7 +320,7 @@ public class JsonFormUtils {
     }
 
     public static void mergeAndSaveClient(Context context,Client baseClient ) throws Exception {
-        ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context);
+        ECSyncUpdater ecUpdater = ECSyncUpdater.getInstance(context,(EcRepository) VaccinatorApplication.getInstance().getRepository());
 
         JSONObject updatedClientJson = new JSONObject(gson.toJson(baseClient));
 

@@ -2,14 +2,19 @@ package org.ei.opensrp.repository;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.util.DateTimeTypeConverter;
 import org.ei.opensrp.util.Session;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.util.LinkedHashSet;
@@ -22,6 +27,9 @@ public class Repository extends SQLiteOpenHelper {
     private String dbName;
     private Session session;
     protected CommonFtsObject commonFtsObject;
+    public static String TYPE_Unsynced = "Unsynced";
+    public static String TYPE_Synced = "Synced";
+    public static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
 
     public Repository(Context context, Session session, DrishtiRepository... repositories) {
         super(context, ( session != null ? session.repositoryName() : AllConstants.DATABASE_NAME), null, 1);

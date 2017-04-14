@@ -16,7 +16,7 @@ import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.activity.LoginActivity;
 import org.ei.opensrp.path.activity.WomanDetailActivity;
 import org.ei.opensrp.path.activity.WomanSmartRegisterActivity;
-import org.ei.opensrp.path.db.Client;
+import org.ei.opensrp.db.Client;
 import org.ei.opensrp.path.option.BasicSearchOption;
 import org.ei.opensrp.path.option.DateSort;
 import org.ei.opensrp.path.option.StatusSort;

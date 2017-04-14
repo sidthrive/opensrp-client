@@ -18,7 +18,6 @@ package util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,8 +46,8 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.AlertStatus;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.path.domain.EditWrapper;
 import org.ei.opensrp.repository.ImageRepository;
@@ -74,7 +73,7 @@ import java.util.Map;
  * @author Maimoona
  *         Class containing some static utility methods.
  */
-public class Utils {
+public class Utils extends org.ei.opensrp.util.Utils{
     private static final String TAG = "Utils";
     private static final SimpleDateFormat UI_DF = new SimpleDateFormat("dd-MM-yyyy");
     private static final SimpleDateFormat UI_DTF = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -395,9 +394,6 @@ public class Utils {
         return row;
     }
 
-    public static String getPreference(Context context, String key, String defaultVal) {
-        return context.getSharedPreferences("preferences", Context.MODE_PRIVATE).getString(key, defaultVal);
-    }
 
     public static Gson getLongDateAwareGson() {
         Gson g = new GsonBuilder().registerTypeAdapter(DateTime.class, new JsonDeserializer<DateTime>() {
@@ -417,12 +413,6 @@ public class Utils {
         return g;
     }
 
-    public static boolean writePreference(Context context, String name, String value) {
-        SharedPreferences pref = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor ed = pref.edit();
-        ed.putString(name, value);
-        return ed.commit();
-    }
 
     public static boolean isConnectedToNetwork(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

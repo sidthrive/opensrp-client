@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import util.Utils;
-import util.VaccinateActionUtils;
 
 import static util.VaccinatorUtils.generateScheduleList;
 import static util.VaccinatorUtils.receivedVaccines;

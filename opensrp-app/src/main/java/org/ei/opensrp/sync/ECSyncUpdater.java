@@ -1,12 +1,12 @@
-package org.ei.opensrp.path.sync;
+package org.ei.opensrp.sync;
 
 import android.content.Context;
 import android.util.Log;
 
 import org.ei.opensrp.domain.Response;
-import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.path.repository.PathRepository;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.service.HTTPAgent;
+import org.ei.opensrp.util.Utils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,29 +15,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import util.Utils;
-
 public class ECSyncUpdater {
     public static final String SEARCH_URL = "/rest/event/sync";
 
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
     public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
-    private PathRepository db;
+    private EcRepository db;
     private Context context;
 
     private static ECSyncUpdater instance;
 
-    public static ECSyncUpdater getInstance(Context context) {
+    public static ECSyncUpdater getInstance(Context context,EcRepository _db) {
         if (instance == null) {
-            instance = new ECSyncUpdater(context);
+            instance = new ECSyncUpdater(context,_db);
         }
         return instance;
     }
 
-    public ECSyncUpdater(Context context) {
+    public ECSyncUpdater(Context context,EcRepository _db) {
         this.context = context;
-        db = (PathRepository) VaccinatorApplication.getInstance().getRepository();
+        db = _db;
     }
 
 

@@ -19,6 +19,7 @@ import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.service.intent.VaccineIntentService;
 import org.ei.opensrp.path.service.intent.WeightIntentService;
 import org.ei.opensrp.repository.AllSharedPreferences;
+import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.sync.CloudantDataHandler;
@@ -208,7 +209,7 @@ public class PathClientProcessor extends ClientProcessor {
                 weightObj.setDate(date);
                 weightObj.setAnmId(contentValues.getAsString(WeightRepository.ANMID));
                 weightObj.setLocationId(contentValues.getAsString(WeightRepository.LOCATIONID));
-                weightObj.setSyncStatus(WeightRepository.TYPE_Synced);
+                weightObj.setSyncStatus(Repository.TYPE_Synced);
 
                 weightRepository.add(weightObj);
             }

@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.domain.Weight;
+import org.ei.opensrp.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +51,7 @@ public class WeightRepository extends BaseRepository {
             return;
         }
         if (StringUtils.isBlank(weight.getSyncStatus())) {
-            weight.setSyncStatus(TYPE_Unsynced);
+            weight.setSyncStatus(Repository.TYPE_Unsynced);
         }
 
 
@@ -77,7 +78,7 @@ public class WeightRepository extends BaseRepository {
 
             Long time = calendar.getTimeInMillis();
 
-            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
+            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ?", new String[]{time.toString(), Repository.TYPE_Unsynced}, null, null, null, null);
             weights = readAllWeights(cursor);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -94,7 +95,7 @@ public class WeightRepository extends BaseRepository {
         Cursor cursor = null;
         try {
 
-            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, TYPE_Unsynced}, null, null, null, null);
+            cursor = getPathRepository().getReadableDatabase().query(WEIGHT_TABLE_NAME, WEIGHT_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityId, Repository.TYPE_Unsynced}, null, null, null, null);
             List<Weight> weights = readAllWeights(cursor);
             if (!weights.isEmpty()) {
                 weight = weights.get(0);
@@ -139,13 +140,13 @@ public class WeightRepository extends BaseRepository {
     }
 
     public void delete(String entityID) {
-        getPathRepository().getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityID,TYPE_Unsynced});
+        getPathRepository().getWritableDatabase().delete(WEIGHT_TABLE_NAME,  BASE_ENTITY_ID + " = ? AND " + SYNC_STATUS + " = ?", new String[]{entityID,Repository.TYPE_Unsynced});
 
     }
 
     public void close(Long caseId) {
         ContentValues values = new ContentValues();
-        values.put(SYNC_STATUS, TYPE_Synced);
+        values.put(SYNC_STATUS, Repository.TYPE_Synced);
         getPathRepository().getWritableDatabase().update(WEIGHT_TABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
     }
 

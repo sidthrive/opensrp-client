@@ -1,4 +1,4 @@
-package util;
+package org.ei.opensrp.util;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

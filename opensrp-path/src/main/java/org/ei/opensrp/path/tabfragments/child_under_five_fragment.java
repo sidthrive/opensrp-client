@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.Alert;
-import org.ei.opensrp.domain.SyncStatus;
 import org.ei.opensrp.domain.Vaccine;
 import org.ei.opensrp.domain.Weight;
 import org.ei.opensrp.path.R;
@@ -23,12 +21,12 @@ import org.ei.opensrp.path.activity.ChildDetailTabbedActivity;
 import org.ei.opensrp.path.application.VaccinatorApplication;
 import org.ei.opensrp.path.domain.VaccineWrapper;
 import org.ei.opensrp.path.fragment.VaccinationEditDialogFragment;
-import org.ei.opensrp.path.repository.BaseRepository;
 import org.ei.opensrp.path.repository.VaccineRepository;
 import org.ei.opensrp.path.repository.WeightRepository;
 import org.ei.opensrp.path.viewComponents.ImmunizationRowGroup;
 import org.ei.opensrp.path.viewComponents.WidgetFactory;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.view.customControls.CustomFontTextView;
 import org.joda.time.DateTime;
@@ -42,11 +40,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import util.DateUtils;
 import util.Utils;
@@ -168,7 +164,7 @@ public class child_under_five_fragment extends Fragment  {
             }
             if(!formattedAge.equalsIgnoreCase("0d")) {
                 weightmap.put(formattedAge, weightlist.get(i).getKg() + " kg");
-                if (weightlist.get(i).getSyncStatus().equalsIgnoreCase(BaseRepository.TYPE_Unsynced)) {
+                if (weightlist.get(i).getSyncStatus().equalsIgnoreCase(Repository.TYPE_Unsynced)) {
                     weighteditmode.add(editmode);
                 } else {
                     weighteditmode.add(false);

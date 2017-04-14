@@ -11,14 +11,9 @@ import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.Response;
 import org.ei.opensrp.event.Listener;
 import org.ei.opensrp.path.fragment.AdvancedSearchFragment;
-import org.ei.opensrp.view.BackgroundAction;
-import org.ei.opensrp.view.LockingBackgroundTask;
-import org.ei.opensrp.view.ProgressIndicator;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 

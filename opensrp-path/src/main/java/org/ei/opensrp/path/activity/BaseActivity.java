@@ -1,13 +1,11 @@
 package org.ei.opensrp.path.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -38,8 +36,8 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.path.R;
 import org.ei.opensrp.path.application.VaccinatorApplication;
-import org.ei.opensrp.path.repository.UniqueIdRepository;
-import org.ei.opensrp.path.sync.ECSyncUpdater;
+import org.ei.opensrp.repository.EcRepository;
+import org.ei.opensrp.sync.ECSyncUpdater;
 import org.ei.opensrp.path.sync.PathAfterFetchListener;
 import org.ei.opensrp.path.sync.PathUpdateActionsTask;
 import org.ei.opensrp.path.toolbar.BaseToolbar;
@@ -130,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     private String getLastSyncTime() {
         String lastSync = "";
-        long milliseconds = ECSyncUpdater.getInstance(this).getLastCheckTimeStamp();
+        long milliseconds = ECSyncUpdater.getInstance(this, (EcRepository) VaccinatorApplication.getInstance().getRepository()).getLastCheckTimeStamp();
         if (milliseconds > 0) {
             DateTime lastSyncTime = new DateTime(milliseconds);
             DateTime now = new DateTime(Calendar.getInstance());

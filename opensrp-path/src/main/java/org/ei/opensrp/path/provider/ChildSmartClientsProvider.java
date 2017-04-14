@@ -42,7 +42,6 @@ import java.util.concurrent.TimeUnit;
 import util.DateUtils;
 import util.ImageUtils;
 import util.VaccinateActionUtils;
-import widget.FlowIndicator;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static util.Utils.fillValue;
