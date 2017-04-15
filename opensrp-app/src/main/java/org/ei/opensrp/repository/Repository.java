@@ -2,12 +2,19 @@ package org.ei.opensrp.repository;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.util.DateTimeTypeConverter;
 import org.ei.opensrp.util.Session;
+import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.util.LinkedHashSet;
@@ -15,18 +22,21 @@ import java.util.Set;
 
 public class Repository extends SQLiteOpenHelper {
     private DrishtiRepository[] repositories;
-    private File databasePath;
+    private File databasePath= new File(DrishtiApplication.getAppDir()+"/databases/drishti.db");
     private Context context;
     private String dbName;
     private Session session;
-    private CommonFtsObject commonFtsObject;
+    protected CommonFtsObject commonFtsObject;
+    public static String TYPE_Unsynced = "Unsynced";
+    public static String TYPE_Synced = "Synced";
+    public static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
 
     public Repository(Context context, Session session, DrishtiRepository... repositories) {
-        super(context, session.repositoryName(), null, 1);
+        super(context, ( session != null ? session.repositoryName() : AllConstants.DATABASE_NAME), null, 1);
         this.repositories = repositories;
         this.context = context;
         this.session = session;
-        this.dbName = session != null ? session.repositoryName() : "drishti.db";
+        this.dbName = session != null ? session.repositoryName() : AllConstants.DATABASE_NAME;
         this.databasePath = context != null ? context.getDatabasePath(dbName) : new File("/data/data/org.ei.opensrp.indonesia/databases/drishti.db");
 
         SQLiteDatabase.loadLibs(context);
@@ -37,6 +47,21 @@ public class Repository extends SQLiteOpenHelper {
 
     public Repository(Context context, Session session, CommonFtsObject commonFtsObject, DrishtiRepository... repositories) {
         this(context, session, repositories);
+        this.commonFtsObject = commonFtsObject;
+    }
+
+    public Repository(Context context,String dbName,int version,Session session, CommonFtsObject commonFtsObject,DrishtiRepository... repositories) {
+        super(context,dbName, null, version);
+        this.dbName=dbName;
+        this.repositories = repositories;
+        this.context = context;
+        this.session=session;
+        this.databasePath = context != null ? context.getDatabasePath(dbName) : new File("/data/data/org.ei.opensrp.indonesia/databases/drishti.db");
+
+        SQLiteDatabase.loadLibs(context);
+        for (DrishtiRepository repository : repositories) {
+            repository.updateMasterRepository(this);
+        }
         this.commonFtsObject = commonFtsObject;
     }
 
@@ -87,14 +112,14 @@ public class Repository extends SQLiteOpenHelper {
         if (password() == null) {
             throw new RuntimeException("Password has not been set!");
         }
-        return super.getReadableDatabase(password());
+        return getReadableDatabase(password());
     }
 
     public SQLiteDatabase getWritableDatabase() {
         if (password() == null) {
             throw new RuntimeException("Password has not been set!");
         }
-        return super.getWritableDatabase(password());
+        return getWritableDatabase(password());
     }
 
     public boolean canUseThisPassword(String password) {
@@ -108,7 +133,7 @@ public class Repository extends SQLiteOpenHelper {
     }
 
     private String password() {
-        return session.password();
+        return DrishtiApplication.getInstance().getPassword();
     }
 
     public void deleteRepository() {
@@ -116,4 +141,5 @@ public class Repository extends SQLiteOpenHelper {
         context.deleteDatabase(dbName);
         context.getDatabasePath(dbName).delete();
     }
+
 }

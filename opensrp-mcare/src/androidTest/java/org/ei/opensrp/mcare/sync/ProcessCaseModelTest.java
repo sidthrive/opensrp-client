@@ -366,15 +366,15 @@ public class ProcessCaseModelTest extends BaseClientProcessorTest {
 
             JSONArray addresses = new JSONArray();
             addresses.put(address);
-            updateJsonObject(client, "adresses", addresses);
+            updateJsonObject(client, "addresses", addresses);
 
             JSONObject event = createEvent(baseEntityId, false);
             String eventDate = "2016-10-10T00:00:00.000+0300";
             updateJsonObject(event, "eventDate", eventDate);
 
             Map<String, Pair<String, String>> columns = new HashMap<String, Pair<String, String>>();
-            columns.put("my_address_4", Pair.create("adresses.address4", ""));
-            columns.put("my_city_village", Pair.create("adresses.cityVillage", ""));
+            columns.put("my_address_4", Pair.create("addresses.address4", ""));
+            columns.put("my_city_village", Pair.create("addresses.cityVillage", ""));
 
             JSONObject bindObject = createBindObject("case7", columns);
 

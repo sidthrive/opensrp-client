@@ -1,9 +1,11 @@
 package org.ei.opensrp.indonesia;
 
+import org.ei.opensrp.AllConstants;
+
 /**
  * Created by Dimas Ciputra on 9/12/15.
  */
-public class AllConstantsINA {
+public class AllConstantsINA extends AllConstants {
 
     public static final String BOOLEAN_TRUE = "yes";
     public static final String BOOLEAN_FALSE = "no";

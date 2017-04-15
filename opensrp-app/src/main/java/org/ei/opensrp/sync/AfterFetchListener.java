@@ -4,4 +4,6 @@ import org.ei.opensrp.domain.FetchStatus;
 
 public interface AfterFetchListener {
     void afterFetch(FetchStatus fetchStatus);
+    void partialFetch(FetchStatus fetchStatus);
+
 }

@@ -19,4 +19,8 @@ build/
 .gradle
 !opensrp-app/assets/web/build/
 !opensrp-app/assets/web/lib/enketo-core/build/
+<<<<<<< HEAD
 opensrp-device/
+=======
+opensrp-path/fabric.properties
+>>>>>>> v2

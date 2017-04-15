@@ -17,7 +17,12 @@ public class AllConstants {
     public static final String DATABASE_NAME="drishti.db";
     public static final int DATABASE_VERSION=1;
 
+    public static final String ENCRYPTED_PASSWORD_PREFIX = "crptPw-";
+    public static final String ENCRYPTED_GROUP_ID_PREFIX = "crptGrp-";
+    public static final String DEFAULT_LOCALITY_ID_PREFIX = "dfltLoc-";
+    public static final String PIONEER_USER = "pioneerUser";
     public static final String LANGUAGE_PREFERENCE_KEY = "locale";
+    public static final String CURRENT_LOCALITY = "current_locality";
     public static final String ENGLISH_LOCALE = "en";
     public static final String KANNADA_LOCALE = "kn";
     public static final String DEFAULT_LOCALE = ENGLISH_LOCALE;

@@ -8,4 +8,9 @@ public class SyncAfterFetchListener implements AfterFetchListener {
     public void afterFetch(FetchStatus status) {
         ON_DATA_FETCHED.notifyListeners(status);
     }
+
+    @Override
+    public void partialFetch(FetchStatus fetchStatus) {
+
+    }
 }

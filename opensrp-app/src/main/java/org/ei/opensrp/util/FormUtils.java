@@ -32,9 +32,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -945,9 +947,34 @@ public class FormUtils {
         return fileContents;
     }
 
-    public static int getIndexForFormName(String formName, String[] formNames) {
-        for (int i = 0; i < formNames.length; i++) {
-            if (formName.equalsIgnoreCase(formNames[i])) {
+    public JSONObject getFormJson(String formIdentity) {
+        if (mContext != null) {
+            try {
+                InputStream inputStream = mContext.getApplicationContext().getAssets()
+                        .open("json.form/" + formIdentity + ".json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
+                        "UTF-8"));
+                String jsonString;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((jsonString = reader.readLine()) != null) {
+                    stringBuilder.append(jsonString);
+                }
+                inputStream.close();
+
+                return new JSONObject(stringBuilder.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    public static int getIndexForFormName(String formName, String[] formNames){
+        for (int i = 0; i < formNames.length; i++){
+            if (formName.equalsIgnoreCase(formNames[i])){
                 return i;
             }
         }

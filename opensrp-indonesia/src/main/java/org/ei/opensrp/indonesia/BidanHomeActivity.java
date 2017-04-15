@@ -1,4 +1,5 @@
 package org.ei.opensrp.indonesia;
+
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,17 +10,16 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
-
-import org.ei.opensrp.indonesia.face.camera.util.MultimediaProcessor;
 import org.ei.opensrp.indonesia.face.camera.util.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
+import org.ei.opensrp.indonesia.sync.BidanUpdateActionsTask;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
-import org.ei.opensrp.sync.UpdateActionsTask;
 import org.ei.opensrp.view.activity.SecuredActivity;
 import org.ei.opensrp.view.contract.HomeContext;
 import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
@@ -236,6 +236,8 @@ public class BidanHomeActivity extends SecuredActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.updateMenuItem:
+                String locationAnmids=context().allSharedPreferences().getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+
                 updateFromServer();
                 return true;
             case R.id.switchLanguageMenuItem:
@@ -254,7 +256,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
     public void updateFromServer() {
         FlurryFacade.logEvent("clicked_update_from_server");
-        UpdateActionsTask updateActionsTask = new UpdateActionsTask(
+        BidanUpdateActionsTask updateActionsTask = new BidanUpdateActionsTask(
                 this, context().actionService(), context().formSubmissionSyncService(),
                 new SyncProgressIndicator(), context().allFormVersionSyncService());
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());

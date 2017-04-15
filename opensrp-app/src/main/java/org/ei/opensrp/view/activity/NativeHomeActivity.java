@@ -7,6 +7,7 @@ import android.widget.TextView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.R;
 import org.ei.opensrp.event.Listener;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -146,7 +147,7 @@ public class NativeHomeActivity extends SecuredActivity {
     public void updateFromServer() {
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
                 this, context().actionService(), context().formSubmissionSyncService(),
-                new SyncProgressIndicator(), context().allFormVersionSyncService());
+                new SyncProgressIndicator(), context().allFormVersionSyncService(),(EcRepository) DrishtiApplication.getInstance().getRepository());
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 

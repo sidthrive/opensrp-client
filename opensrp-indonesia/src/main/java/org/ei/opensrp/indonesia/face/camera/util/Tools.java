@@ -24,9 +24,11 @@ import com.loopj.android.http.RequestParams;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
+import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.indonesia.repository.VectorImageRepository;
+import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -378,8 +380,8 @@ public class Tools {
                     profileImage.setFilepath(absoluteFileName);
                     profileImage.setFilecategory("profilepic");
                     profileImage.setFilevector(Arrays.toString(faceVector));
-                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+                    profileImage.setSyncStatus(Repository.TYPE_Unsynced);
+                    VectorImageRepository imageRepo = BidanApplication.getInstance().vectorImageRepository();
                     imageRepo.add(profileImage);
                 }
 
@@ -397,15 +399,15 @@ public class Tools {
         }
     }
 
-    private ImageRepository imageRepo = null;
+    private VectorImageRepository imageRepo = null;
 
     public Tools() {
         Log.e(TAG, "Tools: 1");
-        imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+        imageRepo = BidanApplication.getInstance().vectorImageRepository();
     }
 
     public Tools(org.ei.opensrp.Context appContext) {
-        imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+        imageRepo = BidanApplication.getInstance().vectorImageRepository();
         Tools.appContext = appContext;
     }
 
