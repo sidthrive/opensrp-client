@@ -1,6 +1,10 @@
 package org.opensrp.id;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,11 +13,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+//import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.Snackbar;
+//import android.support.v4.app.ActivityCompat;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -38,7 +43,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
+public class MainActivity extends Activity implements View.OnClickListener {
+//public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int HANDLER_SCAN = 101;
@@ -64,7 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView listview_connected;
     private SimpleAdapter sa_scan;
     private SimpleAdapter sa_connected;
+    private Button bt_discover;
+    private Button bt_discover_stop;
+    private Button bt_certificate;
     private TextView tv_discovery;
+    private TextView tv_devScan;
+    private TextView tv_devConn;
     private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
     private int callbackId;
@@ -125,11 +136,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
+
+
     private iHealthDevicesCallback miHealthDevicesCallback = new iHealthDevicesCallback() {
 
         @Override
         public void onScanDevice(String mac, String deviceType, int rssi, Map manufactorData) {
             Log.i(TAG, "onScanDevice - mac:" + mac + " - deviceType:" + deviceType + " - rssi:" + rssi + " -manufactorData:" + manufactorData);
+            Log.e(TAG, "onScanDevice - mac:" + mac + " - deviceType:" + deviceType + " - rssi:" + rssi + " -manufactorData:" + manufactorData);
             Bundle bundle = new Bundle();
             bundle.putString("mac", mac);
             bundle.putString("type", deviceType);
@@ -175,13 +189,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onScanFinish() {
+            Log.e(TAG, "onScanFinish: end" );
             tv_discovery.setText("discover finish");
+            if (discoveryStatus == 0){
+                bt_discover_stop.setEnabled(false);
+            }
         }
 
     };
+    private int discoveryStatus;
 
     private void connectToDev(String mac, String deviceType) {
+
+        iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
+                clientSecret, callbackId, String.valueOf(R.raw.idscertificated), "ELPWfWhdA");
         boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
+        Log.e(TAG, "connectToDev: "+mac+" device type: "+deviceType );
         if (!req) {
             Toast.makeText(MainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
         }
@@ -191,83 +214,119 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-        }
-
-        Log.e(TAG, "Model:" + Build.MODEL + " api:" + Build.VERSION.SDK_INT + " version:" + Build.VERSION.RELEASE);
-
-
-        findViewById(R.id.btn_discorvery).setOnClickListener(this);
-        findViewById(R.id.btn_stopdiscorvery).setOnClickListener(this);
-        findViewById(R.id.btn_Certification).setOnClickListener(this);
 
         tv_discovery = (TextView) findViewById(R.id.tv_discovery);
+        tv_devScan = (TextView) findViewById(R.id.tv_devScan);
+        tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
+        bt_discover = (Button) findViewById(R.id.btn_discorvery);
+        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
+        bt_certificate = (Button) findViewById(R.id.btn_Certification);
         listview_scan = (ListView) findViewById(R.id.list_scan);
         listview_connected = (ListView) findViewById(R.id.list_connected);
-        if (list_ConnectedDevices != null)
-            list_ConnectedDevices.clear();
-        if (list_ScanDevices != null)
-            list_ScanDevices.clear();
-        sa_scan = new SimpleAdapter(this, this.list_ScanDevices, R.layout.bp_listview_baseview,
-                new String[]{
-                        "type", "mac"
-                },
-                new int[]{
-                        R.id.tv_type, R.id.tv_mac
-                });
 
-        listview_scan.setAdapter(sa_scan);
-        listview_scan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                HashMap<String, String> hm = list_ScanDevices.get(position);
-                String type = hm.get("type");
-                String mac = hm.get("mac");
-                Log.i(TAG, "mac = " + mac);
-                boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, type);
-                if (!req) {
-                    Toast.makeText(MainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
+        if (mBluetoothAdapter.isEnabled()) {
+
+            findViewById(R.id.btn_discorvery).setOnClickListener(this);
+            findViewById(R.id.btn_stopdiscorvery).setOnClickListener(this);
+            findViewById(R.id.btn_Certification).setOnClickListener(this);
+
+            // Toolbar
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        if (fab != null) {
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+//                }
+//            });
+//        }
+
+            Log.e(TAG, "Model:" + Build.MODEL + " api:" + Build.VERSION.SDK_INT + " version:" + Build.VERSION.RELEASE);
+
+            if (list_ConnectedDevices != null)
+                list_ConnectedDevices.clear();
+            if (list_ScanDevices != null)
+                list_ScanDevices.clear();
+            sa_scan = new SimpleAdapter(this, this.list_ScanDevices, R.layout.bp_listview_baseview,
+                    new String[]{
+                            "type", "mac"
+                    },
+                    new int[]{
+                            R.id.tv_type, R.id.tv_mac
+                    });
+
+            listview_scan.setAdapter(sa_scan);
+            listview_scan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                    HashMap<String, String> hm = list_ScanDevices.get(position);
+                    String type = hm.get("type");
+                    String mac = hm.get("mac");
+                    Log.i(TAG, "mac = " + mac);
+                    boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, type);
+                    if (!req) {
+                        Toast.makeText(MainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
 
         /*
          * Initializes the iHealth devices manager. Can discovery available iHealth devices nearby
          * and connect these devices through iHealthDevicesManager.
          */
-        iHealthDevicesManager.getInstance().init(this);
+            iHealthDevicesManager.getInstance().init(this);
 
         /*
          * Register callback to the manager. This method will return a callback Id.
         */
 
-        callbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
+            callbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
 
 
-        checkPermissions();
-        SharedPreferences mySharedPreferences = getSharedPreferences("preference", MODE_PRIVATE);
-        long discoveryType = mySharedPreferences.getLong("discoveryType", 0);
-        for (DeviceStruct struct : deviceStructList) {
-            struct.isSelected = ((discoveryType & struct.type) != 0);
+//        checkPermissions();
+            SharedPreferences mySharedPreferences = getSharedPreferences("preference", MODE_PRIVATE);
+            long discoveryType = mySharedPreferences.getLong("discoveryType", 0);
+            for (DeviceStruct struct : deviceStructList) {
+                struct.isSelected = ((discoveryType & struct.type) != 0);
+            }
+
+            startDiscovery();
+            if (discoveryStatus == 0){
+                bt_discover_stop.setEnabled(false);
+            }
+
+//            bt_discover_stop.setEnabled(false);
+
+
+        } else {
+
+            Toast.makeText(MainActivity.this, "Bluetooth disabled, enabled first", Toast.LENGTH_SHORT).show();
+
+            tv_discovery.setVisibility(View.GONE);
+            bt_discover.setVisibility(View.GONE);
+            bt_discover_stop.setVisibility(View.GONE);
+            bt_certificate.setVisibility(View.GONE);
+            listview_scan.setVisibility(View.GONE);
+            listview_connected.setVisibility(View.GONE);
+            tv_devScan.setVisibility(View.GONE);
+            tv_devConn.setVisibility(View.GONE);
+
+//            final AlertDialog.Builder builder = new AlertDialog.Builder(co);
+//            builder.setTitle("Bluetooth disabled");
+//            builder.show();
+
+
         }
-
-//        iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
-//                        clientSecret, callbackId, Environment.getExternalStorageDirectory().getAbsolutePath() + "/idscertificated.p12", "ELPWfWdA");
-
-        startDiscovery();
 
     }
 
@@ -380,6 +439,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void startDiscovery() {
+        Log.e(TAG, "startDiscovery: start" );
         long discoveryType = 67108864;
 //        long discoveryType = 0;
 //        for (DeviceStruct struct : deviceStructList) {
@@ -391,10 +451,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = mySharedPreferences.edit();
         editor.putLong("discoveryType", discoveryType);
         editor.apply();
-        if (discoveryType != 0) {
-            iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
-            tv_discovery.setText("discovering...");
-        }
+
+        iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
+        tv_discovery.setText("discovering...");
+        discoveryStatus = 1;
+
     }
 
     @Override
@@ -468,18 +529,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkPermissions() {
         StringBuilder tempRequest = new StringBuilder();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            tempRequest.append(Manifest.permission.WRITE_EXTERNAL_STORAGE + ",");
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            tempRequest.append(Manifest.permission.RECORD_AUDIO + ",");
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            tempRequest.append(Manifest.permission.ACCESS_FINE_LOCATION + ",");
-        }
-        if (tempRequest.length() > 0) {
-            tempRequest.deleteCharAt(tempRequest.length() - 1);
-            ActivityCompat.requestPermissions(this, tempRequest.toString().split(","), REQUEST_PERMISSIONS);
-        }
+
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            tempRequest.append(Manifest.permission.WRITE_EXTERNAL_STORAGE + ",");
+//        }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+//            tempRequest.append(Manifest.permission.RECORD_AUDIO + ",");
+//        }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            tempRequest.append(Manifest.permission.ACCESS_FINE_LOCATION + ",");
+//        }
+//        if (tempRequest.length() > 0) {
+//            tempRequest.deleteCharAt(tempRequest.length() - 1);
+//            ActivityCompat.requestPermissions(this, tempRequest.toString().split(","), REQUEST_PERMISSIONS);
+//        }
     }
 }

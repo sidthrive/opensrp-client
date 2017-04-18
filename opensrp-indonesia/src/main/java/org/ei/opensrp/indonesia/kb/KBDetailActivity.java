@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.opensrp.bpm.MainBPM;
+//import org.opensrp.bpm.MainBPM;
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
@@ -276,9 +276,9 @@ public class KBDetailActivity extends Activity {
             public void onClick(View v) {
                 Log.e(TAG, "onClick: " );
 
-                Intent intent = new Intent(getApplicationContext(), MainBPM.class);
-                intent.putExtra("origin.class", TAG);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), MainBPM.class);
+//                intent.putExtra("origin.class", TAG);
+//                startActivity(intent);
 
 
             }

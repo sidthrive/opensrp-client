@@ -395,6 +395,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     //    WD
     public void getFacialRecord(View view) {
+        FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient)view.getTag();
 

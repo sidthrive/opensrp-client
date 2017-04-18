@@ -1,4 +1,4 @@
-package org.opensrp.sdk;
+package org.opensrp.id;
 
 import org.junit.Test;
 
