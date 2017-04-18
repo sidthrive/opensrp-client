@@ -132,7 +132,7 @@ public class UpdateActionsTask {
 
                 long lastSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
                 processor.processClient(ecUpdater.allEvents(startSyncTimeStamp, lastSyncTimeStamp));
-                Log.i(getClass().getName(), "!!!!! Sync count:  " + eCount);
+                Log.i(getClass().getName(), "!!!!! Sync count:  " + totalCount);
                 afterFetchListener.partialFetch(fetched);
             }
 
@@ -161,7 +161,7 @@ public class UpdateActionsTask {
             ecUpdater.updateLastCheckTimeStamp(Calendar.getInstance().getTimeInMillis());
             while (true) {
                 long startSyncTimeStamp = ecUpdater.getLastSyncTimeStamp();
-                String locationId="Gerantung";//allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+                String locationId=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);//"Gerantung";
 
                 int eCount = ecUpdater.fetchAllClientsAndEvents(AllConstants.SyncFilters.FILTER_LOCATION_ID, locationId);
                 totalCount += eCount;

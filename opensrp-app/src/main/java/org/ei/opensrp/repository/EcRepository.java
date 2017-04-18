@@ -13,12 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.clientandeventmodel.DateUtil;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
-import org.ei.opensrp.db.Address;
 import org.ei.opensrp.db.Client;
 import org.ei.opensrp.db.Column;
 import org.ei.opensrp.db.ColumnAttribute;
 import org.ei.opensrp.db.Event;
-import org.ei.opensrp.db.Obs;
 import org.ei.opensrp.util.Session;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -26,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -264,37 +261,38 @@ public class EcRepository extends Repository {
                 fm.put(client_column.baseEntityId, serverJsonObject.getString(client_column.baseEntityId.name()));
                 fm.put(client_column.syncStatus, TYPE_Synced);
                 fm.put(client_column.updatedAt, new DateTime(new Date().getTime()));
+                fm.put(client_column.serverVersion, serverJsonObject.getString(event_column.serverVersion.name()));
             } else {
                 return;
             }
 
-            for (Column c : cols) {
-                if (c.name().equalsIgnoreCase(referenceColumn)) {
-                    continue;//skip reference column as it is already appended
-                }
-                Field f = null;
-                try {
-                    f = cls.getDeclaredField(c.name());// 1st level
-                } catch (NoSuchFieldException e) {
-                    try {
-                        f = cls.getSuperclass().getDeclaredField(c.name()); // 2nd level
-                    } catch (NoSuchFieldException e2) {
-                        continue;
-                    }
-                }
+//            for (Column c : cols) {
+//                if (c.name().equalsIgnoreCase(referenceColumn)) {
+//                    continue;//skip reference column as it is already appended
+//                }
+//                Field f = null;
+//                try {
+//                    f = cls.getDeclaredField(c.name());// 1st level
+//                } catch (NoSuchFieldException e) {
+//                    try {
+//                        f = cls.getSuperclass().getDeclaredField(c.name()); // 2nd level
+//                    } catch (NoSuchFieldException e2) {
+//                        continue;
+//                    }
+//                }
+//
+//                f.setAccessible(true);
+//                Object v = f.get(o);
+//                fm.put(c, v);
+//            }
 
-                f.setAccessible(true);
-                Object v = f.get(o);
-                fm.put(c, v);
-            }
-
-            String columns = referenceColumn == null ? "" : ("`" + referenceColumn + "`,");
-            String values = referenceColumn == null ? "" : ("'" + referenceValue + "',");
+//            String columns = referenceColumn == null ? "" : ("`" + referenceColumn + "`,");
+//            String values = referenceColumn == null ? "" : ("'" + referenceValue + "',");
             ContentValues cv = new ContentValues();
 
             for (Column c : fm.keySet()) {
-                columns += "`" + c.name() + "`,";
-                values += formatValue(fm.get(c), c.column()) + ",";
+               // columns += "`" + c.name() + "`,";
+                //values += formatValue(fm.get(c), c.column()) + ",";
 
                 cv.put(c.name(), formatValue(fm.get(c), c.column())); //These Fields should be your String values of actual column names
 
@@ -311,11 +309,13 @@ public class EcRepository extends Repository {
 
             } else {
 //for events just insert
-                columns = removeEndingComma(columns);
-                values = removeEndingComma(values);
+                //columns = removeEndingComma(columns);
+                //values = removeEndingComma(values);
 
-                String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
-                db.execSQL(sql);
+               // String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
+               // db.(sql);
+                long rowId = db.insert(table.name(), null, cv);
+
             }
 
         } catch (Exception e) {
@@ -327,9 +327,9 @@ public class EcRepository extends Repository {
     private Boolean checkIfExists(Table table, String baseEntityId) {
         Cursor mCursor = null;
         try {
-            String query = "SELECT " + event_column.baseEntityId + " FROM " + table.name() + " WHERE " + event_column.baseEntityId + " = '" + baseEntityId + "'";
-            mCursor = getWritableDatabase().rawQuery(query, null);
-            if (mCursor != null && mCursor.moveToFirst()) {
+            String query = "SELECT " + client_column.baseEntityId + " FROM " + table.name() + " WHERE " + client_column.baseEntityId + " = '" + baseEntityId + "'";
+            mCursor = getReadableDatabase().rawQuery(query, null);
+            if (mCursor != null && mCursor.getCount()>0) {
 
                 return true;
             }
@@ -348,9 +348,9 @@ public class EcRepository extends Repository {
 //                return;
 //            }
             insert(db, Client.class, Table.client, client_column.values(), client, serverJsonObject);
-            for (Address a : client.getAddresses()) {
-                insert(db, Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a, serverJsonObject);
-            }
+//            for (Address a : client.getAddresses()) {
+//                insert(db, Address.class, Table.address, address_column.values(), address_column.baseEntityId.name(), client.getBaseEntityId(), a, serverJsonObject);
+//            }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
         }
@@ -362,9 +362,9 @@ public class EcRepository extends Repository {
                 event.setFormSubmissionId(generateRandomUUIDString());
             }
             insert(db, Event.class, Table.event, event_column.values(), event, serverJsonObject);
-            for (Obs o : event.getObs()) {
-                insert(db, Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o, serverJsonObject);
-            }
+//            for (Obs o : event.getObs()) {
+//                insert(db, Obs.class, Table.obs, obs_column.values(), obs_column.formSubmissionId.name(), event.getFormSubmissionId(), o, serverJsonObject);
+//            }
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
         }
@@ -969,19 +969,19 @@ public class EcRepository extends Repository {
 
         ColumnAttribute.Type type = c.type();
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.text.name())) {
-            return "'" + v.toString() + "'";
+            return  v.toString();
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.bool.name())) {
             return (Boolean.valueOf(v.toString()) ? 1 : 0) + "";
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.date.name())) {
-            return "'" + getSQLDate((DateTime) v) + "'";
+            return getSQLDate((DateTime) v) ;
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.list.name())) {
-            return "'" + new Gson().toJson(v) + "'";
+            return  new Gson().toJson(v);
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.map.name())) {
-            return "'" + new Gson().toJson(v) + "'";
+            return  new Gson().toJson(v) ;
         }
 
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.longnum.name())) {

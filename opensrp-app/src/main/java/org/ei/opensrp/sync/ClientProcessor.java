@@ -19,6 +19,7 @@ import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.AssetHandler;
+import org.ei.opensrp.util.BackGroundThreadExecutor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import static org.ei.opensrp.event.Event.FORM_SUBMITTED;
 
@@ -44,15 +47,17 @@ public class ClientProcessor {
 
     protected static final String VALUES_KEY = "values";
 
-    private static final String[] openmrs_gen_ids = { "zeir_id" };
+    private static final String[] openmrs_gen_ids = {"zeir_id"};
 
 
     protected Context mContext;
+    private static String clientClassificationStr = null;
 
     public ClientProcessor(Context context) {
         mContext = context;
         try {
             mCloudantDataHandler = CloudantDataHandler.getInstance(context);
+            clientClassificationStr = getFileContents("ec_client_classification.json");
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         }
@@ -103,23 +108,36 @@ public class ClientProcessor {
         allSharedPreferences.saveLastSyncDate(lastSyncDate.getTime());
     }
 
-    public synchronized void processClient(List<JSONObject> events) throws Exception {
+    public synchronized void processClient(final List<JSONObject> events) throws Exception {
 
-        String clientClassificationStr = getFileContents("ec_client_classification.json");
 
-        if (!events.isEmpty()) {
-            for (JSONObject event : events) {
 
-                JSONObject clientClassificationJson = new JSONObject(clientClassificationStr);
-                if (isNullOrEmptyJSONObject(clientClassificationJson)) {
-                    continue;
+        Future future = BackGroundThreadExecutor.executorService.submit(new Callable(){
+            @Override
+            public Object call() throws Exception {
+                if (!events.isEmpty()) {
+                    for (JSONObject event : events) {
+
+                        JSONObject clientClassificationJson = null;
+                        try {
+                            clientClassificationJson = new JSONObject(clientClassificationStr);
+                            if (isNullOrEmptyJSONObject(clientClassificationJson)) {
+                                continue;
+                            }
+                            //iterate through the events
+                            if (event.has("client")) {
+                                processEvent(event, event.getJSONObject("client"), clientClassificationJson);
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+
+                    }
                 }
-                //iterate through the events
-                if (event.has("client")) {
-                    processEvent(event, event.getJSONObject("client"), clientClassificationJson);
-                }
+                return null;
             }
-        }
+        });
+
 
     }
 
@@ -167,8 +185,8 @@ public class ClientProcessor {
                 Log.i(TAG, "EVENT from openmrs");
             }
 
-            if(event.has("eventType") && event.getString("eventType").equals("Child Registration")){
-                Log.i(TAG,"EVENT from child registration");
+            if (event.has("eventType") && event.getString("eventType").equals("Child Registration")) {
+                Log.i(TAG, "EVENT from child registration");
             }
             //for data integrity check if a client exists, if not pull one from cloudant and insert in drishti sqlite db
 
@@ -444,7 +462,8 @@ public class ClientProcessor {
                         continue;
                     }
                     //special handler for relationalid
-                    if (dataSegment != null && dataSegment.equalsIgnoreCase("relationships")) {
+                    if (dataSegment != null && dataSegment.equalsIgnoreCase("relationships") && jsonDocument.has("relationships")) {
+
                         JSONObject relationshipsObject = jsonDocument.getJSONObject("relationships");
                         JSONArray relationshipsArray = relationshipsObject.getJSONArray(fieldName);
                         if (relationshipsArray != null && relationshipsArray.length() > 0) {
@@ -490,12 +509,14 @@ public class ClientProcessor {
                     } else {
                         //e.g client attributes section
                         String columnValue = null;
-                        JSONObject jsonDocSegmentObject = (JSONObject) jsonDocSegment;
-                        columnValue = jsonDocSegmentObject.has(fieldName) ? jsonDocSegmentObject.getString(fieldName) : "";
-                        // after successfully retrieving the column name and value store it in Content value
-                        if (columnValue != null) {
-                            columnValue = getHumanReadableConceptResponse(columnValue, jsonDocSegmentObject);
-                            contentValues.put(columnName, columnValue);
+                        if (jsonDocSegment != null) {
+                            JSONObject jsonDocSegmentObject = (JSONObject) jsonDocSegment;
+                            columnValue = jsonDocSegmentObject.has(fieldName) ? jsonDocSegmentObject.getString(fieldName) : "";
+                            // after successfully retrieving the column name and value store it in Content value
+                            if (columnValue != null) {
+                                columnValue = getHumanReadableConceptResponse(columnValue, jsonDocSegmentObject);
+                                contentValues.put(columnName, columnValue);
+                            }
                         }
 
                     }
@@ -899,7 +920,7 @@ public class ClientProcessor {
         this.mCloudantDataHandler = mCloudantDataHandler;
     }
 
-    protected boolean isNullOrEmptyJSONObject(JSONObject jsonObject){
+    protected boolean isNullOrEmptyJSONObject(JSONObject jsonObject) {
         return (jsonObject == null || jsonObject.length() == 0);
     }
 
@@ -914,7 +935,7 @@ public class ClientProcessor {
      */
     private void updateIdenitifier(ContentValues values) {
         try {
-            for(String identifier: openmrs_gen_ids) {
+            for (String identifier : openmrs_gen_ids) {
                 Object value = values.get(identifier);
                 if (value != null && value instanceof String) {
                     String sValue = value.toString();

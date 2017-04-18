@@ -203,7 +203,8 @@ public class UserService {
     }
 
     private void loginWith(String userName, String password) {
-        if (usesGroupIdAsDBPassword(userName)) {
+
+        if (DrishtiApplication.getInstance().getApplicationContext().getPackageName().contains("path")&&usesGroupIdAsDBPassword(userName)) {
             String encryptedGroupId = allSharedPreferences.fetchEncryptedGroupId(userName);
             try {
                 KeyStore.PrivateKeyEntry privateKeyEntry = getUserKeyPair(userName);
