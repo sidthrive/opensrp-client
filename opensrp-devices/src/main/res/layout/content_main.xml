@@ -50,6 +50,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:text="Device Scan"
+                android:id="@+id/tv_devScan"
                 android:textSize="20sp" />
 
             <ListView
@@ -60,6 +61,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:id="@+id/tv_devConnect"
                 android:text="Device Connected"
                 android:textSize="20sp" />
 
