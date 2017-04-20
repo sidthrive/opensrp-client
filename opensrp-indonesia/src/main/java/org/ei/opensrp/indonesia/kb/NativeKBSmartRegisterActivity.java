@@ -373,10 +373,14 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
+                Log.e(TAG, "onClick: YES " + currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
 
             } else {
                 nf.setCriteria("");
                 onBackPressed();
+                Log.e(TAG, "onClick: NO " + currentPage);
+                FlurryAgent.logEvent(TAG + " search_by_face NOK", true);
 
                 Intent intent= new Intent(NativeKBSmartRegisterActivity.this, NativeKBSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));

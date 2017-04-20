@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.flurry.android.FlurryAgent;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
@@ -526,6 +528,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
     public void getFacialRecord(View view) {
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+        FlurryAgent.logEvent(TAG + " search_by_face", true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", GiziIbuSmartRegisterFragment.class.getSimpleName());
