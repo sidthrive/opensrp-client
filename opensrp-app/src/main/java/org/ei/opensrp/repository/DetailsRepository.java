@@ -57,7 +57,8 @@ public class DetailsRepository extends DrishtiRepository {
         Cursor mCursor = null;
         try {
             SQLiteDatabase db = masterRepository.getWritableDatabase();
-            String query = "SELECT " + VALUE_COLUMN + " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID_COLUMN + " = '" + baseEntityId + "' AND " + KEY_COLUMN + " MATCH '" + key + "' ";
+           // String query = "SELECT " + VALUE_COLUMN + " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID_COLUMN + " MATCH '\""+baseEntityId+"\"' AND " + KEY_COLUMN + " MATCH '" + key + "' ";
+            String query="SELECT " + VALUE_COLUMN + " FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID_COLUMN + " MATCH '\""+baseEntityId+"\"' INTERSECT SELECT " + KEY_COLUMN + " FROM " + TABLE_NAME + " WHERE key MATCH '" + key + "'";
             mCursor = db.rawQuery(query, null);
             if (mCursor != null && mCursor.moveToFirst()){
                 if(value != null){

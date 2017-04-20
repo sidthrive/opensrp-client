@@ -32,7 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 import static org.ei.opensrp.event.Event.FORM_SUBMITTED;
 
@@ -112,15 +111,16 @@ public class ClientProcessor {
 
 
 
-        Future future = BackGroundThreadExecutor.executorService.submit(new Callable(){
+        BackGroundThreadExecutor.executorService.submit(new Callable(){
             @Override
             public Object call() throws Exception {
                 if (!events.isEmpty()) {
+                    Log.e(TAG,"Started processing events");
+
                     for (JSONObject event : events) {
 
-                        JSONObject clientClassificationJson = null;
                         try {
-                            clientClassificationJson = new JSONObject(clientClassificationStr);
+                            JSONObject clientClassificationJson = new JSONObject(clientClassificationStr);
                             if (isNullOrEmptyJSONObject(clientClassificationJson)) {
                                 continue;
                             }
@@ -133,10 +133,14 @@ public class ClientProcessor {
                         }
 
                     }
+                    Log.e(TAG,"Finished processing events");
+
                 }
                 return null;
             }
         });
+
+
 
 
     }

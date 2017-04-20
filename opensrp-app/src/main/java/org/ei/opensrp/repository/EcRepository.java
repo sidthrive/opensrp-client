@@ -64,7 +64,7 @@ public class EcRepository extends Repository {
         for (Column cc : columns) {
             cl += getCreateTableColumn(cc) + ",";
             if (cc.column().index()) {
-                indl += cc.name() + ",";
+                indl += cc.name() + " ASC,";
             }
         }
         cl = removeEndingComma(cl);
@@ -443,26 +443,36 @@ public class EcRepository extends Repository {
         List<JSONObject> list = new ArrayList<JSONObject>();
         Cursor cursor = null;
         try {
-            cursor = getWritableDatabase().rawQuery("SELECT json FROM " + Table.event.name() +
-                    " WHERE " + event_column.serverVersion.name() + " > " + startServerVersion +
-                    " AND " + event_column.serverVersion.name() + " <= " + lastServerVersion +
-                    " ORDER BY " + event_column.serverVersion.name()
+            Log.e(TAG,"Started fetching Events!!!!!!!");
+            cursor = getWritableDatabase().rawQuery("SELECT e.json as event, c.json as client FROM " + Table.event.name() +
+                    " e inner join "+Table.client.name()+" c on e."+event_column.baseEntityId+"=c."+client_column.baseEntityId+" WHERE e." + event_column.serverVersion.name() + " > " + startServerVersion +
+                    " AND e." + event_column.serverVersion.name() + " <= " + lastServerVersion +
+                    " ORDER BY e." + event_column.serverVersion.name()
                     , null);
             while (cursor.moveToNext()) {
                 String jsonEventStr = cursor.getString(0);
+                String jsonClientStr = cursor.getString(1);
 
                 jsonEventStr = jsonEventStr.replaceAll("'", "");
+                jsonClientStr = jsonClientStr.replaceAll("'", "");
 
                 JSONObject ev = new JSONObject(jsonEventStr);
+                JSONObject cl = new JSONObject(jsonClientStr);
+                ev.put("client", cl);
 
-
-                if (ev.has(event_column.baseEntityId.name())) {
-                    String baseEntityId = ev.getString(event_column.baseEntityId.name());
-                    JSONObject cl = getClient(getWritableDatabase(), baseEntityId);
-                    ev.put("client", cl);
-                }
+//                if (ev.has(event_column.baseEntityId.name())) {
+//                    String baseEntityId = ev.getString(event_column.baseEntityId.name());
+//                    Log.e(TAG,"Started fetching Single Event Client!!!!!!!");
+//
+//                    JSONObject cl = getClient(getWritableDatabase(), baseEntityId);
+//                    Log.e(TAG, "Finished fetching Single Event Client !!!!!!!");
+//
+//
+//                }
                 list.add(ev);
             }
+            Log.e(TAG,"Finished fetching Events!!!!!!!");
+
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
         } finally {

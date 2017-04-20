@@ -87,9 +87,7 @@ public class ECSyncUpdater {
             if (lastSyncTimeStamp > 0l) {
                 updateLastSyncTimeStamp(lastSyncTimeStamp);
             }
-            jsonObject=null;
-            events=null;
-            clients=null;
+
             return eventsCount;
 
         } catch (Exception e) {
