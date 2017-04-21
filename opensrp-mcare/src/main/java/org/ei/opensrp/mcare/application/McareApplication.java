@@ -12,13 +12,10 @@ import org.acra.annotation.ReportsCrashes;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
 import org.ei.opensrp.mcare.LoginActivity;
-import org.ei.opensrp.repository.Repository;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
-
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-import static org.ei.opensrp.util.Log.logInfo;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -26,6 +23,7 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static org.ei.opensrp.util.Log.logInfo;
 
 /**
@@ -230,9 +228,9 @@ public class McareApplication extends DrishtiApplication {
         return map;
     }
     @Override
-    public Repository getRepository() {
+    public EcRepository getRepository() {
         if (repository == null) {
-            repository = new Repository(getInstance().getApplicationContext(), context.session(), createCommonFtsObject(), context.sharedRepositoriesArray());
+            repository = new EcRepository(getInstance().getApplicationContext());
         }
         return repository;
     }

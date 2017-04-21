@@ -40,14 +40,17 @@ public class EcRepository extends Repository {
     private static final String TAG = EcRepository.class.getCanonicalName();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public EcRepository(Context context,String dbName,int version,Session session, CommonFtsObject commonFtsObject) {
+    public EcRepository(Context context, String dbName, int version, Session session, CommonFtsObject commonFtsObject) {
         super(context, dbName, version, session, commonFtsObject, org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
     }
 
-    public EcRepository(Context context,CommonFtsObject commonFtsObject) {
+    public EcRepository(Context context, CommonFtsObject commonFtsObject) {
         super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, org.ei.opensrp.Context.getInstance().session(), commonFtsObject, org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
     }
 
+    public EcRepository(Context context) {
+        super(context, null, org.ei.opensrp.Context.getInstance().sharedRepositoriesArray());
+    }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
@@ -291,7 +294,7 @@ public class EcRepository extends Repository {
             ContentValues cv = new ContentValues();
 
             for (Column c : fm.keySet()) {
-               // columns += "`" + c.name() + "`,";
+                // columns += "`" + c.name() + "`,";
                 //values += formatValue(fm.get(c), c.column()) + ",";
 
                 cv.put(c.name(), formatValue(fm.get(c), c.column())); //These Fields should be your String values of actual column names
@@ -312,8 +315,8 @@ public class EcRepository extends Repository {
                 //columns = removeEndingComma(columns);
                 //values = removeEndingComma(values);
 
-               // String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
-               // db.(sql);
+                // String sql = "INSERT INTO " + table.name() + " (" + columns + ") VALUES (" + values + ")";
+                // db.(sql);
                 long rowId = db.insert(table.name(), null, cv);
 
             }
@@ -329,7 +332,7 @@ public class EcRepository extends Repository {
         try {
             String query = "SELECT " + client_column.baseEntityId + " FROM " + table.name() + " WHERE " + client_column.baseEntityId + " = '" + baseEntityId + "'";
             mCursor = getReadableDatabase().rawQuery(query, null);
-            if (mCursor != null && mCursor.getCount()>0) {
+            if (mCursor != null && mCursor.getCount() > 0) {
 
                 return true;
             }
@@ -443,9 +446,9 @@ public class EcRepository extends Repository {
         List<JSONObject> list = new ArrayList<JSONObject>();
         Cursor cursor = null;
         try {
-            Log.e(TAG,"Started fetching Events!!!!!!!");
+            Log.e(TAG, "Started fetching Events!!!!!!!");
             cursor = getWritableDatabase().rawQuery("SELECT e.json as event, c.json as client FROM " + Table.event.name() +
-                    " e inner join "+Table.client.name()+" c on e."+event_column.baseEntityId+"=c."+client_column.baseEntityId+" WHERE e." + event_column.serverVersion.name() + " > " + startServerVersion +
+                    " e inner join " + Table.client.name() + " c on e." + event_column.baseEntityId + "=c." + client_column.baseEntityId + " WHERE e." + event_column.serverVersion.name() + " > " + startServerVersion +
                     " AND e." + event_column.serverVersion.name() + " <= " + lastServerVersion +
                     " ORDER BY e." + event_column.serverVersion.name()
                     , null);
@@ -471,7 +474,7 @@ public class EcRepository extends Repository {
 //                }
                 list.add(ev);
             }
-            Log.e(TAG,"Finished fetching Events!!!!!!!");
+            Log.e(TAG, "Finished fetching Events!!!!!!!");
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "Exception", e);
@@ -942,6 +945,7 @@ public class EcRepository extends Repository {
         }
 
     }
+
     private Object getValue(Cursor cur, Column c) throws JSONException, ParseException {
         int ind = cur.getColumnIndex(c.name());
         if (cur.isNull(ind)) {
@@ -979,19 +983,19 @@ public class EcRepository extends Repository {
 
         ColumnAttribute.Type type = c.type();
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.text.name())) {
-            return  v.toString();
+            return v.toString();
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.bool.name())) {
             return (Boolean.valueOf(v.toString()) ? 1 : 0) + "";
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.date.name())) {
-            return getSQLDate((DateTime) v) ;
+            return getSQLDate((DateTime) v);
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.list.name())) {
-            return  new Gson().toJson(v);
+            return new Gson().toJson(v);
         }
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.map.name())) {
-            return  new Gson().toJson(v) ;
+            return new Gson().toJson(v);
         }
 
         if (type.name().equalsIgnoreCase(ColumnAttribute.Type.longnum.name())) {
@@ -999,6 +1003,7 @@ public class EcRepository extends Repository {
         }
         return null;
     }
+
     private String getSQLDate(DateTime date) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date.toDate());

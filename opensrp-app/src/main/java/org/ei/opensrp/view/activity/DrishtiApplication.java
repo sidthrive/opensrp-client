@@ -9,13 +9,11 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.R;
-import org.ei.opensrp.repository.DrishtiRepository;
-import org.ei.opensrp.repository.Repository;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.util.BitmapImageCache;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -50,13 +48,11 @@ public abstract class DrishtiApplication extends Application {
         MultiDex.install(this);
     }
 
-    protected Repository repository;
+    protected EcRepository repository;
 
-    public Repository getRepository() {
-        ArrayList<DrishtiRepository> drishtireposotorylist = Context.getInstance().sharedRepositories();
-        DrishtiRepository[] drishtireposotoryarray = drishtireposotorylist.toArray(new DrishtiRepository[drishtireposotorylist.size()]);
+    public EcRepository getRepository() {
         if (repository == null) {
-            repository = new Repository(getInstance().getApplicationContext(), null, drishtireposotoryarray);
+            repository = new EcRepository(getInstance().getApplicationContext());
         }
         return repository;
     }

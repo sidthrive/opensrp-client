@@ -12,7 +12,7 @@ import org.ei.opensrp.indonesia.lib.ErrorReportingFacade;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.repository.BidanRepository;
 import org.ei.opensrp.indonesia.repository.VectorImageRepository;
-import org.ei.opensrp.repository.Repository;
+import org.ei.opensrp.repository.EcRepository;
 import org.ei.opensrp.sync.DrishtiSyncScheduler;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
@@ -172,7 +172,7 @@ public class BidanApplication extends DrishtiApplication {
     }
 
     @Override
-    public Repository getRepository() {
+    public EcRepository getRepository() {
         if (repository == null) {
             repository = new BidanRepository(getInstance().getApplicationContext());
         }

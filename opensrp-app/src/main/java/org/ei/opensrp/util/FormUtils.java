@@ -15,11 +15,13 @@ import org.ei.opensrp.clientandeventmodel.FormEntityConverter;
 import org.ei.opensrp.clientandeventmodel.FormField;
 import org.ei.opensrp.clientandeventmodel.FormInstance;
 import org.ei.opensrp.clientandeventmodel.SubFormData;
-import org.ei.opensrp.service.intentservices.ReplicationIntentService;
 import org.ei.opensrp.domain.SyncStatus;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.domain.form.SubForm;
+import org.ei.opensrp.repository.Repository;
+import org.ei.opensrp.service.intentservices.ReplicationIntentService;
 import org.ei.opensrp.sync.CloudantDataHandler;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -983,7 +985,11 @@ public class FormUtils {
 
     private void createNewEventDocument(org.ei.opensrp.cloudant.models.Event event) {
         try {
-            CloudantDataHandler.getInstance(mContext.getApplicationContext()).createEventDocument(event);
+            //CloudantDataHandler.getInstance(mContext.getApplicationContext()).createEventDocument(event);
+
+            JSONObject eventJson = new JSONObject( Repository.gson.toJson(event));
+
+            DrishtiApplication.getInstance().getRepository().addEvent(event.getBaseEntityId(),eventJson);
         } catch (Exception e) {
             Log.logError(TAG, e.getMessage());
         }
@@ -992,7 +998,11 @@ public class FormUtils {
 
     private void createNewClientDocument(org.ei.opensrp.cloudant.models.Client client) {
         try {
-            CloudantDataHandler.getInstance(mContext.getApplicationContext()).createClientDocument(client);
+           // CloudantDataHandler.getInstance(mContext.getApplicationContext()).createClientDocument(client);
+            JSONObject clientJson = new JSONObject( Repository.gson.toJson(client));
+
+            DrishtiApplication.getInstance().getRepository().addorUpdateClient(client.getBaseEntityId(), clientJson);
+
         } catch (Exception e) {
             Log.logError(TAG, e.getMessage());
         }
