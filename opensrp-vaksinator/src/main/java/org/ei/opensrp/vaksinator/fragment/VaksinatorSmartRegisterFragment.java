@@ -124,7 +124,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
             @Override
             public DialogOption[] filterOptions() {
-                FlurryFacade.logEvent("click_filter_option_on_kohort_ibu_dashboard");
+                FlurryFacade.logEvent("click_filter_option_on_vaksinator_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
@@ -150,7 +150,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
             @Override
             public DialogOption[] sortingOptions() {
-                FlurryFacade.logEvent("click_sorting_option_on_kohort_ibu_dashboard");
+                FlurryFacade.logEvent("click_sorting_option_on_vaksinator_dashboard");
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
 

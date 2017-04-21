@@ -163,8 +163,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
-                new OpenFormOption("Bayi Immunisasi", "kohort_bayi_immunization", formController),
-                new OpenFormOption("Tutup Bayi", "close_form", formController)
+                new OpenFormOption(context().getStringResource(R.string.str_child_immunizations), "kohort_bayi_immunization", formController),
+                new OpenFormOption(context().getStringResource(R.string.str_child_close), "close_form", formController)
 
         };
     }
