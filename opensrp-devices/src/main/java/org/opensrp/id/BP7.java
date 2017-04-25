@@ -11,6 +11,7 @@ import android.os.Message;
 //import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.opensrp.id.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opensrp.id.devmanager.DeviceService;
 
 public class BP7 extends Activity implements View.OnClickListener {
 
@@ -31,6 +33,8 @@ public class BP7 extends Activity implements View.OnClickListener {
     private String deviceMac;
     private int clientCallbackId;
     private TextView tv_return;
+    private Button battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, startMeasure_btn, conformAngle_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
+    private boolean stopMeasured = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +56,56 @@ public class BP7 extends Activity implements View.OnClickListener {
 //
         Intent intent = getIntent();
         deviceMac = intent.getStringExtra("mac");
-        findViewById(R.id.btn_getbattery).setOnClickListener(this);
-        findViewById(R.id.btn_isOfflineMeasure).setOnClickListener(this);
-        findViewById(R.id.btn_enableOfflineMeasure).setOnClickListener(this);
-        findViewById(R.id.btn_disableOfflineMeasure).setOnClickListener(this);
-        findViewById(R.id.btn_startMeasure).setOnClickListener(this);
-        findViewById(R.id.btn_conform_angle).setOnClickListener(this);
-        findViewById(R.id.btn_stopMeasure).setOnClickListener(this);
-        findViewById(R.id.btn_getOfflineNum).setOnClickListener(this);
-        findViewById(R.id.btn_getOfflineData).setOnClickListener(this);
-        findViewById(R.id.btn_disconnect).setOnClickListener(this);
-        tv_return = (TextView) findViewById(R.id.tv_return);
+
+        initView();
+
+        initListener();
+
 
         clientCallbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
         /* Limited wants to receive notification specified device */
         iHealthDevicesManager.getInstance().addCallbackFilterForDeviceType(clientCallbackId, iHealthDevicesManager.TYPE_BP7);
 		/* Get bp7 controller */
         bp7Control = iHealthDevicesManager.getInstance().getBp7Control(deviceMac);
-
         // arm position 10 - 29
+    }
+
+    private void initView() {
+
+        battery_btn = (Button) findViewById(R.id.btn_getbattery);
+        isOfflineMeasure_btn = (Button) findViewById(R.id.btn_isOfflineMeasure);
+        enableOfflineMeasure_btn = (Button) findViewById(R.id.btn_enableOfflineMeasure);
+        disableOfflineMeasure_btn = (Button) findViewById(R.id.btn_disableOfflineMeasure);
+        startMeasure_btn = (Button) findViewById(R.id.btn_startMeasure);
+        conformAngle_btn = (Button) findViewById(R.id.btn_conform_angle);
+        stopMeasure_btn = (Button) findViewById(R.id.btn_stopMeasure);
+        getOfflineNum_btn = (Button) findViewById(R.id.btn_getOfflineNum);
+        getOfflineData_btn = (Button) findViewById(R.id.btn_getOfflineData);
+        disconnect_btn = (Button) findViewById(R.id.btn_disconnect);
+        tv_return = (TextView) findViewById(R.id.tv_return);
+
+        battery_btn.setVisibility(View.GONE);
+        isOfflineMeasure_btn.setVisibility(View.GONE);
+        enableOfflineMeasure_btn.setVisibility(View.GONE);
+        disableOfflineMeasure_btn.setVisibility(View.GONE);
+        getOfflineNum_btn.setVisibility(View.GONE);
+        getOfflineData_btn.setVisibility(View.GONE);
+        disconnect_btn.setVisibility(View.GONE);
+
+    }
+
+    public void initListener(){
+        battery_btn.setOnClickListener(this);
+        isOfflineMeasure_btn.setOnClickListener(this);
+        enableOfflineMeasure_btn.setOnClickListener(this);
+        disableOfflineMeasure_btn.setOnClickListener(this);
+        startMeasure_btn.setOnClickListener(this);
+        conformAngle_btn.setOnClickListener(this);
+        stopMeasure_btn.setOnClickListener(this);
+        getOfflineNum_btn.setOnClickListener(this);
+        getOfflineData_btn.setOnClickListener(this);
+        disconnect_btn.setOnClickListener(this);
+        tv_return.setOnClickListener(this);
     }
 
     @Override
@@ -288,10 +323,23 @@ public class BP7 extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btn_startMeasure:
-                if (bp7Control != null) {
-                    bp7Control.startMeasure();
-                } else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+                if (stopMeasured) {
+//                    startMeasure_btn.setEnabled(false);
+                    startMeasure_btn.setText("STOP");
+                    if (bp7Control != null) {
+
+                        Intent i = new Intent(this, DeviceService.class);
+                        this.startService(i);
+
+                        bp7Control.startMeasure();
+                    } else
+                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+                    stopMeasured = false;
+                } else {
+                    bp7Control.destroy();
+                    stopMeasured = true;
+                    startMeasure_btn.setEnabled(true);
+                }
                 break;
 
             case R.id.btn_conform_angle:
@@ -345,4 +393,8 @@ public class BP7 extends Activity implements View.OnClickListener {
         }
     };
 
+
+    private void updateButtonStatus(){
+
+    }
 }

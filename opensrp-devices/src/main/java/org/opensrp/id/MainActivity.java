@@ -1,13 +1,9 @@
 package org.opensrp.id;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +32,9 @@ import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
 import com.opensrp.id.R;
 
+import org.opensrp.id.devmanager.BluetoothLE;
+import org.opensrp.id.devmanager.DeviceService;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,9 +59,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * identification of the SDK, will be issued after the iHealth SDK registration. please contact
      * louie@ihealthlabs.com for registration.
      */
-    String userName = "";
-    String clientId = "";
-    String clientSecret = "";
+//    String userName = "";
+//    String clientId = "";
+//    String clientSecret = "";
+    String userName = "anudroid.apk06@gmail.com";
+    String clientId = "708bde5b65884f8d9e579e33e66e8e80";
+    String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
 
     private ListView listview_scan;
@@ -323,6 +325,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         }
 
+//        Intent i = new Intent(this, DeviceService.class);
+        Intent i = new Intent(this, BluetoothLE.class);
+        this.startService(i);
+
     }
 
     @Override
@@ -371,6 +377,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
          * release resources
          */
         iHealthDevicesManager.getInstance().destroy();
+
     }
 
     private static class DeviceStruct {

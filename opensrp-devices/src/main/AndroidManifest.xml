@@ -36,6 +36,14 @@
             android:label="@string/title_activity_bp7"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <service android:name="org.opensrp.id.devmanager.DeviceService"/>
+        <service android:name="org.opensrp.id.devmanager.BluetoothLE"/>
+        <receiver android:name="org.opensrp.id.Receiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="org.opensrp.id.Receiver"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
