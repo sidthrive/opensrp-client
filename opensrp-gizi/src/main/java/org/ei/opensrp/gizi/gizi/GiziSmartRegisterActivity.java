@@ -503,9 +503,14 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
+                Log.e(TAG, "onClick: YES "+currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
 
             } else {
                 nf.setCriteria("");
+                Log.e(TAG, "onClick: NO "+currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+
                 onBackPressed();
 
                 Intent intent= new Intent(GiziSmartRegisterActivity.this, GiziSmartRegisterActivity.class);
