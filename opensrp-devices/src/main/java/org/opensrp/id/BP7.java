@@ -2,6 +2,8 @@ package org.opensrp.id;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +36,12 @@ public class BP7 extends Activity implements View.OnClickListener {
     private String deviceMac;
     private int clientCallbackId;
     private TextView tv_return;
-    private Button battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, startMeasure_btn, conformAngle_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
+    private Button startStopMeasure_btn, battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, startMeasure_btn, conformAngle_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
     private boolean stopMeasured = true;
 
+    private ProgressBar mProgressBar;
+    int initValue = 0;
+    Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +78,8 @@ public class BP7 extends Activity implements View.OnClickListener {
 
     private void initView() {
 
+        startStopMeasure_btn = (Button) findViewById(R.id.btn_startStopMeasure);
+
         battery_btn = (Button) findViewById(R.id.btn_getbattery);
         isOfflineMeasure_btn = (Button) findViewById(R.id.btn_isOfflineMeasure);
         enableOfflineMeasure_btn = (Button) findViewById(R.id.btn_enableOfflineMeasure);
@@ -84,6 +92,13 @@ public class BP7 extends Activity implements View.OnClickListener {
         disconnect_btn = (Button) findViewById(R.id.btn_disconnect);
         tv_return = (TextView) findViewById(R.id.tv_return);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        Add Color
+        mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+
+
+//         Visibility
+        startMeasure_btn.setVisibility(View.GONE);
         battery_btn.setVisibility(View.GONE);
         isOfflineMeasure_btn.setVisibility(View.GONE);
         enableOfflineMeasure_btn.setVisibility(View.GONE);
@@ -91,10 +106,12 @@ public class BP7 extends Activity implements View.OnClickListener {
         getOfflineNum_btn.setVisibility(View.GONE);
         getOfflineData_btn.setVisibility(View.GONE);
         disconnect_btn.setVisibility(View.GONE);
+        stopMeasure_btn.setVisibility(View.GONE);
 
     }
 
     public void initListener(){
+        startStopMeasure_btn.setOnClickListener(this);
         battery_btn.setOnClickListener(this);
         isOfflineMeasure_btn.setOnClickListener(this);
         enableOfflineMeasure_btn.setOnClickListener(this);
@@ -117,8 +134,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     private iHealthDevicesCallback miHealthDevicesCallback = new iHealthDevicesCallback() {
 
         @Override
-        public void onDeviceConnectionStateChange(String mac,
-                                                  String deviceType, int status, int errorID) {
+        public void onDeviceConnectionStateChange(String mac, String deviceType, int status, int errorID) {
             Log.i(TAG, "mac: " + mac);
             Log.i(TAG, "deviceType: " + deviceType);
             Log.i(TAG, "status: " + status);
@@ -265,6 +281,9 @@ public class BP7 extends Activity implements View.OnClickListener {
                             + "ahr: " + ahr
                             + "pulse: " + pulse;
                     myHandler.sendMessage(msg);
+
+                    updateButtonStatus();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -376,16 +395,50 @@ public class BP7 extends Activity implements View.OnClickListener {
                 else
                     Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
                 break;
+
+            case R.id.btn_startStopMeasure:
+                if (stopMeasured) {
+//                    startMeasure_btn.setEnabled(false);
+                    startStopMeasure_btn.setText("STOP");
+                    if (bp7Control != null) {
+
+                        Intent i = new Intent(this, DeviceService.class);
+                        this.startService(i);
+
+                        bp7Control.startMeasure();
+                    } else
+                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+                    stopMeasured = false;
+                    Log.e(TAG, "onClick: START" );
+
+                } else {
+                    startStopMeasure_btn.setText("START");
+
+                    if (bp7Control != null)
+                        bp7Control.interruptMeasure();
+                    else
+                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+                    stopMeasured = true;
+//                    startMeasure_btn.setEnabled(true);
+                    Log.e(TAG, "onClick: STOP" );
+
+                }
+
+                break;
+
             default:
                 break;
         }
     }
 
     private static final int HANDLER_MESSAGE = 101;
+
     Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case HANDLER_MESSAGE:
+                    showProgressBar();
                     tv_return.setText((String) msg.obj);
                     break;
             }
@@ -393,8 +446,41 @@ public class BP7 extends Activity implements View.OnClickListener {
         }
     };
 
+    private void showProgressBar() {
+
+    }
+
 
     private void updateButtonStatus(){
+        if (stopMeasured) {
+//                    startMeasure_btn.setEnabled(false);
+            startStopMeasure_btn.setText("STOP");
+            if (bp7Control != null) {
+
+//                Intent i = new Intent(this, DeviceService.class);
+//                this.startService(i);
+
+//                bp7Control.startMeasure();
+            } else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+            stopMeasured = false;
+            Log.e(TAG, "onClick: START" );
+
+        } else {
+            startStopMeasure_btn.setText("START");
+
+            if (bp7Control != null) {
+//                bp7Control.interruptMeasure();
+
+            }
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+            stopMeasured = true;
+//                    startMeasure_btn.setEnabled(true);
+            Log.e(TAG, "onClick: STOP" );
+
+        }
 
     }
 }

@@ -326,8 +326,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
 //        Intent i = new Intent(this, DeviceService.class);
-        Intent i = new Intent(this, BluetoothLE.class);
-        this.startService(i);
+//        Intent i = new Intent(this, BluetoothLE.class);
+//        this.startService(i);
 
     }
 

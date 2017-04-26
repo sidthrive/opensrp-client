@@ -48,6 +48,12 @@
                 android:text="DisableOfflineMeasure" />
 
             <Button
+                android:id="@+id/btn_startStopMeasure"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="Start" />
+
+            <Button
                 android:id="@+id/btn_startMeasure"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
@@ -85,6 +91,16 @@
                 android:text="Disconnect" />
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="60dp"
+        android:minWidth="220dp"
+        android:rotation="270"
+        />
 
 
     <TextView

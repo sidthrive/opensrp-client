@@ -1,4 +1,4 @@
-package org.opensrp.id;
+package coba.com.myapplication;
 
 import org.junit.Test;
 
@@ -11,10 +11,5 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
-        byte a = 0;
-        a |= (1 << 1);
-        System.out.println(a);
-        a &= 0xfd;
-        System.out.print(a);
     }
 }

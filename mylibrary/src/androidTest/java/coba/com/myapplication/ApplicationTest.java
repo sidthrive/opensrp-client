@@ -1,4 +1,4 @@
-package org.opensrp.bpm;
+package coba.com.myapplication;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
