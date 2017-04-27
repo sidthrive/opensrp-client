@@ -25,7 +25,8 @@ import android.widget.Toast;
 
 import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
-import org.ei.opensrp.R;
+
+import org.ei.opensrp.indonesia.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -33,16 +34,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-//import android.support.v4.app.ActivityCompat;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
+public class BpmMainActivity extends Activity implements View.OnClickListener {
 
-public class MainActivity extends Activity implements View.OnClickListener {
-//public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_bpm_main);
+//    }
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = BpmMainActivity.class.getSimpleName();
     private static final int HANDLER_SCAN = 101;
     private static final int HANDLER_CONNECTED = 102;
     private static final int HANDLER_DISCONNECT = 103;
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     String username = bundle_status.getString("username");
                     String userstatus = bundle_status.getString("userstatus");
                     String str = "username:" + username + " - userstatus:" + userstatus;
-                    Toast.makeText(MainActivity.this, str, Toast.LENGTH_LONG).show();
+                    Toast.makeText(BpmMainActivity.this, str, Toast.LENGTH_LONG).show();
 
                     break;
 
@@ -199,9 +199,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int discoveryStatus;
 
     private void connectToDev(String mac, String deviceType) {
-        boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
+        boolean req = false;
+        try {
+            req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
+
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
         if (!req) {
-            Toast.makeText(MainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
+            Toast.makeText(BpmMainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -210,7 +216,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        setContentView(R.layout.bpm_content_main);
+        setContentView(R.layout.activity_bpm_main);
 
 
         tv_discovery = (TextView) findViewById(R.id.tv_discovery);
@@ -270,7 +276,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     Log.i(TAG, "mac = " + mac);
                     boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, type);
                     if (!req) {
-                        Toast.makeText(MainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BpmMainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -305,7 +311,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         } else {
 
-            Toast.makeText(MainActivity.this, "Bluetooth disabled, enabled first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BpmMainActivity.this, "Bluetooth disabled, enabled first", Toast.LENGTH_SHORT).show();
 
             tv_discovery.setVisibility(View.GONE);
             bt_discover.setVisibility(View.GONE);
@@ -423,7 +429,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = View.inflate(MainActivity.this, R.layout.select_device_item_layout, null);
+                convertView = View.inflate(BpmMainActivity.this, R.layout.select_device_item_layout, null);
             }
             CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.select_device_checkbox);
             checkBox.setText(deviceStructList.get(position).name);
@@ -452,7 +458,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         editor.putLong("discoveryType", discoveryType);
         editor.apply();
 
-        iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
+        try {
+            iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
+        } catch (SecurityException e){
+            e.printStackTrace();
+        }
         tv_discovery.setText("discovering...");
         discoveryStatus = 1;
 
@@ -470,15 +480,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btn_Certification:
-                iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
+                iHealthDevicesManager.getInstance().sdkUserInAuthor(BpmMainActivity.this, userName, clientId,
                         clientSecret, callbackId);
-//                iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
+//                iHealthDevicesManager.getInstance().sdkUserInAuthor(BpmMainActivity.this, userName, clientId,
 //                        clientSecret, callbackId, Environment.getExternalStorageDirectory().getAbsolutePath() + "/tencent/QQfile_recv/idscertificate.p12", "ELPWfWdA");
                 break;
 
 //            case R.id.btn_GotoTest:
 //                Intent intentTest = new Intent();
-//                intentTest.setClass(MainActivity.this, TestActivity.class);
+//                intentTest.setClass(BpmMainActivity.this, TestActivity.class);
 //                startActivity(intentTest);
 //                break;
             default:
@@ -518,7 +528,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.putExtra("mac", mac);
                 if (iHealthDevicesManager.TYPE_BP7.equals(type)) {
-                    intent.setClass(MainActivity.this, BP7.class);
+                    intent.setClass(BpmMainActivity.this, BP7.class);
                     startActivity(intent);
 
                 }

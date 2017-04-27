@@ -1,18 +1,24 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.ei.opensrp.indonesia">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ei.opensrp.indonesia">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
-
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
+    <application
         android:name=".application.BidanApplication"
-        >
+        android:allowBackup="true"
+        android:label="@string/app_name">
+
         <!-- local key -->
-       <!-- <meta-data
+        <!--
+            <meta-data
             android:name="io.fabric.ApiKey"
             android:value="5bda8a6293b5b89b510a53e5d297d42bdf427e10" />
--->
+        -->
         <!-- sid key -->
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -20,81 +26,91 @@
 
         <activity
             android:name=".LoginActivity"
-            android:theme="@android:style/Theme.Holo"
-            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/app_name"
             android:screenOrientation="landscape"
-            android:label="@string/app_name" >
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BidanHomeActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".kartu_ibu.NativeKISmartRegisterActivity"
+        <activity
+            android:name=".BidanHomeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".kartu_ibu.NativeKISmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBarAndTitle"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".kartu_ibu.KIDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name=".kb.NativeKBSmartRegisterActivity"
+            android:theme="@style/AppThemeNoTitle" />
+        <activity
+            android:name=".kb.NativeKBSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBarAndTitle"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".kb.KBDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name=".anc.NativeKIANCSmartRegisterActivity"
+            android:theme="@style/AppThemeNoTitle" />
+        <activity
+            android:name=".anc.NativeKIANCSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBarAndTitle"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".anc.ANCDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name=".pnc.NativeKIPNCSmartRegisterActivity"
+            android:theme="@style/AppThemeNoTitle" />
+        <activity
+            android:name=".pnc.NativeKIPNCSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBarAndTitle"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".pnc.PNCDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
-        <activity android:name=".child.NativeKIAnakSmartRegisterActivity"
+            android:theme="@style/AppThemeNoTitle" />
+        <activity
+            android:name=".child.NativeKIAnakSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBarAndTitle"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="landscape"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".child.AnakDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
+            android:theme="@style/AppThemeNoTitle" />
         <activity
             android:name=".child.ChildDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
+            android:theme="@style/AppThemeNoTitle" />
         <activity
             android:name=".child.ChildGrowthChartActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
+            android:theme="@style/AppThemeNoTitle" />
         <activity
             android:name=".child.ChildZScoreChartActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppThemeNoTitle"/>
-
-        <activity android:name=".face.camera.SmartShutterActivity" android:noHistory="true" />
-        <activity android:name=".face.camera.ImageConfirmation" android:noHistory="true" />
+            android:theme="@style/AppThemeNoTitle" />
+        <activity
+            android:name=".face.camera.SmartShutterActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".face.camera.ImageConfirmation"
+            android:noHistory="true" />
         <activity android:name=".face.camera.ClientsList" />
-
+        <!-- BPM -->
+        <activity android:name=".face.bpm.BpmMainActivity" />
     </application>
 
 </manifest>

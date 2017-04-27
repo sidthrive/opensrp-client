@@ -7,20 +7,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.face.bpm.MainActivity;
+//import org.ei.opensrp.indonesia.face.bpm.MainBPMActivity;
+import org.ei.opensrp.indonesia.face.bpm.BpmMainActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 //import org.opensrp.bpm.MainBPM;
-//import org.opensrp.id.MainActivity;
+//import org.opensrp.id.MainBPMActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -312,8 +312,9 @@ public class ANCDetailActivity extends Activity {
         @Override
         public void onClick(View v) {
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
-//            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
-            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
+            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
             startActivity(intent);
         }
     };

@@ -1,6 +1,6 @@
 rootProject.name = 'opensrp-app-parent'
 
-include ':opensrp-app', ':mydevices',
+include ':opensrp-app',
         ':opensrp-drishti',
         ':opensrp-mcare',
         'opensrp-indonesia',

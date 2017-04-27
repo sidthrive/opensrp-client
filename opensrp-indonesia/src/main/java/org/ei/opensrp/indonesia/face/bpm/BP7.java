@@ -18,18 +18,15 @@ import com.ihealth.communication.control.Bp7Control;
 import com.ihealth.communication.control.BpProfile;
 import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
-import org.ei.opensrp.indonesia.R;
 
+import org.ei.opensrp.indonesia.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ei.opensrp.indonesia.face.bpm.devmanager.DeviceService;
 
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-
+/**
+ * Created by sid on 4/27/17.
+ */
 public class BP7 extends Activity implements View.OnClickListener {
 
     private static final String TAG = BP7.class.getSimpleName();
@@ -47,7 +44,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_bp7);
-        setContentView(R.layout.bpm_content_bp7);
+        setContentView(R.layout.content_bp7);
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);

@@ -1,14 +1,13 @@
-package org.ei.opensrp.indonesia.face.bpm.devmanager;
+package org.ei.opensrp.indonesia.face.bpm;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
 /**
- * Created by sid on 4/25/17.
+ * Created by sid on 4/27/17.
  */
-public class DeviceService extends Service {
-
+public class DeviceService extends Service{
     Thread t = new PeriodicUpdate();
 
     @Override

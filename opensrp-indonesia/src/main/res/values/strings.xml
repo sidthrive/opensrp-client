@@ -58,7 +58,6 @@
     <string name="str_page_info">Page {0} of {1}</string>
 
 
-
     <string name="mother_already_registered">Mother already registered in ANC</string>
     <string name="mother_already_registered_pnc">Mother already registered in PNC</string>
     <string name="header_history_anc">VISIT HISTORY</string>
@@ -181,7 +180,7 @@
     <string name="service_type_mmr">MMR</string>
     <string name="service_type_vitamin_a">Vitamin A</string>
     <string name="service_type_illness_visit">Illness Visit</string>
-    <string name="service_type_empty"/>
+    <string name="service_type_empty" />
     <string name="sick_visit">Sick Visit</string>
     <string name="illness_report"><b>Illness Report:</b> %s</string>
     <string name="illness_date">Date:</string>
