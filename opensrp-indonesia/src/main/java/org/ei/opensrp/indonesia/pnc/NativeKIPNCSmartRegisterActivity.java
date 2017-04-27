@@ -147,6 +147,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     @Override
     public void startRegistration() {
+        return;
     }
 
     public DialogOption[] getEditOptions() {
