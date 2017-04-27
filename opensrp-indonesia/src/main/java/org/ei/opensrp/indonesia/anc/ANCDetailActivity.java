@@ -14,6 +14,7 @@ import com.flurry.android.FlurryAgent;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.face.bpm.MainActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -312,7 +313,8 @@ public class ANCDetailActivity extends Activity {
         public void onClick(View v) {
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     };
 
