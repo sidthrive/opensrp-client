@@ -79,14 +79,14 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.mother_name = (TextView) convertView.findViewById(R.id.mother_name);
             viewHolder.village_name = (TextView) convertView.findViewById(R.id.txt_village_name);
             viewHolder.childs_age = (TextView) convertView.findViewById(R.id.child_age);
-            viewHolder.no_ibu = (TextView) convertView.findViewById(R.id.txt_ibu_ki_no);
+//            viewHolder.no_ibu = (TextView) convertView.findViewById(R.id.txt_ibu_ki_no);
             // viewHolder.unique_id = (TextView)convertView.findViewById(R.id.unique_id);
 
             viewHolder.hp_badge = (ImageView) convertView.findViewById(R.id.img_hr_badge);
 
             //delivery documentation
             viewHolder.anak_register_dob = (TextView) convertView.findViewById(R.id.anak_register_dob);
-            viewHolder.tempat_lahir = (TextView) convertView.findViewById(R.id.tempat_lahir);
+//            viewHolder.tempat_lahir = (TextView) convertView.findViewById(R.id.tempat_lahir);
             viewHolder.berat_lahir = (TextView) convertView.findViewById(R.id.berat_lahir);
             viewHolder.tipe_lahir = (TextView) convertView.findViewById(R.id.tipe_lahir);
             viewHolder.status_gizi = (TextView) convertView.findViewById(R.id.txt_status_gizi);
@@ -125,7 +125,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         //set image
 
-        Log.e(TAG, "getView: "+ pc.getDetails().get("profilepic") );
+        Log.e(TAG, "getView: " + pc.getDetails().get("profilepic"));
         final ImageView childview = (ImageView)convertView.findViewById(R.id.img_profile);
         if (pc.getDetails().get("profilepic") != null) {
             AnakDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.mipmap.child_boy);
@@ -152,7 +152,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
 
         //immunization
-        if(pc.getDetails().get("tanggalpemberianimunisasiHb07")!=null){
+        if(isNotEmpty(pc.getDetails().get("tanggalpemberianimunisasiHb07"))){
             viewHolder.hb0_no.setVisibility(View.INVISIBLE);
             viewHolder.hb0_yes.setVisibility(View.VISIBLE);
         } else {
@@ -160,7 +160,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.hb0_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1")!=null){
+        if(isNotEmpty(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1"))){
             viewHolder.pol1_no.setVisibility(View.INVISIBLE);
             viewHolder.pol1_yes.setVisibility(View.VISIBLE);
         } else {
@@ -168,7 +168,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol1_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2")!=null){
+        if(isNotEmpty(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2"))){
             viewHolder.pol2_no.setVisibility(View.INVISIBLE);
             viewHolder.pol2_yes.setVisibility(View.VISIBLE);
         } else {
@@ -176,7 +176,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.pol2_yes.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3")!=null){
+        if(isNotEmpty(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3"))){
             viewHolder.pol3_no.setVisibility(View.INVISIBLE);
             viewHolder.pol3_yes.setVisibility(View.VISIBLE);
         } else {
@@ -199,20 +199,21 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
-        String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
+//        String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
 
-        viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
+//        viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
+        if(ibuparent.getColumnmaps().get("kartuIbuId") != null) {
+            final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
 
-        String namaayah = kiparent.getDetails().get("namaSuami")!=null?kiparent.getDetails().get("namaSuami"):"";
-        String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
+            String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
+            String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
 
-          viewHolder.mother_name.setText(namaibu +","+ namaayah);
-           viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
-            viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
-
+            viewHolder.mother_name.setText(namaibu + "," + namaayah);
+            viewHolder.village_name.setText(kiparent.getDetails().get("dusun") != null ? kiparent.getDetails().get("dusun") : "");
+//            viewHolder.no_ibu.setText(kiparent.getDetails().get("noIbu")!=null?kiparent.getDetails().get("noIbu"):"");
+        }
 
         String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -263,6 +264,13 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
     public LayoutInflater inflater() {
         return inflater;
+    }
+
+    public boolean isNotEmpty(String data){
+        if(data != null)
+            if(!data.equalsIgnoreCase(""))
+                return true;
+        return false;
     }
 
     @Override

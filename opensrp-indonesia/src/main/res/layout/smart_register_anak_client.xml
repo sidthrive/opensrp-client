@@ -30,7 +30,8 @@
             android:id="@+id/overview_service_mode_views"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            layout="@layout/anak_register_overview_service_mode_views"/>
+            layout="@layout/anak_register_overview_service_mode_views"
+            android:layout_weight="1.06" />
 <!--
         <include
             android:id="@+id/immunization_service_mode_views"

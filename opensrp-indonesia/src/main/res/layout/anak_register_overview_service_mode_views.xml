@@ -5,13 +5,6 @@
     android:orientation="horizontal"
     android:weightSum="73">
 
-    <org.ei.opensrp.view.customControls.CustomFontTextView
-        android:id="@+id/txt_ibu_ki_no"
-        style="@style/CustomFontTextViewStyle.ListView.Medium"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="10" />
-
     <ImageView
         android:layout_width="@dimen/smart_register_client_divider_height"
         android:layout_height="fill_parent"
@@ -19,7 +12,7 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="94dp"
         android:layout_weight="17">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -41,44 +34,24 @@
             android:layout_toRightOf="@id/lbl_anak_register_dob" />
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/lbl_tempat_lahir"
-            style="@style/CustomFontTextViewStyle.ListView.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/lbl_anak_register_dob"
-            android:text="@string/birth_place_title"
-            android:textStyle="normal" />
-
-        <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/tempat_lahir"
-            style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_anak_register_dob"
-            android:layout_toRightOf="@id/lbl_tempat_lahir"
-            android:text="Puskesmas"
-            android:textStyle="normal" />
-
-        <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/lbl_berat_lahir"
             style="@style/CustomFontTextViewStyle.ListView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/lbl_tempat_lahir"
             android:text="@string/birth_weight_title"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:layout_below="@id/lbl_anak_register_dob" />
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/berat_lahir"
             style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_tempat_lahir"
             android:layout_toRightOf="@id/lbl_berat_lahir"
             android:text="3300"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:layout_below="@id/lbl_anak_register_dob" />
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/lbl_tipe_lahir"
@@ -141,7 +114,7 @@
             android:text=" Hb 0-7 hari" />
 
         <ImageView
-            android:id="@+id/icon_pol1_yes"
+            android:id="@+id/icon_vitk_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -150,7 +123,7 @@
             android:visibility="gone"/>
 
         <ImageView
-            android:id="@+id/icon_pol1_no"
+            android:id="@+id/icon_vitk_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -159,11 +132,39 @@
             />
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/is_pol1"
+            android:id="@+id/is_vitk"
             style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/is_hb0"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text=" Vit K" />
+
+        <ImageView
+            android:id="@+id/icon_pol1_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_vitk"
+            android:src="@drawable/ic_yes_small"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/icon_pol1_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_vitk"
+            android:src="@drawable/ic_no_small"
+            />
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/is_pol1"
+            style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_vitk"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
             android:text=" BCG dan Polio 1" />
@@ -197,12 +198,26 @@
             android:layout_marginLeft="25dp"
             android:text=" DPT/HB1/Polio 2" />
 
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="16">
+
         <ImageView
             android:id="@+id/icon_pol3_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/is_pol2"
+            android:layout_alignParentTop="true"
             android:src="@drawable/ic_yes_small"
             android:visibility="gone"/>
 
@@ -211,7 +226,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/is_pol2"
+            android:layout_alignParentTop="true"
             android:src="@drawable/ic_no_small"
             />
 
@@ -220,10 +235,95 @@
             style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/is_pol2"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
             android:text=" DPT/HB2/Polio 3" />
+
+        <ImageView
+            android:id="@+id/icon_pol4_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_pol3"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_no_small"
+            />
+
+        <ImageView
+            android:id="@+id/icon_pol4_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_pol3"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_yes_small"
+            android:visibility="gone" />
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/is_pol4"
+            style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_pol3"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text=" DPT/HB3/Polio4" />
+
+        <ImageView
+            android:id="@+id/icon_ipv_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_pol4"
+            android:src="@drawable/ic_yes_small"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/icon_ipv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_pol4"
+            android:src="@drawable/ic_no_small"
+            />
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/is_ipv"
+            style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_pol4"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text=" IPV" />
+
+        <ImageView
+            android:id="@+id/icon_measles_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_ipv"
+            android:src="@drawable/ic_yes_small"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/icon_measles_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/is_ipv"
+            android:src="@drawable/ic_no_small"
+            />
+
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/is_measles"
+            style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/is_ipv"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text=" Campak" />
 
     </RelativeLayout>
 
@@ -240,14 +340,14 @@
 
     <ImageButton
         android:id="@+id/btn_edit"
-        android:layout_width="@dimen/list_edit_icon_view_width"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_margin="5dp"
-        android:layout_weight="@integer/child_list_edit_icon_view_weight"
+        android:layout_margin="1dp"
         android:background="@drawable/edit_button_background"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:layout_weight="4"/>
 
 </LinearLayout>
