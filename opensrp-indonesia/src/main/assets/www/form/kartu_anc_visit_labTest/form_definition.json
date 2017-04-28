@@ -51,13 +51,11 @@
       },
       {
         "name": "highRiskPregnancyAnemia",
-        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_anemia",
-        "source": "ibu.kartu_ibu.anemiaRisk"
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_anemia"
       },
       {
         "name": "highRiskPregnancyDiabetes",
-        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_diabetes",
-        "source": "ibu.kartu_ibu.diabetesRisk"
+        "bind": "/model/instance/kunjungan_anc_reviewed_Lab_test/High_Risk_Pregnancy_diabetes"
       },
       {
         "name": "submissionDate",

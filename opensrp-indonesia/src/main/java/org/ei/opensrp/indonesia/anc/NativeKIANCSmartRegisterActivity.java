@@ -1,6 +1,9 @@
 package org.ei.opensrp.indonesia.anc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,18 +11,22 @@ import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonPersonObject;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
 import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
-import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
+import org.ei.opensrp.view.activity.*;
 import org.ei.opensrp.view.dialog.DialogOption;
 import org.ei.opensrp.view.dialog.OpenFormOption;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
@@ -175,21 +182,47 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
     }
 
     @Override
-    public void startFormActivity(String formName, String entityId, String metaData) {
+    public void startFormActivity(final String formName, final String entityId, final String metaData) {
+
+        if(formName != null) {
+            final int choice = new java.util.Random().nextInt(3);
+            CharSequence[] selections = selections(choice, entityId);
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(NativeKIANCSmartRegisterActivity.this);
+            builder.setTitle(context.getStringResource(R.string.reconfirmChildName));
+            builder.setItems(selections, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // the user clicked on colors[which]
+                    if (which == choice) {
+                        activatingForm(formName,entityId,metaData);
+                    }
+                }
+            });
+            builder.show();
+        }
+        else{
+            activatingForm(formName,entityId,metaData);
+        }
+
+
+    }
+
+     private void activatingForm(String formName, String entityId, String metaData) {
         //Start capture flurry log for FS
         String start = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("start", start);
-        FlurryAgent.logEvent(formName,FS, true );
-       // FlurryFacade.logEvent(formName);
+        FlurryAgent.logEvent(formName, FS, true);
+        // FlurryFacade.logEvent(formName);
 //        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
-            if (entityId != null || metaData != null){
+            if (entityId != null || metaData != null) {
                 String data = null;
                 //check if there is previously saved data for the form
                 data = getPreviouslySavedDataForForm(formName, metaData, entityId);
-                if (data == null){
+                if (data == null) {
                     data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 }
 
@@ -203,11 +236,52 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    private CharSequence[] selections(int choice, String entityId){
+        AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
+
+        CommonPersonObject kiobject = kiRepository.findByCaseID(entityId);
+
+        AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
+        final CommonPersonObject ibuparent = iburep.findByCaseID(kiobject.getColumnmaps().get("kartuIbuId"));
+
+        String name = ibuparent.getColumnmaps().get("namalengkap");
+
+        System.out.println("start form activity / nama = " + name);
+        CharSequence selections[] = new CharSequence[]{name, name, name};
+
+        selections[choice] = (CharSequence) name;
+
+        String query = "SELECT namalengkap FROM kartu_ibu where kartu_ibu.isClosed !='true'";
+        Cursor cursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(query);
+        cursor.moveToFirst();
+
+        for (int i = 0; i < selections.length; i++) {
+            if (i != choice) {
+                cursor.move(new java.util.Random().nextInt(cursor.getCount()));
+                String temp = cursor.getString(cursor.getColumnIndex("namalengkap"));
+                System.out.println("start form activity / temp = " + temp);
+                if(temp==null)
+                    i--;
+                else if (temp.equals(name)) {
+                    System.out.println("equals");
+                    i--;
+                } else {
+                    selections[i] = (CharSequence) temp;
+                    System.out.println("char sequence of temp = " + selections[i]);
+                }
+                cursor.moveToFirst();
+            }
+        }
+        cursor.close();
+
+        return selections;
+    }
+
 
     public void switchToBaseFragment(final String data){
         final int prevPageIndex = currentPage;
@@ -234,6 +308,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
         });
 
     }
+
 
     public android.support.v4.app.Fragment findFragmentByPosition(int position) {
         FragmentPagerAdapter fragmentPagerAdapter = mPagerAdapter;

@@ -244,14 +244,16 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
             if (pc.getColumnmaps().get("ibu.type") != null ) {
                // if(pc.getColumnmaps().get("ibu.isClosed") != null) {
-                if(pc.getDetails().get("htp") != null) {
+               // if(pc.getDetails().get("tanggalHPHT") != null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
                         viewHolder.anc_status_layout.setText(context.getString(R.string.service_anc));
-                        String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
-                        String visit_stat = pc.getColumnmaps().get("ibu.ancKe") != null ? context.getString(R.string.anc_ke) + " " + pc.getColumnmaps().get("ibu.ancKe") : "";
-                        viewHolder.date_status.setText(visit_date);
-                        viewHolder.visit_status.setText(visit_stat);
-                    }
+                     //   if(!pc.getDetails().get("ibu.ancDate").isEmpty()) {
+                            String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
+                            String visit_stat = pc.getColumnmaps().get("ibu.ancKe") != null ? context.getString(R.string.anc_ke) + " " + pc.getColumnmaps().get("ibu.ancKe") : "";
+                            viewHolder.date_status.setText(visit_date);
+                            viewHolder.visit_status.setText(visit_stat);
+                      //  }
+                  //  }
                       }
                     else if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
                         viewHolder.anc_status_layout.setText(context.getString(R.string.service_pnc));

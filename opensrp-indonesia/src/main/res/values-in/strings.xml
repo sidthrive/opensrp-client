@@ -152,7 +152,7 @@
     <string name="header_dob">Tgl Lahir</string>
     <string name="header_dok_persalinan">Dok Prsalinan</string>
 
-    <string name="app_name">Bidan</string>
+    <string name="app_name">CR Bidan +</string>
 
     <string name="home_ec_label">Eligible Couple</string>
     <string name="home_fp_label">FP</string>
@@ -373,7 +373,7 @@
     <string name="risk_flags_subtitle">Daftar resiko yang dimiliki</string>
     <string name="risk_flags_title">Resiko</string>
 
-    <string name="show_more_button">Lihat lebih...</string>
+    <string name="show_more_button">Lihat Detail Resiko ibu...</string>
     <string name="show_less_button">Sembunyikan  . . .</string>
     <string name="mother_already_registered">Ibu sudah terdaftar di ANC</string>
 
@@ -382,7 +382,7 @@
     <string name="months_away"> bulan lagi</string>
     <string name="this_month">bulan ini</string>
     <string name="delivered">sudah melahirkan</string>
-    <string name="mother_weight">Berat Badan:</string>
+    <string name="mother_weight">Berat :</string>
     <string name="lila">LILA:</string>
     <string name="empty_string"></string>
     <string name="edd_title">HTP:</string>
@@ -483,4 +483,7 @@
     <string name="sesi2">Sesi 2</string>
     <string name="sesi3">Sesi 3</string>
     <string name="parana_register_title_in_short">PARANA</string>
+    <string name="mmn_label">MMN :</string>
+    <string name="tt_ke">TT :</string>
+    <string name="reconfirmChildName">Re-Confirm children name</string>
 </resources>

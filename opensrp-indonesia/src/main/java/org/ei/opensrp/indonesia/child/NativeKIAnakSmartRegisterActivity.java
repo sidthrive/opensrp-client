@@ -185,7 +185,7 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
             if (entityId != null || metaData != null){
                 String data = null;
                 //check if there is previously saved data for the form
-                data = getPreviouslySavedDataForForm(formName, metaData, entityId);
+            //    data = getPreviouslySavedDataForForm(formName, metaData, entityId);
                 if (data == null){
                     data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
                 }

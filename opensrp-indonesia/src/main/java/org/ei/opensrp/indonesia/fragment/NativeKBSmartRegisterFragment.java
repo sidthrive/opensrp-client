@@ -223,7 +223,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         setTablename("kartu_ibu");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
-        countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+      //  countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
         mainCondition = " isClosed !='true'  and namalengkap !='' and details not LIKE '%\"jenisKontrasepsi\":\"\"%' ";
         countSelect = countqueryBUilder.mainCondition(mainCondition);
 
@@ -231,7 +231,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "namaSuami"});
-        queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
+      //  queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
         mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = KiSortByNameAZ();
 

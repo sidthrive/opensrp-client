@@ -23,12 +23,14 @@ import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
@@ -84,6 +86,9 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.no_ibu = (TextView) convertView.findViewById(R.id.no_ibu);
             viewHolder.unique_id = (TextView) convertView.findViewById(R.id.unique_id);
 
+            viewHolder.mmn_date = (TextView) convertView.findViewById(R.id.lbl_tgl);
+            viewHolder.txt_total = (TextView) convertView.findViewById(R.id.txt_total);
+
             viewHolder.hr_badge = (ImageView) convertView.findViewById(R.id.img_hr_badge);
             viewHolder.img_hrl_badge = (ImageView) convertView.findViewById(R.id.img_hrl_badge);
             viewHolder.bpl_badge = (ImageView) convertView.findViewById(R.id.img_bpl_badge);
@@ -99,6 +104,12 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.sesi2 = (ImageView) convertView.findViewById(R.id.image2);
             viewHolder.sesi3 = (ImageView) convertView.findViewById(R.id.image3);
             viewHolder.sesi4 = (ImageView) convertView.findViewById(R.id.image4);
+
+            viewHolder.parana1 = (LinearLayout) convertView.findViewById(R.id.parana1);
+            viewHolder.parana2 = (LinearLayout) convertView.findViewById(R.id.parana2);
+            viewHolder.parana3 = (LinearLayout) convertView.findViewById(R.id.parana3);
+            viewHolder.parana4 = (LinearLayout) convertView.findViewById(R.id.parana4);
+
 
             viewHolder.profilepic = (ImageView) convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton) convertView.findViewById(R.id.btn_edit);
@@ -123,14 +134,17 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         //set image
 
         AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
-
-        CommonPersonObject kiobject = kiRepository.findByCaseID(pc.entityId());
-        
-
+        //ibu.id
+        if(pc.getDetails().get("ibu.id") != null) {
+            CommonPersonObject kiobject = kiRepository.findByCaseID(pc.getColumnmaps().get("ibu.id"));
+            viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("anc_date") != null ? kiobject.getColumnmaps().get("anc_date") : "");
+            viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? kiobject.getDetails().get("jumlahMmn") : "");
+        }
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
         viewHolder.village_name.setText(pc.getDetails().get("dusun")!=null?pc.getDetails().get("dusun"):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("umur")!=null?pc.getColumnmaps().get("umur"):"");
+
 
         viewHolder.tgl1.setText("");
         viewHolder.tgl2.setText("");
@@ -145,6 +159,73 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         Status_parana(pc.getDetails().get("paranaStatus2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2);
         Status_parana(pc.getDetails().get("paranaStatus3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3);
         Status_parana(pc.getDetails().get("paranaStatus4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4);
+
+
+        viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+        viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
+
+        String invitation = pc.getDetails().get("date_invitation")!=null?pc.getDetails().get("date_invitation"):"";
+        if(StringUtils.isNotBlank(pc.getDetails().get("date_invitation"))) {
+            String _invitation = invitation;
+            String _due_invitation = "";
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            LocalDate date = parse(_invitation, formatter).toLocalDate();
+            LocalDate dateNow = LocalDate.now();
+            Log.logInfo("Today"+dateNow);
+            Log.logInfo("date"+date);
+            date = date.withDayOfMonth(1);
+            dateNow = dateNow.withDayOfMonth(1);
+            int days = Days.daysBetween(date,dateNow).getDays();
+            Log.logInfo(""+days);
+            //int months = Months.monthsBetween(dateNow, date).ge();
+            if(days < 14) {
+                if(pc.getDetails().get("paranaStatus1") == null){
+                    viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
+                }
+                //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+            }
+/*            if(days >=7 && days < 14) {
+                if(pc.getDetails().get("paranaStatus1") == null){
+                    viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                }
+                        //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+            }*/ else if(days >=14 && days < 21){
+                if(pc.getDetails().get("paranaStatus1") == null){
+                    viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
+                }
+                else if(pc.getDetails().get("paranaStatus2") == null){
+                    viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                }
+            }
+            else if(days >=21 && days < 28){
+                if(pc.getDetails().get("paranaStatus2") == null) {
+                    viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
+                }
+                else if(pc.getDetails().get("paranaStatus3") == null) {
+                    viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                }
+
+            }
+            else if(days >=28 && days < 35){
+                if(pc.getDetails().get("paranaStatus3") == null) {
+                    viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
+                }
+                else if(pc.getDetails().get("paranaStatus4") == null) {
+                    viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                }
+            }
+            else if(days >=35){
+                if(pc.getDetails().get("paranaStatus4") == null) {
+                    viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
+                }
+            }
+
+        }
+        else{
+//            viewHolder.edd_due.setText("-");
+        }
 
         convertView.setLayoutParams(clientViewLayoutParams);
         //   return convertView;
@@ -241,7 +322,15 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         ImageView sesi2;
         ImageView sesi3;
         ImageView sesi4;
+        public TextView mmn_date;
+        public TextView txt_total;
+        public LinearLayout parana1;
 
+        public LinearLayout parana2;
+
+        public LinearLayout parana3;
+
+        public LinearLayout parana4;
     }
 
 

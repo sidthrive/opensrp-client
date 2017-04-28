@@ -39,6 +39,16 @@
                         lang="en">Polindes
                     </span>
                 </label>
+                <label class="">
+                    <input name="/kunjungan_anc_reviewed_Lab_test/Lokasi_periksa" data-name="/kunjungan_anc_reviewed_Lab_test/Lokasi_periksa" data-type-xml="select1"
+                        type="radio" value="3" required="required" />
+                    <span class="option-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/Lokasi_periksa/Puskesmas:label"
+                        lang="Bahasa">Puskesmas
+                    </span>
+                    <span class="option-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/Lokasi_periksa/Puskesmas:label"
+                        lang="en">Puskesmas
+                    </span>
+                </label>
             </div>
         </fieldset>
     </fieldset>

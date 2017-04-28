@@ -39,6 +39,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -97,6 +98,9 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
             viewHolder.usia_klinis = (TextView) convertView.findViewById(R.id.txt_usia_klinis);
             viewHolder.htpt = (TextView) convertView.findViewById(R.id.txt_htpt);
             viewHolder.edd_due = (TextView) convertView.findViewById(R.id.txt_edd_due);
+            viewHolder.lbl_ki_lila_bb = (TextView) convertView.findViewById(R.id.lbl_ki_lila_bb);
+
+            viewHolder.lbl_ki_beratbadan_tb = (TextView) convertView.findViewById(R.id.lbl_ki_beratbadan_tb);
             viewHolder.ki_lila_bb = (TextView) convertView.findViewById(R.id.txt_ki_lila_bb);
             viewHolder.beratbadan_tb = (TextView) convertView.findViewById(R.id.txt_ki_beratbadan_tb);
             viewHolder.tanggal_kunjungan_anc = (TextView) convertView.findViewById(R.id.txt_tanggal_kunjungan_anc);
@@ -132,7 +136,6 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
 
 
 
-        String KunjunganKe = pc.getDetails().get("kunjunganKe")!=null?pc.getDetails().get("kunjunganKe"):"-";
 
         AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
 
@@ -140,6 +143,13 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
 
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(kiobject.getColumnmaps().get("kartuIbuId"));
+        String bindobject = "ibu";
+
+
+        HashMap<String, String> merge = new HashMap<String, String>();
+        merge.put("htp", ibuparent.getColumnmaps().get("htp"));
+        org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(pc.entityId(),merge);
+
 
         viewHolder.hr_badge.setVisibility(View.INVISIBLE);
         viewHolder.hrp_badge.setVisibility(View.INVISIBLE);
@@ -255,12 +265,15 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         }
 
 
-        viewHolder.ki_lila_bb.setText(pc.getDetails().get("hasilPemeriksaanLILA")!=null?pc.getDetails().get("hasilPemeriksaanLILA"):"-");
+        viewHolder.lbl_ki_lila_bb.setText(pc.getDetails().get("hasilPemeriksaanLILA")!=null?context.getString(R.string.lila)+pc.getDetails().get("hasilPemeriksaanLILA"):"-");
+        viewHolder.ki_lila_bb.setText(pc.getDetails().get("bbKg")!=null?context.getString(R.string.mother_weight)+pc.getDetails().get("bbKg"):"-");
+        viewHolder.lbl_ki_beratbadan_tb.setText(pc.getDetails().get("jumlahMmn")!=null?context.getString(R.string.mmn_label)+pc.getDetails().get("jumlahMmn"):context.getString(R.string.mmn_label)+"-");
+        viewHolder.beratbadan_tb.setText(pc.getDetails().get("statusImunisasitt")!=null?context.getString(R.string.tt_ke)+pc.getDetails().get("statusImunisasitt").replace("tt_ke_",""):context.getString(R.string.tt_ke)+"-");
 
-        viewHolder.beratbadan_tb.setText(pc.getDetails().get("bbKg")!=null?pc.getDetails().get("bbKg"):"-");
 
         String AncDate = kiobject.getColumnmaps().get("ancDate")!=null?kiobject.getColumnmaps().get("ancDate"):"-";
         String AncKe = kiobject.getColumnmaps().get("ancKe")!=null?kiobject.getColumnmaps().get("ancKe"):"-";
+        String KunjunganKe = pc.getDetails().get("kunjunganKe")!=null?pc.getDetails().get("kunjunganKe"):"-";
 
         viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.last_visit_date)+ AncDate);
         viewHolder.anc_number.setText(context.getString(R.string.anc_ke) + AncKe);
@@ -470,6 +483,8 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         ImageView hrp_badge;
         ImageView img_hrl_badge;
         TextView edd_due;
+        public TextView lbl_ki_lila_bb;
+        public TextView lbl_ki_beratbadan_tb;
     }
 
 

@@ -155,7 +155,11 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
 
         //immunization
-        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiHb07"))){
+        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiHb07"))
+                || StringUtils.isNotBlank(pc.getDetails().get("HB0SaatLahirKurangdari5jam"))
+                || StringUtils.isNotBlank(pc.getDetails().get("HB0Rentang6Sampai48Jam"))
+                || StringUtils.isNotBlank(pc.getDetails().get("HB0Rentang2Sampai7Hari"))
+                ){
             viewHolder.hb0_no.setVisibility(View.INVISIBLE);
             viewHolder.hb0_yes.setVisibility(View.VISIBLE);
         } else {
@@ -206,7 +210,6 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
 
-
         if(StringUtils.isNotBlank(ibuparent.getColumnmaps().get("kartuIbuId"))) {
             AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
             final CommonPersonObject kiparent = kirep.findByCaseID(ibuparent.getColumnmaps().get("kartuIbuId"));
@@ -222,7 +225,6 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.village_name.setText("");
             viewHolder.no_ibu.setText("");
         }
-
 
         String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

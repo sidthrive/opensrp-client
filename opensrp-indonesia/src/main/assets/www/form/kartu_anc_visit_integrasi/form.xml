@@ -39,6 +39,16 @@
                         lang="en">Polindes
                     </span>
                 </label>
+                <label class="">
+                    <input name="/kunjungan_anc_reviewed_integrasi/Lokasi_periksa" data-name="/kunjungan_anc_reviewed_integrasi/Lokasi_periksa" data-type-xml="select1"
+                        type="radio" value="3" required="required" />
+                    <span class="option-label active" data-itext-id="/kunjungan_anc_reviewed_integrasi/Lokasi_periksa/Puskesmas:label"
+                        lang="Bahasa">Puskesmas
+                    </span>
+                    <span class="option-label " data-itext-id="/kunjungan_anc_reviewed_integrasi/Lokasi_periksa/Puskesmas:label"
+                        lang="en">Puskesmas
+                    </span>
+                </label>
             </div>
         </fieldset>
     </fieldset>
@@ -347,7 +357,7 @@
                     lang="en">
                     Blood check-up for Malaria
                 </span>
-                <span class="required">*</span>
+
                 <span class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah:hint"
                     lang="Bahasa">
                     Menunjukkan apakah Ibu melakukan pemeriksaan darah, yang bertujuan memastikan
@@ -377,7 +387,7 @@
                     <input name="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah"
                         data-name="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah"
                         data-type-xml="select1"
-                        required="required" type="radio" value="negatif" />
+                         type="radio" value="negatif" />
                     <span class="option-label active" data-itext-id="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah/negatif:label"
                         lang="Bahasa">
                         Negatif (-)
@@ -391,7 +401,7 @@
                     <input name="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah"
                         data-name="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah"
                         data-type-xml="select1"
-                        required="required" type="radio" value="Tidak" />
+                        type="radio" value="Tidak" />
                     <span class="option-label active" data-itext-id="/kunjungan_anc_reviewed_integrasi/integrasi_program_malaria_periksa_darah/Tidak:label"
                         lang="Bahasa">
                         Tidak dilakukan

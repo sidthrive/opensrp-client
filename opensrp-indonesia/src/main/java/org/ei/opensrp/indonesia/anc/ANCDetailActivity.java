@@ -265,8 +265,16 @@ public class ANCDetailActivity extends Activity {
         dob.setText(getResources().getString(R.string.dob)+ (kiclients.getDetails().get("tanggalLahir") != null ? kiclients.getDetails().get("tanggalLahir") : "-"));
         phone.setText("No HP: "+ (kiobject.getDetails().get("NomorTelponHp") != null ? kiobject.getDetails().get("NomorTelponHp") : "-"));
 
+
+        risk1.setText(getResources().getString(R.string.date_visit_title)+" "+kiobject.getColumnmaps().get("ancDate"));
+
+        risk2.setText(getResources().getString(R.string.MMN)+" "+kiobject.getDetails().get("jumlahMmn"));
+
+        risk3.setText(getResources().getString(R.string.tt_ke)+" "+kiobject.getDetails().get("statusImunisasitt").replace("tt_ke_",""));
+
+
         //risk
-        if(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
+       /* if(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
             risk1.setText(getResources().getString(R.string.highRiskPregnancyYoungMaternalAge)+humanize(kiclients.getDetails().get("highRiskPregnancyYoungMaternalAge")));
         }
         if(kiclients.getDetails().get("highRiskPregnancyOldMaternalAge") != null ){
@@ -280,7 +288,7 @@ public class ANCDetailActivity extends Activity {
             risk3.setText(getResources().getString(R.string.HighRiskPregnancyAbortus)+humanize(kiclients.getDetails().get("HighRiskPregnancyAbortus")));
             risk4.setText(getResources().getString(R.string.HighRiskLabourSectionCesareaRecord)+humanize(kiclients.getDetails().get("HighRiskLabourSectionCesareaRecord")));
 
-        }
+        }*/
         txt_highRiskLabourTBRisk.setText(humanize(kiclients.getDetails().get("highRiskLabourTBRisk") != null ? kiclients.getDetails().get("highRiskLabourTBRisk") : "-"));
 
         highRiskSTIBBVs.setText(humanize(kiclients.getDetails().get("highRiskSTIBBVs") != null ? kiclients.getDetails().get("highRiskSTIBBVs") : "-"));
