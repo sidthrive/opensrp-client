@@ -390,9 +390,9 @@
     <string name="plan_type">Tipe:</string>
     <string name="mother_title">Ibu</string>
     <string name="child_title">Anak</string>
-    <string name="dob_title">Tgl Lahir:</string>
+    <string name="dob_title">Tgl:</string>
     <string name="birth_place_title">Tmpt:</string>
-    <string name="birth_weight_title">B.Lahir:</string>
+    <string name="birth_weight_title">Berat Lahir:</string>
     <string name="date_visit_title">Tgl Kunjungan:</string>
     <string name="cohort_child">ANAK</string>
     <string name="cohort_mother">KOHORT IBU</string>

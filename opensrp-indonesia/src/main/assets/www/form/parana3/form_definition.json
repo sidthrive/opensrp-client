@@ -3,7 +3,7 @@
   "form": {
     "bind_type": "kartu_ibu",
     "ec_bind_type": "ec_kartu_ibu",
-    "default_bind_path": "/model/instance/Parana/",
+    "default_bind_path": "/model/instance/parana_sesi3/",
     "fields": [
       {
         "name": "id",
@@ -11,45 +11,105 @@
       },
       {
         "name": "start",
-        "bind": "/model/instance/Parana/start"
+        "bind": "/model/instance/parana_sesi3/start"
       },
       {
         "name": "end",
-        "bind": "/model/instance/Parana/end"
+        "bind": "/model/instance/parana_sesi3/end"
       },
       {
         "name": "cityVillage",
-        "bind": "/model/instance/Parana/Village",
+        "bind": "/model/instance/parana_sesi3/Village",
         "shouldLoadValue": true
       },
       {
         "name": "existing_location",
-        "bind": "/model/instance/Parana/existing_location",
+        "bind": "/model/instance/parana_sesi3/existing_location",
         "shouldLoadValue": true
       },
       {
         "name": "lokasi3",
-        "bind": "/model/instance/Parana/lokasi"
-      },
-      {
-        "name": "jumlahPeserta3",
-        "bind": "/model/instance/Parana/jumlah_peserta"
+        "bind": "/model/instance/parana_sesi3/lokasi3"
       },
       {
         "name": "tanggal_sesi3",
-        "bind": "/model/instance/Parana/tanggal_sesi"
+        "bind": "/model/instance/parana_sesi3/tanggal_sesi3"
       },
       {
-        "name": "paranaStatus3",
-        "bind": "/model/instance/Parana/parana_status"
+        "name": "kesepakatan3",
+        "bind": "/model/instance/parana_sesi3/kesepakatan3"
       },
+
+
+      {
+        "name": "alasan_kesepakatan3",
+        "bind": "/model/instance/parana_sesi3/alasan_kesepakatan3"
+      },
+      {
+        "name": "waktu_kesepakatan3",
+        "bind": "/model/instance/parana_sesi3/waktu_kesepakatan3"
+      },
+      {
+        "name": "topik_kesepakatan3",
+        "bind": "/model/instance/parana_sesi3/topik_kesepakatan3"
+      },
+      {
+        "name": "kesepakatan_other3",
+        "bind": "/model/instance/parana_sesi3/kesepakatan_other3"
+      },
+
+
+      {
+        "name": "masalah_stimulasi3",
+        "bind": "/model/instance/parana_sesi3/masalah_stimulasi"
+      },
+      {
+        "name": "alasan_masalah_stimulasi3",
+        "bind": "/model/instance/parana_sesi3/alasan_masalah_stimulasi"
+      },
+      {
+        "name": "waktu_masalah_stimulasi3",
+        "bind": "/model/instance/parana_sesi3/waktu_masalah_stimulasi"
+      },
+      {
+        "name": "topik_masalah_stimulasi3",
+        "bind": "/model/instance/parana_sesi3/topik_masalah_stimulasi"
+      },
+      {
+        "name": "masalah_stimulasi_other3",
+        "bind": "/model/instance/parana_sesi3/masalah_stimulasi_other"
+      },
+
+
+
+      {
+        "name": "stimulasi_tepat3",
+        "bind": "/model/instance/parana_sesi3/stimulasi_tepat"
+      },
+      {
+        "name": "alasan_stimulasi_tepat3",
+        "bind": "/model/instance/parana_sesi3/alasan_stimulasi_tepat"
+      },
+      {
+        "name": "waktu_stimulasi_tepat3",
+        "bind": "/model/instance/parana_sesi3/waktu_stimulasi_tepat"
+      },
+      {
+        "name": "topik_stimulasi_tepat3",
+        "bind": "/model/instance/parana_sesi3/topik_stimulasi_tepat"
+      },
+      {
+        "name": "aktif_sesi3",
+        "bind": "/model/instance/parana_sesi3/aktif_stimulasi_tepat"
+      },
+
       {
         "name": "today",
-        "bind": "/model/instance/Parana/today"
+        "bind": "/model/instance/parana_sesi3/today"
       },
       {
         "name": "registrationDate",
-        "bind": "/model/instance/Parana/reg_date"
+        "bind": "/model/instance/parana_sesi3/reg_date"
       }
     ]
   }

@@ -112,10 +112,10 @@ public class ParanaDetailActivity extends Activity {
         dob.setText(getResources().getString(R.string.dob)+ (ancclient.getDetails().get("tanggalLahir") != null ? ancclient.getDetails().get("tanggalLahir") : "-"));
         phone.setText("No HP: "+ (ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
 
-        sesi1.setText(ancclient.getDetails().get("paranaStatus1"));
-        sesi2.setText(ancclient.getDetails().get("paranaStatus2"));
-        sesi3.setText(ancclient.getDetails().get("paranaStatus3"));
-        sesi4.setText(ancclient.getDetails().get("paranaStatus4"));
+        sesi1.setText(ancclient.getDetails().get("aktif_sesi1"));
+        sesi2.setText(ancclient.getDetails().get("aktif_sesi2"));
+        sesi3.setText(ancclient.getDetails().get("aktif_sesi3"));
+        sesi4.setText(ancclient.getDetails().get("aktif_sesi4"));
 
         AllCommonsRepository anak = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
         if(ancclient.getDetails().get("childId") != null) {
@@ -124,7 +124,7 @@ public class ParanaDetailActivity extends Activity {
             txt_tgl_lahir.setText(anakid.getColumnmaps().get("tanggalLahirAnak") != null ? anakid.getColumnmaps().get("tanggalLahirAnak") : "");
             txt_BBL.setText(anakid.getDetails().get("beratLahir")!=null?anakid.getDetails().get("beratLahir"):"");
 
-            String berat = anakid.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan")!=null?" "+anakid.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan"):"";
+            String berat = anakid.getDetails().get("beratBayi")!=null?" "+anakid.getDetails().get("beratBayi"):"";
             String status_gizi = anakid.getDetails().get("statusGizi")!=null?anakid.getDetails().get("statusGizi"):"";
 
             txt_kpsp.setText(": "+ humanize(anakid.getDetails().get("hasilDilakukannyaKPSP") != null ? anakid.getDetails().get("hasilDilakukannyaKPSP") : "-"));

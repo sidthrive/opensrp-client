@@ -144,11 +144,13 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
         final CommonPersonObject ibuparent = iburep.findByCaseID(kiobject.getColumnmaps().get("kartuIbuId"));
         String bindobject = "ibu";
+        String bindobjects = "ibu";
 
 
         HashMap<String, String> merge = new HashMap<String, String>();
         merge.put("htp", ibuparent.getColumnmaps().get("htp"));
         org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(pc.entityId(),merge);
+
 
 
         viewHolder.hr_badge.setVisibility(View.INVISIBLE);

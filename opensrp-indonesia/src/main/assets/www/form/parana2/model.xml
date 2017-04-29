@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <Parana encounter_type="Parana2" id="parana" version="201704250244">
+        <parana_sesi2 encounter_type="Parana Sesi 2" id="parana_sesi2_1" version="201704290156">
             <formhub>
                 <uuid/>
             </formhub>
@@ -18,13 +18,37 @@
             <generated_note_name_14/>
             <existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
             <desa openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
-            <lokasi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="cityVillage"/>
-            <tanggal_sesi openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <parana_status openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <jumlah_peserta openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <tanggal_sesi2 openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <lokasi2/>
+            <kesepakatan2/>
+            <alasan_kesepakatan2/>
+            <waktu_kesepakatan2/>
+            <topik_kesepakatan2/>
+            <kesepakatan_other2/>
+            <keluarga_bahagia/>
+            <alasan_keluarga/>
+            <waktu_keluarga/>
+            <topik_keluarga/>
+            <keluarga_other/>
+            <hubungan/>
+            <alasan_hubungan/>
+            <waktu_hubungan/>
+            <topik_hubungan/>
+            <hubungan_other/>
+            <emosi/>
+            <alasan_emosi/>
+            <waktu_emosi/>
+            <topik_emosi/>
+            <emosi_other/>
+            <hadapi_emosi/>
+            <alasan_hadapi_emosi/>
+            <waktu_hadapi_emosi/>
+            <topik_hadapi_emosi/>
+            <aktif_hadapi_emosi openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <emosi_lain_other/>
             <meta>
                 <instanceID/>
             </meta>
-        </Parana>
+        </parana_sesi2>
     </instance>
 </model>

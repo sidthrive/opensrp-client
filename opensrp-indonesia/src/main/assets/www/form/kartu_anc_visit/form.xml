@@ -91,7 +91,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/anc_date:hint">Diisi dengan tanggal periksa Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/anc_date:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kunjungan_anc_split_anc_visit_gen/anc_date" data-required="true()" data-type-xml="date"/>
+        <input type="date" name="/kunjungan_anc_split_anc_visit_gen/anc_date" required="required"  data-type-xml="date"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note non-select ">
@@ -124,7 +124,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/anc_ke:hint">Diisi dengan K1 atau K2 sampai dengan K4</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/anc_ke:hint">Fill in K1, K2, K3 or K4</span>
-        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/anc_ke" data-required="true()" data-type-xml="int"/>
+        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/anc_ke" required="required"  data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note non-select ">
@@ -247,7 +247,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:hint">Menunjukkan berat badan Ibu pada saat Kunjungan ANC (Kg)</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:hint">Indicating mother's weight on ANC check-up (kg)</span>
-        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/bb_kg" data-required="true()" data-constraint=".&gt;0 and .&lt;200" data-type-xml="decimal" step="any"/>
+        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/bb_kg" required="required"  data-constraint=".&gt;0 and .&lt;200" data-type-xml="decimal" step="any"/>
         <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:jr:constraintMsg">Nilai yang dimasukkan tidak memenuhi syarat, mohon periksa kembali</span>
         <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:jr:constraintMsg">The entered value doesn't meet the criteria, please check it again</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
@@ -352,12 +352,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" value="masuk" data-required="true()" data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" value="masuk" required="required"  data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap/masuk:label">Masuk (M)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap/masuk:label">Fetus head enters pelvic inlet</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" value="belum_masuk" data-required="true()" data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" data-name="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap" value="belum_masuk" required="required"  data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap/belum_masuk:label">Belum Masuk (BM)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/kepala_terhadap_janin_pap/belum_masuk:label">Fetus head doesn't enter pelvic inlet</span>
                 </label>
@@ -451,7 +451,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt:hint">Menunjukkan status imunisasi TT yang diberikan kepada Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt:hint">Indicating status of TT immunization that mother has received</span>
-        <select name="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt" data-name="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt" data-required="true()" data-type-xml="select1">
+        <select name="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt" data-name="/kunjungan_anc_split_anc_visit_gen/status_imunisasi_tt" required="required"  data-type-xml="select1">
             <option value="">...</option>
             <option value="tt_ke_0">TT Ke 0 (T0)</option>
             <option value="tt_ke_1">TT ke 1 (T1)</option>

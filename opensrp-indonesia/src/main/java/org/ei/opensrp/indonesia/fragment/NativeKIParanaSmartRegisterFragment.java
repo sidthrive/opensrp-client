@@ -349,7 +349,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
 //
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " isClosed !='true' and type = 'anc' ";
+                        mainCondition = " isClosed !='true' ";
                         return null;
                     }
 
@@ -397,7 +397,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
 //
                         filters = cs.toString();
                         joinTable = "";
-                        mainCondition = " isClosed !='true' and type = 'anc' ";
+                        mainCondition = " isClosed !='true'  ";
                         return null;
                     }
 

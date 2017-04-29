@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <Parana encounter_type="Parana" id="parana" version="201704250244">
+        <parana_sesi1 encounter_type="Parana Sesi 1" id="parana_sesi1_1" version="201704290128">
             <formhub>
                 <uuid/>
             </formhub>
@@ -18,13 +18,36 @@
             <generated_note_name_14/>
             <existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
             <desa openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
-            <lokasi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="cityVillage"/>
-            <tanggal_sesi openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <parana_status openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <jumlah_peserta openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <tanggal_sesi1 openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <lokasi1/>
+            <kesepakatan1/>
+            <alasan_kesepakatan1/>
+            <waktu_kesepakatan1/>
+            <topik_kesepakatan1/>
+            <kesepakatan_other1/>
+            <praktek_pengasuhan/>
+            <alasan_praktek/>
+            <waktu_praktek/>
+            <topik_praktek/>
+            <praktek_other/>
+            <hambatan/>
+            <alasan_hambatan/>
+            <waktu_hambatan/>
+            <topik_hambatan/>
+            <hambatan_other/>
+            <stimulasi/>
+            <alasan_stimulasi/>
+            <waktu_stimulasi/>
+            <topik_stimulasi/>
+            <stimulasi_other/>
+            <kesimpulan1/>
+            <alasan_kesimpulan1/>
+            <waktu_kesimpulan1/>
+            <topik_kesimpulan1/>
+            <aktif_kesimpulan1 openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <meta>
                 <instanceID/>
             </meta>
-        </Parana>
+        </parana_sesi1>
     </instance>
 </model>

@@ -3,7 +3,7 @@
   "form": {
     "bind_type": "kartu_ibu",
     "ec_bind_type": "ec_kartu_ibu",
-    "default_bind_path": "/model/instance/Parana/",
+    "default_bind_path": "/model/instance/parana_sesi2/",
     "fields": [
       {
         "name": "id",
@@ -11,45 +11,148 @@
       },
       {
         "name": "start",
-        "bind": "/model/instance/Parana/start"
+        "bind": "/model/instance/parana_sesi2/start"
       },
       {
         "name": "end",
-        "bind": "/model/instance/Parana/end"
+        "bind": "/model/instance/parana_sesi2/end"
       },
       {
         "name": "cityVillage",
-        "bind": "/model/instance/Parana/Village",
+        "bind": "/model/instance/parana_sesi2/Village",
         "shouldLoadValue": true
       },
       {
         "name": "existing_location",
-        "bind": "/model/instance/Parana/existing_location",
+        "bind": "/model/instance/parana_sesi2/existing_location",
         "shouldLoadValue": true
       },
       {
         "name": "lokasi2",
-        "bind": "/model/instance/Parana/lokasi"
-      },
-      {
-        "name": "jumlahPeserta2",
-        "bind": "/model/instance/Parana/jumlah_peserta"
+        "bind": "/model/instance/parana_sesi2/lokasi2"
       },
       {
         "name": "tanggal_sesi2",
-        "bind": "/model/instance/Parana/tanggal_sesi"
+        "bind": "/model/instance/parana_sesi2/tanggal_sesi2"
       },
       {
-        "name": "paranaStatus2",
-        "bind": "/model/instance/Parana/parana_status"
+        "name": "kesepakatan2",
+        "bind": "/model/instance/parana_sesi2/kesepakatan2"
+      },
+
+
+      {
+        "name": "alasan_kesepakatan2",
+        "bind": "/model/instance/parana_sesi2/alasan_kesepakatan2"
+      },
+      {
+        "name": "waktu_kesepakatan2",
+        "bind": "/model/instance/parana_sesi2/waktu_kesepakatan2"
+      },
+      {
+        "name": "topik_kesepakatan2",
+        "bind": "/model/instance/parana_sesi2/topik_kesepakatan2"
+      },
+      {
+        "name": "kesepakatan_other2",
+        "bind": "/model/instance/parana_sesi2/kesepakatan_other2"
+      },
+
+
+      {
+        "name": "keluarga_bahagia",
+        "bind": "/model/instance/parana_sesi2/keluarga_bahagia"
+      },
+      {
+        "name": "alasan_keluarga",
+        "bind": "/model/instance/parana_sesi2/alasan_keluarga"
+      },
+      {
+        "name": "waktu_keluarga",
+        "bind": "/model/instance/parana_sesi2/waktu_keluarga"
+      },
+      {
+        "name": "topik_keluarga",
+        "bind": "/model/instance/parana_sesi2/topik_keluarga"
+      },
+      {
+        "name": "keluarga_other",
+        "bind": "/model/instance/parana_sesi2/keluarga_other"
+      },
+
+
+
+      {
+        "name": "hubungan",
+        "bind": "/model/instance/parana_sesi2/hubungan"
+      },
+      {
+        "name": "alasan_hubungan",
+        "bind": "/model/instance/parana_sesi2/alasan_hubungan"
+      },
+      {
+        "name": "waktu_hubungan",
+        "bind": "/model/instance/parana_sesi2/waktu_hubungan"
+      },
+      {
+        "name": "topik_hubungan",
+        "bind": "/model/instance/parana_sesi2/topik_hubungan"
+      },
+      {
+        "name": "hubungan_other",
+        "bind": "/model/instance/parana_sesi2/hubungan_other"
+      },
+
+
+      {
+        "name": "emosi",
+        "bind": "/model/instance/parana_sesi2/emosi"
+      },
+      {
+        "name": "alasan_emosi",
+        "bind": "/model/instance/parana_sesi2/alasan_emosi"
+      },
+      {
+        "name": "waktu_emosi",
+        "bind": "/model/instance/parana_sesi2/waktu_emosi"
+      },
+      {
+        "name": "topik_emosi",
+        "bind": "/model/instance/parana_sesi2/topik_emosi"
+      },
+      {
+        "name": "emosi_other",
+        "bind": "/model/instance/parana_sesi2/emosi_other"
+      },
+
+
+      {
+        "name": "hadapi_emosi",
+        "bind": "/model/instance/parana_sesi2/hadapi_emosi"
+      },
+      {
+        "name": "alasan_hadapi_emosi",
+        "bind": "/model/instance/parana_sesi2/alasan_hadapi_emosi"
+      },
+      {
+        "name": "waktu_hadapi_emosi",
+        "bind": "/model/instance/parana_sesi2/waktu_hadapi_emosi"
+      },
+      {
+        "name": "topik_hadapi_emosi",
+        "bind": "/model/instance/parana_sesi2/topik_hadapi_emosi"
+      },
+      {
+        "name": "aktif_sesi2",
+        "bind": "/model/instance/parana_sesi2/aktif_hadapi_emosi"
       },
       {
         "name": "today",
-        "bind": "/model/instance/Parana/today"
+        "bind": "/model/instance/parana_sesi2/today"
       },
       {
         "name": "registrationDate",
-        "bind": "/model/instance/Parana/reg_date"
+        "bind": "/model/instance/parana_sesi2/reg_date"
       }
     ]
   }

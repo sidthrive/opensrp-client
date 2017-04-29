@@ -83,26 +83,44 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.mother_name = (TextView) convertView.findViewById(R.id.mother_name);
             viewHolder.village_name = (TextView) convertView.findViewById(R.id.txt_village_name);
             viewHolder.childs_age = (TextView) convertView.findViewById(R.id.child_age);
-            viewHolder.no_ibu = (TextView) convertView.findViewById(R.id.txt_ibu_ki_no);
+            // viewHolder.no_ibu = (TextView) convertView.findViewById(R.id.txt_ibu_ki_no);
             // viewHolder.unique_id = (TextView)convertView.findViewById(R.id.unique_id);
 
             viewHolder.hp_badge = (ImageView) convertView.findViewById(R.id.img_hr_badge);
 
             //delivery documentation
-            viewHolder.anak_register_dob = (TextView) convertView.findViewById(R.id.anak_register_dob);
+            viewHolder.anak_register_dob = (TextView) convertView.findViewById(R.id.anak_register_dob);/*
             viewHolder.tempat_lahir = (TextView) convertView.findViewById(R.id.tempat_lahir);
             viewHolder.berat_lahir = (TextView) convertView.findViewById(R.id.berat_lahir);
-            viewHolder.tipe_lahir = (TextView) convertView.findViewById(R.id.tipe_lahir);
+            viewHolder.tipe_lahir = (TextView) convertView.findViewById(R.id.tipe_lahir);*/
             viewHolder.status_gizi = (TextView) convertView.findViewById(R.id.txt_status_gizi);
 
-            viewHolder.hb0_no = (ImageView) convertView.findViewById(R.id.icon_hb0_no);
-            viewHolder.hb0_yes = (ImageView) convertView.findViewById(R.id.icon_hb0_yes);
+            viewHolder.icon_salep_yes = (ImageView) convertView.findViewById(R.id.icon_salep_yes);
+            viewHolder.icon_salep_no = (ImageView) convertView.findViewById(R.id.icon_salep_no);
+
+            viewHolder.icon_imd_yes = (ImageView) convertView.findViewById(R.id.icon_imd_yes);
+            viewHolder.icon_imd_no = (ImageView) convertView.findViewById(R.id.icon_imd_no);
+
+
+
+
+            viewHolder.hb0_no = (ImageView) convertView.findViewById(R.id.icon_immuni_hb_no);
+            viewHolder.hb0_yes = (ImageView) convertView.findViewById(R.id.icon_immuni_hb_yes);
+            viewHolder.vitk_no = (ImageView) convertView.findViewById(R.id.icon_vit_k_no);
+            viewHolder.vitk_yes = (ImageView) convertView.findViewById(R.id.icon_vit_k_yes);
+            viewHolder.campak_no = (ImageView) convertView.findViewById(R.id.icon_campak_no);
+            viewHolder.campak_yes = (ImageView) convertView.findViewById(R.id.icon_campak_yes);
+            viewHolder.ivp_no = (ImageView) convertView.findViewById(R.id.icon_ivp_no);
+            viewHolder.ivp_yes = (ImageView) convertView.findViewById(R.id.icon_ivp_yes);
+
             viewHolder.pol1_no = (ImageView) convertView.findViewById(R.id.icon_pol1_no);
             viewHolder.pol1_yes = (ImageView) convertView.findViewById(R.id.icon_pol1_yes);
             viewHolder.pol2_no = (ImageView) convertView.findViewById(R.id.icon_pol2_no);
             viewHolder.pol2_yes = (ImageView) convertView.findViewById(R.id.icon_pol2_yes);
             viewHolder.pol3_no = (ImageView) convertView.findViewById(R.id.icon_pol3_no);
             viewHolder.pol3_yes = (ImageView) convertView.findViewById(R.id.icon_pol3_yes);
+            viewHolder.pol4_no = (ImageView) convertView.findViewById(R.id.icon_pol4_no);
+            viewHolder.pol4_yes = (ImageView) convertView.findViewById(R.id.icon_pol4_yes);
 
             viewHolder.berat_badan = (TextView) convertView.findViewById(R.id.txt_current_weight);
             viewHolder.tanggal_kunjungan_anc = (TextView) convertView.findViewById(R.id.txt_visit_date);
@@ -142,56 +160,30 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         }
         
         viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi")!=null?pc.getColumnmaps().get("namaBayi"):"Bayi");
-        viewHolder.no_ibu.setText(pc.getDetails().get("noBayi")!=null?pc.getDetails().get("noBayi"):"");
+//        viewHolder.no_ibu.setText(pc.getDetails().get("noBayi")!=null?pc.getDetails().get("noBayi"):"");
 
 
 
 
         //delivery documentation
-        viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null?pc.getColumnmaps().get("tanggalLahirAnak"):"");
       //  viewHolder.tempat_lahir.setText(humanize(pc.getDetails().get("tempatBersalin")!=null?pc.getDetails().get("tempatBersalin"):""));
-        viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir")!=null?pc.getDetails().get("beratLahir"):"");
+//        viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir")!=null?pc.getDetails().get("beratLahir"):"");
        // viewHolder.tipe_lahir.setText(pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):"");
 
 
         //immunization
-        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiHb07"))
-                || StringUtils.isNotBlank(pc.getDetails().get("HB0SaatLahirKurangdari5jam"))
-                || StringUtils.isNotBlank(pc.getDetails().get("HB0Rentang6Sampai48Jam"))
-                || StringUtils.isNotBlank(pc.getDetails().get("HB0Rentang2Sampai7Hari"))
-                ){
-            viewHolder.hb0_no.setVisibility(View.INVISIBLE);
-            viewHolder.hb0_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.hb0_no.setVisibility(View.VISIBLE);
-            viewHolder.hb0_yes.setVisibility(View.INVISIBLE);
-        }
+        checkVisibility(pc.getDetails().get("hb0"),null, viewHolder.hb0_no, viewHolder.hb0_yes);
+        checkVisibility(pc.getDetails().get("polio1"),pc.getDetails().get("bcg"), viewHolder.pol1_no, viewHolder.pol1_yes);
+        checkVisibility(pc.getDetails().get("dptHb1"),pc.getDetails().get("polio2"), viewHolder.pol2_no, viewHolder.pol2_yes);
+        checkVisibility(pc.getDetails().get("dptHb2"),pc.getDetails().get("polio3"), viewHolder.pol3_no, viewHolder.pol3_yes);
+        checkVisibility(pc.getDetails().get("dptHb3"),pc.getDetails().get("polio4"), viewHolder.pol4_no, viewHolder.pol4_yes);
+      //  checkVisibility(pc.getDetails().get("jenisPelayanan"),null, viewHolder.vitk_no, viewHolder.vitk_yes);
+        checkVisibility(pc.getDetails().get("campak"),null, viewHolder.campak_no, viewHolder.campak_yes);
+        checkVisibility(pc.getDetails().get("ipv"),null, viewHolder.ivp_no, viewHolder.ivp_yes);
 
-        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiBCGdanPolio1"))){
-            viewHolder.pol1_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol1_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol1_no.setVisibility(View.VISIBLE);
-            viewHolder.pol1_yes.setVisibility(View.INVISIBLE);
-        }
 
-        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB1Polio2"))){
-            viewHolder.pol2_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol2_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol2_no.setVisibility(View.VISIBLE);
-            viewHolder.pol2_yes.setVisibility(View.INVISIBLE);
-        }
 
-        if(StringUtils.isNotBlank(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3"))){
-            viewHolder.pol3_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol3_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol3_no.setVisibility(View.VISIBLE);
-            viewHolder.pol3_yes.setVisibility(View.INVISIBLE);
-        }
-
-        String berat = pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan"):"";
+       /* String berat = pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("beratBadanBayiSetiapKunjunganBayiPerbulan"):"";
         String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("tanggalKunjunganBayiPerbulan"):"";
         String tinggi = pc.getDetails().get("hasilPengukuranTinggiBayi")!=null?" "+pc.getDetails().get("hasilPengukuranTinggiBayi"):"";
         String status_gizi = pc.getDetails().get("statusGizi")!=null?pc.getDetails().get("statusGizi"):"";
@@ -199,7 +191,32 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         viewHolder.berat_badan.setText(context.getString(R.string.str_weight)+": "+berat);
         viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title)+" "+tanggal);
         viewHolder.tinggi.setText(context.getString(R.string.height)+" "+tinggi);
-        viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ status_gizi);
+        viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ status_gizi);*/
+
+        //child visit status
+        String berat = pc.getDetails().get("beratBayi")!=null?" "+pc.getDetails().get("beratBayi"):pc.getDetails().get("beratBadan")!=null?pc.getDetails().get("beratBadan"):"";
+        String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("tanggalKunjunganBayiPerbulan"):pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"";
+        String tinggi = pc.getDetails().get("panjangBayi")!=null?" "+pc.getDetails().get("panjangBayi"):pc.getDetails().get("tinggiBadan")!=null?pc.getDetails().get("tinggiBadan"):"";
+        String status_gizi = pc.getDetails().get("statusGizi")!=null?pc.getDetails().get("statusGizi"):"";
+        String gizi = status_gizi.equals("GB")?"Gizi Buruk":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
+        viewHolder.berat_badan.setText(context.getString(R.string.str_weight)+": "+berat);
+        viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title)+" "+tanggal);
+        viewHolder.tinggi.setText(context.getString(R.string.height)+" "+tinggi);
+        viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ gizi);
+
+
+       /* //child visit status
+        String berat = pc.getDetails().get("beratBayi")!=null?" "+pc.getDetails().get("beratBayi"):pc.getDetails().get("beratBadan")!=null?pc.getDetails().get("beratBadan"):"";
+        String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("tanggalKunjunganBayiPerbulan"):pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"";
+        String tinggi = pc.getDetails().get("panjangBayi")!=null?" "+pc.getDetails().get("panjangBayi"):pc.getDetails().get("tinggiBadan")!=null?pc.getDetails().get("tinggiBadan"):"";
+        String status_gizi = pc.getDetails().get("statusGizi")!=null?pc.getDetails().get("statusGizi"):"";
+        String gizi = status_gizi.equals("GB")?"Gizi Buruk":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
+        viewHolder.berat_badan.setText(context.getString(R.string.str_weight)+": "+berat);
+        viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title)+" "+tanggal);
+        viewHolder.tinggi.setText(context.getString(R.string.height)+" "+tinggi);
+        viewHolder.status_gizi.setText(context.getString(R.string.Nutrition_status)+" "+ gizi);*/
+
+
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
         CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
@@ -208,7 +225,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("ibuCaseId"));
         String tempat = ibuparent.getDetails().get("tempatBersalin")!=null?ibuparent.getDetails().get("tempatBersalin"):"";
 
-        viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
+//        viewHolder.tempat_lahir.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
 
         if(StringUtils.isNotBlank(ibuparent.getColumnmaps().get("kartuIbuId"))) {
             AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
@@ -216,7 +233,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             String namaayah = kiparent.getColumnmaps().get("namaSuami")!=null?kiparent.getColumnmaps().get("namaSuami"):"";
             String namaibu = kiparent.getColumnmaps().get("namalengkap")!=null?kiparent.getColumnmaps().get("namalengkap"):"";
             viewHolder.mother_name.setText(namaibu +", "+ namaayah);
-            viewHolder.village_name.setText(kiparent.getDetails().get("dusun")!=null?kiparent.getDetails().get("dusun"):"");
+            viewHolder.village_name.setText(kiparent.getDetails().get("desa")!=null?kiparent.getDetails().get("desa"):"");
 
         }
         else {
@@ -225,6 +242,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
             viewHolder.village_name.setText("");
             viewHolder.no_ibu.setText("");
         }
+        viewHolder.anak_register_dob.setText(pc.getDetails().get("beratLahir") != null ? pc.getDetails().get("beratLahir") : "");
 
         String childAge = childobject.getColumnmaps().get("tanggalLahirAnak")!=null?childobject.getColumnmaps().get("tanggalLahirAnak"):"-";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -241,16 +259,36 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
             int months = Months.monthsBetween(dates, dateNow).getMonths();
             viewHolder.childs_age.setText(months+ " "+context.getString(R.string.month));
+         //   viewHolder.anak_register_dob.setText(""+dates);
 
         }
         else{
             viewHolder.childs_age.setText("-");
         }
 
+        if(pc.getDetails().get("jenisPelayanan") != null) {
+            checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.icon_salep_no, viewHolder.icon_salep_yes);
+            checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.icon_imd_no, viewHolder.icon_imd_yes);
+            checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.vitk_no, viewHolder.vitk_yes);
+        }
         convertView.setLayoutParams(clientViewLayoutParams);
      //   return convertView;
     }
-   // CommonPersonObjectController householdelcocontroller;
+
+    private void checkContain1(String data,  ImageView icon_imd_no, ImageView icon_imd_yes) {
+        if(data.contains("First") || data.contains("salep") || data.contains("vit")){
+            icon_imd_no.setVisibility(View.INVISIBLE);
+            icon_imd_yes.setVisibility(View.VISIBLE);
+        }
+    }
+    private void checkContain2(String data,  ImageView icon_imd_no, ImageView icon_imd_yes) {
+        if(data.contains("salep") ){
+            icon_imd_no.setVisibility(View.INVISIBLE);
+            icon_imd_yes.setVisibility(View.VISIBLE);
+        }
+
+    }
+    // CommonPersonObjectController householdelcocontroller;
 
 
     //    @Override
@@ -263,7 +301,17 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
                                               FilterOption searchFilter, SortOption sortOption) {
         return getClients().applyFilter(villageFilter, serviceModeOption, searchFilter, sortOption);
     }
+    void checkVisibility(String immunization1,String immunization2, ImageView no, ImageView yes){
+        if(immunization1 != null || immunization2 != null){
+            no.setVisibility(View.INVISIBLE);
+            yes.setVisibility(View.VISIBLE);
+        }
+        else{
+            no.setVisibility(View.VISIBLE);
+            yes.setVisibility(View.INVISIBLE);
+        }
 
+    }
     @Override
     public void onServiceModeSelected(ServiceModeOption serviceModeOption) {
         // do nothing.
@@ -286,68 +334,43 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
     class ViewHolder {
 
-        TextView wife_name ;
-        TextView husband_name ;
         TextView village_name;
-        TextView wife_age;
         LinearLayout profilelayout;
         ImageView profilepic;
-        TextView gravida;
-        Button warnbutton;
         ImageButton follow_up;
-        TextView parity;
-        TextView number_of_abortus;
-        TextView number_of_alive;
         TextView no_ibu;
-        TextView unique_id;
-        TextView tanggal_bersalin;
-        TextView tempat_persalinan;
-        TextView dok_tipe;
-        TextView ki_lila_bb;
-        TextView beratbadan_tb;
-        TextView anc_penyakit_kronis;
-        TextView status_type;
-        TextView status_date;
-        TextView alert_status;
-        RelativeLayout status_layout;
-         TextView tanggal_kunjungan_anc;
-         TextView anc_number;
-         TextView kunjugan_ke;
-         ImageView hr_badge  ;
-         ImageView hp_badge;
-         ImageView hrpp_badge;
-         ImageView bpl_badge;
-         ImageView hrp_badge;
-        ImageView img_hrl_badge;
-
-
-         TextView komplikasi;
-         TextView kondisi_ibu;
-         TextView kondisi_anak_1;
-         TextView kondisi_anak_2;
-        TextView pnc_id;
-         TextView td_sistolik;
-         TextView td_diastolik;
-         TextView td_suhu;
-         TextView childs_age;
-         TextView mother_name;
+        TextView tanggal_kunjungan_anc;
+        ImageView hp_badge;
+        TextView childs_age;
+        TextView mother_name;
         TextView childs_name;
-         TextView anak_register_dob;
-         TextView tempat_lahir;
-         TextView berat_lahir;
-         TextView tipe_lahir;
-         ImageView hb0_no;
-         ImageView hb0_yes;
-         ImageView pol1_no;
-         ImageView pol1_yes;
-         ImageView pol2_no;
-         ImageView pol2_yes;
-         ImageView pol3_no;
-         ImageView pol3_yes;
-
-         TextView berat_badan;
-         TextView tinggi;
+        TextView anak_register_dob;
+        TextView tempat_lahir;
+        TextView berat_lahir;
+        TextView tipe_lahir;
+        ImageView hb0_no;
+        ImageView hb0_yes;
+        ImageView pol1_no;
+        ImageView pol1_yes;
+        ImageView pol2_no;
+        ImageView pol2_yes;
+        ImageView pol3_no;
+        ImageView pol3_yes;
+        ImageView pol4_no;
+        ImageView pol4_yes;
+        TextView berat_badan;
+        TextView tinggi;
         TextView status_gizi;
+        ImageView vitk_no;
+        ImageView vitk_yes;
+        ImageView campak_no;
+        ImageView campak_yes;
+        ImageView ivp_no;
+        ImageView ivp_yes;
+        public ImageView icon_imd_no;
+        public ImageView icon_imd_yes;
+        public ImageView icon_salep_yes ;
+        public ImageView icon_salep_no;
     }
 
 

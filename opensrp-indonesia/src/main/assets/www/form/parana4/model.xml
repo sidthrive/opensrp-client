@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <Parana encounter_type="Parana4" id="parana" version="201704250244">
+        <parana_sesi4 encounter_type="Parana Sesi 4" id="parana_sesi4_1" version="201704290242">
             <formhub>
                 <uuid/>
             </formhub>
@@ -18,13 +18,36 @@
             <generated_note_name_14/>
             <existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
             <desa openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
-            <lokasi openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="cityVillage"/>
-            <tanggal_sesi openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <parana_status openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <jumlah_peserta openmrs_entity="concept" openmrs_entity_id="160632AAAAAAAAAAAAAAAAAAAAAAAAAA" openmrs_entity_parent="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <tanggal_sesi4 openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <lokasi4/>
+            <kesepakatan4/>
+            <alasan_kesepakatan4/>
+            <waktu_kesepakatan4/>
+            <topik_kesepakatan4/>
+            <kesepakatan_other4/>
+            <makanan_hamil/>
+            <alasan_makanan_hamil/>
+            <waktu_makanan_hamil/>
+            <topik_makanan_hamil/>
+            <makanan_hamil_other/>
+            <makanan_anak/>
+            <alasan_makanan_anak/>
+            <waktu_makanan_anak/>
+            <topik_makanan_anak/>
+            <makanan_anak_other/>
+            <cuci_tangan/>
+            <alasan_cuci_tangan/>
+            <waktu_cuci_tangan/>
+            <topik_cuci_tangan/>
+            <cuci_tangan_other/>
+            <cuci_tangan_penting/>
+            <alasan_cuci_tangan_penting/>
+            <waktu_cuci_tangan_penting/>
+            <topik_cuci_tangan_penting/>
+            <aktif_sesi4 openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <meta>
                 <instanceID/>
             </meta>
-        </Parana>
+        </parana_sesi4>
     </instance>
 </model>

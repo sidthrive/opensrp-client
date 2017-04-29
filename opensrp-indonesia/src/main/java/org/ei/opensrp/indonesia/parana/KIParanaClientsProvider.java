@@ -37,6 +37,7 @@ import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -87,7 +88,9 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.unique_id = (TextView) convertView.findViewById(R.id.unique_id);
 
             viewHolder.mmn_date = (TextView) convertView.findViewById(R.id.lbl_tgl);
-            viewHolder.txt_total = (TextView) convertView.findViewById(R.id.txt_total);
+            viewHolder.txt_total = (TextView) convertView.findViewById(R.id.lbl_total);
+
+            viewHolder.status = (TextView) convertView.findViewById(R.id.txt_total);
 
             viewHolder.hr_badge = (ImageView) convertView.findViewById(R.id.img_hr_badge);
             viewHolder.img_hrl_badge = (ImageView) convertView.findViewById(R.id.img_hrl_badge);
@@ -135,16 +138,25 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
 
         AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
         //ibu.id
-        if(pc.getDetails().get("ibu.id") != null) {
+        if(pc.getColumnmaps().get("ibu.id") != null) {
             CommonPersonObject kiobject = kiRepository.findByCaseID(pc.getColumnmaps().get("ibu.id"));
-            viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("anc_date") != null ? kiobject.getColumnmaps().get("anc_date") : "");
-            viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? kiobject.getDetails().get("jumlahMmn") : "");
+            if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("false")) {
+                viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
+                viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : "+kiobject.getDetails().get("jumlahMmn") : "");
+                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Active":"");
+            }
+            else if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("true")) {
+                viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
+                viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : "+kiobject.getDetails().get("jumlahMmn") : "");
+                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Close":"");
+            }
+
         }
+
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("namaSuami")!=null?pc.getColumnmaps().get("namaSuami"):"");
         viewHolder.village_name.setText(pc.getDetails().get("dusun")!=null?pc.getDetails().get("dusun"):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("umur")!=null?pc.getColumnmaps().get("umur"):"");
-
 
         viewHolder.tgl1.setText("");
         viewHolder.tgl2.setText("");
@@ -155,10 +167,10 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.sesi3.setVisibility(View.INVISIBLE);
         viewHolder.sesi4.setVisibility(View.INVISIBLE);
 
-        Status_parana(pc.getDetails().get("paranaStatus1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1);
-        Status_parana(pc.getDetails().get("paranaStatus2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2);
-        Status_parana(pc.getDetails().get("paranaStatus3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3);
-        Status_parana(pc.getDetails().get("paranaStatus4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4);
+        Status_parana(pc.getDetails().get("aktif_sesi1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1);
+        Status_parana(pc.getDetails().get("aktif_sesi2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2);
+        Status_parana(pc.getDetails().get("aktif_sesi3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3);
+        Status_parana(pc.getDetails().get("aktif_sesi4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4);
 
 
         viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.status_bar_text_almost_white));
@@ -226,6 +238,9 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         else{
 //            viewHolder.edd_due.setText("-");
         }
+
+
+
 
         convertView.setLayoutParams(clientViewLayoutParams);
         //   return convertView;
@@ -331,6 +346,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         public LinearLayout parana3;
 
         public LinearLayout parana4;
+        public TextView status;
     }
 
 

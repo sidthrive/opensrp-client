@@ -1,91 +1,440 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="parana">\n
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="parana_sesi2_1">\n
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 dir="auto" id="form-title">Parana</h3>
+    <h3 dir="auto" id="form-title">Parana Sesi 2</h3>
     <select id="form-languages" data-default-lang="Bahasa">
         <option value="Bahasa" data-dir="ltr">Bahasa</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
     <label class="question note non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/generated_note_name_13:label">Desa :
-            <span class="or-output" data-value=" /Parana/Village "></span>
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/generated_note_name_13:label">Desa :
+            <span class="or-output" data-value=" /parana_sesi2/Village "></span>
         </span>
-        <span lang="en" class="question-label " data-itext-id="/Parana/generated_note_name_13:label">-</span>
-        <input type="text" name="/Parana/generated_note_name_13" data-type-xml="string" readonly="readonly"/>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/generated_note_name_13:label">-</span>
+        <input type="text" name="/parana_sesi2/generated_note_name_13" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question note non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/generated_note_name_14:label">Dusun :
-            <span class="or-output" data-value=" /Parana/Sub-village "></span>
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/generated_note_name_14:label">Dusun :
+            <span class="or-output" data-value=" /parana_sesi2/Sub-village "></span>
         </span>
-        <span lang="en" class="question-label " data-itext-id="/Parana/generated_note_name_14:label">-</span>
-        <input type="text" name="/Parana/generated_note_name_14" data-type-xml="string" readonly="readonly"/>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/generated_note_name_14:label">-</span>
+        <input type="text" name="/parana_sesi2/generated_note_name_14" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/lokasi:label">Lokasi</span>
-        <span lang="en" class="question-label " data-itext-id="/Parana/lokasi:label">Location :</span>
-        <input type="text" name="/Parana/lokasi" data-type-xml="string"/>
-    </label>
-    <label class="question non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/tanggal_sesi:label">Tanggal :</span>
-        <span lang="en" class="question-label " data-itext-id="/Parana/tanggal_sesi:label">Date : ?</span>
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/tanggal_sesi2:label">Tanggal :</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/tanggal_sesi2:label">Date : ?</span>
         <span class="required">*</span>
-        <input type="date" name="/Parana/tanggal_sesi" data-required="true()" data-type-xml="date"/>
+        <input type="date" name="/parana_sesi2/tanggal_sesi2" required="required" data-type-xml="date"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/lokasi2:label">Lokasi Kelas KARANA</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/lokasi2:label">Location</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/lokasi2" required="required" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/parana_status:label">Apakah ibu Aktif dalam diskusi?</span>
-                <span lang="en" class="question-label " data-itext-id="/Parana/parana_status:label">Apakah ibu Aktif dalam diskusi?</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/kesepakatan2:label">Membuat kesepakatan bersama</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/kesepakatan2:label">-</span>
+                <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Parana/parana_status" data-name="/Parana/parana_status" value="Yes" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/Parana/parana_status/Yes:label">Ya</span>
-                    <span lang="en" class="option-label " data-itext-id="/Parana/parana_status/Yes:label">Yes</span>
+                    <input type="radio" name="/parana_sesi2/kesepakatan2" data-name="/parana_sesi2/kesepakatan2" value="ya" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/kesepakatan2/ya:label">Dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/kesepakatan2/ya:label">-</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Parana/parana_status" data-name="/Parana/parana_status" value="No" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/Parana/parana_status/No:label">Tidak</span>
-                    <span lang="en" class="option-label " data-itext-id="/Parana/parana_status/No:label">No</span>
+                    <input type="radio" name="/parana_sesi2/kesepakatan2" data-name="/parana_sesi2/kesepakatan2" value="tidak" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/kesepakatan2/tidak:label">Tidak dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/kesepakatan2/tidak:label">-</span>
                 </label>
             </div>
         </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/alasan_kesepakatan2:label">Jika tidak dilakukan, kenapa?</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/alasan_kesepakatan2:label">If not, why?</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/alasan_kesepakatan2" required="required" data-relevant="selected( /parana_sesi2/kesepakatan2 ,'tidak')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <label class="question non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/Parana/jumlah_peserta:label">Jumlah Peserta :</span>
-        <span lang="en" class="question-label " data-itext-id="/Parana/jumlah_peserta:label">-</span>
-        <input type="number" name="/Parana/jumlah_peserta" data-type-xml="int"/>
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/waktu_kesepakatan2:label">Waktu (menit)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/waktu_kesepakatan2:label">Time (minutes)</span>
+        <span class="required">*</span>
+        <input type="number" name="/parana_sesi2/waktu_kesepakatan2" required="required" data-type-xml="int"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/topik_kesepakatan2:label">Topik diskusi dominan</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/topik_kesepakatan2:label">Dominant topic of discussion</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_kesepakatan2" value="menghormati" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_kesepakatan2/menghormati:label">Saling menghormati</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_kesepakatan2/menghormati:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_kesepakatan2" value="Mendukung" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_kesepakatan2/Mendukung:label">Saling Mendukung</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_kesepakatan2/Mendukung:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_kesepakatan2" value="kerahasiaan" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_kesepakatan2/kerahasiaan:label">Saling menjaga kerahasiaan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_kesepakatan2/kerahasiaan:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_kesepakatan2" value="kesepakatan_lain" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_kesepakatan2/kesepakatan_lain:label">Lainnya (text)</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_kesepakatan2/kesepakatan_lain:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/kesepakatan_other2:label">Lainnya (text)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/kesepakatan_other2:label">Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/kesepakatan_other2" required="required" data-relevant="selected( /parana_sesi2/topik_kesepakatan2 ,'kesepakatan_lain')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/keluarga_bahagia:label">Aktivitas 1: Penyebab Mengapa Keluarga Bahagia dan Bersedih</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/keluarga_bahagia:label">-</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/keluarga_bahagia" data-name="/parana_sesi2/keluarga_bahagia" value="ya" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/keluarga_bahagia/ya:label">Dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/keluarga_bahagia/ya:label">-</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/keluarga_bahagia" data-name="/parana_sesi2/keluarga_bahagia" value="tidak" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/keluarga_bahagia/tidak:label">Tidak dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/keluarga_bahagia/tidak:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/alasan_keluarga:label">Jika tidak dilakukan, kenapa?</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/alasan_keluarga:label">If not, why?</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/alasan_keluarga" required="required" data-relevant="selected( /parana_sesi2/keluarga_bahagia ,'tidak')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/waktu_keluarga:label">Waktu (menit)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/waktu_keluarga:label">Time (minutes)</span>
+        <span class="required">*</span>
+        <input type="number" name="/parana_sesi2/waktu_keluarga" required="required" data-type-xml="int"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/topik_keluarga:label">Topik diskusi dominan</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/topik_keluarga:label">Dominant topic of discussion</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_keluarga" value="faktor_ayah" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_keluarga/faktor_ayah:label">Tidak terlibatnya ayah dalam keluarga</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_keluarga/faktor_ayah:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_keluarga" value="faktor_ibu" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_keluarga/faktor_ibu:label">Tidak terlibatnya ibu dalam keluarga</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_keluarga/faktor_ibu:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_keluarga" value="faktor_lain" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_keluarga/faktor_lain:label">Lainnya (text)</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_keluarga/faktor_lain:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/keluarga_other:label">Lainnya (text)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/keluarga_other:label">Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/keluarga_other" required="required" data-relevant="selected( /parana_sesi2/topik_keluarga ,'faktor_lain')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/hubungan:label">Aktivitas 2: Hubungan yang Penting Bagi Anak?</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/hubungan:label">-</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/hubungan" data-name="/parana_sesi2/hubungan" value="ya" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/hubungan/ya:label">Dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/hubungan/ya:label">-</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/hubungan" data-name="/parana_sesi2/hubungan" value="tidak" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/hubungan/tidak:label">Tidak dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/hubungan/tidak:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/alasan_hubungan:label">Jika tidak dilakukan, kenapa?</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/alasan_hubungan:label">If not, why?</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/alasan_hubungan" required="required" data-relevant="selected( /parana_sesi2/hubungan ,'tidak')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/waktu_hubungan:label">Waktu (menit)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/waktu_hubungan:label">Time (minutes)</span>
+        <span class="required">*</span>
+        <input type="number" name="/parana_sesi2/waktu_hubungan" required="required" data-type-xml="int"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/topik_hubungan:label">Topik diskusi dominan</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/topik_hubungan:label">Dominant topic of discussion</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="ibu_anak" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/ibu_anak:label">Hubungan ibu dan anak</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/ibu_anak:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="ayah_anak" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/ayah_anak:label">Hubungan ayah dan anak</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/ayah_anak:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="ibu_ayah" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/ibu_ayah:label">Hubungan ibu dan ayah</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/ibu_ayah:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="ibu_oranglain" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/ibu_oranglain:label">Hubungan ibu dan orang lain</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/ibu_oranglain:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="ibu_sendiri" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/ibu_sendiri:label">Hubungan antara ibu dan dirinya sendiri</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/ibu_sendiri:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_hubungan" value="hubungan_lain" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_hubungan/hubungan_lain:label">Lainnya (text)</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_hubungan/hubungan_lain:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/hubungan_other:label">Lainnya (text)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/hubungan_other:label">Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/hubungan_other" required="required" data-relevant="selected( /parana_sesi2/topik_hubungan ,'hubungan_lain')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/emosi:label">Aktivitas 3: Apa yang Ibu Rasakan (Yuk, kenali emosi ibu)</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/emosi:label">-</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/emosi" data-name="/parana_sesi2/emosi" value="ya" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/emosi/ya:label">Dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/emosi/ya:label">-</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/emosi" data-name="/parana_sesi2/emosi" value="tidak" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/emosi/tidak:label">Tidak dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/emosi/tidak:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/alasan_emosi:label">Jika tidak dilakukan, kenapa?</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/alasan_emosi:label">If not, why?</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/alasan_emosi" required="required" data-relevant="selected( /parana_sesi2/emosi ,'tidak')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/waktu_emosi:label">Waktu (menit)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/waktu_emosi:label">Time (minutes)</span>
+        <span class="required">*</span>
+        <input type="number" name="/parana_sesi2/waktu_emosi" required="required" data-type-xml="int"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/topik_emosi:label">Topik diskusi dominan</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/topik_emosi:label">Dominant topic of discussion</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_emosi" value="arti_emosi" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_emosi/arti_emosi:label">Emosi</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_emosi/arti_emosi:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_emosi" value="penyebab_emosi" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_emosi/penyebab_emosi:label">Penyebab emosi</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_emosi/penyebab_emosi:label">-</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/parana_sesi2/topik_emosi" value="emosi_lain" required="required" data-type-xml="select"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/topik_emosi/emosi_lain:label">Lainnya (text)</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/topik_emosi/emosi_lain:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/emosi_other:label">Lainnya (text)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/emosi_other:label">Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/emosi_other" required="required" data-relevant="selected( /parana_sesi2/topik_emosi ,'emosi_lain')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/hadapi_emosi:label">Aktivitas 3: Bagaimana Ibu menghadapi emosi?</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/hadapi_emosi:label">-</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/hadapi_emosi" data-name="/parana_sesi2/hadapi_emosi" value="ya" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/hadapi_emosi/ya:label">Dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/hadapi_emosi/ya:label">-</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/hadapi_emosi" data-name="/parana_sesi2/hadapi_emosi" value="tidak" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/hadapi_emosi/tidak:label">Tidak dilakukan</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/hadapi_emosi/tidak:label">-</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/alasan_hadapi_emosi:label">Jika tidak dilakukan, kenapa?</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/alasan_hadapi_emosi:label">If not, why?</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/alasan_hadapi_emosi" required="required" data-relevant="selected( /parana_sesi2/hadapi_emosi ,'tidak')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/waktu_hadapi_emosi:label">Waktu (menit)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/waktu_hadapi_emosi:label">Time (minutes)</span>
+        <span class="required">*</span>
+        <input type="number" name="/parana_sesi2/waktu_hadapi_emosi" required="required" data-type-xml="int"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/topik_hadapi_emosi:label">Topik diskusi dominan</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/topik_hadapi_emosi:label">Dominant topic of discussion</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/topik_hadapi_emosi" required="required" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select ">
+        <fieldset>
+            <legend>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/aktif_hadapi_emosi:label">Apakah ibu Aktif dalam diskusi?</span>
+                <span lang="en" class="question-label " data-itext-id="/parana_sesi2/aktif_hadapi_emosi:label">Apakah ibu Aktif dalam diskusi?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/aktif_hadapi_emosi" data-name="/parana_sesi2/aktif_hadapi_emosi" value="Yes" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/aktif_hadapi_emosi/Yes:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/aktif_hadapi_emosi/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/parana_sesi2/aktif_hadapi_emosi" data-name="/parana_sesi2/aktif_hadapi_emosi" value="No" required="required" data-type-xml="select1"/>
+                    <span lang="Bahasa" class="option-label active" data-itext-id="/parana_sesi2/aktif_hadapi_emosi/No:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/parana_sesi2/aktif_hadapi_emosi/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="Bahasa" class="question-label active" data-itext-id="/parana_sesi2/emosi_lain_other:label">Lainnya (text)</span>
+        <span lang="en" class="question-label " data-itext-id="/parana_sesi2/emosi_lain_other:label">Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/parana_sesi2/emosi_lain_other" required="required" data-relevant="selected( /parana_sesi2/topik_hadapi_emosi ,'lainnya')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label> \n
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+            <input type="hidden" name="/parana_sesi2/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+            <input type="hidden" name="/parana_sesi2/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/simserial" data-preload="property" data-preload-params="simserial" data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/simserial" data-preload="property" data-preload-params="simserial" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/phonenumber" data-preload="property" data-preload-params="phonenumber" data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/phonenumber" data-preload="property" data-preload-params="phonenumber" data-type-xml="string"/>
         </label>
     </fieldset>
     <fieldset id="or-calculated-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/existing_location" data-calculate=" /Parana/Village " data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/existing_location" data-calculate=" /parana_sesi2/Village " data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/desa" data-calculate=" /Parana/Village " data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/desa" data-calculate=" /parana_sesi2/Village " data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/Parana/formhub/uuid" data-calculate="'7d0de3949b304398a99c3d4b7123930f'" data-type-xml="string"/>
+            <input type="hidden" name="/parana_sesi2/formhub/uuid" data-calculate="'512b30d810394a57a5b9cde9e5e907d6'" data-type-xml="string"/>
         </label>
     </fieldset>
 </form>

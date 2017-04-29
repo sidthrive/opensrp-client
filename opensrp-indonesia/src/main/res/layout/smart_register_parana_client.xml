@@ -33,7 +33,7 @@
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal : "/>
+                android:text="Tgl : "/>
 
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -46,14 +46,15 @@
                 android:id="@+id/lbl_total"
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Total : "/>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/txt_total"
                 style="@style/CustomFontTextViewStyle.ListView.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/alert_urgent_red"
-                android:text="00"/>
+                android:text=""/>
         </LinearLayout>
 
     </LinearLayout>
