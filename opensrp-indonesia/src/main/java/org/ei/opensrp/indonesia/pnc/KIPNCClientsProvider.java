@@ -125,14 +125,14 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.follow_up.setOnClickListener(onClickListener);
         //set image
 
-        viewHolder.tanggal_bersalin.setText(humanize(pc.getDetails().get("tanggalKalaIAktif")!=null?pc.getDetails().get("tanggalKalaIAktif"):""));
+
         String tempat =pc.getDetails().get("tempatBersalin")!=null?pc.getDetails().get("tempatBersalin"):"";
         viewHolder.tempat_persalinan.setText(tempat.equals("podok_bersalin_desa")?"POLINDES":tempat.equals("pusat_kesehatan_masyarakat_pembantu")?"Puskesmas pembantu":tempat.equals("pusat_kesehatan_masyarakat")?"Puskesmas":humanize(tempat));
         viewHolder.dok_tipe.setText(humanize(pc.getDetails().get("caraPersalinanIbu")!=null?pc.getDetails().get("caraPersalinanIbu"):""));
         viewHolder.komplikasi.setText(humanize(pc.getDetails().get("komplikasi")!=null?pc.getDetails().get("komplikasi"):""));
 
 
-        String date = pc.getDetails().get("referenceDate")!=null?pc.getDetails().get("referenceDate"):"";
+        String date = pc.getDetails().get("PNCDate")!=null?pc.getDetails().get("PNCDate"):"";
         String vit_a = pc.getDetails().get("pelayananfe")!=null?pc.getDetails().get("pelayananfe"):"";
         viewHolder.tanggal_kunjungan.setText(context.getString(R.string.str_pnc_delivery_date) +" "+ date);
 
@@ -148,6 +148,13 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
         final CommonPersonObject ibuparent = iburep.findByCaseID(kiobject.getColumnmaps().get("kartuIbuId"));
         viewHolder.td_sistolik.setText(humanize(ibuparent.getDetails().get("tandaVitalTDSistolik")!=null?ibuparent.getDetails().get("tandaVitalTDSistolik"):""));
         viewHolder.td_diastolik.setText(humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik")!=null?ibuparent.getDetails().get("tandaVitalTDDiastolik"):""));
+
+        if(pc.getDetails().get("childId") != null) {
+            AllCommonsRepository anak = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
+            final CommonPersonObject anakid = anak.findByCaseID(pc.getDetails().get("childId"));
+            viewHolder.tanggal_bersalin.setText(humanize(pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):""));
+
+        }
 
         final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
         if (ibuparent.getDetails().get("profilepic") != null) {

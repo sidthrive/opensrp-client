@@ -9,6 +9,11 @@
             <deviceid/>
             <simserial/>
             <phonenumber/>
+            <Province/>
+            <District/>
+            <Sub-district/>
+            <Village/>
+            <Sub-village/>
             <Kabupaten/>
             <Kecamatan/>
             <Desa/>

@@ -29,6 +29,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "Keterangan_k1k4Who",
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4_who",
+        "shouldLoadValue": true
+      },
+      {
         "name": "referenceDate",
         "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/ref_date",
         "shouldLoadValue": true
@@ -55,7 +60,7 @@
       },
       {
         "name": "kunjunganKe",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/Kunjungan_ke",
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/kunjungan_ke",
         "shouldLoadValue": true
       },
       {
@@ -159,8 +164,8 @@
         "shouldLoadValue": true
       },
       {
-        "name": "pemberianMmn",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/pemberianmmn",
+        "name": "pelayananFe",
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/jumlah_fe",
         "shouldLoadValue": true
       },
       {
@@ -238,18 +243,15 @@
       },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/today",
-        "shouldLoadValue": true
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/today"
       },
       {
         "name": "registrationDate",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/reg_date",
-        "shouldLoadValue": true
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/reg_date"
       },
       {
         "name": "hiddenAncKe",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/hidden_anc_ke",
-        "shouldLoadValue": true
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/hidden_anc_ke"
       }
     ]
   }

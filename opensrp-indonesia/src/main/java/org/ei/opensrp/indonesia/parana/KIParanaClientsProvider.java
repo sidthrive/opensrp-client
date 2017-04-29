@@ -148,7 +148,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             else if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("true")) {
                 viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
                 viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : "+kiobject.getDetails().get("jumlahMmn") : "");
-                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Close":"");
+                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Closed":"");
             }
 
         }
