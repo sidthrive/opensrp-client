@@ -23,8 +23,8 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/Parana_invitation/invitation:label">Apakah ibu diundang untuk mengikuti program Parana?</span>
-                <span lang="en" class="question-label " data-itext-id="/Parana_invitation/invitation:label">Is mother invited to join Parana program?</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/Parana_invitation/invitation:label">Apakah setuju untuk mengikuti program Karana?</span>
+                <span lang="en" class="question-label " datar-itext-id="/Parana_invitation/invitation:label">Is mother invited to join Parana program?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">

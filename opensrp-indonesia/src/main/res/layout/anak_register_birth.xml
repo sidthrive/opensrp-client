@@ -82,9 +82,36 @@
         android:layout_below="@+id/is_salep"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:text="Menyusui Dini" />
+        android:text="IMD" />
     <!--           -->
+    <ImageView
+        android:id="@+id/icon_vit_k_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/is_imd"
+        android:src="@drawable/ic_yes_small"
+        android:visibility="gone"/>
 
+    <ImageView
+        android:id="@+id/icon_vit_k_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/is_imd"
+        android:src="@drawable/ic_no_small"
+        />
+
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/is_vit_k"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/is_imd"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:text=" Vit K" />
     <!--           -->
 
 </RelativeLayout>

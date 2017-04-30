@@ -132,26 +132,7 @@
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/generated_note_name_38:label">-</span>
         <input type="text" name="/kunjungan_anc_split_anc_visit_gen/generated_note_name_38" data-type-xml="string" readonly="readonly"/>
     </label>
-    <fieldset class="question simple-select ">
-        <fieldset>
-            <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4:label">Keterangan K1/K4?</span>
-                <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4:label">-</span>
-            </legend>
-            <div class="option-wrapper">
-                <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4" data-name="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4" value="Standart" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4/Standart:label">Standar</span>
-                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4/Standart:label">-</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4" data-name="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4" value="Akses" data-type-xml="select1"/>
-                    <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4/Akses:label">Akses</span>
-                    <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/Keterangan_k1k4/Akses:label">-</span>
-                </label>
-            </div>
-        </fieldset>
-    </fieldset>
+
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
@@ -244,10 +225,10 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:label">BB (Kg)</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:label">Weight of mother</span>
-        <span class="required">*</span>
+
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:hint">Menunjukkan berat badan Ibu pada saat Kunjungan ANC (Kg)</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:hint">Indicating mother's weight on ANC check-up (kg)</span>
-        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/bb_kg" required="required"  data-constraint=".&gt;0 and .&lt;200" data-type-xml="decimal" step="any"/>
+        <input type="number" name="/kunjungan_anc_split_anc_visit_gen/bb_kg"  data-constraint=".&gt;0 and .&lt;200" data-type-xml="decimal" step="any"/>
         <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:jr:constraintMsg">Nilai yang dimasukkan tidak memenuhi syarat, mohon periksa kembali</span>
         <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_anc_split_anc_visit_gen/bb_kg:jr:constraintMsg">The entered value doesn't meet the criteria, please check it again</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
@@ -411,12 +392,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" data-name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" value="tunggal" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" data-name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" value="tunggal" data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jumlah_janin/tunggal:label">Tunggal (T)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/jumlah_janin/tunggal:label">Single</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" data-name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" value="ganda" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" data-name="/kunjungan_anc_split_anc_visit_gen/jumlah_janin" value="ganda" data-relevant=" /kunjungan_anc_split_anc_visit_gen/usia_klinis &gt;=20" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jumlah_janin/ganda:label">Ganda (G)</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/jumlah_janin/ganda:label">Double</span>
                 </label>

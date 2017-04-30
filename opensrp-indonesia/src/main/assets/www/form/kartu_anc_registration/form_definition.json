@@ -18,6 +18,10 @@
         "bind": "/model/instance/anc_registration/Lokasi_periksa"
       },
       {
+        "name": "pptest",
+        "bind": "/model/instance/anc_registration/pptest"
+      },
+      {
         "name": "Village",
         "bind": "/model/instance/anc_registration/Village",
         "shouldLoadValue": true

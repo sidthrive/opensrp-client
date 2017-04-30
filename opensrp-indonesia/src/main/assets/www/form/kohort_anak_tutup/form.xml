@@ -67,6 +67,19 @@
                         Child's death
                     </span>
                 </label>
+                <label class="">
+                    <input name="/penutupan_anak_reviewed/close_reason" data-name="/penutupan_anak_reviewed/close_reason"
+                        data-type-xml="select1" required="required"
+                        type="radio" value="wrong_entry" />
+                    <span class="option-label active" data-itext-id="/penutupan_anak_reviewed/close_reason/wrong_entry:label"
+                        lang="Bahasa">
+                        Kesalahan Entry
+                    </span>
+                    <span class="option-label " data-itext-id="/penutupan_anak_reviewed/close_reason/wrong_entry:label"
+                        lang="en">
+                        Wrong Entry
+                    </span>
+                </label>
             </div>
         </fieldset>
     </fieldset>

@@ -78,6 +78,10 @@ public class ParanaDetailActivity extends Activity {
         TextView dob = (TextView) findViewById(R.id.txt_dob);
         TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
 
+        TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
+        TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
+        TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
+
         TextView sesi1 = (TextView) findViewById(R.id.txt_sesi1);
         TextView sesi2 = (TextView) findViewById(R.id.txt_sesi2);
         TextView sesi3 = (TextView) findViewById(R.id.txt_sesi3);
@@ -132,7 +136,25 @@ public class ParanaDetailActivity extends Activity {
             txt_BBT.setText(berat);
             txt_status1s.setText(status_gizi);
         }
-        
+
+        AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
+
+        if(ancclient.getColumnmaps().get("ibu.id") != null) {
+            CommonPersonObject kiobject = kiRepository.findByCaseID(ancclient.getColumnmaps().get("ibu.id"));
+
+
+        String visit_date = kiobject.getColumnmaps().get("ancDate")!= null?kiobject.getColumnmaps().get("ancDate"):"";
+        String mmn = kiobject.getDetails().get("jumlahMmn")!= null?kiobject.getDetails().get("jumlahMmn"):"";
+        String tt = kiobject.getDetails().get("statusImunisasitt")!= null?kiobject.getDetails().get("statusImunisasitt").replace("tt_ke_",""):"";
+
+        risk1.setText(getResources().getString(R.string.date_visit_title)+" "+visit_date);
+
+        risk2.setText(getResources().getString(R.string.MMN)+" "+mmn);
+
+        risk3.setText(getResources().getString(R.string.tt_ke)+" "+tt);
+        }
+
+
 
     }
 

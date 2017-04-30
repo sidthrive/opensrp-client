@@ -58,6 +58,6 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
         activity.startActivity(new Intent(activity, NativeKIParanaSmartRegisterActivity.class));
     }
     public void startReports(){
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://dho-report.sid-indonesia.org")));
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://gen-report.sid-indonesia.org")));
     }
 }

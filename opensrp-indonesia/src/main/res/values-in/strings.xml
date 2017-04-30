@@ -482,8 +482,8 @@
     <string name="sesi1">Sesi 1</string>
     <string name="sesi2">Sesi 2</string>
     <string name="sesi3">Sesi 3</string>
-    <string name="parana_register_title_in_short">PARANA</string>
+    <string name="parana_register_title_in_short">KARANA</string>
     <string name="mmn_label">MMN :</string>
     <string name="tt_ke">TT :</string>
-    <string name="reconfirmChildName">Re-Confirm children name</string>
+    <string name="reconfirmChildName">Re-Confirm name</string>
 </resources>

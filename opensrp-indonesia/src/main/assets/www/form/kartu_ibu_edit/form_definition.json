@@ -10,7 +10,8 @@
       },
       {
         "name": "tanggalPeriksa",
-        "bind": "/model/instance/Kartu_ibu/tanggal_periksa"
+        "bind": "/model/instance/Kartu_ibu/tanggal_periksa",
+        "shouldLoadValue" : true
       },
       {
         "name": "lokasiPeriksa",

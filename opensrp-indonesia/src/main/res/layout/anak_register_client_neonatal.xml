@@ -34,41 +34,13 @@
         android:layout_marginLeft="25dp"
         android:text=" HB 0" />
 
-    <ImageView
-        android:id="@+id/icon_vit_k_yes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_immuni_hb"
-        android:src="@drawable/ic_yes_small"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/icon_vit_k_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_immuni_hb"
-        android:src="@drawable/ic_no_small"
-        />
-
-
-    <org.ei.opensrp.view.customControls.CustomFontTextView
-        android:id="@+id/is_vit_k"
-        style="@style/CustomFontTextViewStyle.ListView.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/is_immuni_hb"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:text=" Vit K" />
 
     <ImageView
         android:id="@+id/icon_pol1_yes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_vit_k"
+        android:layout_below="@+id/is_immuni_hb"
         android:src="@drawable/ic_yes_small"
         android:visibility="gone"/>
 
@@ -77,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_vit_k"
+        android:layout_below="@+id/is_immuni_hb"
         android:src="@drawable/ic_no_small"
         />
 
@@ -88,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_below="@+id/is_vit_k"
+        android:layout_below="@+id/is_immuni_hb"
         android:text=" BCG dan Polio 1" />
 
     <ImageView

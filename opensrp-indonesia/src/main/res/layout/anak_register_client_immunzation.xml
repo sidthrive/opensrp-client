@@ -59,39 +59,13 @@
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:text=" DPT/HB3/Polio 4" />
-    <ImageView
-        android:id="@+id/icon_campak_yes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_pol4"
-        android:src="@drawable/ic_yes_small"
-        android:visibility="gone"/>
-    <ImageView
-        android:id="@+id/icon_campak_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/is_pol4"
-        android:src="@drawable/ic_no_small"
-        />
-
-    <org.ei.opensrp.view.customControls.CustomFontTextView
-        android:id="@+id/iscampak"
-        style="@style/CustomFontTextViewStyle.ListView.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/is_pol4"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:text=" Campak" />
 
     <ImageView
         android:id="@+id/icon_ivp_yes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iscampak"
+        android:layout_below="@+id/is_pol4"
         android:src="@drawable/ic_yes_small"
         android:visibility="gone"/>
     <ImageView
@@ -99,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iscampak"
+        android:layout_below="@+id/is_pol4"
         android:src="@drawable/ic_no_small"
         />
 
@@ -108,9 +82,38 @@
         style="@style/CustomFontTextViewStyle.ListView.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iscampak"
+        android:layout_below="@+id/is_pol4"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:text=" Vaksinasi IPV" />
+
+    <ImageView
+        android:id="@+id/icon_campak_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/is_ivp"
+        android:src="@drawable/ic_yes_small"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/icon_campak_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/is_ivp"
+        android:src="@drawable/ic_no_small"
+        />
+
+    <org.ei.opensrp.view.customControls.CustomFontTextView
+        android:id="@+id/iscampak"
+        style="@style/CustomFontTextViewStyle.ListView.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/is_ivp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:text=" Campak" />
+
+
 
 </RelativeLayout>

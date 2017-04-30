@@ -266,11 +266,15 @@ public class ANCDetailActivity extends Activity {
         phone.setText("No HP: "+ (kiobject.getDetails().get("NomorTelponHp") != null ? kiobject.getDetails().get("NomorTelponHp") : "-"));
 
 
-        risk1.setText(getResources().getString(R.string.date_visit_title)+" "+kiobject.getColumnmaps().get("ancDate"));
+        String visit_date = kiobject.getColumnmaps().get("ancDate")!= null?kiobject.getColumnmaps().get("ancDate"):"";
+        String mmn = kiobject.getDetails().get("jumlahMmn")!= null?kiobject.getDetails().get("jumlahMmn"):"";
+        String tt = kiobject.getDetails().get("statusImunisasitt")!= null?kiobject.getDetails().get("statusImunisasitt").replace("tt_ke_",""):"";
 
-        risk2.setText(getResources().getString(R.string.MMN)+" "+kiobject.getDetails().get("jumlahMmn"));
+        risk1.setText(getResources().getString(R.string.date_visit_title)+" "+visit_date);
 
-        risk3.setText(getResources().getString(R.string.tt_ke)+" "+kiobject.getDetails().get("statusImunisasitt").replace("tt_ke_",""));
+        risk2.setText(getResources().getString(R.string.MMN)+" "+mmn);
+
+        risk3.setText(getResources().getString(R.string.tt_ke)+" "+tt);
 
 
         //risk
