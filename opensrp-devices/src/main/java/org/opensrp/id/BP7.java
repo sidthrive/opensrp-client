@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,6 +62,7 @@ public class BP7 extends Activity implements View.OnClickListener {
 //        });
 //
         Intent intent = getIntent();
+
         deviceMac = intent.getStringExtra("mac");
 
         initView();
@@ -92,10 +94,16 @@ public class BP7 extends Activity implements View.OnClickListener {
         disconnect_btn = (Button) findViewById(R.id.btn_disconnect);
         tv_return = (TextView) findViewById(R.id.tv_return);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 //        Add Color
-        mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//        Drawable ad = mProgressBar.getProgressDrawable();
+//        Log.e(TAG, "initView: "+ mProgressBar );
+//        Log.e(TAG, "initView: "+ ad );
+//        mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
 
+//        if (mProgressBar != null) {
+//            mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//        }
 
 //         Visibility
         startMeasure_btn.setVisibility(View.GONE);

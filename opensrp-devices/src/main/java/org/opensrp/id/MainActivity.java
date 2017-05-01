@@ -66,6 +66,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
+    long discoveryType = 67108864;
 
     private ListView listview_scan;
     private ListView listview_connected;
@@ -109,6 +110,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     Log.e(TAG, "idps:" + iHealthDevicesManager.getInstance().getDevicesIDPS(mac_connect));
                     list_ScanDevices.remove(hm_connect);
                     updateViewForScan();
+
+                    connectDevice();
+
                     break;
 
                 case HANDLER_DISCONNECT:
@@ -442,7 +446,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void startDiscovery() {
         Log.e(TAG, "startDiscovery: start" );
-        long discoveryType = 67108864;
+//        long discoveryType = 67108864;
 //        long discoveryType = 0;
 //        for (DeviceStruct struct : deviceStructList) {
 //            if (struct.isSelected) {
@@ -519,6 +523,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 String mac = hm.get("mac");
                 Intent intent = new Intent();
                 intent.putExtra("mac", mac);
+                Log.e(TAG, "onItemClick: "+position );
                 if (iHealthDevicesManager.TYPE_BP7.equals(type)) {
                     intent.setClass(MainActivity.this, BP7.class);
                     startActivity(intent);
@@ -545,5 +550,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //            tempRequest.deleteCharAt(tempRequest.length() - 1);
 //            ActivityCompat.requestPermissions(this, tempRequest.toString().split(","), REQUEST_PERMISSIONS);
 //        }
+    }
+
+    private void connectDevice(){
+        HashMap<String, String> hm = list_ConnectedDevices.get(0);
+        String type = hm.get("type");
+        String mac = hm.get("mac");
+        Intent intent = new Intent();
+        intent.putExtra("mac", mac);
+        if (iHealthDevicesManager.TYPE_BP7.equals(type)) {
+            intent.setClass(MainActivity.this, BP7.class);
+            startActivity(intent);
+
+        }
+
     }
 }

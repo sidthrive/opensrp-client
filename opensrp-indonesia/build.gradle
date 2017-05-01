@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs/bpm', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs/bpm')
     compile project(':opensrp-app')
     //    compile project(':opensrp-devices')
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
@@ -28,6 +28,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jjoe64:graphview:4.0.1'
     compile files('libs/FlurryAnalytics-6.0.0.jar')
+    compile project(':mylibrary')
 }
 
 android {
