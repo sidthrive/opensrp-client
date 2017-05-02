@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <parana_sesi1 encounter_type="Parana Sesi 1" id="parana_sesi1_1" version="201704290128">
+        <parana_sesi1 encounter_type="Parana Sesi 1" id="parana_sesi1_1" version="201705010624">
             <formhub>
                 <uuid/>
             </formhub>
@@ -20,31 +20,38 @@
             <desa openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
             <tanggal_sesi1 openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <lokasi1/>
+            <laporan1/>
             <kesepakatan1/>
             <alasan_kesepakatan1/>
             <waktu_kesepakatan1/>
             <topik_kesepakatan1/>
             <kesepakatan_other1/>
+            <catatan1_kesepakatan/>
             <praktek_pengasuhan/>
             <alasan_praktek/>
             <waktu_praktek/>
             <topik_praktek/>
             <praktek_other/>
+            <catatan1_praktek/>
             <hambatan/>
             <alasan_hambatan/>
             <waktu_hambatan/>
             <topik_hambatan/>
             <hambatan_other/>
+            <catatan1_hambatan/>
             <stimulasi/>
             <alasan_stimulasi/>
             <waktu_stimulasi/>
             <topik_stimulasi/>
             <stimulasi_other/>
+            <catatan1_stimulasi/>
             <kesimpulan1/>
             <alasan_kesimpulan1/>
             <waktu_kesimpulan1/>
             <topik_kesimpulan1/>
+            <catatan1_kesimpulan/>
             <aktif_kesimpulan1 openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <end openmrs_entity="encounter" openmrs_entity_id="encounter_end"/>
             <meta>
                 <instanceID/>
             </meta>

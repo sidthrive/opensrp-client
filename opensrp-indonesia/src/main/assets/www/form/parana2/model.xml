@@ -1,6 +1,8 @@
 <model>
     <instance>
-        <parana_sesi2 encounter_type="Parana Sesi 2" id="parana_sesi2_1" version="201704290156">
+        <parana_sesi2
+            xmlns:jr="http://openrosa.org/javarosa"
+            xmlns:orx="http://openrosa.org/xforms" encounter_type="Parana Sesi 2" id="parana_sesi2_1" version="201705010756">
             <formhub>
                 <uuid/>
             </formhub>
@@ -20,32 +22,38 @@
             <desa openmrs_entity="person_address" openmrs_entity_id="cityVillage" openmrs_entity_parent="usual_residence"/>
             <tanggal_sesi2 openmrs_entity="concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <lokasi2/>
+            <laporan2/>
             <kesepakatan2/>
             <alasan_kesepakatan2/>
             <waktu_kesepakatan2/>
             <topik_kesepakatan2/>
             <kesepakatan_other2/>
+            <catatan2_kesepakatan/>
             <keluarga_bahagia/>
             <alasan_keluarga/>
             <waktu_keluarga/>
             <topik_keluarga/>
             <keluarga_other/>
+            <catatan2_keluarga/>
             <hubungan/>
             <alasan_hubungan/>
             <waktu_hubungan/>
             <topik_hubungan/>
             <hubungan_other/>
+            <catatan2_hubungan/>
             <emosi/>
             <alasan_emosi/>
             <waktu_emosi/>
             <topik_emosi/>
             <emosi_other/>
+            <catatan2_emosi/>
             <hadapi_emosi/>
             <alasan_hadapi_emosi/>
             <waktu_hadapi_emosi/>
             <topik_hadapi_emosi/>
+            <catatan2_hadapi_emosi/>
             <aktif_hadapi_emosi openmrs_entity="concept" openmrs_entity_id="160721AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-            <emosi_lain_other/>
+            <end openmrs_entity="encounter" openmrs_entity_id="encounter_end"/>
             <meta>
                 <instanceID/>
             </meta>

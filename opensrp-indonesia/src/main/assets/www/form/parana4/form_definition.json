@@ -145,7 +145,7 @@
       },
       {
         "name": "aktif_sesi4",
-        "bind": "/model/instance/parana_sesi4/aktif_sesi4"
+        "bind": "/model/instance/parana_sesi4/aktif_cuci_tangan_penting"
       },
 
       {
