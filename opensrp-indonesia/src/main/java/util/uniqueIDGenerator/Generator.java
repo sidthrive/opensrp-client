@@ -37,9 +37,18 @@ public class Generator {
     public static final int UNIQUE_ID_LIMIT = 5;
     public static final int UNIQUE_ID_LENGTH_REQUEST = 1;
 
-    public Generator(Context context, String username, String password){
+    /*public Generator(Context context, String username, String password){
         this.context=context;
         url = "http://202.169.244.198:8080/openmrs/module/idgen/exportIdentifiers.form?source=1"+
+                "&numberToGenerate="+Integer.toString(UNIQUE_ID_LENGTH_REQUEST)+
+                "&username="+username+
+                "&password="+password;
+    }*/
+    public Generator(Context context, String username, String password){
+        this.context=context;
+        String  DRISTHI_BASE_URL = context.configuration().dristhiBaseURL().replace("opensrp","openmrs");
+        url =   DRISTHI_BASE_URL+
+                "/module/idgen/exportIdentifiers.form?source=1"+
                 "&numberToGenerate="+Integer.toString(UNIQUE_ID_LENGTH_REQUEST)+
                 "&username="+username+
                 "&password="+password;
