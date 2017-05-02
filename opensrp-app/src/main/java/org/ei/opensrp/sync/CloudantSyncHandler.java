@@ -159,7 +159,7 @@ public class CloudantSyncHandler {
         } else {
             Log.e(LOG_TAG, "Push replication is not set");
             // If replicator is not set up, set a new replicator
-            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPushReplication();
+//            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPushReplication();
         }
     }
 
