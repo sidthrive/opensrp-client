@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceConstants;
+import org.ei.opensrp.indonesia.face.camera.utils.FaceRepository;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.json.JSONArray;
@@ -40,6 +43,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+
+import android.os.Handler;
+import android.os.Looper;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -473,34 +480,19 @@ public class Tools {
                 Log.e(TAG, "parseSaveVector: "+albumBuffer.length() );
                 editor.putString("albumArray", albumBuffer);
                 editor.apply();
-
-
             }
-
         }
-
-
     }
 
-
-    public void setVectorfromAPI() {
-
-        hash = retrieveHash(appContext.applicationContext());
-
-
-        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
-        String user = appContext.allSharedPreferences().fetchRegisteredANM();
-        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-
-
-        new Thread(new Runnable() {
+    private void process(final String api_url){
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
                 AsyncHttpClient client = new AsyncHttpClient();
 
                 RequestParams params = new RequestParams();
 
-//        Log.e(TAG, "setVectorfromAPI: "+ appContext.allSettings().fetchANMPassword() );
                 client.setBasicAuth(appContext.allSharedPreferences().fetchRegisteredANM(),
                         appContext.allSettings().fetchANMPassword());
 
@@ -543,10 +535,20 @@ public class Tools {
                     }
                 });
             }
-        }).start();
+        };
+        mainHandler.post(myRunnable);
+    }
+
+    public void setVectorfromAPI() {
+
+        hash = retrieveHash(appContext.applicationContext());
 
 
+        String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
+        String user = appContext.allSharedPreferences().fetchRegisteredANM();
+        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
 
+        process(api_url);
 
     }
 
