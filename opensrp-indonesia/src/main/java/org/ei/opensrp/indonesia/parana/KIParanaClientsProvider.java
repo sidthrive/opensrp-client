@@ -193,7 +193,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             Log.logInfo(""+days);
             //int months = Months.monthsBetween(dateNow, date).ge();
             if(days < 14) {
-                if(pc.getDetails().get("paranaStatus1") == null){
+                if(pc.getDetails().get("aktif_sesi1") == null){
                     viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
                 //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
@@ -204,32 +204,32 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
                 }
                         //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
             }*/ else if(days >=14 && days < 21){
-                if(pc.getDetails().get("paranaStatus1") == null){
+                if(pc.getDetails().get("aktif_sesi1") == null){
                     viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus2") == null){
+                else if(pc.getDetails().get("aktif_sesi2") == null){
                     viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
             }
             else if(days >=21 && days < 28){
-                if(pc.getDetails().get("paranaStatus2") == null) {
+                if(pc.getDetails().get("aktif_sesi2") == null) {
                     viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus3") == null) {
+                else if(pc.getDetails().get("aktif_sesi3") == null) {
                     viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
 
             }
             else if(days >=28 && days < 35){
-                if(pc.getDetails().get("paranaStatus3") == null) {
+                if(pc.getDetails().get("aktif_sesi3") == null) {
                     viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus4") == null) {
+                else if(pc.getDetails().get("aktif_sesi4") == null) {
                     viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
             }
             else if(days >=35){
-                if(pc.getDetails().get("paranaStatus4") == null) {
+                if(pc.getDetails().get("aktif_sesi4") == null) {
                     viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
             }
