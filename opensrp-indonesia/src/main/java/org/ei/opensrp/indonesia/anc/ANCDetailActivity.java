@@ -19,6 +19,7 @@ import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.opensrp.id.MainActivity;
 //import org.opensrp.bpm.MainBPM;
 //import org.opensrp.id.MainBPMActivity;
 
@@ -26,6 +27,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+//import example.com.mylibrary.MainBPMActivity;
+
+//import example.com.sidlibrary.MainBPMActivity;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
 import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
@@ -313,8 +318,8 @@ public class ANCDetailActivity extends Activity {
         public void onClick(View v) {
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
-//            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
-            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
+            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
             startActivity(intent);
         }
     };

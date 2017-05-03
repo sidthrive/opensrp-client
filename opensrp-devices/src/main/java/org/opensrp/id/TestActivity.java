@@ -76,16 +76,15 @@ public class TestActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_Connection_With_Scan:
-                getConnectionLock = false;
-                iHealthDevicesManager.getInstance().startDiscovery(iHealthDevicesManager.DISCOVERY_BP3L);
-                break;
-            case R.id.btn_Connection_Without_Scan:
-                myHandler.sendEmptyMessage(CONNECT_DEVICE);
-                break;
-            default:
-                break;
+        int i = v.getId();
+        if (i == R.id.btn_Connection_With_Scan) {
+            getConnectionLock = false;
+            iHealthDevicesManager.getInstance().startDiscovery(iHealthDevicesManager.DISCOVERY_BP3L);
+
+        } else if (i == R.id.btn_Connection_Without_Scan) {
+            myHandler.sendEmptyMessage(CONNECT_DEVICE);
+
+        } else {
         }
     }
 

@@ -156,7 +156,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
             msg.setData(bundle);
             myHandler.sendMessage(msg);
 
-            connectToDev(mac, deviceType);
+//            connectToDev(mac, deviceType);
 
         }
 
@@ -279,6 +279,10 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
                     String type = hm.get("type");
                     String mac = hm.get("mac");
                     Log.i(TAG, "mac = " + mac);
+
+                    Log.e(TAG, "mac = " + mac);
+                    Log.e(TAG, "uname = " + userName);
+                    Log.e(TAG, "type = " + type);
                     boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, type);
                     if (!req) {
                         Toast.makeText(BpmMainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
@@ -298,6 +302,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
 
             callbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
 
+            Log.e(TAG, "onCreate: "+ callbackId );
 
 //        checkPermissions();
             SharedPreferences mySharedPreferences = getSharedPreferences("preference", MODE_PRIVATE);

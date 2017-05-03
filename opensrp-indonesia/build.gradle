@@ -28,7 +28,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jjoe64:graphview:4.0.1'
     compile files('libs/FlurryAnalytics-6.0.0.jar')
-    compile project(':mylibrary')
+    //    compile project(':sidlibrary')
+    compile project(':opensrp-devices')
 }
 
 android {
@@ -70,6 +71,7 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
 }
 
 

@@ -578,6 +578,7 @@ public class Tools {
             // Save Hash
             saveHash(hash, context);
 
+            // Save to buffer
             saveAlbum(Arrays.toString(faceVector), context);
 
             String albumBufferArr = Arrays.toString(faceVector);
@@ -666,7 +667,11 @@ public class Tools {
                 if (profileImage.getFilevector() != null) {
 
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
+
+                    // First index value of Vector Body
                     vectorFace[0] = String.valueOf(i);
+
+//                    vectorFace[0] = String.valueOf((i%128) % 256 - 128);
 
                     albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
                     hash.put(profileImage.getEntityID(), String.valueOf(i));
@@ -675,11 +680,15 @@ public class Tools {
                     Log.e(TAG, "setVectorsBuffered: Profile Image Null");
                 }
                 i++;
+                if (i > 127) i = -128;
 
             }
 
             albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);
 
+            /**
+             * Save vector body to Buffered
+             */
             saveAlbum(Arrays.toString(albumBuffered), appContext.applicationContext());
             saveHash(hash, appContext.applicationContext());
 

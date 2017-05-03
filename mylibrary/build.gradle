@@ -21,6 +21,8 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -28,10 +30,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+
+    // Fix duplicate issue
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
 }
+
+//repositories {
+//    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 //    compile 'com.android.support:appcompat-v7:25.3.1'
+
+//    compile 'com.commonsware.cwac:sqlcipher-for-android:3.3.1'
+
+    androidTestCompile 'com.android.support:support-annotations:21.0.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
