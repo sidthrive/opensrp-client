@@ -466,29 +466,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View arg0) {
-        switch (arg0.getId()) {
-            case R.id.btn_discorvery:
-                startDiscovery();
-                break;
+        int i = arg0.getId();
+        if (i == R.id.btn_discorvery) {
+            startDiscovery();
 
-            case R.id.btn_stopdiscorvery:
-                iHealthDevicesManager.getInstance().stopDiscovery();
-                break;
+        } else if (i == R.id.btn_stopdiscorvery) {
+            iHealthDevicesManager.getInstance().stopDiscovery();
 
-            case R.id.btn_Certification:
-                iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
-                        clientSecret, callbackId);
+        } else if (i == R.id.btn_Certification) {
+            iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
+                    clientSecret, callbackId);
 //                iHealthDevicesManager.getInstance().sdkUserInAuthor(MainActivity.this, userName, clientId,
 //                        clientSecret, callbackId, Environment.getExternalStorageDirectory().getAbsolutePath() + "/tencent/QQfile_recv/idscertificate.p12", "ELPWfWdA");
-                break;
+
 
 //            case R.id.btn_GotoTest:
 //                Intent intentTest = new Intent();
 //                intentTest.setClass(MainActivity.this, TestActivity.class);
 //                startActivity(intentTest);
 //                break;
-            default:
-                break;
+        } else {
         }
     }
 

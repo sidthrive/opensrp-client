@@ -1,13 +1,13 @@
 rootProject.name = 'opensrp-app-parent'
 
-include ':opensrp-app', ':mylibrary', ':sidlibrary',
+include ':opensrp-app', ':mylibrary', ':sidlibrary', ':opensrp-devices',
         ':opensrp-drishti',
         ':opensrp-mcare',
         'opensrp-indonesia',
         ':opensrp-vaccinator',
         ':opensrp-gizi',
         ':opensrp-vaksinator',
-        ':opensrp-devices'
+        ':opensrp-deviceslib'
 /*
 include ':opensrp-app', ':opensrp-drishti', ':opensrp-gizi', 'opensrp-indonesia'
 */

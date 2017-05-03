@@ -320,123 +320,111 @@ public class BP7 extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View arg0) {
-        switch (arg0.getId()) {
-            case R.id.btn_getbattery:
+        int i1 = arg0.getId();
+        if (i1 == R.id.btn_getbattery) {
+            if (bp7Control != null) {
+                bp7Control.getBattery();
+            } else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_isOfflineMeasure) {
+            if (bp7Control != null)
+                bp7Control.isEnableOffline();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_enableOfflineMeasure) {
+            if (bp7Control != null)
+                bp7Control.enbleOffline();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_disableOfflineMeasure) {
+            if (bp7Control != null)
+                bp7Control.disableOffline();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_startMeasure) {
+            if (stopMeasured) {
+//                    startMeasure_btn.setEnabled(false);
+                startMeasure_btn.setText("STOP");
                 if (bp7Control != null) {
-                    bp7Control.getBattery();
+
+                    Intent i = new Intent(this, DeviceService.class);
+                    this.startService(i);
+
+                    bp7Control.startMeasure();
                 } else
                     Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
+                stopMeasured = false;
+            } else {
+                bp7Control.destroy();
+                stopMeasured = true;
+                startMeasure_btn.setEnabled(true);
+            }
 
-            case R.id.btn_isOfflineMeasure:
-                if (bp7Control != null)
-                    bp7Control.isEnableOffline();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
+        } else if (i1 == R.id.btn_conform_angle) {
+            if (bp7Control != null)
+                bp7Control.conformAngle();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
 
-            case R.id.btn_enableOfflineMeasure:
-                if (bp7Control != null)
-                    bp7Control.enbleOffline();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
+        } else if (i1 == R.id.btn_stopMeasure) {
+            if (bp7Control != null)
+                bp7Control.interruptMeasure();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
 
-            case R.id.btn_disableOfflineMeasure:
-                if (bp7Control != null)
-                    bp7Control.disableOffline();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
+        } else if (i1 == R.id.btn_getOfflineNum) {
+            if (bp7Control != null)
+                bp7Control.getOfflineNum();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
 
-            case R.id.btn_startMeasure:
-                if (stopMeasured) {
+        } else if (i1 == R.id.btn_getOfflineData) {
+            if (bp7Control != null)
+                bp7Control.getOfflineData();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_disconnect) {
+            if (bp7Control != null)
+                bp7Control.disconnect();
+            else
+                Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
+
+        } else if (i1 == R.id.btn_startStopMeasure) {
+            if (stopMeasured) {
 //                    startMeasure_btn.setEnabled(false);
-                    startMeasure_btn.setText("STOP");
-                    if (bp7Control != null) {
+                startStopMeasure_btn.setText("STOP");
+                if (bp7Control != null) {
 
-                        Intent i = new Intent(this, DeviceService.class);
-                        this.startService(i);
+                    Intent i = new Intent(this, DeviceService.class);
+                    this.startService(i);
 
-                        bp7Control.startMeasure();
-                    } else
-                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                    stopMeasured = false;
-                } else {
-                    bp7Control.destroy();
-                    stopMeasured = true;
-                    startMeasure_btn.setEnabled(true);
-                }
-                break;
-
-            case R.id.btn_conform_angle:
-                if (bp7Control != null)
-                    bp7Control.conformAngle();
-                else
+                    bp7Control.startMeasure();
+                } else
                     Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
+                stopMeasured = false;
+                Log.e(TAG, "onClick: START");
 
-            case R.id.btn_stopMeasure:
+            } else {
+                startStopMeasure_btn.setText("START");
+
                 if (bp7Control != null)
                     bp7Control.interruptMeasure();
                 else
                     Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
 
-            case R.id.btn_getOfflineNum:
-                if (bp7Control != null)
-                    bp7Control.getOfflineNum();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.btn_getOfflineData:
-                if (bp7Control != null)
-                    bp7Control.getOfflineData();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.btn_disconnect:
-                if (bp7Control != null)
-                    bp7Control.disconnect();
-                else
-                    Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                break;
-
-            case R.id.btn_startStopMeasure:
-                if (stopMeasured) {
-//                    startMeasure_btn.setEnabled(false);
-                    startStopMeasure_btn.setText("STOP");
-                    if (bp7Control != null) {
-
-                        Intent i = new Intent(this, DeviceService.class);
-                        this.startService(i);
-
-                        bp7Control.startMeasure();
-                    } else
-                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-                    stopMeasured = false;
-                    Log.e(TAG, "onClick: START" );
-
-                } else {
-                    startStopMeasure_btn.setText("START");
-
-                    if (bp7Control != null)
-                        bp7Control.interruptMeasure();
-                    else
-                        Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-
-                    stopMeasured = true;
+                stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
-                    Log.e(TAG, "onClick: STOP" );
+                Log.e(TAG, "onClick: STOP");
 
-                }
+            }
 
-                break;
 
-            default:
-                break;
+        } else {
         }
     }
 

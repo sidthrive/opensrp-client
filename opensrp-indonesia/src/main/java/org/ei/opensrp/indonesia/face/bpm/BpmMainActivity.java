@@ -209,7 +209,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
         Log.e(TAG, "connectToDev: mac : "+ mac +" device_type : "+deviceType );
         boolean req = false;
         try {
-            iHealthDevicesManager.getInstance().sdkUserInAuthor(BpmMainActivity.this, userName, clientId, clientId, callbackId);
+            iHealthDevicesManager.getInstance().sdkUserInAuthor(BpmMainActivity.this, userName, clientId, clientSecret, callbackId);
             Log.e(TAG, "connectToDev: mac : "+ mac +" device_type : "+callbackId );
 
             req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
