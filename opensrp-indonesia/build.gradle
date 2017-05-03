@@ -29,7 +29,7 @@ dependencies {
     compile 'com.jjoe64:graphview:4.0.1'
     compile files('libs/FlurryAnalytics-6.0.0.jar')
     //    compile project(':sidlibrary')
-    compile project(':opensrp-devices')
+//    compile project(':opensrp-devices')
 }
 
 android {

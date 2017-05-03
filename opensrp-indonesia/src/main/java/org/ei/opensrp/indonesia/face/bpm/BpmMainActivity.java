@@ -66,7 +66,6 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
 
     long discoveryType = 67108864;
 
-
     private ListView listview_scan;
     private ListView listview_connected;
     private SimpleAdapter sa_scan;
@@ -95,6 +94,9 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
                     hm_scan.put("type", type_scan);
                     list_ScanDevices.add(hm_scan);
                     updateViewForScan();
+
+                    connectToDev(mac_scan, type_scan);
+
                     break;
 
                 case HANDLER_CONNECTED:
@@ -204,8 +206,12 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
     private int discoveryStatus;
 
     private void connectToDev(String mac, String deviceType) {
+        Log.e(TAG, "connectToDev: mac : "+ mac +" device_type : "+deviceType );
         boolean req = false;
         try {
+            iHealthDevicesManager.getInstance().sdkUserInAuthor(BpmMainActivity.this, userName, clientId, clientId, callbackId);
+            Log.e(TAG, "connectToDev: mac : "+ mac +" device_type : "+callbackId );
+
             req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
 
         } catch (NullPointerException e){
@@ -223,15 +229,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_bpm_main);
 
-
-        tv_discovery = (TextView) findViewById(R.id.tv_discovery);
-        tv_devScan = (TextView) findViewById(R.id.tv_devScan);
-        tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
-        bt_discover = (Button) findViewById(R.id.btn_discorvery);
-        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
-        bt_certificate = (Button) findViewById(R.id.btn_Certification);
-        listview_scan = (ListView) findViewById(R.id.list_scan);
-        listview_connected = (ListView) findViewById(R.id.list_connected);
+        initGui();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -283,6 +281,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
                     Log.e(TAG, "mac = " + mac);
                     Log.e(TAG, "uname = " + userName);
                     Log.e(TAG, "type = " + type);
+                    Log.e(TAG, "onItemClick: "+ iHealthDevicesManager.getInstance() );
                     boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, type);
                     if (!req) {
                         Toast.makeText(BpmMainActivity.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
@@ -302,7 +301,7 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
 
             callbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
 
-            Log.e(TAG, "onCreate: "+ callbackId );
+            Log.e(TAG, "onCreate: callbackId = "+ callbackId );
 
 //        checkPermissions();
             SharedPreferences mySharedPreferences = getSharedPreferences("preference", MODE_PRIVATE);
@@ -343,6 +342,17 @@ public class BpmMainActivity extends Activity implements View.OnClickListener {
 //        Intent i = new Intent(this, BluetoothLE.class);
 //        this.startService(i);
 
+    }
+
+    private void initGui() {
+        tv_discovery = (TextView) findViewById(R.id.tv_discovery);
+        tv_devScan = (TextView) findViewById(R.id.tv_devScan);
+        tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
+        bt_discover = (Button) findViewById(R.id.btn_discorvery);
+        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
+        bt_certificate = (Button) findViewById(R.id.btn_Certification);
+        listview_scan = (ListView) findViewById(R.id.list_scan);
+        listview_connected = (ListView) findViewById(R.id.list_connected);
     }
 
     @Override
