@@ -675,7 +675,8 @@ public class Tools {
                     Log.e(TAG, "setVectorsBuffered: Profile Image Null");
                 }
                 i++;
-
+                if(i>127)
+                    i=-128;
             }
 
             albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);

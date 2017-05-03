@@ -641,7 +641,8 @@ public class Tools {
                 }
 //                Log.e(TAG, "setVectorsBuffered: "+ i +" - "+ vectorFace.length);
                 i++;
-
+                if(i>127)
+                    i=-128;
             }
 
             albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);
