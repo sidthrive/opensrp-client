@@ -24,11 +24,13 @@ import org.ei.opensrp.indonesia.kartu_ibu.AllKartuIbuServiceMode;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 
+import org.ei.opensrp.indonesia.kartu_ibu.ChildRegistrationHandler;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
 import org.ei.opensrp.indonesia.kartu_ibu.KIClientsProvider;
 import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
+import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -62,6 +64,8 @@ import util.AsyncTask;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
+
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
@@ -185,6 +189,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     protected void onInitialization() {
+
+        context.formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
       //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 

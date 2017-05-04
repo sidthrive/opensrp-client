@@ -15,6 +15,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
 import org.ei.opensrp.indonesia.anc.ChildMergeID;
+import org.ei.opensrp.indonesia.kartu_ibu.ChildRegistrationHandler;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.service.PendingFormSubmissionService;
@@ -38,6 +39,7 @@ import static org.ei.opensrp.event.Event.ACTION_HANDLED;
 import static org.ei.opensrp.event.Event.FORM_SUBMITTED;
 import static org.ei.opensrp.event.Event.SYNC_COMPLETED;
 import static org.ei.opensrp.event.Event.SYNC_STARTED;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
 
 public class BidanHomeActivity extends SecuredActivity {
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
@@ -117,6 +119,7 @@ public class BidanHomeActivity extends SecuredActivity {
       //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
+        context.formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
 
         System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
     }

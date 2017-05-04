@@ -76,7 +76,7 @@
             android:background="@color/status_bar_text_almost_white"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <ImageView
@@ -153,7 +153,7 @@
             android:background="@color/status_bar_text_almost_white"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <ImageView

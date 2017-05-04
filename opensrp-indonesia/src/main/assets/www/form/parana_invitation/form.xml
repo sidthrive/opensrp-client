@@ -55,7 +55,7 @@
         <span lang="en" class="question-label " data-itext-id="/Parana_invitation/date_parana:label">Date of the Parana session</span>
         <input type="date" name="/Parana_invitation/date_parana" data-constraint=".&gt; /Parana_invitation/today " data-type-xml="date"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
-    </label> \n
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/Parana_invitation/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>

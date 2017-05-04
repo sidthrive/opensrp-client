@@ -143,15 +143,16 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         //ibu.id
         if(pc.getColumnmaps().get("ibu.id") != null) {
             CommonPersonObject kiobject = kiRepository.findByCaseID(pc.getColumnmaps().get("ibu.id"));
-            if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("false")) {
-                viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
-                viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : "+kiobject.getDetails().get("jumlahMmn") : "");
-                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Active":"");
-            }
-            else if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("true")) {
-                viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
-                viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : "+kiobject.getDetails().get("jumlahMmn") : "");
-                viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ?"Anc Closed":"");
+            if(kiobject.getColumnmaps().get("isClosed") != null ) {
+                if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("false")) {
+                    viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
+                    viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : " + kiobject.getDetails().get("jumlahMmn") : "");
+                    viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ? "Anc Active" : "");
+                } else if (kiobject.getColumnmaps().get("type").equalsIgnoreCase("anc") && kiobject.getColumnmaps().get("isClosed").equalsIgnoreCase("true")) {
+                    viewHolder.mmn_date.setText(kiobject.getColumnmaps().get("ancDate") != null ? kiobject.getColumnmaps().get("ancDate") : "");
+                    viewHolder.txt_total.setText(kiobject.getDetails().get("jumlahMmn") != null ? "Total : " + kiobject.getDetails().get("jumlahMmn") : "");
+                    viewHolder.status.setText(pc.getColumnmaps().get("ibu.type").equals("anc") ? "Anc Closed" : "");
+                }
             }
 
         }
@@ -188,91 +189,16 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
              days = Days.daysBetween(date,dateNow).getDays();
             Log.logInfo("days"+days);
 
-
-          /*  //Log.logInfo("Daysss"+difference);
-          if(days >7 && days < 14) {
-                if (pc.getDetails().get("aktif_sesi1") == null) {
-                    Log.logInfo("asdasd");
-                    viewHolder.sesi1.setVisibility(View.VISIBLE);
-                    viewHolder.sesi1.setImageResource(R.drawable.vacc_due);
-                }
-            }
-             if(days >=14 && days < 21){
-              if(pc.getDetails().get("aktif_sesi2") == null){
-                  viewHolder.sesi2.setVisibility(View.VISIBLE);
-                    viewHolder.sesi2.setImageResource(R.drawable.vacc_due);
-              }
-              if(pc.getDetails().get("aktif_sesi1") == null){
-                  viewHolder.sesi1.setVisibility(View.VISIBLE);
-                  viewHolder.sesi1.setImageResource(R.drawable.warning);
-              }
-
-            }
-             if(days >=21 && days < 28){
-                if(pc.getDetails().get("aktif_sesi3") == null){
-                    viewHolder.sesi3.setVisibility(View.VISIBLE);
-                    viewHolder.sesi3.setImageResource(R.drawable.vacc_due);
-                }
-              if(pc.getDetails().get("aktif_sesi2") == null){
-                  viewHolder.sesi2.setVisibility(View.VISIBLE);
-                  viewHolder.sesi2.setImageResource(R.drawable.warning);
-              }
-                 if(pc.getDetails().get("aktif_sesi1") == null){
-                     viewHolder.sesi1.setVisibility(View.VISIBLE);
-                     viewHolder.sesi1.setImageResource(R.drawable.warning);
-                 }
-
-            }
-             if(days >=28 && days < 35){
-              Log.logInfo("poiu");
-                if(pc.getDetails().get("aktif_sesi4")== null){
-                    Log.logInfo("pottttttt");
-                    viewHolder.sesi4.setVisibility(View.VISIBLE);
-                    viewHolder.sesi4.setImageResource(R.drawable.vacc_due);
-                }
-              if(pc.getDetails().get("aktif_sesi3") == null){
-                  viewHolder.sesi3.setVisibility(View.VISIBLE);
-                  viewHolder.sesi3.setImageResource(R.drawable.warning);
-              }
-                 if(pc.getDetails().get("aktif_sesi2") == null){
-                     viewHolder.sesi2.setVisibility(View.VISIBLE);
-                     viewHolder.sesi2.setImageResource(R.drawable.warning);
-                 }
-                 if(pc.getDetails().get("aktif_sesi1") == null){
-                     viewHolder.sesi1.setVisibility(View.VISIBLE);
-                     viewHolder.sesi1.setImageResource(R.drawable.warning);
-                 }
-            }
-             if(days >=35){
-                if(pc.getDetails().get("aktif_sesi4")== null) {
-                    Log.logInfo("poiu");
-                    viewHolder.sesi4.setVisibility(View.VISIBLE);
-                    viewHolder.sesi4.setImageResource(R.drawable.warning);
-                }
-                 if(pc.getDetails().get("aktif_sesi3") == null){
-                     viewHolder.sesi3.setVisibility(View.VISIBLE);
-                     viewHolder.sesi3.setImageResource(R.drawable.warning);
-                 }
-                 if(pc.getDetails().get("aktif_sesi2") == null){
-                     viewHolder.sesi2.setVisibility(View.VISIBLE);
-                     viewHolder.sesi2.setImageResource(R.drawable.warning);
-                 }
-                 if(pc.getDetails().get("aktif_sesi1") == null){
-                     viewHolder.sesi1.setVisibility(View.VISIBLE);
-                     viewHolder.sesi1.setImageResource(R.drawable.warning);
-                 }
-            }
-*/
         }
         else{
 //            viewHolder.edd_due.setText("-");
         }
 
 
-        Status_parana(pc.getDetails().get("aktif_sesi1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1, days, "sesi1");
-        Status_parana(pc.getDetails().get("aktif_sesi2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2,days, "sesi2");
-        Status_parana(pc.getDetails().get("aktif_sesi3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3,days, "sesi3");
-        Status_parana(pc.getDetails().get("aktif_sesi4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4,days, "sesi4");
+        Status_parana(pc.getDetails().get("aktif_sesi1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1, days, "sesi1",invitation);
+        Status_parana(pc.getDetails().get("aktif_sesi2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2,days, "sesi2",invitation);
+        Status_parana(pc.getDetails().get("aktif_sesi3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3,days, "sesi3",invitation);
+        Status_parana(pc.getDetails().get("aktif_sesi4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4,days, "sesi4",invitation);
 
 
       //  convertView.setLayoutParams(clientViewLayoutParams);
@@ -378,7 +304,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
         return controller.getClients();
     }
 
-    private void Status_parana(String status, String date,TextView dates, ImageView emoticon, int days, String sesi){
+    private void Status_parana(String status, String date,TextView dates, ImageView emoticon, int days, String sesi,String invitasi){
         if(status != null && status.equalsIgnoreCase("Yes")){
 
             emoticon.setImageResource(R.drawable.senyum);
@@ -424,9 +350,9 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
                 days >=28 && days < 35?due:
                         days >= 35?overdue:
                                 0);
-                dates.setText("Due : + "+days+" Days");
-            }
 
+            }
+          //  dates.setText("Tgl Invitasi : + "+invitasi+"");
             emoticon.setVisibility(View.VISIBLE);
 
 

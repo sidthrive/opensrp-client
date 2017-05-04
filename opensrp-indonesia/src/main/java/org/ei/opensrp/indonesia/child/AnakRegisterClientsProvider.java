@@ -268,21 +268,28 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         if(pc.getDetails().get("jenisPelayanan") != null) {
             checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.icon_salep_no, viewHolder.icon_salep_yes);
-            checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.icon_imd_no, viewHolder.icon_imd_yes);
-            checkContain1(pc.getDetails().get("jenisPelayanan"), viewHolder.vitk_no, viewHolder.vitk_yes);
+            checkContain2(pc.getDetails().get("jenisPelayanan"), viewHolder.icon_imd_no, viewHolder.icon_imd_yes);
+            checkContain3(pc.getDetails().get("jenisPelayanan"), viewHolder.vitk_no, viewHolder.vitk_yes);
         }
         convertView.setLayoutParams(clientViewLayoutParams);
      //   return convertView;
     }
 
     private void checkContain1(String data,  ImageView icon_imd_no, ImageView icon_imd_yes) {
-        if(data.contains("First") || data.contains("salep") || data.contains("vit")){
+        if(data.contains("First")){
             icon_imd_no.setVisibility(View.INVISIBLE);
             icon_imd_yes.setVisibility(View.VISIBLE);
         }
     }
     private void checkContain2(String data,  ImageView icon_imd_no, ImageView icon_imd_yes) {
         if(data.contains("salep") ){
+            icon_imd_no.setVisibility(View.INVISIBLE);
+            icon_imd_yes.setVisibility(View.VISIBLE);
+        }
+
+    }
+    private void checkContain3(String data,  ImageView icon_imd_no, ImageView icon_imd_yes) {
+        if(data.contains("vit") ){
             icon_imd_no.setVisibility(View.INVISIBLE);
             icon_imd_yes.setVisibility(View.VISIBLE);
         }

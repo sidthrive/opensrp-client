@@ -33,7 +33,7 @@ android {
         targetSdkVersion 21
 
         versionCode 5
-        versionName "CR 5.06"
+        versionName "CR+ 5.06"
 
         multiDexEnabled true
     }
