@@ -43,6 +43,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     private ProgressBar mProgressBar;
     int initValue = 0;
     Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -292,6 +293,9 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                     updateButtonStatus();
 
+                    //SID
+                    showBPMResult(highPressure, lowPressure, ahr, pulse);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -317,6 +321,22 @@ public class BP7 extends Activity implements View.OnClickListener {
             }
         }
     };
+
+    private void showBPMResult(String highPressure, String lowPressure, String ahr, String pulse) {
+        Intent in = new Intent(this, DeviceService.class);
+//        startService(in);
+//        stopService(in);
+
+
+//        Log.e(TAG, "showBPMResult: " );
+        Intent i = new Intent();
+        i.putExtra("HIGH", highPressure);
+        i.putExtra("LOW", lowPressure);
+        i.putExtra("AHR", ahr);
+        i.putExtra("PULSE", pulse);
+        setResult(RESULT_OK, i);
+        finish();
+    }
 
     @Override
     public void onClick(View arg0) {
@@ -424,13 +444,14 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                     if (bp7Control != null)
                         bp7Control.interruptMeasure();
-                    else
+                    else {
                         Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-
-                    stopMeasured = true;
+                        stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
-                    Log.e(TAG, "onClick: STOP" );
-
+                        Log.e(TAG, "onClick: STOP");
+                        Intent i = new Intent(this, DeviceService.class);
+                        this.stopService(i);
+                    }
                 }
 
                 break;
@@ -486,7 +507,9 @@ public class BP7 extends Activity implements View.OnClickListener {
 
             stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
-            Log.e(TAG, "onClick: STOP" );
+            Log.e(TAG, "onClickss: STOP" );
+
+
 
         }
 

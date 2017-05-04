@@ -3,12 +3,14 @@ package org.opensrp.id.devmanager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * Created by sid on 4/25/17.
  */
 public class DeviceService extends Service {
 
+    private static final String TAG = DeviceService.class.getSimpleName();
     Thread t = new PeriodicUpdate();
 
     @Override
@@ -16,6 +18,7 @@ public class DeviceService extends Service {
         super.onCreate();
         // start thread
         t.start();
+        Log.e(TAG, "onCreate: Service created" );
     }
 
     @Override
@@ -29,5 +32,18 @@ public class DeviceService extends Service {
             t.start();
         }
         return Service.START_REDELIVER_INTENT;
+    }
+
+//    @Override
+//    public void onStart(Intent intent, int startId){
+//        Log.e(TAG, "onStart: "+ startId );
+//    }
+//
+    @Override
+    public void onDestroy(){
+
+        stopSelf();
+        super.onDestroy();
+        Log.e(TAG, "onDestroy: Service Stop" );
     }
 }

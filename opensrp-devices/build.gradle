@@ -22,10 +22,12 @@ android {
 
     defaultConfig {
         applicationId "org.sid.bpm"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -33,22 +35,50 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
     }
+    lintOptions {
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_7
+//        targetCompatibility JavaVersion.VERSION_1_7
+//    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-//    compile 'com.android.support:appcompat-v7:21.3.1'
+    //    compile 'com.android.support:appcompat-v7:21.3.1'
     //    compile 'com.android.support:appcompat-v7:21.1.0'
-//    compile 'com.android.support:design:21.3.1'
-//    compile files('libs/d2xx.jar')
-//    compile files('libs/pl2303driver.jar')
-//    compile files('libs/smartlinklib3.6.4_product.jar')
-//    compile files('libs/iHealthLibrary_2.3.2.jar')
+    //    compile 'com.android.support:design:21.3.1'
+    //        compile files('libs/d2xx.jar')
+    //        compile files('libs/pl2303driver.jar')
+    //        compile files('libs/smartlinklib3.6.4_product.jar')
+    //        compile files('libs/iHealthLibrary_2.3.2.jar')
+    compile project(':opensrp-app')
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.jjoe64:graphview:4.0.1'
+    //    compile 'com.google.android.gms:play-services:+'
+    //    compile files('libs/google-play-services.jar')
 }
