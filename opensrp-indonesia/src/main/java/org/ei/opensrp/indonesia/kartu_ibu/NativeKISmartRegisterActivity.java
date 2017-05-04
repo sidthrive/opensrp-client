@@ -53,6 +53,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.ANAK_BAYI_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_ANC_REGISTRATION;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_CLOSE;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KARTU_IBU_EDIT;
@@ -151,6 +152,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         return new DialogOption[]{
                 new OpenFormOption(getString(R.string.str_register_kb_form), "kohort_kb_pelayanan", formController),
                 new OpenFormOption(getString(R.string.str_register_anc_form), "kartu_anc_registration", formController),
+                new OpenFormOption(getString(R.string.str_register_anak_form), ANAK_BAYI_REGISTRATION, formController),
                 new OpenFormOption("Edit Kartu Ibu ", KARTU_IBU_EDIT, formController),
                 new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
 
@@ -263,7 +265,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     public void startFormActivity(final String formName, final String entityId, final String metaData) {
 
-        if(formName != null) {
+        if(formName != KARTU_IBU_REGISTRATION) {
             final int choice = new java.util.Random().nextInt(3);
             CharSequence[] selections = selections(choice, entityId);
 
@@ -287,13 +289,14 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     private void activatingForm(String formName, String entityId, String metaData) {
+/*
         //Start capture flurry log for FS
         String start = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("start", start);
         FlurryAgent.logEvent(formName, FS, true);
-        // FlurryFacade.logEvent(formName);
-//        Log.v("fieldoverride", metaData);
+*/
+
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
@@ -408,6 +411,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         formNames.add("kartu_anc_registration");
         formNames.add(KARTU_IBU_EDIT);
         formNames.add(KARTU_IBU_CLOSE);
+        formNames.add(ANAK_BAYI_REGISTRATION);
 
         DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {
