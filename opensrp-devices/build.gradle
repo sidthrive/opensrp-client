@@ -54,15 +54,6 @@ android {
         abortOnError false
     }
 
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
 }
 
 dependencies {
@@ -71,14 +62,8 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:21.3.1'
     //    compile 'com.android.support:appcompat-v7:21.1.0'
     //    compile 'com.android.support:design:21.3.1'
-    //        compile files('libs/d2xx.jar')
-    //        compile files('libs/pl2303driver.jar')
-    //        compile files('libs/smartlinklib3.6.4_product.jar')
-    //        compile files('libs/iHealthLibrary_2.3.2.jar')
     compile project(':opensrp-app')
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jjoe64:graphview:4.0.1'
-    //    compile 'com.google.android.gms:play-services:+'
-    //    compile files('libs/google-play-services.jar')
 }

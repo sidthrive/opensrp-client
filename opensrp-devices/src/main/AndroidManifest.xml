@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="org.opensrp.id.MainActivity"
+            android:name="org.ei.opensrp.device.BpmTestMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -30,20 +30,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.opensrp.id.MainBPM"
+            android:name="org.ei.opensrp.device.MainBPM"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="org.opensrp.id.BP7"
+            android:name="org.ei.opensrp.device.BP7"
             android:label="@string/title_activity_bp7"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name="org.opensrp.id.devmanager.DeviceService" />
-        <service android:name="org.opensrp.id.devmanager.BluetoothLE" />
+        <service android:name="org.ei.opensrp.device.manager.DeviceService" />
+        <service android:name="org.ei.opensrp.device.manager.BluetoothLE" />
 
         <receiver
-            android:name="org.opensrp.id.Receiver"
+            android:name="org.ei.opensrp.device.Receiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -52,7 +52,7 @@
         </receiver>
 
         <activity
-            android:name="org.opensrp.id.ui.PBActivity"
+            android:name="org.ei.opensrp.device.ui.PBActivity"
             android:label="@string/title_activity_pb"></activity>
     </application>
 

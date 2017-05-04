@@ -26,20 +26,20 @@
             android:label="@string/title_activity_bp7"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name="org.opensrp.id.devmanager.DeviceService" />
-        <service android:name="org.opensrp.id.devmanager.BluetoothLE" />
+        <service android:name="org.ei.opensrp.device.manager.DeviceService" />
+        <service android:name="org.ei.opensrp.device.manager.BluetoothLE" />
 
         <receiver
-            android:name="org.opensrp.id.Receiver"
+            android:name="org.ei.opensrp.device.Receiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="org.opensrp.id.Receiver" />
+                <action android:name="org.ei.opensrp.device.Receiver" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="org.opensrp.id.ui.PBActivity"
+            android:name="org.ei.opensrp.device.ui.PBActivity"
             android:label="@string/title_activity_pb"></activity>
 
 

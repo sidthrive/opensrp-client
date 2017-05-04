@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--<activity-->
-            <!--android:name="org.opensrp.id.MainActivity"-->
+            <!--android:name="org.ei.opensrp.device.BpmTestMainActivity"-->
             <!--android:label="@string/app_name"-->
             <!--android:screenOrientation="portrait"-->
             <!--android:theme="@style/AppTheme.NoActionBar">-->
@@ -28,29 +28,29 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
-        <activity android:name="org.opensrp.id.MainActivity"
+        <activity android:name="org.ei.opensrp.device.BpmTestMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="org.opensrp.id.BP7"
+            android:name="org.ei.opensrp.device.BP7"
             android:label="@string/title_activity_bp7"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name="org.opensrp.id.devmanager.DeviceService" />
-        <service android:name="org.opensrp.id.devmanager.BluetoothLE" />
+        <service android:name="org.ei.opensrp.device.manager.DeviceService" />
+        <service android:name="org.ei.opensrp.device.manager.BluetoothLE" />
 
         <receiver
-            android:name="org.opensrp.id.Receiver"
+            android:name="org.ei.opensrp.device.Receiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="org.opensrp.id.Receiver" />
+                <action android:name="org.ei.opensrp.device.Receiver" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="org.opensrp.id.ui.PBActivity"
+            android:name="org.ei.opensrp.device.ui.PBActivity"
             android:label="@string/title_activity_pb"></activity>
     </application>
 
