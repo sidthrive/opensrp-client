@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia.anc;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,11 +15,13 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
 //import org.ei.opensrp.indonesia.face.bpm.MainBPMActivity;
-import org.ei.opensrp.indonesia.face.bpm.BpmMainActivity;
+import org.ei.opensrp.indonesia.device.BpmTestMainActivity;
+import org.ei.opensrp.indonesia.device.MainBPM;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.ei.opensrp.view.contract.ANCDetail;
 //import org.opensrp.id.MainActivity;
 //import org.opensrp.bpm.MainBPM;
 //import org.opensrp.id.MainBPMActivity;
@@ -319,9 +322,30 @@ public class ANCDetailActivity extends Activity {
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
-            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
+//            startActivity(intent);
+            bpmAction();
         }
     };
+
+    private void bpmAction() {
+        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+
+        startActivityForResult(i, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        Log.e(TAG, "onActivityResult: req "+ requestCode + " res: "+ resultCode );
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2){
+            Log.e(TAG, "onActivityResult: "+ data.getStringExtra("HIGH") +
+                    data.getStringExtra("LOW"));
+//            tv_systolic.setText(data.getStringExtra("HIGH"));
+//            tv_diastolic.setText(data.getStringExtra("LOW"));
+        }
+    }
+
 
 }

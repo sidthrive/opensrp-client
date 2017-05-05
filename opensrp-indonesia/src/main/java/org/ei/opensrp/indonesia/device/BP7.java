@@ -1,9 +1,7 @@
-package org.ei.opensrp.indonesia.face.bpm;
+package org.ei.opensrp.indonesia.device;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,15 +16,18 @@ import com.ihealth.communication.control.Bp7Control;
 import com.ihealth.communication.control.BpProfile;
 import com.ihealth.communication.manager.iHealthDevicesCallback;
 import com.ihealth.communication.manager.iHealthDevicesManager;
-
 import org.ei.opensrp.indonesia.R;
+
+import org.ei.opensrp.indonesia.device.manager.DeviceService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by sid on 4/27/17.
- */
+//import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.Snackbar;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.widget.Toolbar;
+
 public class BP7 extends Activity implements View.OnClickListener {
 
     private static final String TAG = BP7.class.getSimpleName();
@@ -40,6 +41,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     private ProgressBar mProgressBar;
     int initValue = 0;
     Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class BP7 extends Activity implements View.OnClickListener {
 //        });
 //
         Intent intent = getIntent();
+
         deviceMac = intent.getStringExtra("mac");
 
         initView();
@@ -90,10 +93,16 @@ public class BP7 extends Activity implements View.OnClickListener {
         disconnect_btn = (Button) findViewById(R.id.btn_disconnect);
         tv_return = (TextView) findViewById(R.id.tv_return);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 //        Add Color
-        mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//        Drawable ad = mProgressBar.getProgressDrawable();
+//        Log.e(TAG, "initView: "+ mProgressBar );
+//        Log.e(TAG, "initView: "+ ad );
+//        mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
 
+//        if (mProgressBar != null) {
+//            mProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+//        }
 
 //         Visibility
         startMeasure_btn.setVisibility(View.GONE);
@@ -282,6 +291,9 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                     updateButtonStatus();
 
+                    //SID
+                    showBPMResult(highPressure, lowPressure, ahr, pulse);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -307,6 +319,33 @@ public class BP7 extends Activity implements View.OnClickListener {
             }
         }
     };
+
+    TextView tv_systolic, tv_diastolic;
+
+    private void showBPMResult(String highPressure, String lowPressure, String ahr, String pulse) {
+        Intent in = new Intent(this, DeviceService.class);
+//        startService(in);
+//        stopService(in);
+        tv_systolic = (TextView) findViewById(R.id.tv_sistole);
+        tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
+
+
+//        Log.e(TAG, "showBPMResult: " );
+        tv_systolic.setText(highPressure);
+        tv_diastolic.setText(lowPressure);
+//        backToDetail( highPressure, lowPressure, ahr, pulse);
+    }
+
+    private void backToDetail(String highPressure, String lowPressure, String ahr, String pulse) {
+        Intent i = new Intent();
+        i.putExtra("HIGH", highPressure);
+        i.putExtra("LOW", lowPressure);
+        i.putExtra("AHR", ahr);
+        i.putExtra("PULSE", pulse);
+        setResult(RESULT_OK, i);
+        finish();
+
+    }
 
     @Override
     public void onClick(View arg0) {
@@ -414,13 +453,14 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                     if (bp7Control != null)
                         bp7Control.interruptMeasure();
-                    else
+                    else {
                         Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
-
-                    stopMeasured = true;
+                        stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
-                    Log.e(TAG, "onClick: STOP" );
-
+                        Log.e(TAG, "onClick: STOP");
+                        Intent i = new Intent(this, DeviceService.class);
+                        this.stopService(i);
+                    }
                 }
 
                 break;
@@ -476,7 +516,9 @@ public class BP7 extends Activity implements View.OnClickListener {
 
             stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
-            Log.e(TAG, "onClick: STOP" );
+            Log.e(TAG, "onClickss: STOP" );
+
+
 
         }
 

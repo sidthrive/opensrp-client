@@ -1,4 +1,4 @@
-package org.ei.opensrp.indonesia.face.bpm;
+package org.ei.opensrp.indonesia.device.manager;
 
 import android.bluetooth.BluetoothAdapter;
 import android.util.Log;
@@ -6,9 +6,10 @@ import android.util.Log;
 import com.ihealth.communication.control.Bp7Control;
 
 /**
- * Created by sid on 4/27/17.
+ * Created by sid on 4/25/17.
  */
 public class PeriodicUpdate extends Thread {
+
     private static final String TAG = PeriodicUpdate.class.getSimpleName();
 
     @Override

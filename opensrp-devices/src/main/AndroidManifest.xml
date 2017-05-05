@@ -53,7 +53,8 @@
 
         <activity
             android:name="org.ei.opensrp.device.ui.PBActivity"
-            android:label="@string/title_activity_pb"></activity>
+            android:label="@string/title_activity_pb"/>
+
     </application>
 
 </manifest>
