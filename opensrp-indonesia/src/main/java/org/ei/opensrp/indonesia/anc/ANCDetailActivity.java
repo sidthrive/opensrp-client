@@ -340,8 +340,12 @@ public class ANCDetailActivity extends Activity {
         Log.e(TAG, "onActivityResult: req "+ requestCode + " res: "+ resultCode );
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2){
-            Log.e(TAG, "onActivityResult: "+ data.getStringExtra("HIGH") +
-                    data.getStringExtra("LOW"));
+            Log.e(TAG, "onActivityResult: "+
+                    data.getStringExtra("HIGH") +
+                    data.getStringExtra("LOW") +
+                    data.getStringExtra("AHR") +
+                    data.getStringExtra("PULSE")
+            );
 //            tv_systolic.setText(data.getStringExtra("HIGH"));
 //            tv_diastolic.setText(data.getStringExtra("LOW"));
         }

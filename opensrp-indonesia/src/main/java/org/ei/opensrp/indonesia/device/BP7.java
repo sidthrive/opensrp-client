@@ -35,12 +35,16 @@ public class BP7 extends Activity implements View.OnClickListener {
     private String deviceMac;
     private int clientCallbackId;
     private TextView tv_return;
-    private Button startStopMeasure_btn, battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, startMeasure_btn, conformAngle_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
+    private Button btn_done, startStopMeasure_btn, battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, startMeasure_btn, conformAngle_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
     private boolean stopMeasured = true;
 
     private ProgressBar mProgressBar;
     int initValue = 0;
     Handler handler = new Handler();
+    private String bpmHigh;
+    private String bpmLow;
+    private String bpmAhr;
+    private String bpmPulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class BP7 extends Activity implements View.OnClickListener {
 
         startStopMeasure_btn = (Button) findViewById(R.id.btn_startStopMeasure);
 
+        btn_done = (Button) findViewById(R.id.btn_done);
         battery_btn = (Button) findViewById(R.id.btn_getbattery);
         isOfflineMeasure_btn = (Button) findViewById(R.id.btn_isOfflineMeasure);
         enableOfflineMeasure_btn = (Button) findViewById(R.id.btn_enableOfflineMeasure);
@@ -105,31 +110,34 @@ public class BP7 extends Activity implements View.OnClickListener {
 //        }
 
 //         Visibility
-        startMeasure_btn.setVisibility(View.GONE);
-        battery_btn.setVisibility(View.GONE);
-        isOfflineMeasure_btn.setVisibility(View.GONE);
-        enableOfflineMeasure_btn.setVisibility(View.GONE);
-        disableOfflineMeasure_btn.setVisibility(View.GONE);
-        getOfflineNum_btn.setVisibility(View.GONE);
-        getOfflineData_btn.setVisibility(View.GONE);
-        disconnect_btn.setVisibility(View.GONE);
-        stopMeasure_btn.setVisibility(View.GONE);
+//        startMeasure_btn.setVisibility(View.GONE);
+//        battery_btn.setVisibility(View.GONE);
+//        isOfflineMeasure_btn.setVisibility(View.GONE);
+//        enableOfflineMeasure_btn.setVisibility(View.GONE);
+//        disableOfflineMeasure_btn.setVisibility(View.GONE);
+//        getOfflineNum_btn.setVisibility(View.GONE);
+//        getOfflineData_btn.setVisibility(View.GONE);
+//        disconnect_btn.setVisibility(View.GONE);
+//        stopMeasure_btn.setVisibility(View.GONE);
+        btn_done.setVisibility(View.GONE);
 
     }
 
     public void initListener(){
         startStopMeasure_btn.setOnClickListener(this);
-        battery_btn.setOnClickListener(this);
-        isOfflineMeasure_btn.setOnClickListener(this);
-        enableOfflineMeasure_btn.setOnClickListener(this);
-        disableOfflineMeasure_btn.setOnClickListener(this);
-        startMeasure_btn.setOnClickListener(this);
+//        battery_btn.setOnClickListener(this);
+//        isOfflineMeasure_btn.setOnClickListener(this);
+//        enableOfflineMeasure_btn.setOnClickListener(this);
+//        disableOfflineMeasure_btn.setOnClickListener(this);
+//        startMeasure_btn.setOnClickListener(this);
         conformAngle_btn.setOnClickListener(this);
-        stopMeasure_btn.setOnClickListener(this);
-        getOfflineNum_btn.setOnClickListener(this);
-        getOfflineData_btn.setOnClickListener(this);
-        disconnect_btn.setOnClickListener(this);
+//        stopMeasure_btn.setOnClickListener(this);
+//        getOfflineNum_btn.setOnClickListener(this);
+//        getOfflineData_btn.setOnClickListener(this);
+//        disconnect_btn.setOnClickListener(this);
         tv_return.setOnClickListener(this);
+        btn_done.setOnClickListener(this);
+
     }
 
     @Override
@@ -330,18 +338,23 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
 
 
+        setBpmHigh(highPressure);
+        setBpmLow(lowPressure);
+        setBpmAhr(ahr);
+        setBpmPulse(pulse);
 //        Log.e(TAG, "showBPMResult: " );
         tv_systolic.setText(highPressure);
         tv_diastolic.setText(lowPressure);
+        btn_done.setVisibility(View.VISIBLE);
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
 
-    private void backToDetail(String highPressure, String lowPressure, String ahr, String pulse) {
+    private void backToDetail() {
         Intent i = new Intent();
-        i.putExtra("HIGH", highPressure);
-        i.putExtra("LOW", lowPressure);
-        i.putExtra("AHR", ahr);
-        i.putExtra("PULSE", pulse);
+        i.putExtra("HIGH", getBpmHigh());
+        i.putExtra("LOW", getBpmLow());
+        i.putExtra("AHR", getBpmAhr());
+        i.putExtra("PULSE", getBpmPulse());
         setResult(RESULT_OK, i);
         finish();
 
@@ -465,6 +478,10 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                 break;
 
+            case R.id.btn_done:
+                backToDetail();
+                break;
+
             default:
                 break;
         }
@@ -522,5 +539,37 @@ public class BP7 extends Activity implements View.OnClickListener {
 
         }
 
+    }
+
+    public void setBpmHigh(String bpmHigh) {
+        this.bpmHigh = bpmHigh;
+    }
+
+    public void setBpmLow(String bpmLow) {
+        this.bpmLow = bpmLow;
+    }
+
+    public String getBpmHigh() {
+        return bpmHigh;
+    }
+
+    public String getBpmLow() {
+        return bpmLow;
+    }
+
+    public void setBpmAhr(String bpmAhr) {
+        this.bpmAhr = bpmAhr;
+    }
+
+    public void setBpmPulse(String bpmPulse) {
+        this.bpmPulse = bpmPulse;
+    }
+
+    public String getBpmAhr() {
+        return bpmAhr;
+    }
+
+    public String getBpmPulse() {
+        return bpmPulse;
     }
 }

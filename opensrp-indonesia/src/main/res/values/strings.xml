@@ -634,4 +634,5 @@
     <string name="title_activity_kd723">KD723</string>
     <string name="title_activity_bg5l">BG5L</string>
     <string name="title_activity_pb">PBActivity</string>
+    <string name="btn_done">Done</string>
 </resources>

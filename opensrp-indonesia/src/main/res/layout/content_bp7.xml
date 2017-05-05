@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,79 +15,92 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="350dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <!--<Button-->
+                <!--android:id="@+id/btn_getbattery"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="Getbattery" />-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_isOfflineMeasure"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="IsOfflineMeasure" />-->
 
-            <Button
-                android:id="@+id/btn_getbattery"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="Getbattery" />
-
-            <Button
-                android:id="@+id/btn_isOfflineMeasure"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="IsOfflineMeasure" />
-
-            <Button
-                android:id="@+id/btn_enableOfflineMeasure"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="EnableOfflineMeasure" />
-
-            <Button
-                android:id="@+id/btn_disableOfflineMeasure"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="DisableOfflineMeasure" />
-
+            <!--<Button-->
+                <!--android:id="@+id/btn_enableOfflineMeasure"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="EnableOfflineMeasure" />-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_disableOfflineMeasure"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="DisableOfflineMeasure" />-->
             <Button
                 android:id="@+id/btn_startStopMeasure"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:text="Start" />
 
-            <Button
-                android:id="@+id/btn_startMeasure"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="StartMeasure" />
-
+            <!--<Button-->
+                <!--android:id="@+id/btn_startMeasure"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="StartMeasure" />-->
             <Button
                 android:id="@+id/btn_conform_angle"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:text="ConformAngle" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_stopMeasure"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="StopMeasure" />-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_getOfflineNum"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="GetOfflineNumber" />-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_getOfflineData"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="GetOfflineData" />-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_disconnect"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:text="Disconnect" />-->
+            <TextView
+                android:id="@+id/tv_sistole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/light_pink"
+                android:textSize="150sp" />
+            <TextView
+                android:id="@+id/tv_diastole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/light_blue"
+                android:textSize="150sp" />
 
             <Button
-                android:id="@+id/btn_stopMeasure"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="StopMeasure" />
+            android:id="@+id/btn_done"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="@string/btn_done"
+                />
 
-            <Button
-                android:id="@+id/btn_getOfflineNum"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="GetOfflineNumber" />
-
-            <Button
-                android:id="@+id/btn_getOfflineData"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="GetOfflineData" />
-
-
-            <Button
-                android:id="@+id/btn_disconnect"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:text="Disconnect" />
         </LinearLayout>
     </ScrollView>
 
@@ -108,25 +120,4 @@
         android:layout_width="fill_parent"
         android:layout_height="150dp" />
 
-    <TextView
-        android:id="@+id/tv_sistole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="@string/sistole"
-        android:textColor="@color/pink"
-        android:textSize="150sp" />
-
-    <TextView
-        android:id="@+id/tv_diastole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_sistole"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/diastole"
-        android:textColor="@color/light_blue"
-        android:textSize="150sp" />
 </LinearLayout>
