@@ -23,6 +23,7 @@ import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
+import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.ImageRepository;
 
@@ -312,6 +313,14 @@ public class PNCDetailActivity extends Activity {
         File externalFile = new File(file);
         Uri external = Uri.fromFile(externalFile);
         view.setImageURI(external);
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, NativeKIPNCSmartRegisterActivity.class));
+        overridePendingTransition(0, 0);
 
 
     }

@@ -277,7 +277,7 @@ public class AnakDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKIAnakSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 

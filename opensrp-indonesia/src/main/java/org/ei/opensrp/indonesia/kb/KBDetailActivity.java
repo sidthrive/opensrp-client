@@ -385,7 +385,7 @@ public class KBDetailActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
+        startActivity(new Intent(this, NativeKBSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
 
