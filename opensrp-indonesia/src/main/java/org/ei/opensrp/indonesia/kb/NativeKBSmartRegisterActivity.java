@@ -281,9 +281,29 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onBackPressed() {
-        if (currentPage != 0) {
-            switchToBaseFragment(null);
-        } else if (currentPage == 0) {
+        if (currentPage != 0){
+
+            new AlertDialog.Builder(this)
+                    .setMessage(R.string.form_back_confirm_dialog_message)
+                    .setTitle(R.string.form_back_confirm_dialog_title)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    switchToBaseFragment(null);
+                                }
+                            })
+                    .setNegativeButton(R.string.no_button_label,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                }
+                            })
+                    .show();
+
+
+        }else if (currentPage == 0) {
             super.onBackPressed(); // allow back key only if we are
         }
     }
