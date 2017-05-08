@@ -153,8 +153,8 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 new OpenFormOption(getString(R.string.str_register_kb_form), "kohort_kb_pelayanan", formController),
                 new OpenFormOption(getString(R.string.str_register_anc_form), "kartu_anc_registration", formController),
                 new OpenFormOption(getString(R.string.str_register_anak_form), ANAK_BAYI_REGISTRATION, formController),
-                new OpenFormOption("Edit Kartu Ibu ", KARTU_IBU_EDIT, formController),
-                new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
+                new OpenFormOption("Edit Identitas Ibu", KARTU_IBU_EDIT, formController),
+                new OpenFormOption("Penutupan Ibu", KARTU_IBU_CLOSE, formController),
 
         };
 

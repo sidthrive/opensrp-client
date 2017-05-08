@@ -1,4 +1,4 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="kunjungan_anc_1">\n
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="kunjungan_anc_1">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
     <h3 dir="auto" id="form-title">Kunjungan ANC</h3>
@@ -6,20 +6,7 @@
         <option value="Bahasa" data-dir="ltr">Bahasa</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
-    <label class="question note non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/generated_note_name_13:label">Desa :
-            <span class="or-output" data-value=" /kunjungan_anc_split_anc_visit_gen/Village "></span>
-        </span>
-        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/generated_note_name_13:label">-</span>
-        <input type="text" name="/kunjungan_anc_split_anc_visit_gen/generated_note_name_13" data-type-xml="string" readonly="readonly"/>
-    </label>
-    <label class="question note non-select ">
-        <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/generated_note_name_14:label">Dusun :
-            <span class="or-output" data-value=" /kunjungan_anc_split_anc_visit_gen/Sub-village "></span>
-        </span>
-        <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/generated_note_name_14:label">-</span>
-        <input type="text" name="/kunjungan_anc_split_anc_visit_gen/generated_note_name_14" data-type-xml="string" readonly="readonly"/>
-    </label>
+
     <fieldset class="question simple-select or-appearance-yes ">
         <fieldset>
             <legend>
@@ -833,7 +820,7 @@
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/keterangan:hint">Diisi dengan keterangan terkait rujukan</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/keterangan:hint">Write any additional information related to the referred facility</span>
         <input type="text" name="/kunjungan_anc_split_anc_visit_gen/keterangan" data-relevant=" /kunjungan_anc_split_anc_visit_gen/rujukan  = 'Ya'" data-type-xml="string"/>
-    </label> \n
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/kunjungan_anc_split_anc_visit_gen/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>

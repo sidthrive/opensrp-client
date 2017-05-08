@@ -14,12 +14,20 @@
         "source": "ibu.kartu_ibu.id"
       },
       {
+        "name": "Village",
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/Village",
+        "shouldLoadValue": true,
+        "source": "ibu.kartu_ibu.Village"
+      },
+      {
         "name": "lokasiPeriksa",
         "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/Lokasi_periksa"
       },
       {
-        "name": "nomorTelpon",
-        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/nomortelpon"
+        "name": "NomorTelponHp",
+        "bind": "/model/instance/kunjungan_anc_split_anc_visit_gen/nomortelpon",
+        "shouldLoadValue": true,
+        "source": "ibu.kartu_ibu.NomorTelponHp"
       },
       {
         "name": "Keterangan_k1k4",

@@ -133,9 +133,9 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     public DialogOption[] getEditOptions() {
         return new DialogOption[]{
-                new OpenFormOption("Update KB ", KOHORT_KB_UPDATE, formController),
+                new OpenFormOption("Kohort KB Pelayanan", KOHORT_KB_UPDATE, formController),
                 new OpenFormOption("Edit KB ", KOHORT_KB_EDIT, formController),
-                new OpenFormOption("Tutup KB ", KOHORT_KB_CLOSE, formController),
+                new OpenFormOption("Penutupan KB ", KOHORT_KB_CLOSE, formController),
 
         };
 

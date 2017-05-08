@@ -88,8 +88,8 @@
     <string name="ki_register_title_in_short">KI</string>
     <string name="kb_register_title_in_short">KB</string>
 
-    <string name="str_register_anc_form">Daftar ANC</string>
-    <string name="str_register_kb_form">Daftar KB</string>
+    <string name="str_register_anc_form">Tambah ANC</string>
+    <string name="str_register_kb_form">Tambah KB</string>
     <string name="str_dokumentasi_persalinan_anc_form">Dokumentasi Persalinan</string>
     <string name="str_rencana_persalinan_anc_form">Rencana Persalinan</string>
 
@@ -110,7 +110,7 @@
     <string name="str_kb_close">Tutup KB</string>
 
     <!-- ANAK -->
-    <string name="str_register_anak_form">Register Anak</string>
+    <string name="str_register_anak_form">Tambah Bayi</string>
     <string name="str_tutup_anak">Tutup Anak</string>
     <string name="str_imunisasi_bayi">Imunisasi Bayi</string>
     <string name="str_anak_edit">Edit Anak</string>

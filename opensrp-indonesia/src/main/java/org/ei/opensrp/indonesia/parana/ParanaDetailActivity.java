@@ -245,7 +245,7 @@ public class ParanaDetailActivity extends Activity {
 
 //        Uri.parse(new File("/sdcard/cats.jpg")
 
-        
+
 
 //        BitmapFactory.Options options = new BitmapFactory.Options();
 //        options.inPreferredConfig = Bitmap.Config.ARGB_8888;

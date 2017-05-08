@@ -136,13 +136,13 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     public DialogOption[] getEditOptions() {
         return new DialogOption[]{
-                new OpenFormOption("ANC Visit ", KARTU_IBU_ANC_VISIT, formController),
+                new OpenFormOption("Kunjungan ANC ", KARTU_IBU_ANC_VISIT, formController),
                 new OpenFormOption("Kunjungan ANC Integrasi ", KARTU_IBU_ANC_VISIT_INTEGRASI, formController),
                 new OpenFormOption("Kunjungan ANC Tes Lab ", KARTU_IBU_ANC_VISIT_LABTEST, formController),
                 new OpenFormOption("Rencana Persalinan", KARTU_IBU_ANC_RENCANA_PERSALINAN, formController),
-                new OpenFormOption("Daftar PNC ", KARTU_IBU_PNC_REGISTRATION, formController),
+                new OpenFormOption("Dokumentasi Persalinan (Daftar PNC) ", KARTU_IBU_PNC_REGISTRATION, formController),
                 new OpenFormOption("Edit ANC ", KARTU_IBU_ANC_EDIT, formController),
-                new OpenFormOption("ANC Close ", KARTU_IBU_ANC_CLOSE, formController),
+                new OpenFormOption("Penutupan ANC ", KARTU_IBU_ANC_CLOSE, formController),
 
 
         };
