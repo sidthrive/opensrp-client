@@ -1,8 +1,9 @@
 package org.ei.opensrp.indonesia.kb;
 
+import com.opensrp.id.R;
+
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.dialog.FilterOption;
 

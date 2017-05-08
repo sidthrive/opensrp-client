@@ -635,4 +635,8 @@
     <string name="title_activity_bg5l">BG5L</string>
     <string name="title_activity_pb">PBActivity</string>
     <string name="btn_done">Done</string>
+    <string name="sys">SYS</string>
+    <string name="dia">DIA</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
 </resources>

@@ -79,20 +79,53 @@
                 <!--android:layout_width="fill_parent"-->
                 <!--android:layout_height="50dp"-->
                 <!--android:text="Disconnect" />-->
-            <TextView
-                android:id="@+id/tv_sistole"
+            <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/light_pink"
-                android:textSize="150sp" />
-            <TextView
-                android:id="@+id/tv_diastole"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/light_blue"
-                android:textSize="150sp" />
+                android:id="@+id/tabel">
+
+                <TableRow
+                    android:id="@+id/firstRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/sys"
+                        android:textColor="#fff"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/tv_sys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/light_pink"
+                        android:textSize="150sp" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/secondRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/dia"
+                        android:textColor="#fff"
+                        android:textSize="50sp" />
+                    <TextView
+                        android:id="@+id/tv_dia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/light_blue"
+                        android:textSize="150sp" />
+                </TableRow>
+            </TableLayout>
+
+
 
             <Button
             android:id="@+id/btn_done"

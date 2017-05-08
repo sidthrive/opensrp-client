@@ -346,10 +346,12 @@ public class ANCDetailActivity extends Activity {
                     data.getStringExtra("AHR") +
                     data.getStringExtra("PULSE")
             );
+
 //            tv_systolic.setText(data.getStringExtra("HIGH"));
 //            tv_diastolic.setText(data.getStringExtra("LOW"));
         }
     }
+
 
 
 }

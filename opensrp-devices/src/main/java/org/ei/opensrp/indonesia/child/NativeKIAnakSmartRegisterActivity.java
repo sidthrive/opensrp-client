@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
+import com.opensrp.id.R;
 
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;

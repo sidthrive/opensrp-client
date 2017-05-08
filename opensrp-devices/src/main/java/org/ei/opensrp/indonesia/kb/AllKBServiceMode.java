@@ -2,8 +2,10 @@ package org.ei.opensrp.indonesia.kb;
 
 import android.view.View;
 
+import com.opensrp.id.R;
+
 import org.ei.opensrp.Context;
-import org.ei.opensrp.indonesia.R;
+
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.view.contract.ANCSmartRegisterClient;
 import org.ei.opensrp.view.contract.ChildSmartRegisterClient;
