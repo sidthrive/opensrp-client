@@ -97,9 +97,9 @@
         <span lang="en" class="question-label " data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:label">Visit date</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:hint">Menunjukkan tanggal kunjungan Neonatal</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:hint">Indicating the date of the Neonatal check-up</span>
-        <input type="date" name="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal" data-constraint=".&gt;= /kunjungan_neonatal_reviewed/tanggal_lahir " data-type-xml="date"/>
-        <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:jr:constraintMsg">diisi dengan tanggal setelah tanggal lahir</span>
-        <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:jr:constraintMsg">Fill in the date of today or the days after</span>
+        <input type="date" name="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal" data-constraint=".&lt;= /kunjungan_neonatal_reviewed/today " data-type-xml="date"/>
+        <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:jr:constraintMsg">diisi dengan tanggal hari ini atau sebelumnya</span>
+        <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_neonatal_reviewed/tanggal_kunjungan_neonatal:jr:constraintMsg">Fill in the date of today or the days before</span>
     </label>
     <fieldset class="question simple-select ">
         <fieldset>
@@ -136,42 +136,42 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_infeksi" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_infeksi" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_infeksi:label">Memeriksa kemungkinan penyakit sangat berat atau infeksi bakteri</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_infeksi:label">Examination of infection</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_diare" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_diare" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_diare:label">Memeriksa adanya diare</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_diare:label">Examination of diarrhea</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_ikterus" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_ikterus" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_ikterus:label">Memeriksa ikterus</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_ikterus:label">Examination of icterus</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_asi" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_asi" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_asi:label">Memeriksa kemungkinan berat badan rendah dan/atau masalah pemberian ASI</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_asi:label">Examination of breasfteeding</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_vitk" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_vitk" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_vitk:label">Memeriksa status pemberian Vitamin K</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_vitk:label">Examination of vitamin K</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_hb0" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_hb0" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_hb0:label">Memeriksa status imunisasi Hb0</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_hb0:label">Examination of Hb 0 vaccination</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_keluhan_lain" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_keluhan_lain" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_keluhan_lain:label">Memeriksa keluhan lain</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_keluhan_lain:label">Other examination of neonatal</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" data-name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_keluhan_ibu" data-type-xml="select1"/>
+                    <input type="checkbox" name="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal" value="pemeriksaan_keluhan_ibu" data-type-xml="select"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_keluhan_ibu:label">Memeriksa masalah/keluhan ibu</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/pemeriksaan_neonatal/pemeriksaan_keluhan_ibu:label">Other examination of mother</span>
                 </label>
@@ -386,12 +386,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/confirm_of_death" data-name="/kunjungan_neonatal_reviewed/confirm_of_death" value="ya" required="required" data-relevant=" /kunjungan_neonatal_reviewed/kondisi_bayi  = 'meninggal'" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_neonatal_reviewed/confirm_of_death" data-name="/kunjungan_neonatal_reviewed/confirm_of_death" value="ya" data-required="true()" data-relevant=" /kunjungan_neonatal_reviewed/kondisi_bayi  = 'meninggal'" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/confirm_of_death/ya:label">ya</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/confirm_of_death/ya:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kunjungan_neonatal_reviewed/confirm_of_death" data-name="/kunjungan_neonatal_reviewed/confirm_of_death" value="tidak" required="required" data-relevant=" /kunjungan_neonatal_reviewed/kondisi_bayi  = 'meninggal'" data-type-xml="select1"/>
+                    <input type="radio" name="/kunjungan_neonatal_reviewed/confirm_of_death" data-name="/kunjungan_neonatal_reviewed/confirm_of_death" value="tidak" data-required="true()" data-relevant=" /kunjungan_neonatal_reviewed/kondisi_bayi  = 'meninggal'" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kunjungan_neonatal_reviewed/confirm_of_death/tidak:label">tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/kunjungan_neonatal_reviewed/confirm_of_death/tidak:label">No</span>
                 </label>
