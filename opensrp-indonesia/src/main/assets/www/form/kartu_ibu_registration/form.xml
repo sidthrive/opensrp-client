@@ -284,24 +284,13 @@
         <span lang="en" class="or-hint " data-itext-id="/Kartu_ibu/asuransi_jiwa:hint">Type insurance that mother has</span>
         <select name="/Kartu_ibu/asuransi_jiwa" data-name="/Kartu_ibu/asuransi_jiwa" data-type-xml="select1">
             <option value="">...</option>
-            <option value="Jaminan_Kesehatan_Masyarakat">Jaminan Kesehatan Masyarakat (Jamkesmas)</option>
-            <option value="Jamsostek">Jaminan Sosial dan Ketenagakerjaan (Jamsostek)</option>
-            <option value="Jaminan_Kesehatan_Daerah">Jaminan Kesehatan Daerah (Jamkesda)</option>
-            <option value="Asuransi_Kesehatan">Asuransi Kesehatan (Askes)</option>
-            <option value="Jaminan_Persalinan">Jaminan Persalinan (Jampersal)</option>
+            <option value="kis">KIS</option>
+
             <option value="Tidak_Ada_Asuransi">Tidak memiliki asuransi/pembiayaan</option>
         </select>
         <span class="or-option-translations" style="display:none;">
-            <span data-option-value="Jaminan_Kesehatan_Masyarakat" lang="Bahasa">Jaminan Kesehatan Masyarakat (Jamkesmas)</span>
-            <span data-option-value="Jaminan_Kesehatan_Masyarakat" lang="en">National Health Insurance for the Poor</span>
-            <span data-option-value="Jamsostek" lang="Bahasa">Jaminan Sosial dan Ketenagakerjaan (Jamsostek)</span>
-            <span data-option-value="Jamsostek" lang="en">Social Insurance for Private Sector Workers</span>
-            <span data-option-value="Jaminan_Kesehatan_Daerah" lang="Bahasa">Jaminan Kesehatan Daerah (Jamkesda)</span>
-            <span data-option-value="Jaminan_Kesehatan_Daerah" lang="en">Regional Health Insurance for the Poor</span>
-            <span data-option-value="Asuransi_Kesehatan" lang="Bahasa">Asuransi Kesehatan (Askes)</span>
-            <span data-option-value="Asuransi_Kesehatan" lang="en">Health Insurance for Civil Servants and Retired Armed Forces Personnel</span>
-            <span data-option-value="Jaminan_Persalinan" lang="Bahasa">Jaminan Persalinan (Jampersal)</span>
-            <span data-option-value="Jaminan_Persalinan" lang="en">Health Insurance for Pregnant Women and Newborns</span>
+            <span data-option-value="kis" lang="Bahasa">KIS</span>
+            <span data-option-value="kis" lang="en">National Health Insurance</span>
             <span data-option-value="Tidak_Ada_Asuransi" lang="Bahasa">Tidak memiliki asuransi/pembiayaan</span>
             <span data-option-value="Tidak_Ada_Asuransi" lang="en">No Insurance</span>
         </span>

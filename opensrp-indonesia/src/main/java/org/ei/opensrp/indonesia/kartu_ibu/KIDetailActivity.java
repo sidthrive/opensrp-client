@@ -187,7 +187,7 @@ public class KIDetailActivity extends Activity {
         job.setText(": "+humanize(kiclient.getDetails().get("pekerjaan") != null ? kiclient.getDetails().get("pekerjaan") : "-"));
         gakin.setText(": "+humanize(kiclient.getDetails().get("gakinTidak") != null ? kiclient.getDetails().get("gakinTidak") : "-"));
         blood_type.setText(": "+humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-"));
-        asuransi.setText(": "+humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-"));
+        asuransi.setText(": "+humanize(kiclient.getDetails().get("asuransiJiwa") != null ? kiclient.getDetails().get("asuransiJiwa").toUpperCase() : "-"));
 
 
 
