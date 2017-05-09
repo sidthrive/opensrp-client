@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 //import example.com.mylibrary.MainBPMActivity;
 
@@ -359,7 +360,7 @@ public class ANCDetailActivity extends Activity {
                 FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
             String formSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">\n" +
                     "\t<formhub>\n" +
-                    "\t\t<uuid>"+formUtils.generateRandomUUIDString()+"</uuid>\n" +
+                    "\t\t<uuid>"+UUID.randomUUID().toString()+"</uuid>\n" +
                     "\t</formhub>\n" +
                     "\t<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">"+ LocalDateTime.now()+"</start>\n" +
                     "\t<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+ LocalDate.now()+"</today>\n" +
@@ -377,7 +378,7 @@ public class ANCDetailActivity extends Activity {
                     "\t<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
                     "\t<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">"+LocalDateTime.now()+"</end>\n" +
                     "\t<meta>\n" +
-                    "\t\t<instanceID>uuid:"+formUtils.generateRandomUUIDString()+"</instanceID>\n" +
+                    "\t\t<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>\n" +
                     "\t\t<deprecatedID/>\n" +
                     "\t</meta>\n" +
                     "</Blood_Test>";
