@@ -352,6 +352,7 @@ public class ANCDetailActivity extends Activity {
                     data.getStringExtra("AHR") +
                     data.getStringExtra("PULSE")
             );
+//<<<<<<< HEAD
            /* NativeKIANCSmartRegisterActivity nativeKIANCSmartRegisterActivity = new NativeKIANCSmartRegisterActivity();
             nativeKIANCSmartRegisterActivity.saveFormSubmission(data,ancclient,"form_sum",);*/
             try{
@@ -387,10 +388,14 @@ public class ANCDetailActivity extends Activity {
                 // TODO: show error dialog on the formfragment if the submission fails
                 e.printStackTrace();
             }
+/*=======
+
+>>>>>>> 9390dfaafc763bb92e78a03321bb1e84ef800255*/
 //            tv_systolic.setText(data.getStringExtra("HIGH"));
 //            tv_diastolic.setText(data.getStringExtra("LOW"));
         }
     }
+
 
 
 }

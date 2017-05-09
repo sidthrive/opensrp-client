@@ -122,9 +122,9 @@
         <activity android:name=".face.camera.ClientsList" />
         <!-- BPM -->
         <!--<activity android:name=".face.bpm.BpmMainActivity" />-->
-
         <activity android:name=".device.MainBPM"/>
         <activity android:name=".device.BP7"/>
+        <activity android:name=".device.BP5"/>
 
     </application>
 

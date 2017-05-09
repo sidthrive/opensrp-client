@@ -61,7 +61,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
-    long discoveryType = 67108864;
+//    long discoveryType = 67108864; // BP7
+    long discoveryType = 33554432; // BP5
 
     private ListView listview_scan;
     private ListView listview_connected;
@@ -108,7 +109,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
                     updateViewForScan();
 
                     // SID
-                    connectDevice();
+//                    connectDevice();
 
                     break;
 
@@ -215,7 +216,6 @@ public class MainBPM extends Activity implements View.OnClickListener {
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.content_main);
 
-
         tv_discovery = (TextView) findViewById(R.id.tv_discovery);
         tv_devScan = (TextView) findViewById(R.id.tv_devScan);
         tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
@@ -232,8 +232,6 @@ public class MainBPM extends Activity implements View.OnClickListener {
             findViewById(R.id.btn_discorvery).setOnClickListener(this);
             findViewById(R.id.btn_stopdiscorvery).setOnClickListener(this);
             findViewById(R.id.btn_Certification).setOnClickListener(this);
-
-
 
             // Toolbar
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -256,6 +254,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 list_ConnectedDevices.clear();
             if (list_ScanDevices != null)
                 list_ScanDevices.clear();
+
             sa_scan = new SimpleAdapter(this, this.list_ScanDevices, R.layout.bp_listview_baseview,
                     new String[]{
                             "type", "mac"
@@ -529,6 +528,10 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 Log.e(TAG, "onItemClick: "+position );
                 if (iHealthDevicesManager.TYPE_BP7.equals(type)) {
                     intent.setClass(MainBPM.this, BP7.class);
+                    startActivity(intent);
+
+                } else if (iHealthDevicesManager.TYPE_BP5.equals(type)) {
+                    intent.setClass(MainBPM.this, BP5.class);
                     startActivity(intent);
 
                 }
