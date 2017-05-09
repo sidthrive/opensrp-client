@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_high_caps"
+                android:text="SYS" />
+
+            <TextView
+                android:id="@+id/tv_high_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SYS_VALUE" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_low_caps"
+                android:text="DIA" />
+
+            <TextView
+                android:id="@+id/tv_low_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DIA_VALUE" />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_pulse_caps"
+                android:text="DIA" />
+
+            <TextView
+                android:id="@+id/tv_pulse_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DIA_VALUE" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/bt_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DONE" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

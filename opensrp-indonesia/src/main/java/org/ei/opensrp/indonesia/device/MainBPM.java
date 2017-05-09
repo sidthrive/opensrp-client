@@ -38,7 +38,6 @@ import java.util.Map;
  */
 public class MainBPM extends Activity implements View.OnClickListener {
 
-
     private static final String TAG = MainBPM.class.getSimpleName();
     private static final int HANDLER_SCAN = 101;
     private static final int HANDLER_CONNECTED = 102;
@@ -61,8 +60,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
-//    long discoveryType = 67108864; // BP7
-    long discoveryType = 33554432; // BP5
+    long discoveryType = 67108864; // BP7
+//    long discoveryType = 33554432; // BP5
 
     private ListView listview_scan;
     private ListView listview_connected;
@@ -528,11 +527,13 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 Log.e(TAG, "onItemClick: "+position );
                 if (iHealthDevicesManager.TYPE_BP7.equals(type)) {
                     intent.setClass(MainBPM.this, BP7.class);
-                    startActivity(intent);
+//                    startActivity(intent);
+                    startActivityForResult(intent, 2 );
 
                 } else if (iHealthDevicesManager.TYPE_BP5.equals(type)) {
                     intent.setClass(MainBPM.this, BP5.class);
-                    startActivity(intent);
+//                    startActivity(intent);
+                    startActivityForResult(intent, 2 );
 
                 }
             }
@@ -576,10 +577,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Log.e(TAG, "onActivityResult: "+requestCode+" res: "+resultCode );
-
         super.onActivityResult(requestCode, resultCode, data);
-
-
         if (requestCode == 2){
 
             Intent i = new Intent();

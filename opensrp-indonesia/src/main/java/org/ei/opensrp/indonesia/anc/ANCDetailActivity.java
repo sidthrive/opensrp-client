@@ -18,6 +18,7 @@ import org.ei.opensrp.indonesia.R;
 //import org.ei.opensrp.indonesia.face.bpm.MainBPMActivity;
 import org.ei.opensrp.indonesia.device.BpmTestMainActivity;
 import org.ei.opensrp.indonesia.device.MainBPM;
+import org.ei.opensrp.indonesia.device.TestBPM;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.FormUtils;
@@ -337,7 +338,8 @@ public class ANCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
-        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+//        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
 
         startActivityForResult(i, 2);
     }
@@ -353,12 +355,12 @@ public class ANCDetailActivity extends Activity {
                     data.getStringExtra("AHR") +
                     data.getStringExtra("PULSE")
             );
-//<<<<<<< HEAD
            /* NativeKIANCSmartRegisterActivity nativeKIANCSmartRegisterActivity = new NativeKIANCSmartRegisterActivity();
             nativeKIANCSmartRegisterActivity.saveFormSubmission(data,ancclient,"form_sum",);*/
             try{
+                Log.e(TAG, "onActivityResult: saveToserver" );
                 FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
-            String formSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">\n" +
+                String FormSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">\n" +
                     "\t<formhub>\n" +
                     "\t\t<uuid>"+UUID.randomUUID().toString()+"</uuid>\n" +
                     "\t</formhub>\n" +
@@ -383,15 +385,45 @@ public class ANCDetailActivity extends Activity {
                     "\t</meta>\n" +
                     "</Blood_Test>";
 
+                String formSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient+"\">\n" +
+                        "\t<formhub>\n" +
+                        "\t\t<uuid>"+UUID.randomUUID().toString()+"</uuid>\n" +
+                        "\t</formhub>\n" +
+                        "\t<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">2017-05-08T17:21:47.000+08:00</start>\n" +
+                        "\t<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">2017-05-08</today>\n" +
+                        "\t<deviceid>Error: could not determine deviceID</deviceid>\n" +
+                        "\t<simserial>no simserial property in enketo</simserial>\n" +
+                        "\t<phonenumber>no phonenumber property in enketo</phonenumber>\n" +
+                        "\t<Province>Nusa Tenggara Barat</Province>\n" +
+                        "\t<District>Kota Mataram</District>\n" +
+                        "\t<Sub-district>Tanjung Karang</Sub-district>\n" +
+                        "\t<Village>Banjar</Village>\n" +
+                        "\t<Sub-village>Selaparang.</Sub-village>\n" +
+                        "\t<generated_note_name_13/>\n" +
+                        "\t<generated_note_name_14/>\n" +
+                        "\t<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">Banjar</existing_location>\n" +
+                        "\t<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">Nusa Tenggara Barat</provinsi>\n" +
+                        "\t<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">Kota Mataram</kabupaten>\n" +
+                        "\t<desa openmrs_entity=\"person_address\" openmrs_entity_id=\"cityVillage\" openmrs_entity_parent=\"usual_residence\">Banjar</desa>\n" +
+                        "\t<dusun openmrs_entity=\"person_address\" openmrs_entity_id=\"address1\" openmrs_entity_parent=\"usual_residence\">Selaparang.</dusun>\n" +
+                        "\t<kecamatan openmrs_entity=\"person_address\" openmrs_entity_id=\"address2\" openmrs_entity_parent=\"usual_residence\">Tanjung Karang</kecamatan>\n" +
+                        "\t<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>\n" +
+                        "\t<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>\n" +
+                        "\t<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>\n" +
+                        "\t<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
+                        "\t<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">2017-05-08T17:21:47.000+08:00</end>\n" +
+                        "\t<meta>\n" +
+                        "\t\t<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>\n" +
+                        "\t\t<deprecatedID/>\n" +
+                        "\t</meta>\n" +
+                        "</Blood_Test>";
 
-            formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", null);
+                formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", null);
+
             }catch (Exception e){
                 // TODO: show error dialog on the formfragment if the submission fails
                 e.printStackTrace();
             }
-/*=======
-
->>>>>>> 9390dfaafc763bb92e78a03321bb1e84ef800255*/
 //            tv_systolic.setText(data.getStringExtra("HIGH"));
 //            tv_diastolic.setText(data.getStringExtra("LOW"));
         }
