@@ -13,15 +13,21 @@ import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.R;
 //import org.ei.opensrp.indonesia.face.bpm.MainBPMActivity;
 import org.ei.opensrp.indonesia.device.BpmTestMainActivity;
 import org.ei.opensrp.indonesia.device.MainBPM;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.ANCDetail;
+import org.ei.opensrp.view.fragment.DisplayFormFragment;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.json.JSONObject;
 //import org.opensrp.id.MainActivity;
 //import org.opensrp.bpm.MainBPM;
 //import org.opensrp.id.MainBPMActivity;
@@ -346,6 +352,41 @@ public class ANCDetailActivity extends Activity {
                     data.getStringExtra("AHR") +
                     data.getStringExtra("PULSE")
             );
+           /* NativeKIANCSmartRegisterActivity nativeKIANCSmartRegisterActivity = new NativeKIANCSmartRegisterActivity();
+            nativeKIANCSmartRegisterActivity.saveFormSubmission(data,ancclient,"form_sum",);*/
+            try{
+                FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
+            String formSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">\n" +
+                    "\t<formhub>\n" +
+                    "\t\t<uuid>"+formUtils.generateRandomUUIDString()+"</uuid>\n" +
+                    "\t</formhub>\n" +
+                    "\t<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">"+ LocalDateTime.now()+"</start>\n" +
+                    "\t<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+ LocalDate.now()+"</today>\n" +
+                    "\t<deviceid>Error: could not determine deviceID</deviceid>\n" +
+                    "\t<simserial>no simserial property in enketo</simserial>\n" +
+                    "\t<phonenumber>no phonenumber property in enketo</phonenumber>\n" +
+                    "\t<Village>"+ancclient.getDetails().get("address1")+"</Village>\n" +
+                    "\t<Sub-village>Selaparang.</Sub-village>\n" +
+                    "\t<generated_note_name_13/>\n" +
+                    "\t<generated_note_name_14/>\n" +
+                    "\t<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+ancclient.getDetails().get("address1")+"</existing_location>\n" +
+                    "\t<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>\n" +
+                    "\t<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>\n" +
+                    "\t<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>\n" +
+                    "\t<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
+                    "\t<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">"+LocalDateTime.now()+"</end>\n" +
+                    "\t<meta>\n" +
+                    "\t\t<instanceID>uuid:"+formUtils.generateRandomUUIDString()+"</instanceID>\n" +
+                    "\t\t<deprecatedID/>\n" +
+                    "\t</meta>\n" +
+                    "</Blood_Test>";
+
+
+            formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", null);
+            }catch (Exception e){
+                // TODO: show error dialog on the formfragment if the submission fails
+                e.printStackTrace();
+            }
 //            tv_systolic.setText(data.getStringExtra("HIGH"));
 //            tv_diastolic.setText(data.getStringExtra("LOW"));
         }
