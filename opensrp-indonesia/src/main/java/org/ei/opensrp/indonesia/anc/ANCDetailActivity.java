@@ -82,6 +82,13 @@ public class ANCDetailActivity extends Activity {
         TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
         TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
         TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
+
+        TextView risk5 = (TextView) findViewById(R.id.txt_risk5);
+        TextView risk6 = (TextView) findViewById(R.id.txt_risk6);
+        TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
+        TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
+        TextView txt_head = (TextView) findViewById(R.id.txt_head);
+
         final TextView show_risk = (TextView) findViewById(R.id.show_more);
         final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
 
@@ -175,6 +182,18 @@ public class ANCDetailActivity extends Activity {
                 FlurryAgent.logEvent("anc_detail_view",KBDetail, true);
             }
         });
+
+
+        txt_head.setText("Rencana Persalinan :");
+        String htp = ancclient.getDetails().get("htp") != null?ancclient.getDetails().get("htp"):"";
+        String pendamping = ancclient.getDetails().get("rencanaPendampingPersalinan") != null ? ancclient.getDetails().get("rencanaPendampingPersalinan") : "-";
+        String tempat_bersalin = ancclient.getDetails().get("tempatRencanaPersalinan") != null ? ancclient.getDetails().get("tempatRencanaPersalinan") : "-";
+        String Perlengkapan = ancclient.getDetails().get("persediaanPerlengkapanPersalinan") != null ? ancclient.getDetails().get("persediaanPerlengkapanPersalinan") : "-";
+        risk5.setText("HTP : "+htp);
+        risk6.setText("Pendamping : "+pendamping);
+        risk7.setText("Tempat Bersalin : "+tempat_bersalin);
+       // risk8.setText("Perlengkapan : " +Perlengkapan);
+
 
         Keterangan_k1k4.setText(": "+ humanize (ancclient.getDetails().get("Keterangan_k1k4") != null ? ancclient.getDetails().get("Keterangan_k1k4") : "-"));
         tanggalHPHT.setText(": "+ humanize(ancclient.getDetails().get("tanggalHPHT") != null ? ancclient.getDetails().get("tanggalHPHT") : "-"));
