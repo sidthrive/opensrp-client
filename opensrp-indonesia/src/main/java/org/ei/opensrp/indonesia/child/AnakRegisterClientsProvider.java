@@ -198,7 +198,7 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
         String tanggal = pc.getDetails().get("tanggalKunjunganBayiPerbulan")!=null?" "+pc.getDetails().get("tanggalKunjunganBayiPerbulan"):pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"";
         String tinggi = pc.getDetails().get("panjangBayi")!=null?" "+pc.getDetails().get("panjangBayi"):pc.getDetails().get("tinggiBadan")!=null?pc.getDetails().get("tinggiBadan"):"";
         String status_gizi = pc.getDetails().get("statusGizi")!=null?pc.getDetails().get("statusGizi"):"";
-        String gizi = status_gizi.equals("GB")?"Gizi Buruk":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
+        String gizi = status_gizi.equals("GB")?"Gizi Baik":status_gizi.equals("GK")?"Gizi Kurang":status_gizi.equals("GR")?"Gizi Rendah":"";
         viewHolder.berat_badan.setText(context.getString(R.string.str_weight)+": "+berat);
         viewHolder.tanggal_kunjungan_anc.setText(context.getString(R.string.date_visit_title)+" "+tanggal);
         viewHolder.tinggi.setText(context.getString(R.string.height)+" "+tinggi);

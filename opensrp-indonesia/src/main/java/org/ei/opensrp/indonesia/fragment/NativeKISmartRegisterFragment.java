@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.commonregistry.CommonRepository;
@@ -32,6 +34,7 @@ import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
@@ -343,13 +346,22 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
             if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
+                AllCommonsRepository iburep2 = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
+                final CommonPersonObject ibuparent = iburep2.findByCaseID(pc.getColumnmaps().get("ibu.id"));
+
+                Log.logInfo("Closed : "+ibuparent.getColumnmaps().get("isClosed"));
                 if(pc.getColumnmaps().get("ibu.type")!= null) {
                     if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
-                        return;
+                        if(ibuparent.getColumnmaps().get("isClosed")!= null) {
+                            if (ibuparent.getColumnmaps().get("isClosed").equals("false")) {
+                                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
                     }
                 }
             }
+
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }

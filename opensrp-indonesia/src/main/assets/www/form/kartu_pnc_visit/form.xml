@@ -69,13 +69,13 @@
         <input type="date" name="/PNC_visit_reviewed/tanggal_kunjungan" required="required"  data-type-xml="date"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <label class="question note non-select ">
+    <!--<label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/generated_note_name_27:label">Tanggal lahir anak :
             <span class="or-output" data-value=" /PNC_visit_reviewed/tanggal_lahir_anak "></span>
         </span>
         <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/generated_note_name_27:label">-</span>
         <input type="text" name="/PNC_visit_reviewed/generated_note_name_27" data-type-xml="string" readonly="readonly"/>
-    </label>
+    </label>-->
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/hari_ke__kf:label">Hari Ke / KF</span>
         <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/hari_ke__kf:label">Day/ Postpartum care</span>
