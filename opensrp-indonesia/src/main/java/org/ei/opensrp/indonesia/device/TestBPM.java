@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import org.ei.opensrp.indonesia.R;
 
+import java.util.Locale;
+
 /**
  * Created by sid on 5/9/17.
  */
@@ -35,15 +37,33 @@ public class TestBPM extends Activity{
 
     }
 
+    @Override
+    public void onBackPressed(){
+        Bundle bundle = new Bundle();
+
+        Intent i = new Intent();
+        i.putExtra("HIGH", nol());
+        i.putExtra("LOW", nol());
+        i.putExtra("AHR", nol());
+        i.putExtra("PULSE", nol());
+
+        setResult(RESULT_CANCELED, i);
+        super.onBackPressed();
+    }
+
+    private String nol() {
+        return String.format(Locale.getDefault(), "%2d", 0);
+    }
+
     private void showValue() {
         Log.e(TAG, "showValue: "+ high);
         Log.e(TAG, "showValue: "+ low);
         Log.e(TAG, "showValue: "+ tv_sys_value );
 //        tv_sys_value.setText(high);
 //        tv_dia_value.setText(low);
-        tv_sys_value.setText(String.valueOf(high));
-        tv_dia_value.setText(String.valueOf(low));
-        tv_pulse_value.setText(String.valueOf(pulse));
+        tv_sys_value.setText(String.format(Locale.getDefault(), "%2d", high));
+        tv_dia_value.setText(String.format(Locale.getDefault(), "%2d", low));
+        tv_pulse_value.setText(String.format(Locale.getDefault(), "%2d", pulse));
     }
 
     private void initView() {
@@ -61,10 +81,10 @@ public class TestBPM extends Activity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
-                i.putExtra("HIGH", getHigh());
-                i.putExtra("LOW", getLow());
+                i.putExtra("HIGH", String.format(Locale.getDefault(), "%2d", getHigh()));
+                i.putExtra("LOW", String.format(Locale.getDefault(), "%2d", getLow()));
                 i.putExtra("AHR", getAhr());
-                i.putExtra("PULSE", getPulse());
+                i.putExtra("PULSE", String.format(Locale.getDefault(), "%2d", getPulse()));
 
                 setResult(2, i);
                 finish();//finishing activity

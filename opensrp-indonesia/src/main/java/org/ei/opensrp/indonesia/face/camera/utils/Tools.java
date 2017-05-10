@@ -798,7 +798,7 @@ public class Tools {
                 // TODO setTag+"The key must be an application-specific resource id"
                 iv.setTag(R.id.entity_id, uid);
                 DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(uid, OpenSRPImageLoader.getStaticImageListener(iv, 0, 0));
-                Log.e(TAG, "download_images: done "+ uid );
+                Log.e(TAG, "download_images: undownload "+ uid );
 
             }
         } catch (Exception e){

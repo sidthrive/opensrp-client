@@ -10,6 +10,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "existing_location",
+        "bind": "/model/instance/Blood_Test/existing_location",
+        "shouldLoadValue": true
+      },
+      {
         "name": "Village",
         "bind": "/model/instance/Blood_Test/Village",
         "shouldLoadValue": true

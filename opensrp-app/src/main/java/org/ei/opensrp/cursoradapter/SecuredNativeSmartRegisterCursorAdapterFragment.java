@@ -411,9 +411,6 @@ public abstract class SecuredNativeSmartRegisterCursorAdapterFragment extends Se
         }
 
 
-
-
-
         @Override
         public void onClick(View view) {
             int i = view.getId();

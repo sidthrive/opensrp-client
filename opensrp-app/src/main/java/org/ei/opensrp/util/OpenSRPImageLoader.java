@@ -246,7 +246,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 
                     // get this from the database based on imageId
                     String requestUrl = imageRecord.getImageUrl();
-                    Log.e(TAG, "onPostExecute: "+requestUrl );
+                    Log.e(TAG, "local image not found, download onPostExecute: "+requestUrl );
 
                     // If the new requestUrl is null or the new requestUrl is different to the previous recycled requestUrl
                     if (requestUrl == null || !requestUrl.equals(recycledImageUrl)) {
