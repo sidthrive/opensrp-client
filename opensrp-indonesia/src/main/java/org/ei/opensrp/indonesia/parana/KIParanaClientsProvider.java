@@ -194,7 +194,8 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
 //            viewHolder.edd_due.setText("-");
         }
 
-
+        viewHolder.img_p_red_badge.setVisibility(View.GONE);
+        viewHolder.img_p_yellow_badge.setVisibility(View.GONE);
         Status_parana(pc.getDetails().get("aktif_sesi1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1, days, "sesi1",invitation);
         Status_parana(pc.getDetails().get("aktif_sesi2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2,days, "sesi2",invitation);
         Status_parana(pc.getDetails().get("aktif_sesi3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3,days, "sesi3",invitation);
@@ -229,7 +230,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
 
         }
         int counter = 0;
-        if(pc.getDetails().get("umur") != null ? isTooYoungMother(pc.getDetails().get("umur")) : false){
+        if(pc.getColumnmaps().get("umur") != null ? isTooYoungMother(pc.getColumnmaps().get("umur")) : false){
             counter++;
         }
         if(pc.getDetails().get("hidup") != null ? isTooManyChildren(pc.getDetails().get("hidup")) : false){
@@ -242,9 +243,9 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             counter++;
         }
 
-        if(counter>2)
+        if(counter>=2)
             viewHolder.img_p_red_badge.setVisibility(View.VISIBLE);
-        else if(counter>0)
+        else if(counter>0 && counter <2)
             viewHolder.img_p_yellow_badge.setVisibility(View.VISIBLE);
 
         //   return convertView;

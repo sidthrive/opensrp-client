@@ -12,7 +12,7 @@
       <span class="required">*</span>
       <span lang="Bahasa" class="or-hint active" data-itext-id="/tambah_bayi_reviewed/tanggal_pendaftaran:hint">Tanggal melakukan pendaftaran bayi</span>
       <span lang="en" class="or-hint " data-itext-id="/tambah_bayi_reviewed/tanggal_pendaftaran:hint">Date of baby's registration</span>
-      <input type="date" name="/tambah_bayi_reviewed/tanggal_pendaftaran" data-required="true()" data-type-xml="date"/>
+      <input type="date" name="/tambah_bayi_reviewed/tanggal_pendaftaran" required="required" data-type-xml="date"/>
       <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
    </label>
 
@@ -20,7 +20,7 @@
       <span lang="Bahasa" class="question-label active" data-itext-id="/tambah_bayi_reviewed/alamat:label">Alamat</span>
       <span lang="en" class="question-label " data-itext-id="/tambah_bayi_reviewed/alamat:label">Address</span>
       <span class="required">*</span>
-      <input type="text" name="/tambah_bayi_reviewed/alamat" data-required="true()" data-type-xml="string"/>
+      <input type="text" name="/tambah_bayi_reviewed/alamat" required="required" data-type-xml="string"/>
       <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
    </label>
    <label class="question non-select ">
@@ -36,7 +36,7 @@
       <span class="required">*</span>
       <span lang="Bahasa" class="or-hint active" data-itext-id="/tambah_bayi_reviewed/nama_bayi:hint">Apabila nama bayi belum ada, isi dengan: Bayi 'nama_ibu'. misal nama ibu Ratna, maka isi dengan Bayi Ratna</span>
       <span lang="en" class="or-hint " data-itext-id="/tambah_bayi_reviewed/nama_bayi:hint">If baby doesn't have a name yet, fill in: Baby "mother's name". For example, the mother's name is Ratna, then fill in Baby Ratna</span>
-      <input type="text" name="/tambah_bayi_reviewed/nama_bayi" data-required="true()" data-type-xml="string"/>
+      <input type="text" name="/tambah_bayi_reviewed/nama_bayi" required="required" data-type-xml="string"/>
       <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
    </label>
    <label class="question non-select ">
@@ -45,7 +45,7 @@
       <span class="required">*</span>
       <span lang="Bahasa" class="or-hint active" data-itext-id="/tambah_bayi_reviewed/tanggal_lahir_anak:hint">Diisi dengan tanggal lahir bayi</span>
       <span lang="en" class="or-hint " data-itext-id="/tambah_bayi_reviewed/tanggal_lahir_anak:hint">Fill in baby's birth of date</span>
-      <input type="date" name="/tambah_bayi_reviewed/tanggal_lahir_anak" data-required="true()" data-constraint=".&lt;=  /tambah_bayi_reviewed/tanggal_pendaftaran " data-type-xml="date"/>
+      <input type="date" name="/tambah_bayi_reviewed/tanggal_lahir_anak" required="required" data-constraint=".&lt;=  /tambah_bayi_reviewed/tanggal_pendaftaran " data-type-xml="date"/>
       <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/tambah_bayi_reviewed/tanggal_lahir_anak:jr:constraintMsg">Tanggal lahir bayi harus diisi dengan sebelum tanggal pendaftaran</span>
       <span lang="en" class="or-constraint-msg " data-itext-id="/tambah_bayi_reviewed/tanggal_lahir_anak:jr:constraintMsg">Date of baby's birth should be filled in with the date before registration date</span>
       <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
@@ -61,12 +61,12 @@
          </legend>
          <div class="option-wrapper">
             <label class="">
-               <input type="radio" name="/tambah_bayi_reviewed/jenis_kelamin" data-name="/tambah_bayi_reviewed/jenis_kelamin" value="laki" data-required="true()" data-type-xml="select1"/>
+               <input type="radio" name="/tambah_bayi_reviewed/jenis_kelamin" data-name="/tambah_bayi_reviewed/jenis_kelamin" value="laki" required="required" data-type-xml="select1"/>
                <span lang="Bahasa" class="option-label active" data-itext-id="/tambah_bayi_reviewed/jenis_kelamin/laki:label">Laki-Laki (L)</span>
                <span lang="en" class="option-label " data-itext-id="/tambah_bayi_reviewed/jenis_kelamin/laki:label">Male (L);</span>
             </label>
             <label class="">
-               <input type="radio" name="/tambah_bayi_reviewed/jenis_kelamin" data-name="/tambah_bayi_reviewed/jenis_kelamin" value="perempuan" data-required="true()" data-type-xml="select1"/>
+               <input type="radio" name="/tambah_bayi_reviewed/jenis_kelamin" data-name="/tambah_bayi_reviewed/jenis_kelamin" value="perempuan" required="required" data-type-xml="select1"/>
                <span lang="Bahasa" class="option-label active" data-itext-id="/tambah_bayi_reviewed/jenis_kelamin/perempuan:label">Perempuan ( P)</span>
                <span lang="en" class="option-label " data-itext-id="/tambah_bayi_reviewed/jenis_kelamin/perempuan:label">Female (P)</span>
             </label>

@@ -154,6 +154,17 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:layout_margin="5dp"
+                android:id="@+id/txt_head"
+                android:text="RESIKO :"
+                android:textSize="14sp"
+                android:textColor="@color/text_black" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:layout_margin="5dp"
                 android:id="@+id/txt_risk5"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />

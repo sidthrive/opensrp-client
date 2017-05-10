@@ -29,12 +29,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Parana_invitation/invitation" data-name="/Parana_invitation/invitation" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Parana_invitation/invitation" data-name="/Parana_invitation/invitation" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Parana_invitation/invitation/Yes:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/Parana_invitation/invitation/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Parana_invitation/invitation" data-name="/Parana_invitation/invitation" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Parana_invitation/invitation" data-name="/Parana_invitation/invitation" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Parana_invitation/invitation/No:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/Parana_invitation/invitation/No:label">No</span>
                 </label>
@@ -46,7 +46,7 @@
         <span lang="Bahasa" class="question-label active" data-itext-id="/Parana_invitation/date_invitation:label">Tanggal invitasi</span>
         <span lang="en" class="question-label " data-itext-id="/Parana_invitation/date_invitation:label">Date of invitation</span>
         <span class="required">*</span>
-        <input type="date" name="/Parana_invitation/date_invitation" data-required="true()" data-constraint=".&lt;= /Parana_invitation/today " data-type-xml="date"/>
+        <input type="date" name="/Parana_invitation/date_invitation" required="required" data-constraint=".&lt;= /Parana_invitation/today " data-type-xml="date"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>

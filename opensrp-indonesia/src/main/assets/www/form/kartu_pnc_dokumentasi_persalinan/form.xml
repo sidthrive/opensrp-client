@@ -1016,7 +1016,7 @@
         <span class="or-hint " data-itext-id="/dok_persalinan_reviewed/tanggal_lahir_anak:hint"
             lang="en">Baby's date of birth
         </span>
-        <input name="/dok_persalinan_reviewed/tanggal_lahir_anak" data-type-xml="date" required="required"
+        <input name="/dok_persalinan_reviewed/tanggal_lahir_anak" data-type-xml="date" required="required" data-constraint=".&lt;= /dok_persalinan_reviewed/today "
             type="date" />
     </label>
     <fieldset class="question ">

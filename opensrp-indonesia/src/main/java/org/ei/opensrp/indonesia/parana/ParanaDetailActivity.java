@@ -82,6 +82,12 @@ public class ParanaDetailActivity extends Activity {
         TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
         TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
 
+        TextView risk5 = (TextView) findViewById(R.id.txt_risk5);
+        TextView risk6 = (TextView) findViewById(R.id.txt_risk6);
+
+        TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
+        TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
+
         TextView sesi1 = (TextView) findViewById(R.id.txt_sesi1);
         TextView sesi2 = (TextView) findViewById(R.id.txt_sesi2);
         TextView sesi3 = (TextView) findViewById(R.id.txt_sesi3);
@@ -154,11 +160,46 @@ public class ParanaDetailActivity extends Activity {
         risk3.setText(getResources().getString(R.string.tt_ke)+" "+tt);
         }
 
+        int yes = 0;
+        String ya1 ="";
+        String ya2 ="";
+        String ya3 ="";
+        String ya4 ="";
+        if(ancclient.getColumnmaps().get("umur") != null ? isTooYoungMother(ancclient.getColumnmaps().get("umur")) : false){
+           ya1 = "Ya";
+        }
+        if(ancclient.getDetails().get("hidup") != null ? isTooManyChildren(ancclient.getDetails().get("hidup")) : false){
+            ya2 = "Ya";
+        }
+        if(ancclient.getDetails().get("pendidikan") != null ? isLowEducated(ancclient.getDetails().get("pendidikan")) : false){
+            ya3 = "Ya";
+        }
+        if(ancclient.getDetails().get("gravida") != null ? isPrimigravida(ancclient.getDetails().get("gravida")) : false){
+            ya4 = "Ya";
+        }
+        risk5.setText("Ibu Terlalu Muda : "+ya1);
+        risk6.setText("Anak Lebih dari 3 : "+ya2);
+        risk7.setText("Pendidikan Rendah : "+ya3);
+        risk8.setText("Primigravida : "+ya4);
 
 
     }
 
+    private boolean isPrimigravida(String gravida){
+        return Integer.parseInt(gravida)==1;
+    }
 
+    private boolean isLowEducated(String education){
+        return !education.toLowerCase().contains("tinggi");
+    }
+
+    private boolean isTooManyChildren(String children){
+        return Integer.parseInt(children)>3;
+    }
+
+    private boolean isTooYoungMother(String birthDate){
+        return Integer.parseInt(birthDate)<20;
+    }
 
     String mCurrentPhotoPath;
 

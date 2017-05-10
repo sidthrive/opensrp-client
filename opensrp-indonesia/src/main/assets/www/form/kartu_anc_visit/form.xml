@@ -145,9 +145,9 @@
     <fieldset class="question simple-select ">
         <fieldset>
             <legend>
-                <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:label">Jamkesmas</span>
+                <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:label">KIS</span>
                 <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:label">Insurance</span>
-                <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:hint">Apakah Ibu memiliki Jamkesmas atau tidak</span>
+                <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:hint">Apakah Ibu memiliki KIS atau tidak</span>
                 <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_split_anc_visit_gen/jamkesmas:hint">Does mother have the card of National Health Insurance for the Poor and Near Poor?</span>
             </legend>
             <div class="option-wrapper">
