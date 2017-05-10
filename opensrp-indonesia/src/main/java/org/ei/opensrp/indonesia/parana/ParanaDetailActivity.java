@@ -92,7 +92,7 @@ public class ParanaDetailActivity extends Activity {
         TextView sesi2 = (TextView) findViewById(R.id.txt_sesi2);
         TextView sesi3 = (TextView) findViewById(R.id.txt_sesi3);
         TextView sesi4 = (TextView) findViewById(R.id.txt_sesi4);
-
+        TextView txt_head = (TextView) findViewById(R.id.txt_head);
 
         TextView txt_nama  = (TextView) findViewById(R.id.txt_nama);
         TextView        txt_tgl_lahir = (TextView) findViewById(R.id.txt_tgl_lahir);
@@ -165,6 +165,7 @@ public class ParanaDetailActivity extends Activity {
         String ya2 ="";
         String ya3 ="";
         String ya4 ="";
+        txt_head.setText("RESIKO :");
         if(ancclient.getColumnmaps().get("umur") != null ? isTooYoungMother(ancclient.getColumnmaps().get("umur")) : false){
            ya1 = "Ya";
         }

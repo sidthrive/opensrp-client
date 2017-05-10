@@ -87,7 +87,7 @@ public class PNCDetailActivity extends Activity {
         TextView risk6 = (TextView) findViewById(R.id.txt_risk6);
         TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
         TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
-
+        TextView txt_head = (TextView) findViewById(R.id.txt_head);
 
         //detail data
         TextView txt_keadaanIbu = (TextView) findViewById(R.id.txt_keadaanIbu);
@@ -304,6 +304,22 @@ public class PNCDetailActivity extends Activity {
                 findViewById(R.id.show_more_detail).setVisibility(View.GONE);
             }
         });
+
+
+        txt_head.setText("Data Bayi :");
+        AllCommonsRepository anak = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
+        if(ibuparent.getDetails().get("childId") != null) {
+            final CommonPersonObject anakid = anak.findByCaseID(ibuparent.getDetails().get("childId"));
+            String name = anakid.getColumnmaps().get("namaBayi") != null ? "Name : " + anakid.getColumnmaps().get("namaBayi") : "";
+            String lahir = anakid.getColumnmaps().get("tanggalLahirAnak") != null ? "DOB : " + anakid.getColumnmaps().get("tanggalLahirAnak") : "";
+            String jenis = anakid.getDetails().get("jenisKelamin") != null ? anakid.getDetails().get("jenisKelamin") : "-";
+            String beratLahir = anakid.getDetails().get("beratLahir") != null ? anakid.getDetails().get("beratLahir") : "-";
+            risk5.setText(""+name);
+            risk6.setText(""+lahir);
+            risk7.setText("Jenis Kelamin :"+jenis);
+            risk8.setText("Berat Lahir :"+beratLahir);
+
+        }
 
     }
 
