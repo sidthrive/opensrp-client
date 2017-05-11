@@ -338,8 +338,8 @@ public class ANCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
-//        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
-        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
+        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+//        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
 
         startActivityForResult(i, 2);
     }

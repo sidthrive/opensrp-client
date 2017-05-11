@@ -60,8 +60,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
-    long discoveryType = 67108864; // BP7
-//    long discoveryType = 33554432; // BP5
+//    long discoveryType = 67108864; // BP7
+    long discoveryType = 33554432; // BP5
 
     private ListView listview_scan;
     private ListView listview_connected;
@@ -580,13 +580,18 @@ public class MainBPM extends Activity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2){
 
-            Intent i = new Intent();
-            i.putExtra("HIGH", data.getStringExtra("HIGH"));
-            i.putExtra("LOW", data.getStringExtra("LOW"));
-            i.putExtra("AHR", data.getStringExtra("AHR"));
-            i.putExtra("PULSE", data.getStringExtra("PULSE"));
-            setResult(2, i);
-            finish();
+            if (data != null){
+
+                Intent i = new Intent();
+                i.putExtra("HIGH", data.getStringExtra("HIGH"));
+                i.putExtra("LOW", data.getStringExtra("LOW"));
+                i.putExtra("AHR", data.getStringExtra("AHR"));
+                i.putExtra("PULSE", data.getStringExtra("PULSE"));
+                setResult(2, i);
+                finish();
+            } else{
+                Log.e(TAG, "onActivityResult: Data Null" );
+            }
 
         }
     }

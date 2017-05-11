@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class BP5 extends Activity implements View.OnClickListener {
     private String deviceMac;
     private int clientCallbackId;
     private TextView tv_return, tv_sys, tv_dia;
+    private TableLayout tabel;
 
     private Button btn_done, startStopMeasure_btn,  startMeasure_btn, btn_disconnect;
     private boolean stopMeasured = true;
@@ -79,7 +81,6 @@ public class BP5 extends Activity implements View.OnClickListener {
         initView();
 
         initListener();
-
 
         clientCallbackId = iHealthDevicesManager.getInstance().registerClientCallback(miHealthDevicesCallback);
 		/* Limited wants to receive notification specified device */
@@ -369,12 +370,19 @@ public class BP5 extends Activity implements View.OnClickListener {
 
                 break;
 
+            case R.id.btn_done:
+                backToDetail();
+                break;
+
+
+
             default:
                 break;
         }
     }
 
     private static final int HANDLER_MESSAGE = 101;
+
     Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -398,9 +406,12 @@ public class BP5 extends Activity implements View.OnClickListener {
         btn_disconnect = (Button) findViewById(R.id.btn_disconnect);
         btn_done = (Button) findViewById(R.id.btn_done);
 
+        tabel = (TableLayout) findViewById(R.id.tabel);
+
         tv_sys = (TextView) findViewById(R.id.tv_sys);
         tv_dia = (TextView) findViewById(R.id.tv_dia);
 
+        tabel.setVisibility(View.GONE);
         tv_sys.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
@@ -419,8 +430,8 @@ public class BP5 extends Activity implements View.OnClickListener {
         Intent in = new Intent(this, DeviceService.class);
 //        startService(in);
 //        stopService(in);
-        tv_systolic = (TextView) findViewById(R.id.tv_sistole);
-        tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
+//        tv_systolic = (TextView) findViewById(R.id.tv_sistole);
+//        tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
 
 
         setBpmHigh(highPressure);
@@ -428,8 +439,12 @@ public class BP5 extends Activity implements View.OnClickListener {
         setBpmAhr(ahr);
         setBpmPulse(pulse);
 //        Log.e(TAG, "showBPMResult: " );
-        tv_systolic.setText(highPressure);
-        tv_diastolic.setText(lowPressure);
+        tv_sys.setText(highPressure);
+        tv_dia.setText(lowPressure);
+
+        tabel.setVisibility(View.VISIBLE);
+        tv_sys.setVisibility(View.VISIBLE);
+        tv_dia.setVisibility(View.VISIBLE);
         btn_done.setVisibility(View.VISIBLE);
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
@@ -440,10 +455,11 @@ public class BP5 extends Activity implements View.OnClickListener {
         i.putExtra("LOW", getBpmLow());
         i.putExtra("AHR", getBpmAhr());
         i.putExtra("PULSE", getBpmPulse());
-        setResult(RESULT_OK, i);
+        setResult(2, i);
         finish();
 
     }
+
     private void showProgressBar() {
 
     }
