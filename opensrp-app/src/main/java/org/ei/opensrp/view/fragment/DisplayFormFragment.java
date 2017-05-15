@@ -136,7 +136,6 @@ public class DisplayFormFragment extends Fragment {
         webView.addJavascriptInterface(myJavaScriptInterface, "Android");
     }
 
-
     /**
      * reset the form
      */
@@ -220,7 +219,6 @@ public class DisplayFormFragment extends Fragment {
             }
         });
     }
-
 
     public void setFormData(final String data){
         new Thread(new Runnable() {

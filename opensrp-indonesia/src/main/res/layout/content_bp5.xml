@@ -72,7 +72,7 @@
         android:layout_height="50dp"
         android:text="Disconnect" />
     <TableLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tabel">
 
@@ -94,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/pink"
-                android:textSize="150sp" />
+                android:textSize="150sp"
+                android:gravity="right"/>
         </TableRow>
         <TableRow
             android:id="@+id/secondRow"

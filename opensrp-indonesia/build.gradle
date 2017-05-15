@@ -30,6 +30,7 @@ dependencies {
     compile files('libs/FlurryAnalytics-6.0.0.jar')
     //    compile project(':sidlibrary')
 //    compile project(':opensrp-devices')
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 android {

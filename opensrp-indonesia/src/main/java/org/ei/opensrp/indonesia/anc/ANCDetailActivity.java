@@ -33,7 +33,9 @@ import org.json.JSONObject;
 //import org.opensrp.bpm.MainBPM;
 //import org.opensrp.id.MainBPMActivity;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -161,6 +163,9 @@ public class ANCDetailActivity extends Activity {
         TextView highRiskPostPartumPIH = (TextView) findViewById(R.id.txt_highRiskPostPartumPIH);
         TextView highRiskPostPartumDistosia = (TextView) findViewById(R.id.txt_highRiskPostPartumDistosia);
         TextView txt_highRiskHIVAIDS = (TextView) findViewById(R.id.txt_highRiskHIVAIDS);
+
+        ImageView heart_bpm = (ImageView) findViewById(R.id.icon_device);
+        heart_bpm.setVisibility(View.VISIBLE);
 
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -338,8 +343,8 @@ public class ANCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
-        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
-//        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
+//        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
 
         startActivityForResult(i, 2);
     }
@@ -347,6 +352,10 @@ public class ANCDetailActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+//        System.out.println(dateFormat.format(cal.getTime()));
+
         if (requestCode == 2 && resultCode!=RESULT_CANCELED ){
 //            Log.e(
 //                    TAG, "onActivityResult: "+
@@ -363,37 +372,34 @@ public class ANCDetailActivity extends Activity {
             try{
                 Log.i(TAG, "onActivityResult: saveToserver" );
                 FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
-                String formSubmission = "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">\n" +
-                        "\t<formhub>\n" +
-                        "\t\t<uuid>"+ UUID.randomUUID().toString() +"</uuid>\n" +
-                        "\t</formhub>\n" +
-                        "\t<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">2017-05-08T17:21:47.000+08:00</start>\n" +
-                        "\t<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">2017-05-08</today>\n" +
-                        "\t<deviceid>Error: could not determine deviceID</deviceid>\n" +
-                        "\t<simserial>no simserial property in enketo</simserial>\n" +
-                        "\t<phonenumber>no phonenumber property in enketo</phonenumber>\n" +
-                        "\t<Province>Nusa Tenggara Barat</Province>\n" +
-                        "\t<District>Kota Mataram</District>\n" +
-                        "\t<Sub-district>Tanjung Karang</Sub-district>\n" +
-                        "\t<Village>Banjar</Village>\n" +
-                        "\t<Sub-village>Selaparang.</Sub-village>\n" +
-                        "\t<generated_note_name_13/>\n" +
-                        "\t<generated_note_name_14/>\n" +
-                        "\t<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+ancclient.getDetails().get("Village")+"</existing_location>\n" +
-                        "\t<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">Nusa Tenggara Barat</provinsi>\n" +
-                        "\t<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">Kota Mataram</kabupaten>\n" +
-                        "\t<desa openmrs_entity=\"person_address\" openmrs_entity_id=\"cityVillage\" openmrs_entity_parent=\"usual_residence\">Banjar</desa>\n" +
-                        "\t<dusun openmrs_entity=\"person_address\" openmrs_entity_id=\"address1\" openmrs_entity_parent=\"usual_residence\">Selaparang.</dusun>\n" +
-                        "\t<kecamatan openmrs_entity=\"person_address\" openmrs_entity_id=\"address2\" openmrs_entity_parent=\"usual_residence\">Tanjung Karang</kecamatan>\n" +
-                        "\t<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>\n" +
-                        "\t<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>\n" +
-                        "\t<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>\n" +
-                        "\t<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
-                        "\t<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">2017-05-08T17:21:47.000+08:00</end>\n" +
-                        "\t<meta>\n" +
-                        "\t\t<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>\n" +
-                        "\t\t<deprecatedID/>\n" +
-                        "\t</meta>\n" +
+                String formSubmission =
+                        "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">" +
+                        "<formhub><uuid>"+ UUID.randomUUID().toString() +"</uuid></formhub>\n" +
+                        "<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">2017-05-08T17:21:47.000+08:00</start>" +
+                        "<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+ dateFormat.format(cal.getTime()) +"</today>" +
+                        "<deviceid>Error: could not determine deviceID</deviceid>" +
+                        "<simserial>no simserial property in enketo</simserial>" +
+                        "<phonenumber>no phonenumber property in enketo</phonenumber>" +
+                        "<Province>Nusa Tenggara Barat</Province>" +
+                        "<District>Kota Mataram</District>" +
+                        "<Sub-district>Tanjung Karang</Sub-district>" +
+                        "<Village>Banjar</Village>" +
+                        "<Sub-village>Selaparang.</Sub-village>" +
+                        "<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+ancclient.getDetails().get("cityVillage")+"</existing_location>" +
+                        "<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("stateProvince") +"</provinsi>" +
+                        "<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</kabupaten>" +
+                        "<desa openmrs_entity=\"person_address\" openmrs_entity_id=\"cityVillage\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</desa>" +
+                        "<dusun openmrs_entity=\"person_address\" openmrs_entity_id=\"address1\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</dusun>" +
+                        "<kecamatan openmrs_entity=\"person_address\" openmrs_entity_id=\"address2\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</kecamatan>" +
+                        "<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>" +
+                        "<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>" +
+                        "<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>" +
+                        "<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
+                        "<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">2017-05-08T17:21:47.000+08:00</end>" +
+                        "<meta>" +
+                        "<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>" +
+                        "<deprecatedID/>" +
+                        "</meta>" +
                         "</Blood_Test>";
 
                 formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", new JSONObject());

@@ -22,14 +22,18 @@ import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
+import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
+import org.ei.opensrp.indonesia.device.MainBPM;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
+import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +67,8 @@ public class PNCDetailActivity extends Activity {
     //image retrieving
 
     public static CommonPersonObjectClient pncclient;
+    private SimpleDateFormat fta;
+    private SimpleDateFormat ftb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +95,10 @@ public class PNCDetailActivity extends Activity {
         TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
         TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
         TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
-        TextView risk5 = (TextView) findViewById(R.id.txt_risk5);
-        TextView risk6 = (TextView) findViewById(R.id.txt_risk6);
-        TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
-        TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
+//        TextView risk5 = (TextView) findViewById(R.id.txt_risk5);
+//        TextView risk6 = (TextView) findViewById(R.id.txt_risk6);
+//        TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
+//        TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
 
 
         //detail data
@@ -200,7 +206,6 @@ public class PNCDetailActivity extends Activity {
         txt_integrasiProgramAntiMalaria.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramAntiMalaria") != null ? pncclient.getDetails().get("integrasiProgramAntiMalaria") : "-")));
         txt_integrasiProgramantitb.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramantitb") != null ? pncclient.getDetails().get("integrasiProgramantitb") : "-")));
 
-
         txt_integrasiProgramFotoThorax.setText(String.format(": %s", humanize(pncclient.getDetails().get("integrasiProgramFotoThorax") != null ? pncclient.getDetails().get("integrasiProgramFotoThorax") : "-")));
         txt_komplikasi.setText(String.format(": %s", humanize(pncclient.getDetails().get("komplikasi") != null ? pncclient.getDetails().get("komplikasi") : "-")));
         txt_daruratNifas.setText(String.format(": %s", humanize(pncclient.getDetails().get("daruratNifas") != null ? pncclient.getDetails().get("daruratNifas") : "-")));
@@ -227,7 +232,6 @@ public class PNCDetailActivity extends Activity {
         highRiskPostPartumPIH.setText(humanize(pncclient.getDetails().get("highRiskPostPartumPIH") != null ? pncclient.getDetails().get("highRiskPostPartumPIH") : "-"));
         highRiskPostPartumDistosia.setText(humanize(pncclient.getDetails().get("highRiskPostPartumDistosia") != null ? pncclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
 
-
         AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
 
         CommonPersonObject kiobject = kiRepository.findByCaseID(pncclient.entityId());
@@ -249,9 +253,9 @@ public class PNCDetailActivity extends Activity {
 //        }
 
         txt_hariKeKF.setText(String.format(": %s", humanizeAndDoUPPERCASE(kiobject.getColumnmaps().get("hariKeKF") != null ? kiobject.getColumnmaps().get("hariKeKF") : "-")));
-        txt_tandaVitalTDDiastolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik") != null ? ibuparent.getDetails().get("tandaVitalTDDiastolik") : "-")));
-        txt_tandaVitalTDSistolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDSistolik") != null ? ibuparent.getDetails().get("tandaVitalTDSistolik") : "-")));
 
+        txt_tandaVitalTDSistolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDSistolik") != null ? ibuparent.getDetails().get("tandaVitalTDSistolik") : "-")));
+        txt_tandaVitalTDDiastolik.setText(String.format(": %s", humanize(ibuparent.getDetails().get("tandaVitalTDDiastolik") != null ? ibuparent.getDetails().get("tandaVitalTDDiastolik") : "-")));
 
         nama.setText(String.format("%s%s", getResources().getString(R.string.name), humanize(ibuparent.getColumnmaps().get("namalengkap") != null ? ibuparent.getColumnmaps().get("namalengkap") : "-")));
         nik.setText(String.format("%s%s", getResources().getString(R.string.nik), humanize(ibuparent.getDetails().get("nik") != null ? ibuparent.getDetails().get("nik") : "-")));
@@ -261,8 +265,6 @@ public class PNCDetailActivity extends Activity {
         dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
         //dob.setText(getResources().getString(R.string.dob)+ humanize(ibuparent.getDetails().get("tanggalLahir") != null ? ibuparent.getDetails().get("tanggalLahir") : "-"));
         phone.setText(String.format("No HP: %s", ibuparent.getDetails().get("NomorTelponHp") != null ? ibuparent.getDetails().get("NomorTelponHp") : "-"));
-
-
 
         //risk
         if(ibuparent.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
@@ -320,71 +322,98 @@ public class PNCDetailActivity extends Activity {
             }
         });
 
-
-//        kiview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-//                bindobject = "kartu_ibu";
-//                entityid = pncclient.entityId();
-//                Log.e(TAG, "onClick: " + entityid);
-//                dispatchTakePictureIntent(kiview);
-//
-//            }
-//        });
-
-
+        txt_tandaVitalTDSistolik.setOnClickListener(bpmListener);
+        txt_tandaVitalTDDiastolik.setOnClickListener(bpmListener);
 
     }
 
-//
-//    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-//        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-//        File externalFile = new File(file);
-//        Uri external = Uri.fromFile(externalFile);
-//        view.setImageURI(external);
-//
-//
-//    }
-//
-//
-//    String mCurrentPhotoPath;
-//
-//    static final int REQUEST_TAKE_PHOTO = 1;
-//    static ImageView mImageView;
-//    static File currentfile;
-//    static String bindobject;
-//    static String entityid;
-//
-//
-//    private void dispatchTakePictureIntent(ImageView imageView) {
-//        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-//        mImageView = imageView;
-//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-////        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-//        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-////            File photoFile = null;
-////            try {
-////                photoFile = createImageFile();
-////            } catch (IOException ex) {
-////                // Error occurred while creating the File
-////
-////            }
-////            // Continue only if the File was successfully created
-////            if (photoFile != null) {
-////                currentfile = photoFile;
-////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-////
-//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-//            startActivityForResult(takePictureIntent, 1);
-////            }
-//        }
-//    }
+
+    private View.OnClickListener bpmListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
+//            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
+//            startActivity(intent);
+            bpmAction();
+        }
+    };
+
+    private void bpmAction() {
+        Intent i = new Intent(PNCDetailActivity.this, MainBPM.class);
+//        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
+        fta = new SimpleDateFormat ("yyyy-MM-dd");
+        ftb = new SimpleDateFormat ("yyyy-MM-dd");
+
+        startActivityForResult(i, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && resultCode!=RESULT_CANCELED ){
+//            Log.e(
+//                    TAG, "onActivityResult: "+
+//                    data.getStringExtra("HIGH") +
+//                    data.getStringExtra("LOW") +
+//                    data.getStringExtra("AHR") +
+//                    data.getStringExtra("PULSE")
+//            );
+            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+            Long tsLong = System.currentTimeMillis()/1000;
+            detailsRepository.add(pncclient.entityId(), "tandaVitalTDSistolik", data.getStringExtra("HIGH"), tsLong);
+            detailsRepository.add(pncclient.entityId(), "tandaVitalTDDiastolik", data.getStringExtra("LOW"), tsLong);
+            detailsRepository.add(pncclient.entityId(), "tandaVitalPulse", data.getStringExtra("PULSE"), tsLong);
+            try{
+                Log.i(TAG, "onActivityResult: saveToserver" );
+                FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
+                String formSubmission =
+                        "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+pncclient.entityId()+"\">" +
+                        "<formhub><uuid>"+ UUID.randomUUID().toString() +"</uuid></formhub>" +
+                        "<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">2017-05-08T17:21:47.000+08:00</start>" +
+                        "<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+fta+"</today>" +
+                        "<deviceid>Error: could not determine deviceID</deviceid>" +
+                        "<simserial>no simserial property in enketo</simserial>" +
+                        "<phonenumber>no phonenumber property in enketo</phonenumber>" +
+                        "<Province>Nusa Tenggara Barat</Province>" +
+                        "<District>Kota Mataram</District>" +
+                        "<Sub-district>Tanjung Karang</Sub-district>" +
+                        "<Village>Banjar</Village>" +
+                        "<Sub-village>Selaparang.</Sub-village>" +
+                        "<generated_note_name_13/>" +
+                        "<generated_note_name_14/>" +
+                        "<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+pncclient.getDetails().get("Village")+"</existing_location>" +
+                        "<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">Nusa Tenggara Barat</provinsi>" +
+                        "<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">Kota Mataram</kabupaten>" +
+                        "<desa openmrs_entity=\"person_address\" openmrs_entity_id=\"cityVillage\" openmrs_entity_parent=\"usual_residence\">Banjar</desa>" +
+                        "<dusun openmrs_entity=\"person_address\" openmrs_entity_id=\"address1\" openmrs_entity_parent=\"usual_residence\">Selaparang.</dusun>" +
+                        "<kecamatan openmrs_entity=\"person_address\" openmrs_entity_id=\"address2\" openmrs_entity_parent=\"usual_residence\">Tanjung Karang</kecamatan>" +
+                        "<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>" +
+                        "<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>" +
+                        "<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>\n" +
+                        "<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>" +
+                        "<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">2017-05-08T17:21:47.000+08:00</end>\n" +
+                        "<meta>" +
+                        "<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>" +
+                        "<deprecatedID/>" +
+                        "</meta>" +
+                        "</Blood_Test>";
+
+                formUtils.generateFormSubmisionFromXMLString(pncclient.entityId(), formSubmission, "blood_test", new JSONObject());
+
+            }catch (Exception e){
+                // TODO: show error dialog on the formfragment if the submission fails
+                e.printStackTrace();
+            }
+        } else{
+            Log.e(TAG, "onActivityResult: Cancel " );
+        }
+
+        finish();
+        startActivity(getIntent());
+    }
 
 
 }
