@@ -121,6 +121,9 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
+        System.out.println("client : "+pc.getColumnmaps().toString());
+        System.out.println("event : "+pc.getDetails().toString());
+
         //set image
 //        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
 //        if (pc.getDetails().get("profilepic") != null) {

@@ -198,7 +198,7 @@ public class BidanHomeActivity extends SecuredActivity {
         int anccount = anccountcursor.getInt(0);
         anccountcursor.close();
 
-        Cursor pnccountcursor = context().commonrepository("ec_pnc").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_pnc_search", "ec_pnc_search.is_closed=0 and ec_pnc_search.keadaanIbu ='hidup'"));
+        Cursor pnccountcursor = context().commonrepository("ec_pnc").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_pnc_search", "ec_pnc_search.is_closed=0 AND (ec_pnc_search.keadaanIbu ='hidup' OR ec_pnc_search.keadaanIbu IS NULL) ")); // and ec_pnc_search.keadaanIbu LIKE '%hidup%'
         pnccountcursor.moveToFirst();
         int pnccount = pnccountcursor.getInt(0);
         pnccountcursor.close();
