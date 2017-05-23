@@ -126,15 +126,19 @@
                         android:textSize="150sp" />
                 </TableRow>
             </TableLayout>
-
-
-
             <Button
             android:id="@+id/btn_done"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:text="@string/btn_done"
                 />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:progressDrawable="@drawable/vertical_progress_bar"/>
 
         </LinearLayout>
     </ScrollView>

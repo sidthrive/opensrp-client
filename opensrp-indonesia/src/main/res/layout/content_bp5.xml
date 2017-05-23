@@ -118,6 +118,13 @@
         </TableRow>
     </TableLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:progressDrawable="@drawable/vertical_progress_bar"/>
+
     <TextView
         android:id="@+id/tv_return"
         android:layout_width="fill_parent"

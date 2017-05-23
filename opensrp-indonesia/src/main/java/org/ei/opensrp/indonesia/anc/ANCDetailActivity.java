@@ -181,6 +181,9 @@ public class ANCDetailActivity extends Activity {
             }
         });
 
+        ImageView device = (ImageView) findViewById(R.id.icon_device);
+        device.setOnClickListener(bpmListener);
+
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ancclient);
 
@@ -343,8 +346,8 @@ public class ANCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
-//        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
-        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
+        Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
+//        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
 
         startActivityForResult(i, 2);
     }

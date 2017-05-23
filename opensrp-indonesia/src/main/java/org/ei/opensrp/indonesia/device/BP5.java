@@ -415,6 +415,7 @@ public class BP5 extends Activity implements View.OnClickListener {
         tv_sys.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
+        pb_mypb = (ProgressBar) findViewById(R.id.progressBar2);
 
     }
 
@@ -529,4 +530,31 @@ public class BP5 extends Activity implements View.OnClickListener {
     public String getBpmPulse() {
         return bpmPulse;
     }
+
+
+    int myProgress =0;
+    private ProgressBar pb_mypb;
+
+    private Handler myHandle = new Handler(){
+
+        public void handleMessage(Message msg){
+            myProgress++;
+            pb_mypb.setProgress(myProgress);
+        }
+    };
+    private Runnable myThread = new Runnable() {
+        @Override
+        public void run() {
+            while (myProgress < 100){
+                Log.e(TAG, "run: "+ myProgress );
+                try {
+                    myHandle.sendMessage(myHandle.obtainMessage());
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
 }

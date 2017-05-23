@@ -94,6 +94,8 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_dia = (TextView) findViewById(R.id.tv_dia);
         tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
 
+        pb_mypb = (ProgressBar) findViewById(R.id.progressBar2);
+
 //        battery_btn = (Button) findViewById(R.id.btn_getbattery);
 //        isOfflineMeasure_btn = (Button) findViewById(R.id.btn_isOfflineMeasure);
 //        enableOfflineMeasure_btn = (Button) findViewById(R.id.btn_enableOfflineMeasure);
@@ -131,6 +133,7 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_dia.setVisibility(View.GONE);
         tv_diastolic.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
+
 
     }
 
@@ -586,4 +589,30 @@ public class BP7 extends Activity implements View.OnClickListener {
     public String getBpmPulse() {
         return bpmPulse;
     }
+
+    int myProgress =0;
+    private ProgressBar pb_mypb;
+
+    private Handler myHandle = new Handler(){
+
+        public void handleMessage(Message msg){
+            myProgress++;
+            pb_mypb.setProgress(myProgress);
+        }
+    };
+    private Runnable myThread = new Runnable() {
+        @Override
+        public void run() {
+            while (myProgress < 100){
+                Log.e(TAG, "run: "+ myProgress );
+                try {
+                    myHandle.sendMessage(myHandle.obtainMessage());
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
 }
