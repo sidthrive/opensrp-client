@@ -239,12 +239,12 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     @Override
     public void startRegistration() {
 
-        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
+      /*  String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty() || LoginActivity.generator.uniqueIdController().countRemainingUniqueId()<=1) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_LONG).show();
             return;
         }
-
+*/
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {

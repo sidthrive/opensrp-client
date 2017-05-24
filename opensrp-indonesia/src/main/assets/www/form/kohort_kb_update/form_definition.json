@@ -60,6 +60,14 @@
         "bind": "/model/instance/kohort_pelayanan_kb_reviewed/keterangan_komplikasi"
       },
       {
+        "name": "tandaVitalTDSistolik",
+        "bind": "/model/instance/kohort_pelayanan_kb_reviewed/tanda_vital_td_sistolik"
+      },
+      {
+        "name": "tandaVitalTDDiastolik",
+        "bind": "/model/instance/kohort_pelayanan_kb_reviewed/tanda_vital_td_diastolik"
+      },
+      {
         "name": "submissionDate",
         "bind": "/model/instance/kohort_pelayanan_kb_reviewed/today"
       },

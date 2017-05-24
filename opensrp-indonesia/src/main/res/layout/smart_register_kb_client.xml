@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="13dp"
-                android:text="PK"/>
+                android:text="Systolic"/>
 
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textStyle="bold"
-                android:text="IMS"/>
+                android:text="Diastolic"/>
 
 
             <org.ei.opensrp.view.customControls.CustomFontTextView

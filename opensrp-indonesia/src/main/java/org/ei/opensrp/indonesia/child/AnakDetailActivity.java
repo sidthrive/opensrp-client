@@ -142,7 +142,7 @@ public class AnakDetailActivity extends Activity {
 
         txt_noBayi.setText( ": "+humanize (childclient.getDetails().get("noBayi") != null ? childclient.getDetails().get("noBayi") : "-"));
         txt_jenisKelamin.setText(": "+ humanize (childclient.getDetails().get("jenisKelamin") != null ? childclient.getDetails().get("jenisKelamin") : "-"));
-        txt_beratLahir.setText(": "+humanize (childclient.getDetails().get("beratBayi")!=null?" "+childclient.getDetails().get("beratBayi"):childclient.getDetails().get("beratBadan")!=null?childclient.getDetails().get("beratBadan"):""));
+        txt_beratLahir.setText(": "+humanize (childclient.getDetails().get("beratLahir")!=null?" "+childclient.getDetails().get("beratLahir"):""));
         tinggi.setText(": "+ humanize(childclient.getDetails().get("panjangBayi")!=null?" "+childclient.getDetails().get("panjangBayi"):childclient.getDetails().get("tinggiBadan")!=null?childclient.getDetails().get("tinggiBadan"):""));
         berat.setText(": "+humanize (childclient.getDetails().get("beratBayi") != null ? childclient.getDetails().get("beratBayi") : "-"));
         asi.setText(": "+humanize (childclient.getDetails().get("pemberianAsiEksklusif") != null ? childclient.getDetails().get("pemberianAsiEksklusif") : "-"));

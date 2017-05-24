@@ -24,6 +24,8 @@
             <kecamatan openmrs_entity="person_address" openmrs_entity_id="address2" openmrs_entity_parent="usual_residence"/>
             <tanggal_kunjungan openmrs_entity="Concept" openmrs_entity_id="160753AAAAAAAAAAAAAAAAAAAAAAAAAA">${today}</tanggal_kunjungan>
             <keterangan_tentang_peserta_kb openmrs_entity="Concept" openmrs_entity_id="160653AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <tanda_vital_td_sistolik openmrs_entity="Concept" openmrs_entity_id="5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+            <tanda_vital_td_diastolik openmrs_entity="Concept" openmrs_entity_id="5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <jenis_kontrasepsi_yang_digunakan openmrs_entity="Concept" openmrs_entity_id="374AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <keterangan_tentang_peserta_kb_2 openmrs_entity="Concept" openmrs_entity_id="159395AAAAAAAAAAAAAAAAAAAAAAAAAA"/>
             <keterangan_ganti_cara openmrs_entity="Concept" openmrs_entity_id="163494AAAAAAAAAAAAAAAAAAAAAAAAAA"/>

@@ -557,4 +557,9 @@
     <string name="mmn_label">MMN :</string>
     <string name="tt_ke">TT :</string>
     <string name="reconfirmChildName">Re-Confirm name</string>
+    <string name="insertname">Insert Name :</string>
+    <string name="already_registered">Already Registered, Do you want to continue registration ?</string>
+    <string name="yes_continue">Yes, Continue Registration</string>
+    <string name="no_check">No, Take me back</string>
+    <string name="name_similiar">Similiar Name :</string>
 </resources>

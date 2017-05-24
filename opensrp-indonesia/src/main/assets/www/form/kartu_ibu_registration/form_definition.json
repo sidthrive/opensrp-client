@@ -80,7 +80,8 @@
       },
       {
         "name": "namalengkap",
-        "bind": "/model/instance/Kartu_ibu/nama_lengkap"
+        "bind": "/model/instance/Kartu_ibu/nama_lengkap",
+        "shouldLoadValue": true
       },
       {
         "name": "namaSuami",

@@ -1,7 +1,9 @@
 package org.ei.opensrp.indonesia.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -203,7 +205,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
         super.setupViews(view);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
-        view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
+      //  view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
@@ -262,11 +264,11 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     public void startRegistration() {
 //<<<<<<< HEAD
  //       FlurryFacade.logEvent("click_start_registration_on_kohort_ibu_dashboard");
-        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
+        /*String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
         if(uniqueIdJson == null || uniqueIdJson.isEmpty()) {
             Toast.makeText(getActivity(), "No Unique Id", Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
 //=======
 //>>>>>>> indonesia-prot5
@@ -344,29 +346,42 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
 
-            if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
-                CommonPersonObjectClient pc = KIDetailActivity.kiclient;
-                AllCommonsRepository iburep2 = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
-                final CommonPersonObject ibuparent = iburep2.findByCaseID(pc.getColumnmaps().get("ibu.id"));
-
-                Log.logInfo("Closed : "+ibuparent.getColumnmaps().get("isClosed"));
-                if(pc.getColumnmaps().get("ibu.type")!= null) {
-                    if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
-                        if(ibuparent.getColumnmaps().get("isClosed")!= null) {
-                            if (ibuparent.getColumnmaps().get("isClosed").equals("false")) {
-                                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
-                    }
-                }
+     /*       if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
+                selelct();
             }
-
+*/
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
 
-    @Override
+  /*  private void selelct (){
+        CharSequence selections[] = new CharSequence[] {"Ya", "Tidak"};
+        // ChildDetailActivity.childclient = (CommonPersonObjectClient) view.getTag();
+        // GiziGrowthChartActivity.client = (CommonPersonObjectClient)view.getTag();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("");
+        builder.setItems(selections, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                if(which == 0)
+                {
+
+                 *//*           Intent intent = new Intent(getActivity(),ChildDetailActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                 *//*       }
+                else if(which == 1){
+                   *//*         Intent intent = new Intent(getActivity(),GiziGrowthChartActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                   *//*     }
+            }
+        });
+        builder.show();
+
+    }
+  */  @Override
     protected void onResumption() {
 //        super.onResumption();
         getDefaultOptionsProvider();

@@ -7,11 +7,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
+import static org.ei.opensrp.util.StringUtil.humanize;
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
@@ -71,7 +73,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
     private int currentPage;
-
+    private String m_Text = "";
     private String[] formNames = new String[]{};
     private android.support.v4.app.Fragment mBaseFragment = null;
 
@@ -107,6 +109,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
+/*
         if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)) {
             String toastMessage =   "need to refill unique id, its only "+
                                     LoginActivity.generator.uniqueIdController().countRemainingUniqueId()+
@@ -114,6 +117,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
              Toast.makeText(context.applicationContext(), toastMessage,
              Toast.LENGTH_LONG).show();
         }
+*/
         ziggyService = context.ziggyService();
 
     }
@@ -217,9 +221,9 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
-        if(formName.equals(KARTU_IBU_REGISTRATION)){
+       /* if(formName.equals(KARTU_IBU_REGISTRATION)){
             saveuniqueid();
-        }
+        }*/
         //end capture flurry log for FS
         String end = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
@@ -227,7 +231,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         FlurryAgent.logEvent(formName,FS, true);
     }
 
-    public void saveuniqueid() {
+    /*public void saveuniqueid() {
         try {
             JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
@@ -236,22 +240,22 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Override
-    public void OnLocationSelected(String locationJSONString) {
+    public void OnLocationSelected(final String locationJSONString) {
         JSONObject combined = null;
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-            JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
+       //     JSONObject namalengkap = new JSONObject(json);
             combined = locationJSON;
-            Iterator<String> iter = uniqueId.keys();
+       //     Iterator<String> iter = namalengkap.keys();
 
-            while (iter.hasNext()) {
-                String key = iter.next();
-                combined.put(key, uniqueId.get(key));
-            }
+      //      while (iter.hasNext()) {
+      //          String key = iter.next();
+       //         combined.put(key, namalengkap.get(key));
+       //     }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -261,42 +265,11 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
             startFormActivity(KARTU_IBU_REGISTRATION, null, fieldOverrides.getJSONString());
         }
+
     }
+
     @Override
     public void startFormActivity(final String formName, final String entityId, final String metaData) {
-
-        if(formName != KARTU_IBU_REGISTRATION) {
-            final int choice = new java.util.Random().nextInt(3);
-            CharSequence[] selections = selections(choice, entityId);
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(NativeKISmartRegisterActivity.this);
-            builder.setTitle(context.getStringResource(R.string.reconfirmChildName));
-            builder.setItems(selections, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // the user clicked on colors[which]
-                    if (which == choice) {
-                        activatingForm(formName,entityId,metaData);
-                    }
-                }
-            });
-            builder.show();
-        }
-        else{
-            activatingForm(formName,entityId,metaData);
-        }
-
-    }
-
-    private void activatingForm(String formName, String entityId, String metaData) {
-/*
-        //Start capture flurry log for FS
-        String start = timer.format(new Date());
-        Map<String, String> FS = new HashMap<String, String>();
-        FS.put("start", start);
-        FlurryAgent.logEvent(formName, FS, true);
-*/
-
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null) {
@@ -322,7 +295,41 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
-    private CharSequence[] selections(int choice, String entityId){
+ /*   private void activatingForm(String formName, String entityId, String metaData) {
+*//*
+        //Start capture flurry log for FS
+        String start = timer.format(new Date());
+        Map<String, String> FS = new HashMap<String, String>();
+        FS.put("start", start);
+        FlurryAgent.logEvent(formName, FS, true);
+*//*
+
+        try {
+            int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
+            if (entityId != null || metaData != null) {
+                String data = null;
+                //check if there is previously saved data for the form
+                data = getPreviouslySavedDataForForm(formName, metaData, entityId);
+                if (data == null) {
+                    data = FormUtils.getInstance(getApplicationContext()).generateXMLInputForFormWithEntityId(entityId, formName, metaData);
+                }
+
+                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
+                if (displayFormFragment != null) {
+                    displayFormFragment.setFormData(data);
+                    displayFormFragment.setRecordId(entityId);
+                    displayFormFragment.setFieldOverides(metaData);
+                }
+            }
+
+            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    /*private CharSequence[] selections(int choice, String entityId){
         AllCommonsRepository kiRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("kartu_ibu");
         CommonPersonObject kiobject = kiRepository.findByCaseID(entityId);
 
@@ -357,7 +364,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         cursor.close();
 
         return selections;
-    }
+    }*/
     public void switchToBaseFragment(final String data){
         final int prevPageIndex = currentPage;
         runOnUiThread(new Runnable() {

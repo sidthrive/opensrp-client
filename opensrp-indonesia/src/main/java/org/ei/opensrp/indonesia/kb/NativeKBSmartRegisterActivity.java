@@ -148,15 +148,15 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-               JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+           //    JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-               Iterator<String> iter = uniqueId.keys();
+             /*  Iterator<String> iter = uniqueId.keys();
 
               while (iter.hasNext()) {
                   String key = iter.next();
                    combined.put(key, uniqueId.get(key));
-                }
+                }*/
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -167,7 +167,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             startFormActivity(KOHORT_KB_REGISTER, null, fieldOverrides.getJSONString());
         }
     }
-    public void saveuniqueid() {
+    /*public void saveuniqueid() {
         try {
             JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
@@ -176,7 +176,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
@@ -200,9 +200,9 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
             e.printStackTrace();
         }
-        if(formName.equals(KOHORT_KB_REGISTER)){
+       /* if(formName.equals(KOHORT_KB_REGISTER)){
             saveuniqueid();
-        }
+        }*/
         //end capture flurry log for FS
         String end = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();

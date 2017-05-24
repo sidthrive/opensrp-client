@@ -45,7 +45,6 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import util.uniqueIDGenerator.Generator;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
@@ -68,7 +67,7 @@ public class LoginActivity extends Activity {
     public static final String KANNADA_LANGUAGE = "Kannada";
     public static final String Bahasa_LANGUAGE = "Bahasa";
 
-    public static Generator generator;
+  //  public static Generator generator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -293,7 +292,7 @@ public class LoginActivity extends Activity {
 
     private void localLoginWith(String userName, String password) {
         context.userService().localLogin(userName, password);
-        generator = new Generator(context,userName,password);
+      //  generator = new Generator(context,userName,password);
         ErrorReportingFacade.setUsername("", userName);
         FlurryAgent.setUserId(userName);
         goToHome();
@@ -302,11 +301,11 @@ public class LoginActivity extends Activity {
 
     private void remoteLoginWith(String userName, String password, String userInfo) {
         context.userService().remoteLogin(userName, password, userInfo);
-        generator = new Generator(context,userName,password);
+      //  generator = new Generator(context,userName,password);
         ErrorReportingFacade.setUsername("", userName);
         FlurryAgent.setUserId(userName);
         // Get unique id
-        tryGetUniqueId(userName, password, new Listener<ResponseStatus>() {
+        /*tryGetUniqueId(userName, password, new Listener<ResponseStatus>() {
             @Override
             public void onEvent(ResponseStatus data) {
                 if (data == ResponseStatus.failure) {
@@ -314,7 +313,7 @@ public class LoginActivity extends Activity {
                 }
                 goToHome();
             }
-        });
+        });*/
         goToHome();
 
         DrishtiSyncScheduler.startOnlyIfConnectedToNetwork(getApplicationContext());
@@ -372,7 +371,7 @@ public class LoginActivity extends Activity {
             return ENGLISH_LANGUAGE;
         }
     }
-    private void tryGetUniqueId(final String username, final String password, final Listener<ResponseStatus> afterGetUniqueId) {
+   /* private void tryGetUniqueId(final String username, final String password, final Listener<ResponseStatus> afterGetUniqueId) {
         LockingBackgroundTask task = new LockingBackgroundTask(new ProgressIndicator() {
             @Override
             public void setVisible() {
@@ -398,4 +397,4 @@ public class LoginActivity extends Activity {
             }
         });
     }
-}
+*/}

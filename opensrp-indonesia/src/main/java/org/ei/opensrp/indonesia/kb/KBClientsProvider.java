@@ -178,9 +178,9 @@ public class KBClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.kb_mulai.setText(pc.getDetails().get("tanggalkunjungan")!=null?pc.getDetails().get("tanggalkunjungan"):"");
         viewHolder.risk_HB.setText(pc.getDetails().get("alkihb")!=null?pc.getDetails().get("alkihb"):"-");
         viewHolder.LILA.setText(pc.getDetails().get("alkilila")!=null?pc.getDetails().get("alkilila"):"-");
-       viewHolder.risk_IMS.setText(pc.getDetails().get("alkiPenyakitIms")!=null?pc.getDetails().get("alkiPenyakitIms"):"");
+       viewHolder.risk_IMS.setText(pc.getDetails().get("tandaVitalTDDiastolik")!=null?pc.getDetails().get("tandaVitalTDDiastolik"):"");
 //        viewHolder.follow_up_due.setText(pc.getDetails().get("tanggalLahirAnak")!=null?pc.getDetails().get("tanggalLahirAnak"):"");
-       viewHolder.risk_PenyakitKronis.setText(pc.getDetails().get("alkiPenyakitKronis")!=null?pc.getDetails().get("alkiPenyakitKronis"):"");
+       viewHolder.risk_PenyakitKronis.setText(pc.getDetails().get("tandaVitalTDSistolik")!=null?pc.getDetails().get("tandaVitalTDSistolik"):"");
 
         viewHolder.hrp_badge.setVisibility(View.INVISIBLE);
         viewHolder.img_hrl_badge.setVisibility(View.INVISIBLE);

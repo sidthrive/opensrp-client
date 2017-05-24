@@ -486,5 +486,10 @@
     <string name="mmn_label">MMN :</string>
     <string name="tt_ke">TT :</string>
     <string name="reconfirmChildName">Re-Confirm name</string>
+    <string name="insertname">Masukkan Nama :</string>
+    <string name="already_registered">Sudah Terdaftar, Apakah anda ingin melanjutkan pendaftaran</string>
+    <string name="yes_continue">Ya, Lanjutkan Pendaftaran</string>
+    <string name="no_check">No, Check Kembali</string>
+    <string name="name_similiar">Nama Yang Mirip :</string>
 
 </resources>

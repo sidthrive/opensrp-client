@@ -121,7 +121,7 @@ public class BidanHomeActivity extends SecuredActivity {
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
         context.formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
 
-        System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
+      //  System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
     }
 
     private void setupViews() {
@@ -274,11 +274,11 @@ public class BidanHomeActivity extends SecuredActivity {
                 this, context.actionService(), context.formSubmissionSyncService(), new SyncProgressIndicator(), context.allFormVersionSyncService());
 
 //        updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
-        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
+       /* if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
             System.out.println("unique id need to be reloaded");
             LoginActivity.generator.requestUniqueId();
         }
-
+*/
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
     }
 

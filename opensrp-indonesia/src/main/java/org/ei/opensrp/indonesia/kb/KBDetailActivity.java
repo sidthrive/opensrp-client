@@ -205,8 +205,8 @@ public class KBDetailActivity extends Activity {
 
         jenisKontrasepsi.setText(": "+ humanize(kiclient.getDetails().get("jenisKontrasepsi") != null ? kiclient.getDetails().get("jenisKontrasepsi") : "-"));
         alkihb.setText(": "+ humanize(kiclient.getDetails().get("alkihb") != null ? kiclient.getDetails().get("alkihb") : "-"));
-        tdSistolik.setText(": "+ humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-"));
-        td_diastolik.setText(": "+ humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-"));
+        tdSistolik.setText(": "+ humanize(kiclient.getDetails().get("tandaVitalTDSistolik") != null ? kiclient.getDetails().get("tandaVitalTDSistolik") : "-"));
+        td_diastolik.setText(": "+ humanize(kiclient.getDetails().get("tandaVitalTDDiastolik") != null ? kiclient.getDetails().get("tandaVitalTDDiastolik") : "-"));
         alkilila.setText(": "+humanize(kiclient.getDetails().get("alkilila") != null ? kiclient.getDetails().get("alkilila") : "-"));
         alkiPenyakitIms.setText(": "+humanize(kiclient.getDetails().get("alkiPenyakitIms") != null ? kiclient.getDetails().get("alkiPenyakitIms") : "-"));
         keteranganTentangPesertaKB.setText(": "+humanize(kiclient.getDetails().get("keteranganTentangPesertaKB") != null ? kiclient.getDetails().get("keteranganTentangPesertaKB") : "-"));

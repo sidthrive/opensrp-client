@@ -198,32 +198,33 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 date = date.withDayOfMonth(1);
                 dateNow = dateNow.withDayOfMonth(1);
                 int months = Months.monthsBetween(dateNow, date).getMonths();
+                if (pc.getColumnmaps().get("ibu.type") !=null) {
+                    if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
 
-                if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
-
-                    if (months >= 1) {
-                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
-                        _dueEdd = "" + months + " " + context.getString(R.string.months_away);
-                    } else if (months == 0) {
-                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.light_blue));
-                        _dueEdd = context.getString(R.string.this_month);
-                    } else if (months < 0) {
-                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_urgent_red));
-                        if (pc.getDetails().get("childId") != null) {
-                            viewHolder.edd.setText("");
-                            viewHolder.edd_due.setText("-");
-                        } else {
-                            _dueEdd = context.getString(R.string.edd_passed);
+                        if (months >= 1) {
+                            viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                            _dueEdd = "" + months + " " + context.getString(R.string.months_away);
+                        } else if (months == 0) {
+                            viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.light_blue));
+                            _dueEdd = context.getString(R.string.this_month);
+                        } else if (months < 0) {
+                            viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_urgent_red));
+                            if (pc.getDetails().get("childId") != null) {
+                                viewHolder.edd.setText("");
+                                viewHolder.edd_due.setText("-");
+                            } else {
+                                _dueEdd = context.getString(R.string.edd_passed);
+                            }
                         }
+
+                    } else if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
+                        viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+                        _dueEdd = context.getString(R.string.delivered);
                     }
 
-                } else if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
-                    viewHolder.edd_due.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
-                    _dueEdd = context.getString(R.string.delivered);
-                }
 
                 viewHolder.edd_due.setText(_dueEdd);
-
+                }
             } else {
                 viewHolder.edd_due.setText("-");
             }

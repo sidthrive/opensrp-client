@@ -84,11 +84,11 @@
         "bind": "/model/instance/tambah_kb_reviewed/umur"
       },
       {
-        "name": "tdSistolik",
+        "name": "tandaVitalTDSistolik",
         "bind": "/model/instance/tambah_kb_reviewed/td_sistolik"
       },
       {
-        "name": "tdDiastolik",
+        "name": "tandaVitalTDDiastolik",
         "bind": "/model/instance/tambah_kb_reviewed/td_diastolik"
       },
       {

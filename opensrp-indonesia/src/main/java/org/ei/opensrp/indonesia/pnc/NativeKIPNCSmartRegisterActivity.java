@@ -147,16 +147,16 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
 
         try {
             JSONObject locationJSON = new JSONObject(locationJSONString);
-               JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
+            //   JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
 
             combined = locationJSON;
-               Iterator<String> iter = uniqueId.keys();
+         /*      Iterator<String> iter = uniqueId.keys();
 
               while (iter.hasNext()) {
                  String key = iter.next();
                    combined.put(key, uniqueId.get(key));
                 }
-
+*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -167,7 +167,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
         }
     }
 
-    public void saveuniqueid() {
+  /*  public void saveuniqueid() {
         try {
             JSONObject uniqueId = new JSONObject(LoginActivity.generator.uniqueIdController().getUniqueIdJson());
             String uniq = uniqueId.getString("unique_id");
@@ -177,7 +177,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
             e.printStackTrace();
         }
     }
-    @Override
+  */  @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
         Log.v("fieldoverride", fieldOverrides.toString());
         // save the form
@@ -200,10 +200,10 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
             }
             e.printStackTrace();
         }
-        if(formName.equals(KARTU_IBU_PNC_OA)){
+    /*    if(formName.equals(KARTU_IBU_PNC_OA)){
             saveuniqueid();
         }
-        //end capture flurry log for FS
+    */    //end capture flurry log for FS
         String end = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("end", end);
