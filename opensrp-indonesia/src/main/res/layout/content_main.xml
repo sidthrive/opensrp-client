@@ -29,6 +29,12 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/btn_discorvery_startstop"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Search/Stop Device" />
+
+            <Button
                 android:id="@+id/btn_discorvery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
