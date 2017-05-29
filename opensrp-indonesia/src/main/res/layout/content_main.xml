@@ -70,6 +70,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="600dp" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/enable_bt"
+                android:text="@string/str_enable_bt"/>
+
         </LinearLayout>
     </ScrollView>
 

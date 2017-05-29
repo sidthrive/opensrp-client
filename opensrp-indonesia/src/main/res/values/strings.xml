@@ -639,4 +639,6 @@
     <string name="dia">DIA</string>
     <string name="stop">Stop</string>
     <string name="start">Start</string>
+    <string name="str_enable_bt">Enable BT</string>
+    <string name="discovering">Discovering...</string>
 </resources>

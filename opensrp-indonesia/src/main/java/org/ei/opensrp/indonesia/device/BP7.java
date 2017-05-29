@@ -133,6 +133,7 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_dia.setVisibility(View.GONE);
         tv_diastolic.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
+        pb_mypb.setVisibility(View.VISIBLE);
 
 
     }
@@ -269,6 +270,7 @@ public class BP7 extends Activity implements View.OnClickListener {
                 }
 
             } else if (BpProfile.ACTION_ONLINE_PRESSURE_BP.equals(action)) {
+                pb_mypb.setVisibility(View.VISIBLE);
                 try {
                     JSONObject info = new JSONObject(message);
                     String pressure = info.getString(BpProfile.BLOOD_PRESSURE_BP);
@@ -297,6 +299,7 @@ public class BP7 extends Activity implements View.OnClickListener {
                 }
 
             } else if (BpProfile.ACTION_ONLINE_RESULT_BP.equals(action)) {
+
                 try {
                     JSONObject info = new JSONObject(message);
                     String highPressure = info.getString(BpProfile.HIGH_BLOOD_PRESSURE_BP);

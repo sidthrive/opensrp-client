@@ -47,6 +47,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
      * Id to identify permissions request.
      */
     private static final int REQUEST_PERMISSIONS = 0;
+    private static final int ENABLE_REQUEST = 1;
     /*
      * userId the identification of the user, could be the form of email address or mobile phone
      * number (mobile phone number is not supported temporarily). clientID and clientSecret, as the
@@ -63,15 +64,10 @@ public class MainBPM extends Activity implements View.OnClickListener {
 //    long discoveryType = 67108864; // BP7
     long discoveryType = 33554432; // BP5
 
-    private ListView listview_scan;
-    private ListView listview_connected;
-    private SimpleAdapter sa_scan;
-    private SimpleAdapter sa_connected;
-    private Button bt_discover;
-    private Button bt_discover_stop;
-    private Button bt_certificate;
-    private TextView tv_discovery;
-    private TextView tv_devScan;
+    private ListView listview_scan, listview_connected;
+    private SimpleAdapter sa_scan, sa_connected;
+    private Button bt_discover, bt_discover_stop, bt_certificate, bt_enableBT;
+    private TextView tv_discovery, tv_devScan;
     private TextView tv_devConn;
     private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
@@ -223,8 +219,9 @@ public class MainBPM extends Activity implements View.OnClickListener {
         bt_certificate = (Button) findViewById(R.id.btn_Certification);
         listview_scan = (ListView) findViewById(R.id.list_scan);
         listview_connected = (ListView) findViewById(R.id.list_connected);
+        bt_enableBT = (Button) findViewById(R.id.enable_bt);
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (mBluetoothAdapter.isEnabled()) {
 
@@ -307,7 +304,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
 //            bt_discover_stop.setEnabled(false);
 
-
+            bt_enableBT.setVisibility(View.GONE);
         } else {
 
             Toast.makeText(MainBPM.this, "Bluetooth disabled, enabled first", Toast.LENGTH_SHORT).show();
@@ -320,7 +317,18 @@ public class MainBPM extends Activity implements View.OnClickListener {
             listview_connected.setVisibility(View.GONE);
             tv_devScan.setVisibility(View.GONE);
             tv_devConn.setVisibility(View.GONE);
-
+            bt_enableBT.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent;
+                    if (!mBluetoothAdapter.isEnabled()) {
+                        intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        startActivityForResult(intent, ENABLE_REQUEST);
+                    } else {
+                        Toast.makeText(MainBPM.this, "Already Enabled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 //            final AlertDialog.Builder builder = new AlertDialog.Builder(co);
 //            builder.setTitle("Bluetooth disabled");
 //            builder.show();
@@ -445,6 +453,10 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
     private void startDiscovery() {
         Log.e(TAG, "startDiscovery: start" );
+        // Clear
+        list_ScanDevices.clear();
+        list_ConnectedDevices.clear();
+
 //        long discoveryType = 67108864;
 //        long discoveryType = 0;
 //        for (DeviceStruct struct : deviceStructList) {
@@ -460,8 +472,9 @@ public class MainBPM extends Activity implements View.OnClickListener {
         // Single device discovery
 
         iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
-        tv_discovery.setText("discovering...");
+        tv_discovery.setText(R.string.discovering);
         discoveryStatus = 1;
+
 
     }
 
@@ -578,7 +591,12 @@ public class MainBPM extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Log.e(TAG, "onActivityResult: "+requestCode+" res: "+resultCode );
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2){
+        if (requestCode == 1){
+            Toast.makeText(this, "Bluethooth Enabled Succes", Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(getIntent());
+
+        } else if (requestCode == 2){
 
             if (data != null){
 

@@ -52,7 +52,7 @@ public class BP5 extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_bp5);
-        setContentView(R.layout.content_bp5);
+        setContentView(R.layout.content_bp5_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -388,6 +388,7 @@ public class BP5 extends Activity implements View.OnClickListener {
             switch (msg.what) {
                 case HANDLER_MESSAGE:
                     tv_return.setText((String)msg.obj);
+                    Log.e(TAG, "handleMessage: Display MSG "+msg.arg1);
                     break;
             }
             super.handleMessage(msg);
@@ -415,7 +416,8 @@ public class BP5 extends Activity implements View.OnClickListener {
         tv_sys.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
-        pb_mypb = (ProgressBar) findViewById(R.id.progressBar2);
+        pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
+//        pb_mypb.setVisibility(View.GONE);
 
     }
 
@@ -434,7 +436,6 @@ public class BP5 extends Activity implements View.OnClickListener {
 //        tv_systolic = (TextView) findViewById(R.id.tv_sistole);
 //        tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
 
-
         setBpmHigh(highPressure);
         setBpmLow(lowPressure);
         setBpmAhr(ahr);
@@ -447,6 +448,7 @@ public class BP5 extends Activity implements View.OnClickListener {
         tv_sys.setVisibility(View.VISIBLE);
         tv_dia.setVisibility(View.VISIBLE);
         btn_done.setVisibility(View.VISIBLE);
+        pb_mypb.setVisibility(View.GONE);
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
 
@@ -464,7 +466,6 @@ public class BP5 extends Activity implements View.OnClickListener {
     private void showProgressBar() {
 
     }
-
 
     private void updateButtonStatus(){
         if (stopMeasured) {
@@ -530,7 +531,6 @@ public class BP5 extends Activity implements View.OnClickListener {
     public String getBpmPulse() {
         return bpmPulse;
     }
-
 
     int myProgress =0;
     private ProgressBar pb_mypb;
