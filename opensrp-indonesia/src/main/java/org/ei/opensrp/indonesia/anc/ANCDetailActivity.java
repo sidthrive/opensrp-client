@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia.anc;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -38,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,6 +49,8 @@ import java.util.UUID;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
 import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
+
+
 
 /**
  * Created by Iq on 07/09/16.
@@ -58,6 +62,7 @@ public class ANCDetailActivity extends Activity {
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
 
     public static CommonPersonObjectClient ancclient;
+    SimpleDateFormat bpm_timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -348,13 +353,15 @@ public class ANCDetailActivity extends Activity {
     private void bpmAction() {
         Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
 //        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
-
+        bpm_timer = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         startActivityForResult(i, 2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        String imei = ((TelephonyManager) getSystemService(android.content.Context.TELEPHONY_SERVICE)).getDeviceId();
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
 //        System.out.println(dateFormat.format(cal.getTime()));
@@ -374,20 +381,26 @@ public class ANCDetailActivity extends Activity {
             detailsRepository.add(ancclient.entityId(), "tandaVitalPulse", data.getStringExtra("PULSE"), tsLong);
             try{
                 Log.i(TAG, "onActivityResult: saveToserver" );
+                SimpleDateFormat sdf;
+                Date date = new Date();
+
+                sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
+                System.out.println(sdf.format(date));
+                sdf = new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
                 FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
                 String formSubmission =
                         "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">" +
                         "<formhub><uuid>"+ UUID.randomUUID().toString() +"</uuid></formhub>\n" +
-                        "<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">2017-05-08T17:21:47.000+08:00</start>" +
+                        "<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">"+bpm_timer+"</start>" +
                         "<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+ dateFormat.format(cal.getTime()) +"</today>" +
-                        "<deviceid>Error: could not determine deviceID</deviceid>" +
+                        "<deviceid>"+ imei +"</deviceid>" +
                         "<simserial>no simserial property in enketo</simserial>" +
                         "<phonenumber>no phonenumber property in enketo</phonenumber>" +
-                        "<Province>Nusa Tenggara Barat</Province>" +
-                        "<District>Kota Mataram</District>" +
-                        "<Sub-district>Tanjung Karang</Sub-district>" +
-                        "<Village>Banjar</Village>" +
-                        "<Sub-village>Selaparang.</Sub-village>" +
+                        "<Province>"+ ancclient.getDetails().get("stateProvince") +"</Province>" +
+                        "<District>"+ ancclient.getDetails().get("countyDistrict") +"</District>" +
+                        "<Sub-district>"+ ancclient.getDetails().get("countyDistrict") +"</Sub-district>" +
+                        "<Village>"+ancclient.getDetails().get("countyDistrict")+"</Village>" +
+                        "<Sub-village>"+ ancclient.getDetails().get("countyDistrict") +".</Sub-village>" +
                         "<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+ancclient.getDetails().get("cityVillage")+"</existing_location>" +
                         "<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("stateProvince") +"</provinsi>" +
                         "<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</kabupaten>" +
