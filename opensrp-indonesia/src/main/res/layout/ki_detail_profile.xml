@@ -142,50 +142,24 @@
                 android:textSize="18sp"/>
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.15">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" >
 
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:layout_margin="5dp"
-                android:id="@+id/txt_risk5"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:layout_margin="5dp"
-                android:id="@+id/txt_risk6"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:layout_margin="5dp"
-                android:id="@+id/txt_risk7"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:layout_margin="5dp"
-                android:id="@+id/txt_risk8"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-
-
+            <ImageView
+                android:id="@+id/icon_device"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/pulseheart"
+                android:visibility="invisible"
+                />
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

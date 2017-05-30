@@ -125,6 +125,9 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
         });
 
         ziggyService = context().ziggyService();
+
+        Log.e(TAG, "onCreate: REFRESH" );
+
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -136,8 +139,6 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     @Override
     protected void setupViews() {
-
-
     }
 
     @Override
@@ -165,11 +166,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
                 new OpenFormOption("Daftar PNC ", KARTU_IBU_PNC_REGISTRATION, formController),
                // new OpenFormOption("Edit ANC ", KARTU_IBU_ANC_EDIT, formController),
                 new OpenFormOption("ANC Close ", KARTU_IBU_ANC_CLOSE, formController),
-
-
         };
-
-
     }
 
     @Override
@@ -237,10 +234,11 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
         }
 
     }*/
+
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
 //        Log.v("fieldoverride", metaData);
-        FlurryFacade.logEvent(formName);
+        //  FlurryFacade.logEvent(formName);
         String start = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("start", start);

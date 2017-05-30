@@ -2,6 +2,7 @@ package org.ei.opensrp.indonesia.anc;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
+import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
 import org.ei.opensrp.view.dialog.FilterOption;
@@ -46,6 +48,7 @@ import static org.joda.time.LocalDateTime.parse;
  * Created by Dimas Ciputra on 3/4/15.
  */
 public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+    private static final String TAG = KIANCClientsProvider.class.getSimpleName();
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -168,8 +171,9 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
 
         if(pc.getColumnmaps().get("_id")!=null){//image already in local storage most likey ):
+//            Log.e(TAG, "getView: "+pc.getColumnmaps().get("_id") );
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            BidanApplication.getInstance().getCachedImageLoaderInstance().getImageByClientId(pc.getColumnmaps().get("_id"), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.drawable.woman_placeholder, R.drawable.woman_placeholder));
+            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getColumnmaps().get("_id"), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.drawable.woman_placeholder, R.drawable.woman_placeholder));
         }
         //end profile image
 

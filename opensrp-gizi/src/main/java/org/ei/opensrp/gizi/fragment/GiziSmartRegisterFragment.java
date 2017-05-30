@@ -542,6 +542,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     }
 
     public void getFacialRecord(View view) {
+        FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: start ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
         FlurryAgent.logEvent(TAG + " search_by_face", true);

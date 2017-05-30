@@ -367,9 +367,10 @@ public class TTSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
             } else {
                 nf.setCriteria("");
+                Log.e(TAG, "onClick: NO "+currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+
                 onBackPressed();
-                Log.e(TAG, "onClick: NO " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face NOK", true);
 
                 Intent intent= new Intent(TTSmartRegisterActivity.this, TTSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));

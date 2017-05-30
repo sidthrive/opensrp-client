@@ -404,7 +404,7 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
                 onBackPressed();
                 Log.e(TAG, "onClick: NO " + currentPage);
                 FlurryAgent.logEvent(TAG + " search_by_face NOK", FS, true);
-                
+
                 Intent intent= new Intent(NativeKIPNCSmartRegisterActivity.this,NativeKIPNCSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
 //            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();

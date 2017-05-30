@@ -644,7 +644,8 @@ public class Tools {
                 if (profileImage.getFilevector() != null) {
 
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
-                    vectorFace[0] = String.valueOf(i);
+//                    vectorFace[0] = String.valueOf(i);
+                    vectorFace[0] = String.valueOf((i%128) % 256 - 128);
 
 
                     albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
@@ -655,8 +656,8 @@ public class Tools {
                 }
 //                Log.e(TAG, "setVectorsBuffered: "+ i +" - "+ vectorFace.length);
                 i++;
-                if(i>127)
-                    i=-128;
+                if (i > 127) i = -128;
+
             }
 
             albumBuffered = ArrayUtils.addAll(getHeaderBaseUserCount(vectorList.size()), albumBuffered);

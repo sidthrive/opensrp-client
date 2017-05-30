@@ -246,7 +246,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 
                     // get this from the database based on imageId
                     String requestUrl = imageRecord.getImageUrl();
-                    Log.e(TAG, "onPostExecute: "+requestUrl );
+                    Log.e(TAG, "local image not found, download onPostExecute: "+requestUrl );
 
                     // If the new requestUrl is null or the new requestUrl is different to the previous recycled requestUrl
                     if (requestUrl == null || !requestUrl.equals(recycledImageUrl)) {
@@ -484,7 +484,11 @@ public class OpenSRPImageLoader extends ImageLoader {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                OpenSRPImageLoader.saveStaticImageToDisk(view.getTag(R.id.entity_id).toString(), response.getBitmap());
+                                if (view.getTag(R.id.entity_id) != null){
+                                    OpenSRPImageLoader.saveStaticImageToDisk(view.getTag(R.id.entity_id).toString(), response.getBitmap());
+                                } else {
+                                    Log.e(TAG, "run: R.id.entity_id NULL" );
+                                }
                             }
                         }).start();
                     }

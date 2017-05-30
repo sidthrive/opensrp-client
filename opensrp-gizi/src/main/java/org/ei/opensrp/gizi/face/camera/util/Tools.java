@@ -632,6 +632,8 @@ public class Tools {
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");
                     vectorFace[0] = String.valueOf(i);
 
+//                    vectorFace[0] = String.valueOf((i%128) % 256 - 128);
+
 
                     albumBuffered = ArrayUtils.addAll(albumBuffered, vectorFace);
                     hash.put(profileImage.getEntityID(), String.valueOf(i));

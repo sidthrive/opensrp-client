@@ -58,7 +58,6 @@
     <string name="str_page_info">Page {0} of {1}</string>
 
 
-
     <string name="mother_already_registered">Mother already registered in ANC</string>
     <string name="mother_already_registered_pnc">Mother already registered in PNC</string>
     <string name="header_history_anc">VISIT HISTORY</string>
@@ -181,7 +180,7 @@
     <string name="service_type_mmr">MMR</string>
     <string name="service_type_vitamin_a">Vitamin A</string>
     <string name="service_type_illness_visit">Illness Visit</string>
-    <string name="service_type_empty"/>
+    <string name="service_type_empty" />
     <string name="sick_visit">Sick Visit</string>
     <string name="illness_report"><b>Illness Report:</b> %s</string>
     <string name="illness_date">Date:</string>
@@ -601,4 +600,45 @@
     <string name="cell_phone">No. HP :</string>
     <string name="dho_site">kia-report.sid-indonesia.org</string>
 
+    <string name="sistole">Sistole</string>
+    <string name="diastole">Diastole</string>
+
+    <string name="title_activity_abi">ABI</string>
+    <string name="title_activity_am3">AM3</string>
+    <string name="title_activity_am3_s">AM3S</string>
+    <string name="title_activity_am4">AM4</string>
+    <string name="title_activity_bg1">BG1</string>
+    <string name="title_activity_bg5">BG5</string>
+    <string name="title_activity_bp3_l">BP3L</string>
+    <string name="title_activity_bp3_m">BP3M</string>
+    <string name="title_activity_bp5">BP5</string>
+    <string name="title_activity_bp7">BP7</string>
+    <string name="title_activity_bp7_s">BP7S</string>
+    <string name="title_activity_bp550_bt">BP550BT</string>
+    <string name="title_activity_hs3">HS3</string>
+    <string name="title_activity_hs4">HS4</string>
+    <string name="title_activity_hs4_s">HS4S</string>
+    <string name="title_activity_hs5_bt">HS5BT</string>
+    <string name="title_activity_hs5_wifi">HS5WIFI</string>
+    <string name="title_activity_hs6">HS6</string>
+    <string name="title_activity_po3">PO3</string>
+    <string name="bluetooth_devicelist_dialog_ssid">SSID:</string>
+    <string name="bluetooth_devicelist_dialog_type">Type:</string>
+    <string name="bluetooth_devicelist_dialog_password">Password:</string>
+    <string name="bluetooth_devicelist_dialog_deviceKey">DeviceKey:</string>
+    <string name="bluetooth_setwifi_title">set Wi-Fi</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
+    <string name="title_activity_btm">BTM</string>
+    <string name="title_activity_kd926">KD926</string>
+    <string name="title_activity_kd723">KD723</string>
+    <string name="title_activity_bg5l">BG5L</string>
+    <string name="title_activity_pb">PBActivity</string>
+    <string name="btn_done">Done</string>
+    <string name="sys">SYS</string>
+    <string name="dia">DIA</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+    <string name="str_enable_bt">Enable BT</string>
+    <string name="discovering">Discovering...</string>
 </resources>

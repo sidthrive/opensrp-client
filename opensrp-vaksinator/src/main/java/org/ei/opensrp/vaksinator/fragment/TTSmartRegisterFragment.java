@@ -507,6 +507,7 @@ public class TTSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAda
     }
 
     public void getFacialRecord(View view) {
+        FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
         FlurryAgent.logEvent(TAG + " search_by_face", true);

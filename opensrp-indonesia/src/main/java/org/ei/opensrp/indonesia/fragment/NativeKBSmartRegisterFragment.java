@@ -540,6 +540,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
     }
 
     public void getFacialRecord(View view) {
+        FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         String face_start = sdf.format(date);

@@ -90,7 +90,6 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     protected void onCreation() {
-        //
     }
 
    /* @Override
@@ -214,8 +213,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         return "";
     }
     private String sortByAlertmethod() {
-        return " CASE WHEN alerts.status = 'urgent' THEN '1'"
-                +
+        return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
                 "WHEN alerts.status = 'normal' THEN '3'\n" +
                 "WHEN alerts.status = 'expired' THEN '4'\n" +
@@ -350,8 +348,6 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         }
     }
 
-
-
     private String KiSortByName() {
         return " namalengkap ASC";
     }
@@ -458,6 +454,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
             }
         });
     }
+
     public void addChildToList(ArrayList<DialogOption> dialogOptionslist,Map<String,TreeNode<String, Location>> locationMap){
         for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
 
@@ -473,8 +470,6 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         }
     }
 
-
-    //    WD
     public void setCriteria(String criteria) {
         this.criteria = criteria;
     }
@@ -483,7 +478,6 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         return criteria;
     }
 
-    //    WD
     @Override
     public void setupSearchView(final View view) {
         searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
@@ -510,6 +504,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
     }
 
     public void getFacialRecord(View view) {
+        FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         String face_start = sdf.format(date);
