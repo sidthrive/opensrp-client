@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:progressDrawable="@drawable/vertical_progress_bar"
-        android:max="250"
+        android:max="190"
         />
 
     <TextView
