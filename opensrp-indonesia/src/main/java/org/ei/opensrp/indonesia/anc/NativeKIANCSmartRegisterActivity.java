@@ -66,10 +66,11 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
     private String[] formNames = new String[]{};
     private android.support.v4.app.Fragment mBaseFragment = null;
 
-
     ZiggyService ziggyService;
 
     NativeKIANCSmartRegisterFragment nf = new NativeKIANCSmartRegisterFragment();
+
+    Map<String, String> FS = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,7 +240,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
 //        Log.v("fieldoverride", metaData);
-        //  FlurryFacade.logEvent(formName);
+        FlurryFacade.logEvent(formName);
         String start = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("start", start);
@@ -349,19 +350,19 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
     private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-//            mBaseFragment = new NativeKISmartRegisterFragment();
-
+            String face_end = timer.format(new Date());
+            FS.put("face_end", face_end);
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+//                Log.e(TAG, "onClick: YES " + currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face OK", FS, true);
 
             } else {
                 nf.setCriteria("");
                 onBackPressed();
-                Log.e(TAG, "onClick: NO "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+//                Log.e(TAG, "onClick: NO "+currentPage);
+                FlurryAgent.logEvent(TAG+" search_by_face NOK", FS, true);
 
                 Intent intent= new Intent(NativeKIANCSmartRegisterActivity.this, NativeKIANCSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));

@@ -168,7 +168,6 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
         Tools.loadAlbum(getApplicationContext());
 
-
     }
 
     @Override
