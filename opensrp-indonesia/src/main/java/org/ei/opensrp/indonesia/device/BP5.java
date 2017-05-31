@@ -34,7 +34,7 @@ public class BP5 extends Activity implements View.OnClickListener {
     private Bp5Control bp5Control;
     private String deviceMac;
     private int clientCallbackId;
-    private TextView tv_return, tv_sys, tv_dia;
+    private TextView tv_return, tv_sys, tv_dia, tv_pls;
     private TableLayout tabel;
 
     private Button btn_done, startStopMeasure_btn,  startMeasure_btn, btn_disconnect;
@@ -430,10 +430,12 @@ public class BP5 extends Activity implements View.OnClickListener {
 
         tv_sys = (TextView) findViewById(R.id.tv_sys);
         tv_dia = (TextView) findViewById(R.id.tv_dia);
+        tv_pls = (TextView) findViewById(R.id.tv_pulse);
 
         tabel.setVisibility(View.GONE);
         tv_sys.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
+        tv_pls.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
         pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
         pb_mypb.setVisibility(View.GONE);
@@ -462,10 +464,12 @@ public class BP5 extends Activity implements View.OnClickListener {
 //        Log.e(TAG, "showBPMResult: " );
         tv_sys.setText(highPressure);
         tv_dia.setText(lowPressure);
+        tv_pls.setText(pulse);
 
         tabel.setVisibility(View.VISIBLE);
         tv_sys.setVisibility(View.VISIBLE);
         tv_dia.setVisibility(View.VISIBLE);
+        tv_pls.setVisibility(View.VISIBLE);
         btn_done.setVisibility(View.VISIBLE);
         pb_mypb.setVisibility(View.GONE);
 
