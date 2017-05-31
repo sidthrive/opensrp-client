@@ -355,6 +355,7 @@ public class BP5 extends Activity implements View.OnClickListener {
             case R.id.btn_startStopMeasure:
                 if (stopMeasured) {
 //                    startMeasure_btn.setEnabled(false);
+                    pb_mypb.setVisibility(View.VISIBLE);
                     startStopMeasure_btn.setText(R.string.stop);
                     if (bp5Control != null) {
 
@@ -369,6 +370,7 @@ public class BP5 extends Activity implements View.OnClickListener {
 
                 } else {
                     startStopMeasure_btn.setText(R.string.start);
+                    pb_mypb.setVisibility(View.GONE);
 
                     if (bp5Control != null)
                         bp5Control.interruptMeasure();
@@ -434,7 +436,7 @@ public class BP5 extends Activity implements View.OnClickListener {
         tv_dia.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
         pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
-//        pb_mypb.setVisibility(View.GONE);
+        pb_mypb.setVisibility(View.GONE);
 
     }
 
