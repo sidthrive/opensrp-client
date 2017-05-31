@@ -66,12 +66,13 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
     private ListView listview_scan, listview_connected;
     private SimpleAdapter sa_scan, sa_connected;
-    private Button bt_discover, bt_discover_stop, bt_certificate, bt_enableBT;
+    private Button bt_discover, bt_discover_stop, bt_startStop, bt_certificate, bt_enableBT;
     private TextView tv_discovery, tv_devScan;
     private TextView tv_devConn;
     private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
     private int callbackId;
+
     private Handler myHandler = new Handler() {
 
         @Override
@@ -187,15 +188,17 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
         @Override
         public void onScanFinish() {
-            Log.e(TAG, "onScanFinish: end" );
-            tv_discovery.setText("discover finish");
+            Log.e(TAG, "onScanFinish: end"+discoveryStatus );
+            tv_discovery.setText(R.string.discover_finish);
             if (discoveryStatus == 0){
                 bt_discover_stop.setEnabled(false);
             }
+            bt_startStop.setText(R.string.start_discovery);
         }
 
     };
     private int discoveryStatus;
+    private boolean startDiscovering = false;
 
     private void connectToDev(String mac, String deviceType) {
         boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
@@ -214,8 +217,19 @@ public class MainBPM extends Activity implements View.OnClickListener {
         tv_discovery = (TextView) findViewById(R.id.tv_discovery);
         tv_devScan = (TextView) findViewById(R.id.tv_devScan);
         tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
+
+        bt_startStop = (Button) findViewById(R.id.btn_discorvery_startstop);
         bt_discover = (Button) findViewById(R.id.btn_discorvery);
         bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
+
+        if (startDiscovering) {
+            bt_startStop.setText(R.string.stop_discovery);
+        }else {
+            bt_startStop.setText(R.string.stop_discovery);
+        }
+        bt_discover.setVisibility(View.GONE);
+        bt_discover_stop.setVisibility(View.GONE);
+
         bt_certificate = (Button) findViewById(R.id.btn_Certification);
         listview_scan = (ListView) findViewById(R.id.list_scan);
         listview_connected = (ListView) findViewById(R.id.list_connected);
@@ -225,9 +239,12 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
         if (mBluetoothAdapter.isEnabled()) {
 
-            findViewById(R.id.btn_discorvery).setOnClickListener(this);
-            findViewById(R.id.btn_stopdiscorvery).setOnClickListener(this);
-            findViewById(R.id.btn_Certification).setOnClickListener(this);
+            bt_startStop.setOnClickListener(this);
+            bt_certificate.setOnClickListener(this);
+
+//            findViewById(R.id.btn_discorvery).setOnClickListener(this);
+//            findViewById(R.id.btn_stopdiscorvery).setOnClickListener(this);
+//            findViewById(R.id.btn_Certification).setOnClickListener(this);
 
             // Toolbar
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -298,6 +315,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
             }
 
             startDiscovery();
+
             if (discoveryStatus == 0){
                 bt_discover_stop.setEnabled(false);
             }
@@ -305,9 +323,12 @@ public class MainBPM extends Activity implements View.OnClickListener {
 //            bt_discover_stop.setEnabled(false);
 
             bt_enableBT.setVisibility(View.GONE);
+
         } else {
 
             Toast.makeText(MainBPM.this, "Bluetooth disabled, enabled first", Toast.LENGTH_SHORT).show();
+
+            bt_startStop.setVisibility(View.GONE);
 
             tv_discovery.setVisibility(View.GONE);
             bt_discover.setVisibility(View.GONE);
@@ -481,6 +502,17 @@ public class MainBPM extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
+            case R.id.btn_discorvery_startstop:
+                if (!startDiscovering){
+                    startDiscovery();
+                    bt_startStop.setText(R.string.stop_discovery);
+                    startDiscovering = true;
+                } else {
+                    bt_startStop.setText(R.string.start_discovery);
+                    startDiscovering = false;
+                }
+                break;
+
             case R.id.btn_discorvery:
                 startDiscovery();
                 break;
