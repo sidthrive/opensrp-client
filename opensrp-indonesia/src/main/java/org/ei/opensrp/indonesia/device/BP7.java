@@ -34,7 +34,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     private Bp7Control bp7Control;
     private String deviceMac;
     private int clientCallbackId;
-    private TextView tv_return, tv_systolic, tv_diastolic, tv_sys, tv_dia;
+    private TextView tv_return, tv_systolic, tv_diastolic, tv_sys, tv_dia, tv_pls, tv_pulse;
     private Button btn_done, startStopMeasure_btn,  startMeasure_btn, conformAngle_btn;
 //    private Button battery_btn, isOfflineMeasure_btn,enableOfflineMeasure_btn, disableOfflineMeasure_btn, stopMeasure_btn, getOfflineNum_btn, getOfflineData_btn, disconnect_btn;
     private boolean stopMeasured = true;
@@ -93,8 +93,10 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_systolic = (TextView) findViewById(R.id.tv_systole);
         tv_dia = (TextView) findViewById(R.id.tv_dia);
         tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
+        tv_pls = (TextView) findViewById(R.id.tv_pls);
+        tv_pulse = (TextView) findViewById(R.id.tv_pulse);
 
-        pb_mypb = (ProgressBar) findViewById(R.id.progressBar2);
+        pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
 
 //        battery_btn = (Button) findViewById(R.id.btn_getbattery);
 //        isOfflineMeasure_btn = (Button) findViewById(R.id.btn_isOfflineMeasure);
@@ -128,12 +130,17 @@ public class BP7 extends Activity implements View.OnClickListener {
 //        disconnect_btn.setVisibility(View.GONE);
 //        stopMeasure_btn.setVisibility(View.GONE);
 
+        pb_mypb.setVisibility(View.GONE);
+
         tv_sys.setVisibility(View.GONE);
         tv_systolic.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
         tv_diastolic.setVisibility(View.GONE);
+        tv_pls.setVisibility(View.GONE);
+        tv_pulse.setVisibility(View.GONE);
+
         btn_done.setVisibility(View.GONE);
-        pb_mypb.setVisibility(View.VISIBLE);
+//        pb_mypb.setVisibility(View.VISIBLE);
 
 
     }
@@ -363,10 +370,15 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_sys.setVisibility(View.VISIBLE);
         tv_diastolic.setVisibility(View.VISIBLE);
         tv_dia.setVisibility(View.VISIBLE);
+        tv_pulse.setVisibility(View.VISIBLE);
+        tv_pls.setVisibility(View.VISIBLE);
+
         btn_done.setVisibility(View.VISIBLE);
 
         tv_systolic.setText(highPressure);
         tv_diastolic.setText(lowPressure);
+        tv_pulse.setText(pulse);
+        pb_mypb.setVisibility(View.GONE);
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
 
@@ -415,6 +427,8 @@ public class BP7 extends Activity implements View.OnClickListener {
                 if (stopMeasured) {
 //                    startMeasure_btn.setEnabled(false);
                     startMeasure_btn.setText("STOP");
+                    pb_mypb.setVisibility(View.VISIBLE);
+
                     if (bp7Control != null) {
 
                         Intent i = new Intent(this, DeviceService.class);
@@ -425,6 +439,9 @@ public class BP7 extends Activity implements View.OnClickListener {
                         Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
                     stopMeasured = false;
                 } else {
+                    startStopMeasure_btn.setText(R.string.start);
+                    pb_mypb.setVisibility(View.GONE);
+
                     bp7Control.destroy();
                     stopMeasured = true;
                     startMeasure_btn.setEnabled(true);
@@ -554,9 +571,6 @@ public class BP7 extends Activity implements View.OnClickListener {
             stopMeasured = true;
 //                    startMeasure_btn.setEnabled(true);
             Log.e(TAG, "onClickss: STOP" );
-
-
-
         }
 
     }

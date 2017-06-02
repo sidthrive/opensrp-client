@@ -13,15 +13,15 @@
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+<!---->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--&gt;-->
             <!--<Button-->
                 <!--android:id="@+id/btn_getbattery"-->
                 <!--android:layout_width="fill_parent"-->
@@ -125,38 +125,51 @@
                         android:textColor="@color/light_blue"
                         android:textSize="150sp" />
                 </TableRow>
+                <TableRow
+                    android:id="@+id/pulseRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_pls"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/pulse"
+                        android:textColor="#fff"
+                        android:textSize="50sp" />
+                    <TextView
+                        android:id="@+id/tv_pulse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/green"
+                        android:textSize="150sp"
+                        android:layout_gravity="right"
+                        />
+                </TableRow>
             </TableLayout>
-            <Button
-            android:id="@+id/btn_done"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="@string/btn_done"
-                />
-
-            <ProgressBar
-                android:id="@+id/progressBar2"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:progressDrawable="@drawable/vertical_progress_bar"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:minHeight="60dp"-->
-        <!--android:minWidth="220dp"-->
-        <!--android:rotation="270"-->
-        <!--/>-->
-
+    <ProgressBar
+        android:id="@+id/pb_bpm"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:progressDrawable="@drawable/vertical_progress_bar"
+        android:max="250"
+        android:layout_gravity="center_horizontal"
+        />
 
     <TextView
         android:id="@+id/tv_return"
         android:layout_width="fill_parent"
         android:layout_height="150dp" />
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="@string/btn_done"
+        />
+
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 
 </LinearLayout>
