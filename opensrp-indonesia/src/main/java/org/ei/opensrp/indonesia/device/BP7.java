@@ -141,24 +141,28 @@ public class BP7 extends Activity implements View.OnClickListener {
 
         btn_done.setVisibility(View.GONE);
 //        pb_mypb.setVisibility(View.VISIBLE);
+        conformAngle_btn.setVisibility(View.VISIBLE);
+//        conformAngle_btn.setVisibility(View.GONE);
+
 
 
     }
 
     public void initListener(){
         startStopMeasure_btn.setOnClickListener(this);
+        conformAngle_btn.setOnClickListener(this);
+        tv_return.setOnClickListener(this);
+        btn_done.setOnClickListener(this);
+
 //        battery_btn.setOnClickListener(this);
 //        isOfflineMeasure_btn.setOnClickListener(this);
 //        enableOfflineMeasure_btn.setOnClickListener(this);
 //        disableOfflineMeasure_btn.setOnClickListener(this);
 //        startMeasure_btn.setOnClickListener(this);
-        conformAngle_btn.setOnClickListener(this);
 //        stopMeasure_btn.setOnClickListener(this);
 //        getOfflineNum_btn.setOnClickListener(this);
 //        getOfflineData_btn.setOnClickListener(this);
 //        disconnect_btn.setOnClickListener(this);
-        tv_return.setOnClickListener(this);
-        btn_done.setOnClickListener(this);
 
     }
 
@@ -277,6 +281,7 @@ public class BP7 extends Activity implements View.OnClickListener {
                 }
 
             } else if (BpProfile.ACTION_ONLINE_PRESSURE_BP.equals(action)) {
+                conformAngle_btn.setVisibility(View.GONE);
                 pb_mypb.setVisibility(View.VISIBLE);
                 try {
                     JSONObject info = new JSONObject(message);
@@ -333,13 +338,13 @@ public class BP7 extends Activity implements View.OnClickListener {
             } else if (BpProfile.ACTION_ZOREING_BP.equals(action)) {
                 Message msg = new Message();
                 msg.what = HANDLER_MESSAGE;
-                msg.obj = "zoreing";
+                msg.obj = "0"; //"zoreing";
                 myHandler.sendMessage(msg);
 
             } else if (BpProfile.ACTION_ZOREOVER_BP.equals(action)) {
                 Message msg = new Message();
                 msg.what = HANDLER_MESSAGE;
-                msg.obj = "zoreover";
+                msg.obj = "0"; //"zoreover";
                 myHandler.sendMessage(msg);
 
             } else if (BpProfile.ACTION_STOP_BP.equals(action)) {
@@ -354,6 +359,7 @@ public class BP7 extends Activity implements View.OnClickListener {
 
 
     private void showBPMResult(String highPressure, String lowPressure, String ahr, String pulse) {
+        Log.e(TAG, "showBPMResult: ");
         Intent in = new Intent(this, DeviceService.class);
 //        startService(in);
 //        stopService(in);
@@ -379,6 +385,8 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_diastolic.setText(lowPressure);
         tv_pulse.setText(pulse);
         pb_mypb.setVisibility(View.GONE);
+
+        conformAngle_btn.setVisibility(View.VISIBLE);
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
 
@@ -433,8 +441,11 @@ public class BP7 extends Activity implements View.OnClickListener {
 
                         Intent i = new Intent(this, DeviceService.class);
                         this.startService(i);
+                        bp7Control.conformAngle();
 
                         bp7Control.startMeasure();
+
+
                     } else
                         Toast.makeText(BP7.this, "bp7Control == null", Toast.LENGTH_LONG).show();
                     stopMeasured = false;
@@ -530,18 +541,19 @@ public class BP7 extends Activity implements View.OnClickListener {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case HANDLER_MESSAGE:
-                    showProgressBar();
                     tv_return.setText((String) msg.obj);
+
+                    int pls = Integer.parseInt(((String) msg.obj).split("[\\r?\\n]+")[0].replaceAll("[^0-9?!\\.]",""));
+                    Log.e(TAG, "handleMessage: Display MSG Split "+pls);
+                    myProgress++;
+                    pb_mypb.setProgress(pls);
+
+
                     break;
             }
             super.handleMessage(msg);
         }
     };
-
-    private void showProgressBar() {
-
-    }
-
 
     private void updateButtonStatus(){
         if (stopMeasured) {

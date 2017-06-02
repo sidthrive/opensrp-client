@@ -119,9 +119,9 @@
         <activity android:name=".face.camera.ClientsList" />
         <!-- BPM -->
         <!--<activity android:name=".face.bpm.BpmMainActivity" />-->
-        <activity android:name=".device.MainBPM"/>
-        <activity android:name=".device.BP7"/>
-        <activity android:name=".device.BP5"/>
+        <activity android:name=".device.MainBPM" android:label="Blood Pressure Monitor"/>
+        <activity android:name=".device.BP7" android:label="Wireless Blood Pressure Wrist Monitor BP7"/>
+        <activity android:name=".device.BP5" android:label="BP5"/>
         <activity android:name=".device.TestBPM" />
 
     </application>
