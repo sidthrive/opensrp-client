@@ -362,7 +362,7 @@ public class TTSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES "+currentPage);
+                Log.e(TAG, "onClick: YES " + currentPage);
                 FlurryAgent.logEvent(TAG+" search_by_face OK", true);
 
             } else {

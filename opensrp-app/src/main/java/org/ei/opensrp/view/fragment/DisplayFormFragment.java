@@ -25,7 +25,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.ei.opensrp.R;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -90,7 +89,7 @@ public class DisplayFormFragment extends Fragment {
                 this.fieldOverides = new JSONObject(overridesStr);
             }
         }catch (Exception e){
-             Log.e(TAG, e.toString(), e);
+            Log.e(TAG, e.toString(), e);
         }
 
     }
@@ -154,8 +153,14 @@ public class DisplayFormFragment extends Fragment {
         String header = readFileAssets(headerTemplate);
 
         String script = readFileAssets(scriptFile);
-
-        String modelString = readFileAssets("www/form/" + formName + "/model.xml").replaceAll("\"", "\\\\\"").replaceAll("\n", "").replaceAll("\r", "").replaceAll("/","\\\\/");
+        if(formName == null){
+            return;
+        }
+        String modelString = readFileAssets("www/form/" + formName + "/model.xml");
+        if(modelString == null){
+            return;
+        }
+        modelString = modelString.replaceAll("\"", "\\\\\"").replaceAll("\n", "").replaceAll("\r", "").replaceAll("/","\\\\/");
         String form = readFileAssets("www/form/" + formName + "/form.xml");
         String footer = readFileAssets(footerTemplate);
 
@@ -181,7 +186,7 @@ public class DisplayFormFragment extends Fragment {
             is.close();
             fileContents = new String(buffer, "UTF-8");
         } catch (IOException ex) {
-             Log.e(TAG, ex.toString(), ex);
+            Log.e(TAG, ex.toString(), ex);
             return null;
         }
         //Log.d("File", fileContents);
@@ -225,11 +230,11 @@ public class DisplayFormFragment extends Fragment {
             @Override
             public void run() {
                 try{
-
                     // Wait for the page to initialize
                     while (!javascriptLoaded){
                         Thread.sleep(100);
                     }
+
                     if (data != null && !data.isEmpty()){
                         postXmlDataToForm(data);
                     }else{
@@ -297,7 +302,6 @@ public class DisplayFormFragment extends Fragment {
     }
 
     public class MyJavaScriptInterface {
-
         private static final String JAVASCRIPT_LOG_TAG = "Javascript";
         Context mContext;
 
@@ -347,7 +351,6 @@ public class DisplayFormFragment extends Fragment {
             }
         }
 
-
         @JavascriptInterface
         public void log(String message){
             Log.d(JAVASCRIPT_LOG_TAG, message);
@@ -372,7 +375,7 @@ public class DisplayFormFragment extends Fragment {
                         landWidthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(d);
                         landHeightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
                     } catch (Exception e) {
-                         Log.e(TAG, e.toString(), e);
+                        Log.e(TAG, e.toString(), e);
                     }
                 } else if(Build.VERSION.SDK_INT > 17) {
                     try {
@@ -381,7 +384,7 @@ public class DisplayFormFragment extends Fragment {
                         landWidthPixels = realSize.x;
                         landHeightPixels = realSize.y;
                     } catch (Exception e) {
-                         Log.e(TAG, e.toString(), e);
+                        Log.e(TAG, e.toString(), e);
                     }
                 }
 

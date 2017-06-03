@@ -124,7 +124,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
             @Override
             public DialogOption[] filterOptions() {
-                FlurryFacade.logEvent("click_filter_option_on_kohort_ibu_dashboard");
+                FlurryFacade.logEvent("click_filter_option_on_vaksinator_dashboard");
                 ArrayList<DialogOption> dialogOptionslist = new ArrayList<DialogOption>();
 
                 dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.filter_by_all_label),filterStringForAll()));
@@ -150,15 +150,15 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
 
             @Override
             public DialogOption[] sortingOptions() {
-                FlurryFacade.logEvent("click_sorting_option_on_kohort_ibu_dashboard");
+                FlurryFacade.logEvent("click_sorting_option_on_vaksinator_dashboard");
                 return new DialogOption[]{
 //                        new HouseholdCensusDueDateSort(),
 
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age),KiSortByNameAZ()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age_desc),KiSortByNameZA()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age),KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_child_age_desc),KiSortByAgeDesc()),
                 };
             }
 
@@ -198,7 +198,6 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
     private String filterStringForAll(){
         return "";
     }
-
     private String sortByAlertmethod() {
         return " CASE WHEN alerts.status = 'urgent' THEN '1'" +
                 "WHEN alerts.status = 'upcoming' THEN '2'\n" +
@@ -424,6 +423,7 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
         FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+        FlurryAgent.logEvent(TAG + " search_by_face", true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", VaksinatorSmartRegisterFragment.class.getSimpleName());

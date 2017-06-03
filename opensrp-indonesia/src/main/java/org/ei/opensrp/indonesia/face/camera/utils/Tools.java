@@ -295,14 +295,14 @@ public class Tools {
         // Draw rect fill
         Paint paintForRectFill = new Paint();
         paintForRectFill.setStyle(Paint.Style.FILL);
-        paintForRectFill.setColor(Color.WHITE);
+        paintForRectFill.setColor(Color.BLACK);
         paintForRectFill.setAlpha(80);
 
         // Draw rect strokes
         Paint paintForRectStroke = new Paint();
         paintForRectStroke.setStyle(Paint.Style.STROKE);
         paintForRectStroke.setColor(Color.GREEN);
-        paintForRectStroke.setStrokeWidth(5);
+        paintForRectStroke.setStrokeWidth(3);
 
         // Draw Face detected Area
         canvas.drawRect(rect, paintForRectFill);
@@ -643,9 +643,9 @@ public class Tools {
         } else {
             Log.e(TAG, "saveAndClose: Context Opensrp "+ appContext.applicationContext() );
             Log.e(TAG, "saveAndClose: Context Android "+ context );
-            Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
-            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            appContext.applicationContext().startActivity(resultIntent);
+//            Intent resultIntent = new Intent(appContext.applicationContext(), origin_class);
+//            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            appContext.applicationContext().startActivity(resultIntent);
         }
         Log.e(TAG, "saveAndClose: " + "end");
     }

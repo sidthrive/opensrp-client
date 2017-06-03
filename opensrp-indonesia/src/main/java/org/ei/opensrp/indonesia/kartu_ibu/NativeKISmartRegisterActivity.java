@@ -72,6 +72,8 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     // WD need for initialize queries
     NativeKISmartRegisterFragment nf = new NativeKISmartRegisterFragment();
 
+    Map<String, String> FS = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -374,18 +376,19 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-//            mBaseFragment = new NativeKISmartRegisterFragment();
+            String face_end = timer.format(new Date());
+            FS.put("face_end", face_end);
 
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+                Log.e(TAG, "onClick: YES " + currentPage);
+                FlurryAgent.logEvent(TAG + " search_by_face OK", FS, true);
 
             } else {
                 nf.setCriteria("");
-                Log.e(TAG, "onClick: NO "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+                Log.e(TAG, "onClick: NO " + currentPage);
+                FlurryAgent.logEvent(TAG + " search_by_face NOK", FS, true);
 //                onBackPressed();
 //
 //                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);

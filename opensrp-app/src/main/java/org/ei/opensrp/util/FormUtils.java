@@ -75,7 +75,7 @@ public class FormUtils {
         FormAttributeParser formAttributeParser = new FormAttributeParser(context);
         formEntityConverter = new FormEntityConverter(formAttributeParser,mContext);
         // Protect creation of static variable.
-        mCloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+        //mCloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
     }
 
     public static FormUtils getInstance(Context ctx) throws Exception{
@@ -970,11 +970,19 @@ public class FormUtils {
     }
 
     private void createNewEventDocument(org.ei.opensrp.cloudant.models.Event event) {
-        mCloudantDataHandler.createEventDocument(event);
+        try {
+            CloudantDataHandler.getInstance(mContext.getApplicationContext()).createEventDocument(event);
+        } catch (Exception e) {
+            Log.logError(TAG, e.getMessage());
+        }
 
     }
 
     private void createNewClientDocument(org.ei.opensrp.cloudant.models.Client client) {
-        mCloudantDataHandler.createClientDocument(client);
+        try {
+            CloudantDataHandler.getInstance(mContext.getApplicationContext()).createClientDocument(client);
+        } catch (Exception e) {
+            Log.logError(TAG, e.getMessage());
+        }
     }
 }

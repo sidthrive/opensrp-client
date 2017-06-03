@@ -137,9 +137,9 @@
     <string name="sort_by_child_age">Umur (0 - 5 thn)</string>
     <string name="sort_by_child_age_desc">Umur (5 - 0 thn)</string>
     <string name="sort_by_child_hr">HR</string>
-    <string name="str_child_immunizations">Child Immunizations</string>
+    <string name="str_child_immunizations">Imunisasi Anak</string>
     <string name="str_child_illness">Child Illness</string>
-    <string name="str_child_close">Child Close</string>
+    <string name="str_child_close">Tutup Form Anak</string>
     <string name="str_vitamin_a">Vitamin A</string>
     <string name="service_type_pnc">PNC</string>
     <string name="service_type_pentavalent_2">Pentavalent 2</string>

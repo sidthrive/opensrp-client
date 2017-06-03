@@ -100,6 +100,10 @@ public class PNCDetailActivity extends Activity {
 //        TextView risk7 = (TextView) findViewById(R.id.txt_risk7);
 //        TextView risk8 = (TextView) findViewById(R.id.txt_risk8);
 
+//        ImageView heart_bpm = (ImageView) findViewById(R.id.icon_device);
+        ImageView device = (ImageView) findViewById(R.id.icon_device);
+        device.setVisibility(View.VISIBLE);
+        device.setOnClickListener(bpmListener);
 
         //detail data
         TextView txt_keadaanIbu = (TextView) findViewById(R.id.txt_keadaanIbu);

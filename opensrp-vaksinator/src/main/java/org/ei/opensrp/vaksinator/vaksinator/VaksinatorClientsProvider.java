@@ -197,34 +197,34 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
 
         viewHolder.age.setText(pc.getColumnmaps().get("tanggalLahirAnak") != null
                 ? Integer.toString(age(ages) / 12) + " " + context.getResources().getString(R.string.year_short)
-                + ", " + Integer.toString(age(ages) % 12) + " " + context.getResources().getString(R.string.month_short)
+                    + ", " + Integer.toString(age(ages) % 12) + " " + context.getResources().getString(R.string.month_short)
                 : " ");
         viewHolder.gender.setText(pc.getDetails().get("jenis_kelamin") != null
                 ? pc.getDetails().get("jenis_kelamin").contains("em")
-                ? "Perempuan"
-                : "Laki-laki"
+                    ? "Perempuan"
+                    : "Laki-laki"
                 : " ");
 
-        viewHolder.hb0.setText(latestDate(new String[]{pc.getDetails().get("hb0")}));
+        viewHolder.hb0.setText(transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("hb0")})));
 
         viewHolder.pol1.setText(
-                latestDate(new String[]{pc.getDetails().get("bcg"), pc.getDetails().get("polio1")})
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("bcg"), pc.getDetails().get("polio1")}))
         );
 
         viewHolder.pol2.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb1"), pc.getDetails().get("polio2")})
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb1"), pc.getDetails().get("polio2")}))
         );
 
         viewHolder.pol3.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb2"), pc.getDetails().get("polio3")})
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb2"), pc.getDetails().get("polio3")}))
 
         );
 
         viewHolder.pol4.setText(
-                latestDate(new String[]{pc.getDetails().get("dptHb3"), pc.getDetails().get("polio4"), pc.getDetails().get("ipv")})
+                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb3"), pc.getDetails().get("polio4"), pc.getDetails().get("ipv")}))
         );
 
-        viewHolder.campak.setText(pc.getDetails().get("campak") != null ? pc.getDetails().get("campak") : " ");
+        viewHolder.campak.setText(transformToddmmyyyy(pc.getDetails().get("campak") != null ? pc.getDetails().get("campak") : " "));
 
 //----- logo visibility, sometimes the variable contains blank string that count as not null, so we must check both the availability and content
         boolean a = hasDate(pc, "hb0");
@@ -248,8 +248,8 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
     private String latestDate(String[] dates) {
         String max = dates[0] != null
                 ? dates[0].length() == 10
-                ? dates[0]
-                : "0000-00-00"
+                    ? dates[0]
+                    : "0000-00-00"
                 : "0000-00-00";
         for (int i = 1; i < dates.length; i++) {
             if (dates[i] == null)
@@ -356,6 +356,13 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         return null;
     }
 
+    public String transformToddmmyyyy(String date){
+        if(date.length()>3) {
+            if (date.charAt(4) == '-')
+                date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
+        }
+        return date;
+    }
 
     public LayoutInflater inflater() {
         return inflater;

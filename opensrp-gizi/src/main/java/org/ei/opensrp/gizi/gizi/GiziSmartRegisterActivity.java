@@ -176,7 +176,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
                 new OpenFormOption("Kunjungan Per Bulan ", "kunjungan_gizi", formController),
-                new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
+//                new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
                 new OpenFormOption("Close Form","close_form",formController)
             };
     }
@@ -463,7 +463,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         List<String> formNames = new ArrayList<String>();
        formNames.add("registrasi_gizi");
         formNames.add("kunjungan_gizi");
-        formNames.add("edit_registrasi_gizi");
+//        formNames.add("edit_registrasi_gizi");
         formNames.add("close_form");
        
 
@@ -503,7 +503,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES "+currentPage);
+                Log.e(TAG, "onClick: YES " + currentPage);
                 FlurryAgent.logEvent(TAG+" search_by_face OK", true);
 
             } else {

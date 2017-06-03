@@ -52,7 +52,11 @@ import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -78,6 +82,10 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
     private String locationDialogTAG = "locationDialogTAG";
 
     public static String criteria;
+
+    Date date = new Date();
+    SimpleDateFormat sdf;
+    Map<String, String> FS = new HashMap<>();
 
 
     @Override
@@ -498,7 +506,13 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
     public void getFacialRecord(View view) {
         FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
+        sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
+        String face_start = sdf.format(date);
+        FS.put("face_start", face_start);
+
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+
+        FlurryAgent.logEvent(TAG + " search_by_face", FS, true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", NativeKIANCSmartRegisterFragment.class.getSimpleName());

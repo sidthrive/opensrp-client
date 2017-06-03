@@ -143,6 +143,8 @@ public class KIPNCClientsProvider implements SmartRegisterCLientsProviderForCurs
             pc.setDetails(details);
         }
 
+        System.out.println("client : "+pc.getColumnmaps().toString());
+        System.out.println("event : "+pc.getDetails().toString());
 
         viewHolder.tanggal_bersalin.setText(humanize(pc.getDetails().get("tanggalKalaIAktif") != null ? pc.getDetails().get("tanggalKalaIAktif") : ""));
         String tempat = pc.getDetails().get("tempatBersalin") != null ? pc.getDetails().get("tempatBersalin") : "";

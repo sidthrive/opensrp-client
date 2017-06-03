@@ -98,6 +98,11 @@ public class BidanHomeActivity extends SecuredActivity {
     private TextView kartuIbuPNCRegisterClientCountView;
     private TextView anakRegisterClientCountView;
     private TextView kohortKbCountView;
+//    public static CommonPersonObjectController kicontroller;
+//    public static CommonPersonObjectController anccontroller;
+//    public static CommonPersonObjectController kbcontroller;
+//    public static CommonPersonObjectController childcontroller;
+//    public static CommonPersonObjectController pnccontroller;
     public static int kicount;
 
     @Override
@@ -110,7 +115,6 @@ public class BidanHomeActivity extends SecuredActivity {
         FlurryAgent.logEvent("home_dashboard",Home, true );
 
         setContentView(R.layout.smart_registers_home_bidan);
-//        navigationController = new NavigationControllerINA(this, anmController);
         navigationController = new NavigationControllerINA(this,anmController,context());
         setupViews();
         initialize();
@@ -121,12 +125,11 @@ public class BidanHomeActivity extends SecuredActivity {
     }
 
     private void setupViews() {
-        // Main menu
         findViewById(R.id.btn_kartu_ibu_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kartu_ibu_anc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kartu_ibu_pnc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
+        findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
 
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
@@ -195,7 +198,7 @@ public class BidanHomeActivity extends SecuredActivity {
         int anccount = anccountcursor.getInt(0);
         anccountcursor.close();
 
-        Cursor pnccountcursor = context().commonrepository("ec_pnc").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_pnc_search", "ec_pnc_search.is_closed=0 and ec_pnc_search.keadaanIbu ='hidup'"));
+        Cursor pnccountcursor = context().commonrepository("ec_pnc").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_pnc_search", "ec_pnc_search.is_closed=0 AND (ec_pnc_search.keadaanIbu ='hidup' OR ec_pnc_search.keadaanIbu IS NULL) ")); // and ec_pnc_search.keadaanIbu LIKE '%hidup%'
         pnccountcursor.moveToFirst();
         int pnccount = pnccountcursor.getInt(0);
         pnccountcursor.close();
@@ -245,7 +248,6 @@ public class BidanHomeActivity extends SecuredActivity {
                 return true;
             case R.id.help:
                 //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
-                helpMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -261,8 +263,8 @@ public class BidanHomeActivity extends SecuredActivity {
         String locationjson = context().anmLocationController().get();
         LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
-        Map<String,TreeNode<String, Location>> locationMap =
-                locationTree.getLocationsHierarchy();
+//        Map<String,TreeNode<String, Location>> locationMap =
+//                locationTree.getLocationsHierarchy();
 
         if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT))  // unique id part
             LoginActivity.generator.requestUniqueId();                                                                  // unique id part

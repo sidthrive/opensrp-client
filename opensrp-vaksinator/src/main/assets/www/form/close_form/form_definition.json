@@ -29,6 +29,16 @@
         "shouldLoadValue": true
       },
       {
+        "name": "tanggalLahirAnak",
+        "bind": "/model/instance/penutupan_anak_mapped/tanggal_lahir",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "namaBayi",
+        "bind": "/model/instance/penutupan_anak_mapped/nama_bayi",
+        "shouldLoadValue": true
+      },
+      {
         "name": "closeReason",
         "bind": "/model/instance/penutupan_anak_mapped/close_reason"
       },

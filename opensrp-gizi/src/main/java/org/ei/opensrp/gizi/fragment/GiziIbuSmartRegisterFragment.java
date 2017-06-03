@@ -529,6 +529,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
         FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+        FlurryAgent.logEvent(TAG + " search_by_face", true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", GiziIbuSmartRegisterFragment.class.getSimpleName());

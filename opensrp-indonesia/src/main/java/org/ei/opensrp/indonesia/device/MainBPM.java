@@ -61,8 +61,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
-//    long discoveryType = 67108864; // BP7
-    long discoveryType = 33554432; // BP5
+    long discoveryType = 67108864; // BP7
+//    long discoveryType = 33554432; // BP5
 
     private ListView listview_scan, listview_connected;
     private SimpleAdapter sa_scan, sa_connected;
@@ -72,7 +72,6 @@ public class MainBPM extends Activity implements View.OnClickListener {
     private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
     private int callbackId;
-
     private Handler myHandler = new Handler() {
 
         @Override
@@ -218,17 +217,18 @@ public class MainBPM extends Activity implements View.OnClickListener {
         tv_devScan = (TextView) findViewById(R.id.tv_devScan);
         tv_devConn = (TextView) findViewById(R.id.tv_devConnect);
 
+
         bt_startStop = (Button) findViewById(R.id.btn_discorvery_startstop);
-        bt_discover = (Button) findViewById(R.id.btn_discorvery);
-        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
+//        bt_discover = (Button) findViewById(R.id.btn_discorvery);
+//        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
 
         if (startDiscovering) {
             bt_startStop.setText(R.string.stop_discovery);
         }else {
             bt_startStop.setText(R.string.stop_discovery);
         }
-        bt_discover.setVisibility(View.GONE);
-        bt_discover_stop.setVisibility(View.GONE);
+//        bt_discover.setVisibility(View.GONE);
+//        bt_discover_stop.setVisibility(View.GONE);
 
         bt_certificate = (Button) findViewById(R.id.btn_Certification);
         listview_scan = (ListView) findViewById(R.id.list_scan);
@@ -239,6 +239,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
         if (mBluetoothAdapter.isEnabled()) {
 
+            bt_certificate.setVisibility(View.GONE);
             bt_startStop.setOnClickListener(this);
             bt_certificate.setOnClickListener(this);
 
@@ -331,8 +332,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
             bt_startStop.setVisibility(View.GONE);
 
             tv_discovery.setVisibility(View.GONE);
-            bt_discover.setVisibility(View.GONE);
-            bt_discover_stop.setVisibility(View.GONE);
+//            bt_discover.setVisibility(View.GONE);
+//            bt_discover_stop.setVisibility(View.GONE);
             bt_certificate.setVisibility(View.GONE);
             listview_scan.setVisibility(View.GONE);
             listview_connected.setVisibility(View.GONE);
@@ -399,17 +400,18 @@ public class MainBPM extends Activity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
 
+//        if (iHealthDevicesManager.getInstance() != null) {
         /*
          * When the Activity is destroyed , need to call unRegisterClientCallback method to
          * unregister callback
          */
-        iHealthDevicesManager.getInstance().unRegisterClientCallback(callbackId);
+            iHealthDevicesManager.getInstance().unRegisterClientCallback(callbackId);
         /*
          * When the Activity is destroyed , need to call destroy method of iHealthDeivcesManager to
          * release resources
          */
-        iHealthDevicesManager.getInstance().destroy();
-
+            iHealthDevicesManager.getInstance().destroy();
+//        }
     }
 
     private static class DeviceStruct {
@@ -475,6 +477,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     private void startDiscovery() {
         Log.e(TAG, "startDiscovery: start" );
         // Clear
+//        listview_scan.setVisibility(View.GONE);
+//        listview_connected.setVisibility(View.GONE);
         list_ScanDevices.clear();
         list_ConnectedDevices.clear();
 
@@ -491,7 +495,6 @@ public class MainBPM extends Activity implements View.OnClickListener {
         editor.apply();
 
         // Single device discovery
-
         iHealthDevicesManager.getInstance().startDiscovery(discoveryType);
         tv_discovery.setText(R.string.discovering);
         discoveryStatus = 1;
@@ -513,13 +516,13 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 }
                 break;
 
-            case R.id.btn_discorvery:
-                startDiscovery();
-                break;
+//            case R.id.btn_discorvery:
+//                startDiscovery();
+//                break;
 
-            case R.id.btn_stopdiscorvery:
-                iHealthDevicesManager.getInstance().stopDiscovery();
-                break;
+//            case R.id.btn_stopdiscorvery:
+//                iHealthDevicesManager.getInstance().stopDiscovery();
+//                break;
 
             case R.id.btn_Certification:
                 iHealthDevicesManager.getInstance().sdkUserInAuthor(MainBPM.this, userName, clientId,
@@ -558,8 +561,10 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 new int[]{
                         R.id.tv_type, R.id.tv_mac
                 });
+        sa_connected.notifyDataSetChanged();
 
         listview_connected.setAdapter(sa_connected);
+
         listview_connected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -583,7 +588,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
                 }
             }
         });
-        sa_connected.notifyDataSetChanged();
+
     }
 
     private void checkPermissions() {
@@ -623,7 +628,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Log.e(TAG, "onActivityResult: "+requestCode+" res: "+resultCode );
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1){
+        if (requestCode == 1 && resultCode == -1){
             Toast.makeText(this, "Bluethooth Enabled Succes", Toast.LENGTH_SHORT).show();
             finish();
             startActivity(getIntent());

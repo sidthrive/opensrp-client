@@ -31,6 +31,8 @@ dependencies {
     //    compile project(':sidlibrary')
 //    compile project(':opensrp-devices')
 //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    compile 'com.google.android.gms:play-services:8.4.0'
+
 }
 
 android {
@@ -38,7 +40,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "org.ei.opensrp.indonesia_os"
+        applicationId "org.ei.opensrp.indonesia_mac"
         minSdkVersion 16
         targetSdkVersion 21
 

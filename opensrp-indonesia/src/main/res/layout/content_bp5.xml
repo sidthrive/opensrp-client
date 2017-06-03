@@ -113,6 +113,27 @@
                 android:textColor="@color/light_blue"
                 android:textSize="150sp" />
         </TableRow>
+        <TableRow
+            android:id="@+id/pulseRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_marginLeft="10dp"
+                android:text="@string/pulse"
+                android:textColor="#fff"
+                android:textSize="50sp" />
+            <TextView
+                android:id="@+id/tv_pulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/green"
+                android:textSize="150sp"
+                android:layout_gravity="right"
+                />
+        </TableRow>
     </TableLayout>
 
     <ProgressBar
@@ -121,7 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:progressDrawable="@drawable/vertical_progress_bar"
-        android:max="190"
+        android:max="250"
+        android:layout_gravity="center_horizontal"
         />
 
     <TextView

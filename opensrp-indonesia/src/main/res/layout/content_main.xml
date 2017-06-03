@@ -10,20 +10,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".device.MainBPM"
-    tools:showIn="@layout/activity_main">
+    >
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+<!---->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            >
 
 
-            <TextView
+        <TextView
                 android:id="@+id/tv_discovery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
@@ -34,17 +36,17 @@
                 android:layout_height="wrap_content"
                 android:text="Search/Stop Device" />
 
-            <Button
-                android:id="@+id/btn_discorvery"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Search Device" />
-
-            <Button
-                android:id="@+id/btn_stopdiscorvery"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Stop Searching" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_discorvery"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Search Device" />-->
+<!---->
+            <!--<Button-->
+                <!--android:id="@+id/btn_stopdiscorvery"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Stop Searching" />-->
 
             <Button
                 android:id="@+id/btn_Certification"
@@ -59,7 +61,17 @@
                 android:id="@+id/tv_devScan"
                 android:textSize="20sp" />
 
-            <ListView
+        <Button
+            android:id="@+id/enable_bt"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/round_button"
+            android:text="@string/str_enable_bt"
+            android:textColor="#FFF"
+            android:textSize="40dp" />
+
+        <ListView
                 android:id="@+id/list_scan"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
@@ -76,14 +88,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="600dp" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/enable_bt"
-                android:text="@string/str_enable_bt"/>
 
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 
 </LinearLayout>
 

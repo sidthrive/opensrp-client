@@ -205,6 +205,15 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         if (kiparent != null) {
             detailsRepository.updateDetails(kiparent);
+
+            viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi") != null
+                    ? pc.getColumnmaps().get("namaBayi").length() > 1
+                        ? pc.getColumnmaps().get("namaBayi")
+                        : kiparent.getColumnmaps().get("namalengkap") != null ? "By. "+kiparent.getColumnmaps().get("namalengkap") : ""
+                    : kiparent.getColumnmaps().get("namalengkap") != null ?
+                            "By. "+kiparent.getColumnmaps().get("namalengkap") : ""
+            );
+
             String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
             String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
             viewHolder.mother_name.setText(String.format("%s,%s", namaibu, namaayah));

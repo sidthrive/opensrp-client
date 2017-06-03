@@ -55,7 +55,11 @@ import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -79,6 +83,12 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
+
+    Date date = new Date();
+    SimpleDateFormat sdf;
+    Map<String, String> FS = new HashMap<>();
+
+
     @Override
     protected void onCreation() {
         //
@@ -255,11 +265,11 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
             countqueryBUilder.customJoin("LEFT JOIN ec_kartu_ibu on ec_kartu_ibu.id = ec_pnc.id");
 
             if (s == null || Objects.equals(s, "!")) {
-                mainCondition = "is_closed = 0 AND keadaanIbu ='hidup'";
+                mainCondition = "is_closed = 0 AND (keadaanIbu ='hidup' OR keadaanIbu IS NULL) ";
                 Log.e(TAG, "initializeQueries: "+"Not Initialized" );
             } else {
                 Log.e(TAG, "initializeQueries: " + s);
-                mainCondition = "is_closed = 0 AND keadaanIbu ='hidup' AND object_id LIKE '%" + s + "%'";
+                mainCondition = "is_closed = 0 AND (keadaanIbu ='hidup' OR keadaanIbu IS NULL) AND object_id LIKE '%" + s + "%'";
             }
 
             joinTable = "";
@@ -269,7 +279,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
             SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
             queryBUilder.SelectInitiateMainTable("ec_pnc", new String[]{"ec_pnc.relationalid", "ec_pnc.details",  "ec_kartu_ibu.namalengkap","ec_kartu_ibu.namaSuami","imagelist.imageid"});
             queryBUilder.customJoin("LEFT JOIN ec_kartu_ibu on ec_kartu_ibu.id = ec_pnc.id LEFT JOIN ImageList imagelist ON ec_pnc.id=imagelist.entityID");
-            mainSelect = queryBUilder.mainCondition("ec_kartu_ibu.is_closed = 0 and keadaanIbu ='hidup' ");
+            mainSelect = queryBUilder.mainCondition("ec_kartu_ibu.is_closed = 0 and (keadaanIbu ='hidup' OR keadaanIbu IS NULL) ");
 
             Sortqueries = KiSortByNameAZ();
 
@@ -419,7 +429,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " is_closed = 0 and keadaanIbu ='hidup' ";
+                mainCondition = " is_closed = 0 and (keadaanIbu ='hidup' OR keadaanIbu IS NULL) ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
@@ -486,7 +496,12 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     public void getFacialRecord(View view) {
         FlurryAgent.logEvent(TAG+" search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
+        sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
+        String face_start = sdf.format(date);
+        FS.put("face_start", face_start);
+
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
+        FlurryAgent.logEvent(TAG + " search_by_face", FS, true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);

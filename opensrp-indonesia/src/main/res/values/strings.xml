@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bidan OpenSRP</string>
+    <string name="app_name">Bidan OpenSRP OS</string>
     <string name="userNameEditText">Enter user name</string>
     <string name="passwordEditText">Enter password</string>
     <string name="login_text">Log In</string>
@@ -641,7 +641,8 @@
     <string name="start">Start</string>
     <string name="str_enable_bt">Enable BT</string>
     <string name="discovering">Discovering...</string>
-    <string name="discover_finish">Disvovering end</string>
+    <string name="discover_finish">Discovering end</string>
     <string name="start_discovery">Start Discovery</string>
     <string name="stop_discovery">Stop Discovery</string>
+    <string name="pulse">PULSE</string>
 </resources>
