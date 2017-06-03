@@ -110,13 +110,20 @@
             android:name=".child.ChildZScoreChartActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoTitle" />
+
+        <!--Face Recognition-->
         <activity
             android:name=".face.camera.SmartShutterActivity"
-            android:noHistory="true" />
+            android:screenOrientation="portrait"
+            android:noHistory="false" />
         <activity
             android:name=".face.camera.ImageConfirmation"
+            android:screenOrientation="portrait"
+            android:label="FaceRecognition Confirmation"
             android:noHistory="true" />
-        <activity android:name=".face.camera.ClientsList" />
+        <activity android:name=".face.camera.ClientsList"
+            android:screenOrientation="portrait"
+            />
         <!-- BPM -->
         <!--<activity android:name=".face.bpm.BpmMainActivity" />-->
         <activity android:name=".device.MainBPM" android:label="Blood Pressure Monitor"/>

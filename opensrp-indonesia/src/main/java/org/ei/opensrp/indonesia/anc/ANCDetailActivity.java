@@ -341,10 +341,8 @@ public class ANCDetailActivity extends Activity {
         @Override
         public void onClick(View v) {
 //            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
-//            Intent intent = new Intent(ANCDetailActivity.this, MainBPMActivity.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, MainActivity.class);
 //            Intent intent = new Intent(ANCDetailActivity.this, BpmMainActivity.class);
-//            Intent intent = new Intent(ANCDetailActivity.this, MainBPM.class);
 //            startActivity(intent);
             bpmAction();
         }
@@ -419,8 +417,6 @@ public class ANCDetailActivity extends Activity {
                         "</Blood_Test>";
 
                 formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", new JSONObject());
-
-
 
             }catch (Exception e){
                 // TODO: show error dialog on the formfragment if the submission fails

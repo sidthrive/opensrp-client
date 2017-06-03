@@ -417,6 +417,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "onActivityResult: request "+ requestCode );
+        Log.e(TAG, "onActivityResult: result "+ resultCode );
         switch (requestCode) {
             case 0:
                 if (resultCode == RESULT_OK) {
@@ -428,6 +430,15 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                         intent.setData(selectedImageUri);
                         startActivity(intent);
                     }
+                }
+                break;
+
+            case 2:
+                if (resultCode == 2){
+                    Intent i = new Intent();
+                    setResult(2, i);
+                    finish();
+
                 }
                 break;
             // For the rest don't do anything.
@@ -990,7 +1001,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", str_origin_class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.updated", updated);
 
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 2);
     }
 
     private void setFlagsTrue() {

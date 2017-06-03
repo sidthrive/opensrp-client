@@ -2,12 +2,7 @@ package org.ei.opensrp.indonesia.child;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,31 +13,19 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.face.camera.utils.Tools;
-import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
-import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.ChildDetailActivity;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import util.ImageCache;
-import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
+
 /**
  * Created by Iq on 07/09/16.
  */
@@ -50,23 +33,11 @@ public class AnakDetailActivity extends Activity {
 
     //image retrieving
     private static final String TAG = AnakDetailActivity.class.getSimpleName();
-    private static final String IMAGE_CACHE_DIR = "thumbs";
-    //  private static KmsCalc  kmsCalc;
-    private static int mImageThumbSize;
-    private static int mImageThumbSpacing;
-    private static String showbgm;
-    private static ImageFetcher mImageFetcher;
-
     public static CommonPersonObjectClient childclient;
 
     private static HashMap<String, String> hash;
     private boolean updateMode = false;
-    private String mode;
-
-    private String photo_path;
-    private File tb_photo;
-    private String fileName;
-
+    static String entityid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +47,7 @@ public class AnakDetailActivity extends Activity {
 
         final ImageView childview = (ImageView)findViewById(R.id.childdetailprofileview);
         //header
-        TextView today = (TextView) findViewById(R.id.detail_today);
+//        TextView today = (TextView) findViewById(R.id.detail_today);
         
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_child_name);
@@ -85,10 +56,10 @@ public class AnakDetailActivity extends Activity {
         TextView dob = (TextView) findViewById(R.id.txt_dob);
         
       //  TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
-        TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
-        TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
-        TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
-        TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
+//        TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
+//        TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
+//        TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
+//        TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
         
         //detail data
         TextView txt_noBayi = (TextView) findViewById(R.id.txt_noBayi);
@@ -145,14 +116,15 @@ public class AnakDetailActivity extends Activity {
             DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
 
         }
+
         //end profile image
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
 
         CommonPersonObject childobject = childRepository.findByCaseID(childclient.entityId());
 
-        AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
-        final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
+//        AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_ibu");
+//        final CommonPersonObject ibuparent = iburep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
         
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
         final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
@@ -185,38 +157,20 @@ public class AnakDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                bindobject = "anak";
+                FlurryFacade.logEvent("taking_child_pictures_on_anak_detail_view");
                 entityid = childclient.entityId();
-//                dispatchTakePictureIntent(childview);
                 if (hash.containsValue(entityid)) {
-                    android.util.Log.e(TAG, "onClick: " + entityid + " updated");
-                    mode = "updated";
                     updateMode = true;
-
                 }
-
-                Intent intent = new Intent(AnakDetailActivity.this, SmartShutterActivity.class);
-                intent.putExtra("IdentifyPerson", false);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
-                startActivity(intent);
-
+                Intent takePictureIntent = new Intent(AnakDetailActivity.this, SmartShutterActivity.class);
+                takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", updateMode);
+                takePictureIntent.putExtra("IdentifyPerson", false);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivityForResult(takePictureIntent, 2);
 
             }
         });
-
-//        childview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FlurryFacade.logEvent("taking_child_pictures_on_child_detail_view");
-//                bindobject = "anak";
-//                entityid = childclient.entityId();
-//                Log.e(TAG, "onClick: "+entityid );
-//                dispatchTakePictureIntent(childview);
-//
-//            }
-//        });
-//
 
     }
 
@@ -225,108 +179,15 @@ public class AnakDetailActivity extends Activity {
         finish();
         startActivity(new Intent(this, NativeKIAnakSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
-
-
     }
 
-
-    String mCurrentPhotoPath;
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static ImageView mImageView;
-    static File currentfile;
-    static String bindobject;
-    static String entityid;
-    private void dispatchTakePictureIntent(ImageView imageView) {
-        Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        Log.e(TAG, "dispatchTakePictureIntent: "+takePictureIntent.resolveActivity(getPackageManager()) );
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-            startActivityForResult(takePictureIntent, 1);
-//            }
-        }
-    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-            mImageView.setImageBitmap(bitmap);
-        }
-    }
-    public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
-        mImageThumbSize = 300;
-        mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
-
-
-        ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(activity, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.50f); // Set memory cache to 25% of app memory
-        mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
-        mImageFetcher.setLoadingImage(placeholder);
-        mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
-        mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
-
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
-    }
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        refresh
+        Log.e(TAG, "onActivityResult: refresh" );
+        finish();
+        startActivity(getIntent());
 
     }
 }

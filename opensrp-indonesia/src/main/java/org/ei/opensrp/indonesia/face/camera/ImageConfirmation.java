@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Base64;
@@ -106,14 +107,16 @@ public class ImageConfirmation extends Activity {
         kiclient = extras.getParcelableArray("org.sid.sidface.ImageConfirmation.kiclient");
         str_origin_class = extras.getString("org.sid.sidface.ImageConfirmation.origin");
         updated = extras.getBoolean("org.sid.sidface.ImageConfirmation.updated");
-        Log.e(TAG, "init_extras: "+updated );
+        Log.e(TAG, "init_extras: updated "+updated );
 
     }
-
 
     private void process_img() {
 
         storedBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
+//        Log.e(TAG, "process_img: storedBitmap "+ storedBitmap ); // 720 x 1280
+//        Log.e(TAG, "process_img: storedBitmap h "+ storedBitmap.getHeight() );
+//        Log.e(TAG, "process_img: storedBitmap w "+ storedBitmap.getWidth() );
         objFace = SmartShutterActivity.faceProc;
 
         Matrix mat = new Matrix();
@@ -133,23 +136,35 @@ public class ImageConfirmation extends Activity {
         boolean setBitmapResult = objFace.setBitmap(storedBitmap);
         faceDatas = objFace.getFaceData();
 
+//        Log.e(TAG, "process_img: w "+ tempBitmap.getWidth() );
+//        Log.e(TAG, "process_img: h "+ tempBitmap.getHeight() );
+        Log.e(TAG, "process_img: w "+confirmationView.getWidth() ); //w 1536
+        Log.e(TAG, "process_img: h "+confirmationView.getHeight() ); //h 1872
+
+        /**
+         * Set Height and Width
+         */
         int imageViewSurfaceWidth = storedBitmap.getWidth();
         int imageViewSurfaceHeight = storedBitmap.getHeight();
 //        int imageViewSurfaceWidth = confirmationView.getWidth();
 //        int imageViewSurfaceHeight = confirmationView.getHeight();
 
         // Face Confirmation view purpose
-        workingBitmap = Bitmap.createScaledBitmap(storedBitmap,
-                imageViewSurfaceWidth, imageViewSurfaceHeight, false);
-//        mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        workingBitmap = Bitmap.createScaledBitmap(storedBitmap, imageViewSurfaceWidth, imageViewSurfaceHeight, false);
 
-        mutableBitmap = storedBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+
+//        mutableBitmap = storedBitmap.copy(Bitmap.Config.ARGB_8888, true);
+//        Bitmap tempBitmap = Bitmap.createScaledBitmap(storedBitmap,
+//                (storedBitmap.getWidth() / 2), (storedBitmap.getHeight() / 2),
+//                false);
+        confirmationView.setImageBitmap(mutableBitmap); // Setting the view with the bitmap image that came in.
+
 
         objFace.normalizeCoordinates(imageViewSurfaceWidth, imageViewSurfaceHeight);
 
         // Set Bitmap Success
         if(setBitmapResult){
-//            Log.e(TAG, "onCreate: SetBitmap objFace "+"Success" );
 
             // Face Data Exist
             if(faceDatas != null){
@@ -162,7 +177,7 @@ public class ImageConfirmation extends Activity {
 
                     int matchRate = faceDatas[i].getRecognitionConfidence();
 
-                    float pixelDensity = getResources().getDisplayMetrics().density;
+                    float pixelDensity = getResources().getDisplayMetrics().density; // 2.0
 
 //                    Identify or new record
                     if (identifyPerson) {
@@ -186,8 +201,10 @@ public class ImageConfirmation extends Activity {
                         showDetailUser(selectedPersonName);
 
                     } else {
+
                         // Not Identifiying, do new record.
 //                        Draw Info on Image
+                        Log.e(TAG, "process_img: rect "+ rect.toString() ); // Rect(125, 409 - 847, 951)
                         Tools.drawRectFace(rect, mutableBitmap, pixelDensity);
 
                         Log.e(TAG, "onCreate: PersonId "+faceDatas[i].getPersonId() );
@@ -209,8 +226,19 @@ public class ImageConfirmation extends Activity {
 //                        confirmationView.setImageBitmap(storedBitmap);
 
                         // Face and Rect
-                        confirmationView.setImageBitmap(mutableBitmap);
+//                        confirmationView.setImageBitmap(mutableBitmap);
+                        Drawable drawable = confirmationView.getDrawable();
+//you should call after the bitmap drawn
+                        Rect bounds = drawable.getBounds();
+                        int width = bounds.width();
+                        int height = bounds.height();
+                        int bitmapWidth = drawable.getIntrinsicWidth(); //this is the bitmap's width
+                        int bitmapHeight = drawable.getIntrinsicHeight(); //this is the bitmap's height
 
+                        Log.e(TAG, "process_img: w "+ width );
+                        Log.e(TAG, "process_img: h "+ height );
+                        Log.e(TAG, "process_img: bw "+ bitmapWidth );
+                        Log.e(TAG, "process_img: bh "+ bitmapHeight );
                     } // end if-else mode Identify {True or False}
 
                 } // end for count ic_faces
@@ -292,6 +320,11 @@ public class ImageConfirmation extends Activity {
                     Log.e(TAG, "onClick: class origin "+str_origin_class );
 
                     Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
+
+                    // Back To Detail Activity
+                    Intent i = new Intent();
+                    setResult(2, i);
+                    finish();
 
                 } else {
                     Log.e(TAG, "onClick: not identify ");

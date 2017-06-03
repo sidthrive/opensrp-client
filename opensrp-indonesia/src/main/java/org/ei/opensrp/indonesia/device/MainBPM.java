@@ -72,7 +72,6 @@ public class MainBPM extends Activity implements View.OnClickListener {
     private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
     private int callbackId;
-
     private Handler myHandler = new Handler() {
 
         @Override
@@ -401,7 +400,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (iHealthDevicesManager.getInstance() != null) {
+//        if (iHealthDevicesManager.getInstance() != null) {
         /*
          * When the Activity is destroyed , need to call unRegisterClientCallback method to
          * unregister callback
@@ -412,7 +411,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
          * release resources
          */
             iHealthDevicesManager.getInstance().destroy();
-        }
+//        }
     }
 
     private static class DeviceStruct {
@@ -565,6 +564,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
         sa_connected.notifyDataSetChanged();
 
         listview_connected.setAdapter(sa_connected);
+
         listview_connected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -628,7 +628,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Log.e(TAG, "onActivityResult: "+requestCode+" res: "+resultCode );
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1){
+        if (requestCode == 1 && resultCode == -1){
             Toast.makeText(this, "Bluethooth Enabled Succes", Toast.LENGTH_SHORT).show();
             finish();
             startActivity(getIntent());

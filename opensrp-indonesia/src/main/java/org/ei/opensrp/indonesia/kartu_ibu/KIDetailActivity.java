@@ -2,22 +2,18 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.application.BidanApplication;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.face.camera.utils.Tools;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
@@ -25,13 +21,12 @@ import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-import util.ImageFetcher;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
 
@@ -42,21 +37,13 @@ public class KIDetailActivity extends Activity {
 
     //image retrieving
     private static final String TAG = KIDetailActivity.class.getSimpleName();
-    private static final String IMAGE_CACHE_DIR = "thumbs";
-    //  private static KmsCalc  kmsCalc;
-    private static int mImageThumbSize;
-    private static int mImageThumbSpacing;
-    private static String showbgm;
-    private static ImageFetcher mImageFetcher;
 
-    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
-    //image retrieving
+    SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss", Locale.US);
 
     public static CommonPersonObjectClient kiclient;
-
+    ImageView kiview;
     private static HashMap<String, String> hash;
     private boolean updateMode = false;
-    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +52,12 @@ public class KIDetailActivity extends Activity {
         Context context = Context.getInstance();
         setContentView(R.layout.ki_detail_activity);
 
-
         String DetailStart = timer.format(new Date());
-        Map<String, String> Detail = new HashMap<String, String>();
+        Map<String, String> Detail = new HashMap<>();
         Detail.put("start", DetailStart);
         FlurryAgent.logEvent("KI_detail_view",Detail, true );
 
-        final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
-        //header
-        //  TextView risk = (TextView) findViewById(R.id.detail_risk);
+        kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
 
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_wife_name);
@@ -89,7 +73,6 @@ public class KIDetailActivity extends Activity {
         final TextView show_risk = (TextView) findViewById(R.id.show_more);
         final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
 
-
         //detail data
         TextView village = (TextView) findViewById(R.id.txt_village_name);
         TextView subvillage = (TextView) findViewById(R.id.txt_subvillage);
@@ -101,7 +84,6 @@ public class KIDetailActivity extends Activity {
         TextView gakin = (TextView) findViewById(R.id.txt_gakin);
         TextView blood_type = (TextView) findViewById(R.id.txt_blood);
         TextView asuransi = (TextView) findViewById(R.id.txt_asuransi);
-
 
         //detail RISK
         TextView highRiskSTIBBVs = (TextView) findViewById(R.id.txt_highRiskSTIBBVs);
@@ -142,7 +124,7 @@ public class KIDetailActivity extends Activity {
                 overridePendingTransition(0, 0);
 
                 String DetailEnd = timer.format(new Date());
-                Map<String, String> Detail = new HashMap<String, String>();
+                Map<String, String> Detail = new HashMap<>();
                 Detail.put("end", DetailEnd);
                 FlurryAgent.logEvent("KI_detail_view", Detail, true);
             }
@@ -153,7 +135,6 @@ public class KIDetailActivity extends Activity {
 
         //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
         DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
-
 
         nama.setText(String.format("%s%s", getResources().getString(R.string.name), kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
         nik.setText(String.format("%s%s", getResources().getString(R.string.nik), kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
@@ -226,9 +207,6 @@ public class KIDetailActivity extends Activity {
         highRiskPostPartumPIH.setText(humanize(kiclient.getDetails().get("highRiskPostPartumPIH") != null ? kiclient.getDetails().get("highRiskPostPartumPIH") : "-"));
         highRiskPostPartumDistosia.setText(humanize(kiclient.getDetails().get("highRiskPostPartumDistosia") != null ? kiclient.getDetails().get("highRiskPostPartumDistosia") : "-"));
 
-
-        //  }
-
         show_risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,25 +234,18 @@ public class KIDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
-                bindobject = "kartu_ibu";
                 entityid = kiclient.entityId();
-//                Log.e(TAG, "onClick: "+hash.size() );
-                Log.e(TAG, "onClick: Value "+hash.containsValue(entityid) );
-                Log.e(TAG, "onClick: Key "+hash.containsKey(entityid) );
-                if(hash.containsValue(entityid)){
-                    Log.e(TAG, "onClick: "+entityid+" updated" );
-                    mode = "updated";
-                    updateMode = true;
 
+                if(hash.containsValue(entityid)){
+                    updateMode = true;
                 }
-//                dispatchTakePictureIntent(kiview, updateMode);
+
                 Intent takePictureIntent = new Intent(KIDetailActivity.this, SmartShutterActivity.class);
                 takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", updateMode);
                 takePictureIntent.putExtra("IdentifyPerson", false);
                 takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
                 takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
-                startActivity(takePictureIntent);
-
+                startActivityForResult(takePictureIntent, 2);
 
             }
         });
@@ -286,129 +257,16 @@ public class KIDetailActivity extends Activity {
         finish();
         startActivity(new Intent(this, NativeKISmartRegisterActivity.class));
         overridePendingTransition(0, 0);
-
     }
 
-
-
-    String mCurrentPhotoPath;
-
-
-    static final int REQUEST_TAKE_PHOTO = 1;
-    static ImageView mImageView;
-    static File currentfile;
-    static String bindobject;
     static String entityid;
-
-    private void dispatchTakePictureIntent(ImageView imageView, boolean modeUpdate) {
-
-        Toast.makeText(KIDetailActivity.this, "Mode Updated: "+modeUpdate, Toast.LENGTH_SHORT).show();
-
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this, SmartShutterActivity.class);
-        takePictureIntent.putExtra("org.sid.sidface.SmartShutterActivity.updated", modeUpdate);
-
-
-        //FIXME USE SmartShutterActivity INSTEAD
-//     Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-                startActivityForResult(takePictureIntent, 1);
-//            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Log.e(TAG, "onActivityResult: "+requestCode );
-        Log.e(TAG, "onActivityResult: "+resultCode );
-        Log.e(TAG, "onActivityResult: "+intent );
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-
-//            HashMap<String,String> details = new HashMap<String,String>();
-//            details.put("profilepic",currentfile.getAbsolutePath());
-//            saveimagereference(bindobject,entityid,details);
-
-//            Long tsLong = System.currentTimeMillis()/1000;
-//            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-//            detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
-//
-            Bundle extras = intent.getExtras();
-            Bitmap mImageBitmap = (Bitmap) extras.get("data");
-//            saveStaticImageToDisk(kiclient.getCaseId(),mImageBitmap);
-            mImageView.setImageBitmap(mImageBitmap);
-        }
-    }
-//    public static void saveStaticImageToDisk(String entityId, Bitmap image) {
-//        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-//
-//        if (image != null) {
-//            OutputStream os = null;
-//            try {
-//
-//                if (entityId != null && !entityId.isEmpty()) {
-//                    final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
-//
-//                    File outputFile = new File(absoluteFileName);
-//                    os = new FileOutputStream(outputFile);
-//                    Bitmap.CompressFormat compressFormat =  Bitmap.CompressFormat.JPEG;
-//                    if (compressFormat != null) {
-//                        image.compress(compressFormat, 100, os);
-//                    } else {
-//                        throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-//                                + absoluteFileName);
-//                    }
-//                    // insert into the db
-//                    ProfileImage profileImage= new ProfileImage();
-//                    profileImage.setImageid(UUID.randomUUID().toString());
-//                    profileImage.setAnmId(anmId);
-//                    profileImage.setEntityID(entityId);
-//                    profileImage.setFilepath(absoluteFileName);
-//                    profileImage.setFilecategory("profilepic");
-//                    profileImage.setFilevector("[ve, ct, or]");
-//                    profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-//                    ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
-//                    imageRepo.add(profileImage);
-//                }
-//
-//            } catch (FileNotFoundException e) {
-//                Log.e(TAG, "Failed to save static image to disk");
-//            } finally {
-//                if (os != null) {
-//                    try {
-//                        os.close();
-//                    } catch (IOException e) {
-//                        Log.e(TAG, "Failed to close static images output stream after attempting to write image");
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
-
+//        refresh
+        Log.e(TAG, "onActivityResult: refresh" );
+        finish();
+        startActivity(getIntent());
 
     }
 }
