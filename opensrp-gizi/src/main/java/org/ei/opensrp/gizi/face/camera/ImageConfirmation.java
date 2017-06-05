@@ -300,7 +300,10 @@ public class ImageConfirmation extends Activity {
 
 //                  saveAndClose(entityId);
                     Tools.saveAndClose(getApplicationContext(), entityId, updated, objFace, arrayPossition, storedBitmap, str_origin_class);
-
+                    // Back To Detail Activity
+                    Intent i = new Intent();
+                    setResult(2, i);
+                    finish();
                 } else {
 //                    SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 //                    Cursor cursor = getApplicationContext().
