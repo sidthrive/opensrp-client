@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.ThumbnailUtils;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
@@ -64,6 +66,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.auth.AuthScope;
 
 
 /**
@@ -108,8 +111,16 @@ public class Tools {
     public Tools(org.ei.opensrp.Context appContext) {
         imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
         Tools.appContext = appContext;
+
+//        hash = new HashMap<>();
+//        Log.e(TAG, "Tools: "+hash.size() );
+//        saveHash(hash, androContext);
+
     }
 
+//    public void isPreferencesSet(Context context){
+//        File f = new File();
+//    }
     /**
      * Method to Stored Bitmap as File and Buffer
      *
@@ -458,27 +469,31 @@ public class Tools {
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
         String location = appContext.allSharedPreferences().getPreference("locationId");
         String pwd = appContext.allSettings().fetchANMPassword();
+
         //TODO : cange to based locationId
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
+        final String api_url = "http://118.91.130.18/opensrp" + "/multimedia-file?locationid=" + location;
+//        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
 
         AsyncHttpClient client = new AsyncHttpClient();
-
         client.setBasicAuth(user, pwd);
-
-//        client.get(api_url, new JsonHttpResponseHandler(){
-//        });
 
         getImages(client, api_url);
 
         Log.e(TAG, "setVectorfromAPI: END" );
     }
 
+    /**
+     * Download Client Images
+     * @param client
+     * @param api_url
+     */
     private static void getImages(final AsyncHttpClient client, final String api_url) {
+
         client.get(api_url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.e(TAG, "onSuccess: " + statusCode);
+                Log.e(TAG, "getImages onSuccess: " + statusCode);
 
                 insertOrUpdate(responseBody);
 
@@ -486,7 +501,8 @@ public class Tools {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: " + api_url);
+                Log.e(TAG, "getImages onFailure: " + api_url);
+                Log.e(TAG, "onFailure: "+statusCode );
                 getImages(client, api_url);
             }
         });
@@ -497,6 +513,9 @@ public class Tools {
 
         try {
             JSONArray response = new JSONArray(new String(responseBody));
+
+            Log.e(TAG, "insertOrUpdate: numberOfData "+ Arrays.toString(responseBody));
+            Log.e(TAG, "insertOrUpdate: numberOfData "+ response.length() );
 
             for (int i = 0; i < response.length(); i++) {
                 JSONObject data = response.getJSONObject(i);
@@ -650,10 +669,14 @@ public class Tools {
         Log.e(TAG, "saveAndClose: " + "end");
     }
 
-    public static void setVectorsBuffered() {
-        Log.e(TAG, "setVectorsBuffered: START" );
+    /**
+     * Fetch Vector data from SQLite into memory buffer.
+     */
+    private static void setVectorsBuffered() {
 
         List<ProfileImage> vectorList = imageRepo.getAllVectorImages();
+
+        Log.e(TAG, "setVectorsBuffered: START "+vectorList.size() );
 
         if (vectorList.size() != 0) {
 
@@ -663,7 +686,7 @@ public class Tools {
 
             int i = 0;
             for (ProfileImage profileImage : vectorList) {
-                String[] vectorFace = new String[]{};
+                String[] vectorFace;
                 if (profileImage.getFilevector() != null) {
 
                     vectorFace = profileImage.getFilevector().substring(1, profileImage.getFilevector().length() - 1).split(", ");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bidan MBP</string>
+    <string name="app_name">Bidan OpenSRP</string>
     <string name="userNameEditText">Enter user name</string>
     <string name="passwordEditText">Enter password</string>
     <string name="login_text">Log In</string>
@@ -580,17 +580,17 @@
         a 7,7 0 1,0 14,0
       a 7,7 0 1,0 -14,0
   </string>
-  <string name="path_face_right_eye">
+    <string name="path_face_right_eye">
       M 65,40
       m -7,0
       a 7,7 0 1,0 14,0
       a 7,7 0 1,0 -14,0
   </string>
-  <string name="path_face_mouth_sad">
+    <string name="path_face_mouth_sad">
       M 30,75
       Q 50,55 70,75
   </string>
-  <string name="path_face_mouth_happy">
+    <string name="path_face_mouth_happy">
       M 30,65
       Q 50,85 70,65
   </string>
