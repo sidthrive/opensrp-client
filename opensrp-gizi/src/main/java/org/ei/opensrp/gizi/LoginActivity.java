@@ -109,9 +109,9 @@ public class LoginActivity extends Activity {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.login, null);
         if (context.userService().hasARegisteredUser()){
-            localLogin(view, "ec_bidan", "Satu2345");
+            localLogin(view, "user28", "1Sampai8");
         } else {
-            remoteLogin(view, "ec_bidan", "Satu2345");
+            remoteLogin(view, "user28", "1Sampai8");
         }
     }
 

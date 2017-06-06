@@ -204,10 +204,12 @@ public class OpenSRPImageLoader extends ImageLoader {
             this.imageRecord = imageRecord;
             this.imageView = opensrpImageListener.getImageView();
             this.cachedImageLoader = cachedImageLoader;
+            Log.e(TAG, "LoadBitmapFromDiskTask: " );
         }
 
         @Override
         protected Bitmap doInBackground(String... params) {
+            Log.e(TAG, "doInBackground: " );
             return FileUtilities.retrieveStaticImageFromDisk(params[0]);
         }
 
@@ -215,6 +217,7 @@ public class OpenSRPImageLoader extends ImageLoader {
         protected void onPostExecute(Bitmap result) {
 
             try {
+                Log.e(TAG, "onPostExecute: " );
 
                 /***
                  * Display image loaded from disk if reference is not NULL

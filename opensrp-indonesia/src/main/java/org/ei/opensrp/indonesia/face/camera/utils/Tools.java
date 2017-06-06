@@ -12,7 +12,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.ThumbnailUtils;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
@@ -20,33 +19,17 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.indonesia.BidanHomeActivity;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
-import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.child.AnakDetailActivity;
-import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia.face.camera.ClientsList;
 import org.ei.opensrp.indonesia.face.camera.ImageConfirmation;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
-import org.ei.opensrp.indonesia.fragment.NativeKBSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIANCSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIAnakSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKIPNCSmartRegisterFragment;
-import org.ei.opensrp.indonesia.fragment.NativeKISmartRegisterFragment;
 import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
-import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
-import org.ei.opensrp.indonesia.kb.KBDetailActivity;
-import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
-import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
-import org.ei.opensrp.indonesia.pnc.PNCDetailActivity;
 import org.ei.opensrp.repository.ImageRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
@@ -66,7 +49,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.auth.AuthScope;
 
 
 /**
@@ -472,7 +454,7 @@ public class Tools {
 
         //TODO : cange to based locationId
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-        final String api_url = "http://118.91.130.18/opensrp" + "/multimedia-file?locationid=" + location;
+        final String api_url = "http://192.168.43.189:8080/opensrp3" + "/multimedia-file?locationid=" + location;
 //        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -502,8 +484,9 @@ public class Tools {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.e(TAG, "getImages onFailure: " + api_url);
-                Log.e(TAG, "onFailure: "+statusCode );
-                getImages(client, api_url);
+                Log.e(TAG, "onFailure: ", error );
+//                getImages(client, api_url);
+                Toast.makeText(getAppContext().applicationContext(), "Failed to read JSON", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -514,8 +497,8 @@ public class Tools {
         try {
             JSONArray response = new JSONArray(new String(responseBody));
 
-            Log.e(TAG, "insertOrUpdate: numberOfData "+ Arrays.toString(responseBody));
-            Log.e(TAG, "insertOrUpdate: numberOfData "+ response.length() );
+//            Log.e(TAG, "insertOrUpdate: numberOfData "+ Arrays.toString(responseBody));
+//            Log.e(TAG, "insertOrUpdate: numberOfData "+ response.length() );
 
             for (int i = 0; i < response.length(); i++) {
                 JSONObject data = response.getJSONObject(i);
@@ -812,16 +795,18 @@ public class Tools {
     }
 
 
+    /**
+     * Download Client's Photo, Check lokal images if exist then download if no.
+     */
     public static void download_images() {
         Log.e(TAG, "download_images: START" );
         try {
-            List<String> images = imageRepo.findAllUnDownloaded();
+            List<String> images = imageRepo.listAllClients();
             for (String uid : images){
                 ImageView iv = new ImageView(appContext.applicationContext());
                 // TODO setTag+"The key must be an application-specific resource id"
                 iv.setTag(R.id.entity_id, uid);
                 DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(uid, OpenSRPImageLoader.getStaticImageListener(iv, 0, 0));
-                Log.e(TAG, "download_images: undownload "+ uid );
 
             }
         } catch (Exception e){

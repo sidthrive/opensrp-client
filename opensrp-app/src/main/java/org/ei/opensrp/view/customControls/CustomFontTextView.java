@@ -8,8 +8,9 @@ import android.widget.TextView;
 import org.ei.opensrp.R;
 import org.ei.opensrp.util.Cache;
 import org.ei.opensrp.util.CacheableData;
+import android.support.v7.widget.AppCompatTextView;
 
-public class CustomFontTextView extends TextView {
+public class CustomFontTextView extends AppCompatTextView {
 
     private Cache<Typeface> cache;
 

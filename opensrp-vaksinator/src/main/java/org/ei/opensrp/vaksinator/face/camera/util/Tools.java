@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -41,7 +40,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -703,10 +701,13 @@ public class Tools {
         return newHeader;
     }
 
+    /**
+     * Download Client's Photo, Check lokal images if exist then download if no.
+     */
     public static void download_images() {
         Log.e(TAG, "download_images: START" );
         try {
-            List<String> images = imageRepo.findAllUnDownloaded();
+            List<String> images = imageRepo.listAllClients();
             for (String uid : images){
                 ImageView iv = new ImageView(appContext.applicationContext());
                 // TODO setTag+"The key must be an application-specific resource id"

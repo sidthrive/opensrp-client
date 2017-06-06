@@ -270,9 +270,8 @@ public class ImageRepository extends DrishtiRepository {
 
     }
 
-    public ArrayList<String> findAllUnDownloaded() {
+    public ArrayList<String> listAllClients() {
         SQLiteDatabase database = masterRepository.getReadableDatabase();
-//            Cursor cursor = database.query(Image_TABLE_NAME, Image_TABLE_COLUMNS, filepath_COLUMN + " IS NULL OR "+ filepath_COLUMN+ " = ?", new String[]{""}, null, null, null, null);\
         Cursor cursor = database.rawQuery("SELECT base_entity_id FROM ec_kartu_ibu \n" +
                 "UNION \n" +
                 "SELECT base_entity_id FROM ec_anak WHERE base_entity_id IS NOT NULL AND base_entity_id != ''", null);
@@ -286,7 +285,7 @@ public class ImageRepository extends DrishtiRepository {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "findAllUnDownloaded: " + e.getMessage());
+            Log.e(TAG, "listAllClients: " + e.getMessage());
         } finally {
             if (cursor != null) {
                 cursor.close();
