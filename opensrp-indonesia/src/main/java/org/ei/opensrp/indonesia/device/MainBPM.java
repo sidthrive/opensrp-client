@@ -69,9 +69,13 @@ public class MainBPM extends Activity implements View.OnClickListener {
     private Button bt_discover, bt_discover_stop, bt_startStop, bt_certificate, bt_enableBT;
     private TextView tv_discovery, tv_devScan;
     private TextView tv_devConn;
-    private List<HashMap<String, String>> list_ScanDevices = new ArrayList<HashMap<String, String>>();
-    private List<HashMap<String, String>> list_ConnectedDevices = new ArrayList<HashMap<String, String>>();
+    private List<HashMap<String, String>> list_ScanDevices = new ArrayList<>(), list_ConnectedDevices = new ArrayList<>();
     private int callbackId;
+
+    private int discoveryStatus;
+    private boolean startDiscovering = false;
+
+
     private Handler myHandler = new Handler() {
 
         @Override
@@ -187,19 +191,22 @@ public class MainBPM extends Activity implements View.OnClickListener {
 
         @Override
         public void onScanFinish() {
-            Log.e(TAG, "onScanFinish: end"+discoveryStatus );
+            Log.e(TAG, "onScanFinish: end "+discoveryStatus );
             tv_discovery.setText(R.string.discover_finish);
             if (discoveryStatus == 0){
                 bt_discover_stop.setEnabled(false);
             }
             bt_startStop.setText(R.string.start_discovery);
+
+//            if (list_ConnectedDevices != null) startDiscovery();
         }
 
     };
-    private int discoveryStatus;
-    private boolean startDiscovering = false;
 
     private void connectToDev(String mac, String deviceType) {
+
+        tv_devScan.setVisibility(View.GONE);
+
         boolean req = iHealthDevicesManager.getInstance().connectDevice(userName, mac, deviceType);
         if (!req) {
             Toast.makeText(MainBPM.this, "Haven’t permission to connect this device or the mac is not valid", Toast.LENGTH_LONG).show();
@@ -223,7 +230,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
 //        bt_discover_stop = (Button) findViewById(R.id.btn_stopdiscorvery);
 
         if (startDiscovering) {
-            bt_startStop.setText(R.string.stop_discovery);
+            bt_startStop.setText(R.string.start_discovery);
         }else {
             bt_startStop.setText(R.string.stop_discovery);
         }
@@ -278,6 +285,7 @@ public class MainBPM extends Activity implements View.OnClickListener {
                     });
 
             listview_scan.setAdapter(sa_scan);
+
             listview_scan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override

@@ -471,7 +471,7 @@ public class Tools {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: " + api_url);
+                Log.e(TAG, "onFailure: SetVectorFromApi " + api_url);
             }
         });
 

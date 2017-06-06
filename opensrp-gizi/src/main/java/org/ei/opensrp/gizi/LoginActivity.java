@@ -100,6 +100,7 @@ public class LoginActivity extends Activity {
         getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.gizi.R.mipmap.logo));
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.gizi.R.color.action_bar_background));
         setLanguage();
+
         debugApp();
 
     }

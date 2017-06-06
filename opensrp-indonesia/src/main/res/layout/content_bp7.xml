@@ -45,37 +45,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="ExtraText,UselessParent">
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_startStopMeasure"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:text="@string/start_bp7"-->
+            <!---->
+            <!--/>-->
 
         <Button
             android:id="@+id/btn_startStopMeasure"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="Start" />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/round_button"
+            android:text="@string/str_start_measure"
+            android:textColor="#FFF"
+            android:textSize="40sp" />
 
         <Button
             android:id="@+id/btn_conform_angle"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:text="ConformAngle" />
+            android:text="@string/conformangle" />
+
+
         <TableLayout
             android:id="@+id/tabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TableRow
                 android:id="@+id/firstRow"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_sys"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/sys"
-                    android:textColor="#fff"
-                    android:textSize="50sp" />
+                <RelativeLayout android:layout_width="match_parent">
+                    <TextView
+                        android:id="@+id/tv_sys"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/sys"
+                        android:textColor="#fff"
+                        android:textSize="50sp"
+                        tools:ignore="RtlHardcoded"
+                        android:layout_width="match_parent" />
+
+                    <TextView
+                        android:id="@+id/tv_mmHg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_sys"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/mmHg"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:ignore="RtlHardcoded" />
+
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tv_systole"
@@ -84,21 +116,47 @@
                     android:layout_marginTop="5dp"
                     android:textColor="@color/light_pink"
                     android:textSize="150sp" />
+
             </TableRow>
 
             <TableRow
                 android:id="@+id/secondRow"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_dia"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/dia"
-                    android:textColor="#fff"
-                    android:textSize="50sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_dia"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_column="0"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:text="@string/dia"-->
+                    <!--android:textColor="#fff"-->
+                    <!--android:textSize="50sp"-->
+                    <!--tools:ignore="RtlHardcoded" />-->
+                <RelativeLayout android:layout_width="match_parent">
+                    <TextView
+                        android:id="@+id/tv_dia"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/dia"
+                        android:textColor="#fff"
+                        android:textSize="50sp"
+                        tools:ignore="RtlHardcoded"
+                        android:layout_width="match_parent" />
+
+                    <TextView
+                        android:id="@+id/tv_dia_mmHg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_dia"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/mmHg"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:ignore="RtlHardcoded" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_diastole"
@@ -111,7 +169,7 @@
 
             <TableRow
                 android:id="@+id/pulseRow"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -121,17 +179,18 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/pulse"
                     android:textColor="#fff"
-                    android:textSize="50sp" />
+                    android:textSize="50sp"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tv_pulse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/green"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/light_blue"
                     android:textSize="150sp" />
             </TableRow>
+
         </TableLayout>
 
         <Button
@@ -143,7 +202,7 @@
             android:id="@+id/pb_bpm"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
-            android:layout_height="900dp"
+            android:layout_height="700dp"
             android:layout_gravity="center_horizontal"
             android:max="250"
             android:progressDrawable="@drawable/vertical_progress_bar" />

@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center_vertical|center_horizontal"
-            >
+            tools:ignore="UselessParent">
 
 
         <TextView
@@ -34,7 +34,7 @@
                 android:id="@+id/btn_discorvery_startstop"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Search/Stop Device" />
+                android:text="@string/device_search_start_stop" />
 
             <!--<Button-->
                 <!--android:id="@+id/btn_discorvery"-->
@@ -52,12 +52,12 @@
                 android:id="@+id/btn_Certification"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Certification" />
+                android:text="@string/certification" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:text="Device Scan"
+                android:text="@string/device_scan"
                 android:id="@+id/tv_devScan"
                 android:textSize="20sp" />
 
@@ -69,7 +69,7 @@
             android:background="@drawable/round_button"
             android:text="@string/str_enable_bt"
             android:textColor="#FFF"
-            android:textSize="40dp" />
+            android:textSize="40sp" />
 
         <ListView
                 android:id="@+id/list_scan"
@@ -80,7 +80,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:id="@+id/tv_devConnect"
-                android:text="Device Connected"
+                android:text="@string/device_connected"
                 android:textSize="20sp" />
 
             <ListView

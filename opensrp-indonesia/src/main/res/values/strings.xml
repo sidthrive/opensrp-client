@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bidan lokal</string>
+    <string name="app_name">Bidan MBP</string>
     <string name="userNameEditText">Enter user name</string>
     <string name="passwordEditText">Enter password</string>
     <string name="login_text">Log In</string>
@@ -645,4 +645,12 @@
     <string name="start_discovery">Start Discovery</string>
     <string name="stop_discovery">Stop Discovery</string>
     <string name="pulse">PULSE</string>
+    <string name="device_search_start_stop">Device Search Start/Stop</string>
+    <string name="device_connected">Device Connected</string>
+    <string name="certification">Certification</string>
+    <string name="device_scan">Device Scan</string>
+    <string name="conformangle">ConformAngle</string>
+    <string name="start_bp7">Start</string>
+    <string name="str_start_measure">START</string>
+    <string name="mmHg">mmHg</string>
 </resources>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class BP7 extends Activity implements View.OnClickListener {
     int initValue = 0;
     Handler handler = new Handler();
     private String bpmHigh, bpmLow, bpmAhr, bpmPulse;
+    private TableLayout table_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,8 @@ public class BP7 extends Activity implements View.OnClickListener {
         tv_diastolic = (TextView) findViewById(R.id.tv_diastole);
         tv_pls = (TextView) findViewById(R.id.tv_pls);
         tv_pulse = (TextView) findViewById(R.id.tv_pulse);
+
+        table_result = (TableLayout) findViewById(R.id.tabel);
 
         pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
 
@@ -372,6 +376,7 @@ public class BP7 extends Activity implements View.OnClickListener {
         setBpmPulse(pulse);
 //        Log.e(TAG, "showBPMResult: " );
 
+        table_result.setVisibility(View.VISIBLE);
         tv_systolic.setVisibility(View.VISIBLE);
         tv_sys.setVisibility(View.VISIBLE);
         tv_diastolic.setVisibility(View.VISIBLE);
@@ -436,6 +441,7 @@ public class BP7 extends Activity implements View.OnClickListener {
 //                    startMeasure_btn.setEnabled(false);
                     startMeasure_btn.setText("STOP");
                     pb_mypb.setVisibility(View.VISIBLE);
+                    table_result.setVisibility(View.GONE);
 
                     if (bp7Control != null) {
 
@@ -498,6 +504,10 @@ public class BP7 extends Activity implements View.OnClickListener {
                 if (stopMeasured) {
 //                    startMeasure_btn.setEnabled(false);
                     startStopMeasure_btn.setText("STOP");
+//                    pb_mypb.setVisibility(View.VISIBLE);
+                    table_result.setVisibility(View.GONE);
+                    btn_done.setVisibility(View.GONE);
+
                     if (bp7Control != null) {
 
                         Intent i = new Intent(this, DeviceService.class);
