@@ -34,6 +34,8 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
 import java.text.SimpleDateFormat;
 
+import util.formula.Formula;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -168,28 +170,70 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
         String Tgl = pc.getDetails().get("tanggalLahirAnak");
 
-       if (Tgl.contains("T")) {
-           String tgl_lahir_anak = Tgl.substring(0, Tgl.indexOf("T"));
-           viewHolder.setAntihelminticVisibility(
-                   dayRangeBetween(tgl_lahir_anak.split("-")
-                           ,new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).split("-")
-                   ) >= 365 ? View.VISIBLE : View.INVISIBLE
-           );
-           viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahirAnak")!=null?tgl_lahir_anak:"");
-       }
+        if (Tgl != null && Tgl.contains("T"))
+           Tgl = Tgl.substring(0, Tgl.indexOf("T"));
 
+        viewHolder.setAntihelminticVisibility(
+               dayRangeBetween(Tgl.split("-")
+                       ,new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).split("-")
+               ) >= 365 ? View.VISIBLE : View.INVISIBLE
+        );
+        viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahirAnak")!=null?Tgl:"");
 
 //        viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
         int age = monthRangeToToday(ages);
         viewHolder.gender.setText(pc.getDetails().get("tanggalLahirAnak") != null
                 ? age/12 + " " + context.getString(R.string.years_unit)+" "+age%12+" "+context.getString(R.string.month_unit) : "-");
-        viewHolder.visitDate.setText(context.getString(R.string.tanggal) +  " "+(pc.getDetails().get("tanggalPenimbangan")!=null?pc.getDetails().get("tanggalPenimbangan"):"-"));
-        viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
-        viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
-        viewHolder.weightText.setText(context.getString(R.string.label_weight));
-        viewHolder.heightText.setText(context.getString(R.string.label_height));
-        viewHolder.antihelminticText.setText(R.string.anthelmintic);
 
+/** collect history data and clean latest history data which contains no specific date or value,
+ */
+        String[]history1 = pc.getDetails().get("history_berat") != null ? Formula.insertionSort(pc.getDetails().get("history_berat")) : new String[]{"0:0"};
+        if(history1[history1.length-1].charAt(history1[history1.length-1].length()-1) == ':')
+            history1[history1.length-1] = history1[history1.length-1]+"-";
+        String[]history2 = pc.getDetails().get("history_tinggi") != null ? Formula.insertionSort(pc.getDetails().get("history_tinggi")) : new String[]{"0:0"};
+        if(history2[history2.length-1].charAt(history2[history2.length-1].length()-1) == ':')
+            history2[history2.length-1] = history2[history2.length-1]+"-";
+        String newestDateonHistory = history1.length > 1
+                ? findDate(Tgl,Formula.getAge(history1[history1.length - 1]))
+                : pc.getDetails().get("tanggalPenimbangan") != null
+                    ? pc.getDetails().get("tanggalPenimbangan")
+                    : Tgl;
+
+        System.out.println("history1 : "+history1[history1.length-1]);
+        System.out.println("history2 : "+history2[history2.length-1]);
+        System.out.println("newest : "+newestDateonHistory);
+/**
+ */
+        if(newestDateonHistory.equals(pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-")) {
+            System.out.println("history = tglPenimbangan");
+            viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-"));
+            viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
+            viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
+            viewHolder.weightText.setText(context.getString(R.string.label_weight));
+            viewHolder.heightText.setText(context.getString(R.string.label_height));
+            viewHolder.antihelminticText.setText(R.string.anthelmintic);
+        }
+        else {
+            System.out.println("history != tglPenimbangan");
+            viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (history1.length>1 ? newestDateonHistory : "-"));
+            viewHolder.height.setText(context.getString(R.string.height) + " "
+                    +   (pc.getDetails().get("tinggiBadan") != null
+                        ? !pc.getDetails().get("tinggiBadan").equals(history2[history2.length-1])
+                            ? history2[history2.length-1].split(":")[1]
+                            : pc.getDetails().get("tinggiBadan")
+                        : "-")
+                    + " Cm");
+            viewHolder.weight.setText(context.getString(R.string.weight) + " "
+                    +   (pc.getDetails().get("beratBadan") != null
+                        ? !pc.getDetails().get("beratBadan").equals(history1[history1.length-1])
+                            ? history1[history1.length-1].split(":")[1]
+                            : pc.getDetails().get("beratBadan")
+                        : "-")
+                    + " Kg");
+            viewHolder.weightText.setText(context.getString(R.string.label_weight));
+            viewHolder.heightText.setText(context.getString(R.string.label_height));
+            viewHolder.antihelminticText.setText(R.string.anthelmintic);
+        }
 //------VISIBLE AND INVISIBLE COMPONENT
         viewHolder.absentAlert.setVisibility(pc.getDetails().get("tanggalPenimbangan")!=null
                 ? isLate(pc.getDetails().get("tanggalPenimbangan"), 1)
@@ -201,8 +245,10 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
 
 //------CHILD DATA HAS BEEN SUBMITTED OR NOT
-        viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(pc.getDetails().get("tanggalPenimbangan"),0)?R.drawable.ic_remove:R.drawable.ic_yes_large));
-        viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable((!isLate(pc.getDetails().get("tanggalPenimbangan"), 0) && pc.getDetails().get("tinggiBadan")!=null) ? R.drawable.ic_yes_large : R.drawable.ic_remove));
+        System.out.println("latest date = "+returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory));
+
+        viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory),0)?R.drawable.ic_remove:R.drawable.ic_yes_large));
+        viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable((!isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory), 0) && (pc.getDetails().get("tinggiBadan")!=null || !history2[history2.length-1].equals("-"))) ? R.drawable.ic_yes_large : R.drawable.ic_remove));
         viewHolder.vitALogo.setImageDrawable(context.getResources().getDrawable(inTheSameRegion(pc.getDetails().get("lastVitA")) ? R.drawable.ic_yes_large:R.drawable.ic_remove));
         viewHolder.antihelminticLogo.setImageDrawable(context.getResources().getDrawable(isGiven(pc,"obatcacing")? R.drawable.ic_yes_large:R.drawable.ic_remove));
 
@@ -251,6 +297,18 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
     private String setGender(String gender){
         return gender.toLowerCase().contains("em") ? context.getString(R.string.child_female) : context.getString(R.string.child_male);
+    }
+
+    private String returnLatestDate(String date1, String date2){
+        if(date1 == null || date2 == null){
+            return date1==null && date2==null
+                    ? null
+                    : date1==null
+                        ? date2
+                        : date1
+                    ;
+        }
+        return dayRangeBetween(date1.split("-"),date2.split("-"))>0 ? date2 : date1;
     }
 
     private boolean isLate(String lastVisitDate,int threshold){
@@ -384,6 +442,37 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
              antihelminticText.setVisibility(visibility);
          }
      }
+
+    public String findDate(String startDate, int dayAge){
+        int[]dayLength = {31,28,31,30,31,30,31,31,30,31,30,31};
+        int startYear = Integer.parseInt(startDate.substring(0,4));
+        int startMonth = Integer.parseInt(startDate.substring(5,7));
+        int startDay = Integer.parseInt(startDate.substring(8, 10));
+
+        dayLength[1] = startYear % 4 == 0 ? 29 : 28;
+        while(dayAge>dayLength[startMonth-1]){
+            dayAge = dayAge - dayLength[startMonth-1];
+            startMonth++;
+            if(startMonth>12){
+                startYear++;
+                startMonth = 1;
+                dayLength[1] = startYear % 4 == 0 ? 29 : 28;
+            }
+        }
+        startDay+=dayAge;
+        if(startDay > dayLength[startMonth-1]) {
+            startDay=startDay - dayLength[startMonth-1];
+            startMonth++;
+        }
+        if(startMonth>12) {
+            startYear++;
+            startMonth = 1;
+        }
+
+        String m = "" + (startMonth<10 ? "0"+startMonth : Integer.toString(startMonth));
+        String d = "" + (startDay<10 ? "0"+startDay : Integer.toString(startDay));
+        return Integer.toString(startYear)+"-"+m+"-"+d;
+    }
 
 
 }
