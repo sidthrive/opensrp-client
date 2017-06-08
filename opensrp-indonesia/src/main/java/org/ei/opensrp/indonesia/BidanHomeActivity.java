@@ -120,8 +120,9 @@ public class BidanHomeActivity extends SecuredActivity {
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
         context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
         context.formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
+       // context.formSubmissionRouter().getHandlerMap().put(KARTU_IBU_ANC_REGISTRATION, new AncRegHandler());
 
-      //  System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
+        //  System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
     }
 
     private void setupViews() {
@@ -131,7 +132,6 @@ public class BidanHomeActivity extends SecuredActivity {
         findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_parana_register).setOnClickListener(onRegisterStartListener);
-
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
         findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);

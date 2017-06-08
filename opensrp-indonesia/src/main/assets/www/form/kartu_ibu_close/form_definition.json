@@ -89,7 +89,7 @@
             },
             {
                 "name": "isClosed",
-                "value": "false",
+                "value": "true",
                 "source": "kartu_ibu.ibu.isClosed"
             },
             {
