@@ -14,6 +14,7 @@ import java.util.Map;
 import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
 import util.ZScore.ZScoreSystemCalculation;
+import util.formula.Formula;
 
 /**
  * Created by Iq on 15/09/16.
@@ -22,9 +23,9 @@ import util.ZScore.ZScoreSystemCalculation;
  */
 
 public class KmsHandler  implements FormSubmissionHandler {
-    static String bindobject = "anak";
-    private ClientProcessor clientProcessor;
-    private  org.ei.opensrp.Context context;
+//    static String bindobject = "anak";
+//    private ClientProcessor clientProcessor;
+//    private  org.ei.opensrp.Context context;
     public KmsHandler() {
 
     }
@@ -36,7 +37,10 @@ public class KmsHandler  implements FormSubmissionHandler {
         CommonPersonObject childobject = childRepository.findByCaseID(entityID);
         Long tsLong = System.currentTimeMillis()/1000;
 
-        String[]history = submission.getFieldValue("history_berat")!= null ? split(submission.getFieldValue("history_berat")) : new String []{"0","0"};
+        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+
+        String[]history = submission.getFieldValue("history_berat")!= null ? split(Formula.fixHistory(submission.getFieldValue("history_berat"))) : new String []{"0","0"};
+        String[]history2 = submission.getFieldValue("history_tinggi")!= null ? split(Formula.fixHistory(submission.getFieldValue("history_tinggi"))) : new String []{"0","0"};
         String berats = history[1];
         String[] history_berat = berats.split(",");
         double berat_sebelum = Double.parseDouble((history_berat.length) >=3 ? (history_berat[(history_berat.length)-3]) : "0");
@@ -46,15 +50,13 @@ public class KmsHandler  implements FormSubmissionHandler {
         String lastVisitDate = submission.getFieldValue("tanggalPenimbangan") != null ? submission.getFieldValue("tanggalPenimbangan") : "-";
         String gender = submission.getFieldValue("gender") != null ? submission.getFieldValue("gender") : "-";
         String tgllahir = submission.getFieldValue("tanggalLahirAnak") != null
-                ? submission.getFieldValue("tanggalLahirAnak")
+                ? submission.getFieldValue("tanggalLahirAnak").substring(0,10)
                 : "-";
-        String dateOfBirth = tgllahir.substring(0, tgllahir.indexOf("T"));
-
-        DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+        String dateOfBirth = tgllahir.substring(0, 10);
 
         detailsRepository.add(entityID, "preload_umur", umurs, tsLong);
         detailsRepository.add(entityID, "berat_preload", submission.getFieldValue("history_berat")!= null ? submission.getFieldValue("history_berat") : "0:0", tsLong);
-        detailsRepository.add(entityID, "history_umur", umurs, tsLong);
+//        detailsRepository.add(entityID, "history_umur", umurs, tsLong);
 
         // detailsRepository.add(entityID, "preload_history_tinggi", submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0", tsLong);
         detailsRepository.add(entityID, "preload_history_tinggi", tinggi, tsLong);
@@ -63,19 +65,26 @@ public class KmsHandler  implements FormSubmissionHandler {
         if(submission.getFieldValue("tanggalPenimbangan") != null)
         {
             if(new ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 1857) {
-                double weight = Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
-                double length = Double.parseDouble(submission.getFieldValue("tinggiBadan") != null ? submission.getFieldValue("tinggiBadan") : "0");
+                String[]tempAgeW = history[0].split(",");
+                String[]tempAgeH = history2[0].split(",");
+                String[]tempWeight = history[1].split(",");
+                String[]tempHeight = history2[1].split(",");
+                int weightAge = Integer.parseInt(tempAgeW[tempAgeW.length - 1]);
+                double weight = Double.parseDouble(tempWeight[tempWeight.length - 1]);
+                int lengthAge = Integer.parseInt(tempAgeH[tempAgeH.length - 1]);
+                double length = Double.parseDouble(tempHeight[tempHeight.length-1]);
+//                double length = Double.parseDouble(submission.getFieldValue("tinggiBadan") != null ? submission.getFieldValue("tinggiBadan") : "0");
 
                 ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
 
-                double weight_for_age = zScore.countWFA(gender, dateOfBirth, lastVisitDate, weight);
+                double weight_for_age = zScore.countWFA(!gender.toLowerCase().contains("em"), weightAge, weight);
                 String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
                 if (length != 0) {
-                    double heigh_for_age = zScore.countHFA(gender, dateOfBirth, lastVisitDate, length);
+                    double heigh_for_age = zScore.countHFA(!gender.toLowerCase().contains("em"), lengthAge, length);
                     String hfaStatus = zScore.getHFAZScoreClassification(heigh_for_age);
 
-                    double wight_for_lenght = 0.0;
-                    String wflStatus = "";
+                    double wight_for_lenght;
+                    String wflStatus;
                     if (zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 730) {
                         wight_for_lenght = zScore.countWFL(gender, weight, length);
                     } else {
@@ -102,15 +111,30 @@ public class KmsHandler  implements FormSubmissionHandler {
          */
 
 
-        double berat= Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
-        double beraSebelum = Double.parseDouble((history_berat.length) >=2 ? (history_berat[(history_berat.length)-2]) : "0");
-        String tanggal_sebelumnya = (submission.getFieldValue("kunjunganSebelumnya") != null ? submission.getFieldValue("kunjunganSebelumnya") : "0");
+        double berat=0.0;
+        double beraSebelum=0.0;
+        String tanggal_sebelumnya="", tanggal2sblmnya="";
 
+        if(submission.getFieldValue("history_berat") != null && submission.getFieldValue("tanggalLahirAnak") != null) {
+            String []historyBerat = Formula.insertionSort(submission.getFieldValue("history_berat"));
+            String latestDate = Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-1].split(":")[0]));
+            if(submission.getFieldValue("tanggalPenimbangan").toLowerCase().equals(latestDate.toLowerCase()) && submission.getFieldValue("kunjunganSebelumnya") != null)
+            {
+                berat = Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
+                beraSebelum = Double.parseDouble((history_berat.length) >= 2 ? (history_berat[(history_berat.length) - 2]) : "0");
+                tanggal_sebelumnya = (submission.getFieldValue("kunjunganSebelumnya") != null ? submission.getFieldValue("kunjunganSebelumnya") : "0");
+            }
+            else{
+                berat = Double.parseDouble(historyBerat[historyBerat.length-1].split(":")[1]);
+                beraSebelum = historyBerat.length > 2 ? Double.parseDouble(historyBerat[historyBerat.length-2].split(":")[1]) : 0.0;
+                tanggal_sebelumnya = historyBerat.length > 2 ? Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-2].split(":")[0])) : "";
+            }
+            tanggal2sblmnya = historyBerat.length > 3 ? Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-3].split(":")[0])) : "";
+        }
         if(submission.getFieldValue("tanggalPenimbangan") != null) {
 
-
             //KMS calculation lastVisitDate
-            KmsPerson data = new KmsPerson(!gender.toLowerCase().contains("em"), dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya);
+            KmsPerson data = new KmsPerson(!gender.toLowerCase().contains("em"), dateOfBirth, berat, beraSebelum, lastVisitDate, berat_sebelum, tanggal_sebelumnya,tanggal2sblmnya);
             KmsCalc calculator = new KmsCalc();
             ////System.out.println("tanggal penimbangan = "+submission.getFieldValue("tanggalPenimbangan")+", "+lastVisitDate);
 
@@ -144,9 +168,9 @@ public class KmsHandler  implements FormSubmissionHandler {
             return new String[]{"0","0"};
         String []temp = data.split(",");
         String []result = {"",""};
-        for(int i=0;i<temp.length;i++){
-            result[0]=result[0]+","+temp[i].split(":")[0];
-            result[1]=result[1]+","+temp[i].split(":")[1];
+        for (String aTemp : temp) {
+            result[0] = result[0] + "," + aTemp.split(":")[0];
+            result[1] = result[1] + "," + (aTemp.split(":").length>1 ? aTemp.split(":")[1] : "");
         }
 
         result[0]=result[0].substring(1,result[0].length());
