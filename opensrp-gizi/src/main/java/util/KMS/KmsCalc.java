@@ -21,7 +21,7 @@ public class KmsCalc {
         double weight[] = {bayi.getWeight(),bayi.getPreviousWeight()};
         status = status && (cekWeightStatus(bayi.isMale(), bayi.getDateOfBirth(), measureDate, weight).toLowerCase().equals("not gaining weight"));
         ////System.out.println("status 1: "+status+", weight: "+weight[0]+", "+weight[1]);
-        String measureDate2[] = {bayi.getLastVisitDate(),bayi.getSecondLastVisitDate()};
+        String measureDate2[] = {bayi.getSecondLastVisitDate(),bayi.getThirdLastVisitDate()};
         double weight2[] = {bayi.getPreviousWeight(),bayi.getSecondLastWeight()};
         status = status && (cekWeightStatus(bayi.isMale(), bayi.getDateOfBirth(), measureDate2, weight2).toLowerCase().equals("not gaining weight"));
         ////System.out.println("status 2: "+status+", weight: "+weight2[0]+", "+weight2[1]);
@@ -41,23 +41,19 @@ public class KmsCalc {
     }
 
     public String cekWeightStatus(boolean isMale, String dateOfBirth, String measureDate[], double weight[]){
-        if( measureDate.equals("0"))
+        if( measureDate.equals("0") || measureDate[0].equals("") || measureDate[1].equals(""))
             return "New";
         else {
             int age = monthAges(dateOfBirth, measureDate[0]);
-            String result;
+            int range = monthAges(measureDate[1], measureDate[0]);
+            int stagnanIndicator = (isMale ? 12 : 11);
+            int index = age > stagnanIndicator ? stagnanIndicator : age;
 
-            int ages = monthAges(measureDate[1], measureDate[0]);
-            if (isMale)
-                result = ages > 1  ? "Not attending previous visit" : ((weight[0] - weight[1] + 0.000000000000004) * 1000)
-                        >= KmsConstants.maleWeightUpIndicator[age > 12 ? 12 : age]
-                        ? "Weight Increase" : "Not gaining weight";
-            else
-                result = ages > 1 ? "not attending previous visit" : ((weight[0] - weight[1] + 0.000000000000004) * 1000)
-                        >= KmsConstants.femaleWeightUpIndicator[age > 11 ? 11 : age]
-                        ? "Weight Increase" : "Not gaining weight";
-
-            return result;
+            return range > 1
+                    ? "Not attending previous visit"
+                    : ((weight[0] - weight[1] + 0.000000000000004) * 1000)  >= KmsConstants.maleWeightUpIndicator[index]
+                        ? "Weight Increase"
+                        : "Not gaining weight";
         }
     }
 

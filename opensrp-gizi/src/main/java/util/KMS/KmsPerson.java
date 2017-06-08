@@ -14,6 +14,7 @@ public class KmsPerson {
     private double secondLastWeight;
     private String lastVisitDate;
     private String secondLastVisitDate;
+    private String thirdLastVisitDate;
 
     //ditanya
     public String StatusBeratBadan;         // value : naik, tidak, ukur pertama
@@ -21,19 +22,21 @@ public class KmsPerson {
     public boolean GarisKuning;
     public boolean Tidak2Kali;
 
+
     //constructor
     public KmsPerson( boolean isMale, String dateOfBirth,double weight,
                     double previousWeight,String lastVisitDate, double secondLastWeight,
-                    String secondLastVisitDate){
+                    String secondLastVisitDate,String thirdLastVisitDate){
 
-        this.isMale=isMale;
-        this.dateOfBirth=dateOfBirth;
-        this.age=monthAges(dateOfBirth,lastVisitDate);
-        this.weight=weight;
-        this.previousWeight=previousWeight;
-        this.lastVisitDate=lastVisitDate;
-        this.secondLastWeight=secondLastWeight;
-        this.secondLastVisitDate=secondLastVisitDate;
+        this.isMale = isMale;
+        this.dateOfBirth = dateOfBirth;
+        this.age = monthAges(dateOfBirth,lastVisitDate);
+        this.weight = weight;
+        this.previousWeight = previousWeight;
+        this.lastVisitDate = lastVisitDate;
+        this.secondLastWeight = secondLastWeight;
+        this.secondLastVisitDate = secondLastVisitDate;
+        this.thirdLastVisitDate = thirdLastVisitDate;
     }
     private int monthAges(String lastVisitDate,String currentDate){
         int tahun = Integer.parseInt(currentDate.substring(0,4))-Integer.parseInt(lastVisitDate.substring(0,4));
@@ -51,4 +54,8 @@ public class KmsPerson {
     public String getLastVisitDate(){return lastVisitDate;}
     public double getSecondLastWeight(){return secondLastWeight;}
     public String getSecondLastVisitDate(){return secondLastVisitDate;}
+
+    public String getThirdLastVisitDate() {
+        return thirdLastVisitDate;
+    }
 }
