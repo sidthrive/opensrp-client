@@ -52,7 +52,7 @@ android {
         multiDexEnabled true
         //applicationId "org.ei.opensrp"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "3.0.1"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -111,7 +111,7 @@ configurations.all {
 dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'org.ei.drishti:drishti-interface:0.1-SNAPSHOT'
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.2.1'
     compile "org.apache.httpcomponents:httpmime:4.2.3"
     compile 'com.google.code.gson:gson:2.3'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.1.1'

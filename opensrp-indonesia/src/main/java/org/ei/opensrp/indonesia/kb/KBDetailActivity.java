@@ -27,8 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.ImageFetcher;
-
 import static org.ei.opensrp.util.StringUtil.humanize;
 
 /**
@@ -38,7 +36,6 @@ public class KBDetailActivity extends Activity {
 
     //image retrieving
     private static final String TAG = KBDetailActivity.class.getSimpleName();
-    private static ImageFetcher mImageFetcher;
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
     //image retrieving
 
@@ -163,8 +160,6 @@ public class KBDetailActivity extends Activity {
         dob.setText(String.format("%s%s", getResources().getString(R.string.dob), tgl_lahir));
         phone.setText(String.format("No HP: %s", kiclient.getDetails().get("NomorTelponHp") != null ? kiclient.getDetails().get("NomorTelponHp") : "-"));
 
-
-
         //risk
         if(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge") != null ){
             risk1.setText(String.format("%s%s", getResources().getString(R.string.highRiskPregnancyYoungMaternalAge), humanize(kiclient.getDetails().get("highRiskPregnancyYoungMaternalAge"))));
@@ -182,7 +177,6 @@ public class KBDetailActivity extends Activity {
 
         }
 
-
         show_risk.setText(getResources().getString(R.string.show_more_button));
         show_detail.setText(getResources().getString(R.string.show_less_button));
 
@@ -197,7 +191,6 @@ public class KBDetailActivity extends Activity {
         blood_type.setText(String.format(": %s", humanize(kiclient.getDetails().get("golonganDarah") != null ? kiclient.getDetails().get("golonganDarah") : "-")));
         asuransi.setText(String.format(": %s", humanize(kiclient.getDetails().get("jamkesmas") != null ? kiclient.getDetails().get("jamkesmas") : "-")));
 
-
         jenisKontrasepsi.setText(String.format(": %s", humanize(kiclient.getDetails().get("jenisKontrasepsi") != null ? kiclient.getDetails().get("jenisKontrasepsi") : "-")));
         alkihb.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkihb") != null ? kiclient.getDetails().get("alkihb") : "-")));
         tdSistolik.setText(String.format(": %s", humanize(kiclient.getDetails().get("tdDiastolik") != null ? kiclient.getDetails().get("tdDiastolik") : "-")));
@@ -209,8 +202,7 @@ public class KBDetailActivity extends Activity {
         alkiPenyakitKronis.setText(String.format(": %s", humanize(kiclient.getDetails().get("alkiPenyakitKronis") != null ? kiclient.getDetails().get("alkiPenyakitKronis") : "-")));
         keteranganGantiCara.setText(String.format(": %s", humanize(kiclient.getDetails().get("keteranganGantiCara") != null ? kiclient.getDetails().get("keteranganGantiCara") : "-")));
 
-
-//risk detail
+//      risk detail
         highRiskSTIBBVs.setText(humanize(kiclient.getDetails().get("highRiskSTIBBVs") != null ? kiclient.getDetails().get("highRiskSTIBBVs") : "-"));
         highRiskEctopicPregnancy.setText(humanize (kiclient.getDetails().get("highRiskEctopicPregnancy") != null ? kiclient.getDetails().get("highRiskEctopicPregnancy") : "-"));
         highRiskCardiovascularDiseaseRecord.setText(humanize(kiclient.getDetails().get("highRiskCardiovascularDiseaseRecord") != null ? kiclient.getDetails().get("highRiskCardiovascularDiseaseRecord") : "-"));
@@ -247,9 +239,8 @@ public class KBDetailActivity extends Activity {
             highRiskPostPartumHemorrhage.setText(humanize(ibuparent.getDetails().get("highRiskPostPartumHemorrhage") != null ? ibuparent.getDetails().get("highRiskPostPartumHemorrhage") : "-"));
             highRiskPostPartumPIH.setText(humanize(ibuparent.getDetails().get("highRiskPostPartumPIH") != null ? ibuparent.getDetails().get("highRiskPostPartumPIH") : "-"));
             highRiskPostPartumDistosia.setText(humanize(ibuparent.getDetails().get("highRiskPostPartumDistosia") != null ? ibuparent.getDetails().get("highRiskPostPartumDistosia") : "-"));
-
-
         }
+
         show_risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,19 +262,6 @@ public class KBDetailActivity extends Activity {
             }
         });
 
-        td_diastolik.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "onClick: " );
-
-//                Intent intent = new Intent(getApplicationContext(), MainBPM.class);
-//                intent.putExtra("origin.class", TAG);
-//                startActivity(intent);
-
-
-            }
-        });
-
     }
 
     @Override
@@ -291,8 +269,6 @@ public class KBDetailActivity extends Activity {
         finish();
         startActivity(new Intent(this, NativeKBSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
-
-
     }
 
 

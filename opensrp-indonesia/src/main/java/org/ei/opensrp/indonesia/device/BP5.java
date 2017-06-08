@@ -34,7 +34,7 @@ public class BP5 extends Activity implements View.OnClickListener {
     private Bp5Control bp5Control;
     private String deviceMac;
     private int clientCallbackId;
-    private TextView tv_return, tv_sys, tv_dia;
+    private TextView tv_return, tv_sys, tv_dia, tv_pls;
     private TableLayout tabel;
 
     private Button btn_done, startStopMeasure_btn,  startMeasure_btn, btn_disconnect;
@@ -48,11 +48,17 @@ public class BP5 extends Activity implements View.OnClickListener {
     private String bpmAhr;
     private String bpmPulse;
 
+    Bundle bundle = new Bundle();
+    int myProgress =0;
+    private ProgressBar pb_mypb;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_bp5);
-        setContentView(R.layout.content_bp5_main);
+        setContentView(R.layout.content_bp5);
+//        setContentView(R.layout.content_bp5_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -211,6 +217,9 @@ public class BP5 extends Activity implements View.OnClickListener {
                     Message msg = new Message();
                     msg.what = HANDLER_MESSAGE;
                     msg.obj = "pressure: " + pressure;
+
+                    bundle.putString("pressure", pressure);
+                    msg.setData(bundle);
                     myHandler.sendMessage(msg);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -227,6 +236,9 @@ public class BP5 extends Activity implements View.OnClickListener {
                     msg.obj = "pressure:" + pressure + "\n"
                             + "wave: " + wave + "\n"
                             + " - heartbeat:" + heartbeat;
+                    bundle.putString("pressure", pressure);
+                    msg.setData(bundle);
+
                     myHandler.sendMessage(msg);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -258,13 +270,15 @@ public class BP5 extends Activity implements View.OnClickListener {
             }else if(BpProfile.ACTION_ZOREING_BP.equals(action)){
                 Message msg = new Message();
                 msg.what = HANDLER_MESSAGE;
-                msg.obj = "zoreing";
+//                msg.obj = "zoreing";
+                msg.obj = "0";
                 myHandler.sendMessage(msg);
 
             }else if(BpProfile.ACTION_ZOREOVER_BP.equals(action)){
                 Message msg = new Message();
                 msg.what = HANDLER_MESSAGE;
-                msg.obj = "zoreover";
+//                msg.obj = "zoreover";
+                msg.obj = "0";
                 myHandler.sendMessage(msg);
 
             }
@@ -341,6 +355,7 @@ public class BP5 extends Activity implements View.OnClickListener {
             case R.id.btn_startStopMeasure:
                 if (stopMeasured) {
 //                    startMeasure_btn.setEnabled(false);
+                    pb_mypb.setVisibility(View.VISIBLE);
                     startStopMeasure_btn.setText(R.string.stop);
                     if (bp5Control != null) {
 
@@ -355,6 +370,7 @@ public class BP5 extends Activity implements View.OnClickListener {
 
                 } else {
                     startStopMeasure_btn.setText(R.string.start);
+                    pb_mypb.setVisibility(View.GONE);
 
                     if (bp5Control != null)
                         bp5Control.interruptMeasure();
@@ -388,16 +404,19 @@ public class BP5 extends Activity implements View.OnClickListener {
             switch (msg.what) {
                 case HANDLER_MESSAGE:
                     tv_return.setText((String)msg.obj);
-                    Log.e(TAG, "handleMessage: Display MSG "+msg.arg1);
+//                    Log.e(TAG, "handleMessage: Display MSG "+msg.getData().getString("pulse"));
+                    int pls = Integer.parseInt(((String) msg.obj).split("[\\r?\\n]+")[0].replaceAll("[^0-9?!\\.]",""));
+                    Log.e(TAG, "handleMessage: Display MSG Split "+pls);
+                    myProgress++;
+                    pb_mypb.setProgress(pls);
+
                     break;
             }
             super.handleMessage(msg);
         }
     };
 
-
     TextView tv_systolic, tv_diastolic;
-
 
     private void initView() {
 
@@ -411,13 +430,15 @@ public class BP5 extends Activity implements View.OnClickListener {
 
         tv_sys = (TextView) findViewById(R.id.tv_sys);
         tv_dia = (TextView) findViewById(R.id.tv_dia);
+        tv_pls = (TextView) findViewById(R.id.tv_pulse);
 
         tabel.setVisibility(View.GONE);
         tv_sys.setVisibility(View.GONE);
         tv_dia.setVisibility(View.GONE);
+        tv_pls.setVisibility(View.GONE);
         btn_done.setVisibility(View.GONE);
         pb_mypb = (ProgressBar) findViewById(R.id.pb_bpm);
-//        pb_mypb.setVisibility(View.GONE);
+        pb_mypb.setVisibility(View.GONE);
 
     }
 
@@ -443,12 +464,15 @@ public class BP5 extends Activity implements View.OnClickListener {
 //        Log.e(TAG, "showBPMResult: " );
         tv_sys.setText(highPressure);
         tv_dia.setText(lowPressure);
+        tv_pls.setText(pulse);
 
         tabel.setVisibility(View.VISIBLE);
         tv_sys.setVisibility(View.VISIBLE);
         tv_dia.setVisibility(View.VISIBLE);
+        tv_pls.setVisibility(View.VISIBLE);
         btn_done.setVisibility(View.VISIBLE);
         pb_mypb.setVisibility(View.GONE);
+
 //        backToDetail( highPressure, lowPressure, ahr, pulse);
     }
 
@@ -532,9 +556,6 @@ public class BP5 extends Activity implements View.OnClickListener {
         return bpmPulse;
     }
 
-    int myProgress =0;
-    private ProgressBar pb_mypb;
-
     private Handler myHandle = new Handler(){
 
         public void handleMessage(Message msg){
@@ -545,7 +566,7 @@ public class BP5 extends Activity implements View.OnClickListener {
     private Runnable myThread = new Runnable() {
         @Override
         public void run() {
-            while (myProgress < 100){
+            while (myProgress < 200){
                 Log.e(TAG, "run: "+ myProgress );
                 try {
                     myHandle.sendMessage(myHandle.obtainMessage());
