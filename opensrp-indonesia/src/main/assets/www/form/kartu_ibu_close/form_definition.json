@@ -9,6 +9,11 @@
                 "shouldLoadValue": true
             },
             {
+                "name": "motherId",
+                "source": "kartu_ibu.ibu.id",
+                "shouldLoadValue": true
+            },
+            {
                 "name": "dusun",
                 "bind": "/model/instance/penutupan_ibu_reviewed/dusun",
                 "shouldLoadValue" : true
@@ -81,6 +86,11 @@
             {
                 "name": "registrationDate",
                 "bind": "/model/instance/penutupan_ibu_reviewed/reg_date"
+            },
+            {
+                "name": "isClosed",
+                "value": "false",
+                "source": "kartu_ibu.ibu.isClosed"
             },
             {
                 "name": "isClosed",

@@ -113,7 +113,7 @@ public class BidanApplication extends DrishtiApplication {
             String[] mainConditions = { "isClosed", "ibuCaseId" };
             return mainConditions;
         } else if(tableName.equals("ibu")){
-            String[] mainConditions = { "isClosed", "type", "kartuIbuId" };
+            String[] mainConditions = { "isClosed","details", "type", "kartuIbuId" };
             return mainConditions;
         }
         return null;
