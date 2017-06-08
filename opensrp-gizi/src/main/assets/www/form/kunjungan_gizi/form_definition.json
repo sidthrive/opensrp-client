@@ -118,7 +118,7 @@
       },
       {
         "name": "preload_umur",
-        "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/preload_umur",
+        "bind": "/model/instance/EC_Kunjungan_Gizi_NewStructure-mapped_O/history_umur",
         "shouldLoadValue": true
       },
       {
