@@ -37,6 +37,7 @@ import java.util.Map;
 
 import util.ImageCache;
 import util.ImageFetcher;
+import util.formula.Formula;
 import util.growthChart.GrowthChartGenerator;
 
 /**
@@ -130,7 +131,7 @@ public class GiziDetailActivity extends Activity {
         System.out.println("details: "+childclient.getDetails().toString());
 
 
-        String mgender = childclient.getDetails().containsKey("gender") ? childclient.getDetails().get("gender"):"laki";
+        String mgender = childclient.getDetails().containsKey("gender") ? childclient.getDetails().get("gender"):"male";
 
 
         //start profile image
@@ -206,7 +207,7 @@ public class GiziDetailActivity extends Activity {
         lastVitA.setText(getString(R.string.lastVitA)+" "+(childclient.getDetails().get("lastVitA")!=null ? childclient.getDetails().get("lastVitA") : "-"));
         lastAnthelmintic.setText(getString(R.string.lastAnthelmintic)+" "+(childclient.getDetails().get("lastAnthelmintic")!=null ? childclient.getDetails().get("lastAnthelmintic") : "-"));
         //set value
-        String[]data = childclient.getDetails().get("history_berat")!= null ? split(childclient.getDetails().get("history_berat")) : new String[]{"0","0"};
+        String[]data = childclient.getDetails().get("history_berat")!= null ? split(Formula.fixHistory(childclient.getDetails().get("history_berat"))) : new String[]{"0","0"};
         String berats = data[1];
         String[] history_berat = berats.split(",");
         String tempUmurs = data[0];
@@ -326,7 +327,6 @@ public class GiziDetailActivity extends Activity {
         else
             return getString(R.string.weight_new);
     }
-
 
     String mCurrentPhotoPath;
 
@@ -480,6 +480,8 @@ public class GiziDetailActivity extends Activity {
         result[1]=result[1].substring(1,result[1].length());
         return result;
     }
+
+
 
     @Override
     public void onBackPressed() {
