@@ -101,7 +101,7 @@ public class LoginActivity extends Activity {
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.gizi.R.color.action_bar_background));
         setLanguage();
 
-        debugApp();
+//        debugApp();
 
     }
 

@@ -349,6 +349,11 @@ public class ANCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
+        String DetailEnd = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<>();
+        Detail.put("time", DetailEnd);
+        FlurryAgent.logEvent("ANC_BloodPressure_Check", Detail, true );
+
         Intent i = new Intent(ANCDetailActivity.this, MainBPM.class);
 //        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
         bpm_timer = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);

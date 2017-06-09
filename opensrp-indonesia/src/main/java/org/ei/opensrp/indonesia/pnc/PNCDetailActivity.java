@@ -346,6 +346,11 @@ public class PNCDetailActivity extends Activity {
     };
 
     private void bpmAction() {
+        String DetailEnd = timer.format(new Date());
+        Map<String, String> Detail = new HashMap<>();
+        Detail.put("time", DetailEnd);
+        FlurryAgent.logEvent("PNC_BloodPressure_Check", Detail, true );
+
         Intent i = new Intent(PNCDetailActivity.this, MainBPM.class);
 //        Intent i = new Intent(ANCDetailActivity.this, TestBPM.class);
         fta = new SimpleDateFormat ("yyyy-MM-dd");
