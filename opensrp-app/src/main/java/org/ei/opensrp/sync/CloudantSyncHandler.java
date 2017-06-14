@@ -173,7 +173,7 @@ public class CloudantSyncHandler {
         } else {
             Log.e(LOG_TAG, "Pull replication is not set");
             // If replicator is not set up, set a new replicator
-            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPullReplication();
+//            CloudantSyncHandler.getInstance(org.ei.opensrp.Context.getInstance().applicationContext()).startPullReplication();
         }
     }
 
