@@ -1,0 +1,38 @@
+<model>
+  <instance>
+    <RCC_Baseline_Survey_module_4 id="rcc_baseline_survey_module_4" version="201706200249">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <deviceid/>
+      <today/>
+      <immunization_knowlegde/>
+      <source_of_information/>
+      <have_mch_book/>
+      <if_have_mch_book>
+        <vaccine/>
+        <other_vaccine/>
+        <reason2/>
+        <other_reason/>
+      </if_have_mch_book>
+      <if_no_mch_book>
+        <generated_note_name_18/>
+        <Has_child_received_any_vaccinations/>
+        <A_BCG_vaccination/>
+        <Polio_vaccine/>
+        <first_polio_vaccine_given/>
+        <polio_vaccine_received/>
+        <A_DPT_vaccination/>
+        <DPT_vaccine_given/>
+        <A_measles_injection/>
+        <A_Hepatitis_B_injection/>
+        <Hepatitis_B_vaccine_received/>
+      </if_no_mch_book>
+      <caregiver_understand/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </RCC_Baseline_Survey_module_4>
+  </instance>
+</model>

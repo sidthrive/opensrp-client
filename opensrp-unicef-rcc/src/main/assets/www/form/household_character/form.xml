@@ -1,0 +1,282 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_2">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC / Household Characteristic</h3>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">1. Household size (number of people slept there last night):</span>
+        <select name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="" class="question-label active">
+            <h5>2. Dependency ratio (# HH members 0-14 and &gt;64 : # HH members 15-64)</h5>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/generated_note_name_9" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">a. Number of adult HH members (15-64 years old):</span>
+        <select name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">b. Number of child HH members under 5:</span>
+        <select name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">c. Number of child HH members 6-14:</span>
+        <select name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">d. Number of elderly HH members (&gt;64):</span>
+        <select name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">3. Mobile Connectivity:</span>
+        <select name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="no_phone">no phone</option>
+            <option value="household_mobile_phone">household mobile phone</option>
+            <option value="respondents_own_mobile_phone">respondent’s own mobile phone</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">4. Use of mobile phone for what purpose:</span>
+        <select name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Only_cellular_calling">Only cellular calling</option>
+            <option value="only_cellular_text_messaging">only cellular text messaging</option>
+            <option value="cellular_calling_and_text_messaging">cellular calling and text messaging</option>
+            <option value="data_or_Wi-Fi_requiring_applications">data or Wi-Fi requiring applications (incl. WhatsApp, Facebook, email, banking, internet browsing)</option>
+            <option value="games_and_entertainment">games and entertainment (incl. music, photos, etc.)</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">5. Cell provider:</span>
+        <select name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Telkomsel">Telkomsel</option>
+            <option value="XL">XL</option>
+            <option value="Indosat">Indosat</option>
+            <option value="Hutchison_Telecom">Hutchison Telecom</option>
+            <option value="Axis">Axis</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="" class="question-label active">
+            <h5>6. Household expenditure index:</h5>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/generated_note_name_17" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">a. Expenditure per month on each mobile phone:</span>
+        <select name="/RCC_Baseline_Survey_module_2/expenditure_mobile_phone" data-name="/RCC_Baseline_Survey_module_2/expenditure_mobile_phone" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="&lt;_Rp15000">&lt; Rp15000</option>
+            <option value="Rp15000-25000">Rp15000-25000</option>
+            <option value="Rp26000-40000">Rp26000-40000</option>
+            <option value="Rp41000-60000">Rp41000-60000</option>
+            <option value="&gt;_Rp61000">&gt; Rp61000</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">b. Expenditure per month on electricity:</span>
+        <select name="/RCC_Baseline_Survey_module_2/expenditure_electricity" data-name="/RCC_Baseline_Survey_module_2/expenditure_electricity" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="&lt;_Rp15000">&lt; Rp15000</option>
+            <option value="Rp15000-50000">Rp15000-50000</option>
+            <option value="Rp51000-100000">Rp51000-100000</option>
+            <option value="Rp100000-200000">Rp100000-200000</option>
+            <option value="Rp200000-300000">Rp200000-300000</option>
+            <option value="&gt;_Rp300000">&gt; Rp300000</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">c. Expenditure per month on food:</span>
+        <select name="/RCC_Baseline_Survey_module_2/expenditure_food" data-name="/RCC_Baseline_Survey_module_2/expenditure_food" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="&lt;_Rp15000">&lt; Rp15000</option>
+            <option value="Rp15000-50000">Rp15000-50000</option>
+            <option value="Rp51000-100000">Rp51000-100000</option>
+            <option value="Rp100000-200000">Rp100000-200000</option>
+            <option value="Rp200000-300000">Rp200000-300000</option>
+            <option value="&gt;_Rp300000">&gt; Rp300000</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">d. Expenditure per month on consumer goods (clothing, footwear, technology):</span>
+        <select name="/RCC_Baseline_Survey_module_2/expenditure_consumer_goods" data-name="/RCC_Baseline_Survey_module_2/expenditure_consumer_goods" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="&lt;_Rp15000">&lt; Rp15000</option>
+            <option value="Rp15000-50000">Rp15000-50000</option>
+            <option value="Rp51000-100000">Rp51000-100000</option>
+            <option value="Rp100000-200000">Rp100000-200000</option>
+            <option value="Rp200000-300000">Rp200000-300000</option>
+            <option value="&gt;_Rp300000">&gt; Rp300000</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="" class="question-label active">
+            <h5>7. Household asset index:</h5>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/generated_note_name_22" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">a. Does household have Radio:</span>
+        <select name="/RCC_Baseline_Survey_module_2/have_radio" data-name="/RCC_Baseline_Survey_module_2/have_radio" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">b. Does household have Television:</span>
+        <select name="/RCC_Baseline_Survey_module_2/have_tv" data-name="/RCC_Baseline_Survey_module_2/have_tv" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">c. Does household have Refrigerator:</span>
+        <select name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">d. Does household have a Toilet:</span>
+        <select name="/RCC_Baseline_Survey_module_2/have_toilet" data-name="/RCC_Baseline_Survey_module_2/have_toilet" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">e. Does the household have a separate room used as a kitchen list:</span>
+        <select name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">f. How many rooms in this household are used for sleeping:</span>
+        <select name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="&gt;3">&gt;3</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">g. Number of motor cycles:</span>
+        <select name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="&gt;3">&gt;3</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_2/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_2/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_2/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_2/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_2/formhub/uuid" data-calculate="'7ac84d2b8df54d49a3ffb3f23b532f7b'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

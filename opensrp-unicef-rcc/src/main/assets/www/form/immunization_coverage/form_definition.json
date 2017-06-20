@@ -1,0 +1,85 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/RCC_Baseline_Survey_module_4/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+
+      {
+        "name": "immunization_knowlegde",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/immunization_knowlegde"
+      },{
+        "name": "source_of_information",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/source_of_information"
+      },{
+        "name": "have_mch_book",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/have_mch_book"
+      },{
+        "name": "vaccine",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine"
+      },{
+        "name": "other_vaccine",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vaccine"
+      },{
+        "name": "reason_not_immu",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/reason_not_immu"
+      },
+
+      {
+        "name": "Has_child_received_any_vaccinations",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations"
+      },{
+        "name": "A_BCG_vaccination",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination"
+      },{
+        "name": "Polio_vaccine",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine"
+      },{
+        "name": "first_polio_vaccine_given",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given"
+      },{
+        "name": "A_DPT_vaccination",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination"
+      },{
+        "name": "DPT_vaccine_given",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given"
+      },{
+        "name": "A_measles_injection",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection"
+      },{
+        "name": "A_Hepatitis_B_injection",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection"
+      },{
+        "name": "Hepatitis_B_vaccine_received",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received"
+      },
+
+      {
+        "name": "caregiver_understand",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/caregiver_understand"
+      },
+
+
+      {
+        "name": "isOutOfArea",
+        "value": "false"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/today"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/reg_date"
+      }
+    ]
+  }
+}

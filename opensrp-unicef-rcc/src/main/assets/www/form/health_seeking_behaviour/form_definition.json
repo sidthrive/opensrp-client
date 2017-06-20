@@ -1,0 +1,80 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/RCC_Baseline_Survey_module_3/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+
+      {
+        "name": "anc_visit_num",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/anc_visit_num"
+      },
+      {
+        "name": "place_of_birth",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/place_of_birth"
+      },
+      {
+        "name": "delivery_companion",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/delivery_companion"
+      }, {
+        "name": "use_of_contraceptives",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/use_of_contraceptives"
+      }, {
+        "name": "attendance_at_posyandu",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/attendance_at_posyandu"
+      }, {
+        "name": "reason1",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/reason1"
+      }, {
+        "name": "last_time_to_posyandu",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/last_time_to_posyandu"
+      }, {
+        "name": "posyandu_service",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/posyandu_service"
+      }, {
+        "name": "attendance_at_puskesmas",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/attendance_at_puskesmas"
+      },{
+        "name": "reason2",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/reason2"
+      },{
+        "name": "last_time_to_puskesmas",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/last_time_to_puskesmas"
+      },{
+        "name": "puskesmas_service",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/puskesmas_service"
+      },{
+        "name": "nearest_puskesmas",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/nearest_puskesmas"
+      },{
+        "name": "has_been_sick",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/has_been_sick"
+      },{
+        "name": "action_taken",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/action_taken"
+      },
+      
+
+      {
+        "name": "isOutOfArea",
+        "value": "false"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/today"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_3/reg_date"
+      }
+    ]
+  }
+}

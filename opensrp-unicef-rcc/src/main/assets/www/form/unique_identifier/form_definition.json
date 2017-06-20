@@ -1,0 +1,84 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/RCC_Baseline_Survey/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "lokasiPeriksa",
+        "bind": "/model/instance/RCC_Baseline_Survey/Lokasi_periksa"
+      },
+      {
+        "name": "unique_id",
+        "bind": "/model/instance/RCC_Baseline_Survey/unique_id",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "Village",
+        "bind": "/model/instance/RCC_Baseline_Survey/village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Province",
+        "bind": "/model/instance/RCC_Baseline_Survey/province",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-district",
+        "bind": "/model/instance/RCC_Baseline_Survey/sub_district",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "District",
+        "bind": "/model/instance/RCC_Baseline_Survey/district",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-village",
+        "bind": "/model/instance/RCC_Baseline_Survey/sub_village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "child_age",
+        "bind": "/model/instance/RCC_Baseline_Survey/child_age"
+      },
+      {
+        "name": "respondent_name",
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_name"
+      },
+      {
+        "name": "relation_to_child",
+        "bind": "/model/instance/RCC_Baseline_Survey/relation_to_child"
+      },
+      {
+        "name": "respondent_age",
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_age"
+      },
+      {
+        "name": "respondent_education",
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_education"
+      },
+
+      {
+        "name": "isOutOfArea",
+        "value": "false"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/RCC_Baseline_Survey/today"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/RCC_Baseline_Survey/reg_date"
+      }
+    ]
+  }
+}

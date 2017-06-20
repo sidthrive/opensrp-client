@@ -1,0 +1,37 @@
+<model>
+  <instance>
+    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201706200234">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <deviceid/>
+      <today/>
+      <household_size/>
+      <generated_note_name_9/>
+      <adult_hh_member/>
+      <child_hh_member_under_5/>
+      <child_hh_member_6-14/>
+      <elderly_hh_member/>
+      <mobile_connectivity/>
+      <phone_purpose/>
+      <cell_provider/>
+      <generated_note_name_17/>
+      <expenditure_mobile_phone/>
+      <expenditure_electricity/>
+      <expenditure_food/>
+      <expenditure_consumer_goods/>
+      <generated_note_name_22/>
+      <have_radio/>
+      <have_tv/>
+      <have_refrigerator/>
+      <have_toilet/>
+      <have_separate_kitchen/>
+      <number_of_rooms/>
+      <number_of_motorcycles/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </RCC_Baseline_Survey_module_2>
+  </instance>
+</model>

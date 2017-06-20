@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/list_item_height"
+              android:weightSum="@integer/ec_list_item_weight_count"
+              android:background="#ffffff">
+
+    <include layout="@layout/smart_register_client_profile_ki"/>
+
+    <ImageView
+            android:layout_width="@dimen/smart_register_client_divider_height"
+            android:layout_height="fill_parent"
+            android:src="@color/smart_register_client_divider_color"/>
+
+    <RelativeLayout
+        android:id="@+id/id_detail_layout"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="170"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/label_no_ibu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:text="Household size : "
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/no_ibu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/label_no_ibu"
+            android:paddingLeft="5dp"
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/label_unique_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/no_ibu"
+            android:paddingLeft="5dp"
+            android:text="adult HH members : "
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/unique_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/ec_list_ec_no_view_weight"
+            android:layout_below="@+id/label_unique_id"
+            android:paddingLeft="5dp"
+            android:text="3123142"
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+    <!--<include layout="@layout/smart_register_client_obsetri_layout"/>-->
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="190"
+        android:padding="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/txt_edd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+            <TextView
+                android:id="@+id/txt_edd_due"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <TextView
+                android:id="@+id/txt_expen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <TextView
+                android:id="@+id/toilet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="220"
+        android:padding="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/asdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+            <TextView
+                android:id="@+id/last_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <TextView
+                android:id="@+id/services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="200"
+        android:padding="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="16">
+
+            <ImageView
+                android:id="@+id/icon_hb0_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_no_small"
+                />
+
+            <ImageView
+                android:id="@+id/icon_hb0_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_hb0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomFontTextViewStyle.ListView.Small"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" Hb 0-7 hari" />
+
+            <ImageView
+                android:id="@+id/icon_pol1_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_hb0"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/icon_pol1_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_hb0"
+                android:src="@drawable/ic_no_small"
+                />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_pol1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomFontTextViewStyle.ListView.Small"
+                android:layout_below="@+id/is_hb0"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" BCG dan Polio 1" />
+
+            <ImageView
+                android:id="@+id/icon_pol2_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_pol1"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/icon_pol2_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_pol1"
+                android:src="@drawable/ic_no_small"
+                />
+
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_pol2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomFontTextViewStyle.ListView.Small"
+                android:layout_below="@+id/is_pol1"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" DPT/HB1/Polio 2" />
+
+            <ImageView
+                android:id="@+id/icon_pol3_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_pol2"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/icon_pol3_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_pol2"
+                android:src="@drawable/ic_no_small"
+                />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_pol3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomFontTextViewStyle.ListView.Small"
+                android:layout_below="@+id/is_pol2"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" DPT/HB2/Polio 3" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+    
+        <ImageView
+            android:layout_width="@dimen/smart_register_client_divider_height"
+            android:layout_height="fill_parent"
+            android:src="@color/smart_register_client_divider_color"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="@dimen/list_edit_icon_view_width"
+            android:layout_height="fill_parent"
+            android:layout_weight="80"
+            android:scaleType="center"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/edit_button_background"/>
+
+
+    </LinearLayout>

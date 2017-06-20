@@ -1,0 +1,106 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/RCC_Baseline_Survey_module_2/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "household_size",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/household_size"
+      },
+      {
+        "name": "adult_hh_member",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/adult_hh_member"
+      },
+      {
+        "name": "child_hh_member_under_5",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/child_hh_member_under_5"
+      },
+      {
+        "name": "child_hh_member_6-14",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/child_hh_member_6-14"
+      },
+      {
+        "name": "elderly_hh_member",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/elderly_hh_member"
+      },
+      {
+        "name": "mobile_connectivity",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/mobile_connectivity"
+      },
+      {
+        "name": "phone_purpose",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/phone_purpose"
+      },
+      {
+        "name": "cell_provider",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/cell_provider"
+      },
+      {
+        "name": "expenditure_mobile_phone",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_mobile_phone"
+      },
+      {
+        "name": "expenditure_electricity",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_electricity"
+      },
+      {
+        "name": "expenditure_food",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_food"
+      },
+      {
+        "name": "expenditure_consumer_goods",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_consumer_goods"
+      },
+      {
+        "name": "have_radio",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_radio"
+      },
+      {
+        "name": "have_tv",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_tv"
+      },
+      {
+        "name": "have_refrigerator",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_refrigerator"
+      },
+      {
+        "name": "have_toilet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_toilet"
+      },
+      {
+        "name": "have_separate_kitchen",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_separate_kitchen"
+      },
+      {
+        "name": "number_of_rooms",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/number_of_rooms"
+      },
+      {
+        "name": "number_of_motorcycles",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/number_of_motorcycles"
+      },
+      
+      {
+        "name": "isOutOfArea",
+        "value": "false"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/today"
+      },
+      {
+        "name": "registrationDate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/reg_date"
+      }
+    ]
+  }
+}

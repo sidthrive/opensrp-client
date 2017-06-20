@@ -1,0 +1,192 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_3">\n
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC / Health seeking behavior</h3>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">1. Total number of Antenatal care visits for this childbirth:</span>
+        <select name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2-3">2-3</option>
+            <option value="&gt;3">&gt;3</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">2. Place of birth for this child:</span>
+        <select name="/RCC_Baseline_Survey_module_3/place_of_birth" data-name="/RCC_Baseline_Survey_module_3/place_of_birth" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Public_health_facility">Public health facility</option>
+            <option value="Private_health_facility">Private health facility</option>
+            <option value="Home">Home</option>
+            <option value="Other">Other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">3. Who delivered the baby (highest level provider):</span>
+        <select name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Obstetrician">Obstetrician</option>
+            <option value="Nurses_midwife_or_village_midwife">Nurses, midwife, or village midwife</option>
+            <option value="Traditional_birth_attendant">Traditional birth attendant</option>
+            <option value="Relative_or_friend">Relative or friend</option>
+            <option value="Other">Other</option>
+            <option value="No_one">No one</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">4. Current use of contraceptives:</span>
+        <select name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Not_currently_using">Not currently using</option>
+            <option value="Female_sterilization">Female sterilization</option>
+            <option value="Male_sterilization">Male sterilization</option>
+            <option value="Male_condom">Male condom</option>
+            <option value="Pill">Pill</option>
+            <option value="IUD">IUD</option>
+            <option value="Injectables">Injectables</option>
+            <option value="Implants">Implants</option>
+            <option value="Lactational_amenorrhea_method">Lactational amenorrhea method</option>
+            <option value="Female_condom_Diaphragm_Foam_or_jelly">Female condom, Diaphragm, Foam or jelly</option>
+            <option value="Other">Other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">5. Attendance at posyandu:</span>
+        <select name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Every_posyandu">Every posyandu</option>
+            <option value="Every_2-3_Posyandu">Every 2-3 Posyandu</option>
+            <option value="Every_3-6_Posyandu">Every 3-6 Posyandu</option>
+            <option value="less_than_once_in_6_posyandu">less than once in 6 posyandu</option>
+            <option value="Never">Never</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="" class="question-label active">a. Reason for not attending:</span>
+        <select name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="lack_of_need">lack of need</option>
+            <option value="cost">cost</option>
+            <option value="transport_or_distance">transport or distance</option>
+            <option value="time">time</option>
+            <option value="service_quality">service quality</option>
+            <option value="work_obligations">work obligations</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question non-select ">
+        <span lang="" class="question-label active">b. Last time attended a Posyandu:</span>
+        <input type="date" name="/RCC_Baseline_Survey_module_3/last_time_to_posyandu" data-type-xml="date"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">c. Services received at last Posyandu attended:</span>
+        <select name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="weight_or_height">weight or height</option>
+            <option value="immunization">immunization</option>
+            <option value="counselling_or_information">counselling or information</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">6. Attendance at Puskesmas:</span>
+        <select name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Monthly">Monthly</option>
+            <option value="every_2-3_months">every 2-3 months</option>
+            <option value="every_3-6_months">every 3-6 months</option>
+            <option value="less_than_once_in_6_months">less than once in 6 months</option>
+            <option value="Never">Never</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="" class="question-label active">a. Reason for not attending:</span>
+        <select name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="lack_of_need">lack of need</option>
+            <option value="cost">cost</option>
+            <option value="transport_or_distance">transport or distance</option>
+            <option value="time">time</option>
+            <option value="service_quality">service quality</option>
+            <option value="work_obligations">work obligations</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question non-select ">
+        <span lang="" class="question-label active">b. Last time attended a Puskesmas:</span>
+        <input type="date" name="/RCC_Baseline_Survey_module_3/last_time_to_puskesmas" data-type-xml="date"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">c. Services received at last visit to Puskesmas:</span>
+        <select name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="weight_or_height">weight or height</option>
+            <option value="immunization">immunization</option>
+            <option value="counselling_or_information">counselling or information</option>
+            <option value="Sick_visit">Sick visit</option>
+            <option value="other">other</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">7. Distance to nearest Puskusmas:</span>
+        <select name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="&gt;500m">&gt;500m</option>
+            <option value="500m-1km">500m-1km</option>
+            <option value="1-2km">1-2km</option>
+            <option value="2-5km">2-5km</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">8. Has this child been sick in the past 2 weeks (diarrhea, cough, fever, etc.)?</span>
+        <select name="/RCC_Baseline_Survey_module_3/has_been_sick" data-name="/RCC_Baseline_Survey_module_3/has_been_sick" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">a. Action taken:</span>
+        <select name="/RCC_Baseline_Survey_module_3/action_taken" data-name="/RCC_Baseline_Survey_module_3/action_taken" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="home management">home management</option>
+            <option value="Posyandu">Posyandu</option>
+            <option value="Puskesmas">Puskesmas</option>
+            <option value="hospital">hospital</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label> \n
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_3/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_3/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_3/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_3/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_3/formhub/uuid" data-calculate="'0fbe5c4be3ac4ee88f0e2769622170d5'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

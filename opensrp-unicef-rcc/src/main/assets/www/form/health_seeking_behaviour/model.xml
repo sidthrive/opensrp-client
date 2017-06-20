@@ -1,0 +1,30 @@
+<model>
+  <instance>
+    <RCC_Baseline_Survey_module_3 id="rcc_baseline_survey_module_3" version="201706200243">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <deviceid/>
+      <today/>
+      <anc_visit_num/>
+      <place_of_birth/>
+      <delivery_companion/>
+      <use_of_contraceptives/>
+      <attendance_at_posyandu/>
+      <reason1/>
+      <last_time_to_posyandu/>
+      <posyandu_service/>
+      <attendance_at_puskesmas/>
+      <reason2/>
+      <last_time_to_puskesmas/>
+      <puskesmas_service/>
+      <nearest_puskesmas/>
+      <has_been_sick/>
+      <action_taken/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </RCC_Baseline_Survey_module_3>
+  </instance>
+</model>

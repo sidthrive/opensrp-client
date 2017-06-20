@@ -1,0 +1,277 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_4">\n
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC / Immunization coverage</h3>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">1. Do you know about immunization:</span>
+        <select name="/RCC_Baseline_Survey_module_4/immunization_knowlegde" data-name="/RCC_Baseline_Survey_module_4/immunization_knowlegde" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">2. Source of information regarding immunization:</span>
+        <select name="/RCC_Baseline_Survey_module_4/source_of_information" data-name="/RCC_Baseline_Survey_module_4/source_of_information" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Health_workers">Health workers</option>
+            <option value="Cadre">Cadre</option>
+            <option value="School">School</option>
+            <option value="Religious_leader">Religious leader</option>
+            <option value="Mosque">Mosque</option>
+            <option value="Church">Church</option>
+            <option value="Friend/neighbors">Friend/neighbors</option>
+            <option value="TV">TV</option>
+            <option value="Radio">Radio</option>
+            <option value="Newspaper">Newspaper</option>
+            <option value="Flier/leaflet">Flier/leaflet</option>
+            <option value="Banner">Banner</option>
+            <option value="Poster">Poster</option>
+            <option value="others">others</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">3. Do you have an MCH book for this child:</span>
+        <select name="/RCC_Baseline_Survey_module_4/have_mch_book" data-name="/RCC_Baseline_Survey_module_4/have_mch_book" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Yes_shown">Yes, shown</option>
+            <option value="Yes_not_shown">Yes, not shown</option>
+            <option value="No">No</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label>
+    <section class="or-group-data or-branch pre-init " name="/RCC_Baseline_Survey_module_4/if_have_mch_book" data-relevant="selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'Yes_shown')">
+        <fieldset class="question simple-select ">
+            <fieldset>
+                <legend>
+                    <span lang="" class="question-label active">4. Data from MCH book:</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="BCG" data-type-xml="select"/>
+                        <span lang="" class="option-label active">BCG</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-0_(birth)" data-type-xml="select"/>
+                        <span lang="" class="option-label active">HepB-0 (birth)</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-2" data-type-xml="select"/>
+                        <span lang="" class="option-label active">HepB-2</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-3" data-type-xml="select"/>
+                        <span lang="" class="option-label active">HepB-3</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-1" data-type-xml="select"/>
+                        <span lang="" class="option-label active">DPT-1</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-2" data-type-xml="select"/>
+                        <span lang="" class="option-label active">DPT-2</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-3" data-type-xml="select"/>
+                        <span lang="" class="option-label active">DPT-3</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-0_(birth)" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Polio-0 (birth)</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-1" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Polio-1</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-2" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Polio-2</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-3" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Polio-3</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Measles-1" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Measles-1</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Measles-2" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Measles-2</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Other" data-type-xml="select"/>
+                        <span lang="" class="option-label active">Other</span>
+                    </label>
+                </div>
+            </fieldset>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="" class="question-label active">other</span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vaccine" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Other')" data-type-xml="string"/>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="" class="question-label active">5. Reasons for not being immunized:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/reason2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/reason2" data-relevant="not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'BCG')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-0_(birth)')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-0_(birth)')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Measles-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Measles-2'))" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="" class="question-label active">other</span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_reason" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/reason2 ,'other')" data-type-xml="string"/>
+        </label>
+    </section>
+    <!--end of group -->
+    <section class="or-group-data or-branch pre-init " name="/RCC_Baseline_Survey_module_4/if_no_mch_book" data-relevant="selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'Yes_not_shown') or selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'No')">
+        <label class="question note non-select ">
+            <span lang="" class="question-label active">
+                <h5>6. If no MCH book, Immunization from recall:</h5>
+            </span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_18" data-type-xml="string" readonly="readonly"/>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">a. Has child received any vaccinations that are not recorded on this card including vaccinations given in a national immunization day campaign:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">b. A BCG vaccination against tuberculosis, that is, an injection in the upper sleeve which leaves a mark:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">c. Polio vaccine, that is, pink or white drops in the mouth:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">i. Was the first polio vaccine given in the first two weeks after birth or later:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="First_2_weeks">First 2 weeks</option>
+                <option value="Later">Later</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">ii. How many times was the polio vaccine received:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="&gt;4">&gt;4</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">d. A DPT vaccination, that is, an injection in the thigh or buttocks, sometimes given at the same time with polio drops:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">i. How many times was the DPT vaccine given:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="&gt;3">&gt;3</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">e. A measles injection or an MMR injection- that is, a shot in the arm at the age of 9 months or older – to prevent him/her from getting measles:</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">f. A Hepatitis B injection - that is an injection on the outside of the thigh to prevent Hepatitis B?</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="dont_know">Don’t Know</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+        <label class="question or-appearance-minimal ">
+            <span lang="" class="question-label active">i. How many times was the Hepatitis B vaccine received?</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="&gt;3">&gt;3</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">               </span>
+        </label>
+    </section>
+    <!--end of group -->
+    <label class="question or-appearance-minimal ">
+        <span lang="" class="question-label active">7. Does caregiver understand growth monitoring chart:</span>
+        <select name="/RCC_Baseline_Survey_module_4/caregiver_understand" data-name="/RCC_Baseline_Survey_module_4/caregiver_understand" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="dont_know">Don’t Know</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">               </span>
+    </label> \n
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_4/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_4/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_4/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_4/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey_module_4/formhub/uuid" data-calculate="'b118197cc85c42818839ae8142ae0617'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

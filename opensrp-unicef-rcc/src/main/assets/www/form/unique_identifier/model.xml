@@ -1,0 +1,31 @@
+<model>
+  <instance>
+    <RCC_Baseline_Survey id="rcc_baseline_survey" version="201706200224">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <deviceid/>
+      <today/>
+      <generated_note_name_8/>
+      <province/>
+      <district/>
+      <sub_district/>
+      <village/>
+      <sub_village/>
+      <generated_note_name_14/>
+      <generated_note_name_15/>
+      <generated_note_name_16/>
+      <generated_note_name_17/>
+      <generated_note_name_18/>
+      <child_age/>
+      <respondent_name/>
+      <relation_to_child/>
+      <respondent_age/>
+      <respondent_education/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </RCC_Baseline_Survey>
+  </instance>
+</model>
