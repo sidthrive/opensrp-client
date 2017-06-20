@@ -137,10 +137,10 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
                 viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
         //}
-        viewHolder.wife_name.setText(pc.getDetails().get("respondent_name")!=null?pc.getDetails().get("respondent_name"):"");
+        viewHolder.wife_name.setText(pc.getColumnmaps().get("respondent_name")!=null?pc.getColumnmaps().get("respondent_name"):"");
         viewHolder.husband_name.setText(pc.getDetails().get("relation_to_child")!=null?pc.getDetails().get("relation_to_child").toUpperCase():"");
-        viewHolder.village_name.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age").replace("_"," "):"");
-        viewHolder.wife_age.setText(pc.getDetails().get("respondent_education")!=null?pc.getDetails().get("respondent_education"):"");
+        viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
+        viewHolder.wife_age.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age"):"");
 
         viewHolder.label_no_ibu.setText(pc.getDetails().get("household_size")!=null?"Household size : "+pc.getDetails().get("household_size"):"");
         viewHolder.no_ibu.setText(pc.getDetails().get("adult_hh_member")!=null?"Adult members : "+pc.getDetails().get("adult_hh_member"):"");

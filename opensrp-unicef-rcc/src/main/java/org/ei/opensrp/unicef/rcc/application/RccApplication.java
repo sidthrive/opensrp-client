@@ -86,7 +86,7 @@ public class RccApplication extends DrishtiApplication {
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("kartu_ibu")) {
-            String[] sortFields = { "namalengkap", "umur",  "noIbu", "htp" };
+            String[] sortFields = { "namalengkap", "umur",  "noIbu", "respondent_age", "respondent_name" };
             return sortFields;
         } else if(tableName.equals("anak")){
             String[] sortFields = { "namaBayi", "tanggalLahirAnak" };

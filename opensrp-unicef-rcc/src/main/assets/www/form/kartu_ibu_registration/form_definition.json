@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "bind_type": "kartu_ibu",
-    "default_bind_path": "/model/instance/RCC_Baseline_Survey/",
+    "default_bind_path": "/model/instance/Kartu_ibu/",
     "fields": [
       {
         "name": "id",
@@ -10,247 +10,142 @@
       },
       {
         "name": "lokasiPeriksa",
-        "bind": "/model/instance/RCC_Baseline_Survey/Lokasi_periksa"
+        "bind": "/model/instance/Kartu_ibu/Lokasi_periksa"
       },
       {
         "name": "unique_id",
-        "bind": "/model/instance/RCC_Baseline_Survey/unique_id",
+        "bind": "/model/instance/Kartu_ibu/unique_id",
         "shouldLoadValue" : true
       },
       {
         "name": "Village",
-        "bind": "/model/instance/RCC_Baseline_Survey/Village",
+        "bind": "/model/instance/Kartu_ibu/Village",
         "shouldLoadValue": true
       },
       {
         "name": "Province",
-        "bind": "/model/instance/RCC_Baseline_Survey/Province",
+        "bind": "/model/instance/Kartu_ibu/Province",
         "shouldLoadValue": true
       },
       {
         "name": "nik",
-        "bind": "/model/instance/RCC_Baseline_Survey/nik"
+        "bind": "/model/instance/Kartu_ibu/nik"
       },
       {
         "name": "Sub-district",
-        "bind": "/model/instance/RCC_Baseline_Survey/Sub-district",
+        "bind": "/model/instance/Kartu_ibu/Sub-district",
         "shouldLoadValue": true
       },
       {
         "name": "District",
-        "bind": "/model/instance/RCC_Baseline_Survey/District",
+        "bind": "/model/instance/Kartu_ibu/District",
         "shouldLoadValue": true
       },
       {
         "name": "Sub-village",
-        "bind": "/model/instance/RCC_Baseline_Survey/Sub-village",
+        "bind": "/model/instance/Kartu_ibu/Sub-village",
         "shouldLoadValue": true
       },
       {
-        "name": "child_age",
-        "bind": "/model/instance/RCC_Baseline_Survey/Unique_identifier/child_age"
+        "name": "dusun",
+        "bind": "/model/instance/Kartu_ibu/dusun"
       },
       {
-        "name": "respondent_name",
-        "bind": "/model/instance/RCC_Baseline_Survey/Unique_identifier/respondent_name"
+        "name": "provinsi",
+        "bind": "/model/instance/Kartu_ibu/provinsi"
       },
       {
-        "name": "relation_to_child",
-        "bind": "/model/instance/RCC_Baseline_Survey/Unique_identifier/relation_to_child"
+        "name": "kabupaten",
+        "bind": "/model/instance/Kartu_ibu/kabupaten"
       },
       {
-        "name": "respondent_age",
-        "bind": "/model/instance/RCC_Baseline_Survey/Unique_identifier/respondent_age"
+        "name": "kecamatan",
+        "bind": "/model/instance/Kartu_ibu/kecamatan"
       },
       {
-        "name": "respondent_education",
-        "bind": "/model/instance/RCC_Baseline_Survey/Unique_identifier/respondent_education"
-      },
-
-
-      {
-        "name": "household_size",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/household_size"
+        "name": "desa",
+        "bind": "/model/instance/Kartu_ibu/desa"
       },
       {
-        "name": "adult_hh_member",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/adult_hh_member"
+        "name": "puskesmas",
+        "bind": "/model/instance/Kartu_ibu/puskesmas"
       },
       {
-        "name": "child_hh_member_under_5",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/child_hh_member_under_5"
+        "name": "noIbu",
+        "bind": "/model/instance/Kartu_ibu/no_ibu"
       },
       {
-        "name": "child_hh_member_6-14",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/child_hh_member_6-14"
+        "name": "namalengkap",
+        "bind": "/model/instance/Kartu_ibu/nama_lengkap"
       },
       {
-        "name": "elderly_hh_member",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/elderly_hh_member"
+        "name": "namaSuami",
+        "bind": "/model/instance/Kartu_ibu/nama_suami"
       },
       {
-        "name": "mobile_connectivity",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/mobile_connectivity"
+        "name": "tanggalLahir",
+        "bind": "/model/instance/Kartu_ibu/tanggal_lahir_ibu"
       },
       {
-        "name": "phone_purpose",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/phone_purpose"
+        "name": "umur",
+        "bind": "/model/instance/Kartu_ibu/umur"
       },
       {
-        "name": "cell_provider",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/cell_provider"
+        "name": "alamatDomisili",
+        "bind": "/model/instance/Kartu_ibu/alamat_domisili"
       },
       {
-        "name": "expenditure_mobile_phone",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/expenditure_mobile_phone"
+        "name": "pendidikan",
+        "bind": "/model/instance/Kartu_ibu/pendidikan"
       },
       {
-        "name": "expenditure_electricity",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/expenditure_electricity"
+        "name": "agama",
+        "bind": "/model/instance/Kartu_ibu/agama"
       },
       {
-        "name": "expenditure_food",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/expenditure_food"
+        "name": "pekerjaan",
+        "bind": "/model/instance/Kartu_ibu/pekerjaan"
       },
       {
-        "name": "expenditure_consumer_goods",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/expenditure_consumer_goods"
+        "name": "gakinTidak",
+        "bind": "/model/instance/Kartu_ibu/gakin_tidak"
       },
       {
-        "name": "have_radio",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/have_radio"
+        "name": "posyandu",
+        "bind": "/model/instance/Kartu_ibu/posyandu"
       },
       {
-        "name": "have_tv",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/have_tv"
+        "name": "namaKader",
+        "bind": "/model/instance/Kartu_ibu/nama_kader"
       },
       {
-        "name": "have_refrigerator",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/have_refrigerator"
+        "name": "namaDukun",
+        "bind": "/model/instance/Kartu_ibu/nama_dukun"
       },
       {
-        "name": "have_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/have_toilet"
+        "name": "asuransiJiwa",
+        "bind": "/model/instance/Kartu_ibu/asuransi_jiwa"
       },
       {
-        "name": "have_separate_kitchen",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/have_separate_kitchen"
+        "name": "golonganDarah",
+        "bind": "/model/instance/Kartu_ibu/golongan_darah"
       },
       {
-        "name": "number_of_rooms",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/number_of_rooms"
+        "name": "NomorTelponHp",
+        "bind": "/model/instance/Kartu_ibu/nomor_telpon_hp"
       },
       {
-        "name": "number_of_motorcycles",
-        "bind": "/model/instance/RCC_Baseline_Survey/Household_characteristics/number_of_motorcycles"
-      },
-
-
-      {
-        "name": "anc_visit_num",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/anc_visit_num"
+        "name": "pptest",
+        "bind": "/model/instance/Kartu_ibu/pptest"
       },
       {
-        "name": "place_of_birth",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/place_of_birth"
+        "name": "highRiskPregnancyYoungMaternalAge",
+        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Young_maternal_age"
       },
       {
-        "name": "delivery_companion",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/delivery_companion"
-      }, {
-        "name": "use_of_contraceptives",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/use_of_contraceptives"
-      }, {
-        "name": "attendance_at_posyandu",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/attendance_at_posyandu"
-      }, {
-        "name": "reason1",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/reason1"
-      }, {
-        "name": "last_time_to_posyandu",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/last_time_to_posyandu"
-      }, {
-        "name": "posyandu_service",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/posyandu_service"
-      }, {
-        "name": "attendance_at_puskesmas",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/attendance_at_puskesmas"
-      },{
-        "name": "reason2",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/reason2"
-      },{
-        "name": "last_time_to_puskesmas",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/last_time_to_puskesmas"
-      },{
-        "name": "puskesmas_service",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/puskesmas_service"
-      },{
-        "name": "nearest_puskesmas",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/nearest_puskesmas"
-      },{
-        "name": "has_been_sick",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/has_been_sick"
-      },{
-        "name": "action_taken",
-        "bind": "/model/instance/RCC_Baseline_Survey/Health_seeking_behavior/action_taken"
+        "name": "highRiskPregnancyOldMaternalAge",
+        "bind": "/model/instance/Kartu_ibu/High_Risk_Pregnancy_Old_maternal_age"
       },
-
-
-      {
-        "name": "immunization_knowlegde",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/immunization_knowlegde"
-      },{
-        "name": "source_of_information",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/source_of_information"
-      },{
-        "name": "have_mch_book",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/have_mch_book"
-      },{
-        "name": "vaccine",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_have_mch_book/vaccine"
-      },{
-        "name": "other_vaccine",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_have_mch_book/other_vaccine"
-      },{
-        "name": "reason_not_immu",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_have_mch_book/reason_not_immu"
-      },
-
-      {
-        "name": "Has_child_received_any_vaccinations",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/Has_child_received_any_vaccinations"
-      },{
-        "name": "A_BCG_vaccination",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/A_BCG_vaccination"
-      },{
-        "name": "Polio_vaccine",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/Polio_vaccine"
-      },{
-        "name": "first_polio_vaccine_given",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/first_polio_vaccine_given"
-      },{
-        "name": "A_DPT_vaccination",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/A_DPT_vaccination"
-      },{
-        "name": "DPT_vaccine_given",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/DPT_vaccine_given"
-      },{
-        "name": "A_measles_injection",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/A_measles_injection"
-      },{
-        "name": "A_Hepatitis_B_injection",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/A_Hepatitis_B_injection"
-      },{
-        "name": "Hepatitis_B_vaccine_received",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/if_no_mch_book/Hepatitis_B_vaccine_received"
-      },
-
-      {
-        "name": "caregiver_understand",
-        "bind": "/model/instance/RCC_Baseline_Survey/Immunization_coverage/caregiver_understand"
-      },
-
-
       {
         "name": "isOutOfArea",
         "value": "false"
@@ -261,11 +156,11 @@
       },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/RCC_Baseline_Survey/today"
+        "bind": "/model/instance/Kartu_ibu/today"
       },
       {
         "name": "registrationDate",
-        "bind": "/model/instance/RCC_Baseline_Survey/reg_date"
+        "bind": "/model/instance/Kartu_ibu/reg_date"
       }
     ]
   }

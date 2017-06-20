@@ -148,7 +148,7 @@ public class LoginActivity extends Activity {
        // userNameEditText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         passwordEditText = ((EditText) findViewById(org.ei.opensrp.R.id.login_passwordText));
        // passwordEditText.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        userNameEditText.setText("gen_demo");
+        userNameEditText.setText("demo5");
         passwordEditText.setText("Satu2345");
     }
 

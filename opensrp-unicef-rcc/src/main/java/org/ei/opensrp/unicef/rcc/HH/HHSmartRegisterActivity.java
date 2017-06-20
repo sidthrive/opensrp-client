@@ -109,15 +109,14 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     public DialogOption[] getEditOptions() {
         return new DialogOption[]{
-          /*      new OpenFormOption("Registrasi KB ", "kohort_kb_pelayanan", formController),
-                new OpenFormOption(getString(R.string.str_register_anc_form), "kartu_anc_registration", formController),*/
-        /*        new OpenFormOption("Edit Kartu Ibu ", KARTU_IBU_EDIT, formController),
-                new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),*/
-
+                new OpenFormOption("Household Characteristic ", "household_character", formController),
+                new OpenFormOption("Health Seeking Behaviour", "health_seeking_behaviour", formController),
+                new OpenFormOption("Immunization Coverage ", "immunization_coverage", formController),
+               // new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
         };
 
-
     }
+
     @Override
     public void OnLocationSelected(String locationJSONString) {
         JSONObject combined = null;
@@ -141,7 +140,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         if (combined != null) {
             FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
 
-            startFormActivity("kartu_ibu_registration", null, fieldOverrides.getJSONString());
+            startFormActivity("unique_identifier", null, fieldOverrides.getJSONString());
         }
     }
     @Override
@@ -246,9 +245,9 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         List<String> formNames = new ArrayList<String>();
         formNames.add(KARTU_IBU_REGISTRATION);
         formNames.add("unique_identifier");
-       /* formNames.add("kartu_anc_registration");
-        formNames.add(KARTU_IBU_EDIT);
-        formNames.add(KARTU_IBU_CLOSE);*/
+        formNames.add("health_seeking_behaviour");
+        formNames.add("immunization_coverage");
+        formNames.add("household_character");
 
         DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {

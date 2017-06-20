@@ -19,27 +19,27 @@
       },
       {
         "name": "Village",
-        "bind": "/model/instance/RCC_Baseline_Survey/village",
+        "bind": "/model/instance/RCC_Baseline_Survey/Village",
         "shouldLoadValue": true
       },
       {
         "name": "Province",
-        "bind": "/model/instance/RCC_Baseline_Survey/province",
+        "bind": "/model/instance/RCC_Baseline_Survey/Province",
         "shouldLoadValue": true
       },
       {
         "name": "Sub-district",
-        "bind": "/model/instance/RCC_Baseline_Survey/sub_district",
+        "bind": "/model/instance/RCC_Baseline_Survey/Sub-district",
         "shouldLoadValue": true
       },
       {
         "name": "District",
-        "bind": "/model/instance/RCC_Baseline_Survey/district",
+        "bind": "/model/instance/RCC_Baseline_Survey/District",
         "shouldLoadValue": true
       },
       {
         "name": "Sub-village",
-        "bind": "/model/instance/RCC_Baseline_Survey/sub_village",
+        "bind": "/model/instance/RCC_Baseline_Survey/Sub-village",
         "shouldLoadValue": true
       },
       {
