@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -39,6 +40,8 @@ import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.DetailsRepository;
+import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
@@ -54,21 +57,26 @@ import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
+import org.json.JSONObject;
 import org.opensrp.api.domain.Location;
 import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
 import org.opensrp.api.util.TreeNode;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import util.AsyncTask;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -94,13 +102,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     protected void onCreation() {
-        //
     }
-
-//    @Override
-//    protected SmartRegisterPaginatedAdapter adapter() {
-//        return new SmartRegisterPaginatedAdapter(clientsProvider());
-//    }
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -181,14 +183,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         };
     }
 
-
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
-//        if (clientProvider == null) {
-//            clientProvider = new HouseHoldSmartClientsProvider(
-//                    getActivity(),clientActionHandler , context.alertService());
-//        }
-
         Log.e(TAG, "clientsProvider: here");
         return null;
     }
@@ -200,6 +196,28 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     protected void onInitialization() {
         //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
+    }
+
+    @Override
+    public void startRegistration() {
+
+        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
+        if (uniqueIdJson == null || uniqueIdJson.isEmpty()) {
+            Toast.makeText(getActivity(), "no unique id", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        LocationSelectorDialogFragment
+                .newInstance((NativeKISmartRegisterActivity) getActivity(), new
+                                EditDialogOptionModel(), context().anmLocationController().get(),
+                        "kartu_ibu_registration")
+                .show(ft, locationDialogTAG);
     }
 
     @Override
@@ -247,9 +265,9 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
             if (s == null || Objects.equals(s, "!")) {
                 mainCondition = "is_closed = 0 and namalengkap != '' ";
-                Log.e(TAG, "initializeQueries: "+"Not Initialized" );
+                Log.e(TAG, "initializeQueries: Not Initialized" );
             } else {
-                Log.e(TAG, "initializeQueries: " + s);
+                Log.e(TAG, "initializeQueries: id " + s);
                 mainCondition = "is_closed = 0 and namalengkap != '' AND object_id LIKE '%" + s + "%'";
             }
             joinTable = "";
@@ -275,29 +293,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         } finally {
         }
 
-    }
-
-
-    @Override
-    public void startRegistration() {
-
-        String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
-        if (uniqueIdJson == null || uniqueIdJson.isEmpty()) {
-            Toast.makeText(getActivity(), "no unique id", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-        LocationSelectorDialogFragment
-                .newInstance((NativeKISmartRegisterActivity) getActivity(), new
-                                EditDialogOptionModel(), context().anmLocationController().get(),
-                        "kartu_ibu_registration")
-                .show(ft, locationDialogTAG);
     }
 
     private class ClientActionHandler implements View.OnClickListener {
@@ -327,7 +322,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
             navigationController.startEC(client.entityId());
         }
     }
-
 
     private String KiSortByNameAZ() {
         return "namalengkap ASC";
@@ -419,7 +413,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     }
 
-
 //    @Override
 //    public void setupSearchView(View view) {
 //        searchView = (EditText) view.findViewById(org.ei.opensrp.R.id.edt_search);
@@ -457,7 +450,6 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-
 
                 filters = cs.toString();
                 joinTable = "";
@@ -542,21 +534,23 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     public void getFacialRecord(View view) {
 
-        FlurryAgent.logEvent(TAG+" search_by_face", true);
+//        FlurryAgent.logEvent(TAG + "search_by_face", true);
 
-        Log.e(TAG, "getFacialRecord: ");
+        Log.d(TAG, "getFacialRecord: ");
+//        Log.e(TAG, "getFacialRecord: ");
+
         sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         String face_start = sdf.format(date);
         FS.put("face_start", face_start);
 
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
-        FlurryAgent.logEvent(TAG + " search_by_face", FS, true);
+        FlurryAgent.logEvent(TAG + "search_by_face", FS, true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", NativeKISmartRegisterFragment.class.getSimpleName());
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -614,5 +608,83 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), NativeKISmartRegisterActivity.class);
+        myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+        myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        getActivity().startActivity(myIntent);
+
+////        Toast.makeText(getActivity(),"request "+ requestCode + " result "+ resultCode +" data: "+data, Toast.LENGTH_SHORT).show();
+//
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+//        Calendar cal = Calendar.getInstance();
+////        System.out.println(dateFormat.format(cal.getTime()));
+//
+//        if (requestCode == 2 && resultCode!=RESULT_CANCELED ){
+//
+////            Toast.makeText(getActivity(), "Scanner Result", Toast.LENGTH_LONG).show();
+//
+////            Log.e(TAG, "onActivityResult: "+ data.getStringExtra("org.ei.opensrp.indonesia.face.base_id") );
+//            Intent i = new Intent(getActivity(), NativeKISmartRegisterActivity.class);
+//            i.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+//            startActivity(i);
+//
+//            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+//            Long tsLong = System.currentTimeMillis()/1000;
+//
+//            try{
+//
+//                SimpleDateFormat sdf;
+//                Date date = new Date();
+//
+//                sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
+//                System.out.println(sdf.format(date));
+//                sdf = new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
+////                FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
+////                String formSubmission =
+////                        "<Blood_Test encounter_type=\"Blood Test\" id=\"blood_test\" version=\"201705080820\" _id=\""+ancclient.entityId()+"\">" +
+////                                "<formhub><uuid>"+ UUID.randomUUID().toString() +"</uuid></formhub>\n" +
+////                                "<start openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_start\">"+bpm_timer+"</start>" +
+////                                "<today openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_date\">"+ dateFormat.format(cal.getTime()) +"</today>" +
+////                                "<deviceid>"+ imei +"</deviceid>" +
+////                                "<simserial>no simserial property in enketo</simserial>" +
+////                                "<phonenumber>no phonenumber property in enketo</phonenumber>" +
+////                                "<Province>"+ ancclient.getDetails().get("stateProvince") +"</Province>" +
+////                                "<District>"+ ancclient.getDetails().get("countyDistrict") +"</District>" +
+////                                "<Sub-district>"+ ancclient.getDetails().get("countyDistrict") +"</Sub-district>" +
+////                                "<Village>"+ancclient.getDetails().get("countyDistrict")+"</Village>" +
+////                                "<Sub-village>"+ ancclient.getDetails().get("countyDistrict") +".</Sub-village>" +
+////                                "<existing_location openmrs_entity=\"encounter\" openmrs_entity_id=\"location_id\">"+ancclient.getDetails().get("cityVillage")+"</existing_location>" +
+////                                "<provinsi openmrs_entity=\"person_address\" openmrs_entity_id=\"stateProvince\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("stateProvince") +"</provinsi>" +
+////                                "<kabupaten openmrs_entity=\"person_address\" openmrs_entity_id=\"countyDistrict\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</kabupaten>" +
+////                                "<desa openmrs_entity=\"person_address\" openmrs_entity_id=\"cityVillage\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</desa>" +
+////                                "<dusun openmrs_entity=\"person_address\" openmrs_entity_id=\"address1\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</dusun>" +
+////                                "<kecamatan openmrs_entity=\"person_address\" openmrs_entity_id=\"address2\" openmrs_entity_parent=\"usual_residence\">"+ ancclient.getDetails().get("countyDistrict") +"</kecamatan>" +
+////                                "<td_sistolik openmrs_entity=\"concept\" openmrs_entity_id=\"5085AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+ data.getStringExtra("HIGH")+"</td_sistolik>" +
+////                                "<td_diastolik openmrs_entity=\"concept\" openmrs_entity_id=\"5086AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("LOW")+"</td_diastolik>" +
+////                                "<pulse openmrs_entity=\"concept\" openmrs_entity_id=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("PULSE")+"</pulse>" +
+////                                "<ahr openmrs_entity=\"concept\" openmrs_entity_id=\"160632AAAAAAAAAAAAAAAAAAAAAAAAAA\" openmrs_entity_parent=\"5087AAAAAAAAAAAAAAAAAAAAAAAAAAAA\">"+data.getStringExtra("AHR")+"</ahr>\n" +
+////                                "<end openmrs_entity=\"encounter\" openmrs_entity_id=\"encounter_end\">2017-05-08T17:21:47.000+08:00</end>" +
+////                                "<meta>" +
+////                                "<instanceID>uuid:"+UUID.randomUUID().toString()+"</instanceID>" +
+////                                "<deprecatedID/>" +
+////                                "</meta>" +
+////                                "</Blood_Test>";
+////
+////                formUtils.generateFormSubmisionFromXMLString(ancclient.entityId(), formSubmission, "blood_test", new JSONObject());
+//
+//            }catch (Exception e){
+//                // TODO: show error dialog on the formfragment if the submission fails
+//                e.printStackTrace();
+//            }
+//        } else{
+//            Log.e(TAG, "onActivityResult: Cancel " );
+//        }
+////        getActivity().finish();
+////        startActivity(getActivity().getIntent());
+    }
 
 }

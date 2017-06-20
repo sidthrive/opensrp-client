@@ -159,6 +159,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                 if(imageRecord!=null) {
 
                     get(imageRecord, opensrpImageListener);
+
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
                     get(url, opensrpImageListener);
@@ -177,6 +178,7 @@ public class OpenSRPImageLoader extends ImageLoader {
              * Non existent image record, display image with defaultImageResId
              */
             if (image == null) {
+                Log.e(TAG, "get: Image Null");
                 ImageContainer imgContainer = new ImageContainer(null, null, null, opensrpImageListener);
                 opensrpImageListener.onResponse(imgContainer, true);
                 return;
@@ -204,12 +206,10 @@ public class OpenSRPImageLoader extends ImageLoader {
             this.imageRecord = imageRecord;
             this.imageView = opensrpImageListener.getImageView();
             this.cachedImageLoader = cachedImageLoader;
-            Log.e(TAG, "LoadBitmapFromDiskTask: " );
         }
 
         @Override
         protected Bitmap doInBackground(String... params) {
-            Log.e(TAG, "doInBackground: " );
             return FileUtilities.retrieveStaticImageFromDisk(params[0]);
         }
 
@@ -217,7 +217,6 @@ public class OpenSRPImageLoader extends ImageLoader {
         protected void onPostExecute(Bitmap result) {
 
             try {
-                Log.e(TAG, "onPostExecute: " );
 
                 /***
                  * Display image loaded from disk if reference is not NULL
@@ -249,7 +248,7 @@ public class OpenSRPImageLoader extends ImageLoader {
 
                     // get this from the database based on imageId
                     String requestUrl = imageRecord.getImageUrl();
-                    Log.e(TAG, "local image not found, download onPostExecute: "+requestUrl );
+//                    Log.e(TAG, "local image not found, download onPostExecute: "+requestUrl );
 
                     // If the new requestUrl is null or the new requestUrl is different to the previous recycled requestUrl
                     if (requestUrl == null || !requestUrl.equals(recycledImageUrl)) {
@@ -535,6 +534,8 @@ public class OpenSRPImageLoader extends ImageLoader {
                 if (entityId != null && !entityId.isEmpty()) {
                     final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId+".JPEG";
 
+                    Log.e(TAG, "saveStaticImageToDisk: "+ absoluteFileName );
+
                     File outputFile = new File(absoluteFileName);
                     os = new FileOutputStream(outputFile);
                     CompressFormat compressFormat = OpenSRPImageLoader.getCompressFormat(absoluteFileName);
@@ -544,6 +545,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                         throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
                                 + absoluteFileName);
                     }
+
                     // insert into the db
                     ProfileImage profileImage= new ProfileImage();
 //                    profileImage.setImageid(UUID.randomUUID().toString());
@@ -558,6 +560,7 @@ public class OpenSRPImageLoader extends ImageLoader {
                     // TODO : fetch vector from imagebitmap
                     ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
 //                    imageRepo.add(profileImage);
+                    imageRepo.createOrUpdate(profileImage, entityId);
                 }
 
             } catch (FileNotFoundException e) {

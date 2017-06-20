@@ -558,7 +558,6 @@ public class BP7 extends Activity implements View.OnClickListener {
                     myProgress++;
                     pb_mypb.setProgress(pls);
 
-
                     break;
             }
             super.handleMessage(msg);

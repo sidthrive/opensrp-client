@@ -216,7 +216,7 @@ public class ImageRepository extends DrishtiRepository {
     public void createOrUpdate(ProfileImage profileImage, String uid) {
         SQLiteDatabase db = masterRepository.getReadableDatabase();
 
-        long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{profileImage.getEntityID()});
+        long id = db.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{uid});
         if (id == 0) {
             Log.e(TAG, "createOrUpdate: no UPDATE found, try INSERT" + profileImage.getEntityID());
             db.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);

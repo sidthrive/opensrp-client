@@ -362,10 +362,11 @@ public class ANCDetailActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        Log.e(TAG, "onActivityResult: FR" );
         super.onActivityResult(requestCode, resultCode, data);
         String imei = ((TelephonyManager) getSystemService(android.content.Context.TELEPHONY_SERVICE)).getDeviceId();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         Calendar cal = Calendar.getInstance();
 //        System.out.println(dateFormat.format(cal.getTime()));
 

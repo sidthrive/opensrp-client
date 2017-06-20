@@ -265,6 +265,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
             numFaces = faceProc.getNumFaces();
 
             if (numFaces == 0) {
+                // No Face Detected on Frame
 //                Log.e(TAG, "No Face Detected");
                 smile.setChecked(false);
                 eyeBlink.setChecked(false);
@@ -280,6 +281,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 //                Log.e(TAG, "Face Detected");
                 faceArray = faceProc.getFaceData();
 
+                // Face Detected but not have value
                 if (faceArray == null) {
 
                     Log.e(TAG, "onPreviewFrame: "+ "No Face value" );
@@ -290,15 +292,16 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                     faceProc.normalizeCoordinates(surfaceWidth, surfaceHeight);
 
-                    Log.e(TAG, "onPreviewFrame: personId" + faceArray[0].getPersonId());
+                    Log.e(TAG, "onPreviewFrame: personId " + faceArray[0].getPersonId());
 
                     if (identifyPerson && faceArray[0].getPersonId() != -111) {
+//                        Log.e(TAG, "onPreviewFrame: Face Exist" );
                         String selectedPersonId = Integer.toString(faceArray[0].getPersonId());
                         Iterator<HashMap.Entry<String, String>> iter = hash.entrySet().iterator();
                         // Default name is the person is unknown
                         selectedPersonName = "Not Identified";
                         while (iter.hasNext()) {
-                            Log.e(TAG, "onPreviewFrame: "+"check Hash" );
+                            Log.e(TAG, "onPreviewFrame: check Hash" );
                             HashMap.Entry<String, String> entry = iter.next();
                             if (entry.getValue().equals(selectedPersonId)) {
                                 selectedPersonName = entry.getKey();
@@ -310,8 +313,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
                         Class<?> origin_class = this.getClass();
 
-                        Log.e(TAG, "onPreviewFrame: init " + origin_class.getSimpleName());
-                        Log.e(TAG, "onPreviewFrame: origin " + str_origin_class);
+//                        Log.e(TAG, "onPreviewFrame: init " + origin_class.getSimpleName());
+//                        Log.e(TAG, "onPreviewFrame: origin " + str_origin_class);
 
                         if (str_origin_class.equals(NativeKISmartRegisterFragment.class.getSimpleName())) {
                             origin_class = NativeKISmartRegisterActivity.class;
@@ -325,14 +328,23 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
                             origin_class = NativeKIPNCSmartRegisterActivity.class;
                         }
 
-                        Log.e(TAG, "onPreviewFrame: " + origin_class.getSimpleName());
-                        Intent intent = new Intent(SmartShutterActivity.this, origin_class);
+//                        Log.e(TAG, "onPreviewFrame: "+ selectedPersonName );
+//                        Log.e(TAG, "onPreviewFrame: " + origin_class.getSimpleName());
+//                        Intent intent = new Intent(SmartShutterActivity.this, origin_class);
+
+                        Intent intent = new Intent();
                         intent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
                         intent.putExtra("org.ei.opensrp.indonesia.face.base_id", selectedPersonName);
                         intent.putExtra("org.ei.opensrp.indonesia.face.proc_time", t_stopCamera);
+//                        setResult(RESULT_OK);
+//                        startActivity(intent);
+                        setResult(2, intent);
+                        finish();
+//                        startActivity(getIntent());
 
-                        startActivity(intent);
 
+                    } else {
+                        Log.e(TAG, "onPreviewFrame: New Record " );
                     }
 
 //                    Options

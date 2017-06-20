@@ -452,10 +452,11 @@ public class Tools {
         String location = appContext.allSharedPreferences().getPreference("locationId");
         String pwd = appContext.allSettings().fetchANMPassword();
 
+//        Log.e(TAG, "setVectorfromAPI: "+ DRISTHI_BASE_URL );
         //TODO : cange to based locationId
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
-        final String api_url = "http://192.168.43.189:8080/opensrp3" + "/multimedia-file?locationid=" + location;
-//        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
+//        final String api_url = "http://192.168.43.189:8080/opensrp3" + "/multimedia-file?locationid=" + location;
+        final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.setBasicAuth(user, pwd);

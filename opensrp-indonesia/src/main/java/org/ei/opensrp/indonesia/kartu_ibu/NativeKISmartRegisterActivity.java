@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -97,6 +98,8 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
             double proc_time = extras.getDouble("org.ei.opensrp.indonesia.face.proc_time");
 //            Log.e(TAG, "onCreate: "+proc_time );
+            Log.e(TAG, "onCreate: "+base_id );
+            Log.e(TAG, "onCreate: "+base_id );
 
             if (mode_face){
                 nf.setCriteria(base_id);
@@ -118,6 +121,10 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 builder.show();
             }
         } else {
+            mBaseFragment = new NativeKISmartRegisterFragment();
+        }
+
+        if (mBaseFragment == null) {
             mBaseFragment = new NativeKISmartRegisterFragment();
         }
 
@@ -144,6 +151,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         ziggyService = context().ziggyService();
 
     }
+
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         LoginActivity.setLanguage();
@@ -154,8 +162,6 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void setupViews() {
-
-
     }
 
     @Override
@@ -185,6 +191,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
 
     }
+
     @Override
     public void OnLocationSelected(String locationJSONString) {
         JSONObject combined = null;
@@ -383,13 +390,13 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 nf.setCriteria("!");
                 currentPage = 0;
                 Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face OK", FS, true);
+                FlurryAgent.logEvent(TAG + "search_by_face OK", FS, true);
 
             } else {
                 nf.setCriteria("");
                 Log.e(TAG, "onClick: NO " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face NOK", FS, true);
-//                onBackPressed();
+                FlurryAgent.logEvent(TAG + "search_by_face NOK", FS, true);
+                onBackPressed();
 //
 //                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);
 //                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
@@ -398,4 +405,24 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         }
     };
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+//            fragment.onActivityResult(requestCode, resultCode, data);
+//            if (resultCode == 2) {
+//                Log.e(TAG, "onActivityResult: Request " + requestCode + " Result " + resultCode + " Data " + data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+//            }
+//        }
+//
+//        Log.e(TAG, "onActivityResult: Request "+ requestCode +" Result "+ resultCode );
+//        if (requestCode == 2 && resultCode != RESULT_CANCELED){
+//            Log.e(TAG, "onActivityResult: id "+ data.getStringExtra("org.ei.opensrp.indonesia.face.base_id") );
+//        } else {
+//            Log.e(TAG, "onActivityResult: Unexpected " );
+//        }
+//
+//    }
 }
