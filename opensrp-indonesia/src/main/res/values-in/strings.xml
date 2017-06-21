@@ -96,7 +96,7 @@
 
     <string name="str_register_pnc_form">Daftar PNC</string>
     <string name="str_register_fp_form">Register KB</string>
-    <string name="str_register_child_form">Register Child</string>
+    <string name="str_register_child_form">Register Anak</string>
     <string name="str_fp_change_form">FP Change</string>
     <string name="str_fp_change_fp_form">Change FP</string>
     <string name="str_record_ecp_form">Record ECP</string>

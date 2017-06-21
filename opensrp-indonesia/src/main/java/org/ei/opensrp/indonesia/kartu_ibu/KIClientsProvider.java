@@ -3,6 +3,7 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -154,6 +155,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
+            Log.e("TAG", "getView: Profile Pic" );
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
             DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
         }

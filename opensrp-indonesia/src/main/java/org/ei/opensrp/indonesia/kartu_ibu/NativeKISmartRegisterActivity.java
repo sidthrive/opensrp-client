@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -61,7 +62,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     private FragmentPagerAdapter mPagerAdapter;
     private int currentPage;
     private String[] formNames = new String[]{};
-    private android.support.v4.app.Fragment mBaseFragment = null;
+    private Fragment mBaseFragment = null;
     ZiggyService ziggyService;
 
     // WD need for initialize queries
@@ -103,20 +104,13 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
                 builder.setTitle("Is it Right Person ?");
 
-//                builder.setTitle("Is it Right Clients ?" + base_id);
-//                builder.setTitle("Is it Right Clients ?"+ pc.getName());
-
                 // TODO : get name by base_id
 //                builder.setMessage("Process Time : " + proc_time + " s");
-
                 builder.setNegativeButton("CANCEL", listener);
                 builder.setPositiveButton("YES", listener);
                 builder.show();
             }
         }
-//        else {
-//            mBaseFragment = new NativeKISmartRegisterFragment();
-//        }
 
         if (mBaseFragment == null) {
             mBaseFragment = new NativeKISmartRegisterFragment();
@@ -179,12 +173,10 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         return new DialogOption[]{
                 new OpenFormOption(getString(R.string.str_register_fp_form), "kohort_kb_pelayanan", formController),
                 new OpenFormOption(getString(R.string.str_register_anc_form), "kartu_anc_registration", formController),
-                new OpenFormOption("Registrasi Anak ", ANAK_BAYI_REGISTRATION, formController),
+                new OpenFormOption(getString(R.string.str_register_child_form), ANAK_BAYI_REGISTRATION, formController),
                 new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
 
         };
-
-
     }
 
     @Override
@@ -320,7 +312,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-    public android.support.v4.app.Fragment findFragmentByPosition(int position) {
+    public Fragment findFragmentByPosition(int position) {
         FragmentPagerAdapter fragmentPagerAdapter = mPagerAdapter;
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
     }
@@ -391,32 +383,9 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
                 Log.e(TAG, "onClick: NO " + currentPage);
                 FlurryAgent.logEvent(TAG + "search_by_face NOK", FS, true);
                 onBackPressed();
-//
-//                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);
-//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
             }
-//            Toast.makeText(NativeKISmartRegisterActivity.this, mBaseFragment.toString(), Toast.LENGTH_SHORT).show();
 
         }
     };
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-//            fragment.onActivityResult(requestCode, resultCode, data);
-//            if (resultCode == 2) {
-//                Log.e(TAG, "onActivityResult: Request " + requestCode + " Result " + resultCode + " Data " + data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
-//            }
-//        }
-//
-//        Log.e(TAG, "onActivityResult: Request "+ requestCode +" Result "+ resultCode );
-//        if (requestCode == 2 && resultCode != RESULT_CANCELED){
-//            Log.e(TAG, "onActivityResult: id "+ data.getStringExtra("org.ei.opensrp.indonesia.face.base_id") );
-//        } else {
-//            Log.e(TAG, "onActivityResult: Unexpected " );
-//        }
-//
-//    }
 }

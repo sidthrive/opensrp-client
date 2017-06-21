@@ -142,6 +142,8 @@ public class OpenSRPImageLoader extends ImageLoader {
 
     public void getImageByClientId(final String entityId, final OpenSRPImageListener opensrpImageListener) {
 
+        Log.e(TAG, "getImageByClientId: "+opensrpImageListener.getAbsoluteFileName() );
+
         try {
             if (entityId == null || entityId.isEmpty()) {
 

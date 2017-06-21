@@ -75,10 +75,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
     private static final String TAG = NativeKISmartRegisterFragment.class.getSimpleName();
-
-
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
-
     Date date = new Date();
     SimpleDateFormat sdf;
     Map<String, String> FS = new HashMap<>();
@@ -225,7 +222,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         try {
 
             KIClientsProvider kiscp = new KIClientsProvider(getActivity(), clientActionHandler, context().alertService());
-            clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("ec_kartu_ibu", new String[]{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami", "noIbu"}));
+            clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp,
+                    new CommonRepository("ec_kartu_ibu", new String[]{"ec_kartu_ibu.is_closed", "ec_kartu_ibu.namalengkap", "ec_kartu_ibu.umur", "ec_kartu_ibu.namaSuami", "noIbu"}));
             clientsView.setAdapter(clientAdapter);
 
             setTablename("ec_kartu_ibu");
@@ -494,8 +492,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         super.onActivityResult(requestCode, resultCode, data);
 
         Intent myIntent = new Intent(getActivity(), NativeKISmartRegisterActivity.class);
-        myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
-        myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
         getActivity().startActivity(myIntent);
 
     }
