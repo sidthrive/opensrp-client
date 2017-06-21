@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 style="@style/CustomFontTextViewStyle.NavBar.Black"
-            android:text="@string/mother_title" />
+            android:text="Detail View" />
 
     </LinearLayout>
 

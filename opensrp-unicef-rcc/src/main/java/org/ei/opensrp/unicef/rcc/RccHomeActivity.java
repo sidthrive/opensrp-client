@@ -110,8 +110,8 @@ public class RccHomeActivity extends SecuredActivity {
 /*        findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
         findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);*/
 
-       /* ecRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_register_client_count);
-        kartuIbuANCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_anc_register_client_count);
+        ecRegisterClientCountView = (TextView) findViewById(R.id.txt_hh_register_client_count);
+      /*  kartuIbuANCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_anc_register_client_count);
         kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_anak_client_count);*/
        // kohortKbCountView = (TextView) findViewById(R.id.txt_kohort_kb_register_count);
@@ -160,7 +160,7 @@ public class RccHomeActivity extends SecuredActivity {
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();
 
-        Cursor kbcountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(
+     /*   Cursor kbcountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(
                 sqb.queryForCountOnRegisters("kartu_ibu",
                         "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and details not LIKE '%\"jenisKontrasepsi\":\"\"%'"));
         kbcountcursor.moveToFirst();
@@ -186,10 +186,10 @@ public class RccHomeActivity extends SecuredActivity {
                 sqb.queryForCountOnRegisters("anak", "anak.isClosed = 'false'"));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
-        childcountcursor.close();
+        childcountcursor.close();*/
 
-/*        ecRegisterClientCountView.setText(valueOf(kicount));
-        kartuIbuANCRegisterClientCountView.setText(valueOf(anccount));
+        ecRegisterClientCountView.setText(valueOf(kicount));
+  /*      kartuIbuANCRegisterClientCountView.setText(valueOf(anccount));
         kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
         anakRegisterClientCountView.setText(valueOf(childcount));
         kohortKbCountView.setText(valueOf(kbcount));*/

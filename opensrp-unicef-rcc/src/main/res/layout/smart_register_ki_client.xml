@@ -171,8 +171,50 @@
         android:layout_height="fill_parent"
         android:src="@color/smart_register_client_divider_color"/>
 
-
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="180"
+        android:padding="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/imm1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+            <TextView
+                android:id="@+id/imm2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <TextView
+                android:id="@+id/imm3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+            <TextView
+                android:id="@+id/imm4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="170"
@@ -210,7 +252,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
-                android:text=" Hb 0-7 hari" />
+                android:text="BCG" />
 
             <ImageView
                 android:id="@+id/icon_pol1_yes"
@@ -238,7 +280,7 @@
                 android:layout_below="@+id/is_hb0"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
-                android:text=" BCG dan Polio 1" />
+                android:text="Polio" />
 
             <ImageView
                 android:id="@+id/icon_pol2_yes"
@@ -267,7 +309,7 @@
                 android:layout_below="@+id/is_pol1"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
-                android:text=" DPT/HB1/Polio 2" />
+                android:text="DPT" />
 
             <ImageView
                 android:id="@+id/icon_pol3_yes"
@@ -295,12 +337,12 @@
                 android:layout_below="@+id/is_pol2"
                 android:layout_marginStart="25dp"
                 android:layout_marginLeft="25dp"
-                android:text=" DPT/HB2/Polio 3" />
+                android:text="Measles" />
 
         </RelativeLayout>
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <ImageView
         android:layout_width="@dimen/smart_register_client_divider_height"

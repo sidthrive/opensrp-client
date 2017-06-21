@@ -90,15 +90,20 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             viewHolder.distance =(TextView)convertView.findViewById(R.id.distance);
           viewHolder.toilet = (TextView)convertView.findViewById(R.id.toilet);
 
+            viewHolder.imm1 = (TextView)convertView.findViewById(R.id.imm1);
+            viewHolder.imm2 = (TextView)convertView.findViewById(R.id.imm2);
+            viewHolder.imm3 = (TextView)convertView.findViewById(R.id.imm3);
+            viewHolder.imm4 = (TextView)convertView.findViewById(R.id.imm4);
 
-            viewHolder.hb0_no = (ImageView) convertView.findViewById(R.id.icon_hb0_no);
+
+         /*   viewHolder.hb0_no = (ImageView) convertView.findViewById(R.id.icon_hb0_no);
             viewHolder.hb0_yes = (ImageView) convertView.findViewById(R.id.icon_hb0_yes);
             viewHolder.pol1_no = (ImageView) convertView.findViewById(R.id.icon_pol1_no);
             viewHolder.pol1_yes = (ImageView) convertView.findViewById(R.id.icon_pol1_yes);
             viewHolder.pol2_no = (ImageView) convertView.findViewById(R.id.icon_pol2_no);
             viewHolder.pol2_yes = (ImageView) convertView.findViewById(R.id.icon_pol2_yes);
             viewHolder.pol3_no = (ImageView) convertView.findViewById(R.id.icon_pol3_no);
-            viewHolder.pol3_yes = (ImageView) convertView.findViewById(R.id.icon_pol3_yes);
+            viewHolder.pol3_yes = (ImageView) convertView.findViewById(R.id.icon_pol3_yes);*/
            /*   viewHolder.edd_due = (TextView)convertView.findViewById(R.id.txt_edd_due);
             viewHolder.children_age_left = (TextView)convertView.findViewById(R.id.txt_children_age_left);
             viewHolder.children_age_right = (TextView)convertView.findViewById(R.id.txt_children_age_right);
@@ -134,11 +139,17 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             kiview.setTag(smartRegisterClient);
         }
         else {*/
+        if(pc.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || pc.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
+        }
+        else{
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
-                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
+        }
+
         //}
         viewHolder.wife_name.setText(pc.getColumnmaps().get("respondent_name")!=null?pc.getColumnmaps().get("respondent_name"):"");
-        viewHolder.husband_name.setText(pc.getDetails().get("relation_to_child")!=null?pc.getDetails().get("relation_to_child").toUpperCase():"");
+        viewHolder.husband_name.setText(pc.getDetails().get("relation_to_child")!=null?pc.getDetails().get("relation_to_child").replace("_"," "):"");
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
         viewHolder.wife_age.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age"):"");
 
@@ -156,6 +167,11 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.last_time.setText(pc.getDetails().get("last_time_to_posyandu")!=null?"Lastattended: "+pc.getDetails().get("last_time_to_posyandu").replace("_"," "):"");
         viewHolder.services.setText(pc.getDetails().get("posyandu_service")!=null?"Services : "+pc.getDetails().get("posyandu_service").replace("_"," "):"");
         viewHolder.distance.setText(pc.getDetails().get("nearest_puskesmas")!=null?"Distace : "+pc.getDetails().get("nearest_puskesmas"):"");
+
+        viewHolder.imm1.setText(pc.getDetails().get("immunization_knowlegde")!=null?"Immunzation Knowledge : "+pc.getDetails().get("immunization_knowlegde").replace("_"," "):"");
+        viewHolder.imm2.setText(pc.getDetails().get("source_of_information")!=null?"Source : "+pc.getDetails().get("source_of_information").replace("_"," "):"");
+        viewHolder.imm3.setText(pc.getDetails().get("have_mch_book")!=null?"MCH Book : "+pc.getDetails().get("have_mch_book").replace("_"," "):"");
+        viewHolder.imm4.setText(pc.getDetails().get("caregiver_understand")!=null?"Understand of Growht Chart : "+pc.getDetails().get("caregiver_understand"):"");
 
 
         /*//immunization
@@ -274,6 +290,11 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         ImageView pol2_yes;
         ImageView pol3_no;
         ImageView pol3_yes;
+
+        TextView imm1;
+        TextView imm2;
+        TextView imm3;
+        TextView imm4;
     }
 
 
