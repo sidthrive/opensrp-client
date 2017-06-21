@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal|bottom"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
 
             <ImageView
                 android:layout_width="93dp"
@@ -39,23 +40,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="50dp"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp">
 
             <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="0.4"
+                android:layout_marginLeft="100dp">
 
                 <ImageButton
                         android:id="@+id/btn_vaksinator_register"
@@ -87,7 +84,8 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1">
+                android:layout_weight="0.4"
+                android:layout_marginRight="100dp">
 
                 <ImageButton
                     android:id="@+id/btn_TT_vaksinator_register"
