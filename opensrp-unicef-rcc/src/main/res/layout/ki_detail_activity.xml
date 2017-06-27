@@ -124,8 +124,8 @@
         android:id="@+id/id2"
         layout="@layout/health_seeking_detail_data_layout"
         android:visibility="gone"/>
-<!--    <include
-        android:id="@+id/id2"
-        layout="@layout/risk_detail_data_layout"
-        android:visibility="gone"/>-->
+    <include
+        android:id="@+id/id3"
+        layout="@layout/immuni_detail_data_layout"
+        android:visibility="gone"/>
 </LinearLayout>

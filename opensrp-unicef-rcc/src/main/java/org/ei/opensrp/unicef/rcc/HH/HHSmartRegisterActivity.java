@@ -8,6 +8,7 @@ import android.util.Log;
 
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
+import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.unicef.rcc.LoginActivity;
 import org.ei.opensrp.unicef.rcc.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -153,7 +154,8 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            context().formSubmissionService().updateFTSsearch(submission);
+            FormSubmissionService formSubmissionService = context().formSubmissionService();
+            formSubmissionService.updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -170,8 +172,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-   //     FlurryFacade.logEvent(formName);
-//        Log.v("fieldoverride", metaData);
+        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){

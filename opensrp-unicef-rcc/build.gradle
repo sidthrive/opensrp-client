@@ -28,7 +28,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "org.ei.opensrp.unicef.rcc"
+        applicationId "org.ei.opensrp.unicef.rcc1"
         minSdkVersion 16
         targetSdkVersion 21
 

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    >
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/listview_background_rounded">
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="immunization Knowlegde"
+                android:layout_margin="5dp"
+                android:id="@+id/lbl_village"
+                android:textSize="14sp"
+                android:textColor="@color/text_black" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A "
+                android:layout_margin="5dp"
+                android:id="@+id/aas"
+                android:textSize="14sp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Source of information"
+                android:id="@+id/lbl_subvillage"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ba"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="MCH book"
+                android:id="@+id/lbl_age"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ca"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Reasons for not being immunized"
+                android:id="@+id/lbl_alamat"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/da"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+
+
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="BCG"
+                android:id="@+id/lbl_edu"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ea"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Polio"
+                android:id="@+id/lbl_agama"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/fa"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="DPT"
+                android:id="@+id/lbl_job"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ga"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Measles"
+                android:id="@+id/lbl_gakin"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ha"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Hepatitis B "
+                android:id="@+id/lbl_asuransi"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ia"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="growth monitoring chart"
+                android:id="@+id/lbl_blood"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/ja"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+    </TableLayout>
+
+
+
+</LinearLayout>

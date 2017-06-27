@@ -74,6 +74,7 @@ public class RCCDetailActivity extends Activity {
 
         final TextView show_risk = (TextView) findViewById(R.id.health);
         final TextView show_detail = (TextView) findViewById(R.id.hh_char);
+        final TextView coverage = (TextView) findViewById(R.id.coverage);
 
 
         //detail data
@@ -118,6 +119,17 @@ public class RCCDetailActivity extends Activity {
         TextView qq = (TextView) findViewById(R.id.qq);
         TextView tt = (TextView) findViewById(R.id.tt);
 
+
+        TextView aas = (TextView) findViewById(R.id.aas);
+        TextView ba = (TextView) findViewById(R.id.ba);
+        TextView ca = (TextView) findViewById(R.id.ca);
+        TextView da = (TextView) findViewById(R.id.da);
+        TextView ea = (TextView) findViewById(R.id.ea);
+        TextView fa = (TextView) findViewById(R.id.fa);
+        TextView ga = (TextView) findViewById(R.id.ga);
+        TextView ha = (TextView) findViewById(R.id.ha);
+        TextView ia = (TextView) findViewById(R.id.ia);
+        TextView ja = (TextView) findViewById(R.id.ja);
 
       //  final TextView show_risk = (TextView) findViewById(R.id.show_more);
       //  final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
@@ -189,7 +201,46 @@ public class RCCDetailActivity extends Activity {
         qq.setText( (kiclient.getDetails().get("action_taken") != null ? kiclient.getDetails().get("action_taken").replace("_"," ") : "-"));
       //  tt.setText( (kiclient.getDetails().get("cell_provider") != null ? kiclient.getDetails().get("cell_provider") : "-"));
 
+        aas.setText( (kiclient.getDetails().get("immunization_knowlegde") != null ? kiclient.getDetails().get("immunization_knowlegde") : "-"));
+        ba.setText( (kiclient.getDetails().get("source_of_information") != null ? kiclient.getDetails().get("source_of_information") : "-"));
+        da.setText( (kiclient.getDetails().get("have_mch_book") != null ? kiclient.getDetails().get("have_mch_book") : "-"));
 
+
+        if(kiclient.getDetails().get("have_mch_book") != null) {
+            if (kiclient.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_not_shown")) {
+                ea.setText( (kiclient.getDetails().get("A_BCG_vaccination") != null ? kiclient.getDetails().get("A_BCG_vaccination") : "-"));
+                fa.setText((kiclient.getDetails().get("Polio_vaccine") != null ? kiclient.getDetails().get("Polio_vaccine").replace("_", " ") : "-"));
+                ga.setText((kiclient.getDetails().get("A_DPT_vaccination") != null ? kiclient.getDetails().get("A_DPT_vaccination").replace("_", " ") : "-"));
+                ha.setText((kiclient.getDetails().get("A_measles_injection") != null ? kiclient.getDetails().get("A_measles_injection") : "-"));
+                ia.setText((kiclient.getDetails().get("A_Hepatitis_B_injection") != null ? kiclient.getDetails().get("A_Hepatitis_B_injection").replace("<_", "Below than ") : "-"));
+            }
+            else if(kiclient.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")) {
+                String bcg = kiclient.getDetails().get("vaccine").contains("BCG")?"Yes":"";
+                String pol = kiclient.getDetails().get("vaccine").contains("Polio")?"Yes":"";
+                String dpt = kiclient.getDetails().get("vaccine").contains("DPT")?"Yes":"";
+                String measles = kiclient.getDetails().get("vaccine").contains("Measles")?"Yes":"";
+                String hepa = kiclient.getDetails().get("vaccine").contains("Hep")?"Yes":"";
+                ea.setText(bcg);
+                fa.setText(pol);
+                ga.setText(dpt);
+                ha.setText(measles);
+                ia.setText(hepa);
+            }
+        }
+        ja.setText( (kiclient.getDetails().get("caregiver_understand") != null ? kiclient.getDetails().get("caregiver_understand").replace("<_","Below than ") : "-"));
+
+
+        coverage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  FlurryFacade.logEvent("click_risk_detail");
+                findViewById(R.id.id1).setVisibility(View.GONE);
+                findViewById(R.id.id2).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.VISIBLE);
+                // findViewById(R.id.hh_char).setVisibility(View.VISIBLE);
+                // findViewById(R.id.health).setVisibility(View.GONE);
+            }
+        });
 
         show_risk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +248,7 @@ public class RCCDetailActivity extends Activity {
               //  FlurryFacade.logEvent("click_risk_detail");
                 findViewById(R.id.id1).setVisibility(View.GONE);
                 findViewById(R.id.id2).setVisibility(View.VISIBLE);
+                findViewById(R.id.id3).setVisibility(View.GONE);
                // findViewById(R.id.hh_char).setVisibility(View.VISIBLE);
                // findViewById(R.id.health).setVisibility(View.GONE);
             }
@@ -207,6 +259,7 @@ public class RCCDetailActivity extends Activity {
             public void onClick(View v) {
                 findViewById(R.id.id1).setVisibility(View.VISIBLE);
                 findViewById(R.id.id2).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.GONE);
                // findViewById(R.id.health).setVisibility(View.VISIBLE);
                // findViewById(R.id.hh_char).setVisibility(View.GONE);
             }
