@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -68,8 +69,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
     @Override
     public void getView(SmartRegisterClient smartRegisterClient, View convertView) {
         ViewHolder viewHolder;
-
-        if(convertView.getTag() == null || !(convertView.getTag() instanceof  ViewHolder)){
+        if(convertView.getTag() == null || !(convertView.getTag() instanceof  ViewHolder)) {
             viewHolder = new ViewHolder();
             viewHolder.profilelayout =  (LinearLayout)convertView.findViewById(R.id.profile_info_layout);
             viewHolder.wife_name = (TextView)convertView.findViewById(R.id.wife_name);
@@ -95,20 +95,13 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             viewHolder.imm3 = (TextView)convertView.findViewById(R.id.imm3);
             viewHolder.imm4 = (TextView)convertView.findViewById(R.id.imm4);
 
+            viewHolder.id_detail_layout =  (LinearLayout)convertView.findViewById(R.id.id_detail_layout);
+            viewHolder.pol1Logo = (ImageView) convertView.findViewById(R.id.pol1Logo);
+            viewHolder.detail_layout_logo = (ImageView) convertView.findViewById(R.id.detail_layout_logo);
+            viewHolder.attend = (ImageView) convertView.findViewById(R.id.attend);
+            viewHolder.immulogo = (ImageView) convertView.findViewById(R.id.immulogo);
 
-         /*   viewHolder.hb0_no = (ImageView) convertView.findViewById(R.id.icon_hb0_no);
-            viewHolder.hb0_yes = (ImageView) convertView.findViewById(R.id.icon_hb0_yes);
-            viewHolder.pol1_no = (ImageView) convertView.findViewById(R.id.icon_pol1_no);
-            viewHolder.pol1_yes = (ImageView) convertView.findViewById(R.id.icon_pol1_yes);
-            viewHolder.pol2_no = (ImageView) convertView.findViewById(R.id.icon_pol2_no);
-            viewHolder.pol2_yes = (ImageView) convertView.findViewById(R.id.icon_pol2_yes);
-            viewHolder.pol3_no = (ImageView) convertView.findViewById(R.id.icon_pol3_no);
-            viewHolder.pol3_yes = (ImageView) convertView.findViewById(R.id.icon_pol3_yes);*/
-           /*   viewHolder.edd_due = (TextView)convertView.findViewById(R.id.txt_edd_due);
-            viewHolder.children_age_left = (TextView)convertView.findViewById(R.id.txt_children_age_left);
-            viewHolder.children_age_right = (TextView)convertView.findViewById(R.id.txt_children_age_right);
-*/
-
+            viewHolder.connect =  (LinearLayout)convertView.findViewById(R.id.connect);
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
 
@@ -128,17 +121,27 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
-        // set flag High Risk
-//        viewHolder.hr_badge.setVisibility(View.INVISIBLE);
 
 
-     /*   //set image
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if (pc.getDetails().get("profilepic") != null) {
-            HHDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
-            kiview.setTag(smartRegisterClient);
-        }
-        else {*/
+        viewHolder.immulogo.setVisibility(View.GONE);
+        viewHolder.detail_layout_logo.setVisibility(View.GONE);
+        viewHolder.pol1Logo.setVisibility(View.GONE);
+         viewHolder.attend.setVisibility(View.GONE);
+        viewHolder.label_no_ibu.setText("");
+        viewHolder.no_ibu.setText("");
+        viewHolder.unique_id.setText("");
+        viewHolder.edd.setText("");
+        viewHolder.edd_due.setText("");
+        viewHolder.txt_expen.setText("");
+        viewHolder.anc_tot.setText("");
+        viewHolder.last_time.setText("");
+        viewHolder.services.setText("");
+        viewHolder.distance.setText("");
+        viewHolder.imm1.setText("");
+        viewHolder.imm2.setText("");
+        viewHolder.imm3.setText("");
+        viewHolder.imm4.setText("");
+
         if(pc.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || pc.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
         }
@@ -148,32 +151,64 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         }
 
         //}
+
         viewHolder.wife_name.setText(pc.getColumnmaps().get("respondent_name")!=null?pc.getColumnmaps().get("respondent_name"):"");
         viewHolder.husband_name.setText(pc.getDetails().get("relation_to_child")!=null?pc.getDetails().get("relation_to_child").replace("_"," "):"");
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
         viewHolder.wife_age.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age"):"");
 
-        viewHolder.label_no_ibu.setText(pc.getDetails().get("household_size")!=null?"Household size : "+pc.getDetails().get("household_size"):"");
-        viewHolder.no_ibu.setText(pc.getDetails().get("adult_hh_member")!=null?"Adult members : "+pc.getDetails().get("adult_hh_member"):"");
-        viewHolder.unique_id.setText(pc.getDetails().get("child_hh_member_under_5")!=null?"child  members (<5): "+pc.getDetails().get("child_hh_member_under_5"):"");
+        if(pc.getDetails().get("household_size") != null || pc.getDetails().get("adult_hh_member") != null) {
+            viewHolder.label_no_ibu.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
+            viewHolder.no_ibu.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
+            viewHolder.unique_id.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
+       //     viewHolder.detail_layout_logo.setVisibility(View.GONE);
+            viewHolder.label_unique_id.setText(pc.getDetails().get("child_hh_member_6-14") != null ? "child  members (6-14): " + pc.getDetails().get("child_hh_member_6-14") : "");
+          //  viewHolder.label_no_ibu.setText("adult HH members : ");
 
-        viewHolder.label_unique_id.setText(pc.getDetails().get("child_hh_member_6-14")!=null?"child  members (6-14): "+pc.getDetails().get("child_hh_member_6-14"):"");
+        }
+        else{
+            viewHolder.detail_layout_logo.setVisibility(View.VISIBLE);
+       //     viewHolder.detail_layout_logo.setBackgroundResource(R.mipmap.vacc_late);
+          //  viewHolder.detail_layout_logo.set
 
-        viewHolder.edd.setText(pc.getDetails().get("mobile_connectivity")!=null?"Connectivity :"+pc.getDetails().get("mobile_connectivity").replace("_"," "):"");
-        viewHolder.edd_due.setText(pc.getDetails().get("cell_provider")!=null?"Cell provider: "+pc.getDetails().get("cell_provider"):"");
-        viewHolder.txt_expen.setText(pc.getDetails().get("expenditure_mobile_phone")!=null?"Expenditure : "+pc.getDetails().get("expenditure_mobile_phone").replace("_"," "):"");
+        }
 
-        viewHolder.anc_tot.setText(pc.getDetails().get("attendance_at_posyandu")!=null?"Attendance :"+pc.getDetails().get("attendance_at_posyandu").replace("_"," "):"");
-        viewHolder.last_time.setText(pc.getDetails().get("last_time_to_posyandu")!=null?"Lastattended: "+pc.getDetails().get("last_time_to_posyandu").replace("_"," "):"");
-        viewHolder.services.setText(pc.getDetails().get("posyandu_service")!=null?"Services : "+pc.getDetails().get("posyandu_service").replace("_"," "):"");
-        viewHolder.distance.setText(pc.getDetails().get("nearest_puskesmas")!=null?"Distace : "+pc.getDetails().get("nearest_puskesmas"):"");
+        if(pc.getDetails().get("mobile_connectivity") != null || pc.getDetails().get("cell_provider") != null) {
+            viewHolder.edd.setText(pc.getDetails().get("mobile_connectivity") != null ? "Connectivity :" + pc.getDetails().get("mobile_connectivity").replace("_", " ") : "");
+            viewHolder.edd_due.setText(pc.getDetails().get("cell_provider") != null ? "Cell provider: " + pc.getDetails().get("cell_provider") : "");
+            viewHolder.txt_expen.setText(pc.getDetails().get("expenditure_mobile_phone") != null ? "Expenditure : " + pc.getDetails().get("expenditure_mobile_phone").replace("_", " ") : "");
+          //  viewHolder.pol1Logo.setVisibility(View.GONE);
+        }
+        else{
+            viewHolder.pol1Logo.setVisibility(View.VISIBLE);
+        //    viewHolder.pol1Logo.setBackgroundResource(R.mipmap.vacc_late);
+         //   viewHolder.connect.setWeightSum(40);
 
-        viewHolder.imm1.setText(pc.getDetails().get("immunization_knowlegde")!=null?"Immunzation Knowledge : "+pc.getDetails().get("immunization_knowlegde").replace("_"," "):"");
-        viewHolder.imm2.setText(pc.getDetails().get("source_of_information")!=null?"Source : "+pc.getDetails().get("source_of_information").replace("_"," "):"");
-        viewHolder.imm3.setText(pc.getDetails().get("have_mch_book")!=null?"MCH Book : "+pc.getDetails().get("have_mch_book").replace("_"," "):"");
-        viewHolder.imm4.setText(pc.getDetails().get("caregiver_understand")!=null?"Understand of Growht Chart : "+pc.getDetails().get("caregiver_understand"):"");
+        }
 
-
+        if(pc.getDetails().get("attendance_at_posyandu")!=null || pc.getDetails().get("last_time_to_posyandu")!=null) {
+            viewHolder.anc_tot.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Attendance :" + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
+            viewHolder.last_time.setText(pc.getDetails().get("last_time_to_posyandu") != null ? "Lastattended: " + pc.getDetails().get("last_time_to_posyandu").replace("_", " ") : "");
+            viewHolder.services.setText(pc.getDetails().get("posyandu_service") != null ? "Services : " + pc.getDetails().get("posyandu_service").replace("_", " ") : "");
+            viewHolder.distance.setText(pc.getDetails().get("nearest_puskesmas") != null ? "Distace : " + pc.getDetails().get("nearest_puskesmas") : "");
+        }
+        else{
+           // attend
+            viewHolder.attend.setVisibility(View.VISIBLE);
+        //    viewHolder.attend.setBackgroundResource(R.mipmap.vacc_late);
+        }
+        if(pc.getDetails().get("immunization_knowlegde")!=null) {
+          //  viewHolder.immulogo.setVisibility(View.GONE);
+            viewHolder.imm1.setText(pc.getDetails().get("immunization_knowlegde") != null ? "Immunzation Knowledge : " + pc.getDetails().get("immunization_knowlegde").replace("_", " ") : "");
+            viewHolder.imm2.setText(pc.getDetails().get("source_of_information") != null ? "Source : " + pc.getDetails().get("source_of_information").replace("_", " ") : "");
+            viewHolder.imm3.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book : " + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
+            viewHolder.imm4.setText(pc.getDetails().get("caregiver_understand") != null ? "Understand of Growht Chart : " + pc.getDetails().get("caregiver_understand") : "");
+        }
+        else{
+            // attend
+            viewHolder.immulogo.setVisibility(View.VISIBLE);
+         //   viewHolder.immulogo.setBackgroundResource(R.mipmap.vacc_late);
+        }
         /*//immunization
         if(pc.getDetails().get("tanggalpemberianimunisasiHb07")!=null){
             viewHolder.hb0_no.setVisibility(View.INVISIBLE);
@@ -289,12 +324,17 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         ImageView pol2_no;
         ImageView pol2_yes;
         ImageView pol3_no;
-        ImageView pol3_yes;
+        ImageView immulogo;
 
         TextView imm1;
         TextView imm2;
         TextView imm3;
         TextView imm4;
+        public LinearLayout id_detail_layout;
+        public LinearLayout connect;
+        public ImageView pol1Logo;
+        public ImageView detail_layout_logo;
+        public ImageView attend;
     }
 
 

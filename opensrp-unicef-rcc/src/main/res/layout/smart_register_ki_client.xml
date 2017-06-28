@@ -14,13 +14,18 @@
             android:layout_height="fill_parent"
             android:src="@color/smart_register_client_divider_color"/>
 
-    <RelativeLayout
-        android:id="@+id/id_detail_layout"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="150"
-        android:orientation="horizontal"
+        android:padding="5dp"
+        android:id="@+id/id_detail_layout"
         android:weightSum="1">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/label_no_ibu"
             android:layout_width="wrap_content"
@@ -29,24 +34,33 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="5dp"
             android:layout_marginTop="5dp"
-            android:text="Household size : "
+            android:text=""
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_layout_logo"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/vacc_late"
+              />
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/no_ibu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_no_ibu"
+
             android:paddingLeft="5dp"
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/label_unique_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/no_ibu"
+
             android:paddingLeft="5dp"
-            android:text="adult HH members : "
+            android:text=""
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -54,13 +68,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/ec_list_ec_no_view_weight"
-            android:layout_below="@+id/label_unique_id"
             android:paddingLeft="5dp"
-            android:text="3123142"
+            android:text=""
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
-
-
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <ImageView
         android:layout_width="@dimen/smart_register_client_divider_height"
@@ -79,11 +91,13 @@
         android:layout_height="fill_parent"
         android:layout_weight="170"
         android:padding="5dp"
+
         >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:id="@+id/connect"
             android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
 
@@ -93,13 +107,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pol1Logo"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/vacc_late"
+           />
             <TextView
                 android:id="@+id/txt_edd_due"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+
             <TextView
                 android:id="@+id/txt_expen"
                 android:layout_width="wrap_content"
@@ -141,7 +164,14 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/attend"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/vacc_late"
+              />
             <TextView
                 android:id="@+id/last_time"
                 android:layout_width="wrap_content"
@@ -190,7 +220,14 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/immulogo"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/vacc_late"
+                />
             <TextView
                 android:id="@+id/imm2"
                 android:layout_width="wrap_content"

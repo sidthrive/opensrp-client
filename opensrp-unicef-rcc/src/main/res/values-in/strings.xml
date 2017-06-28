@@ -18,7 +18,9 @@
     <string name="no_button_label">Tidak</string>
     <string name="anc_ke">ANC Ke:&#160;</string>
     <string name="sort_by_name_label_reverse">Nama (Z ke A)</string>
-    <string name="sort_by_wife_age_label">Umur</string>
+    <string name="sort_by_wife_age_label">Umur (Tua - Muda)</string>
+
+    <string name="sort_by_wife_age_label_rev">Umur (Muda - Tua)</string>
     <string name="sort_by_ec_number_label">EC Number</string>
     <string name="sort_by_date_of_delivery_label">Tanggal Persalinan</string>
     <string name="sort_by_sc_label">SC</string>

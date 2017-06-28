@@ -1,13 +1,17 @@
 package org.ei.opensrp.unicef.rcc.HH;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import org.ei.opensrp.Context;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.unicef.rcc.LoginActivity;
 import org.ei.opensrp.unicef.rcc.R;
@@ -32,6 +36,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static org.ei.opensrp.unicef.rcc.AllConstantsINA.FormNames.KARTU_IBU_CLOSE;
 import static org.ei.opensrp.unicef.rcc.AllConstantsINA.FormNames.KARTU_IBU_EDIT;
 import static org.ei.opensrp.unicef.rcc.AllConstantsINA.FormNames.KARTU_IBU_REGISTRATION;
@@ -146,7 +151,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
     }
     @Override
     public void saveFormSubmission(String formSubmission, String id, String formName, JSONObject fieldOverrides){
-        Log.v("fieldoverride", fieldOverrides.toString());
+       // Log.v("fieldoverride", fieldOverrides.toString());
         // save the form
         try{
             FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
@@ -172,7 +177,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        Log.v("fieldoverride", metaData);
+//        Log.v("fieldoverride", metaData);
         try {
             int formIndex = FormUtils.getIndexForFormName(formName, formNames) + 1; // add the offset
             if (entityId != null || metaData != null){
@@ -235,9 +240,54 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     @Override
     public void onBackPressed() {
-        if (currentPage != 0) {
-            switchToBaseFragment(null);
-        } else if (currentPage == 0) {
+
+        if (currentPage != 0){
+            retrieveAndSaveUnsubmittedFormData();
+            String BENGALI_LOCALE = "bn";
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(Context.getInstance().applicationContext()));
+
+            String preferredLocale = allSharedPreferences.fetchLanguagePreference();
+            if (BENGALI_LOCALE.equals(preferredLocale)) {
+                new AlertDialog.Builder(this)
+                        .setMessage("আপনি কি নিশ্চিত যে আপনি ফর্ম থেকে বের হয়ে যেতে চান? ")
+                        .setTitle("ফর্ম বন্ধ নিশ্চিত করুন ")
+                        .setCancelable(false)
+                        .setPositiveButton("হাঁ",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                        switchToBaseFragment(null);
+                                    }
+                                })
+                        .setNegativeButton("না",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                    }
+                                })
+                        .show();
+            }else{
+                new AlertDialog.Builder(this)
+                        .setMessage(R.string.mcareform_back_confirm_dialog_message)
+                        .setTitle(R.string.mcareform_back_confirm_dialog_title)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.mcareyes_button_label,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                        switchToBaseFragment(null);
+                                    }
+                                })
+                        .setNegativeButton(R.string.mcareno_button_label,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                    }
+                                })
+                        .show();
+            }
+
+        }else if (currentPage == 0) {
             super.onBackPressed(); // allow back key only if we are
         }
     }
@@ -250,7 +300,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         formNames.add("immunization_coverage");
         formNames.add("household_character");
 
-        DialogOption[] options = getEditOptions();
+      //  DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {
        //     formNames.add(((OpenFormOption) options[i]).getFormName());
     //    }
