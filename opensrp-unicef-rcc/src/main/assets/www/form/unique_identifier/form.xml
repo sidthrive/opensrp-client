@@ -1,1 +1,163 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey">\n<!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.--><section class="form-logo"> </section><h3 dir="auto" id="form-title">RCC / Baseline Survey</h3>     <label class="question note non-select "><span lang="" class="question-label active">Province : <span class="or-output" data-value=" /RCC_Baseline_Survey/Province "> </span></span><input type="text" name="/RCC_Baseline_Survey/generated_note_name_23" data-type-xml="string" readonly="readonly"/></label>   <label class="question note non-select "><span lang="" class="question-label active">District : <span class="or-output" data-value=" /RCC_Baseline_Survey/District "> </span></span><input type="text" name="/RCC_Baseline_Survey/generated_note_name_24" data-type-xml="string" readonly="readonly"/></label>   <label class="question note non-select "><span lang="" class="question-label active">Sub District : <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-district "> </span></span><input type="text" name="/RCC_Baseline_Survey/generated_note_name_25" data-type-xml="string" readonly="readonly"/></label>   <label class="question note non-select "><span lang="" class="question-label active">Village : <span class="or-output" data-value=" /RCC_Baseline_Survey/Village "> </span></span><input type="text" name="/RCC_Baseline_Survey/generated_note_name_26" data-type-xml="string" readonly="readonly"/></label>   <label class="question note non-select "><span lang="" class="question-label active">Sub Village : <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-village "> </span></span><input type="text" name="/RCC_Baseline_Survey/generated_note_name_27" data-type-xml="string" readonly="readonly"/></label>   <label class="question or-appearance-minimal "><span lang="" class="question-label active">Age of child :</span><span lang="" class="or-hint active">(in completed months)</span><select name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" data-type-xml="select1"><option value="">...</option><option value="12">&lt;12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">&gt;23</option></select><span class="or-option-translations" style="display:none;">               </span></label>   <label class="question non-select "><span lang="" class="question-label active">Name of Respondent</span><input type="text" name="/RCC_Baseline_Survey/respondent_name" data-type-xml="string"/></label>   <label class="question or-appearance-minimal "><span lang="" class="question-label active">Relation to Child</span><select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" data-type-xml="select1"><option value="">...</option><option value="mother">Mother</option><option value="father">Father</option><option value="male-care_giver">Male-care Giver</option><option value="female-care_giver">Female-care Giver</option></select><span class="or-option-translations" style="display:none;">               </span></label>   <label class="question non-select "><span lang="" class="question-label active">Age of respondent (in completed years):</span><span lang="" class="or-hint active">(in completed years)</span><input type="number" name="/RCC_Baseline_Survey/respondent_age" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/><span lang="" class="or-constraint-msg active">Age Should be between 15 – 65</span></label>   <label class="question or-appearance-minimal "><span lang="" class="question-label active">Highest level of education of respondent (completed level):</span><select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" data-type-xml="select1"><option value="">...</option><option value="no_education">no education</option><option value="more_than_secondary">more than secondary</option><option value="some_primary">some primary</option><option value="completed_primary">completed primary</option><option value="completed_SMP">completed SMP</option><option value="completed_SMA">completed SMA</option></select><span class="or-option-translations" style="display:none;">               </span></label> \n<fieldset id="or-preload-items" style="display:none;"><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/></label><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/today" data-preload="date" data-preload-params="today" data-type-xml="date"/></label><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/simserial" data-preload="property" data-preload-params="simserial" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/phonenumber" data-preload="property" data-preload-params="phonenumber" data-type-xml="string"/></label></fieldset><fieldset id="or-calculated-items" style="display:none;"><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/></label><label class="calculation non-select "><input type="hidden" name="/RCC_Baseline_Survey/formhub/uuid" data-calculate="'002ea4e4f0224a80b5f41b0f23f704b5'" data-type-xml="string"/></label></fieldset></form>
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC - Unique identifier</h3>
+    <select id="form-languages" data-default-lang="en">
+        <option value="id" data-dir="ltr">Indonesia</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/generated_note_name_23:label">Provinsi :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Province "></span>
+        </span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/generated_note_name_23:label">Province :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Province "></span>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey/generated_note_name_23" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question note non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/generated_note_name_24:label">Kabupaten :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/District "></span>
+        </span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/generated_note_name_24:label">District :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/District "></span>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey/generated_note_name_24" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question note non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/generated_note_name_25:label">Kecamatan :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-district "></span>
+        </span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/generated_note_name_25:label">Sub District :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-district "></span>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey/generated_note_name_25" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question note non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/generated_note_name_26:label">Desa/Kelurahan :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Village "></span>
+        </span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/generated_note_name_26:label">Village :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Village "></span>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey/generated_note_name_26" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question note non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/generated_note_name_27:label">Dusun/RW :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-village "></span>
+        </span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/generated_note_name_27:label">Sub Village :
+            <span class="or-output" data-value=" /RCC_Baseline_Survey/Sub-village "></span>
+        </span>
+        <input type="text" name="/RCC_Baseline_Survey/generated_note_name_27" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/child_age:label">Usia anak:</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/child_age:label">Age of child :</span>
+        <span class="required">*</span>
+        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/child_age:hint">-</span>
+        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/child_age:hint">Count number of completed months since birth (e.g. if baby was born 3rd August 2016, then on July 25 2017, he she is 11 months old)</span>
+        <input type="number" name="/RCC_Baseline_Survey/child_age" data-required="true()" data-constraint=".&gt;11 and .&lt;24" data-type-xml="int"/>
+        <span lang="" class="or-constraint-msg active">the child should be ≥ 12 months and ≤ 23 months.</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/respondent_name:label">Nama Responden</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/respondent_name:label">Name of Respondent</span>
+        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/respondent_name:hint">-</span>
+        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/respondent_name:hint">Enter complete name: First, middle, last</span>
+        <input type="text" name="/RCC_Baseline_Survey/respondent_name" data-type-xml="string"/>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/relation_to_child:label">Hubungan dengan anak</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/relation_to_child:label">Relation to Child</span>
+        <span class="required">*</span>
+        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">-</span>
+        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">If the respondent is not the child’s mother or father, please select male-care giver or female-care giver, depending on the respondent’s sex.</span>
+        <select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" data-required="true()" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="mother">Mother</option>
+            <option value="father">Father</option>
+            <option value="male-care_giver">Male-care Giver</option>
+            <option value="female-care_giver">Female-care Giver</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="mother" lang="id">Ibu</span>
+            <span data-option-value="mother" lang="en">Mother</span>
+            <span data-option-value="father" lang="id">Ayah</span>
+            <span data-option-value="father" lang="en">Father</span>
+            <span data-option-value="male-care_giver" lang="id">Care taker (Pria)</span>
+            <span data-option-value="male-care_giver" lang="en">Male-care Giver</span>
+            <span data-option-value="female-care_giver" lang="id">Care taker (wanita)</span>
+            <span data-option-value="female-care_giver" lang="en">Female-care Giver</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/respondent_age:label">Usia Responden (dalam tahun)</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/respondent_age:label">Age of respondent (in completed years):</span>
+        <span class="required">*</span>
+        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">-</span>
+        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">Number of completed years since the respondent’s birth</span>
+        <input type="number" name="/RCC_Baseline_Survey/respondent_age" data-required="true()" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/>
+        <span lang="" class="or-constraint-msg active">Age Should be between 15 – 65</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Tingkat pendidikan tertinggi responden</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Highest level of education of respondent (completed level):</span>
+        <span class="required">*</span>
+        <select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" data-required="true()" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="no_education">no education</option>
+            <option value="more_than_secondary">more than secondary</option>
+            <option value="some_primary">some primary</option>
+            <option value="completed_primary">completed primary</option>
+            <option value="completed_SMP">completed SMP</option>
+            <option value="completed_SMA">completed SMA</option>
+            <option value="more_than_SMA">more than SMA</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="no_education" lang="id">Tidak Sekolah</span>
+            <span data-option-value="no_education" lang="en">no education</span>
+            <span data-option-value="more_than_secondary" lang="id">SD</span>
+            <span data-option-value="more_than_secondary" lang="en">more than secondary</span>
+            <span data-option-value="some_primary" lang="id">Lulus SD</span>
+            <span data-option-value="some_primary" lang="en">some primary</span>
+            <span data-option-value="completed_primary" lang="id">SMP</span>
+            <span data-option-value="completed_primary" lang="en">completed primary</span>
+            <span data-option-value="completed_SMP" lang="id">Lulus SMP</span>
+            <span data-option-value="completed_SMP" lang="en">completed SMP</span>
+            <span data-option-value="completed_SMA" lang="id">Lulus SMA</span>
+            <span data-option-value="completed_SMA" lang="en">completed SMA</span>
+            <span data-option-value="more_than_SMA" lang="id">Sarjana/Magister/Doktor</span>
+            <span data-option-value="more_than_SMA" lang="en">more than SMA</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/simserial" data-preload="property" data-preload-params="simserial" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/phonenumber" data-preload="property" data-preload-params="phonenumber" data-type-xml="string"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/RCC_Baseline_Survey/formhub/uuid" data-calculate="'002ea4e4f0224a80b5f41b0f23f704b5'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>
