@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.AllSharedPreferences;
@@ -31,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -114,10 +116,20 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
     }
 
     public DialogOption[] getEditOptions() {
+        HashMap<String,String> overridemap = new HashMap<String,String>();
+        CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+        String alertstate = "";
+        if(pc!=null) {
+        //    alertstate = getalertstateforcensus(pc);
+          //  overridemap.put("existing_ELCO", pc.getDetails().get("ELCO"));
+          //  overridemap.put("existing_location", pc.getDetails().get("existing_location"));
+          //  overridemap.put("current_formStatus", alertstate);
+        }
         return new DialogOption[]{
-                new OpenFormOption("Household Characteristic ", "household_character", formController),
-                new OpenFormOption("Health Seeking Behaviour", "health_seeking_behaviour", formController),
-                new OpenFormOption("Immunization Coverage ", "immunization_coverage", formController),
+               // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption("Household Characteristic ", "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption("Health Seeking Behaviour", "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption("Immunization Coverage ", "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                // new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
         };
 
