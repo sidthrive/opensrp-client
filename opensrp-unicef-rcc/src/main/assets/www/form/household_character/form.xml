@@ -882,7 +882,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
                 <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms:label">f. Berapa banyak ruangan di rumah yang digunakan untuk tidur</span>
@@ -916,7 +916,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
                 <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles:label">g. Apakah rumah tangga memiliki motor</span>
