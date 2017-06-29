@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201706200234">
+    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201706280823">
       <formhub>
         <uuid/>
       </formhub>
@@ -16,19 +16,35 @@
       <mobile_connectivity/>
       <phone_purpose/>
       <cell_provider/>
-      <generated_note_name_17/>
-      <expenditure_mobile_phone/>
-      <expenditure_electricity/>
-      <expenditure_food/>
-      <expenditure_consumer_goods/>
-      <generated_note_name_22/>
+      <generated_note_name_18/>
+      <flooring_area/>
+      <permanent_flooring/>
+      <permanent_wall/>
+      <electricity/>
+      <rent_own/>
+      <rental_cost/>
+      <dairy_product/>
+      <informal_income/>
+      <spent_on_food/>
+      <savings/>
+      <valuable_items/>
+      <generated_note_name_32/>
       <have_radio/>
       <have_tv/>
       <have_refrigerator/>
-      <have_toilet/>
       <have_separate_kitchen/>
       <number_of_rooms/>
       <number_of_motorcycles/>
+      <drink_water_source/>
+      <what_source/>
+      <have_toilet/>
+      <what_toilet/>
+      <what_toilet_other/>
+      <if_no_toilet/>
+      <if_no_toilet_other/>
+      <how_many_no_toliet/>
+      <baby_stools/>
+      <baby_stools_other/>
       <meta>
         <instanceID/>
       </meta>
