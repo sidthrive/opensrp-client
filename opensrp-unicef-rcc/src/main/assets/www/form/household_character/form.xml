@@ -1,4 +1,4 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_2">\n
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_2">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
     <h3 dir="auto" id="form-title">RCC - Household characteristics</h3>
@@ -17,57 +17,57 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="4" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="4" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/4:label">4</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/4:label">4</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="5" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="5" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/5:label">5</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/5:label">5</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="6" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="6" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/6:label">6</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/6:label">6</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="7" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="7" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/7:label">7</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/7:label">7</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="8" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="8" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/8:label">8</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/8:label">8</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="9" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="9" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/9:label">9</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/9:label">9</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/10:label">10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/10:label">10</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="&gt;10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/household_size" data-name="/RCC_Baseline_Survey_module_2/household_size" value="&gt;10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/household_size/&gt;10:label">&gt;10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/household_size/&gt;10:label">&gt;10</span>
                 </label>
@@ -93,57 +93,57 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="4" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="4" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/4:label">4</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/4:label">4</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="5" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="5" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/5:label">5</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/5:label">5</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="6" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="6" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/6:label">6</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/6:label">6</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="7" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="7" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/7:label">7</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/7:label">7</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="8" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="8" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/8:label">8</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/8:label">8</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="9" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="9" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/9:label">9</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/9:label">9</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/10:label">10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/10:label">10</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="&gt;10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/adult_hh_member" data-name="/RCC_Baseline_Survey_module_2/adult_hh_member" value="&gt;10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/&gt;10:label">&gt;10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/adult_hh_member/&gt;10:label">&gt;10</span>
                 </label>
@@ -160,57 +160,57 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="4" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="4" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/4:label">4</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/4:label">4</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="5" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="5" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/5:label">5</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/5:label">5</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="6" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="6" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/6:label">6</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/6:label">6</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="7" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="7" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/7:label">7</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/7:label">7</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="8" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="8" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/8:label">8</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/8:label">8</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="9" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="9" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/9:label">9</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/9:label">9</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/10:label">10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/10:label">10</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="&gt;10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_under_5" value="&gt;10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/&gt;10:label">&gt;10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_under_5/&gt;10:label">&gt;10</span>
                 </label>
@@ -227,57 +227,57 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="4" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="4" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/4:label">4</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/4:label">4</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="5" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="5" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/5:label">5</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/5:label">5</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="6" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="6" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/6:label">6</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/6:label">6</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="7" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="7" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/7:label">7</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/7:label">7</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="8" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="8" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/8:label">8</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/8:label">8</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="9" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="9" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/9:label">9</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/9:label">9</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/10:label">10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/10:label">10</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="&gt;10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" data-name="/RCC_Baseline_Survey_module_2/child_hh_member_6-14" value="&gt;10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/&gt;10:label">&gt;10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/child_hh_member_6-14/&gt;10:label">&gt;10</span>
                 </label>
@@ -294,57 +294,57 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="4" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="4" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/4:label">4</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/4:label">4</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="5" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="5" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/5:label">5</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/5:label">5</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="6" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="6" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/6:label">6</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/6:label">6</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="7" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="7" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/7:label">7</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/7:label">7</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="8" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="8" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/8:label">8</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/8:label">8</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="9" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="9" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/9:label">9</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/9:label">9</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/10:label">10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/10:label">10</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="&gt;10" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/elderly_hh_member" data-name="/RCC_Baseline_Survey_module_2/elderly_hh_member" value="&gt;10" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/&gt;10:label">&gt;10</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/elderly_hh_member/&gt;10:label">&gt;10</span>
                 </label>
@@ -363,17 +363,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="no_phone" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="no_phone" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/no_phone:label">tidak memiliki ponsel</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/no_phone:label">no phone</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="household_mobile_phone" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="household_mobile_phone" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/household_mobile_phone:label">telepon rumah tangga</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/household_mobile_phone:label">household mobile phone</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="respondents_own_mobile_phone" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/mobile_connectivity" data-name="/RCC_Baseline_Survey_module_2/mobile_connectivity" value="respondents_own_mobile_phone" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/respondents_own_mobile_phone:label">telepon genggam milik responden sendiri</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/mobile_connectivity/respondents_own_mobile_phone:label">respondent’s own mobile phone</span>
                 </label>
@@ -392,32 +392,32 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="Only_cellular_calling" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="Only_cellular_calling" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/Only_cellular_calling:label">Hanya panggilan seluler</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/Only_cellular_calling:label">Only cellular calling</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="only_cellular_text_messaging" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="only_cellular_text_messaging" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/only_cellular_text_messaging:label">hanya pesan teks seluler</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/only_cellular_text_messaging:label">only cellular text messaging</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="cellular_calling_and_text_messaging" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="cellular_calling_and_text_messaging" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/cellular_calling_and_text_messaging:label">panggilan seluler dan pesan teks</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/cellular_calling_and_text_messaging:label">cellular calling and text messaging</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="data_or_Wi-Fi_requiring_applications" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="data_or_Wi-Fi_requiring_applications" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/data_or_Wi-Fi_requiring_applications:label">data atau Wi-Fi yang memerlukan aplikasi (termasuk WhatsApp, Facebook, email, banking, browsing internet)</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/data_or_Wi-Fi_requiring_applications:label">data or Wi-Fi requiring applications (incl. WhatsApp, Facebook, email, banking, internet browsing)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="games_and_entertainment" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="games_and_entertainment" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/games_and_entertainment:label">Permainan dan hiburan (termasuk musik, foto, dll)</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/games_and_entertainment:label">games and entertainment (incl. music, photos, etc.)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="other" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="other" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/other:label">lainnya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/other:label">other</span>
                 </label>
@@ -436,32 +436,32 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Telkomsel" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Telkomsel" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Telkomsel:label">Telkomsel</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Telkomsel:label">Telkomsel</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="XL" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="XL" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/XL:label">XL</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/XL:label">XL</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Indosat" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Indosat" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Indosat:label">Indosat</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Indosat:label">Indosat</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Hutchison_Telecom" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Hutchison_Telecom" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Hutchison_Telecom:label">Hutchison Telecom</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Hutchison_Telecom:label">Hutchison Telecom</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Axis" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="Axis" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Axis:label">Axis</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/Axis:label">Axis</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="other" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="other" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/other:label">other</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/other:label">other</span>
                 </label>
@@ -489,12 +489,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/flooring_area" data-name="/RCC_Baseline_Survey_module_2/flooring_area" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/flooring_area" data-name="/RCC_Baseline_Survey_module_2/flooring_area" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/flooring_area/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/flooring_area/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/flooring_area" data-name="/RCC_Baseline_Survey_module_2/flooring_area" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/flooring_area" data-name="/RCC_Baseline_Survey_module_2/flooring_area" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/flooring_area/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/flooring_area/no:label">No</span>
                 </label>
@@ -513,12 +513,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_flooring" data-name="/RCC_Baseline_Survey_module_2/permanent_flooring" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_flooring" data-name="/RCC_Baseline_Survey_module_2/permanent_flooring" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/permanent_flooring/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/permanent_flooring/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_flooring" data-name="/RCC_Baseline_Survey_module_2/permanent_flooring" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_flooring" data-name="/RCC_Baseline_Survey_module_2/permanent_flooring" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/permanent_flooring/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/permanent_flooring/no:label">No</span>
                 </label>
@@ -537,12 +537,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_wall" data-name="/RCC_Baseline_Survey_module_2/permanent_wall" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_wall" data-name="/RCC_Baseline_Survey_module_2/permanent_wall" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/permanent_wall/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/permanent_wall/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_wall" data-name="/RCC_Baseline_Survey_module_2/permanent_wall" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/permanent_wall" data-name="/RCC_Baseline_Survey_module_2/permanent_wall" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/permanent_wall/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/permanent_wall/no:label">No</span>
                 </label>
@@ -561,12 +561,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/electricity" data-name="/RCC_Baseline_Survey_module_2/electricity" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/electricity" data-name="/RCC_Baseline_Survey_module_2/electricity" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/electricity/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/electricity/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/electricity" data-name="/RCC_Baseline_Survey_module_2/electricity" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/electricity" data-name="/RCC_Baseline_Survey_module_2/electricity" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/electricity/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/electricity/no:label">No</span>
                 </label>
@@ -585,12 +585,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/rent_own" data-name="/RCC_Baseline_Survey_module_2/rent_own" value="rent" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/rent_own" data-name="/RCC_Baseline_Survey_module_2/rent_own" value="rent" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/rent_own/rent:label">Rumah sewa</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/rent_own/rent:label">rent</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/rent_own" data-name="/RCC_Baseline_Survey_module_2/rent_own" value="own" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/rent_own" data-name="/RCC_Baseline_Survey_module_2/rent_own" value="own" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/rent_own/own:label">Rumah milik</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/rent_own/own:label">own</span>
                 </label>
@@ -604,7 +604,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_2/rental_cost:hint">-</span>
         <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_2/rental_cost:hint">If the respondent does not know the monthly rate, but gives another rental rate (i.e. yearly, bi-weekly), enumerator should calculate the monthly rate</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_2/rental_cost" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/rent_own  = 'rent'" data-type-xml="int"/>
+        <input type="number" name="/RCC_Baseline_Survey_module_2/rental_cost" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/rent_own  = 'rent'" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-appearance-horizontal ">
@@ -618,42 +618,42 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_all_products_(beef_milk_poultry)" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_all_products_(beef_milk_poultry)" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_all_products_(beef_milk_poultry):label">Ya, semua produk (daging sapi, susu, unggas)</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_all_products_(beef_milk_poultry):label">Yes, all products (beef, milk, poultry)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_beef_and_milk" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_beef_and_milk" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_beef_and_milk:label">Ya, daging sapi maupun susu</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_beef_and_milk:label">Yes, both beef and milk</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_beef_and_poultry" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_beef_and_poultry" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_beef_and_poultry:label">Ya, daging sapi maupun unggas</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_beef_and_poultry:label">Yes, both beef and poultry</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_milk_and_poultry" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_both_milk_and_poultry" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_milk_and_poultry:label">Ya, susu maupun unggas</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_both_milk_and_poultry:label">Yes, both milk and poultry</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_beef_only" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_beef_only" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_beef_only:label">ya, daging sapi saja</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_beef_only:label">Yes, beef only</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_milk_only" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_milk_only" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_milk_only:label">ya, susu saja</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_milk_only:label">Yes, milk only</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_poultry_only" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="Yes_poultry_only" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_poultry_only:label">ya, unggas saja</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/Yes_poultry_only:label">Yes, poultry only</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/dairy_product" data-name="/RCC_Baseline_Survey_module_2/dairy_product" value="No" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/No:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/dairy_product/No:label">No</span>
                 </label>
@@ -672,12 +672,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/informal_income" data-name="/RCC_Baseline_Survey_module_2/informal_income" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/informal_income" data-name="/RCC_Baseline_Survey_module_2/informal_income" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/informal_income/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/informal_income/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/informal_income" data-name="/RCC_Baseline_Survey_module_2/informal_income" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/informal_income" data-name="/RCC_Baseline_Survey_module_2/informal_income" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/informal_income/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/informal_income/no:label">No</span>
                 </label>
@@ -696,27 +696,27 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="&lt;20%" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="&lt;20%" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/&lt;20%:label">&lt;20%</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/&lt;20%:label">&lt;20%</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="21-40%" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="21-40%" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/21-40%:label">21-40%</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/21-40%:label">21-40%</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="41-60%" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="41-60%" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/41-60%:label">41-60%</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/41-60%:label">41-60%</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="61-80%" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="61-80%" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/61-80%:label">61-80%</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/61-80%:label">61-80%</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="&gt;80%" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/spent_on_food" data-name="/RCC_Baseline_Survey_module_2/spent_on_food" value="&gt;80%" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/&gt;80%:label">&gt;80%</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/spent_on_food/&gt;80%:label">&gt;80%</span>
                 </label>
@@ -735,12 +735,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/savings" data-name="/RCC_Baseline_Survey_module_2/savings" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/savings" data-name="/RCC_Baseline_Survey_module_2/savings" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/savings/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/savings/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/savings" data-name="/RCC_Baseline_Survey_module_2/savings" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/savings" data-name="/RCC_Baseline_Survey_module_2/savings" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/savings/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/savings/no:label">No</span>
                 </label>
@@ -759,12 +759,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/valuable_items" data-name="/RCC_Baseline_Survey_module_2/valuable_items" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/valuable_items" data-name="/RCC_Baseline_Survey_module_2/valuable_items" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/valuable_items/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/valuable_items/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/valuable_items" data-name="/RCC_Baseline_Survey_module_2/valuable_items" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/valuable_items" data-name="/RCC_Baseline_Survey_module_2/valuable_items" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/valuable_items/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/valuable_items/no:label">No</span>
                 </label>
@@ -792,12 +792,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_radio" data-name="/RCC_Baseline_Survey_module_2/have_radio" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_radio" data-name="/RCC_Baseline_Survey_module_2/have_radio" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_radio/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_radio/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_radio" data-name="/RCC_Baseline_Survey_module_2/have_radio" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_radio" data-name="/RCC_Baseline_Survey_module_2/have_radio" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_radio/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_radio/no:label">No</span>
                 </label>
@@ -816,12 +816,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_tv" data-name="/RCC_Baseline_Survey_module_2/have_tv" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_tv" data-name="/RCC_Baseline_Survey_module_2/have_tv" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_tv/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_tv/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_tv" data-name="/RCC_Baseline_Survey_module_2/have_tv" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_tv" data-name="/RCC_Baseline_Survey_module_2/have_tv" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_tv/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_tv/no:label">No</span>
                 </label>
@@ -840,17 +840,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="yes_big" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="yes_big" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/yes_big:label">Ya, besar</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/yes_big:label">Yes, big</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="yes_small" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="yes_small" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/yes_small:label">Ya, kecil</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/yes_small:label">Yes, small</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_refrigerator" data-name="/RCC_Baseline_Survey_module_2/have_refrigerator" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_refrigerator/no:label">No</span>
                 </label>
@@ -869,12 +869,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_separate_kitchen/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_separate_kitchen/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" data-name="/RCC_Baseline_Survey_module_2/have_separate_kitchen" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_separate_kitchen/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_separate_kitchen/no:label">No</span>
                 </label>
@@ -893,22 +893,22 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="&gt;3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_rooms" data-name="/RCC_Baseline_Survey_module_2/number_of_rooms" value="&gt;3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/&gt;3:label">&gt;3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_rooms/&gt;3:label">&gt;3</span>
                 </label>
@@ -927,27 +927,27 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="0" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="0" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/0:label">0</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/0:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/1:label">1</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="2" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="2" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/2:label">2</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/2:label">2</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/3:label">3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/3:label">3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="&gt;3" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" data-name="/RCC_Baseline_Survey_module_2/number_of_motorcycles" value="&gt;3" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/&gt;3:label">&gt;3</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/number_of_motorcycles/&gt;3:label">&gt;3</span>
                 </label>
@@ -964,77 +964,77 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Branded_bottled_water_" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Branded_bottled_water_" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Branded_bottled_water_:label">Air kemasan bermerk</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Branded_bottled_water_:label">Branded bottled water</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Recharge_water" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Recharge_water" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Recharge_water:label">Air isi ulang</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Recharge_water:label">Recharge water</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Tap_water_is_supplied_to_the_house" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Tap_water_is_supplied_to_the_house" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Tap_water_is_supplied_to_the_house:label">Air leding disalurkan ke rumah</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Tap_water_is_supplied_to_the_house:label">Tap water is supplied to the house</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_from_the_neighbor" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_from_the_neighbor" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_from_the_neighbor:label">Air leding dari tetangga</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_from_the_neighbor:label">Water from the neighbor</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_from_tap_/_hydrant_common" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_from_tap_/_hydrant_common" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_from_tap_/_hydrant_common:label">Air leding dari kran/hidran umum</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_from_tap_/_hydrant_common:label">Water from tap / hydrant common</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Drilling_wells_/_pump" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Drilling_wells_/_pump" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Drilling_wells_/_pump:label">Sumur bor/pompa</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Drilling_wells_/_pump:label">Drilling wells / pump</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Dug_well_–_Protected" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Dug_well_–_Protected" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Dug_well_–_Protected:label">Sumur gali, Terlindung</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Dug_well_–_Protected:label">Dug well – Protected</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Dug_well_–_Unprotected" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Dug_well_–_Unprotected" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Dug_well_–_Unprotected:label">Sumur gali,  Tak terlindung</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Dug_well_–_Unprotected:label">Dug well – Unprotected</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_springs_-_Sheltered_spring" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_springs_-_Sheltered_spring" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_springs_-_Sheltered_spring:label">Mata air terlindung</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_springs_-_Sheltered_spring:label">Water springs - Sheltered spring</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_springs_The_spring_is_not_protected" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Water_springs_The_spring_is_not_protected" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_springs_The_spring_is_not_protected:label">Mata air tidak terlindung</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Water_springs_The_spring_is_not_protected:label">Water springs The spring is not protected</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Surface_water_(rivers_streamsDams_lakes_ponds_canalsIrrigation_channels)" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Surface_water_(rivers_streamsDams_lakes_ponds_canalsIrrigation_channels)" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Surface_water_(rivers_streamsDams_lakes_ponds_canalsIrrigation_channels):label">Air permukaan (sungai, sungai kecil,  bendungan, danau, kolam, kanal, saluran irigasi )</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Surface_water_(rivers_streamsDams_lakes_ponds_canalsIrrigation_channels):label">Surface water (rivers, streams,Dams, lakes, ponds, canals,Irrigation channels)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Rainwater_shelter_" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Rainwater_shelter_" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Rainwater_shelter_:label">Penampungan air hujan</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Rainwater_shelter_:label">Rainwater shelter</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Tanker" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Tanker" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Tanker:label">Truk tangki</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Tanker:label">Tanker</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Carts_with_jerry_/_tank_/_Small_drum" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Carts_with_jerry_/_tank_/_Small_drum" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Carts_with_jerry_/_tank_/_Small_drum:label">Gerobak dengan jerigen/tangki/drum kecil</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Carts_with_jerry_/_tank_/_Small_drum:label">Carts with jerry / tank / Small drum</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Other" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/drink_water_source" data-name="/RCC_Baseline_Survey_module_2/drink_water_source" value="Other" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Other:label">Lainnya (sebutkan__________)</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/drink_water_source/Other:label">Others (specify __________)</span>
                 </label>
@@ -1052,7 +1052,7 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/what_source" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/drink_water_source  = 'Other'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/what_source" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/drink_water_source  = 'Other'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
@@ -1064,12 +1064,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_toilet" data-name="/RCC_Baseline_Survey_module_2/have_toilet" value="yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_toilet" data-name="/RCC_Baseline_Survey_module_2/have_toilet" value="yes" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_toilet/yes:label">Ya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_toilet/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_toilet" data-name="/RCC_Baseline_Survey_module_2/have_toilet" value="no" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/have_toilet" data-name="/RCC_Baseline_Survey_module_2/have_toilet" value="no" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/have_toilet/no:label">Tidak</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/have_toilet/no:label">No</span>
                 </label>
@@ -1088,62 +1088,62 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flush_or_Pour_Flush_Toilet" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flush_or_Pour_Flush_Toilet" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flush_or_Pour_Flush_Toilet:label">Jamban/ toilet/ wc yang disiram dengan air</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flush_or_Pour_Flush_Toilet:label">Flush or Pour Flush Toilet</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_piped_sewer_system" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_piped_sewer_system" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_piped_sewer_system:label">Jamban/ toilet/ wc siram dengan system pembuangan lewat pipa</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_piped_sewer_system:label">Flushed to piped sewer system</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_septic_tank" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_septic_tank" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_septic_tank:label">Jamban/ toilet/ wc siram, dengan pembuangan ke septitank</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_septic_tank:label">Flushed to septic tank</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_pit_latrine" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flushed_to_pit_latrine" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_pit_latrine:label">Cubluk/Jamban/ toilet/ wc siram Sederhana tanpa tangki</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flushed_to_pit_latrine:label">Flushed to pit latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flush_dont_know_where" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Flush_dont_know_where" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flush_dont_know_where:label">Jamban/ toilet/ wc siram, tapi tidak tahu kemana pembuangannya</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Flush_dont_know_where:label">Flush, don’t know where</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_Latrine" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_Latrine" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_Latrine:label">Jamban/ toilet/ wc sederhana/ cubluk</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_Latrine:label">Pit Latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="VIP_latrine" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="VIP_latrine" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/VIP_latrine:label">Jamban/ toilet/ wc sederhana/cubluk dengan lubang berventilasi</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/VIP_latrine:label">VIP latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_latrine_with_slab_(concrete_wood/bamboo)" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_latrine_with_slab_(concrete_wood/bamboo)" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_latrine_with_slab_(concrete_wood/bamboo):label">Jamban/ toilet/ wc sederhana/cubluk dengan penutup atas (campuran semen, kayu/bambu)</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_latrine_with_slab_(concrete_wood/bamboo):label">Pit latrine with slab (concrete, wood/bamboo)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_latrine_without_slab/open_pit" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Pit_latrine_without_slab/open_pit" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_latrine_without_slab/open_pit:label">Jamban/ toilet/ wc sederhana/cubluk tanpa penutup atas</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Pit_latrine_without_slab/open_pit:label">Pit latrine without slab/open pit</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Composting_toilet" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Composting_toilet" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Composting_toilet:label">Jamban/ toilet/ wc dengan system kompos</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Composting_toilet:label">Composting toilet</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Refused/Not_able_to_observe" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Refused/Not_able_to_observe" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Refused/Not_able_to_observe:label">Menolak/ tidak dapat diobservasi</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Refused/Not_able_to_observe:label">Refused/Not able to observe</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Other" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/what_toilet" data-name="/RCC_Baseline_Survey_module_2/what_toilet" value="Other" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'yes'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Other:label">Lainnya, sebutkan ______</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/what_toilet/Other:label">Other (specify)</span>
                 </label>
@@ -1161,7 +1161,7 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/what_toilet_other" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/what_toilet  = 'Other'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/what_toilet_other" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/what_toilet  = 'Other'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
@@ -1173,52 +1173,52 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Bush/Field" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Bush/Field" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Bush/Field:label">Di semak belukar/ lapangan</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Bush/Field:label">Bush/Field</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Animal_pen" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Animal_pen" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Animal_pen:label">Di kandang</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Animal_pen:label">Animal pen</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Fish_Pond" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Fish_Pond" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Fish_Pond:label">Di kolam ikan</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Fish_Pond:label">Fish Pond</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="River" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="River" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/River:label">Di sungai</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/River:label">River</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Rail_road" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Rail_road" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Rail_road:label">Di rel kereta</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Rail_road:label">Rail road</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Behind_our_house" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Behind_our_house" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Behind_our_house:label">Di belakang rumah</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Behind_our_house:label">Behind our house</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Neighboorhood_toilet" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Neighboorhood_toilet" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Neighboorhood_toilet:label">Jamban Tetangga</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Neighboorhood_toilet:label">Neighboorhood toilet</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Communal_latrine" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Communal_latrine" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Communal_latrine:label">Jamban Umum</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Communal_latrine:label">Communal latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Dont_know/Refused" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Dont_know/Refused" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Dont_know/Refused:label">Tidak tahu/ Menolak untuk menjawab</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Dont_know/Refused:label">Don’t know/Refused</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Other" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="Other" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = 'no'" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Other:label">Lainnya, sebutkan __</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/Other:label">Other</span>
                 </label>
@@ -1236,14 +1236,14 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/if_no_toilet_other" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/if_no_toilet  = 'Other'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/if_no_toilet_other" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/if_no_toilet  = 'Other'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">
         <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_2/how_many_no_toliet:label">12. Berapa banyak orang dalam rumah tangga Anda yang secara teratur buang air besar di jalan semak / lapangan / sungai / kolam / kereta api (bukan di toilet)?</span>
         <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_2/how_many_no_toliet:label">12. How many people within your household regularly defecate in the bush / field / river / pond/ rail road (not in toilet)?</span>
         <span class="required">*</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_2/how_many_no_toliet" data-required="true()" data-type-xml="int"/>
+        <input type="number" name="/RCC_Baseline_Survey_module_2/how_many_no_toliet" required="required" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-appearance-horizontal ">
@@ -1257,37 +1257,37 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_toilet_facility/latrine" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_toilet_facility/latrine" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_toilet_facility/latrine:label">Dibuang di toilet/ jamban/ toilet/ wc</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_toilet_facility/latrine:label">Thrown in toilet facility/latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_the_bushes/field/animal_pen_river/beach/drain" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_the_bushes/field/animal_pen_river/beach/drain" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_the_bushes/field/animal_pen_river/beach/drain:label">Dibuang ke dalam semak-semak / ladang/ kandang hewan, sungai/ pantai/ saluran/ got</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_the_bushes/field/animal_pen_river/beach/drain:label">Thrown in the bushes/field/animal pen river/beach/drain</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Not_disposed_of/left_on_the_ground" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Not_disposed_of/left_on_the_ground" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Not_disposed_of/left_on_the_ground:label">Tidak dibuang/ ditinggalkan di permukaan tanah</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Not_disposed_of/left_on_the_ground:label">Not disposed of/left on the ground</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Buried_in_yard/field" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Buried_in_yard/field" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Buried_in_yard/field:label">Dikubur di halaman/ ladang</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Buried_in_yard/field:label">Buried in yard/field</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_garbage/rubbish_bin" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Thrown_in_garbage/rubbish_bin" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_garbage/rubbish_bin:label">Dibuang di tempat sampah</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Thrown_in_garbage/rubbish_bin:label">Thrown in garbage/rubbish bin</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Dont_know" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Dont_know" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Dont_know:label">Tidak tahu</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Dont_know:label">Don’t know</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Other" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="Other" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Other:label">Lainnya, sebutkan _____</span>
                     <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/Other:label">Other</span>
                 </label>
@@ -1305,9 +1305,9 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/baby_stools_other" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_2/baby_stools  = 'Other'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/baby_stools_other" required="required" data-relevant=" /RCC_Baseline_Survey_module_2/baby_stools  = 'Other'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
-    </label> \n
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/RCC_Baseline_Survey_module_2/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>

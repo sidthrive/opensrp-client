@@ -57,7 +57,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/child_age:hint">-</span>
         <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/child_age:hint">Count number of completed months since birth (e.g. if baby was born 3rd August 2016, then on July 25 2017, he she is 11 months old)</span>
-        <input type="number" name="/RCC_Baseline_Survey/child_age" data-required="true()" data-constraint=".&gt;11 and .&lt;24" data-type-xml="int"/>
+        <input type="number" name="/RCC_Baseline_Survey/child_age" required="required" data-constraint=".&gt;11 and .&lt;24" data-type-xml="int"/>
         <span lang="" class="or-constraint-msg active">the child should be ≥ 12 months and ≤ 23 months.</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -74,7 +74,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">-</span>
         <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">If the respondent is not the child’s mother or father, please select male-care giver or female-care giver, depending on the respondent’s sex.</span>
-        <select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" data-required="true()" data-type-xml="select1">
+        <select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" required="required" data-type-xml="select1">
             <option value="">...</option>
             <option value="mother">Mother</option>
             <option value="father">Father</option>
@@ -99,7 +99,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">-</span>
         <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">Number of completed years since the respondent’s birth</span>
-        <input type="number" name="/RCC_Baseline_Survey/respondent_age" data-required="true()" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/>
+        <input type="number" name="/RCC_Baseline_Survey/respondent_age" required="required" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/>
         <span lang="" class="or-constraint-msg active">Age Should be between 15 – 65</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -107,7 +107,7 @@
         <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Tingkat pendidikan tertinggi responden</span>
         <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Highest level of education of respondent (completed level):</span>
         <span class="required">*</span>
-        <select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" data-required="true()" data-type-xml="select1">
+        <select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" required="required" data-type-xml="select1">
             <option value="">...</option>
             <option value="no_education">no education</option>
             <option value="more_than_secondary">more than secondary</option>
