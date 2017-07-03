@@ -1,0 +1,36 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_6/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "attitude_1",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/attitude_1"
+      },
+      {
+        "name": "attitude_2",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/attitude_2",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "attitude_3",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/attitude_3",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "attitude_4",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/attitude_4",
+        "shouldLoadValue": true
+      }, 
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/today"
+      }
+    ]
+  }
+}

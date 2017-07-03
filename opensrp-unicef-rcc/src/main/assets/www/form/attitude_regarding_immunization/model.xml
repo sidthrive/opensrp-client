@@ -1,0 +1,19 @@
+<model>
+  <instance>
+    <rcc_baseline_survey_module_6 id="rcc_baseline_survey_module_6" version="201707030515">
+    <formhub>
+      <uuid/>
+    </formhub>
+    <start/>
+    <deviceid/>
+    <today/>
+    <attitude_1/>
+    <attitude_2/>
+    <attitude_3/>
+    <attitude_4/>
+    <meta>
+      <instanceID/>
+    </meta>
+  </rcc_baseline_survey_module_6>
+</instance>
+    </model>
