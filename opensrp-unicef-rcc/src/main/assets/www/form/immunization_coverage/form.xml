@@ -1,120 +1,124 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_4">\n
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_4">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 dir="auto" id="form-title">RCC / Immunization coverage</h3>
+    <h3 dir="auto" id="form-title">RCC - Immunization coverage</h3>
+    <select id="form-languages" data-default-lang="en">
+        <option value="id" data-dir="ltr">Indonesia</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
     <label class="question or-appearance-minimal ">
-        <span lang="" class="question-label active">1. Do you know about immunization:</span>
-        <select name="/RCC_Baseline_Survey_module_4/immunization_knowlegde" data-name="/RCC_Baseline_Survey_module_4/immunization_knowlegde" data-type-xml="select1">
-            <option value="">...</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-        <span class="or-option-translations" style="display:none;">               </span>
-    </label>
-    <label class="question or-appearance-minimal ">
-        <span lang="" class="question-label active">2. Source of information regarding immunization:</span>
-        <select name="/RCC_Baseline_Survey_module_4/source_of_information" data-name="/RCC_Baseline_Survey_module_4/source_of_information" data-type-xml="select1">
-            <option value="">...</option>
-            <option value="Health_workers">Health workers</option>
-            <option value="Cadre">Cadre</option>
-            <option value="School">School</option>
-            <option value="Religious_leader">Religious leader</option>
-            <option value="Mosque">Mosque</option>
-            <option value="Church">Church</option>
-            <option value="Friend/neighbors">Friend/neighbors</option>
-            <option value="TV">TV</option>
-            <option value="Radio">Radio</option>
-            <option value="Newspaper">Newspaper</option>
-            <option value="Flier/leaflet">Flier/leaflet</option>
-            <option value="Banner">Banner</option>
-            <option value="Poster">Poster</option>
-            <option value="others">others</option>
-        </select>
-        <span class="or-option-translations" style="display:none;">               </span>
-    </label>
-    <label class="question or-appearance-minimal ">
-        <span lang="" class="question-label active">3. Do you have an MCH book for this child:</span>
-        <select name="/RCC_Baseline_Survey_module_4/have_mch_book" data-name="/RCC_Baseline_Survey_module_4/have_mch_book" data-type-xml="select1">
+        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/have_mch_book:label">1. Apakah Anda memiliki buku KIA untuk anak</span>
+        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/have_mch_book:label">1. Do you have an MCH book for this child:</span>
+        <span class="required">*</span>
+        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_4/have_mch_book:hint">-</span>
+        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_4/have_mch_book:hint">If the respondent answers yes, ask her/him if you can see it. If s/he shows the MCH book, select ‘Yes, shown’. If s/he does not show the MCH book (for whatever reason), select ‘yes, not shown’</span>
+        <select name="/RCC_Baseline_Survey_module_4/have_mch_book" data-name="/RCC_Baseline_Survey_module_4/have_mch_book" data-required="true()" data-type-xml="select1">
             <option value="">...</option>
             <option value="Yes_shown">Yes, shown</option>
             <option value="Yes_not_shown">Yes, not shown</option>
             <option value="No">No</option>
         </select>
-        <span class="or-option-translations" style="display:none;">               </span>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="Yes_shown" lang="id">Ya, ditampilkan</span>
+            <span data-option-value="Yes_shown" lang="en">Yes, shown</span>
+            <span data-option-value="Yes_not_shown" lang="id">Ya, tidak ditunjukkan</span>
+            <span data-option-value="Yes_not_shown" lang="en">Yes, not shown</span>
+            <span data-option-value="No" lang="id">Tidak</span>
+            <span data-option-value="No" lang="en">No</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <section class="or-group-data or-branch pre-init " name="/RCC_Baseline_Survey_module_4/if_have_mch_book" data-relevant="selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'Yes_shown')">
-        <fieldset class="question simple-select ">
+        <label class="question or-appearance-minimal ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book:label">2. Dimana buku pegangan KIA Anda / siapa yang menyimpan buku pedoman KIA Anda</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book:label">2. Where is your MCH handbook/Who keeps your MCH handbook?</span>
+            <span class="required">*</span>
+            <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book:hint">-</span>
+            <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book:hint">If the respondent has the child’s MCH book, ask her/him who regular holds the book</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book" data-required="true()" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Self">Self</option>
+                <option value="Midwives">Midwives</option>
+                <option value="Puskesmas">Puskesmas</option>
+                <option value="Other">Other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Self" lang="id">Disimpan sendiri</span>
+                <span data-option-value="Self" lang="en">Self</span>
+                <span data-option-value="Midwives" lang="id">Bidan</span>
+                <span data-option-value="Midwives" lang="en">Midwives</span>
+                <span data-option-value="Puskesmas" lang="id">Puskesmas</span>
+                <span data-option-value="Puskesmas" lang="en">Puskesmas</span>
+                <span data-option-value="Other" lang="id">Lainnya</span>
+                <span data-option-value="Other" lang="en">Other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question note non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine:label">
+                <h5>3. Data dari buku KIA</h5>
+            </span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine:label">
+                <h5>3. Data from MCH book:</h5>
+            </span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" data-type-xml="string" readonly="readonly"/>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
             <fieldset>
                 <legend>
-                    <span lang="" class="question-label active">4. Data from MCH book:</span>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg:label">BCG</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg:label">BCG</span>
+                    <span class="required">*</span>
                 </legend>
                 <div class="option-wrapper">
                     <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="BCG" data-type-xml="select"/>
-                        <span lang="" class="option-label active">BCG</span>
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg/yes:label">Yes</span>
                     </label>
                     <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-0_(birth)" data-type-xml="select"/>
-                        <span lang="" class="option-label active">HepB-0 (birth)</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-2" data-type-xml="select"/>
-                        <span lang="" class="option-label active">HepB-2</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="HepB-3" data-type-xml="select"/>
-                        <span lang="" class="option-label active">HepB-3</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-1" data-type-xml="select"/>
-                        <span lang="" class="option-label active">DPT-1</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-2" data-type-xml="select"/>
-                        <span lang="" class="option-label active">DPT-2</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="DPT-3" data-type-xml="select"/>
-                        <span lang="" class="option-label active">DPT-3</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-0_(birth)" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Polio-0 (birth)</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-1" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Polio-1</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-2" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Polio-2</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Polio-3" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Polio-3</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Measles-1" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Measles-1</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Measles-2" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Measles-2</span>
-                    </label>
-                    <label class="">
-                        <input type="checkbox" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine" value="Other" data-type-xml="select"/>
-                        <span lang="" class="option-label active">Other</span>
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg/no:label">No</span>
                     </label>
                 </div>
             </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown:label">BCG Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown:label">BCG Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/bcg ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/bcg ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </fieldset>
         <label class="question or-branch pre-init non-select ">
-            <span lang="" class="question-label active">other</span>
-            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vaccine" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Other')" data-type-xml="string"/>
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal  or-branch pre-init ">
-            <span lang="" class="question-label active">5. Reasons for not being immunized:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/reason2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/reason2" data-relevant="not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'BCG')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-0_(birth)')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'HepB-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'DPT-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-0_(birth)')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-2')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Polio-3')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Measles-1')) or not(selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine ,'Measles-2'))" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/bcg ,'no')" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
                 <option value="The_child_was_sick">The child was sick</option>
@@ -125,63 +129,1192 @@
                 <option value="Afraid_of_immunization">Afraid of immunization</option>
                 <option value="other">other</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0:label">HepB-0 (kelahiran)</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0:label">HepB-0 (birth)</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown:label">HepB-0 (kelahiran) Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown:label">HepB-0 (birth) Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
         <label class="question or-branch pre-init non-select ">
-            <span lang="" class="question-label active">other</span>
-            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_reason" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/reason2 ,'other')" data-type-xml="string"/>
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1:label">HepB-2</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1:label">HepB-2</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown:label">HepB-2 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown:label">HepB-2 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2:label">HepB-3</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2:label">HepB-3</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown:label">HepB-3 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown:label">HepB-3 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1:label">DPT-1</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1:label">DPT-1</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown:label">DPT-1 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown:label">DPT-1 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2:label">DPT-2</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2:label">DPT-2</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown:label">DPT-2 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown:label">DPT-2 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3:label">DPT-3</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3:label">DPT-3</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown:label">DPT-3 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown:label">DPT-3 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0:label">Polio-0 (kelahiran)</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0:label">Polio-0 (birth)</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown:label">Polio-0 (kelahiran) Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown:label">Polio-0 (birth) Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1:label">Polio-1</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1:label">Polio-1</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown:label">Polio-1 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown:label">Polio-1 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2:label">Polio-2</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2:label">Polio-2</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown:label">Polio-2 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown:label">Polio-2 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3:label">Polio-3</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3:label">Polio-3</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown:label">Polio-3 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown:label">Polio-3 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1:label">Campak-1</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1:label">Measles-1</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown:label">Campak-1 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown:label">Measles-1 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <fieldset class="question simple-select or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2:label">Campak-2</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2:label">Measles-2</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2" value="yes" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2/yes:label">Ya</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2/yes:label">Yes</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2" value="no" data-required="true()" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2/no:label">Tidak</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2/no:label">No</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown:label">Campak-2 Tanggal</span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown:label">Measles-2 Date</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown" value="set_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown" value="dont_know" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2 ,'yes')" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_reason:label">Alasan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_reason:label">Reason</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_reason" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_reason" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2 ,'no')" data-type-xml="select1">
+                <option value="">...</option>
+                <option value="Dont_know_on_the_importance_of_immunization">Don't know on the importance of immunization</option>
+                <option value="The_child_was_sick">The child was sick</option>
+                <option value="Parents_busy">Parents busy</option>
+                <option value="Health_worker_advise_not_to_ immunize_the_child">Health worker advise not to  immunize the child</option>
+                <option value="Dont_believe_it">Don't believe it</option>
+                <option value="False_contra-indication">False contra-indication</option>
+                <option value="Afraid_of_immunization">Afraid of immunization</option>
+                <option value="other">other</option>
+            </select>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="id">Tidak tahu pentingnya imunisasi</span>
+                <span data-option-value="Dont_know_on_the_importance_of_immunization" lang="en">Don't know on the importance of immunization</span>
+                <span data-option-value="The_child_was_sick" lang="id">Anak sedang sakit</span>
+                <span data-option-value="The_child_was_sick" lang="en">The child was sick</span>
+                <span data-option-value="Parents_busy" lang="id">orangtua sibuk</span>
+                <span data-option-value="Parents_busy" lang="en">Parents busy</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="id">Pekerja kesehatan menyarankan untuk tidak mengimunisasi anak</span>
+                <span data-option-value="Health_worker_advise_not_to_ immunize_the_child" lang="en">Health worker advise not to  immunize the child</span>
+                <span data-option-value="Dont_believe_it" lang="id">Tidak percaya dengan imunisasi</span>
+                <span data-option-value="Dont_believe_it" lang="en">Don't believe it</span>
+                <span data-option-value="False_contra-indication" lang="id">Salah kontra-indikasi</span>
+                <span data-option-value="False_contra-indication" lang="en">False contra-indication</span>
+                <span data-option-value="Afraid_of_immunization" lang="id">Takut akan imunisasi</span>
+                <span data-option-value="Afraid_of_immunization" lang="en">Afraid of immunization</span>
+                <span data-option-value="other" lang="id">Lainnya, entri manual</span>
+                <span data-option-value="other" lang="en">other</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </label>
+        <label class="question non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc:label">Lainnya:</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc:label">Other:</span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc" data-type-xml="string"/>
+        </label>
+        <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+            <fieldset>
+                <legend>
+                    <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown:label">
+                        <span class="or-output" data-value=" /RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc "></span>Tanggal
+                    </span>
+                    <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown:label">
+                        <span class="or-output" data-value=" /RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc "></span>Date
+                    </span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown" value="set_date" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc !=''" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown/set_date:label">Set Tanggal</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown/set_date:label">Set Date</span>
+                    </label>
+                    <label class="">
+                        <input type="radio" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown" data-name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown" value="dont_know" data-required="true()" data-relevant=" /RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc !=''" data-type-xml="select1"/>
+                        <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown/dont_know:label">Tidak Tahu</span>
+                        <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown/dont_know:label">Don’t Know</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
+        <label class="question or-branch pre-init non-select ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_date:label">Tanggal</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_date:label">Date</span>
+            <span class="required">*</span>
+            <input type="date" name="/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_date" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown ,'set_date')" data-type-xml="date"/>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
     </section>
     <!--end of group -->
     <section class="or-group-data or-branch pre-init " name="/RCC_Baseline_Survey_module_4/if_no_mch_book" data-relevant="selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'Yes_not_shown') or selected( /RCC_Baseline_Survey_module_4/have_mch_book ,'No')">
         <label class="question note non-select ">
-            <span lang="" class="question-label active">
-                <h5>6. If no MCH book, Immunization from recall:</h5>
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_82:label">
+                <h5>4. Jika tidak ada buku KIA, Imunisasi dari recall</h5>
             </span>
-            <input type="text" name="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_18" data-type-xml="string" readonly="readonly"/>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_82:label">
+                <h5>4. If no MCH book, Immunization from recall:</h5>
+            </span>
+            <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_82:hint">-</span>
+            <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_82:hint">If the respondent does not have an MCH book, ask the following questions to assist the respondent in remembering whether the child received each vaccine</span>
+            <input type="text" name="/RCC_Baseline_Survey_module_4/if_no_mch_book/generated_note_name_82" data-type-xml="string" readonly="readonly"/>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">a. Has child received any vaccinations that are not recorded on this card including vaccinations given in a national immunization day campaign:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations:label">a. Apakah anak menerima vaksinasi yang tidak tercatat pada kartu ini termasuk vaksinasi yang diberikan dalam kampanye hari imunisasi nasional</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations:label">a. Has child received any vaccinations that are not recorded on this card including vaccinations given in a national immunization day campaign:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">b. A BCG vaccination against tuberculosis, that is, an injection in the upper sleeve which leaves a mark:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination:label">b. Vaksinasi BCG terhadap tuberkulosis, yaitu suntikan di lengan atas yang meninggalkan bekas</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination:label">b. A BCG vaccination against tuberculosis, that is, an injection in the upper sleeve which leaves a mark:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">c. Polio vaccine, that is, pink or white drops in the mouth:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine:label">c. Vaksin polio, yaitu tetes merah muda atau putih di mulut</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine:label">c. Polio vaccine, that is, pink or white drops in the mouth:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
-        <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">i. Was the first polio vaccine given in the first two weeks after birth or later:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-type-xml="select1">
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given:label">i. Apakah vaksin polio pertama diberikan dalam dua minggu pertama setelah kelahiran atau sesudahnya</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given:label">i. Was the first polio vaccine given in the first two weeks after birth or later:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine ,'yes')" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="First_2_weeks">First 2 weeks</option>
                 <option value="Later">Later</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="First_2_weeks" lang="id">2 minggu pertama</span>
+                <span data-option-value="First_2_weeks" lang="en">First 2 weeks</span>
+                <span data-option-value="Later" lang="id">Setelahnya</span>
+                <span data-option-value="Later" lang="en">Later</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
-        <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">ii. How many times was the polio vaccine received:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-type-xml="select1">
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received:label">ii. Berapa kali vaksin polio diberikan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received:label">ii. How many times was the polio vaccine received:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine ,'yes')" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -189,72 +1322,128 @@
                 <option value="4">4</option>
                 <option value="&gt;4">&gt;4</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="1" lang="id">1</span>
+                <span data-option-value="1" lang="en">1</span>
+                <span data-option-value="2" lang="id">2</span>
+                <span data-option-value="2" lang="en">2</span>
+                <span data-option-value="3" lang="id">3</span>
+                <span data-option-value="3" lang="en">3</span>
+                <span data-option-value="4" lang="id">4</span>
+                <span data-option-value="4" lang="en">4</span>
+                <span data-option-value="&gt;4" lang="id">&gt;4</span>
+                <span data-option-value="&gt;4" lang="en">&gt;4</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">d. A DPT vaccination, that is, an injection in the thigh or buttocks, sometimes given at the same time with polio drops:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination:label">d. Vaksinasi DPT, yaitu suntikan di paha atau bokong, terkadang diberikan bersamaan dengan tetes polio</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination:label">d. A DPT vaccination, that is, an injection in the thigh or buttocks, sometimes given at the same time with polio drops:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
-        <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">i. How many times was the DPT vaccine given:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-type-xml="select1">
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given:label">i. Berapa kali vaksin DPT diberikan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given:label">i. How many times was the DPT vaccine given:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination ,'yes')" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="&gt;3">&gt;3</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="1" lang="id">1</span>
+                <span data-option-value="1" lang="en">1</span>
+                <span data-option-value="2" lang="id">2</span>
+                <span data-option-value="2" lang="en">2</span>
+                <span data-option-value="3" lang="id">3</span>
+                <span data-option-value="3" lang="en">3</span>
+                <span data-option-value="&gt;3" lang="id">&gt;3</span>
+                <span data-option-value="&gt;3" lang="en">&gt;3</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">e. A measles injection or an MMR injection- that is, a shot in the arm at the age of 9 months or older – to prevent him/her from getting measles:</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection:label">e. Injeksi campak atau suntikan MMR - yaitu suntikan di lengan pada usia 9 bulan atau lebih - untuk mencegahnya terkena campak</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection:label">e. A measles injection or an MMR injection- that is, a shot in the arm at the age of 9 months or older – to prevent him/her from getting measles:</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">f. A Hepatitis B injection - that is an injection on the outside of the thigh to prevent Hepatitis B?</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-type-xml="select1">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection:label">f. Injeksi Hepatitis B - suntikan di bagian luar paha untuk mencegah Hepatitis B</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection:label">f. A Hepatitis B injection - that is an injection on the outside of the thigh to prevent Hepatitis B?</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection" data-required="true()" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 <option value="dont_know">Don’t Know</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="yes" lang="id">Ya</span>
+                <span data-option-value="yes" lang="en">Yes</span>
+                <span data-option-value="no" lang="id">Tidak</span>
+                <span data-option-value="no" lang="en">No</span>
+                <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
+                <span data-option-value="dont_know" lang="en">Don’t Know</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
-        <label class="question or-appearance-minimal ">
-            <span lang="" class="question-label active">i. How many times was the Hepatitis B vaccine received?</span>
-            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-type-xml="select1">
+        <label class="question or-appearance-minimal  or-branch pre-init ">
+            <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received:label">i. Berapa kali vaksin Hepatitis B diberikan</span>
+            <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received:label">i. How many times was the Hepatitis B vaccine received?</span>
+            <span class="required">*</span>
+            <select name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-name="/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received" data-required="true()" data-relevant="selected( /RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection ,'yes')" data-type-xml="select1">
                 <option value="">...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="&gt;3">&gt;3</option>
             </select>
-            <span class="or-option-translations" style="display:none;">               </span>
+            <span class="or-option-translations" style="display:none;">
+                <span data-option-value="1" lang="id">1</span>
+                <span data-option-value="1" lang="en">1</span>
+                <span data-option-value="2" lang="id">2</span>
+                <span data-option-value="2" lang="en">2</span>
+                <span data-option-value="3" lang="id">3</span>
+                <span data-option-value="3" lang="en">3</span>
+                <span data-option-value="&gt;3" lang="id">&gt;3</span>
+                <span data-option-value="&gt;3" lang="en">&gt;3</span>
+            </span>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
     </section>
     <!--end of group -->
-    <label class="question or-appearance-minimal ">
-        <span lang="" class="question-label active">7. Does caregiver understand growth monitoring chart:</span>
-        <select name="/RCC_Baseline_Survey_module_4/caregiver_understand" data-name="/RCC_Baseline_Survey_module_4/caregiver_understand" data-type-xml="select1">
-            <option value="">...</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="dont_know">Don’t Know</option>
-        </select>
-        <span class="or-option-translations" style="display:none;">               </span>
-    </label> \n
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/RCC_Baseline_Survey_module_4/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>

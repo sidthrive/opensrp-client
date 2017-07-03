@@ -28,6 +28,7 @@
         "name": "elderly_hh_member",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/elderly_hh_member"
       },
+====================
       {
         "name": "mobile_connectivity",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/mobile_connectivity"
@@ -41,20 +42,49 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/cell_provider"
       },
       {
-        "name": "expenditure_mobile_phone",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_mobile_phone"
+        "name": "flooring_area",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/flooring_area"
       },
       {
-        "name": "expenditure_electricity",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_electricity"
+        "name": "permanent_flooring",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_flooring"
+      },
+     ========================
+      {
+        "name": "permanent_wall",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_wall"
       },
       {
-        "name": "expenditure_food",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_food"
+        "name": "electricity",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/electricity"
       },
       {
-        "name": "expenditure_consumer_goods",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/expenditure_consumer_goods"
+        "name": "rent_own",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/rent_own"
+      },
+      {
+        "name": "rental_cost",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/rental_cost"
+      },
+      {
+        "name": "dairy_product",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/dairy_product"
+      },
+      {
+        "name": "informal_income",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/informal_income"
+      },
+      {
+        "name": "spent_on_food",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/spent_on_food"
+      },
+      {
+        "name": "savings",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/savings"
+      },
+      {
+        "name": "valuable_items",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/valuable_items"
       },
       {
         "name": "have_radio",
@@ -69,10 +99,6 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_refrigerator"
       },
       {
-        "name": "have_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_toilet"
-      },
-      {
         "name": "have_separate_kitchen",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_separate_kitchen"
       },
@@ -84,22 +110,49 @@
         "name": "number_of_motorcycles",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/number_of_motorcycles"
       },
-      
       {
-        "name": "isOutOfArea",
-        "value": "false"
+        "name": "drink_water_source",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/drink_water_source"
       },
       {
-        "name": "isClosed",
-        "value": "false"
+        "name": "what_source",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_source"
       },
+      {
+        "name": "have_toilet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_toilet"
+      },{
+        "name": "what_toilet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet"
+      },
+      {
+        "name": "what_toilet_other",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet_other"
+      },
+      {
+        "name": "if_no_toilet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/if_no_toilet"
+      },
+      {
+        "name": "if_no_toilet_other",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/if_no_toilet_other"
+      },
+      {
+        "name": "how_many_no_toliet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/how_many_no_toliet"
+      },
+      {
+        "name": "baby_stools",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/baby_stools"
+      },
+      {
+        "name": "baby_stools_other",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/baby_stools_other"
+      },
+
       {
         "name": "submissionDate",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/today"
-      },
-      {
-        "name": "registrationDate",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/reg_date"
       }
     ]
   }
