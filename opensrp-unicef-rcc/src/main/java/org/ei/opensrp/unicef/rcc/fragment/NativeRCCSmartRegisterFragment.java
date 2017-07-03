@@ -144,7 +144,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
-                      new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
+                    //  new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
                     /*     new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
                    */ //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_high_risk_pregnancy_label),ShortByriskflag()),
                 };
@@ -295,7 +295,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     }
 
     private String KiSortByAgeRev() {
-        return " CAST(respondent_age AS INTEGER)";
+        return " CAST(respondent_age AS INTEGER) ='01'";
     }
     private String KiSortByNoIbu() {
         return " noIbu ASC";

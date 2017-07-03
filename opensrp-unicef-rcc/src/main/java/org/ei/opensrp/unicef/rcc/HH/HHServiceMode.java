@@ -43,14 +43,14 @@ public class HHServiceMode extends ServiceModeOption {
 
             @Override
             public int[] weights() {
-                return new int[]{244, 165, 180, 210, 205, 75};
+                return new int[]{244, 165, 180, 160, 205, 75};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.header_nama, R.string.chara, R.string.chara_ex,
-                        R.string.behavioir,  R.string.mode_immu,
+                        R.string.header_nama, R.string.chara, R.string.behavioir,
+                        R.string.mode_immu,  R.string.knowledge,
                         R.string.header_edit};
             }
         };

@@ -257,10 +257,9 @@
       },
 
       {
-
-      {
         "name": "submissionDate",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/today"
       }
+    ]
   }
 }

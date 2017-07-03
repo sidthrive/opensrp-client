@@ -27,7 +27,7 @@
             android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/label_no_ibu"
+            android:id="@+id/household_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -45,17 +45,16 @@
                 android:src="@mipmap/vacc_late"
               />
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/no_ibu"
+            android:id="@+id/adult_hh_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:paddingLeft="5dp"
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
 
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/label_unique_id"
+            android:id="@+id/child_hh_member_under_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -64,7 +63,7 @@
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/unique_id"
+            android:id="@+id/child_hh_member_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/ec_list_ec_no_view_weight"
@@ -89,8 +88,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="170"
-        android:padding="5dp"
+        android:layout_weight="180"
+        android:padding="2dp"
 
         >
 
@@ -102,10 +101,10 @@
             android:orientation="vertical">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/txt_edd"
+                android:id="@+id/anc_visit_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:paddingLeft="2dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -116,18 +115,18 @@
                 android:src="@mipmap/vacc_late"
            />
             <TextView
-                android:id="@+id/txt_edd_due"
+                android:id="@+id/attendance_at_posyandu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:paddingLeft="2dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
 
             <TextView
-                android:id="@+id/txt_expen"
+                android:id="@+id/attendance_at_puskesmas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:paddingLeft="2dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <TextView
                 android:id="@+id/toilet"
@@ -159,7 +158,7 @@
             android:orientation="vertical">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/asdd"
+                android:id="@+id/have_mch_book"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
@@ -173,20 +172,20 @@
                 android:src="@mipmap/vacc_late"
               />
             <TextView
-                android:id="@+id/last_time"
+                android:id="@+id/bcg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <TextView
-                android:id="@+id/services"
+                android:id="@+id/pol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
             <TextView
-                android:id="@+id/distance"
+                android:id="@+id/dpt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
@@ -213,9 +212,8 @@
             android:layout_height="fill_parent"
             android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
-
             <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/imm1"
+                android:id="@+id/knowlegde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
@@ -223,30 +221,25 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/immulogo"
+                android:id="@+id/immu_know"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:src="@mipmap/vacc_late"
                 />
             <TextView
-                android:id="@+id/imm2"
+                android:id="@+id/attitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <TextView
-                android:id="@+id/imm3"
+                android:id="@+id/information_source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
-            <TextView
-                android:id="@+id/imm4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+
         </LinearLayout>
 
 

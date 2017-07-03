@@ -76,30 +76,36 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             viewHolder.husband_name = (TextView)convertView.findViewById(R.id.txt_husband_name);
             viewHolder.village_name = (TextView)convertView.findViewById(R.id.txt_village_name);
             viewHolder.wife_age = (TextView)convertView.findViewById(R.id.wife_age);
-            viewHolder.no_ibu = (TextView)convertView.findViewById(R.id.no_ibu);
-            viewHolder.unique_id = (TextView)convertView.findViewById(R.id.unique_id);
+            viewHolder.adult_hh_member = (TextView)convertView.findViewById(R.id.adult_hh_member);
+            viewHolder.child_hh_member_under_5 = (TextView)convertView.findViewById(R.id.child_hh_member_under_5);
 
-         viewHolder.label_no_ibu = (TextView)convertView.findViewById(R.id.label_no_ibu);
-            viewHolder.label_unique_id = (TextView)convertView.findViewById(R.id.label_unique_id);
-               viewHolder.edd = (TextView)convertView.findViewById(R.id.txt_edd);
-            viewHolder.edd_due = (TextView)convertView.findViewById(R.id.txt_edd_due);
-            viewHolder.txt_expen =(TextView)convertView.findViewById(R.id.txt_expen);
-            viewHolder.anc_tot =(TextView)convertView.findViewById(R.id.asdd);
-            viewHolder.last_time =(TextView)convertView.findViewById(R.id.last_time);
-            viewHolder.services =(TextView)convertView.findViewById(R.id.services);
-            viewHolder.distance =(TextView)convertView.findViewById(R.id.distance);
+         viewHolder.household_size = (TextView)convertView.findViewById(R.id.household_size);
+          //  viewHolder.child_hh_member_6 = (TextView)convertView.findViewById(R.id.child_hh_member_6);
+               viewHolder.anc_visit_num = (TextView)convertView.findViewById(R.id.anc_visit_num);
+            viewHolder.attendance_at_posyandu = (TextView)convertView.findViewById(R.id.attendance_at_posyandu);
+            viewHolder.attendance_at_puskesmas =(TextView)convertView.findViewById(R.id.attendance_at_puskesmas);
+
+            viewHolder.have_mch_book =(TextView)convertView.findViewById(R.id.have_mch_book);
+            viewHolder.bcg =(TextView)convertView.findViewById(R.id.bcg);
+            viewHolder.pol =(TextView)convertView.findViewById(R.id.pol);
+            viewHolder.dpt =(TextView)convertView.findViewById(R.id.dpt);
+
           viewHolder.toilet = (TextView)convertView.findViewById(R.id.toilet);
 
-            viewHolder.imm1 = (TextView)convertView.findViewById(R.id.imm1);
-            viewHolder.imm2 = (TextView)convertView.findViewById(R.id.imm2);
-            viewHolder.imm3 = (TextView)convertView.findViewById(R.id.imm3);
-            viewHolder.imm4 = (TextView)convertView.findViewById(R.id.imm4);
+           /* viewHolder.icon_hb0_no = (ImageView)convertView.findViewById(R.id.icon_hb0_no);
+            viewHolder.icon_hb0_yes = (ImageView)convertView.findViewById(R.id.icon_hb0_yes);
+            viewHolder.icon_pol1_yes = (ImageView)convertView.findViewById(R.id.icon_pol1_yes);*/
+            viewHolder.immu_know = (ImageView)convertView.findViewById(R.id.immu_know);
 
             viewHolder.id_detail_layout =  (LinearLayout)convertView.findViewById(R.id.id_detail_layout);
             viewHolder.pol1Logo = (ImageView) convertView.findViewById(R.id.pol1Logo);
             viewHolder.detail_layout_logo = (ImageView) convertView.findViewById(R.id.detail_layout_logo);
             viewHolder.attend = (ImageView) convertView.findViewById(R.id.attend);
-            viewHolder.immulogo = (ImageView) convertView.findViewById(R.id.immulogo);
+
+            viewHolder.knowlegde = (TextView)convertView.findViewById(R.id.knowlegde);
+            viewHolder.attitude = (TextView)convertView.findViewById(R.id.attitude);
+            viewHolder.information_source = (TextView)convertView.findViewById(R.id.information_source);
+
 
             viewHolder.connect =  (LinearLayout)convertView.findViewById(R.id.connect);
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
@@ -123,24 +129,25 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
 
 
-        viewHolder.immulogo.setVisibility(View.GONE);
+//        viewHolder.immulogo.setVisibility(View.GONE);
         viewHolder.detail_layout_logo.setVisibility(View.GONE);
         viewHolder.pol1Logo.setVisibility(View.GONE);
          viewHolder.attend.setVisibility(View.GONE);
-        viewHolder.label_no_ibu.setText("");
-        viewHolder.no_ibu.setText("");
-        viewHolder.unique_id.setText("");
-        viewHolder.edd.setText("");
-        viewHolder.edd_due.setText("");
-        viewHolder.txt_expen.setText("");
-        viewHolder.anc_tot.setText("");
-        viewHolder.last_time.setText("");
-        viewHolder.services.setText("");
-        viewHolder.distance.setText("");
-        viewHolder.imm1.setText("");
-        viewHolder.imm2.setText("");
-        viewHolder.imm3.setText("");
-        viewHolder.imm4.setText("");
+        viewHolder.household_size.setText("");
+        viewHolder.adult_hh_member.setText("");
+        viewHolder.child_hh_member_under_5.setText("");
+//        viewHolder.child_hh_member_6.setText("");
+        viewHolder.anc_visit_num.setText("");
+        viewHolder.attendance_at_posyandu.setText("");
+        viewHolder.attendance_at_puskesmas.setText("");
+        viewHolder.bcg.setText("");
+        viewHolder.pol.setText("");
+        viewHolder.dpt.setText("");
+
+        viewHolder.knowlegde.setText("");
+        viewHolder.attitude.setText("");
+        viewHolder.information_source.setText("");
+        viewHolder.have_mch_book.setText("");
 
         if(pc.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || pc.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
@@ -158,12 +165,10 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.wife_age.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age"):"");
 
         if(pc.getDetails().get("household_size") != null || pc.getDetails().get("adult_hh_member") != null) {
-            viewHolder.label_no_ibu.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
-            viewHolder.no_ibu.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
-            viewHolder.unique_id.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
-       //     viewHolder.detail_layout_logo.setVisibility(View.GONE);
-            viewHolder.label_unique_id.setText(pc.getDetails().get("child_hh_member_6-14") != null ? "child  members (6-14): " + pc.getDetails().get("child_hh_member_6-14") : "");
-          //  viewHolder.label_no_ibu.setText("adult HH members : ");
+            viewHolder.household_size.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
+            viewHolder.adult_hh_member.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
+            viewHolder.child_hh_member_under_5.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
+        //    viewHolder.child_hh_member_6.setText(pc.getDetails().get("child_hh_member_6-14") != null ? "child  members (6-14): " + pc.getDetails().get("child_hh_member_6-14") : "");
 
         }
         else{
@@ -173,10 +178,10 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         }
 
-        if(pc.getDetails().get("mobile_connectivity") != null || pc.getDetails().get("cell_provider") != null) {
-            viewHolder.edd.setText(pc.getDetails().get("mobile_connectivity") != null ? "Connectivity :" + pc.getDetails().get("mobile_connectivity").replace("_", " ") : "");
-            viewHolder.edd_due.setText(pc.getDetails().get("cell_provider") != null ? "Cell provider: " + pc.getDetails().get("cell_provider") : "");
-            viewHolder.txt_expen.setText(pc.getDetails().get("expenditure_mobile_phone") != null ? "Expenditure : " + pc.getDetails().get("expenditure_mobile_phone").replace("_", " ") : "");
+        if(pc.getDetails().get("anc_visit_num") != null || pc.getDetails().get("attendance_at_posyandu") != null) {
+            viewHolder.anc_visit_num.setText(pc.getDetails().get("anc_visit_num") != null ? "ANC Visit :" + pc.getDetails().get("anc_visit_num").replace("_", " ") : "");
+            viewHolder.attendance_at_posyandu.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Posyandu: " + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
+            viewHolder.attendance_at_puskesmas.setText(pc.getDetails().get("attendance_at_puskesmas") != null ? "Puskesmas: " + pc.getDetails().get("attendance_at_puskesmas").replace("_", " ") : "");
           //  viewHolder.pol1Logo.setVisibility(View.GONE);
         }
         else{
@@ -186,61 +191,69 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         }
 
-        if(pc.getDetails().get("attendance_at_posyandu")!=null || pc.getDetails().get("last_time_to_posyandu")!=null) {
-            viewHolder.anc_tot.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Attendance :" + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
-            viewHolder.last_time.setText(pc.getDetails().get("last_time_to_posyandu") != null ? "Lastattended: " + pc.getDetails().get("last_time_to_posyandu").replace("_", " ") : "");
-            viewHolder.services.setText(pc.getDetails().get("posyandu_service") != null ? "Services : " + pc.getDetails().get("posyandu_service").replace("_", " ") : "");
-            viewHolder.distance.setText(pc.getDetails().get("nearest_puskesmas") != null ? "Distace : " + pc.getDetails().get("nearest_puskesmas") : "");
+
+        if(pc.getDetails().get("have_mch_book")!=null ) {
+            if(pc.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")){
+                viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
+                viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("_", " ") : "");
+                if(pc.getDetails().get("polio_0") != null || pc.getDetails().get("polio_1") != null
+                        || pc.getDetails().get("polio_2") != null || pc.getDetails().get("polio_3") != null) {
+                    if (pc.getDetails().get("polio_0").equalsIgnoreCase("yes") || pc.getDetails().get("polio_1").equalsIgnoreCase("yes")
+                            || pc.getDetails().get("polio_2").equalsIgnoreCase("yes") || pc.getDetails().get("polio_3").equalsIgnoreCase("yes")) {
+                        viewHolder.pol.setText("Polio : Yes");
+                    }
+                }
+                if(pc.getDetails().get("dpt_1") != null || pc.getDetails().get("dpt_2") != null
+                        || pc.getDetails().get("dpt_3") != null ) {
+                    if (pc.getDetails().get("dpt_1").equalsIgnoreCase("yes") || pc.getDetails().get("dpt_2").equalsIgnoreCase("yes")
+                            || pc.getDetails().get("dpt_3").equalsIgnoreCase("yes")) {
+                        viewHolder.dpt.setText("DPT : Yes");
+                    }
+                }
+           // viewHolder.dpt.setText(pc.getDetails().get("dpt_3") != null ? "DPT : " + pc.getDetails().get("dpt_3") : "");
+            }
+            else {
+                viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
+                viewHolder.bcg.setText(pc.getDetails().get("A_BCG_vaccination") != null ? "BCG: " + pc.getDetails().get("A_BCG_vaccination").replace("_", " ") : "");
+                viewHolder.pol.setText(pc.getDetails().get("Polio_vaccine") != null ? "Polio : " + pc.getDetails().get("Polio_vaccine").replace("_", " ") : "");
+                viewHolder.dpt.setText(pc.getDetails().get("A_DPT_vaccination") != null ? "DPT : " + pc.getDetails().get("A_DPT_vaccination") : "");
+            }
         }
+
         else{
            // attend
             viewHolder.attend.setVisibility(View.VISIBLE);
         //    viewHolder.attend.setBackgroundResource(R.mipmap.vacc_late);
         }
-        if(pc.getDetails().get("immunization_knowlegde")!=null) {
-          //  viewHolder.immulogo.setVisibility(View.GONE);
-            viewHolder.imm1.setText(pc.getDetails().get("immunization_knowlegde") != null ? "Immunzation Knowledge : " + pc.getDetails().get("immunization_knowlegde").replace("_", " ") : "");
-            viewHolder.imm2.setText(pc.getDetails().get("source_of_information") != null ? "Source : " + pc.getDetails().get("source_of_information").replace("_", " ") : "");
-            viewHolder.imm3.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book : " + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
-            viewHolder.imm4.setText(pc.getDetails().get("caregiver_understand") != null ? "Understand of Growht Chart : " + pc.getDetails().get("caregiver_understand") : "");
+
+        String attitude ="no";
+        String know = "no";
+        if(pc.getDetails().get("attitude_1") != null || pc.getDetails().get("attitude_2") != null || pc.getDetails().get("attitude_3") != null || pc.getDetails().get("attitude_4") != null
+                ){
+                attitude = "yes";
+        }
+        if (pc.getDetails().get("heard_about_immu") != null || pc.getDetails().get("information_source") != null){
+             know = "yes";
+        }
+
+        if(attitude.equalsIgnoreCase("yes") && know.equalsIgnoreCase("yes")){
+            viewHolder.knowlegde.setText(pc.getDetails().get("attitude_1") != null ? "Imm. is important : " + pc.getDetails().get("attitude_1") : "");
+            viewHolder.attitude.setText(pc.getDetails().get("heard_about_immu") != null ? "Know Immunization : " + pc.getDetails().get("heard_about_immu") : "");
+            viewHolder.information_source.setText(pc.getDetails().get("information_source") != null ? "Source : " + pc.getDetails().get("information_source") : "");
+
+        }
+        else if(attitude.equalsIgnoreCase("yes") || know.equalsIgnoreCase("no")){
+            viewHolder.immu_know.setImageResource(R.drawable.vacc_due);
+        }
+        else if(attitude.equalsIgnoreCase("no") || know.equalsIgnoreCase("yes")){
+            viewHolder.immu_know.setImageResource(R.drawable.vacc_due);
         }
         else{
-            // attend
-            viewHolder.immulogo.setVisibility(View.VISIBLE);
-         //   viewHolder.immulogo.setBackgroundResource(R.mipmap.vacc_late);
-        }
-        /*//immunization
-        if(pc.getDetails().get("tanggalpemberianimunisasiHb07")!=null){
-            viewHolder.hb0_no.setVisibility(View.INVISIBLE);
-            viewHolder.hb0_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.hb0_no.setVisibility(View.VISIBLE);
-            viewHolder.hb0_yes.setVisibility(View.INVISIBLE);
+            viewHolder.immu_know.setImageResource(R.mipmap.vacc_late);
         }
 
-        if(pc.getDetails().get("first_polio_vaccine_given")!=null){
-            viewHolder.pol1_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol1_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol1_no.setVisibility(View.VISIBLE);
-            viewHolder.pol1_yes.setVisibility(View.INVISIBLE);
-        }
 
-        if(pc.getDetails().get("DPT_vaccine_given")!=null){
-            viewHolder.pol2_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol2_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol2_no.setVisibility(View.VISIBLE);
-            viewHolder.pol2_yes.setVisibility(View.INVISIBLE);
-        }
 
-        if(pc.getDetails().get("tanggalpemberianimunisasiDPTHB2Polio3")!=null){
-            viewHolder.pol3_no.setVisibility(View.INVISIBLE);
-            viewHolder.pol3_yes.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.pol3_no.setVisibility(View.VISIBLE);
-            viewHolder.pol3_yes.setVisibility(View.INVISIBLE);
-        }*/
 
 
         //distance to nearest
@@ -295,10 +308,10 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         TextView parity;
         TextView number_of_abortus;
         TextView number_of_alive;
-        TextView no_ibu;
-        TextView unique_id;
-        TextView edd;
-        TextView edd_due;
+        TextView adult_hh_member;
+        TextView child_hh_member_under_5;
+        TextView anc_visit_num;
+        TextView attendance_at_posyandu;
         TextView children_age_left;
         TextView anc_status_layout;
          TextView visit_status;
@@ -309,9 +322,10 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         ImageView bpl_badge;
         ImageView hrp_badge;
         ImageView img_hrl_badge;
-        public TextView label_no_ibu;
-        public TextView label_unique_id;
-        public TextView txt_expen;
+        public TextView household_size;
+        public TextView label_child_hh_member_under_5;
+        public TextView child_hh_member_6;
+        public TextView attendance_at_puskesmas;
         public TextView anc_tot;
         public TextView last_time;
         public TextView services;
@@ -335,6 +349,18 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         public ImageView pol1Logo;
         public ImageView detail_layout_logo;
         public ImageView attend;
+        public TextView have_mch_book;
+        public TextView bcg;
+        public TextView pol;
+        public TextView dpt;
+        public ImageView icon_hb0_no;
+        public ImageView icon_hb0_yes;
+        public ImageView icon_pol1_yes;
+        public ImageView icon_pol1_no;
+        public TextView knowlegde;
+        public TextView attitude;
+        public TextView information_source;
+        public ImageView immu_know;
     }
 
 

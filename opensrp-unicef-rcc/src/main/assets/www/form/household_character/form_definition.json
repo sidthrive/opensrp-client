@@ -28,7 +28,6 @@
         "name": "elderly_hh_member",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/elderly_hh_member"
       },
-====================
       {
         "name": "mobile_connectivity",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/mobile_connectivity"
@@ -49,7 +48,6 @@
         "name": "permanent_flooring",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_flooring"
       },
-     ========================
       {
         "name": "permanent_wall",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_wall"
