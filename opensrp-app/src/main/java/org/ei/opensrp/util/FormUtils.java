@@ -75,7 +75,7 @@ public class FormUtils {
         FormAttributeParser formAttributeParser = new FormAttributeParser(context);
         formEntityConverter = new FormEntityConverter(formAttributeParser,mContext);
         // Protect creation of static variable.
-        //mCloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
+//        mCloudantDataHandler = CloudantDataHandler.getInstance(context.getApplicationContext());
     }
 
     public static FormUtils getInstance(Context ctx) throws Exception{
@@ -105,8 +105,6 @@ public class FormUtils {
         //String bindPath = formDefinition.getJSONObject("form").getString("bind_type");
         JSONObject fieldsDefinition = formDefinition.getJSONObject("form");
         JSONArray populatedFieldsArray = getPopulatedFieldsForArray(fieldsDefinition, entity_id, formSubmission, overrides);
-
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: populatedFieldsArray "+ populatedFieldsArray );
 
         // replace all the fields in the form
         formDefinition.getJSONObject("form").put("fields", populatedFieldsArray);
@@ -140,19 +138,9 @@ public class FormUtils {
 
         String clientVersion = String.valueOf(new Date().getTime());
         String instance = formDefinition.toString();
-
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: instanceId "+ instanceId);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: entityId "+ entityId);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: formName "+ formName);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: instance "+ instance);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: clientVersion "+ clientVersion);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: SyncStatus.PENDING "+ SyncStatus.PENDING);
-        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: formDefinitionVersionString "+ formDefinitionVersionString);
-
         FormSubmission fs = new FormSubmission(instanceId, entityId, formName, instance, clientVersion, SyncStatus.PENDING, formDefinitionVersionString);
 
-//        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: fs : "+ fs );
-//        android.util.Log.e(TAG, "generateFormSubmisionFromXMLString: formName : "+ formName );
+
         generateClientAndEventModelsForFormSubmission(fs, formName);
 
         return fs;
@@ -666,8 +654,6 @@ public class FormUtils {
 
         for (int i = 0; i < fieldsArray.length(); i++) {
             JSONObject item = fieldsArray.getJSONObject(i);
-            android.util.Log.e(TAG, "getPopulatedFieldsForArray: i "+i );
-            android.util.Log.e(TAG, "getPopulatedFieldsForArray: item "+item );
             if (!item.has("name"))
                 continue; // skip elements without name
 
@@ -735,7 +721,6 @@ public class FormUtils {
                 }
             }
         }
-
         return fieldsArray;
     }
 
@@ -975,7 +960,6 @@ public class FormUtils {
         } catch (Exception e) {
             Log.logError(TAG, e.getMessage());
         }
-
     }
 
     private void createNewClientDocument(org.ei.opensrp.cloudant.models.Client client) {

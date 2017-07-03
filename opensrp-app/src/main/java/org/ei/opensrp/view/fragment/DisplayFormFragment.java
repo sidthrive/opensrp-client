@@ -25,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ei.opensrp.R;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
@@ -135,6 +136,7 @@ public class DisplayFormFragment extends Fragment {
         webView.addJavascriptInterface(myJavaScriptInterface, "Android");
     }
 
+
     /**
      * reset the form
      */
@@ -151,7 +153,6 @@ public class DisplayFormFragment extends Fragment {
     public void loadHtml(){
         showProgressDialog();
         String header = readFileAssets(headerTemplate);
-
         String script = readFileAssets(scriptFile);
         if(formName == null){
             return;
@@ -225,16 +226,17 @@ public class DisplayFormFragment extends Fragment {
         });
     }
 
+
     public void setFormData(final String data){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
+
                     // Wait for the page to initialize
                     while (!javascriptLoaded){
                         Thread.sleep(100);
                     }
-
                     if (data != null && !data.isEmpty()){
                         postXmlDataToForm(data);
                     }else{
@@ -302,6 +304,7 @@ public class DisplayFormFragment extends Fragment {
     }
 
     public class MyJavaScriptInterface {
+
         private static final String JAVASCRIPT_LOG_TAG = "Javascript";
         Context mContext;
 
@@ -350,6 +353,7 @@ public class DisplayFormFragment extends Fragment {
                 ((SecuredNativeSmartRegisterActivity) getActivity()).savePartialFormData(partialData, recordId, formName, getFormFieldsOverrides());
             }
         }
+
 
         @JavascriptInterface
         public void log(String message){
