@@ -131,9 +131,17 @@ public class RCCDetailActivity extends Activity {
         TextView ia = (TextView) findViewById(R.id.ia);
         TextView ja = (TextView) findViewById(R.id.ja);
 
+        TextView pol3 = (TextView) findViewById(R.id.pol3);
+        TextView measles1 = (TextView) findViewById(R.id.measles1);
+        TextView measles2 = (TextView) findViewById(R.id.measles2);
+        TextView other = (TextView) findViewById(R.id.other);
       //  final TextView show_risk = (TextView) findViewById(R.id.show_more);
       //  final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
-
+        TextView bcg_n = (TextView) findViewById(R.id.bcg_n);
+        TextView pol_n = (TextView) findViewById(R.id.pol_n);
+        TextView dpt_n = (TextView) findViewById(R.id.dpt_n);
+        TextView meas_n = (TextView) findViewById(R.id.meas_n);
+        TextView hb_n = (TextView) findViewById(R.id.hb_n);
 
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -146,17 +154,16 @@ public class RCCDetailActivity extends Activity {
         });
 
 
-        if(kiclient.getDetails().get("profilepic")!= null){
-                setImagetoHolderFromUri(RCCDetailActivity.this, kiclient.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
-        }
+        if(kiclient.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || kiclient.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver")){
+            kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));   }
         else {
                 kiview.setImageDrawable(getResources().getDrawable(R.mipmap.household_profile));
         }
 
         nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("respondent_name") != null ? kiclient.getColumnmaps().get("respondent_name") : "-"));
-        nik.setText("Relationship : "+ (kiclient.getDetails().get("relation_to_child") != null ? kiclient.getDetails().get("relation_to_child") : "-"));
+        nik.setText("Relationship : "+ (kiclient.getDetails().get("relation_to_child") != null ? kiclient.getDetails().get("relation_to_child").replace("_","") : "-"));
         husband_name.setText("Age : "+ (kiclient.getDetails().get("respondent_age") != null ? kiclient.getDetails().get("respondent_age") : "-"));
-        dob.setText("Education : "+ (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education") : "-"));
+        dob.setText("Education : "+ (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education").replace("_","") : "-"));
 
         a.setText( (kiclient.getDetails().get("household_size") != null ? kiclient.getDetails().get("household_size") : "-"));
         b.setText( (kiclient.getDetails().get("adult_hh_member") != null ? kiclient.getDetails().get("adult_hh_member") : "-"));
@@ -165,18 +172,18 @@ public class RCCDetailActivity extends Activity {
         f.setText( (kiclient.getDetails().get("mobile_connectivity") != null ? kiclient.getDetails().get("mobile_connectivity").replace("_"," ") : "-"));
         g.setText( (kiclient.getDetails().get("phone_purpose") != null ? kiclient.getDetails().get("phone_purpose").replace("_"," ") : "-"));
         h.setText( (kiclient.getDetails().get("cell_provider") != null ? kiclient.getDetails().get("cell_provider") : "-"));
-        i.setText( (kiclient.getDetails().get("expenditure_mobile_phone") != null ? kiclient.getDetails().get("expenditure_mobile_phone").replace("<_","Below than ") : "-"));
-        j.setText( (kiclient.getDetails().get("expenditure_electricity") != null ? kiclient.getDetails().get("expenditure_electricity").replace("<_","Below than ") : "-"));
-        k.setText( (kiclient.getDetails().get("expenditure_food") != null ? kiclient.getDetails().get("expenditure_food").replace("<_","Below than ") : "-"));
-        l.setText( (kiclient.getDetails().get("expenditure_consumer_goods") != null ? kiclient.getDetails().get("expenditure_consumer_goods").replace("<_","Below than ") : "-"));
-        m.setText( (kiclient.getDetails().get("have_radio") != null ? kiclient.getDetails().get("have_radio") : "-"));
-        n.setText( (kiclient.getDetails().get("have_tv") != null ? kiclient.getDetails().get("have_tv") : "-"));
-        o.setText( (kiclient.getDetails().get("have_refrigerator") != null ? kiclient.getDetails().get("have_refrigerator") : "-"));
-        p.setText( (kiclient.getDetails().get("have_toilet") != null ? kiclient.getDetails().get("have_toilet") : "-"));
-        q.setText( (kiclient.getDetails().get("have_separate_kitchen") != null ? kiclient.getDetails().get("have_separate_kitchen") : "-"));
-        r.setText( (kiclient.getDetails().get("number_of_rooms") != null ? kiclient.getDetails().get("number_of_rooms") : "-"));
-        s.setText( (kiclient.getDetails().get("number_of_motorcycles") != null ? kiclient.getDetails().get("number_of_motorcycles") : "-"));
-        c.setText( (kiclient.getDetails().get("child_hh_member_under_5") != null ? kiclient.getDetails().get("child_hh_member_under_5") : "-"));
+        i.setText( (kiclient.getDetails().get("flooring_area") != null ? kiclient.getDetails().get("flooring_area").replace("_"," ") : "-"));
+        j.setText( (kiclient.getDetails().get("permanent_flooring") != null ? kiclient.getDetails().get("permanent_flooring").replace("_"," ") : "-"));
+        k.setText( (kiclient.getDetails().get("expenditure_food") != null ? kiclient.getDetails().get("expenditure_food").replace("_"," ") : "-"));
+        l.setText( (kiclient.getDetails().get("permanent_wall") != null ? kiclient.getDetails().get("permanent_wall").replace("_"," ") : "-"));
+        m.setText( (kiclient.getDetails().get("rent_own") != null ? kiclient.getDetails().get("rent_own").replace("_"," ") : "-"));
+        n.setText( (kiclient.getDetails().get("informal_income") != null ? kiclient.getDetails().get("informal_income").replace("_"," ") : "-"));
+        o.setText( (kiclient.getDetails().get("spent_on_food") != null ? kiclient.getDetails().get("spent_on_food").replace("_"," ") : "-"));
+        p.setText( (kiclient.getDetails().get("savings") != null ? kiclient.getDetails().get("savings").replace("_"," ") : "-"));
+        q.setText( (kiclient.getDetails().get("have_radio") != null ? kiclient.getDetails().get("have_radio").replace("_"," ") : "-"));
+        r.setText( (kiclient.getDetails().get("have_tv") != null ? kiclient.getDetails().get("have_tv").replace("_"," ") : "-"));
+        s.setText( (kiclient.getDetails().get("have_refrigerator") != null ? kiclient.getDetails().get("have_refrigerator").replace("_"," ") : "-"));
+        c.setText( (kiclient.getDetails().get("have_separate_kitchen") != null ? kiclient.getDetails().get("have_separate_kitchen").replace("_"," ") : "-"));
      //   dob.setText( (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education") : "-"));
 
 
@@ -201,33 +208,33 @@ public class RCCDetailActivity extends Activity {
         qq.setText( (kiclient.getDetails().get("action_taken") != null ? kiclient.getDetails().get("action_taken").replace("_"," ") : "-"));
       //  tt.setText( (kiclient.getDetails().get("cell_provider") != null ? kiclient.getDetails().get("cell_provider") : "-"));
 
-        aas.setText( (kiclient.getDetails().get("immunization_knowlegde") != null ? kiclient.getDetails().get("immunization_knowlegde") : "-"));
-        ba.setText( (kiclient.getDetails().get("source_of_information") != null ? kiclient.getDetails().get("source_of_information") : "-"));
-        da.setText( (kiclient.getDetails().get("have_mch_book") != null ? kiclient.getDetails().get("have_mch_book") : "-"));
+        aas.setText( (kiclient.getDetails().get("bcg") != null ? kiclient.getDetails().get("bcg") : "-"));
+        ba.setText( (kiclient.getDetails().get("hepb_0") != null ? kiclient.getDetails().get("hepb_0") : "-"));
+        ca.setText( (kiclient.getDetails().get("hepb_1") != null ? kiclient.getDetails().get("hepb_1") : "-"));
+        da.setText( (kiclient.getDetails().get("hepb_2") != null ? kiclient.getDetails().get("hepb_2") : "-"));
+        ea.setText( (kiclient.getDetails().get("dpt_1") != null ? kiclient.getDetails().get("dpt_1") : "-"));
+        fa.setText((kiclient.getDetails().get("dpt_2") != null ? kiclient.getDetails().get("dpt_2").replace("_", " ") : "-"));
+        ga.setText((kiclient.getDetails().get("dpt_3") != null ? kiclient.getDetails().get("dpt_3").replace("_", " ") : "-"));
+        ha.setText((kiclient.getDetails().get("polio_0") != null ? kiclient.getDetails().get("polio_0") : "-"));
+        ia.setText((kiclient.getDetails().get("polio_1") != null ? kiclient.getDetails().get("polio_1").replace("<_", "Below than ") : "-"));
+        ja.setText( (kiclient.getDetails().get("polio_2") != null ? kiclient.getDetails().get("polio_2") : "-"));
+
+        pol3.setText( (kiclient.getDetails().get("polio_3") != null ? kiclient.getDetails().get("polio_3") : "-"));
+        measles1.setText( (kiclient.getDetails().get("measles_1") != null ? kiclient.getDetails().get("measles_1") : "-"));
+        measles2.setText( (kiclient.getDetails().get("measles_2") != null ? kiclient.getDetails().get("measles_2") : "-"));
+        other.setText( (kiclient.getDetails().get("other_vacc") != null ? kiclient.getDetails().get("other_vacc") : "-"));
 
 
-        if(kiclient.getDetails().get("have_mch_book") != null) {
-            if (kiclient.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_not_shown")) {
-                ea.setText( (kiclient.getDetails().get("A_BCG_vaccination") != null ? kiclient.getDetails().get("A_BCG_vaccination") : "-"));
-                fa.setText((kiclient.getDetails().get("Polio_vaccine") != null ? kiclient.getDetails().get("Polio_vaccine").replace("_", " ") : "-"));
-                ga.setText((kiclient.getDetails().get("A_DPT_vaccination") != null ? kiclient.getDetails().get("A_DPT_vaccination").replace("_", " ") : "-"));
-                ha.setText((kiclient.getDetails().get("A_measles_injection") != null ? kiclient.getDetails().get("A_measles_injection") : "-"));
-                ia.setText((kiclient.getDetails().get("A_Hepatitis_B_injection") != null ? kiclient.getDetails().get("A_Hepatitis_B_injection").replace("<_", "Below than ") : "-"));
-            }
-            else if(kiclient.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")) {
-                String bcg = kiclient.getDetails().get("vaccine").contains("BCG")?"Yes":"";
-                String pol = kiclient.getDetails().get("vaccine").contains("Polio")?"Yes":"";
-                String dpt = kiclient.getDetails().get("vaccine").contains("DPT")?"Yes":"";
-                String measles = kiclient.getDetails().get("vaccine").contains("Measles")?"Yes":"";
-                String hepa = kiclient.getDetails().get("vaccine").contains("Hep")?"Yes":"";
-                ea.setText(bcg);
-                fa.setText(pol);
-                ga.setText(dpt);
-                ha.setText(measles);
-                ia.setText(hepa);
-            }
-        }
-        ja.setText( (kiclient.getDetails().get("caregiver_understand") != null ? kiclient.getDetails().get("caregiver_understand").replace("<_","Below than ") : "-"));
+                String bcg = kiclient.getDetails().get("A_BCG_vaccination") != null ? kiclient.getDetails().get("A_BCG_vaccination") : "-";
+                String pol = kiclient.getDetails().get("Polio_vaccine") != null ? kiclient.getDetails().get("Polio_vaccine") : "-";
+                String dpt = kiclient.getDetails().get("A_DPT_vaccination") != null ? kiclient.getDetails().get("A_DPT_vaccination") : "-";
+                String measles = kiclient.getDetails().get("A_measles_injection") != null ? kiclient.getDetails().get("A_measles_injection") : "-";
+                String hepa = kiclient.getDetails().get("A_Hepatitis_B_injection") != null ? kiclient.getDetails().get("A_Hepatitis_B_injection") : "-";
+        bcg_n.setText(bcg);
+        pol_n.setText(pol);
+        dpt_n.setText(dpt);
+        meas_n.setText(measles);
+        hb_n.setText(hepa);
 
 
         coverage.setOnClickListener(new View.OnClickListener() {

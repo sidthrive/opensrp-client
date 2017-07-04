@@ -123,8 +123,8 @@
         "name": "polio_0",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1"
       },{
-        "name": "hepb_1_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0"
+        "name": "polio_0_isdateknown",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown"
       },{
         "name": "polio_0_date",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_date"

@@ -480,9 +480,9 @@
     <string name="fe">FE:</string>
 
     <string name="Nutrition_status">Status Gizi:</string>
-    <string name="mode_immu">Immunization</string>
+    <string name="mode_immu">Imm. Coverage</string>
     <string name="behavioir">Health behavior</string>
     <string name="chara">HH characteristics</string>
     <string name="chara_ex">Expenditure</string>
-    <string name="knowledge">Attitute and Knowledge</string>
+    <string name="knowledge">Immunization</string>
 </resources>

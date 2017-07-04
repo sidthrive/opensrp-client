@@ -207,40 +207,68 @@
         android:padding="5dp"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:id="@+id/knowlegde"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <ImageView
+                android:id="@+id/icon_hb0_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/immu_know"
-                android:layout_gravity="center"
-                android:visibility="gone"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_no_small"
                 />
-            <TextView
-                android:id="@+id/attitude"
+
+            <ImageView
+                android:id="@+id/icon_hb0_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                style="@style/CustomFontTextViewStyle.ListView.Small"/>
-            <TextView
-                android:id="@+id/information_source"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_hb0"
+                style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" Knowledge" />
 
+            <ImageView
+                android:id="@+id/icon_pol1_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_hb0"
+                android:src="@drawable/ic_yes_small"
+                android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/icon_pol1_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_hb0"
+                android:src="@drawable/ic_no_small"
+                />
 
-        </LinearLayout>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/is_pol1"
+                style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/is_hb0"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:text=" Attitude" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>

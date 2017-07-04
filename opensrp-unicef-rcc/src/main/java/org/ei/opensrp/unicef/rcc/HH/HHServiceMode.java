@@ -43,7 +43,7 @@ public class HHServiceMode extends ServiceModeOption {
 
             @Override
             public int[] weights() {
-                return new int[]{244, 165, 180, 160, 205, 75};
+                return new int[]{244, 165, 165, 180, 205, 75};
             }
 
             @Override

@@ -92,19 +92,19 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
           viewHolder.toilet = (TextView)convertView.findViewById(R.id.toilet);
 
-           /* viewHolder.icon_hb0_no = (ImageView)convertView.findViewById(R.id.icon_hb0_no);
+            viewHolder.icon_hb0_no = (ImageView)convertView.findViewById(R.id.icon_hb0_no);
             viewHolder.icon_hb0_yes = (ImageView)convertView.findViewById(R.id.icon_hb0_yes);
-            viewHolder.icon_pol1_yes = (ImageView)convertView.findViewById(R.id.icon_pol1_yes);*/
-            viewHolder.immu_know = (ImageView)convertView.findViewById(R.id.immu_know);
+            viewHolder.icon_pol1_yes = (ImageView)convertView.findViewById(R.id.icon_pol1_yes);
+            viewHolder.icon_pol1_no = (ImageView)convertView.findViewById(R.id.icon_pol1_no);
 
             viewHolder.id_detail_layout =  (LinearLayout)convertView.findViewById(R.id.id_detail_layout);
             viewHolder.pol1Logo = (ImageView) convertView.findViewById(R.id.pol1Logo);
             viewHolder.detail_layout_logo = (ImageView) convertView.findViewById(R.id.detail_layout_logo);
             viewHolder.attend = (ImageView) convertView.findViewById(R.id.attend);
 
-            viewHolder.knowlegde = (TextView)convertView.findViewById(R.id.knowlegde);
+           /* viewHolder.knowlegde = (TextView)convertView.findViewById(R.id.knowlegde);
             viewHolder.attitude = (TextView)convertView.findViewById(R.id.attitude);
-            viewHolder.information_source = (TextView)convertView.findViewById(R.id.information_source);
+            viewHolder.information_source = (TextView)convertView.findViewById(R.id.information_source);*/
 
 
             viewHolder.connect =  (LinearLayout)convertView.findViewById(R.id.connect);
@@ -144,9 +144,9 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.pol.setText("");
         viewHolder.dpt.setText("");
 
-        viewHolder.knowlegde.setText("");
-        viewHolder.attitude.setText("");
-        viewHolder.information_source.setText("");
+//        viewHolder.knowlegde.setText("");
+ //       viewHolder.attitude.setText("");
+//        viewHolder.information_source.setText("");
         viewHolder.have_mch_book.setText("");
 
         if(pc.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || pc.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
@@ -226,31 +226,28 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         //    viewHolder.attend.setBackgroundResource(R.mipmap.vacc_late);
         }
 
-        String attitude ="no";
-        String know = "no";
-        if(pc.getDetails().get("attitude_1") != null || pc.getDetails().get("attitude_2") != null || pc.getDetails().get("attitude_3") != null || pc.getDetails().get("attitude_4") != null
-                ){
-                attitude = "yes";
-        }
-        if (pc.getDetails().get("heard_about_immu") != null || pc.getDetails().get("information_source") != null){
-             know = "yes";
-        }
-
-        if(attitude.equalsIgnoreCase("yes") && know.equalsIgnoreCase("yes")){
-            viewHolder.knowlegde.setText(pc.getDetails().get("attitude_1") != null ? "Imm. is important : " + pc.getDetails().get("attitude_1") : "");
-            viewHolder.attitude.setText(pc.getDetails().get("heard_about_immu") != null ? "Know Immunization : " + pc.getDetails().get("heard_about_immu") : "");
-            viewHolder.information_source.setText(pc.getDetails().get("information_source") != null ? "Source : " + pc.getDetails().get("information_source") : "");
-
-        }
-        else if(attitude.equalsIgnoreCase("yes") || know.equalsIgnoreCase("no")){
-            viewHolder.immu_know.setImageResource(R.drawable.vacc_due);
-        }
-        else if(attitude.equalsIgnoreCase("no") || know.equalsIgnoreCase("yes")){
-            viewHolder.immu_know.setImageResource(R.drawable.vacc_due);
+        //immunization
+        if(pc.getDetails().get("heard_about_immu")!=null
+                || pc.getDetails().get("information_source")!=null
+                || pc.getDetails().get("other_source")!=null){
+            viewHolder.icon_hb0_no.setVisibility(View.INVISIBLE);
+            viewHolder.icon_hb0_yes.setVisibility(View.VISIBLE);
         }
         else{
-            viewHolder.immu_know.setImageResource(R.mipmap.vacc_late);
+            viewHolder.icon_hb0_no.setVisibility(View.VISIBLE);
+            viewHolder.icon_hb0_yes.setVisibility(View.INVISIBLE);
         }
+
+        if(pc.getDetails().get("attitude_1")!=null || pc.getDetails().get("attitude_2")!=null
+                || pc.getDetails().get("attitude_4")!=null  || pc.getDetails().get("attitude_3")!=null){
+            viewHolder.icon_pol1_no.setVisibility(View.VISIBLE);
+            viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
+        }
+        else{
+            viewHolder.icon_pol1_no.setVisibility(View.INVISIBLE);
+            viewHolder.icon_pol1_yes.setVisibility(View.VISIBLE);
+        }
+
 
 
 
