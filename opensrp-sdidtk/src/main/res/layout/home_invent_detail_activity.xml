@@ -80,7 +80,7 @@
             android:orientation="horizontal">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:layout_width="465dp"
+            android:layout_width="510dp"
             android:layout_height="wrap_content"
             android:text="Home Inventory (0-2 Tahun)"
             android:id="@+id/mother_summary"
@@ -90,7 +90,7 @@
             android:textStyle="bold"
             android:textSize="20sp" />
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:layout_width="465dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Home Inventory (3-6 Tahun)"
             android:id="@+id/mother_summary1"

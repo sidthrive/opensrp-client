@@ -19,6 +19,40 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text=""
+                android:id="@+id/lbl_02"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Baseline"
+                android:id="@+id/baseline02"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Endline"
+                android:id="@+id/endline02"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="Responsivitas : "
                 android:layout_margin="5dp"
                 android:id="@+id/lbl_ancDate"
@@ -31,10 +65,23 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A "
-                android:layout_margin="5dp"
+                android:textAlignment="center"
                 android:id="@+id/Responsivitas"
                 android:textSize="14sp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A "
+                android:id="@+id/ResponsivitasEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
 
         </TableRow>
@@ -57,8 +104,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Penerimaan"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/PenerimaanEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
@@ -85,8 +144,21 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Keteraturan"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/KeteraturanEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
@@ -111,16 +183,27 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Sumber_belajar"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Sumber_belajarEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
 
 
         <TableRow>
-
-
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -142,8 +225,21 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Keterlibatan"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/KeterlibatanEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
@@ -153,11 +249,12 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Varisai  : "
+                android:text="Variasi  : "
                 android:id="@+id/lbl_usiaKlinis"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
+
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,8 +263,21 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Varisai"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/VarisaiEnd"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
 
         </TableRow>
 
@@ -210,11 +320,11 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
                 android:id="@+id/tx_null1"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:layout_gravity="center_horizontal" />
         </TableRow>
     </TableLayout>
 
@@ -230,7 +340,41 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" Lingkungan rumah :"
+                android:text=""
+                android:id="@+id/lbl_36"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Baseline"
+                android:id="@+id/baseline36"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Endline"
+                android:id="@+id/endline36"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Lingkungan rumah :"
                 android:id="@+id/lbl_belajar"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -243,8 +387,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Lingkungan_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Lingkungan_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
         <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -265,8 +421,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/berbicara_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/berbicara_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -288,8 +456,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Interaksi_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Interaksi_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -311,8 +491,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Sikap_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Sikap_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -334,8 +526,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/umum_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/umum_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -357,8 +561,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Mainan_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Mainan_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -380,8 +596,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/pembelajaran_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/pembelajaran_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
         <TableRow>
@@ -390,7 +618,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" Kebiasaan dan Barang Keluarga  : "
+                android:text="Kebiasaan dan Barang Keluarga  : "
                 android:id="@+id/lbl_Penerimaan"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -403,8 +631,20 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:text="N/A"
                 android:id="@+id/Kebiasaan_3"
                 android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Kebiasaan_3End"
+                android:textSize="14sp"
+                android:textColor="@color/text_black"
+                android:gravity="center"
+                android:layout_margin="5dp" />
         </TableRow>
 
 
