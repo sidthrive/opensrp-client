@@ -137,10 +137,10 @@ public class HomeInventoryClientsProvider implements SmartRegisterCLientsProvide
         //viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
         //viewHolder.village.setText(pc.getDetails().get("village") != null ? pc.getDetails().get("village") : "");
         viewHolder.name.setText(pc.getDetails().get("namaBayi") != null ? pc.getDetails().get("namaBayi").replaceAll("_", " ") : "-");
-        String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, 10);
+        String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
         viewHolder.age.setText(pc.getDetails().get("tanggalLahirAnak") != null ? Integer.toString(monthRangeToToday(ages))+"B" : "");
 
-        viewHolder.tgl_lahr.setText(pc.getDetails().get("tanggalLahirAnak") != null ? pc.getDetails().get("tanggalLahirAnak") : "-");
+        viewHolder.tgl_lahr.setText(pc.getDetails().get("tanggalLahirAnak") != null ? pc.getDetails().get("tanggalLahirAnak").substring(0,10): "-");
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
         CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
