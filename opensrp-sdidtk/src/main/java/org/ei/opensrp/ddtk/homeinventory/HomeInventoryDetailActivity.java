@@ -66,23 +66,37 @@ public class HomeInventoryDetailActivity extends Activity {
         TextView anakTinggi = (TextView) findViewById(R.id.childdetail_height);
         TextView anakLingKepala = (TextView) findViewById(R.id.childdetail_headcir);
 
-        TextView Responsivitas = (TextView) findViewById(R.id.Responsivitas);
-        TextView Penerimaan = (TextView) findViewById(R.id.Penerimaan);
-        TextView Keteraturan = (TextView) findViewById(R.id.Keteraturan);
-        TextView Sumber_belajar = (TextView) findViewById(R.id.Sumber_belajar);
-        TextView Keterlibatan = (TextView) findViewById(R.id.Keterlibatan);
-        TextView Varisai = (TextView) findViewById(R.id.Varisai);
+        TextView responsivitas = (TextView) findViewById(R.id.Responsivitas);
+        TextView penerimaan = (TextView) findViewById(R.id.Penerimaan);
+        TextView keteraturan = (TextView) findViewById(R.id.Keteraturan);
+        TextView sumber_belajar = (TextView) findViewById(R.id.Sumber_belajar);
+        TextView keterlibatan = (TextView) findViewById(R.id.Keterlibatan);
+        TextView varisai = (TextView) findViewById(R.id.Varisai);
 
-        TextView Lingkungan_3 = (TextView) findViewById(R.id.Lingkungan_3);
-        TextView berbicara_3 = (TextView) findViewById(R.id.berbicara_3);
-        TextView Interaksi_3 = (TextView) findViewById(R.id.Interaksi_3);
-        TextView Sikap_3 = (TextView) findViewById(R.id.Sikap_3);
-        TextView umum_3 = (TextView) findViewById(R.id.umum_3);
-        TextView Mainan_3 = (TextView) findViewById(R.id.Mainan_3);
-        TextView pembelajaran_3 = (TextView) findViewById(R.id.pembelajaran_3);
-        TextView Kebiasaan_3 = (TextView) findViewById(R.id.Kebiasaan_3);
+        TextView responsivitasEnd = (TextView) findViewById(R.id.ResponsivitasEnd);
+        TextView penerimaanEnd = (TextView) findViewById(R.id.PenerimaanEnd);
+        TextView keteraturanEnd = (TextView) findViewById(R.id.KeteraturanEnd);
+        TextView sumber_belajarEnd = (TextView) findViewById(R.id.Sumber_belajarEnd);
+        TextView keterlibatanEnd = (TextView) findViewById(R.id.KeterlibatanEnd);
+        TextView varisaiEnd = (TextView) findViewById(R.id.VarisaiEnd);
 
+        TextView materiPembelajaran = (TextView) findViewById(R.id.materi_pembelajaran3);
+        TextView stimulasiBahasa = (TextView) findViewById(R.id.stimulasi_bahasa);
+        TextView lingkunganFisik = (TextView) findViewById(R.id.lingkungan_fisik);
+        TextView responsivitas3 = (TextView) findViewById(R.id.responsivitas3);
+        TextView stimulasiAkademik = (TextView) findViewById(R.id.stimulasi_akademik);
+        TextView keteladanan = (TextView) findViewById(R.id.keteladanan);
+        TextView variasi = (TextView) findViewById(R.id.variasi);
+        TextView penerimaan3 = (TextView) findViewById(R.id.penerimaan);
 
+        TextView materiPembelajaranEnd = (TextView) findViewById(R.id.materi_pembelajaran3_end);
+        TextView stimulasiBahasaEnd = (TextView) findViewById(R.id.stimulasi_bahasaEnd);
+        TextView lingkunganFisikEnd = (TextView) findViewById(R.id.lingkungan_fisikEnd);
+        TextView responsivitas3End = (TextView) findViewById(R.id.responsivitas3End);
+        TextView stimulasiAkademikEnd = (TextView) findViewById(R.id.stimulasi_akademikEnd);
+        TextView keteladananEnd = (TextView) findViewById(R.id.keteladananEnd);
+        TextView variasiEnd = (TextView) findViewById(R.id.variasiEnd);
+        TextView penerimaan3End = (TextView) findViewById(R.id.penerimaanEnd);
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(childclient);
@@ -98,17 +112,17 @@ public class HomeInventoryDetailActivity extends Activity {
         });
         final ImageView childview = (ImageView)findViewById(R.id.childdetailprofileview);
         if(childclient.getDetails().get("profilepic")!= null){
-            if((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("perempuan")) {
+            if(getStringDetails("jenis_kelamin").equalsIgnoreCase("female")) {
                 setImagetoHolderFromUri(HomeInventoryDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.womanimageload);
-            } else if ((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("laki_laki")){
+            } else if (getStringDetails("jenis_kelamin").equalsIgnoreCase("male")){
                 setImagetoHolderFromUri(HomeInventoryDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.householdload);
 
             }
         }else{
 
-            if((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("perempuan")){
+            if(getStringDetails("jenis_kelamin").equalsIgnoreCase("female")){
                 childview.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
-            }else if ((childclient.getDetails().get("jenis_kelamin")!=null?childclient.getDetails().get("jenis_kelamin"):"").equalsIgnoreCase("laki_laki")){
+            }else if (getStringDetails("jenis_kelamin").equalsIgnoreCase("male")){
                 childview.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
             }
         }
@@ -124,13 +138,11 @@ public class HomeInventoryDetailActivity extends Activity {
             }
         });*/
 
-        anakName.setText(getString(R.string.detailNamaAnak) +": "+ (childclient.getDetails().get("namaBayi") != null ? childclient.getDetails().get("namaBayi").replaceAll("_", " ") : "-"));
-        anakJenisKelamin.setText(getString(R.string.detailJenisKelamin) +": "+ (childclient.getDetails().get("gender") != null ? childclient.getDetails().get("gender").replaceAll("_", " ") : "-"));
+        anakName.setText(getString(R.string.detailNamaAnak) +": "+ (getStringDetails("namaBayi")).replaceAll("_"," "));
+        anakJenisKelamin.setText(getString(R.string.detailJenisKelamin) +": "+ getStringDetails("gender").replaceAll("_"," "));
 
-        String ages = childclient.getColumnmaps().get("tanggalLahirAnak").substring(0, childclient.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
-
+        String ages = getStringColumnmaps("tanggalLahirAnak").substring(0, getStringColumnmaps("tanggalLahirAnak").indexOf("T"));
         anakUmur.setText(getString(R.string.detailUmur) +": "+ Integer.toString(monthRangeToToday(ages))+" Bulan" );
-
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
         CommonPersonObject childobject = childRepository.findByCaseID(childclient.entityId());
@@ -139,40 +151,51 @@ public class HomeInventoryDetailActivity extends Activity {
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);
-            String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
-            String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
+            String namaayah = getStringColumnmaps(kiparent,"namaSuami");
+            String namaibu = getStringColumnmaps(kiparent,"namalengkap");
 
             anakNamaIbu.setText(namaibu + "," + namaayah);
             //   viewHolder.village_name.setText(kiparent.getDetails().get("address1")!=null?kiparent.getDetails().get("address1") :"-");
         }
 
-        anakBerat.setText(getString(R.string.detailBerat) +": "+ (childclient.getDetails().get("berat") != null ? childclient.getDetails().get("berat").replaceAll("_", " ") : "-"));
-        anakTinggi.setText(getString(R.string.detailTinggi) +": "+ (childclient.getDetails().get("tinggi") != null ? childclient.getDetails().get("tinggi").replaceAll("_", " ") : "-"));
-        anakLingKepala.setText(getString(R.string.detailLingkarKepala) +": "+ (childclient.getDetails().get("lingkar_kepala") != null ? childclient.getDetails().get("lingkar_kepala").replaceAll("_", " ") : "-"));
+        anakBerat.setText(getString(R.string.detailBerat) +": "+ getStringDetails("berat").replaceAll("_"," "));
+        anakTinggi.setText(getString(R.string.detailTinggi) +": "+ getStringDetails("tinggi").replaceAll("_"," "));
+        anakLingKepala.setText(getString(R.string.detailLingkarKepala) +": "+ getStringDetails("lingkar_kepala").replaceAll("_"," "));
 
+/* TEMP 001 Location */
+        HomeConstant constant = new HomeConstant();
 
+        responsivitas.setText(countLine(constant.responsivitas,base02));
+        penerimaan.setText(countLine(constant.penerimaan,base02));
+        keteraturan.setText(countLine(constant.keteraturan,base02));
+        sumber_belajar.setText(countLine(constant.materiPembelajaran,base02));
+        keterlibatan.setText(countLine(constant.keterlibatan,base02));
+        varisai.setText(countLine(constant.variasi,base02));
 
+        responsivitasEnd.setText(countLine(constant.responsivitas,end02));
+        penerimaanEnd.setText(countLine(constant.penerimaan,end02));
+        keteraturanEnd.setText(countLine(constant.keteraturan,end02));
+        sumber_belajarEnd.setText(countLine(constant.materiPembelajaran,end02));
+        keterlibatanEnd.setText(countLine(constant.keterlibatan,end02));
+        varisaiEnd.setText(countLine(constant.variasi,end02));
 
+        materiPembelajaran.setText(countLine(constant.materiPembelajaran3,base36));
+        stimulasiBahasa.setText(countLine(constant.stimulasiBahasa,base36));
+        lingkunganFisik.setText(countLine(constant.lingkunganFisik,base36));
+        responsivitas3.setText(countLine(constant.responsivitas3,base36));
+        stimulasiAkademik.setText(countLine(constant.stimulasiAkademik,base36));
+        keteladanan.setText(countLine(constant.keteladanan,base36));
+        variasi.setText(countLine(constant.variasi3,base36));
+        penerimaan3.setText(countLine(constant.penerimaan3,base36));
 
-        checkHome02(1,11,Responsivitas);
-        checkHome02(12,19,Penerimaan);
-        checkHome02(20,25,Keteraturan);
-        checkHome02(26,34,Sumber_belajar);
-        checkHome02(35,40,Keterlibatan);
-        checkHome02(41,45,Varisai);
-
-        checkHome36(1,5,Lingkungan_3);
-        checkHome36(6,9,berbicara_3);
-        checkHome36(10,15,Interaksi_3);
-        checkHome36(16,21,Sikap_3);
-        checkHome36(22,30,umum_3);
-        checkHome36(31,37,Mainan_3);
-        checkHome36(38,45,pembelajaran_3);
-        checkHome36(48,55,Kebiasaan_3);
-
-
-
-
+        materiPembelajaranEnd.setText(countLine(constant.materiPembelajaran3,end36));
+        stimulasiBahasaEnd.setText(countLine(constant.stimulasiBahasa,end36));
+        lingkunganFisikEnd.setText(countLine(constant.lingkunganFisik,end36));
+        responsivitas3End.setText(countLine(constant.responsivitas3,end36));
+        stimulasiAkademikEnd.setText(countLine(constant.stimulasiAkademik,end36));
+        keteladananEnd.setText(countLine(constant.keteladanan,end36));
+        variasiEnd.setText(countLine(constant.variasi3,end36));
+        penerimaan3End.setText(countLine(constant.penerimaan3,end36));
     }
 
     public void checkHome02 (int fisrt, int last , TextView total1 ) {
@@ -182,8 +205,6 @@ public class HomeInventoryDetailActivity extends Activity {
             if(childclient.getDetails().get(home_endline) !=null) {
                 if (childclient.getDetails().get(home_endline).equalsIgnoreCase("Yes")) {
                     _endlinecount = _endlinecount + 1;
-                } else {
-
                 }
             }
         }
@@ -203,13 +224,6 @@ public class HomeInventoryDetailActivity extends Activity {
             }
         }
         total.setText(""+_endlinecount);
-    }
-
-
-    private int monthRangeToToday(String lastVisitDate){
-        String currentDate[] = new SimpleDateFormat("yyyy-MM").format(new java.util.Date()).substring(0,7).split("-");
-        return ((Integer.parseInt(currentDate[0]) - Integer.parseInt(lastVisitDate.substring(0,4)))*12 +
-                (Integer.parseInt(currentDate[1]) - Integer.parseInt(lastVisitDate.substring(5,7))));
     }
 
     // NOT USING PICTURE AT THE MOMENT
@@ -320,4 +334,84 @@ public class HomeInventoryDetailActivity extends Activity {
 
 
     }
+
+    public boolean notNull(String data){
+        return data != null;
+    }
+
+    /**
+     * Util method
+     */
+
+    private int monthRangeToToday(String lastVisitDate){
+        String currentDate[] = new SimpleDateFormat("yyyy-MM").format(new java.util.Date()).substring(0,7).split("-");
+        return ((Integer.parseInt(currentDate[0]) - Integer.parseInt(lastVisitDate.substring(0,4)))*12 +
+                (Integer.parseInt(currentDate[1]) - Integer.parseInt(lastVisitDate.substring(5,7))));
+    }
+
+    public String getStringDetails(String key){
+        return notNull(childclient.getDetails().get(key)) ? childclient.getDetails().get(key) : "-";
+    }
+
+    public String getStringColumnmaps(String key){
+        return notNull(childclient.getColumnmaps().get(key)) ? childclient.getColumnmaps().get(key) : "-";
+    }
+
+    public String getStringDetails(CommonPersonObject person, String key){
+        return notNull(person.getDetails().get(key)) ? person.getDetails().get(key) : "-";
+    }
+
+    public String getStringColumnmaps(CommonPersonObject person, String key){
+        return notNull(person.getColumnmaps().get(key)) ? person.getColumnmaps().get(key) : "-";
+    }
+
+    private class HomeConstant{
+        public final int [] responsivitas = {1,27,28,29,30,31,32,33,34,35,36};
+        public final int [] penerimaan ={2,17,26,37,38,39,40,41};
+        public final int [] keteraturan = {3,4,5,6,8,44};
+        public final int [] materiPembelajaran = {9,10,11,12,13,14,15,20,42};
+        public final int [] keterlibatan = {7,18,19,21,43};
+        public final int [] variasi = {7,18,19,21,43};
+
+        public final int [] materiPembelajaran3 ={12,13,14,15,16,17,18,19,20,21,31,32};
+        public final int [] stimulasiBahasa ={2,7,23,26,29,43,50};
+        public final int [] lingkunganFisik ={1,39,40,41,42};
+        public final int [] responsivitas3 ={3,45,46,47,48,49,51,55};
+        public final int [] stimulasiAkademik ={24,25,27,28,38};
+        public final int [] keteladanan ={4,5,9,11,};
+        public final int [] variasi3 ={8,10,22,30,33,34,44,35,36,37};
+        public final int [] penerimaan3 ={6,52,53,54,};
+    }
+
+    private final String base02 = "_it";
+    private final String end02 = "_it_end";
+    private final String base36 = "_ec";
+    private final String end36 = "_ec_end";
+
+    private String countLine(int[]list, String type){
+        int a=0;
+        for(int i:list){
+            a += notNull(childclient.getDetails().get("home"+i+type))? 1 : 0;
+        }
+        return a+"/"+list.length;
+    }
 }
+
+
+/* Temp01
+        checkHome02(1,11,Responsivitas);
+        checkHome02(12,19,Penerimaan);
+        checkHome02(20,25,Keteraturan);
+        checkHome02(26,34,Sumber_belajar);
+        checkHome02(35,40,Keterlibatan);
+        checkHome02(41,45,Varisai);
+
+        checkHome36(1,5,Lingkungan_3);
+        checkHome36(6,9,berbicara_3);
+        checkHome36(10,15,Interaksi_3);
+        checkHome36(16,21,Sikap_3);
+        checkHome36(22,30,umum_3);
+        checkHome36(31,37,Mainan_3);
+        checkHome36(38,45,pembelajaran_3);
+        checkHome36(48,55,Kebiasaan_3);
+ */
