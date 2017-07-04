@@ -137,7 +137,7 @@ public class HomeInventoryClientsProvider implements SmartRegisterCLientsProvide
         //viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
         //viewHolder.village.setText(pc.getDetails().get("village") != null ? pc.getDetails().get("village") : "");
         viewHolder.name.setText(pc.getDetails().get("namaBayi") != null ? pc.getDetails().get("namaBayi").replaceAll("_", " ") : "-");
-        String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
+        String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, 10);
         viewHolder.age.setText(pc.getDetails().get("tanggalLahirAnak") != null ? Integer.toString(monthRangeToToday(ages))+"B" : "");
 
         viewHolder.tgl_lahr.setText(pc.getDetails().get("tanggalLahirAnak") != null ? pc.getDetails().get("tanggalLahirAnak") : "-");
