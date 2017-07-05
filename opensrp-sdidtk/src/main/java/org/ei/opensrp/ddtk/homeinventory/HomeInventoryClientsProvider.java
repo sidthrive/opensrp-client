@@ -189,46 +189,33 @@ public class HomeInventoryClientsProvider implements SmartRegisterCLientsProvide
 
 
         }
-        int baselinecount = 0;
-        for (int i = 1 ; i <=45 ; i++){
-            String home = "home"+i+"_it";
-            if(pc.getDetails().get(home) !=null) {
-                if (pc.getDetails().get(home).equalsIgnoreCase("Yes")) {
-                    baselinecount = baselinecount + 1;
-                } else {
 
-                }
-            }
+        int age = monthRangeToToday(ages);
+        int numOfVar = age < 36 ? 45 : 55;
+        String flag = age < 36 ? "_it" : "_ec";
+        int baselineScore = 0, endlineScore = 0;
 
+        for(int i=1;i<numOfVar;i++){
+            baselineScore += getStringDetails(pc,"home"+i+flag).equalsIgnoreCase("yes") ? 1 : 0;
+            endlineScore += getStringDetails(pc,"home"+i+flag+"_end").equalsIgnoreCase("yes") ? 1 : 0;
         }
 
-        String tanggl = pc.getDetails().get("tanggal_kunjungan_home") != null ? pc.getDetails().get("tanggal_kunjungan_home") : "-";
-        String umurs = pc.getDetails().get("umurs") != null ? pc.getDetails().get("umurs") : "-";
+        String visitDateVar = age < 36 ? "tanggal_kunjungan_home_02" : "tanggal_kunjungan_36";
+        String umurVar = age < 36 ? "umurs_02" : "umur_36";
+        String tanggl = getStringDetails(pc,visitDateVar);
+        String umurs = getStringDetails(pc,umurVar);
         viewHolder.base_date.setText("Tanggal : "+tanggl);
         viewHolder.base_age.setText("Umur : "+umurs);
-        viewHolder.base_skors.setText("Skor : "+baselinecount);
+        viewHolder.base_skors.setText("Skor : "+baselineScore);
 
-        int _endlinecount = 0;
-        for (int i = 1 ; i <=45 ; i++){
-            String home_endline = "home"+i+"_ec";
-            if(pc.getDetails().get(home_endline) !=null) {
-                if (pc.getDetails().get(home_endline).equalsIgnoreCase("Yes")) {
-                    _endlinecount = _endlinecount + 1;
-                } else {
-
-                }
-            }
-
-        }
-
-        String tanggl_endline = pc.getDetails().get("tanggal_kunjungan_endline") != null ? pc.getDetails().get("tanggal_kunjungan_endline") : "-";
-        String umurs_endline = pc.getDetails().get("umur_3_6") != null ? pc.getDetails().get("umur_3_6") : "-";
+        String tanggl_endline = getStringDetails(pc,visitDateVar+"_end");
+        String umurs_endline = getStringDetails(pc,umurVar+"_end");
         viewHolder.end_date.setText("Tanggal : "+tanggl_endline);
         viewHolder.end_age.setText("Umur : "+umurs_endline);
-        viewHolder.end_skors.setText("Skor : "+_endlinecount);
+        viewHolder.end_skors.setText("Skor : "+endlineScore);
 
         int counter=0;
-        if(isLowHomeScore(baselinecount,_endlinecount)){
+        if(isLowHomeScore(baselineScore,endlineScore)){
             viewHolder.riskFlag[counter].setImageResource(R.drawable.risk_h);
             counter++;
         }
@@ -288,8 +275,13 @@ public class HomeInventoryClientsProvider implements SmartRegisterCLientsProvide
     CommonPersonObjectController householdelcocontroller;
 
 
+    public boolean notNull(String data){
+        return data != null;
+    }
 
-
+    public String getStringDetails(CommonPersonObjectClient person, String key){
+        return notNull(person.getDetails().get(key)) ? person.getDetails().get(key) : "-";
+    }
 
     public SmartRegisterClients getClients() {
         return controller.getClients();

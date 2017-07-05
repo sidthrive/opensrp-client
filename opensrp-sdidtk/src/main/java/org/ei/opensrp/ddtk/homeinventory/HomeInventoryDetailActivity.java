@@ -116,7 +116,6 @@ public class HomeInventoryDetailActivity extends Activity {
                 setImagetoHolderFromUri(HomeInventoryDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.womanimageload);
             } else if (getStringDetails("jenis_kelamin").equalsIgnoreCase("male")){
                 setImagetoHolderFromUri(HomeInventoryDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.householdload);
-
             }
         }else{
 
