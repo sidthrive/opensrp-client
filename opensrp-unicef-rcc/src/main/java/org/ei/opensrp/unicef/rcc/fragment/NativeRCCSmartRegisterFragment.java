@@ -144,10 +144,10 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
-                    //  new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
-                    /*     new CursorCommonObjectSort(getResources().getString(R.string.sort_by_no_ibu_label),KiSortByNoIbu()),
-                   */ //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_high_risk_pregnancy_label),ShortByriskflag()),
-                };
+                      new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
+                         new CursorCommonObjectSort(getResources().getString(R.string.short_by_gender),shortbygenderFM()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.short_by_gendermf),shortbygenderMF()),
+                 };
             }
 
             @Override
@@ -204,7 +204,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     public void initializeQueries(){
         HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "namaSuami","noIbu","respondent_name","kartu_ibu.isOutOfArea"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "relation_to_child", "respondent_age","respondent_name","respondent_education"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("kartu_ibu");
@@ -218,7 +218,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "namaSuami", "noIbu", "respondent_name"});
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "relation_to_child", "respondent_age","respondent_name","respondent_education"});
        // queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
         mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
@@ -295,14 +295,25 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     }
 
     private String KiSortByAgeRev() {
-        return " CAST(respondent_age AS INTEGER) ='01'";
+        return " respondent_age ASC";
     }
     private String KiSortByNoIbu() {
         return " noIbu ASC";
     }
 
-    private String KiSortByEdd() {
-         return " htp IS NULL, htp";
+    private String shortbygenderFM() {
+         return "  CASE\n" +
+                 "        WHEN relation_to_child LIKE '%mother' OR relation_to_child LIKE '%female-care_giver' THEN 1\n" +
+                 "        WHEN relation_to_child LIKE '%father' OR relation_to_child LIKE '%male-care_giver' THEN 2\n" +
+                 "    END ASC";
+
+    }
+    private String shortbygenderMF() {
+        return "  CASE\n" +
+                "        WHEN relation_to_child LIKE '%father' OR relation_to_child LIKE '%male-care_giver' THEN 1\n" +
+                "        WHEN relation_to_child LIKE '%mother' OR relation_to_child LIKE '%female-care_giver' THEN 2\n" +
+                "    END ASC";
+
     }
 
 

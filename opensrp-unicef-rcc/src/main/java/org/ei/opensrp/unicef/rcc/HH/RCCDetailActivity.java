@@ -154,16 +154,16 @@ public class RCCDetailActivity extends Activity {
         });
 
 
-        if(kiclient.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || kiclient.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver")){
+        if(kiclient.getColumnmaps().get("relation_to_child").equalsIgnoreCase("mother") || kiclient.getColumnmaps().get("relation_to_child").equalsIgnoreCase("female-care_giver")){
             kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));   }
         else {
                 kiview.setImageDrawable(getResources().getDrawable(R.mipmap.household_profile));
         }
 
         nama.setText(getResources().getString(R.string.name)+ (kiclient.getColumnmaps().get("respondent_name") != null ? kiclient.getColumnmaps().get("respondent_name") : "-"));
-        nik.setText("Relationship : "+ (kiclient.getDetails().get("relation_to_child") != null ? kiclient.getDetails().get("relation_to_child").replace("_","") : "-"));
-        husband_name.setText("Age : "+ (kiclient.getDetails().get("respondent_age") != null ? kiclient.getDetails().get("respondent_age") : "-"));
-        dob.setText("Education : "+ (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education").replace("_","") : "-"));
+        nik.setText("Relationship : "+ (kiclient.getColumnmaps().get("relation_to_child") != null ? kiclient.getColumnmaps().get("relation_to_child").replace("_","") : "-"));
+        husband_name.setText("Age : "+ (kiclient.getColumnmaps().get("respondent_age") != null ? kiclient.getColumnmaps().get("respondent_age") : "-"));
+        dob.setText("Education : "+ (kiclient.getColumnmaps().get("respondent_education") != null ? kiclient.getColumnmaps().get("respondent_education").replace("_","") : "-"));
 
         a.setText( (kiclient.getDetails().get("household_size") != null ? kiclient.getDetails().get("household_size") : "-"));
         b.setText( (kiclient.getDetails().get("adult_hh_member") != null ? kiclient.getDetails().get("adult_hh_member") : "-"));

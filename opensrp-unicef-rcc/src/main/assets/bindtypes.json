@@ -9,7 +9,7 @@
     {
       "name": "kartu_ibu",
       "columns": [
-        {"name":"namalengkap"}, {"name":"isClosed"},{"name":"isOutOfArea"},{"name":"namaSuami"},{"name":"noIbu"},{"name":"htp"},{"name":"respondent_name"}
+        {"name":"isClosed"},{"name":"isOutOfArea"},{"name":"relation_to_child"},{"name":"respondent_age"},{"name":"respondent_name"},{"name":"respondent_education"}
       ]
     },
     {

@@ -149,7 +149,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 //        viewHolder.information_source.setText("");
         viewHolder.have_mch_book.setText("");
 
-        if(pc.getDetails().get("relation_to_child").equalsIgnoreCase("mother") || pc.getDetails().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
+        if(pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("mother") || pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
         }
         else{
@@ -160,9 +160,9 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         //}
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("respondent_name")!=null?pc.getColumnmaps().get("respondent_name"):"");
-        viewHolder.husband_name.setText(pc.getDetails().get("relation_to_child")!=null?pc.getDetails().get("relation_to_child").replace("_"," "):"");
+        viewHolder.husband_name.setText(pc.getColumnmaps().get("relation_to_child")!=null?pc.getColumnmaps().get("relation_to_child").replace("_"," "):"");
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
-        viewHolder.wife_age.setText(pc.getDetails().get("respondent_age")!=null?pc.getDetails().get("respondent_age"):"");
+        viewHolder.wife_age.setText(pc.getColumnmaps().get("respondent_age")!=null?pc.getColumnmaps().get("respondent_age"):"");
 
         if(pc.getDetails().get("household_size") != null || pc.getDetails().get("adult_hh_member") != null) {
             viewHolder.household_size.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");

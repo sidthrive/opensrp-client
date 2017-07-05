@@ -2,6 +2,26 @@ package org.ei.opensrp.unicef.rcc.application;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.util.Pair;
+
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
+import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.CommonFtsObject;
+import org.ei.opensrp.unicef.rcc.LoginActivity;
+import org.ei.opensrp.sync.DrishtiSyncScheduler;
+import org.ei.opensrp.view.activity.DrishtiApplication;
+import org.ei.opensrp.view.receiver.SyncBroadcastReceiver;
+import static org.ei.opensrp.util.Log.logInfo;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import android.content.Intent;
+import android.content.res.Configuration;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonFtsObject;
@@ -72,7 +92,7 @@ public class RccApplication extends DrishtiApplication {
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("kartu_ibu")){
-            String[] ftsSearchFields =  { "namalengkap", "namaSuami","respondent_name" };
+            String[] ftsSearchFields =  { "respondent_name" };
             return ftsSearchFields;
         } else if(tableName.equals("anak")){
             String[] ftsSearchFields =  { "namaBayi" };
@@ -86,7 +106,7 @@ public class RccApplication extends DrishtiApplication {
 
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("kartu_ibu")) {
-            String[] sortFields = { "namalengkap", "umur",  "noIbu", "respondent_age", "respondent_name" };
+            String[] sortFields = { "relation_to_child", "respondent_age",  "respondent_education", "respondent_name" };
             return sortFields;
         } else if(tableName.equals("anak")){
             String[] sortFields = { "namaBayi", "tanggalLahirAnak" };

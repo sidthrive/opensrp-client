@@ -38,8 +38,8 @@
     <string name="videos_IEC_not_installed_dialog_message">Please install IEC application to play the videos.
     </string>
 
-    <string name="sort_by_wife_age_label">Age (Old-Young)</string>
-    <string name="sort_by_wife_age_label_rev">Age (Young-Old)</string>
+    <string name="sort_by_wife_age_label">Age (Old - Young)</string>
+    <string name="sort_by_wife_age_label_rev">Age (Young - Old)</string>
     <string name="videos_unknown_error_dialog_message">Unable to play video due to technical error.</string>
     <string name="settings_logout_confirm_title">Confirm Log out</string>
     <string name="settings_logout_confirm_dialog_message">Are you sure you want to log out? All the data will be
@@ -552,4 +552,6 @@
     <string name="chara">HH characteristics</string>
     <string name="chara_ex">Expenditure</string>
     <string name="knowledge">Immunization</string>
+    <string name="short_by_gender">Gender (Female - Male)</string>
+    <string name="short_by_gendermf">Gender (Male - Female)</string>
 </resources>
