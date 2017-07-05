@@ -25,19 +25,19 @@
         "shouldLoadValue": true
       },
       {
-        "name": "tanggal_kunjungan_home",
+        "name": "tanggal_kunjungan_home_02",
         "bind": "/model/instance/Home_0-2yo/tanggal_kunjungan"
       },
       {
-        "name": "umurs",
+        "name": "umurs_02",
         "bind": "/model/instance/Home_0-2yo/umur"
       },
       {
-        "name": "pengasuh",
+        "name": "pengasuh_02",
         "bind": "/model/instance/Home_0-2yo/pengasuh"
       },
       {
-        "name": "pengasuh_lainnya",
+        "name": "pengasuh_lainnya_02",
         "bind": "/model/instance/Home_0-2yo/pengasuh_lainnya"
       },
       {

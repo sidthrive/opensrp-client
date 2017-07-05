@@ -25,19 +25,19 @@
         "shouldLoadValue": true
       },
       {
-        "name": "tanggal_kunjungan_endline",
+        "name": "tanggal_kunjungan_36_end",
         "bind": "/model/instance/Home_3_6y/tanggal_kunjungan"
       },
       {
-        "name": "umur_3_6",
+        "name": "umur_3_6_end",
         "bind": "/model/instance/Home_3_6y/umur"
       },
       {
-        "name": "pengasuh_3_6",
+        "name": "pengasuh_3_6_end",
         "bind": "/model/instance/Home_3_6y/pengasuh"
       },
       {
-        "name": "pengasuh_lainnya_3_6",
+        "name": "pengasuh_lainnya_3_6_end",
         "bind": "/model/instance/Home_3_6y/pengasuh_lainnya"
       },
       {

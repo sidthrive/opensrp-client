@@ -25,7 +25,7 @@
         "shouldLoadValue": true
       },
       {
-        "name": "tanggal_kunjungan_endline",
+        "name": "tanggal_kunjungan_36",
         "bind": "/model/instance/Home_3_6y/tanggal_kunjungan"
       },
       {
