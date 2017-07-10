@@ -146,7 +146,7 @@ public class NativeKIParanaSmartRegisterActivity extends SecuredNativeSmartRegis
 
     public DialogOption[] getEditOptions() {
         return new DialogOption[]{
-                new OpenFormOption("PARANA  INVITASI", "parana_invitation", formController),
+                new OpenFormOption(context().getStringResource(R.string.parana_invitation), "parana_invitation", formController),
                 new OpenFormOption("Sesi 1 ", "parana1", formController),
                 new OpenFormOption("Sesi 2 ", "parana2", formController),
                 new OpenFormOption("Sesi 3 ", "parana3", formController),
