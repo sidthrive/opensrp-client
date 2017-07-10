@@ -24,7 +24,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/Home_0-2yo/tanggal_kunjungan:hint">Tanggal kunjungan rumah untuk wawancara Home Inventory</span>
         <span lang="en" class="or-hint " data-itext-id="/Home_0-2yo/tanggal_kunjungan:hint">Date of Home Inventory Visit</span>
-        <input type="date" name="/Home_0-2yo/tanggal_kunjungan" data-required="true()" data-constraint=".&gt; /Home_0-2yo/tanggal_lahir " data-type-xml="date"/>
+        <input type="date" name="/Home_0-2yo/tanggal_kunjungan" required="required" data-constraint=".&gt; /Home_0-2yo/tanggal_lahir " data-type-xml="date"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -42,7 +42,7 @@
         <span class="required">*</span>
         <span lang="Bahasa" class="or-hint active" data-itext-id="/Home_0-2yo/pengasuh:hint">Hubungan orang yang diwawancara dengan anak</span>
         <span lang="en" class="or-hint " data-itext-id="/Home_0-2yo/pengasuh:hint">The relationship of the interviewee with the child</span>
-        <select multiple="multiple" name="/Home_0-2yo/pengasuh" data-required="true()" data-type-xml="select">
+        <select multiple="multiple" name="/Home_0-2yo/pengasuh" required="required" data-type-xml="select">
             <option value="">...</option>
             <option value="ibu">Ibu</option>
             <option value="bapak">Bapak</option>
@@ -92,17 +92,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home1_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home1_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home1_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home1_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home1_it" data-name="/Home_0-2yo/home1_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home1_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home1_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -124,17 +124,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home2_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home2_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home2_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home2_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home2_it" data-name="/Home_0-2yo/home2_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home2_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home2_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -156,17 +156,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home3_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home3_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home3_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home3_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home3_it" data-name="/Home_0-2yo/home3_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home3_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home3_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -188,17 +188,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home4_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home4_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home4_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home4_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home4_it" data-name="/Home_0-2yo/home4_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home4_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home4_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -220,17 +220,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home5_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home5_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home5_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home5_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home5_it" data-name="/Home_0-2yo/home5_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home5_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home5_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -252,17 +252,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home6_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home6_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home6_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home6_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home6_it" data-name="/Home_0-2yo/home6_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home6_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home6_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -284,17 +284,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home7_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home7_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home7_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home7_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home7_it" data-name="/Home_0-2yo/home7_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home7_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home7_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -316,17 +316,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home8_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home8_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home8_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home8_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home8_it" data-name="/Home_0-2yo/home8_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home8_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home8_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -348,17 +348,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home9_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home9_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home9_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home9_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home9_it" data-name="/Home_0-2yo/home9_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home9_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home9_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -375,17 +375,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home10_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home10_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home10_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home10_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home10_it" data-name="/Home_0-2yo/home10_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home10_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home10_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -407,17 +407,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home11_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home11_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home11_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home11_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home11_it" data-name="/Home_0-2yo/home11_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home11_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home11_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -434,17 +434,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home12_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home12_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home12_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home12_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home12_it" data-name="/Home_0-2yo/home12_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home12_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home12_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -466,17 +466,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home13_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home13_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home13_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home13_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home13_it" data-name="/Home_0-2yo/home13_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home13_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home13_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -498,17 +498,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home14_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home14_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home14_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home14_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home14_it" data-name="/Home_0-2yo/home14_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home14_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home14_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -530,17 +530,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home15_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home15_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home15_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home15_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home15_it" data-name="/Home_0-2yo/home15_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home15_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home15_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -562,17 +562,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home16_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home16_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home16_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home16_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home16_it" data-name="/Home_0-2yo/home16_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home16_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home16_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -594,17 +594,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home17_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home17_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home17_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home17_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home17_it" data-name="/Home_0-2yo/home17_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home17_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home17_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -626,17 +626,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home18_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home18_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home18_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home18_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home18_it" data-name="/Home_0-2yo/home18_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home18_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home18_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -658,17 +658,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home19_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home19_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home19_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home19_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home19_it" data-name="/Home_0-2yo/home19_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home19_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home19_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -690,17 +690,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home20_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home20_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home20_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home20_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home20_it" data-name="/Home_0-2yo/home20_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home20_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home20_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -722,17 +722,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home21_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home21_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home21_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home21_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home21_it" data-name="/Home_0-2yo/home21_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home21_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home21_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -754,17 +754,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home22_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home22_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home22_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home22_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home22_it" data-name="/Home_0-2yo/home22_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home22_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home22_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -786,17 +786,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home23_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home23_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home23_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home23_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home23_it" data-name="/Home_0-2yo/home23_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home23_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home23_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -818,17 +818,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home24_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home24_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home24_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home24_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home24_it" data-name="/Home_0-2yo/home24_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home24_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home24_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -850,17 +850,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home25_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home25_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home25_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home25_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home25_it" data-name="/Home_0-2yo/home25_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home25_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home25_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -882,17 +882,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home26_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home26_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home26_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home26_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home26_it" data-name="/Home_0-2yo/home26_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home26_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home26_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -914,17 +914,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home27_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home27_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home27_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home27_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home27_it" data-name="/Home_0-2yo/home27_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home27_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home27_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -941,17 +941,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home28_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home28_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home28_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home28_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home28_it" data-name="/Home_0-2yo/home28_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home28_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home28_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -968,17 +968,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home29_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home29_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home29_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home29_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home29_it" data-name="/Home_0-2yo/home29_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home29_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home29_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -995,17 +995,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home30_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home30_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home30_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home30_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home30_it" data-name="/Home_0-2yo/home30_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home30_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home30_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1022,17 +1022,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home31_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home31_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home31_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home31_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home31_it" data-name="/Home_0-2yo/home31_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home31_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home31_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1049,17 +1049,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home32_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home32_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home32_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home32_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home32_it" data-name="/Home_0-2yo/home32_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home32_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home32_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1076,17 +1076,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home33_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home33_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home33_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home33_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home33_it" data-name="/Home_0-2yo/home33_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home33_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home33_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1103,17 +1103,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home34_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home34_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home34_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home34_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home34_it" data-name="/Home_0-2yo/home34_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home34_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home34_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1130,17 +1130,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home35_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home35_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home35_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home35_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home35_it" data-name="/Home_0-2yo/home35_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home35_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home35_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1157,17 +1157,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home36_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home36_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home36_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home36_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home36_it" data-name="/Home_0-2yo/home36_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home36_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home36_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1184,17 +1184,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home37_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home37_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home37_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home37_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home37_it" data-name="/Home_0-2yo/home37_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home37_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home37_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1211,17 +1211,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home38_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home38_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home38_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home38_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home38_it" data-name="/Home_0-2yo/home38_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home38_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home38_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1238,17 +1238,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home39_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home39_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home39_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home39_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home39_it" data-name="/Home_0-2yo/home39_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home39_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home39_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1265,17 +1265,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home40_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home40_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home40_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home40_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home40_it" data-name="/Home_0-2yo/home40_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home40_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home40_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1292,17 +1292,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home41_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home41_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home41_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home41_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home41_it" data-name="/Home_0-2yo/home41_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home41_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home41_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1319,17 +1319,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home42_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home42_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home42_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home42_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home42_it" data-name="/Home_0-2yo/home42_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home42_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home42_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1346,17 +1346,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home43_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home43_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home43_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home43_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home43_it" data-name="/Home_0-2yo/home43_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home43_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home43_it/unknown:label">Tidak diketahui</span>
                 </label>
@@ -1373,17 +1373,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="Yes" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home44_it/Yes:label">1</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home44_it/Yes:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="No" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home44_it/No:label">0</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home44_it/No:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="unknown" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/Home_0-2yo/home44_it" data-name="/Home_0-2yo/home44_it" value="unknown" required="required" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/Home_0-2yo/home44_it/unknown:label">Tidak diketahui</span>
                     <span lang="en" class="option-label " data-itext-id="/Home_0-2yo/home44_it/unknown:label">Tidak diketahui</span>
                 </label>
