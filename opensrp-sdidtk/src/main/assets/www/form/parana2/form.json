@@ -1,13 +1,13 @@
 {
-  "name": "Parana",
-  "title": "Parana",
-  "sms_keyword": "parana",
+  "name": "parana_sesi2",
+  "title": "Parana Sesi 2",
+  "sms_keyword": "parana_sesi2_1",
   "default_language": "Bahasa",
   "instance": {
-    "encounter_type": "Parana2"
+    "encounter_type": "Parana Sesi 2"
   },
-  "version": "201704250244",
-  "id_string": "parana",
+  "version": "201705010756",
+  "id_string": "parana_sesi2_1",
   "type": "survey",
   "children": [
     {
@@ -108,19 +108,6 @@
       }
     },
     {
-      "instance": {
-        "openmrs_entity_parent": "cityVillage",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept"
-      },
-      "type": "text",
-      "name": "lokasi",
-      "label": {
-        "Bahasa": "Lokasi",
-        "English": "Location :"
-      }
-    },
-    {
       "bind": {
         "required": "yes"
       },
@@ -129,20 +116,29 @@
         "openmrs_entity_id": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept"
       },
-      "name": "tanggal_sesi",
+      "name": "tanggal_sesi2",
       "label": {
         "Bahasa": "Tanggal :",
         "English": "Date : ?"
       }
     },
     {
-      "instance": {
-        "openmrs_entity_id": "160721AAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept"
+      "bind": {
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "lokasi2",
+      "label": {
+        "Bahasa": "Lokasi Kelas KARANA",
+        "English": "Location"
+      }
+    },
+    {
+      "bind": {
+        "required": "yes"
       },
       "label": {
-        "Bahasa": "Apakah ibu Aktif dalam diskusi?",
-        "English": "Apakah ibu Aktif dalam diskusi?"
+        "Bahasa": "Apakah laporan untuk sesi ini sudah pernah dientry sebelumnya?"
       },
       "type": "select one",
       "children": [
@@ -167,20 +163,559 @@
           }
         }
       ],
-      "name": "parana_status"
+      "name": "laporan2"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${laporan2},'No')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Membuat kesepakatan bersama"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "ya",
+          "label": {
+            "Bahasa": "Dilakukan"
+          }
+        },
+        {
+          "name": "tidak",
+          "label": {
+            "Bahasa": "Tidak dilakukan"
+          }
+        }
+      ],
+      "name": "kesepakatan2"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${kesepakatan2},'tidak')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "alasan_kesepakatan2",
+      "label": {
+        "Bahasa": "Jika tidak dilakukan, kenapa?",
+        "English": "If not, why?"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${kesepakatan2},'ya')",
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "waktu_kesepakatan2",
+      "label": {
+        "Bahasa": "Waktu (menit)",
+        "English": "Time (minutes)"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${kesepakatan2},'ya')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Topik diskusi dominan",
+        "English": "Dominant topic of discussion"
+      },
+      "type": "select all that apply",
+      "children": [
+        {
+          "name": "menghormati",
+          "label": {
+            "Bahasa": "Saling menghormati"
+          }
+        },
+        {
+          "name": "Mendukung",
+          "label": {
+            "Bahasa": "Saling Mendukung"
+          }
+        },
+        {
+          "name": "kerahasiaan",
+          "label": {
+            "Bahasa": "Saling menjaga kerahasiaan"
+          }
+        },
+        {
+          "name": "kesepakatan_lain",
+          "label": {
+            "Bahasa": "Lainnya (text)"
+          }
+        }
+      ],
+      "name": "topik_kesepakatan2"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${topik_kesepakatan2},'kesepakatan_lain')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "kesepakatan_other2",
+      "label": {
+        "Bahasa": "Lainnya (text)",
+        "English": "Other"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${kesepakatan2},'ya')"
+      },
+      "type": "text",
+      "name": "catatan2_kesepakatan",
+      "label": {
+        "Bahasa": "Catatan Pendamping Desa"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${laporan2},'No')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Aktivitas 1: Penyebab Mengapa Keluarga Bahagia dan Bersedih"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "ya",
+          "label": {
+            "Bahasa": "Dilakukan"
+          }
+        },
+        {
+          "name": "tidak",
+          "label": {
+            "Bahasa": "Tidak dilakukan"
+          }
+        }
+      ],
+      "name": "keluarga_bahagia"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${keluarga_bahagia},'tidak')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "alasan_keluarga",
+      "label": {
+        "Bahasa": "Jika tidak dilakukan, kenapa?",
+        "English": "If not, why?"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${keluarga_bahagia},'ya')",
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "waktu_keluarga",
+      "label": {
+        "Bahasa": "Waktu (menit)",
+        "English": "Time (minutes)"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${keluarga_bahagia},'ya')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Topik diskusi dominan",
+        "English": "Dominant topic of discussion"
+      },
+      "type": "select all that apply",
+      "children": [
+        {
+          "name": "faktor_ayah",
+          "label": {
+            "Bahasa": "Tidak terlibatnya ayah dalam keluarga"
+          }
+        },
+        {
+          "name": "faktor_ibu",
+          "label": {
+            "Bahasa": "Tidak terlibatnya ibu dalam keluarga"
+          }
+        },
+        {
+          "name": "faktor_lain",
+          "label": {
+            "Bahasa": "Lainnya (text)"
+          }
+        }
+      ],
+      "name": "topik_keluarga"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${topik_keluarga},'faktor_lain')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "keluarga_other",
+      "label": {
+        "Bahasa": "Lainnya (text)",
+        "English": "Other"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${keluarga_bahagia},'ya')"
+      },
+      "type": "text",
+      "name": "catatan2_keluarga",
+      "label": {
+        "Bahasa": "Catatan Pendamping Desa"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${laporan2},'No')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Aktivitas 2: Hubungan yang Penting Bagi Anak?"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "ya",
+          "label": {
+            "Bahasa": "Dilakukan"
+          }
+        },
+        {
+          "name": "tidak",
+          "label": {
+            "Bahasa": "Tidak dilakukan"
+          }
+        }
+      ],
+      "name": "hubungan"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hubungan},'tidak')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "alasan_hubungan",
+      "label": {
+        "Bahasa": "Jika tidak dilakukan, kenapa?",
+        "English": "If not, why?"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hubungan},'ya')",
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "waktu_hubungan",
+      "label": {
+        "Bahasa": "Waktu (menit)",
+        "English": "Time (minutes)"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hubungan},'ya')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Topik diskusi dominan",
+        "English": "Dominant topic of discussion"
+      },
+      "type": "select all that apply",
+      "children": [
+        {
+          "name": "ibu_anak",
+          "label": {
+            "Bahasa": "Hubungan ibu dan anak"
+          }
+        },
+        {
+          "name": "ayah_anak",
+          "label": {
+            "Bahasa": "Hubungan ayah dan anak"
+          }
+        },
+        {
+          "name": "ibu_ayah",
+          "label": {
+            "Bahasa": "Hubungan ibu dan ayah"
+          }
+        },
+        {
+          "name": "ibu_oranglain",
+          "label": {
+            "Bahasa": "Hubungan ibu dan orang lain"
+          }
+        },
+        {
+          "name": "ibu_sendiri",
+          "label": {
+            "Bahasa": "Hubungan antara ibu dan dirinya sendiri"
+          }
+        },
+        {
+          "name": "hubungan_lain",
+          "label": {
+            "Bahasa": "Lainnya (text)"
+          }
+        }
+      ],
+      "name": "topik_hubungan"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${topik_hubungan},'hubungan_lain')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "hubungan_other",
+      "label": {
+        "Bahasa": "Lainnya (text)",
+        "English": "Other"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hubungan},'ya')"
+      },
+      "type": "text",
+      "name": "catatan2_hubungan",
+      "label": {
+        "Bahasa": "Catatan Pendamping Desa"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${laporan2},'No')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Aktivitas 3: Apa yang Ibu Rasakan (Yuk, kenali emosi ibu)"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "ya",
+          "label": {
+            "Bahasa": "Dilakukan"
+          }
+        },
+        {
+          "name": "tidak",
+          "label": {
+            "Bahasa": "Tidak dilakukan"
+          }
+        }
+      ],
+      "name": "emosi"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${emosi},'tidak')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "alasan_emosi",
+      "label": {
+        "Bahasa": "Jika tidak dilakukan, kenapa?",
+        "English": "If not, why?"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${emosi},'ya')",
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "waktu_emosi",
+      "label": {
+        "Bahasa": "Waktu (menit)",
+        "English": "Time (minutes)"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${emosi},'ya')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Topik diskusi dominan",
+        "English": "Dominant topic of discussion"
+      },
+      "type": "select all that apply",
+      "children": [
+        {
+          "name": "arti_emosi",
+          "label": {
+            "Bahasa": "Emosi"
+          }
+        },
+        {
+          "name": "penyebab_emosi",
+          "label": {
+            "Bahasa": "Penyebab emosi"
+          }
+        },
+        {
+          "name": "emosi_lain",
+          "label": {
+            "Bahasa": "Lainnya (text)"
+          }
+        }
+      ],
+      "name": "topik_emosi"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${topik_emosi},'emosi_lain')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "emosi_other",
+      "label": {
+        "Bahasa": "Lainnya (text)",
+        "English": "Other"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${emosi},'ya')"
+      },
+      "type": "text",
+      "name": "catatan2_emosi",
+      "label": {
+        "Bahasa": "Catatan Pendamping Desa"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${laporan2},'No')",
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Aktivitas 3: Bagaimana Ibu menghadapi emosi?"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "name": "ya",
+          "label": {
+            "Bahasa": "Dilakukan"
+          }
+        },
+        {
+          "name": "tidak",
+          "label": {
+            "Bahasa": "Tidak dilakukan"
+          }
+        }
+      ],
+      "name": "hadapi_emosi"
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hadapi_emosi},'tidak')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "alasan_hadapi_emosi",
+      "label": {
+        "Bahasa": "Jika tidak dilakukan, kenapa?",
+        "English": "If not, why?"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hadapi_emosi},'ya')",
+        "required": "yes"
+      },
+      "type": "integer",
+      "name": "waktu_hadapi_emosi",
+      "label": {
+        "Bahasa": "Waktu (menit)",
+        "English": "Time (minutes)"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hadapi_emosi},'ya')",
+        "required": "yes"
+      },
+      "type": "text",
+      "name": "topik_hadapi_emosi",
+      "label": {
+        "Bahasa": "Topik diskusi dominan",
+        "English": "Dominant topic of discussion"
+      }
+    },
+    {
+      "bind": {
+        "relevant": "selected(${hadapi_emosi},'ya')"
+      },
+      "type": "text",
+      "name": "catatan2_hadapi_emosi",
+      "label": {
+        "Bahasa": "Catatan Pendamping Desa"
+      }
+    },
+    {
+      "name": "aktif_hadapi_emosi",
+      "bind": {
+        "required": "yes"
+      },
+      "label": {
+        "Bahasa": "Apakah ibu Aktif dalam diskusi?",
+        "English": "Apakah ibu Aktif dalam diskusi?"
+      },
+      "instance": {
+        "openmrs_entity_id": "160721AAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept"
+      },
+      "type": "select one",
+      "children": [
+        {
+          "instance": {
+            "openmrs_code": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "name": "Yes",
+          "label": {
+            "Bahasa": "Ya",
+            "English": "Yes"
+          }
+        },
+        {
+          "instance": {
+            "openmrs_code": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "name": "No",
+          "label": {
+            "Bahasa": "Tidak",
+            "English": "No"
+          }
+        }
+      ]
     },
     {
       "instance": {
-        "openmrs_entity_parent": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept"
+        "openmrs_entity_id": "encounter_end",
+        "openmrs_entity": "encounter"
       },
-      "type": "integer",
-      "name": "jumlah_peserta",
-      "label": {
-        "Bahasa": "Jumlah Peserta :",
-        "English": "-"
-      }
+      "type": "end",
+      "name": "end"
     },
     {
       "control": {
