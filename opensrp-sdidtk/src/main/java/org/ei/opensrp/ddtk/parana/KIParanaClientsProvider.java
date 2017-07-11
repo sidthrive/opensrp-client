@@ -238,31 +238,34 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
 
 
         convertView.setLayoutParams(clientViewLayoutParams);
-        int baselineCount = 0;
+        int baselineIt = 0, endlineIT = 0;
         for (int i = 1 ; i <=45 ; i++){
             String home_endline = "home"+i+"_it";
             if(pc.getDetails().get(home_endline) !=null) {
-                if (pc.getDetails().get(home_endline).equalsIgnoreCase("Yes")) {
-                    baselineCount = baselineCount + 1;
-                } else {
-
-                }
+                if (pc.getDetails().get(home_endline).equalsIgnoreCase("Yes"))
+                    baselineIt++;
             }
+            if(pc.getDetails().get(home_endline+"_end") !=null){
+                if(pc.getDetails().get(home_endline+"_end") !=null)
+                    endlineIT++;
+            }
+
 
         }
 
-        int _endlinecount = 0;
+        int baselineEC = 0,endlineEC=0;
         for (int i = 1 ; i <=45 ; i++){
             String home_endline = "home"+i+"_ec";
             if(pc.getDetails().get(home_endline) !=null) {
-                if (pc.getDetails().get(home_endline).equalsIgnoreCase("Yes")) {
-                    _endlinecount = _endlinecount + 1;
-                } else {
-
-                }
+                if (pc.getDetails().get(home_endline).equalsIgnoreCase("Yes"))
+                    baselineEC++;
             }
-
+            if(pc.getDetails().get(home_endline+"_end")!=null){
+                if(pc.getDetails().get(home_endline+"_end")!=null)
+                    endlineEC++;
+            }
         }
+
         int counter = 0;
         if(pc.getDetails().get("umur") != null ? isTooYoungMother(pc.getDetails().get("umur")) : false){
             counter++;
@@ -390,12 +393,6 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
     }
 
     // ------------------------------- HIGH RISK FLAG MANAGER -------------------------------------
-
-    private void flagColor(){
-
-    }
-
-
 
     class ViewHolder {
 

@@ -11,13 +11,39 @@
         android:layout_height="150dp"
         android:weightSum="1">
 
-        <ImageView
-            android:layout_width="103dp"
-            android:layout_height="100dp"
-            android:id="@+id/motherdetailprofileview"
-            android:src="@drawable/woman_placeholder"
-            android:layout_margin="10dp"
-            android:scaleType="fitXY" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="103dp"
+                android:layout_height="100dp"
+                android:id="@+id/motherdetailprofileview"
+                android:src="@drawable/woman_placeholder"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingLeft="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/paranaDetailRiskFlagYellow"
+                    android:src="@drawable/risk_p_yellow" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/paranaDetailRiskFlagRed"
+                    android:src="@drawable/risk_p_red" />
+            </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -83,8 +109,19 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="330dp"
-            android:layout_height="match_parent">
-            
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:paddingLeft="100dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/riskList"
+                android:text="detail risk"
+                android:visibility="visible"
+                android:gravity="left|top" />
+
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +131,7 @@
                 android:id="@+id/txt_risk1"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />
+
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
