@@ -34,6 +34,8 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import util.ZScore.ZScoreSystemCalculation;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -216,49 +218,24 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterCLientsPro
         viewHolder.mental_emosional.setText("Tes Mental: "+ (pc.getDetails().get("mental_emosional")!=null?pc.getDetails().get("mental_emosional").replaceAll("_", " "):"-"));
         viewHolder.mental_test_date.setText("Tgl: "+ (pc.getDetails().get("mental_test_date")!=null?pc.getDetails().get("mental_test_date").replaceAll("_", " "):"-"));
 
-
         viewHolder.gpph_test_date.setText("Tgl: "+ (pc.getDetails().get("gpph_test_date")!=null?pc.getDetails().get("gpph_test_date").replaceAll("_", " "):"-"));
         viewHolder.gpph.setText("Tes GGPH: "+ (pc.getDetails().get("gpph")!=null?pc.getDetails().get("gpph").replaceAll("_", " "):"-"));
 
         viewHolder.autis_test_date.setText("Tgl: "+ (pc.getDetails().get("autis_test_date")!=null?pc.getDetails().get("autis_test_date").replaceAll("_", " "):"-"));
         viewHolder.autis.setText("Test Autist: "+ (pc.getDetails().get("autis")!=null ? pc.getDetails().get("autis").replaceAll("_", " "):"-"));
 
-        int baselinecount = 0;
-        for (int i = 1 ; i <=45 ; i++){
-            String home = "home"+i+"_it";
-            if(pc.getDetails().get(home) !=null) {
-                if (pc.getDetails().get(home).equalsIgnoreCase("Yes")) {
-                    baselinecount = baselinecount + 1;
-                } else {
+        String [] data = util.formula.Formula.split(util.formula.Formula.fixHistory(pc.getDetails().get("history_berat")));
+        int umur = Integer.parseInt(data[0].split(",")[data[0].split(",").length-1]);
+        double berat = Double.parseDouble(data[1].split(",")[data[1].split(",").length-1]);
+        boolean isMale = pc.getDetails().get("gender")!=null
+                ? !pc.getDetails().get("gender").toLowerCase().contains("em")
+                : true;
 
-                }
-            }
 
+        if(isMalnourished(isMale,umur,berat)){
+            viewHolder.riskFlag[0].setImageResource(R.drawable.risk_m);
         }
 
-        int _endlinecount = 0;
-        for (int i = 1 ; i <=45 ; i++){
-            String home = "home"+i+"_it";
-            if(pc.getDetails().get(home) !=null) {
-                if (pc.getDetails().get(home).equalsIgnoreCase("Yes")) {
-                    _endlinecount = baselinecount + 1;
-                } else {
-
-                }
-            }
-
-        }
-
-        int counter=0;
-        if(isLowHomeScore(baselinecount,_endlinecount)){
-            viewHolder.riskFlag[counter].setImageResource(R.drawable.risk_h);
-            counter++;
-        }
-        if(pc.getDetails().get("bgm") != null && pc.getDetails().get("garis_kuning") != null){
-            if(isMalnourished(pc.getDetails().get("bgm").toLowerCase().contains("y"),pc.getDetails().get("garis_kuning").toLowerCase().contains("y"))){
-                viewHolder.riskFlag[counter].setImageResource(R.drawable.risk_m);
-            }
-        }
 
 
 /*
@@ -359,29 +336,41 @@ public class FormulirDdtkSmartClientsProvider implements SmartRegisterCLientsPro
         return age<20;
     }
 
-    private boolean isMalnourished(boolean bgm, boolean yellow){
-        return bgm || yellow;
+    private boolean isMalnourished(boolean isMale, int age, double weight){
+        if(age<=0 && weight <=0.0)
+            return false;
+        ZScoreSystemCalculation calculate = new ZScoreSystemCalculation();
+        return calculate.countWFA(isMale,age,weight) <= -2;
     }
 
     private boolean isLowHomeScore(CommonPersonObjectClient pc){
-        int baselineCount_it = 0, baselineCount_ec = 0;
-        for(int i=1;i<=45;i++){
-            if(pc.getDetails().get("home"+i+"_it") != null){
-                if(pc.getDetails().get("home"+i+"_it").toLowerCase().contains("yes"))
-                    baselineCount_it++;
-            }
-            if(pc.getDetails().get("home"+i+"_ec") != null) {
-                if (pc.getDetails().get("home" + i + "_ec").toLowerCase().contains("yes"))
-                    baselineCount_ec++;
+        int maxScore = age(pc.getDetails().get("tanggalLahirAnak")) < 36 ? 45 :53;
+        int stdScore = maxScore < 48 ? 22 :34;
+        String ext = maxScore < 48 ? "_it" : "_ec";
+
+        int baselinecount = 0;
+        for (int i = 1 ; i <=maxScore ; i++){
+            String home = "home"+i+ext;
+            if(pc.getDetails().get(home) !=null) {
+                if (pc.getDetails().get(home).equalsIgnoreCase("Yes"))
+                    baselinecount++;
             }
         }
 
-        return isLowHomeScore(baselineCount_it,baselineCount_ec);
+        int _endlinecount = 0;
+        for (int i = 1 ; i <=45 ; i++){
+            String home = "home"+i+ext+"_end";
+            if(pc.getDetails().get(home) !=null) {
+                if (pc.getDetails().get(home).equalsIgnoreCase("Yes"))
+                    _endlinecount++;
+            }
+        }
 
+        return isLowHomeScore(stdScore,baselinecount,_endlinecount);
     }
 
-    private boolean isLowHomeScore(int baselineCount_it, int baselineCount_ec){
-        return ((baselineCount_it>0 && baselineCount_it<22) || (baselineCount_ec>0 && baselineCount_ec<34));
+    private boolean isLowHomeScore(int stdValue, int baselineCount_it, int baselineCount_ec){
+        return ((baselineCount_it>0 && baselineCount_it<stdValue) || (baselineCount_ec>0 && baselineCount_ec<stdValue));
     }
 
     private int age(String date){

@@ -124,7 +124,11 @@ public class ParanaDetailActivity extends Activity {
         nama.setText(getResources().getString(R.string.name) + (ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));
         //   nik.setText(getResources().getString(R.string.nik)+ (ancclient.getDetails().get("nik") != null ? ancclient.getDetails().get("nik") : "-"));
         husband_name.setText(getResources().getString(R.string.husband_name) + (ancclient.getColumnmaps().get("namaSuami") != null ? ancclient.getColumnmaps().get("namaSuami") : "-"));
-        dob.setText(getResources().getString(R.string.dob) + (ancclient.getDetails().get("tanggalLahir") != null ? ancclient.getDetails().get("tanggalLahir").substring(0,10) : "-"));
+        dob.setText(getResources().getString(R.string.dob) + (ancclient.getDetails().get("tanggalLahir") != null
+                ? ancclient.getDetails().get("tanggalLahir").length()>10
+                    ? ancclient.getDetails().get("tanggalLahir").substring(0,10)
+                    : ancclient.getDetails().get("tanggalLahir")
+                : "-"));
         phone.setText("No HP: " + (ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
 
         sesi1.setText(ancclient.getDetails().get("paranaStatus1"));
@@ -366,7 +370,7 @@ public class ParanaDetailActivity extends Activity {
     }
 
     private boolean isLowHomeScore(int baselineCount_it, int baselineCount_ec){
-        return (baselineCount_it<standard || baselineCount_ec<standard);
+        return ((baselineCount_it>0 && baselineCount_it<standard) || (baselineCount_it>0 && baselineCount_ec<standard));
     }
 
     private int monthAge(String date){
