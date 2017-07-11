@@ -34,6 +34,7 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="5dp"
             android:layout_marginTop="5dp"
+            android:layout_gravity="center"
             android:text=""
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
             <ImageView
@@ -44,11 +45,20 @@
                 android:visibility="gone"
                 android:src="@mipmap/vacc_late"
               />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_layout_logo1"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/vacc_due"
+                />
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/adult_hh_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
+            android:layout_gravity="center"
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
 
@@ -114,6 +124,14 @@
                 android:visibility="gone"
                 android:src="@mipmap/vacc_late"
            />
+            <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pol1Logo1"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/vacc_due"
+            />
             <TextView
                 android:id="@+id/attendance_at_posyandu"
                 android:layout_width="wrap_content"
@@ -171,6 +189,14 @@
                 android:visibility="gone"
                 android:src="@mipmap/vacc_late"
               />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/attend1"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/vacc_due"
+                />
             <TextView
                 android:id="@+id/bcg"
                 android:layout_width="wrap_content"

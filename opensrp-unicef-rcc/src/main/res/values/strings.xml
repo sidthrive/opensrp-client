@@ -554,4 +554,6 @@
     <string name="knowledge">Immunization</string>
     <string name="short_by_gender">Gender (Female - Male)</string>
     <string name="short_by_gendermf">Gender (Male - Female)</string>
+    <string name="loosing_data">Please Save the data first and indicate it as a draft then Save</string>
+    <string name="okay">Okay</string>
 </resources>

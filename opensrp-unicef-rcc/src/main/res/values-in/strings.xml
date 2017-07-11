@@ -487,4 +487,6 @@
     <string name="knowledge">Immunisasi</string>
     <string name="short_by_gender">Jenis Kelamin (Perempuan - Laki-laki)</string>
     <string name="short_by_gendermf">Jenis Kelamin (Laki-laki - Perempuan)</string>
+    <string name="loosing_data">Mohon Untuk Menyimpan data sebagai draft kemudian klik Save</string>
+    <string name="okay">Okay</string>
 </resources>

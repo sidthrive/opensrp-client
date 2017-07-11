@@ -283,16 +283,17 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
             }else{
                 new AlertDialog.Builder(this)
                         .setMessage(R.string.mcareform_back_confirm_dialog_message)
+                        .setMessage(R.string.loosing_data)
                         .setTitle(R.string.mcareform_back_confirm_dialog_title)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.mcareyes_button_label,
+                       /* .setPositiveButton(R.string.mcareyes_button_label,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {
                                         switchToBaseFragment(null);
                                     }
-                                })
-                        .setNegativeButton(R.string.mcareno_button_label,
+                                })*/
+                        .setNegativeButton(R.string.okay,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {

@@ -99,8 +99,11 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
             viewHolder.id_detail_layout =  (LinearLayout)convertView.findViewById(R.id.id_detail_layout);
             viewHolder.pol1Logo = (ImageView) convertView.findViewById(R.id.pol1Logo);
+            viewHolder.pol1Logo1 = (ImageView) convertView.findViewById(R.id.pol1Logo1);
             viewHolder.detail_layout_logo = (ImageView) convertView.findViewById(R.id.detail_layout_logo);
+            viewHolder.detail_layout_logo1 = (ImageView) convertView.findViewById(R.id.detail_layout_logo1);
             viewHolder.attend = (ImageView) convertView.findViewById(R.id.attend);
+            viewHolder.attend1 = (ImageView) convertView.findViewById(R.id.attend1);
 
            /* viewHolder.knowlegde = (TextView)convertView.findViewById(R.id.knowlegde);
             viewHolder.attitude = (TextView)convertView.findViewById(R.id.attitude);
@@ -131,8 +134,12 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
 //        viewHolder.immulogo.setVisibility(View.GONE);
         viewHolder.detail_layout_logo.setVisibility(View.GONE);
+
+        viewHolder.detail_layout_logo1.setVisibility(View.GONE);
         viewHolder.pol1Logo.setVisibility(View.GONE);
+        viewHolder.pol1Logo1.setVisibility(View.GONE);
          viewHolder.attend.setVisibility(View.GONE);
+        viewHolder.attend1.setVisibility(View.GONE);
         viewHolder.household_size.setText("");
         viewHolder.adult_hh_member.setText("");
         viewHolder.child_hh_member_under_5.setText("");
@@ -164,12 +171,23 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("respondent_age")!=null?pc.getColumnmaps().get("respondent_age"):"");
 
-        if(pc.getDetails().get("household_size") != null || pc.getDetails().get("adult_hh_member") != null) {
-            viewHolder.household_size.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
-            viewHolder.adult_hh_member.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
-            viewHolder.child_hh_member_under_5.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
-        //    viewHolder.child_hh_member_6.setText(pc.getDetails().get("child_hh_member_6-14") != null ? "child  members (6-14): " + pc.getDetails().get("child_hh_member_6-14") : "");
+        /**
+         * HouseHold Characteristic
+         */
+        if(pc.getDetails().get("IsDraft2") != null){
+            if(pc.getDetails().get("IsDraft2").equalsIgnoreCase("2")) {
+                viewHolder.household_size.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
+                viewHolder.adult_hh_member.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
+                viewHolder.child_hh_member_under_5.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
+                //    viewHolder.child_hh_member_6.setText(pc.getDetails().get("child_hh_member_6-14") != null ? "child  members (6-14): " + pc.getDetails().get("child_hh_member_6-14") : "");
 
+            }
+            else if(pc.getDetails().get("IsDraft2").equalsIgnoreCase("1")){
+                viewHolder.detail_layout_logo1.setVisibility(View.VISIBLE);
+                viewHolder.adult_hh_member.setText("IS DRAFT");
+                viewHolder.household_size.setVisibility(View.GONE);
+
+            }
         }
         else{
             viewHolder.detail_layout_logo.setVisibility(View.VISIBLE);
@@ -178,11 +196,22 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         }
 
-        if(pc.getDetails().get("anc_visit_num") != null || pc.getDetails().get("attendance_at_posyandu") != null) {
-            viewHolder.anc_visit_num.setText(pc.getDetails().get("anc_visit_num") != null ? "ANC Visit :" + pc.getDetails().get("anc_visit_num").replace("_", " ") : "");
-            viewHolder.attendance_at_posyandu.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Posyandu: " + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
-            viewHolder.attendance_at_puskesmas.setText(pc.getDetails().get("attendance_at_puskesmas") != null ? "Puskesmas: " + pc.getDetails().get("attendance_at_puskesmas").replace("_", " ") : "");
-          //  viewHolder.pol1Logo.setVisibility(View.GONE);
+        /**
+         * Health seeking behaviour
+        */
+        if(pc.getDetails().get("IsDraft3") != null) {
+            if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("2")) {
+                    viewHolder.anc_visit_num.setText(pc.getDetails().get("anc_visit_num") != null ? "ANC Visit :" + pc.getDetails().get("anc_visit_num").replace("_", " ") : "");
+                    viewHolder.attendance_at_posyandu.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Posyandu: " + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
+                    viewHolder.attendance_at_puskesmas.setText(pc.getDetails().get("attendance_at_puskesmas") != null ? "Puskesmas: " + pc.getDetails().get("attendance_at_puskesmas").replace("_", " ") : "");
+                    //  viewHolder.pol1Logo.setVisibility(View.GONE);
+            }
+            else if(pc.getDetails().get("IsDraft3").equalsIgnoreCase("1")){
+                viewHolder.pol1Logo1.setVisibility(View.VISIBLE);
+                viewHolder.attendance_at_posyandu.setText("IS DRAFT");
+                viewHolder.anc_visit_num.setVisibility(View.GONE);
+
+            }
         }
         else{
             viewHolder.pol1Logo.setVisibility(View.VISIBLE);
@@ -191,41 +220,52 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         }
 
-
-        if(pc.getDetails().get("have_mch_book")!=null ) {
-            if(pc.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")){
-                viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
-                viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("_", " ") : "");
-                if(pc.getDetails().get("polio_0") != null || pc.getDetails().get("polio_1") != null
-                        || pc.getDetails().get("polio_2") != null || pc.getDetails().get("polio_3") != null) {
-                    if (pc.getDetails().get("polio_0").equalsIgnoreCase("yes") || pc.getDetails().get("polio_1").equalsIgnoreCase("yes")
-                            || pc.getDetails().get("polio_2").equalsIgnoreCase("yes") || pc.getDetails().get("polio_3").equalsIgnoreCase("yes")) {
-                        viewHolder.pol.setText("Polio : Yes");
+        /**
+         * Immunization coverage
+         */
+        if(pc.getDetails().get("IsDraft4") != null) {
+            if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("2")) {
+                if (pc.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")) {
+                    viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
+                    viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("_", " ") : "");
+                    if (pc.getDetails().get("polio_0") != null || pc.getDetails().get("polio_1") != null
+                            || pc.getDetails().get("polio_2") != null || pc.getDetails().get("polio_3") != null) {
+                        if (pc.getDetails().get("polio_0").equalsIgnoreCase("yes") || pc.getDetails().get("polio_1").equalsIgnoreCase("yes")
+                                || pc.getDetails().get("polio_2").equalsIgnoreCase("yes") || pc.getDetails().get("polio_3").equalsIgnoreCase("yes")) {
+                            viewHolder.pol.setText("Polio : Yes");
+                        }
                     }
-                }
-                if(pc.getDetails().get("dpt_1") != null || pc.getDetails().get("dpt_2") != null
-                        || pc.getDetails().get("dpt_3") != null ) {
-                    if (pc.getDetails().get("dpt_1").equalsIgnoreCase("yes") || pc.getDetails().get("dpt_2").equalsIgnoreCase("yes")
-                            || pc.getDetails().get("dpt_3").equalsIgnoreCase("yes")) {
-                        viewHolder.dpt.setText("DPT : Yes");
+                    if (pc.getDetails().get("dpt_1") != null || pc.getDetails().get("dpt_2") != null
+                            || pc.getDetails().get("dpt_3") != null) {
+                        if (pc.getDetails().get("dpt_1").equalsIgnoreCase("yes") || pc.getDetails().get("dpt_2").equalsIgnoreCase("yes")
+                                || pc.getDetails().get("dpt_3").equalsIgnoreCase("yes")) {
+                            viewHolder.dpt.setText("DPT : Yes");
+                        }
                     }
+                    // viewHolder.dpt.setText(pc.getDetails().get("dpt_3") != null ? "DPT : " + pc.getDetails().get("dpt_3") : "");
+                } else {
+                    viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
+                    viewHolder.bcg.setText(pc.getDetails().get("A_BCG_vaccination") != null ? "BCG: " + pc.getDetails().get("A_BCG_vaccination").replace("_", " ") : "");
+                    viewHolder.pol.setText(pc.getDetails().get("Polio_vaccine") != null ? "Polio : " + pc.getDetails().get("Polio_vaccine").replace("_", " ") : "");
+                    viewHolder.dpt.setText(pc.getDetails().get("A_DPT_vaccination") != null ? "DPT : " + pc.getDetails().get("A_DPT_vaccination") : "");
                 }
-           // viewHolder.dpt.setText(pc.getDetails().get("dpt_3") != null ? "DPT : " + pc.getDetails().get("dpt_3") : "");
             }
-            else {
-                viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
-                viewHolder.bcg.setText(pc.getDetails().get("A_BCG_vaccination") != null ? "BCG: " + pc.getDetails().get("A_BCG_vaccination").replace("_", " ") : "");
-                viewHolder.pol.setText(pc.getDetails().get("Polio_vaccine") != null ? "Polio : " + pc.getDetails().get("Polio_vaccine").replace("_", " ") : "");
-                viewHolder.dpt.setText(pc.getDetails().get("A_DPT_vaccination") != null ? "DPT : " + pc.getDetails().get("A_DPT_vaccination") : "");
+            else if(pc.getDetails().get("IsDraft4").equalsIgnoreCase("1")){
+                viewHolder.attend1.setVisibility(View.VISIBLE);
+                viewHolder.bcg.setText("IS DRAFT");
+                viewHolder.have_mch_book.setVisibility(View.GONE);
+
             }
         }
-
         else{
            // attend
             viewHolder.attend.setVisibility(View.VISIBLE);
         //    viewHolder.attend.setBackgroundResource(R.mipmap.vacc_late);
         }
 
+        /**
+         * Knowledge and attitute
+         */
         //immunization
         if(pc.getDetails().get("heard_about_immu")!=null
                 || pc.getDetails().get("information_source")!=null
@@ -240,17 +280,13 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         if(pc.getDetails().get("attitude_1")!=null || pc.getDetails().get("attitude_2")!=null
                 || pc.getDetails().get("attitude_4")!=null  || pc.getDetails().get("attitude_3")!=null){
-            viewHolder.icon_pol1_no.setVisibility(View.VISIBLE);
-            viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
-        }
-        else{
             viewHolder.icon_pol1_no.setVisibility(View.INVISIBLE);
             viewHolder.icon_pol1_yes.setVisibility(View.VISIBLE);
         }
-
-
-
-
+        else{
+            viewHolder.icon_pol1_no.setVisibility(View.VISIBLE);
+            viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
+        }
 
 
         //distance to nearest
@@ -358,6 +394,9 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         public TextView attitude;
         public TextView information_source;
         public ImageView immu_know;
+        public ImageView detail_layout_logo1;
+        public ImageView pol1Logo1;
+        public ImageView attend1;
     }
 
 
