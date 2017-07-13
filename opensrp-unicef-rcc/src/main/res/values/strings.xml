@@ -563,4 +563,5 @@
     <string name="health_seeking_behaviour">Health Seeking Behaviour</string>
     <string name="immunization_coverage">Immunization Coverage</string>
     <string name="knowledge_regarding_immunization">Knowledge regarding Immunization</string>
+    <string name="attitude_regarding_immunization">Attitude regarding Immunization</string>
 </resources>

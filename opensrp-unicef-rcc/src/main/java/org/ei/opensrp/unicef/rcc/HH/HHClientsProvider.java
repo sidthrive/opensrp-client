@@ -141,7 +141,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.detail_layout_logo1.setVisibility(View.GONE);
         viewHolder.pol1Logo.setVisibility(View.GONE);
         viewHolder.pol1Logo1.setVisibility(View.GONE);
-         viewHolder.attend.setVisibility(View.GONE);
+        viewHolder.attend.setVisibility(View.GONE);
         viewHolder.attend1.setVisibility(View.GONE);
         viewHolder.household_size.setText("");
         viewHolder.adult_hh_member.setText("");
@@ -153,6 +153,15 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.bcg.setText("");
         viewHolder.pol.setText("");
         viewHolder.dpt.setText("");
+
+
+        viewHolder.icon_hb0_no.setVisibility(View.VISIBLE);
+        viewHolder.icon_hb0_yes.setVisibility(View.INVISIBLE);
+        viewHolder.icon_hb0_draf.setVisibility(View.INVISIBLE);
+
+        viewHolder.icon_pol1_no.setVisibility(View.VISIBLE);
+        viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
+        viewHolder.icon_pol1_draf.setVisibility(View.INVISIBLE);
 
 //        viewHolder.knowlegde.setText("");
  //       viewHolder.attitude.setText("");
@@ -173,7 +182,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.husband_name.setText(pc.getColumnmaps().get("relation_to_child")!=null?pc.getColumnmaps().get("relation_to_child").replace("_"," "):"");
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("respondent_age")!=null?pc.getColumnmaps().get("respondent_age"):"");
-       // viewHolder.wife_age.setText(pc.getDetails().get("IsDraft5")!=null?pc.getDetails().get("IsDraft5"):"");
+      //  viewHolder.wife_age.setText(pc.getDetails().get("IsDraft6")!=null?pc.getDetails().get("IsDraft6"):"");
 
         /**
          * HouseHold Characteristic
@@ -288,16 +297,26 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         else{
             viewHolder.icon_hb0_no.setVisibility(View.VISIBLE);
             viewHolder.icon_hb0_yes.setVisibility(View.INVISIBLE);
+            viewHolder.icon_hb0_draf.setVisibility(View.INVISIBLE);
         }
 
-        if(pc.getDetails().get("attitude_1")!=null || pc.getDetails().get("attitude_2")!=null
-                || pc.getDetails().get("attitude_4")!=null  || pc.getDetails().get("attitude_3")!=null){
-            viewHolder.icon_pol1_no.setVisibility(View.INVISIBLE);
-            viewHolder.icon_pol1_yes.setVisibility(View.VISIBLE);
+
+        if(pc.getDetails().get("IsDraft6")!=null){
+            if(pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
+                viewHolder.icon_pol1_no.setVisibility(View.INVISIBLE);
+                viewHolder.icon_pol1_draf.setVisibility(View.INVISIBLE);
+                viewHolder.icon_pol1_yes.setVisibility(View.VISIBLE);
+            }
+            else if(pc.getDetails().get("IsDraft6").equalsIgnoreCase("1")) {
+                viewHolder.icon_pol1_no.setVisibility(View.INVISIBLE);
+                viewHolder.icon_pol1_draf.setVisibility(View.VISIBLE);
+                viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
+            }
         }
         else{
             viewHolder.icon_pol1_no.setVisibility(View.VISIBLE);
             viewHolder.icon_pol1_yes.setVisibility(View.INVISIBLE);
+            viewHolder.icon_pol1_draf.setVisibility(View.INVISIBLE);
         }
 
 

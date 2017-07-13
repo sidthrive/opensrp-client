@@ -1,35 +1,40 @@
 <form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_6">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 dir="auto" id="form-title">RCC - Attitude regarding Immunization</h3>
-    <select id="form-languages" data-default-lang="en">
+    <h3 dir="auto" id="form-title">RCC Sikap tentang Imunisasi</h3>
+    <select id="form-languages" data-default-lang="id">
         <option value="id" data-dir="ltr">Indonesia</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
+    <label class="question note non-select or-appearance-field-list ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/Attitude_regarding_Immunization:label">Sikap tentang Imunisasi</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/Attitude_regarding_Immunization:label">Attitude regarding Immunization</span>
+        <input type="text" name="/rcc_baseline_survey_module_6/Attitude_regarding_Immunization" data-type-xml="string" readonly="readonly"/>
+    </label>
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1:label">1. Imunisasi penting agar kehidupan anak terlindungi dari penyakit tertentu</span>
-                <span lang="en" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1:label">1. Immunization is important for the child's life to be protected from certain diseases</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1:label">1. Imunisasi penting agar kehidupan anak terlindungi dari penyakit tertentu</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1:label">1. Immunization is important for the child's life to be protected from certain diseases</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_1:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
-                <span lang="en" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select ‘Neutral’.</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_1:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select 'Neutral'.</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="Agree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Agree:label">Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Agree:label">Agree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/1:label">Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/1:label">Agree</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="Neutral" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Neutral:label">Netral</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Neutral:label">Neutral</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="2" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/2:label">Netral</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/2:label">Neutral</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="Disagree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Disagree:label">Tidak Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/Disagree:label">Disagree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_1" data-name="/rcc_baseline_survey_module_6/attitude_1" value="3" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_1/3:label">Tidak Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_1/3:label">Disagree</span>
                 </label>
             </div>
         </fieldset>
@@ -38,27 +43,27 @@
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2:label">2. Tidak masalah jika anak mendapat imunisasi (dengan suntikan) 2 kali pada kunjungan yang sama</span>
-                <span lang="en" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2:label">2. It does not matter if the child gets immunization by injection 2 times at the same visit</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2:label">2. Tidak masalah jika anak mendapat imunisasi (dengan suntikan) 2 kali pada kunjungan yang sama</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2:label">2. It does not matter if the child gets immunization by injection 2 times at the same visit</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_2:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
-                <span lang="en" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select ‘Neutral’.</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_2:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select 'Neutral'.</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="Agree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Agree:label">Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Agree:label">Agree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/1:label">Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/1:label">Agree</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="Neutral" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Neutral:label">Netral</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Neutral:label">Neutral</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="2" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/2:label">Netral</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/2:label">Neutral</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="Disagree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Disagree:label">Tidak Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/Disagree:label">Disagree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_2" data-name="/rcc_baseline_survey_module_6/attitude_2" value="3" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_2/3:label">Tidak Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_2/3:label">Disagree</span>
                 </label>
             </div>
         </fieldset>
@@ -67,27 +72,27 @@
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3:label">3. Tidak masalah jika anak demam (tidak parah) setelah mendapat imunisasi</span>
-                <span lang="en" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3:label">3. It is not a problem if a slight fever appears (which is not severe) after the child gets immunization</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3:label">3. Tidak masalah jika anak demam (tidak parah) setelah mendapat imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3:label">3. It is not a problem if a slight fever appears (which is not severe) after the child gets immunization</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_3:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
-                <span lang="en" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select ‘Neutral’.</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_3:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select 'Neutral'.</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="Agree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Agree:label">Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Agree:label">Agree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/1:label">Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/1:label">Agree</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="Neutral" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Neutral:label">Netral</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Neutral:label">Neutral</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="2" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/2:label">Netral</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/2:label">Neutral</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="Disagree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Disagree:label">Tidak Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/Disagree:label">Disagree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_3" data-name="/rcc_baseline_survey_module_6/attitude_3" value="3" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_3/3:label">Tidak Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_3/3:label">Disagree</span>
                 </label>
             </div>
         </fieldset>
@@ -96,27 +101,51 @@
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4:label">4. Penting untuk memberi imunisasi sesuai jadwal yang spesifik</span>
-                <span lang="en" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4:label">4. It is important to give immunization according to a specific schedule</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4:label">4. Penting untuk memberi imunisasi sesuai jadwal yang spesifik</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4:label">4. It is important to give immunization according to a specific schedule</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_4:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
-                <span lang="en" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select ‘Neutral’.</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4:hint">Bacalah pernyataan di atas kepada responden dan tanyakan apakah dia setuju atau tidak setuju, atau tidak tahu. Jika responden tidak tahu, pilih 'Netral'.</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/attitude_4:hint">Read the above statement to the respondent and ask her/him if s/he agrees or disagrees, or does not know. If the respondent does not know, select 'Neutral'.</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="Agree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Agree:label">Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Agree:label">Agree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/1:label">Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/1:label">Agree</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="Neutral" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Neutral:label">Netral</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Neutral:label">Neutral</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="2" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/2:label">Netral</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/2:label">Neutral</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="Disagree" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Disagree:label">Tidak Setuju</span>
-                    <span lang="en" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/Disagree:label">Disagree</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/attitude_4" data-name="/rcc_baseline_survey_module_6/attitude_4" value="3" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/attitude_4/3:label">Tidak Setuju</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/attitude_4/3:label">Disagree</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_6/is_draft:label">Simpan sementara?</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_6/is_draft:label">Save as draft?</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_6/is_draft:hint">Jika memilih tidak, data akan final dan tidak dapat diubah lagi</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_6/is_draft:hint">If choose no, data will be final and can't be changed anymore</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/is_draft/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/is_draft/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="0" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/is_draft/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/is_draft/0:label">No</span>
                 </label>
             </div>
         </fieldset>
@@ -138,7 +167,7 @@
             <input type="hidden" name="/rcc_baseline_survey_module_6/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/rcc_baseline_survey_module_6/formhub/uuid" data-calculate="'75b23180f19a4fe98488013080c0dcc3'" data-type-xml="string"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_6/formhub/uuid" data-calculate="'050993b97d3f4282920d303a8800fcf8'" data-type-xml="string"/>
         </label>
     </fieldset>
 </form>
