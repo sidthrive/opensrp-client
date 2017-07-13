@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "bind_type": "kartu_ibu",
-    "default_bind_path": "/model/instance/RCC_Baseline_Survey_module_4/",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_4/",
     "fields": [
       {
         "name": "id",
@@ -10,255 +10,327 @@
       },
       {
         "name": "have_mch_book",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/have_mch_book"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/have_mch_book",
+        "shouldLoadValue": true
       },
       
       
       {
         "name": "where_mch_book",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/where_mch_book"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/where_mch_book",
+        "shouldLoadValue": true
       },{
         "name": "vaccine",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/vaccine"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/vaccine",
+        "shouldLoadValue": true
       },{
         "name": "bcg",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/bcg",
+        "shouldLoadValue": true
       },{
         "name": "bcg_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/bcg_isdateknown",
+        "shouldLoadValue": true
       },
       {
         "name": "bcg_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/bcg_date",
+        "shouldLoadValue": true
       },{
         "name": "bcg_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/bcg_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/bcg_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "hepb_0",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_0",
+        "shouldLoadValue": true
       },{
         "name": "hepb_0_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_0_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "hepb_0_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_0_date",
+        "shouldLoadValue": true
       },{
         "name": "hepb_0_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_0_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_0_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "hepb_1",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_1",
+        "shouldLoadValue": true
       },{
         "name": "hepb_1_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_1_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "hepb_1_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_1_date",
+        "shouldLoadValue": true
       },{
         "name": "hepb_1_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_1_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "hepb_2",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_2",
+        "shouldLoadValue": true
       },{
         "name": "hepb_2_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_2_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "hepb_2_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_2_date",
+        "shouldLoadValue": true
       },{
         "name": "hepb_2_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_2_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_2_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "dpt_1",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_1",
+        "shouldLoadValue": true
       },{
         "name": "dpt_1_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_1_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "dpt_1_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_1_date",
+        "shouldLoadValue": true
       },{
         "name": "dpt_1_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_1_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_1_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "dpt_2",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_2",
+        "shouldLoadValue": true
       },{
         "name": "dpt_2_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_2_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "dpt_2_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_2_date",
+        "shouldLoadValue": true
       },{
         "name": "dpt_2_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_2_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_2_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "dpt_3",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_3",
+        "shouldLoadValue": true
       },{
         "name": "dpt_3_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_3_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "dpt_3_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_3_date",
+        "shouldLoadValue": true
       },{
         "name": "dpt_3_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/dpt_3_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/dpt_3_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "polio_0",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/hepb_1"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/hepb_1",
+        "shouldLoadValue": true
       },{
         "name": "polio_0_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_0_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "polio_0_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_0_date",
+        "shouldLoadValue": true
       },{
         "name": "polio_0_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_0_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_0_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "polio_1",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_1",
+        "shouldLoadValue": true
       },{
         "name": "polio_1_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_1_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "polio_1_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_1_date",
+        "shouldLoadValue": true
       },{
         "name": "polio_1_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_1_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_1_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "polio_2",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_2",
+        "shouldLoadValue": true
       },{
         "name": "polio_2_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_2_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "polio_2_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_2_date",
+        "shouldLoadValue": true
       },{
         "name": "polio_2_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_2_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_2_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "polio_3",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_3",
+        "shouldLoadValue": true
       },{
         "name": "polio_3_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_3_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "polio_3_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_3_date",
+        "shouldLoadValue": true
       },{
         "name": "polio_3_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/polio_3_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/polio_3_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "measles_1",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_1",
+        "shouldLoadValue": true
       },{
         "name": "measles_1_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_1_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "measles_1_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_1_date",
+        "shouldLoadValue": true
       },{
         "name": "measles_1_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_1_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_1_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "measles_2",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_2",
+        "shouldLoadValue": true
       },{
         "name": "measles_2_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_2_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "measles_2_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_2_date",
+        "shouldLoadValue": true
       },{
         "name": "measles_2_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/measles_2_reason"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_2_reason",
+        "shouldLoadValue": true
       },
 
       {
         "name": "other_vacc",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/other_vacc",
+        "shouldLoadValue": true
       },{
         "name": "other_vacc_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_isdateknown"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/other_vacc_isdateknown",
+        "shouldLoadValue": true
       },{
         "name": "other_vacc_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_have_mch_book/other_vacc_date"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/other_vacc_date",
+        "shouldLoadValue": true
       },
 
 
       {
         "name": "Has_child_received_any_vaccinations",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/Has_child_received_any_vaccinations",
+        "shouldLoadValue": true
       },
       {
         "name": "A_BCG_vaccination",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_BCG_vaccination"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/A_BCG_vaccination",
+        "shouldLoadValue": true
       },
       {
         "name": "Polio_vaccine",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Polio_vaccine"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/Polio_vaccine",
+        "shouldLoadValue": true
       },
       {
         "name": "first_polio_vaccine_given",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/first_polio_vaccine_given"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/first_polio_vaccine_given",
+        "shouldLoadValue": true
       },
       {
         "name": "polio_vaccine_received",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/polio_vaccine_received"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/polio_vaccine_received",
+        "shouldLoadValue": true
       },
       {
         "name": "A_DPT_vaccination",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_DPT_vaccination"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/A_DPT_vaccination",
+        "shouldLoadValue": true
       },
       {
         "name": "DPT_vaccine_given",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/DPT_vaccine_given"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/DPT_vaccine_given",
+        "shouldLoadValue": true
       },
       {
         "name": "A_measles_injection",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_measles_injection"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/A_measles_injection",
+        "shouldLoadValue": true
       },
       {
         "name": "A_Hepatitis_B_injection",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/A_Hepatitis_B_injection"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/A_Hepatitis_B_injection",
+        "shouldLoadValue": true
       },
       {
         "name": "Hepatitis_B_vaccine_received",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_no_mch_book/Hepatitis_B_vaccine_received",
+        "shouldLoadValue": true
       },
-
+      {
+        "name": "IsDraft4",
+        "bind": "/model/instance/rcc_baseline_survey_module_4/is_draft",
+        "shouldLoadValue": true
+      },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/today"
+        "bind": "/model/instance/rcc_baseline_survey_module_4/today"
       }
     ]
   }

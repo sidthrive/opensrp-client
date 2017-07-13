@@ -228,20 +228,20 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
          */
         if(pc.getDetails().get("IsDraft4") != null) {
             if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
-                if (pc.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")) {
+                if (pc.getDetails().get("have_mch_book").equalsIgnoreCase("1") || pc.getDetails().get("have_mch_book").equalsIgnoreCase("2")) {
                     viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
-                    viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("_", " ") : "");
+                    viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("1", "Yes") : "");
                     if (pc.getDetails().get("polio_0") != null || pc.getDetails().get("polio_1") != null
                             || pc.getDetails().get("polio_2") != null || pc.getDetails().get("polio_3") != null) {
-                        if (pc.getDetails().get("polio_0").equalsIgnoreCase("yes") || pc.getDetails().get("polio_1").equalsIgnoreCase("yes")
-                                || pc.getDetails().get("polio_2").equalsIgnoreCase("yes") || pc.getDetails().get("polio_3").equalsIgnoreCase("yes")) {
+                        if (pc.getDetails().get("polio_0").equalsIgnoreCase("1") || pc.getDetails().get("polio_1").equalsIgnoreCase("1")
+                                || pc.getDetails().get("polio_2").equalsIgnoreCase("1") || pc.getDetails().get("polio_3").equalsIgnoreCase("1")) {
                             viewHolder.pol.setText("Polio : Yes");
                         }
                     }
                     if (pc.getDetails().get("dpt_1") != null || pc.getDetails().get("dpt_2") != null
                             || pc.getDetails().get("dpt_3") != null) {
-                        if (pc.getDetails().get("dpt_1").equalsIgnoreCase("yes") || pc.getDetails().get("dpt_2").equalsIgnoreCase("yes")
-                                || pc.getDetails().get("dpt_3").equalsIgnoreCase("yes")) {
+                        if (pc.getDetails().get("dpt_1").equalsIgnoreCase("1") || pc.getDetails().get("dpt_2").equalsIgnoreCase("1")
+                                || pc.getDetails().get("dpt_3").equalsIgnoreCase("1")) {
                             viewHolder.dpt.setText("DPT : Yes");
                         }
                     }

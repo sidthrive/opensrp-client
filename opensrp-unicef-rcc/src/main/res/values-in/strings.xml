@@ -494,4 +494,5 @@
     <string name="household_character">Household Characteristic</string>
     <string name="form_already_submitted">Form Already Submitted</string>
     <string name="health_seeking_behaviour">Health Seeking Behaviour</string>
+    <string name="immunization_coverage">Immunization Coverage</string>
 </resources>
