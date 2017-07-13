@@ -99,7 +99,7 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="180"
-        android:padding="2dp"
+        android:padding="5dp"
 
         >
 
@@ -255,7 +255,14 @@
                 android:layout_alignParentTop="true"
                 android:src="@drawable/ic_yes_small"
                 android:visibility="gone" />
-
+            <ImageView
+                android:id="@+id/icon_hb0_draf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/vacc_due_small"
+                android:visibility="gone"/>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/is_hb0"
                 style="@style/CustomFontTextViewStyle.ListView.Medium.NoPadding.NoBold"
@@ -283,6 +290,14 @@
                 android:layout_below="@+id/is_hb0"
                 android:src="@drawable/ic_no_small"
                 />
+            <ImageView
+                android:id="@+id/icon_pol1_draf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/is_hb0"
+                android:src="@drawable/vacc_due_small"
+                android:visibility="gone"/>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:id="@+id/is_pol1"

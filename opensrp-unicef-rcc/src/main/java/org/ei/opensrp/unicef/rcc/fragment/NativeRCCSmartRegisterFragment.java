@@ -325,7 +325,6 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
-
            if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
                 if(pc.getDetails().get("IsDraft2") != null) {
@@ -348,6 +347,15 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
                 if(pc.getDetails().get("IsDraft4") != null) {
                     if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
+            if(option.name().equalsIgnoreCase(getString(R.string.knowledge_regarding_immunization)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("IsDraft5") != null) {
+                    if (pc.getDetails().get("IsDraft5").equalsIgnoreCase("0")) {
                         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
                         return;
                     }
