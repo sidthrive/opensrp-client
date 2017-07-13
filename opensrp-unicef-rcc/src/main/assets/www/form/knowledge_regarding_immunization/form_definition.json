@@ -1,0 +1,36 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_5/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "heard_about_immu",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/heard_about_immu"
+      },
+      {
+        "name": "information_source",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/information_source",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "other_source",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/other_source",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "desease",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/desease",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/today"
+      }
+    ]
+  }
+}
