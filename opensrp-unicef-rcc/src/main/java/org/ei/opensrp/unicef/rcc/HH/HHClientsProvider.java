@@ -3,6 +3,7 @@ package org.ei.opensrp.unicef.rcc.HH;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -184,7 +185,8 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             }
             else if(pc.getDetails().get("IsDraft2").equalsIgnoreCase("1")){
                 viewHolder.detail_layout_logo1.setVisibility(View.VISIBLE);
-                viewHolder.adult_hh_member.setText("IS DRAFT");
+
+                viewHolder.adult_hh_member.setText("    IS DRAFT");
                 viewHolder.household_size.setVisibility(View.GONE);
 
             }
@@ -208,7 +210,8 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             }
             else if(pc.getDetails().get("IsDraft3").equalsIgnoreCase("1")){
                 viewHolder.pol1Logo1.setVisibility(View.VISIBLE);
-                viewHolder.attendance_at_posyandu.setText("IS DRAFT");
+                viewHolder.attendance_at_posyandu.setGravity(Gravity.CENTER);
+                viewHolder.attendance_at_posyandu.setText("\t\t\t\t\tIS DRAFT");
                 viewHolder.anc_visit_num.setVisibility(View.GONE);
 
             }
@@ -252,7 +255,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
             }
             else if(pc.getDetails().get("IsDraft4").equalsIgnoreCase("1")){
                 viewHolder.attend1.setVisibility(View.VISIBLE);
-                viewHolder.bcg.setText("IS DRAFT");
+                viewHolder.bcg.setText("\t\t\t\t\tIS DRAFT");
                 viewHolder.have_mch_book.setVisibility(View.GONE);
 
             }

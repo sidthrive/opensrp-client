@@ -335,6 +335,15 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
                     }
                 }
             }
+            if(option.name().equalsIgnoreCase(getString(R.string.health_seeking_behaviour)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("IsDraft3") != null) {
+                    if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("0")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }

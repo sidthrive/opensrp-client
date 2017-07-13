@@ -1,40 +1,50 @@
 <form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_3">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 dir="auto" id="form-title">RCC - Health seeking behavior</h3>
-    <select id="form-languages" data-default-lang="en">
+    <h3 dir="auto" id="form-title">RCC Perilaku dalam mencari kesehatan</h3>
+    <select id="form-languages" data-default-lang="id">
         <option value="id" data-dir="ltr">Indonesia</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
+    <label class="question note non-select or-appearance-field-list ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Health_seeking_behavior:label">Perilaku dalam mencari kesehatan</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Health_seeking_behavior:label">Health seeking behavior</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/Health_seeking_behavior" data-type-xml="string" readonly="readonly"/>
+    </label>
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num:label">1. Berapa kali Anda pergi untuk perawatan antenatal (kunjungan selama kehamilan) sebelum kelahiran anak ini</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num:label">1. How many times did you go for antenatal care (visits during pregnancy) before the birth of this child?</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num:label">1. Berapa kali Anda pergi untuk perawatan antenatal (kunjungan selama kehamilan) sebelum kelahiran anak ini</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num:label">1. How many times did you go for antenatal care (visits during pregnancy) before the birth of this child?</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num:hint">-</span>
-                <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num:hint">Ask the mother to recall the number of times she went for a doctor’s visit/check-up during her pregnancy with this child. If the respondent is not the mother, and does not know the answer, select ‘don’t know’</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num:hint">Mintalah ibu untuk mengingat berapa kali dia pergi untuk kunjungan dokter / check up selama kehamilannya dengan anak ini</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num:hint">Ask the mother to recall the number of times she went for a doctor’s visit/check-up during her pregnancy with this child. If the respondent is not the mother, and does not know the answer, select ‘don’t know’</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-name="/RCC_Baseline_Survey_module_3/anc_visit_num" value="0" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/0:label">0</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/0:label">0</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/anc_visit_num" data-name="/rcc_baseline_survey_module_3/anc_visit_num" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/0:label">0</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/0:label">0</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-name="/RCC_Baseline_Survey_module_3/anc_visit_num" value="1" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/1:label">1</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/1:label">1</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/anc_visit_num" data-name="/rcc_baseline_survey_module_3/anc_visit_num" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/1:label">1</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/1:label">1</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-name="/RCC_Baseline_Survey_module_3/anc_visit_num" value="2-3" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/2-3:label">2-3</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/2-3:label">2-3</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/anc_visit_num" data-name="/rcc_baseline_survey_module_3/anc_visit_num" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/2:label">2-3</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/2:label">2-3</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/anc_visit_num" data-name="/RCC_Baseline_Survey_module_3/anc_visit_num" value="&gt;3" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/&gt;3:label">&gt;3</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/anc_visit_num/&gt;3:label">&gt;3</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/anc_visit_num" data-name="/rcc_baseline_survey_module_3/anc_visit_num" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/3:label">&gt;3</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/3:label">&gt;3</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/anc_visit_num" data-name="/rcc_baseline_survey_module_3/anc_visit_num" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/anc_visit_num/88:label">Don't Know</span>
                 </label>
             </div>
         </fieldset>
@@ -43,181 +53,138 @@
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth:label">2. Tempat anak lahir :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth:label">2. Place of birth for this child:</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth:label">2. Tempat anak lahir :</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth:label">2. Place of birth for this child:</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth:hint">-</span>
-                <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth:hint">Ask the respondent to recall where the child was born</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth:hint">Mintalah responden untuk mengingat dimana anak tersebut lahir</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth:hint">Ask the respondent to recall where the child was born</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/place_of_birth" data-name="/RCC_Baseline_Survey_module_3/place_of_birth" value="Public_health_facility" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Public_health_facility:label">Fasilitas kesehatan masyarakat</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Public_health_facility:label">Public health facility</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/place_of_birth" data-name="/rcc_baseline_survey_module_3/place_of_birth" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/1:label">Fasilitas kesehatan masyarakat</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/1:label">Public health facility</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/place_of_birth" data-name="/RCC_Baseline_Survey_module_3/place_of_birth" value="Private_health_facility" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Private_health_facility:label">fasilitas kesehatan swasta</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Private_health_facility:label">Private health facility</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/place_of_birth" data-name="/rcc_baseline_survey_module_3/place_of_birth" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/2:label">Fasilitas kesehatan swasta</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/2:label">Private health facility</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/place_of_birth" data-name="/RCC_Baseline_Survey_module_3/place_of_birth" value="Home" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Home:label">rumah</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Home:label">Home</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/place_of_birth" data-name="/rcc_baseline_survey_module_3/place_of_birth" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/3:label">Rumah</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/3:label">Home</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/place_of_birth" data-name="/RCC_Baseline_Survey_module_3/place_of_birth" value="Other" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Other:label">lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/place_of_birth/Other:label">Other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/place_of_birth" data-name="/rcc_baseline_survey_module_3/place_of_birth" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/88:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/place_of_birth" data-name="/rcc_baseline_survey_module_3/place_of_birth" value="77" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/77:label">Lainnya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/place_of_birth/77:label">Other</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_place_of_birth:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_place_of_birth:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_place_of_birth" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/place_of_birth ,'77')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <fieldset class="question simple-select or-appearance-horizontal ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion:label">3. Bayi dilahirkan dengan bantuan siapa?</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion:label">3. Who delivered the baby (highest level provider):</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion:label">3. Bayi (terakhir) dilahirkan dengan bantuan siapa?</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion:label">3. Who delivered the baby (highest level provider):</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Doctor" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Doctor:label">Dokter</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Doctor:label">Doctor</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/1:label">Dokter</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/1:label">Doctor</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Obstetrician" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Obstetrician:label">Dokter kandungan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Obstetrician:label">Obstetrician</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/2:label">Dokter kandungan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/2:label">Obstetrician</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Nurses_midwife_or_village_midwife" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Nurses_midwife_or_village_midwife:label">Perawat, bidan, atau bidan desa</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Nurses_midwife_or_village_midwife:label">Nurses, midwife, or village midwife</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/3:label">Perawat, bidan, atau bidan desa</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/3:label">Nurses, midwife, or village midwife</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Traditional_birth_attendant" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Traditional_birth_attendant:label">dukun</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Traditional_birth_attendant:label">Traditional birth attendant</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="4" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/4:label">Dukun</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/4:label">Traditional birth attendant</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Relative_or_friend" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Relative_or_friend:label">Relatif atau teman</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Relative_or_friend:label">Relative or friend</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="5" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/5:label">Saudara atau teman</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/5:label">Relative or friend</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="Other" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Other:label">Lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/Other:label">Other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/0:label">Tidak ada</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/0:label">No one</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/delivery_companion" data-name="/RCC_Baseline_Survey_module_3/delivery_companion" value="No_one" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/No_one:label">Tidak ada</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/delivery_companion/No_one:label">No one</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/88:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/delivery_companion" data-name="/rcc_baseline_survey_module_3/delivery_companion" value="77" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/77:label">Lainnya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/delivery_companion/77:label">Other</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_delivery_companion:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_delivery_companion:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_delivery_companion" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/delivery_companion ,'77')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <fieldset class="question simple-select or-appearance-horizontal ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives:label">4. Penggunaan kontrasepsi saat ini :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives:label">4. Current use of contraceptives:</span>
-            </legend>
-            <div class="option-wrapper">
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Not_currently_using" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Not_currently_using:label">Tidak menggunakan kontrasepsi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Not_currently_using:label">Not currently using</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Female_sterilization" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Female_sterilization:label">Sterilisasi Wanita</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Female_sterilization:label">Female sterilization</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Male_sterilization" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Male_sterilization:label">Sterilisasi Pria</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Male_sterilization:label">Male sterilization</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Male_condom" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Male_condom:label">Kondom Pria</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Male_condom:label">Male condom</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Pill" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Pill:label">Pil KB</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Pill:label">Pill</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="IUD" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/IUD:label">IUD</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/IUD:label">IUD</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Injectables" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Injectables:label">Injeksi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Injectables:label">Injectables</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Implants" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Implants:label">Implan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Implants:label">Implants</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Lactational_amenorrhea_method" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Lactational_amenorrhea_method:label">Metode amenore laktatif</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Lactational_amenorrhea_method:label">Lactational amenorrhea method</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Female_condom_Diaphragm_Foam_or_jelly" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Female_condom_Diaphragm_Foam_or_jelly:label">Kondom wanita, Diafragma, Foam atau jeli</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Female_condom_Diaphragm_Foam_or_jelly:label">Female condom, Diaphragm, Foam or jelly</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" data-name="/RCC_Baseline_Survey_module_3/use_of_contraceptives" value="Other" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Other:label">Lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/use_of_contraceptives/Other:label">Other</span>
-                </label>
-            </div>
-        </fieldset>
-    </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal ">
-        <fieldset>
-            <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu:label">5. Seberapa sering Anda membawa anak (12-23 bulan) ke posyandu</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu:label">5. How often do you take this child (12-23 month old) to the posyandu</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives:label">4. Penggunaan kontrasepsi saat ini :</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives:label">4. Current use of contraceptives:</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" value="Every_posyandu" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_posyandu:label">Setiap bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_posyandu:label">Every posyandu</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/use_of_contraceptives" data-name="/rcc_baseline_survey_module_3/use_of_contraceptives" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/88:label">Don't Know</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" value="Every_2-3_Posyandu" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_2-3_Posyandu:label">setiap 2-3 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_2-3_Posyandu:label">Every 2-3 Posyandu</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/use_of_contraceptives" data-name="/rcc_baseline_survey_module_3/use_of_contraceptives" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/0:label">Tidak menggunakan kontrasepsi</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/0:label">Not currently using</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" value="Every_3-6_Posyandu" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_3-6_Posyandu:label">setiap 3-6 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Every_3-6_Posyandu:label">Every 3-6 Posyandu</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" value="less_than_once_in_6_posyandu" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/less_than_once_in_6_posyandu:label">kurang dari satu kali dalam 6 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/less_than_once_in_6_posyandu:label">less than once in 6 posyandu</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" data-name="/RCC_Baseline_Survey_module_3/attendance_at_posyandu" value="Never" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Never:label">tidak pernah</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_posyandu/Never:label">Never</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/use_of_contraceptives" data-name="/rcc_baseline_survey_module_3/use_of_contraceptives" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/1:label">Pilihan Kontrasepsi</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/use_of_contraceptives/1:label">Contraceptives choices</span>
                 </label>
             </div>
         </fieldset>
@@ -226,188 +193,672 @@
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1:label">a. Jika kurang dari satu kali dalam 6 bulan atau tidak pernah, alasan untuk tidak hadir</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1:label">a. Reason for not attending:</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization:label">Sterilisasi Wanita</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization:label">Female sterilization</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="lack_of_need" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/lack_of_need:label">kurangnya kebutuhan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/lack_of_need:label">lack of need</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_sterilization" data-name="/rcc_baseline_survey_module_3/Female_sterilization" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="cost" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/cost:label">biaya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/cost:label">cost</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_sterilization" data-name="/rcc_baseline_survey_module_3/Female_sterilization" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/0:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="transport_or_distance" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/transport_or_distance:label">transportasi atau jarak</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/transport_or_distance:label">transport or distance</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="time" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/time:label">waktu</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/time:label">time</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="service_quality" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/service_quality:label">kualitas layanan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/service_quality:label">service quality</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="work_obligations" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/work_obligations:label">kewajiban kerja</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/work_obligations:label">work obligations</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason1" data-name="/RCC_Baseline_Survey_module_3/reason1" value="other" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'less_than_once_in_6_posyandu') or selected( /RCC_Baseline_Survey_module_3/attendance_at_posyandu ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason1/other:label">lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason1/other:label">other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_sterilization" data-name="/rcc_baseline_survey_module_3/Female_sterilization" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_sterilization/88:label">Don’t Know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <label class="question non-select ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_posyandu:label">b. Terakhir kali hadir di posyandu:</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_posyandu:label">b. Last time attended a Posyandu:</span>
-        <span class="required">*</span>
-        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_posyandu:hint">-</span>
-        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_posyandu:hint">Ask the respondent to estimate based on recall, try to get the specific week if exact date is not known</span>
-        <input type="date" name="/RCC_Baseline_Survey_module_3/last_time_to_posyandu" required="required" data-type-xml="date"/>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
-    </label>
-    <fieldset class="question simple-select or-appearance-horizontal ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service:label">c. Layanan yang diterima saat terakhir ke Posyandu :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service:label">c. Services received at last Posyandu attended:</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization:label">Sterilisasi Pria</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization:label">Male sterilization</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" value="weight_or_height" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/weight_or_height:label">perhitungan berat atau tinggi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/weight_or_height:label">weight or height</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_sterilization" data-name="/rcc_baseline_survey_module_3/Male_sterilization" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" value="immunization" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/immunization:label">imunisasi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/immunization:label">immunization</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_sterilization" data-name="/rcc_baseline_survey_module_3/Male_sterilization" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/0:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" value="counselling_or_information" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/counselling_or_information:label">konseling atau informasi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/counselling_or_information:label">counselling or information</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" value="Vitamin_A" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/Vitamin_A:label">Vitamin A</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/Vitamin_A:label">Vitamin A</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/posyandu_service" data-name="/RCC_Baseline_Survey_module_3/posyandu_service" value="other" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/other:label">lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_service/other:label">other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_sterilization" data-name="/rcc_baseline_survey_module_3/Male_sterilization" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_sterilization/88:label">Don’t Know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_condom:label">Kondom Pria</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Male_condom:label">Male condom</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_condom" data-name="/rcc_baseline_survey_module_3/Male_condom" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_condom/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_condom/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_condom" data-name="/rcc_baseline_survey_module_3/Male_condom" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_condom/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_condom/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Male_condom" data-name="/rcc_baseline_survey_module_3/Male_condom" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Male_condom/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Male_condom/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Pill:label">Pil KB</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Pill:label">Pill</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Pill" data-name="/rcc_baseline_survey_module_3/Pill" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Pill/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Pill/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Pill" data-name="/rcc_baseline_survey_module_3/Pill" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Pill/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Pill/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Pill" data-name="/rcc_baseline_survey_module_3/Pill" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Pill/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Pill/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/IUD:label">IUD</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/IUD:label">IUD</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/IUD" data-name="/rcc_baseline_survey_module_3/IUD" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/IUD/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/IUD/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/IUD" data-name="/rcc_baseline_survey_module_3/IUD" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/IUD/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/IUD/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/IUD" data-name="/rcc_baseline_survey_module_3/IUD" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/IUD/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/IUD/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Injectables:label">Injeksi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Injectables:label">Injectables</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Injectables" data-name="/rcc_baseline_survey_module_3/Injectables" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Injectables/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Injectables/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Injectables" data-name="/rcc_baseline_survey_module_3/Injectables" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Injectables/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Injectables/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Injectables" data-name="/rcc_baseline_survey_module_3/Injectables" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Injectables/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Injectables/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Implants:label">Implan</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Implants:label">Implants</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Implants" data-name="/rcc_baseline_survey_module_3/Implants" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Implants/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Implants/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Implants" data-name="/rcc_baseline_survey_module_3/Implants" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Implants/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Implants/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Implants" data-name="/rcc_baseline_survey_module_3/Implants" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Implants/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Implants/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method:label">Metode amenore laktatif</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method:label">Lactational amenorrhea method</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" data-name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" data-name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" data-name="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Lactational_amenorrhea_method/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly:label">Kondom wanita, Diafragma, Foam atau jeli</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly:label">Female condom, Diaphragm, Foam or jelly</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" data-name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" data-name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" data-name="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Female_condom_Diaphragm_Foam_or_jelly/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives:label">Lainnya</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives:label">Other</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Other_contraceptives" data-name="/rcc_baseline_survey_module_3/Other_contraceptives" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Other_contraceptives" data-name="/rcc_baseline_survey_module_3/Other_contraceptives" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/Other_contraceptives" data-name="/rcc_baseline_survey_module_3/Other_contraceptives" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/use_of_contraceptives ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives_detail:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/Other_contraceptives_detail:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/Other_contraceptives_detail" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/Other_contraceptives ,'1')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu:label">6. Jarak ke posyandu terdekat :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu:label">6. Distance to the nearest posyandu</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu:label">5. Seberapa sering Anda membawa anak (12-23 bulan) ke posyandu</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu:label">5. How often do you take this child (12-23 month old) to the posyandu</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="&gt;500m" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/&gt;500m:label">&gt;500m</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/&gt;500m:label">&gt;500m</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/1:label">Setiap bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/1:label">Every posyandu</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="500m-1km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/500m-1km:label">500m-1km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/500m-1km:label">500m-1km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/2:label">Setiap 2-3 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/2:label">Every 2-3 Posyandu</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="1-2km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/1-2km:label">1-2km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/1-2km:label">1-2km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/3:label">Setiap 3-6 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/3:label">Every 3-6 Posyandu</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="2-5km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/2-5km:label">2-5km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/2-5km:label">2-5km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="4" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/4:label">Kurang dari satu kali dalam 6 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/4:label">less than once in 6 posyandu</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="&gt;5km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/&gt;5km:label">&gt;5km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/&gt;5km:label">&gt;5km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/0:label">Tidak pernah</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/0:label">Never</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_posyandu" data-name="/RCC_Baseline_Survey_module_3/nearest_posyandu" value="don’t_know" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/don’t_know:label">Tidak Tahu</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_posyandu/don’t_know:label">Don't Know</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_posyandu" data-name="/rcc_baseline_survey_module_3/attendance_at_posyandu" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_posyandu/88:label">Don't Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1:label">a. Jika kurang dari satu kali dalam 6 bulan atau tidak pernah, alasan untuk tidak hadir</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/reason1:label">a. Reason for not attending:</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/1:label">kurangnya kebutuhan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/1:label">lack of need</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="2" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/2:label">biaya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/2:label">cost</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="3" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/3:label">transportasi atau jarak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/3:label">transport or distance</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="4" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/4:label">waktu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/4:label">time</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="5" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/5:label">kualitas layanan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/5:label">service quality</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="6" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/6:label">kewajiban kerja</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/6:label">work obligations</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/88:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason1" data-name="/rcc_baseline_survey_module_3/reason1" value="77" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason1/77:label">lainnya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason1/77:label">other</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_reason1:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_reason1:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_reason1" required="required" data-relevant="(selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'0')) and selected( /rcc_baseline_survey_module_3/reason1 ,'77')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu:label">b. Terakhir kali hadir di posyandu:</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu:label">b. Last time attended a Posyandu:</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu:hint">Minta responden untuk memperkirakan berdasarkan recall, cobalah untuk mendapatkan minggu yang spesifik jika tanggal pasti tidak diketahui</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu:hint">Ask the respondent to estimate based on recall, try to get the specific week if exact date is not known</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/last_time_to_posyandu" data-name="/rcc_baseline_survey_module_3/last_time_to_posyandu" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu/88:label">Tidak Tahu / Lupa</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu/88:label">Don't Know / Forget</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/last_time_to_posyandu" data-name="/rcc_baseline_survey_module_3/last_time_to_posyandu" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu/1:label">Masukkan Tanggal</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu/1:label">Input Date</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu_date:label">Masukkan tanggal</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu_date:label">Input date</span>
+        <span class="required">*</span>
+        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_posyandu_date" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_posyandu ,'1')" data-type-xml="date"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question note or-branch pre-init non-select or-appearance-horizontal-compact ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/generated_note_name_30:label">
+            <h5>c. Layanan yang diterima saat terakhir ke Posyandu :</h5>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/generated_note_name_30:label">
+            <h5>c. Services received at last Posyandu attended:</h5>
+        </span>
+        <input type="text" name="/rcc_baseline_survey_module_3/generated_note_name_30" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height:label">perhitungan berat atau tinggi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height:label">weight or height</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" data-name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" data-name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" data-name="/rcc_baseline_survey_module_3/posyandu_weight_or_height" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_weight_or_height/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization:label">imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization:label">immunization</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_immunization" data-name="/rcc_baseline_survey_module_3/posyandu_immunization" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_immunization" data-name="/rcc_baseline_survey_module_3/posyandu_immunization" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_immunization" data-name="/rcc_baseline_survey_module_3/posyandu_immunization" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_immunization/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information:label">konseling atau informasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information:label">counselling or information</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" data-name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" data-name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" data-name="/rcc_baseline_survey_module_3/posyandu_counselling_or_information" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_counselling_or_information/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A:label">Vitamin A</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A:label">Vitamin A</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" data-name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" data-name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" data-name="/rcc_baseline_survey_module_3/posyandu_Vitamin_A" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_Vitamin_A/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service:label">Lainnya</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service:label">Other</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_posyandu_service" data-name="/rcc_baseline_survey_module_3/other_posyandu_service" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_posyandu_service" data-name="/rcc_baseline_survey_module_3/other_posyandu_service" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_posyandu_service" data-name="/rcc_baseline_survey_module_3/other_posyandu_service" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service_detail:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_posyandu_service_detail:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_posyandu_service_detail" required="required" data-relevant="(selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_posyandu ,'3')) and selected( /rcc_baseline_survey_module_3/other_posyandu_service ,'1')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question or-appearance-likert ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu:label">6. Jarak ke posyandu terdekat :</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu:label">6. Distance to the nearest posyandu</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&gt;500m</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&gt;500m</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/2:label">500m-1km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/2:label">500m-1km</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/3:label">1-2km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/3:label">1-2km</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="4" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/4:label">2-5km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/4:label">2-5km</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="5" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/5:label">&gt;5km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/5:label">&gt;5km</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/88:label">Don't Know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
     <label class="question non-select or-appearance-minimal ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_reach_time:label">7. Waktu untuk mencapai posyandu terdekat sekali jalan</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_reach_time:label">7. Time to reach the nearest posyandu one way</span>
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:label">7. Waktu untuk mencapai posyandu terdekat sekali jalan</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:label">7. Time to reach the nearest posyandu one way</span>
         <span class="required">*</span>
-        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_reach_time:hint">-</span>
-        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_reach_time:hint">time in minutes one way</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_3/posyandu_reach_time" required="required" data-type-xml="int"/>
+        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Waktu dalam menit untuk satu arah. Mintalah responden untuk memperkirakan berapa lama waktu yang dibutuhkan mereka untuk sampai ke Puskesmas (satu arah), sambil mempertimbangkan alat transportasi dan lalu lintas yang biasa di gunakan</span>
+        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Time in minutes one way. Ask the respondent to estimate how long it normally takes them to get to the Puskesmas (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
+        <input type="number" name="/rcc_baseline_survey_module_3/posyandu_reach_time" required="required" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_cost:label">8. Biaya untuk mencapai posyandu terdekat dengan angkutan umum</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_cost:label">8. Cost to reach the nearest posyandu one way with public transport</span>
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_cost:label">8. Biaya untuk mencapai posyandu terdekat dengan angkutan umum</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_cost:label">8. Cost to reach the nearest posyandu one way with public transport</span>
         <span class="required">*</span>
-        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_cost:hint">-</span>
-        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/posyandu_cost:hint">Ask the respondent to estimate how long it normally takes them to get to the posyandu (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_3/posyandu_cost" required="required" data-type-xml="int"/>
+        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_cost:hint">Angkutan Umum meliputi layanan Ojek berbayar. Masukkan Rp 0 jika keluarga berjalan, menggunakan sepeda, atau motor sendiri atau sepeda motor dari anggota keluarga, teman, tetangga secara gratis.</span>
+        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/posyandu_cost:hint">Public Transport includes paid private Ojek service. Enter 0 Rp if the family walks, uses bicycle, or their own motorbike or the motor bike of a family member, friend, neighbor, for free.</span>
+        <input type="number" name="/rcc_baseline_survey_module_3/posyandu_cost" required="required" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas:label">9. Seberapa sering Anda membawa anak (12-23 bulan) ke Puskesmas</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas:label">9. How often do you take this child (12-23 month old) to the Puskesmas</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas:label">9. Seberapa sering Anda membawa anak (12-23 bulan) ke Puskesmas</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas:label">9. How often do you take this child (12-23 month old) to the Puskesmas</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" value="Monthly" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/Monthly:label">Setiap bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/Monthly:label">Monthly</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/1:label">Setiap bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/1:label">Monthly</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" value="every_2-3_months" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/every_2-3_months:label">setiap 2-3 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/every_2-3_months:label">every 2-3 months</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/2:label">setiap 2-3 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/2:label">every 2-3 months</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" value="every_3-6_months" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/every_3-6_months:label">setiap 3-6 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/every_3-6_months:label">every 3-6 months</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/3:label">setiap 3-6 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/3:label">every 3-6 months</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" value="less_than_once_in_6_months" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/less_than_once_in_6_months:label">kurang dari satu kali dalam 6 bulan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/less_than_once_in_6_months:label">less than once in 6 months</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="4" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/4:label">kurang dari satu kali dalam 6 bulan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/4:label">less than once in 6 months</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" data-name="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas" value="Never" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/Never:label">tidak pernah</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/attendance_at_puskesmas/Never:label">Never</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/0:label">tidak pernah</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/0:label">Never</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" data-name="/rcc_baseline_survey_module_3/attendance_at_puskesmas" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/attendance_at_puskesmas/88:label">Don't Know</span>
                 </label>
             </div>
         </fieldset>
@@ -416,226 +867,432 @@
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2:label">a. Jika kurang dari satu kali dalam 6 bulan atau tidak pernah, alasan untuk tidak hadir</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2:label">a. Reason for not attending:</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2:label">a. Jika kurang dari satu kali dalam 6 bulan atau tidak pernah, alasan untuk tidak hadir</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/reason2:label">a. Reason for not attending:</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="lack_of_need" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/lack_of_need:label">kurangnya kebutuhan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/lack_of_need:label">lack of need</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/1:label">kurangnya kebutuhan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/1:label">lack of need</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="cost" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/cost:label">biaya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/cost:label">cost</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="2" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/2:label">biaya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/2:label">cost</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="transport_or_distance" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/transport_or_distance:label">transportasi atau jarak</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/transport_or_distance:label">transport or distance</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="3" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/3:label">transportasi atau jarak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/3:label">transport or distance</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="time" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/time:label">waktu</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/time:label">time</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="4" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/4:label">waktu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/4:label">time</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="service_quality" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/service_quality:label">kualitas layanan</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/service_quality:label">service quality</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="5" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/5:label">kualitas layanan</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/5:label">service quality</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="work_obligations" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/work_obligations:label">kewajiban kerja</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/work_obligations:label">work obligations</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="6" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/6:label">kewajiban kerja</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/6:label">work obligations</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/reason2" data-name="/RCC_Baseline_Survey_module_3/reason2" value="other" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'less_than_once_in_6_months') or selected( /RCC_Baseline_Survey_module_3/attendance_at_puskesmas ,'Never')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/reason2/other:label">lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/reason2/other:label">other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/88:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/reason2" data-name="/rcc_baseline_survey_module_3/reason2" value="77" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/reason2/77:label">lainnya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/reason2/77:label">other</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <label class="question non-select ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_puskesmas:label">b. Terakhir kali hadir di Puskesmas</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/last_time_to_puskesmas:label">b. Last time attended a Puskesmas:</span>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_reason2:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_reason2:label">Other, sepcify
+            <em>_</em>
+        </span>
         <span class="required">*</span>
-        <input type="date" name="/RCC_Baseline_Survey_module_3/last_time_to_puskesmas" required="required" data-type-xml="date"/>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_reason2" required="required" data-relevant="(selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'4') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'0')) and selected( /rcc_baseline_survey_module_3/reason2 ,'77')" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <fieldset class="question simple-select or-appearance-horizontal ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service:label">c. Layanan yang diterima saat terakhir ke Puskesmas :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service:label">c. Services received at last visit to Puskesmas:</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas:label">b. Terakhir kali hadir di Puskesmas</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas:label">b. Last time attended a Puskesmas:</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" value="weight_or_height" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/weight_or_height:label">perhitungan berat atau tinggi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/weight_or_height:label">weight or height</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/last_time_to_puskesmas" data-name="/rcc_baseline_survey_module_3/last_time_to_puskesmas" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas/88:label">Tidak Tahu / Lupa</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas/88:label">Don't Know / Forget</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" value="immunization" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/immunization:label">imunisasi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/immunization:label">immunization</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" value="counselling_or_information" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/counselling_or_information:label">konseling atau informasi</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/counselling_or_information:label">counselling or information</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" value="Sick_visit" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/Sick_visit:label">kunjungan sakit</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/Sick_visit:label">Sick visit</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/puskesmas_service" data-name="/RCC_Baseline_Survey_module_3/puskesmas_service" value="other" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/other:label">lainnya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_service/other:label">other</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/last_time_to_puskesmas" data-name="/rcc_baseline_survey_module_3/last_time_to_puskesmas" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas/1:label">Masukkan Tanggal</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas/1:label">Input Date</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date:label">Masukkan tanggal</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date:label">Input date</span>
+        <span class="required">*</span>
+        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_puskesmas ,'1')" data-type-xml="date"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question note or-branch pre-init non-select or-appearance-horizontal ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/generated_note_name_46:label">
+            <h5>c. Layanan yang diterima saat terakhir ke Puskesmas :</h5>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/generated_note_name_46:label">
+            <h5>c. Services received at last visit to Puskesmas:</h5>
+        </span>
+        <input type="text" name="/rcc_baseline_survey_module_3/generated_note_name_46" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height:label">perhitungan berat atau tinggi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height:label">weight or height</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" data-name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" data-name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" data-name="/rcc_baseline_survey_module_3/puskesmas_weight_or_height" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_weight_or_height/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization:label">imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization:label">immunization</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_immunization" data-name="/rcc_baseline_survey_module_3/puskesmas_immunization" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_immunization" data-name="/rcc_baseline_survey_module_3/puskesmas_immunization" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_immunization" data-name="/rcc_baseline_survey_module_3/puskesmas_immunization" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_immunization/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information:label">konseling atau informasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information:label">counselling or information</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" data-name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" data-name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" data-name="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_counselling_or_information/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit:label">kunjungan sakit</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit:label">Sick visit</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" data-name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" data-name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" data-name="/rcc_baseline_survey_module_3/puskesmas_Sick_visit" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_Sick_visit/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service:label">Lainnya</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service:label">Other</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_puskesmas_service" data-name="/rcc_baseline_survey_module_3/other_puskesmas_service" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_puskesmas_service" data-name="/rcc_baseline_survey_module_3/other_puskesmas_service" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/0:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/other_puskesmas_service" data-name="/rcc_baseline_survey_module_3/other_puskesmas_service" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service_detail:label">Lainnya, sebutkan
+            <em>_</em>
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/other_puskesmas_service_detail:label">Other, sepcify
+            <em>_</em>
+        </span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_3/other_puskesmas_service_detail" required="required" data-relevant="(selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'1') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'2') or selected( /rcc_baseline_survey_module_3/attendance_at_puskesmas ,'3')) and selected( /rcc_baseline_survey_module_3/other_puskesmas_service ,'1')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <fieldset class="question or-appearance-likert ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas:label">10. Jarak ke Puskesmas terdekat :</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas:label">10. Distance to nearest Puskesmas</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas:label">10. Jarak ke Puskesmas terdekat :</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas:label">10. Distance to nearest Puskesmas</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="&gt;500m" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/&gt;500m:label">&gt;500m</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/&gt;500m:label">&gt;500m</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&gt;500m</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&gt;500m</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="500m-1km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/500m-1km:label">500m-1km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/500m-1km:label">500m-1km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="2" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/2:label">500m-1km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/2:label">500m-1km</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="1-2km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/1-2km:label">1-2km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/1-2km:label">1-2km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="3" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/3:label">1-2km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/3:label">1-2km</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="2-5km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/2-5km:label">2-5km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/2-5km:label">2-5km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="4" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/4:label">2-5km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/4:label">2-5km</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="&gt;5km" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/&gt;5km:label">&gt;5km</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/&gt;5km:label">&gt;5km</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="5" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/5:label">&gt;5km</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/5:label">&gt;5km</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" data-name="/RCC_Baseline_Survey_module_3/nearest_puskesmas" value="don’t_know" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/don’t_know:label">Tidak Tahu</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/nearest_puskesmas/don’t_know:label">Don't Know</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/88:label">Don't Know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
     <label class="question non-select ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_reach_time:label">11. Waktu untuk mencapai Puskesmas terdekat sekali jalan</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_reach_time:label">11. Time to reach the nearest Puskesmas one way</span>
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_reach_time:label">11. Waktu untuk mencapai Puskesmas terdekat sekali jalan</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_reach_time:label">11. Time to reach the nearest Puskesmas one way</span>
         <span class="required">*</span>
-        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_reach_time:hint">-</span>
-        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_reach_time:hint">time in minutes one way</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_3/puskesmas_reach_time" required="required" data-type-xml="int"/>
+        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_reach_time:hint">Waktu dalam menit untuk satu arah. Mintalah responden untuk memperkirakan berapa lama waktu yang dibutuhkan mereka untuk sampai ke Puskesmas (satu arah), sambil mempertimbangkan alat transportasi dan lalu lintas yang biasa di gunakan</span>
+        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_reach_time:hint">Time in minutes one way. Ask the respondent to estimate how long it normally takes them to get to the Puskesmas (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
+        <input type="number" name="/rcc_baseline_survey_module_3/puskesmas_reach_time" required="required" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_cost:label">12. Biaya untuk mencapai Puskesmas terdekat dengan angkutan umum</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_cost:label">12. Cost to reach the nearest Puskesmas one way with public transport</span>
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_cost:label">12. Biaya untuk mencapai Puskesmas terdekat dengan angkutan umum</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_cost:label">12. Cost to reach the nearest Puskesmas one way with public transport</span>
         <span class="required">*</span>
-        <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_cost:hint">-</span>
-        <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/puskesmas_cost:hint">Ask the respondent to estimate how long it normally takes them to get to the posyandu (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
-        <input type="number" name="/RCC_Baseline_Survey_module_3/puskesmas_cost" required="required" data-type-xml="int"/>
+        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/puskesmas_cost:hint">Angkutan Umum meliputi layanan Ojek berbayar. Masukkan Rp 0 jika keluarga berjalan, menggunakan sepeda, atau motor sendiri atau sepeda motor dari anggota keluarga, teman, tetangga secara gratis.</span>
+        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/puskesmas_cost:hint">Public Transport includes paid private Ojek service. Enter 0 Rp if the family walks, uses bicycle, or their own motorbike or the motor bike of a family member, friend, neighbor, for free.</span>
+        <input type="number" name="/rcc_baseline_survey_module_3/puskesmas_cost" required="required" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick:label">13. Apakah anak pernah sakit dalam 2 minggu terakhir (diare, batuk, demam, dll)</span>
-                <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick:label">13. Has this child been sick in the past 2 weeks (diarrhea, cough, fever, etc.)?</span>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/has_been_sick:label">13. Apakah anak pernah sakit dalam 2 minggu terakhir (diare, batuk, demam, dll)</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/has_been_sick:label">13. Has this child been sick in the past 2 weeks (diarrhea, cough, fever, etc.)?</span>
                 <span class="required">*</span>
-                <span lang="id" class="or-hint " data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick:hint">-</span>
-                <span lang="en" class="or-hint active" data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick:hint">Ask the respondent to recall if in the past 2 weeks the child had been sick</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/has_been_sick:hint">Mintalah responden untuk mengingat apakah dalam 2 minggu terakhir anak tersebut pernah sakit</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/has_been_sick:hint">Ask the respondent to recall if in the past 2 weeks the child had been sick</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/has_been_sick" data-name="/RCC_Baseline_Survey_module_3/has_been_sick" value="yes" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/yes:label">Ya</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/yes:label">Yes</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/has_been_sick" data-name="/rcc_baseline_survey_module_3/has_been_sick" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/has_been_sick" data-name="/RCC_Baseline_Survey_module_3/has_been_sick" value="no" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/no:label">Tidak</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/no:label">No</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/has_been_sick" data-name="/rcc_baseline_survey_module_3/has_been_sick" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/0:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_3/has_been_sick" data-name="/RCC_Baseline_Survey_module_3/has_been_sick" value="dont_know" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/dont_know:label">Tidak Tahu</span>
-                    <span lang="en" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_3/has_been_sick/dont_know:label">Don’t Know</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_3/has_been_sick" data-name="/rcc_baseline_survey_module_3/has_been_sick" value="88" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/has_been_sick/88:label">Don’t Know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <label class="question or-appearance-minimal  or-branch pre-init ">
-        <span lang="id" class="question-label " data-itext-id="/RCC_Baseline_Survey_module_3/action_taken:label">Jika sakit, tindakan diambil</span>
-        <span lang="en" class="question-label active" data-itext-id="/RCC_Baseline_Survey_module_3/action_taken:label">If sick, action taken</span>
-        <span class="required">*</span>
-        <select name="/RCC_Baseline_Survey_module_3/action_taken" data-name="/RCC_Baseline_Survey_module_3/action_taken" required="required" data-relevant="selected( /RCC_Baseline_Survey_module_3/has_been_sick ,'yes')" data-type-xml="select1">
-            <option value="">...</option>
-            <option value="home management">home management</option>
-            <option value="Posyandu">Posyandu</option>
-            <option value="Puskesmas">Puskesmas</option>
-            <option value="hospital">hospital</option>
-            <option value="dont_know">Don’t Know</option>
-        </select>
-        <span class="or-option-translations" style="display:none;">
-            <span data-option-value="home management" lang="id">diobati di rumah</span>
-            <span data-option-value="home management" lang="en">home management</span>
-            <span data-option-value="Posyandu" lang="id">Posyandu</span>
-            <span data-option-value="Posyandu" lang="en">Posyandu</span>
-            <span data-option-value="Puskesmas" lang="id">Puskesmas</span>
-            <span data-option-value="Puskesmas" lang="en">Puskesmas</span>
-            <span data-option-value="hospital" lang="id">rumah sakit</span>
-            <span data-option-value="hospital" lang="en">hospital</span>
-            <span data-option-value="dont_know" lang="id">Tidak Tahu</span>
-            <span data-option-value="dont_know" lang="en">Don’t Know</span>
-        </span>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken:label">Jika sakit, tindakan diambil</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken:label">If sick, action taken</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/1:label">dibiarkan sampai sembuh sendiri</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/1:label">Let to heal itself</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="2" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/2:label">diobati di rumah</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/2:label">home management</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="3" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/3:label">Posyandu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/3:label">Posyandu</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="4" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/4:label">Puskesmas</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/4:label">Puskesmas</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="5" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/5:label">rumah sakit</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/5:label">hospital</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="6" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/6:label">dokter praktek atau swasta</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/6:label">Practice or private doctor</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="7" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/7:label">perawat, bidan, atau mantri</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/7:label">Nurse, midwife, or mantri</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/action_taken" data-name="/rcc_baseline_survey_module_3/action_taken" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_3/has_been_sick ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/action_taken/88:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/action_taken/88:label">Don’t Know</span>
+                </label>
+            </div>
+        </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
-    </label>
+    </fieldset>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/is_draft:label">Simpan sementara?</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/is_draft:label">Save as draft?</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/is_draft:hint">Jika memilih tidak, data akan final dan tidak dapat diubah lagi</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/is_draft:hint">If choose no, data will be final and can't be changed anymore</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/is_draft" data-name="/rcc_baseline_survey_module_3/is_draft" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/is_draft/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/is_draft/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_3/is_draft" data-name="/rcc_baseline_survey_module_3/is_draft" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/is_draft/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/is_draft/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/RCC_Baseline_Survey_module_3/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_3/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/RCC_Baseline_Survey_module_3/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_3/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/RCC_Baseline_Survey_module_3/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_3/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
         </label>
     </fieldset>
     <fieldset id="or-calculated-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/RCC_Baseline_Survey_module_3/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_3/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/RCC_Baseline_Survey_module_3/formhub/uuid" data-calculate="'0fbe5c4be3ac4ee88f0e2769622170d5'" data-type-xml="string"/>
+            <input type="hidden" name="/rcc_baseline_survey_module_3/formhub/uuid" data-calculate="'6c0d333f2a37460193beba884c253b73'" data-type-xml="string"/>
         </label>
     </fieldset>
 </form>

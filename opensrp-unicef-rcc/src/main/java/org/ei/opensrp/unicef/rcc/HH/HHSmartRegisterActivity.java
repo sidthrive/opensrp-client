@@ -128,7 +128,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.household_character), "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption("Health Seeking Behaviour", "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.health_seeking_behaviour), "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption("Immunization Coverage ", "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                new OpenFormOption("Knowledge regarding Immunization ", "knowledge_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption("Attitude regarding Immunization ", "attitude_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),

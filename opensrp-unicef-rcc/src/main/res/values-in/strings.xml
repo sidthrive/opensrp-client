@@ -493,4 +493,5 @@
     <string name="warning1">Data maybe lost!!</string>
     <string name="household_character">Household Characteristic</string>
     <string name="form_already_submitted">Form Already Submitted</string>
+    <string name="health_seeking_behaviour">Health Seeking Behaviour</string>
 </resources>
