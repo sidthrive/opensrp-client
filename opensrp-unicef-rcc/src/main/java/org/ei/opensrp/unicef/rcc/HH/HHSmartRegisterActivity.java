@@ -127,7 +127,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         }
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption("Household Characteristic ", "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.household_character), "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption("Health Seeking Behaviour", "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption("Immunization Coverage ", "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                new OpenFormOption("Knowledge regarding Immunization ", "knowledge_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
@@ -282,18 +282,18 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
                         .show();
             }else{
                 new AlertDialog.Builder(this)
-                        .setMessage(R.string.mcareform_back_confirm_dialog_message)
+                      //  .setMessage(R.string.mcareform_back_confirm_dialog_message)
                         .setMessage(R.string.loosing_data)
-                        .setTitle(R.string.mcareform_back_confirm_dialog_title)
+                        .setTitle(R.string.warning1)
                         .setCancelable(false)
-                       /* .setPositiveButton(R.string.mcareyes_button_label,
+                        .setPositiveButton(R.string.mcareyes_button_label,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {
                                         switchToBaseFragment(null);
                                     }
-                                })*/
-                        .setNegativeButton(R.string.okay,
+                                })
+                        .setNegativeButton(R.string.mcareno_button_label,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {

@@ -556,4 +556,8 @@
     <string name="short_by_gendermf">Gender (Male - Female)</string>
     <string name="loosing_data">Please Save the data first and indicate it as a draft then Save</string>
     <string name="okay">Okay</string>
+    <string name="warning" />
+    <string name="warning1">Data maybe lost!!</string>
+    <string name="household_character">Household Characteristic</string>
+    <string name="form_already_submitted">Form Already Submitted</string>
 </resources>

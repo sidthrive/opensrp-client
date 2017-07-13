@@ -489,4 +489,8 @@
     <string name="short_by_gendermf">Jenis Kelamin (Laki-laki - Perempuan)</string>
     <string name="loosing_data">Mohon Untuk Menyimpan data sebagai draft kemudian klik Save</string>
     <string name="okay">Okay</string>
+    <string name="warning" />
+    <string name="warning1">Data maybe lost!!</string>
+    <string name="household_character">Household Characteristic</string>
+    <string name="form_already_submitted">Form Already Submitted</string>
 </resources>

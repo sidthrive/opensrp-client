@@ -326,15 +326,15 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
 
-         /*   if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
-                CommonPersonObjectClient pc = KIDetailActivity.kiclient;
-                if(pc.getColumnmaps().get("ibu.type")!= null) {
-                    if (pc.getColumnmaps().get("ibu.type").equals("anc") || pc.getColumnmaps().get("ibu.type").equals("pnc")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+           if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("IsDraft2") != null) {
+                    if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
-            }*/
+            }
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }

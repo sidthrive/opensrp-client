@@ -1,12 +1,13 @@
 <model>
   <instance>
-    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201706280823">
+    <rcc_baseline_survey_module_2 id="rcc_baseline_survey_module_2" version="201707130245">
       <formhub>
         <uuid/>
       </formhub>
       <start/>
       <deviceid/>
       <today/>
+      <generated_note_name_6/>
       <household_size/>
       <generated_note_name_9/>
       <adult_hh_member/>
@@ -45,9 +46,10 @@
       <how_many_no_toliet/>
       <baby_stools/>
       <baby_stools_other/>
+      <is_draft>1</is_draft>
       <meta>
         <instanceID/>
       </meta>
-    </RCC_Baseline_Survey_module_2>
+    </rcc_baseline_survey_module_2>
   </instance>
 </model>

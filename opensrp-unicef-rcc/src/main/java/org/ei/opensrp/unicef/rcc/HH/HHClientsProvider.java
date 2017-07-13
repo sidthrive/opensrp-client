@@ -175,7 +175,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
          * HouseHold Characteristic
          */
         if(pc.getDetails().get("IsDraft2") != null){
-            if(pc.getDetails().get("IsDraft2").equalsIgnoreCase("2")) {
+            if(pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
                 viewHolder.household_size.setText(pc.getDetails().get("household_size") != null ? "Household size : " + pc.getDetails().get("household_size") : "");
                 viewHolder.adult_hh_member.setText(pc.getDetails().get("adult_hh_member") != null ? "Adult members : " + pc.getDetails().get("adult_hh_member") : "");
                 viewHolder.child_hh_member_under_5.setText(pc.getDetails().get("child_hh_member_under_5") != null ? "child  members (<5): " + pc.getDetails().get("child_hh_member_under_5") : "");
@@ -200,7 +200,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
          * Health seeking behaviour
         */
         if(pc.getDetails().get("IsDraft3") != null) {
-            if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("2")) {
+            if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("0")) {
                     viewHolder.anc_visit_num.setText(pc.getDetails().get("anc_visit_num") != null ? "ANC Visit :" + pc.getDetails().get("anc_visit_num").replace("_", " ") : "");
                     viewHolder.attendance_at_posyandu.setText(pc.getDetails().get("attendance_at_posyandu") != null ? "Posyandu: " + pc.getDetails().get("attendance_at_posyandu").replace("_", " ") : "");
                     viewHolder.attendance_at_puskesmas.setText(pc.getDetails().get("attendance_at_puskesmas") != null ? "Puskesmas: " + pc.getDetails().get("attendance_at_puskesmas").replace("_", " ") : "");
@@ -224,7 +224,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
          * Immunization coverage
          */
         if(pc.getDetails().get("IsDraft4") != null) {
-            if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("2")) {
+            if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
                 if (pc.getDetails().get("have_mch_book").equalsIgnoreCase("Yes_shown")) {
                     viewHolder.have_mch_book.setText(pc.getDetails().get("have_mch_book") != null ? "MCH Book :" + pc.getDetails().get("have_mch_book").replace("_", " ") : "");
                     viewHolder.bcg.setText(pc.getDetails().get("bcg") != null ? "BCG: " + pc.getDetails().get("bcg").replace("_", " ") : "");

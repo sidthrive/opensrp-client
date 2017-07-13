@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "bind_type": "kartu_ibu",
-    "default_bind_path": "/model/instance/RCC_Baseline_Survey_module_2/",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_2/",
     "fields": [
       {
         "name": "id",
@@ -10,147 +10,186 @@
       },
       {
         "name": "household_size",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/household_size"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/household_size",
+        "shouldLoadValue": true
       },
       {
         "name": "adult_hh_member",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/adult_hh_member"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/adult_hh_member",
+        "shouldLoadValue": true
       },
       {
         "name": "child_hh_member_under_5",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/child_hh_member_under_5"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/child_hh_member_under_5",
+        "shouldLoadValue": true
       },
       {
         "name": "child_hh_member_6-14",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/child_hh_member_6-14"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/child_hh_member_6-14",
+        "shouldLoadValue": true
       },
       {
         "name": "elderly_hh_member",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/elderly_hh_member"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/elderly_hh_member",
+        "shouldLoadValue": true
       },
       {
         "name": "mobile_connectivity",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/mobile_connectivity"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/mobile_connectivity",
+        "shouldLoadValue": true
       },
       {
         "name": "phone_purpose",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/phone_purpose"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/phone_purpose",
+        "shouldLoadValue": true
       },
       {
         "name": "cell_provider",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/cell_provider"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/cell_provider",
+        "shouldLoadValue": true
       },
       {
         "name": "flooring_area",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/flooring_area"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/flooring_area",
+        "shouldLoadValue": true
       },
       {
         "name": "permanent_flooring",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_flooring"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/permanent_flooring",
+        "shouldLoadValue": true
       },
       {
         "name": "permanent_wall",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/permanent_wall"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/permanent_wall",
+        "shouldLoadValue": true
       },
       {
         "name": "electricity",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/electricity"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/electricity",
+        "shouldLoadValue": true
       },
       {
         "name": "rent_own",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/rent_own"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/rent_own",
+        "shouldLoadValue": true
       },
       {
         "name": "rental_cost",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/rental_cost"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/rental_cost",
+        "shouldLoadValue": true
       },
       {
         "name": "dairy_product",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/dairy_product"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/dairy_product",
+        "shouldLoadValue": true
       },
       {
         "name": "informal_income",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/informal_income"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/informal_income",
+        "shouldLoadValue": true
       },
       {
         "name": "spent_on_food",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/spent_on_food"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/spent_on_food",
+        "shouldLoadValue": true
       },
       {
         "name": "savings",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/savings"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/savings",
+        "shouldLoadValue": true
       },
       {
         "name": "valuable_items",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/valuable_items"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/valuable_items",
+        "shouldLoadValue": true
       },
       {
         "name": "have_radio",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_radio"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/have_radio",
+        "shouldLoadValue": true
       },
       {
         "name": "have_tv",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_tv"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/have_tv",
+        "shouldLoadValue": true
       },
       {
         "name": "have_refrigerator",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_refrigerator"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/have_refrigerator",
+        "shouldLoadValue": true
       },
       {
         "name": "have_separate_kitchen",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_separate_kitchen"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/have_separate_kitchen",
+        "shouldLoadValue": true
       },
       {
         "name": "number_of_rooms",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/number_of_rooms"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/number_of_rooms",
+        "shouldLoadValue": true
       },
       {
         "name": "number_of_motorcycles",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/number_of_motorcycles"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/number_of_motorcycles",
+        "shouldLoadValue": true
       },
       {
         "name": "drink_water_source",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/drink_water_source"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/drink_water_source",
+        "shouldLoadValue": true
       },
       {
         "name": "what_source",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_source"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/what_source",
+        "shouldLoadValue": true
       },
       {
         "name": "have_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_toilet"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/have_toilet",
+        "shouldLoadValue": true
       },{
         "name": "what_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/what_toilet",
+        "shouldLoadValue": true
       },
       {
         "name": "what_toilet_other",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet_other"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/what_toilet_other",
+        "shouldLoadValue": true
       },
       {
         "name": "if_no_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/if_no_toilet"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/if_no_toilet",
+        "shouldLoadValue": true
       },
       {
         "name": "if_no_toilet_other",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/if_no_toilet_other"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/if_no_toilet_other",
+        "shouldLoadValue": true
       },
       {
         "name": "how_many_no_toliet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/how_many_no_toliet"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/how_many_no_toliet",
+        "shouldLoadValue": true
       },
       {
         "name": "baby_stools",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/baby_stools"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/baby_stools",
+        "shouldLoadValue": true
       },
       {
         "name": "baby_stools_other",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/baby_stools_other"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/baby_stools_other",
+        "shouldLoadValue": true
       },
-
+      {
+        "name": "IsDraft2",
+        "bind": "/model/instance/rcc_baseline_survey_module_2/is_draft",
+        "shouldLoadValue": true
+      },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/today"
+        "bind": "/model/instance/rcc_baseline_survey_module_2/today"
       }
     ]
   }
