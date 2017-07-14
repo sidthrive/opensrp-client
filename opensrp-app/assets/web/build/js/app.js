@@ -5,7 +5,7 @@
  * Place a replacement for this controller elsewhere in your app.
  */
 
-var $ = require( 'jquery' );
+var $ = require( '../dependencies/jquery' );
 window.jQuery = $; // required for bootstrap-timepicker
 var support = require( './src/js/support' );
 var Form = require( './src/js/Form' );
