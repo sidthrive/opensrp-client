@@ -1,6 +1,6 @@
 <model>
     <instance>
-        <RCC_Baseline_Survey id="rcc_baseline_survey" version="201706280732">
+        <RCC_Baseline_Survey id="rcc_baseline_survey" version="201707190657">
             <formhub>
                 <uuid/>
             </formhub>
@@ -14,6 +14,7 @@
             <Sub-district/>
             <Village/>
             <Sub-village/>
+            <generated_note_name_21/>
             <generated_note_name_23/>
             <generated_note_name_24/>
             <generated_note_name_25/>

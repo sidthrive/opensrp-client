@@ -257,6 +257,11 @@
         "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/measles_2_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_measles_2_reason",
+        "bind": "/model/instance/rcc_baseline_survey_module_4/if_have_mch_book/other_measles_2_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "other_vacc",

@@ -309,7 +309,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
-        formNames.add(KARTU_IBU_REGISTRATION);
+      //  formNames.add(KARTU_IBU_REGISTRATION);
         formNames.add("unique_identifier");
         formNames.add("health_seeking_behaviour");
         formNames.add("immunization_coverage");

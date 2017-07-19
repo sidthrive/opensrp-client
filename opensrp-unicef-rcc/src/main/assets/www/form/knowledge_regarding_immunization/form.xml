@@ -17,12 +17,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="1" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="1" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="0" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="0" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/0:label">No</span>
                 </label>
@@ -41,12 +41,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source/88:label">Tidak Tahu</span>
-                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/information_source/88:label">Don't Know</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="98" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source/98:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/information_source/98:label">Don't Know</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source/1:label">Pilih</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/information_source/1:label">Choose</span>
                 </label>
@@ -63,12 +63,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/0:label">No</span>
                 </label>
@@ -85,12 +85,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/0:label">No</span>
                 </label>
@@ -107,12 +107,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/0:label">No</span>
                 </label>
@@ -129,12 +129,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/0:label">No</span>
                 </label>
@@ -151,12 +151,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/0:label">No</span>
                 </label>
@@ -173,12 +173,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tv/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tv/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tv/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tv/0:label">No</span>
                 </label>
@@ -195,12 +195,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_radio/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_radio/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_radio/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_radio/0:label">No</span>
                 </label>
@@ -217,12 +217,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/0:label">No</span>
                 </label>
@@ -239,12 +239,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_other_source/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_other_source/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_other_source/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_other_source/0:label">No</span>
                 </label>
@@ -256,7 +256,7 @@
         <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/other_source:label">Lainnya, entri manual</span>
         <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/other_source:label">Others, manual entry</span>
         <span class="required">*</span>
-        <input type="text" name="/rcc_baseline_survey_module_5/other_source" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/is_other_source ,'1')" data-type-xml="string"/>
+        <input type="text" name="/rcc_baseline_survey_module_5/other_source" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/is_other_source ,'1')" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
@@ -270,12 +270,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="88" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/desease/88:label">Tidak Tahu</span>
-                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/desease/88:label">Don't Know</span>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="98" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/desease/98:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/desease/98:label">Don't Know</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/desease/1:label">Pilih</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/desease/1:label">Choose</span>
                 </label>
@@ -292,12 +292,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc/0:label">No</span>
                 </label>
@@ -314,12 +314,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/0:label">No</span>
                 </label>
@@ -336,12 +336,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/0:label">No</span>
                 </label>
@@ -358,12 +358,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/0:label">No</span>
                 </label>
@@ -380,12 +380,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio/0:label">No</span>
                 </label>
@@ -402,12 +402,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles/0:label">No</span>
                 </label>
@@ -424,12 +424,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/0:label">No</span>
                 </label>
@@ -446,12 +446,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/0:label">No</span>
                 </label>
@@ -468,12 +468,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="1" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="0" required="required" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/0:label">No</span>
                 </label>

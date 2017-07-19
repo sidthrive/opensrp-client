@@ -9,15 +9,6 @@
         "shouldLoadValue": true
       },
       {
-        "name": "lokasiPeriksa",
-        "bind": "/model/instance/RCC_Baseline_Survey/Lokasi_periksa"
-      },
-      {
-        "name": "unique_id",
-        "bind": "/model/instance/RCC_Baseline_Survey/unique_id",
-        "shouldLoadValue" : true
-      },
-      {
         "name": "Village",
         "bind": "/model/instance/RCC_Baseline_Survey/Village",
         "shouldLoadValue": true
@@ -62,7 +53,6 @@
         "name": "respondent_education",
         "bind": "/model/instance/RCC_Baseline_Survey/respondent_education"
       },
-
       {
         "name": "isOutOfArea",
         "value": "false"
@@ -74,10 +64,6 @@
       {
         "name": "submissionDate",
         "bind": "/model/instance/RCC_Baseline_Survey/today"
-      },
-      {
-        "name": "registrationDate",
-        "bind": "/model/instance/RCC_Baseline_Survey/reg_date"
       }
     ]
   }

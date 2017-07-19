@@ -138,12 +138,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="1" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="1" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/is_draft/1:label">Ya</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/is_draft/1:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="0" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/rcc_baseline_survey_module_6/is_draft" data-name="/rcc_baseline_survey_module_6/is_draft" value="0" required="required" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_6/is_draft/0:label">Tidak</span>
                     <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_6/is_draft/0:label">No</span>
                 </label>

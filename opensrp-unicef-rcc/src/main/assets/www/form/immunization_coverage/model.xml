@@ -1,6 +1,8 @@
 <model>
   <instance>
-    <rcc_baseline_survey_module_4 id="rcc_baseline_survey_module_4" version="201707130706">
+    <rcc_baseline_survey_module_4
+        xmlns:jr="http://openrosa.org/javarosa"
+        xmlns:orx="http://openrosa.org/xforms" id="rcc_baseline_survey_module_4" version="201707181017">
       <formhub>
         <uuid/>
       </formhub>

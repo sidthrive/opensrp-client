@@ -179,7 +179,18 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         //}
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("respondent_name")!=null?pc.getColumnmaps().get("respondent_name"):"");
-        viewHolder.husband_name.setText(pc.getColumnmaps().get("relation_to_child")!=null?pc.getColumnmaps().get("relation_to_child").replace("_"," "):"");
+
+        String relation = pc.getColumnmaps().get("relation_to_child")!=null?
+                pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("1")?
+                        "Mother":pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("2")?
+                        "Father":pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("3")?
+                        "Male-care Giver":pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("4")?
+                        "Female-care Giver":pc.getColumnmaps().get("relation_to_child")
+                :"";
+
+
+        viewHolder.husband_name.setText(relation);
+       // viewHolder.husband_name.setText(pc.getColumnmaps().get("relation_to_child")!=null?pc.getColumnmaps().get("relation_to_child").replace("_"," "):"");
         viewHolder.village_name.setText(pc.getDetails().get("Sub-village")!=null?pc.getDetails().get("Sub-village").replace("_"," "):"");
         viewHolder.wife_age.setText(pc.getColumnmaps().get("respondent_age")!=null?pc.getColumnmaps().get("respondent_age"):"");
       //  viewHolder.wife_age.setText(pc.getDetails().get("IsDraft6")!=null?pc.getDetails().get("IsDraft6"):"");
