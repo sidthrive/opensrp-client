@@ -92,6 +92,28 @@ public class ANCDetailActivity extends Activity {
         final TextView show_risk = (TextView) findViewById(R.id.show_more);
         final TextView show_detail = (TextView) findViewById(R.id.show_more_detail);
 
+
+        TextView details = (TextView) findViewById(R.id.child_detail_information);
+        TextView risk = (TextView) findViewById(R.id.detail_today);
+        TextView plan = (TextView) findViewById(R.id.detail_l);
+
+
+        TextView mother_summary = (TextView) findViewById(R.id.mother_summary);
+       // birth plan
+        TextView txt_b_edd = (TextView) findViewById(R.id.txt_b_edd);
+        TextView txt_b_lastvisit = (TextView) findViewById(R.id.txt_b_lastvisit);
+        TextView txt_b_location = (TextView) findViewById(R.id.txt_b_location);
+
+        TextView txt_b_edd2 = (TextView) findViewById(R.id.txt_b_edd2);
+        TextView txt_b_attend = (TextView) findViewById(R.id.txt_b_attend);
+        TextView txt_b_place = (TextView) findViewById(R.id.txt_b_place);
+        TextView txt_b_person = (TextView) findViewById(R.id.txt_b_person);
+        TextView txt_b_transport = (TextView) findViewById(R.id.txt_b_transport);
+        TextView txt_b_blood = (TextView) findViewById(R.id.txt_b_blood);
+        TextView txt_b_houser = (TextView) findViewById(R.id.txt_b_houser);
+        TextView txt_b_stock = (TextView) findViewById(R.id.txt_b_stock);
+
+
         //detail data
         TextView Keterangan_k1k4 = (TextView) findViewById(R.id.txt_Keterangan_k1k4);
         TextView ancDate = (TextView) findViewById(R.id.txt_ancDate);
@@ -301,27 +323,57 @@ public class ANCDetailActivity extends Activity {
 
         txt_highRiskHIVAIDS.setText(humanize(ancclient.getDetails().get("highRiskHIVAIDS") != null ? ancclient.getDetails().get("highRiskHIVAIDS") : "-"));
 
-        show_risk.setText(getResources().getString(R.string.show_more_button));
-        show_detail.setText(getResources().getString(R.string.show_less_button));
+        show_risk.setVisibility(View.GONE);
+        show_detail.setVisibility(View.GONE);
 
-        show_risk.setOnClickListener(new View.OnClickListener() {
+      //  TextView details = (TextView) findViewById(R.id.child_detail_information);
+      //  TextView risk = (TextView) findViewById(R.id.detail_today);
+      //  TextView plan = (TextView) findViewById(R.id.detail_l);
+        // birth plan
+         txt_b_edd.setText(humanize(ancclient.getDetails().get("htp") != null ? ancclient.getDetails().get("htp") : "-"));
+         txt_b_lastvisit.setText(humanize(ancclient.getDetails().get("tanggalKunjunganRencanaPersalinan") != null ? ancclient.getDetails().get("tanggalKunjunganRencanaPersalinan") : "-"));
+         txt_b_location.setText(humanize(ancclient.getDetails().get("lokasiPeriksa") != null ? ancclient.getDetails().get("lokasiPeriksa") : "-"));
+
+         txt_b_edd2.setText(humanize(ancclient.getDetails().get("htp") != null ? ancclient.getDetails().get("htp") : "-"));
+         txt_b_attend.setText(humanize(ancclient.getDetails().get("rencanaPenolongPersalinan") != null ? ancclient.getDetails().get("rencanaPenolongPersalinan") : "-"));
+         txt_b_place.setText(humanize(ancclient.getDetails().get("tempatRencanaPersalinan") != null ? ancclient.getDetails().get("tempatRencanaPersalinan") : "-"));
+         txt_b_person.setText(humanize(ancclient.getDetails().get("rencanaPendampingPersalinan") != null ? ancclient.getDetails().get("rencanaPendampingPersalinan") : "-"));
+         txt_b_transport.setText(humanize(ancclient.getDetails().get("transportasi") != null ? ancclient.getDetails().get("transportasi") : "-"));
+         txt_b_blood.setText(humanize(ancclient.getDetails().get("pendonor") != null ? ancclient.getDetails().get("pendonor") : "-"));
+         txt_b_houser.setText(humanize(ancclient.getDetails().get("kondisiRumah") != null ? ancclient.getDetails().get("kondisiRumah") : "-"));
+         txt_b_stock.setText(humanize(ancclient.getDetails().get("persediaanPerlengkapanPersalinan") != null ? ancclient.getDetails().get("persediaanPerlengkapanPersalinan") : "-"));
+
+
+        risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlurryFacade.logEvent("click_risk_detail");
                 findViewById(R.id.id1).setVisibility(View.GONE);
                 findViewById(R.id.id2).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more_detail).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.VISIBLE);
+              //  findViewById(R.id.show_more_detail).setVisibility(View.VISIBLE);
+               // findViewById(R.id.show_more).setVisibility(View.GONE);
             }
         });
 
-        show_detail.setOnClickListener(new View.OnClickListener() {
+        details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.id1).setVisibility(View.VISIBLE);
                 findViewById(R.id.id2).setVisibility(View.GONE);
-                findViewById(R.id.show_more).setVisibility(View.VISIBLE);
-                findViewById(R.id.show_more_detail).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.VISIBLE);
+              //  findViewById(R.id.show_more).setVisibility(View.VISIBLE);
+              //  findViewById(R.id.show_more_detail).setVisibility(View.GONE);
+            }
+        });
+
+        plan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.id1).setVisibility(View.GONE);
+                findViewById(R.id.id2).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.VISIBLE);
+               // mother_summary.setText("Birth Plan Summary");
             }
         });
 

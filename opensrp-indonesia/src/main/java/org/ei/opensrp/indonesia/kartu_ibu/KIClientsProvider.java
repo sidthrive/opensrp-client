@@ -151,6 +151,8 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.anc_status_layout.setText("");
         viewHolder.date_status.setText("");
         viewHolder.visit_status.setText("");
+        viewHolder.children_age_left.setText("");
+        viewHolder.children_age_right.setText("");
 
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
@@ -196,6 +198,7 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
                 checkLastVisit(pc.getDetails().get("tanggalkunjungan"),context.getString(R.string.fp_methods)+": "+pc.getDetails().get("jenisKontrasepsi"),context.getString(R.string.service_fp),
                         viewHolder.anc_status_layout,viewHolder.date_status,viewHolder.visit_status);
         }
+
 
 
 
