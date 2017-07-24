@@ -84,7 +84,17 @@
             android:orientation="vertical"
             android:layout_width="330dp"
             android:layout_height="match_parent">
-            
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:layout_margin="5dp"
+                android:id="@+id/Risk"
+                android:text="RISK :"
+                android:textColor="@color/alert_urgent_red"
+                android:textSize="14sp"
+                />
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
