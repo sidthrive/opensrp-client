@@ -551,7 +551,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", GiziSmartRegisterFragment.class.getSimpleName());
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -609,6 +609,18 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), GiziSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
+    }
 
 
 }

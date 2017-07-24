@@ -32,6 +32,7 @@ import org.ei.opensrp.indonesia.child.ChildFilterOption;
 import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
+import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.util.StringUtil;
@@ -464,7 +465,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -520,6 +521,17 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
 
+        Intent myIntent = new Intent(getActivity(), NativeKIAnakSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
+    }
 
 }

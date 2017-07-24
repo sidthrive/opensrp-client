@@ -281,11 +281,11 @@ public class VaksinatorDetailActivity extends Activity {
                 entityid = controller.entityId();
                 android.util.Log.e(TAG, "onClick: " + entityid);
 //                dispatchTakePictureIntent(photo);
-                Intent intent = new Intent(VaksinatorDetailActivity.this, SmartShutterActivity.class);
-                intent.putExtra("IdentifyPerson", false);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
-                startActivity(intent);
+                Intent takePictureIntent = new Intent(VaksinatorDetailActivity.this, SmartShutterActivity.class);
+                takePictureIntent.putExtra("IdentifyPerson", false);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivityForResult(takePictureIntent, 1);
 
 
             }
@@ -352,5 +352,14 @@ public class VaksinatorDetailActivity extends Activity {
                 date = String.format("%s/%s/%s", new String[]{date.substring(8, 10), date.substring(5, 7), date.substring(0, 4)});
         }
         return date;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        refresh
+        Log.e(TAG, "onActivityResult: refresh" );
+        finish();
+        startActivity(getIntent());
+
     }
 }

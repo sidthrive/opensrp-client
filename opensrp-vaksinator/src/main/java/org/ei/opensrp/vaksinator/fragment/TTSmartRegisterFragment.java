@@ -516,7 +516,7 @@ public class TTSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAda
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TTSmartRegisterFragment.class.getSimpleName());
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -572,6 +572,19 @@ public class TTSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAda
                 }
             });
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), TTSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
     }
 
 

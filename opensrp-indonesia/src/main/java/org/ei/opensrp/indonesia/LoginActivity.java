@@ -102,7 +102,7 @@ public class LoginActivity extends Activity {
         getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.indonesia.R.color.action_bar_background));
         setLanguage();
 
-        debugApp();
+//        debugApp();
 
     }
 
@@ -110,11 +110,12 @@ public class LoginActivity extends Activity {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.login, null);
         if (context.userService().hasARegisteredUser()){
-            localLogin(view, "demo_test", "Demo@123");
+//            localLogin(view, "", "");
         } else {
-            remoteLogin(view, "demo_test", "Demo@123");
+//            remoteLogin(view, "", "");
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

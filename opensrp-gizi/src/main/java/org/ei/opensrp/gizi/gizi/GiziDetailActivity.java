@@ -381,9 +381,9 @@ public class GiziDetailActivity extends Activity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 //            Bundle extras = data.getExtras();
 //            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
@@ -394,17 +394,18 @@ public class GiziDetailActivity extends Activity {
             saveimagereference(bindobject,entityid,details);
 */
 
-            Long tsLong = System.currentTimeMillis()/1000;
-            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
-            detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
+//            Long tsLong = System.currentTimeMillis()/1000;
+//            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
+//            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
+//            detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
+//
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
+//            mImageView.setImageBitmap(bitmap);
+//        }
+//    }
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-            mImageView.setImageBitmap(bitmap);
-        }
-    }
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
@@ -489,6 +490,15 @@ public class GiziDetailActivity extends Activity {
         startActivity(new Intent(this, GiziSmartRegisterActivity.class));
         overridePendingTransition(0, 0);
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        refresh
+        android.util.Log.e(TAG, "onActivityResult: refresh" );
+        finish();
+        startActivity(getIntent());
 
     }
 }

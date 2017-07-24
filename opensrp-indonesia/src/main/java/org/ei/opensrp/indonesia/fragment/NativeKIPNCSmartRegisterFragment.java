@@ -29,6 +29,7 @@ import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
+import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.pnc.KIPNCClientsProvider;
 import org.ei.opensrp.indonesia.pnc.KIPNCOverviewServiceMode;
@@ -494,20 +495,21 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
     }
 
     public void getFacialRecord(View view) {
-        FlurryAgent.logEvent(TAG+" search_by_face", true);
-        Log.e(TAG, "getFacialRecord: ");
+
+        FlurryAgent.logEvent(TAG + "search_by_face", true);
+        Log.d(TAG, "getFacialRecord: is_Called");
         sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         String face_start = sdf.format(date);
         FS.put("face_start", face_start);
 
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
-        FlurryAgent.logEvent(TAG + " search_by_face", FS, true);
+        FlurryAgent.logEvent(TAG + "search_by_face", FS, true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -565,6 +567,18 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), NativeKIPNCSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
+    }
 
 
 

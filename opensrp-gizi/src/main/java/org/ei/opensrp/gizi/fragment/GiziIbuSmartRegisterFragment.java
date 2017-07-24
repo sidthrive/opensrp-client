@@ -29,6 +29,7 @@ import org.ei.opensrp.gizi.giziIbu.IbuServiceModeOption;
 import org.ei.opensrp.gizi.gizi.GiziSmartRegisterActivity;
 import org.ei.opensrp.gizi.gizi.KICommonObjectFilterOption;
 import org.ei.opensrp.gizi.giziIbu.IbuSmartClientsProvider;
+import org.ei.opensrp.gizi.giziIbu.IbuSmartRegisterActivity;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.sync.ClientProcessor;
 import org.ei.opensrp.util.StringUtil;
@@ -535,7 +536,7 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
         intent.putExtra("org.sid.sidface.ImageConfirmation.origin", GiziIbuSmartRegisterFragment.class.getSimpleName());
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -593,6 +594,18 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), IbuSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
+    }
 
 
 

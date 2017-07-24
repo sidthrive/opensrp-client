@@ -339,8 +339,8 @@ public class AllConstants {
         public static final String COUCHDB_PORT = "5983";
 
         public static final String COUCH_DATABASE_NAME = "opensrp";
-        public static final String COUCH_DATABASE_USER = "rootuser";
-        public static final String COUCH_DATABASE_PASS = "Satu23456";
+        public static final String COUCH_DATABASE_USER = "";
+        public static final String COUCH_DATABASE_PASS = "";
     }
 
     public static class SyncFilters {

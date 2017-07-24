@@ -156,8 +156,10 @@ public class OpenSRPImageLoader extends ImageLoader {
                 //get image record from the db
                 ImageRepository imageRepo = (ImageRepository)org.ei.opensrp.Context.imageRepository();
                 ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
+//                String imageRecord = DrishtiApplication.getAppDir() + File.separator + ".thumbs" + File.separator + entityId +".jpg";
                 if(imageRecord!=null) {
 
+                    Log.e(TAG, "getImageByClientId: imagerecord "+ imageRecord );
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);

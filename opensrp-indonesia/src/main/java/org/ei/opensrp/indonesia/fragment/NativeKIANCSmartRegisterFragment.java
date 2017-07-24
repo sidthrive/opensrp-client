@@ -31,6 +31,7 @@ import org.ei.opensrp.indonesia.anc.KIANCOverviewServiceMode;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
+import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.util.StringUtil;
@@ -504,7 +505,8 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
     }
 
     public void getFacialRecord(View view) {
-        FlurryAgent.logEvent(TAG+" search_by_face", true);
+
+        FlurryAgent.logEvent(TAG+"search_by_face", true);
         Log.e(TAG, "getFacialRecord: ");
         sdf = new SimpleDateFormat("hh:mm:ss.SS", Locale.ENGLISH);
         String face_start = sdf.format(date);
@@ -512,13 +514,13 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 
         SmartShutterActivity.kidetail = (CommonPersonObjectClient) view.getTag();
 
-        FlurryAgent.logEvent(TAG + " search_by_face", FS, true);
+        FlurryAgent.logEvent(TAG + "search_by_face", FS, true);
 
         Intent intent = new Intent(getActivity(), SmartShutterActivity.class);
-        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", NativeKIANCSmartRegisterFragment.class.getSimpleName());
+        intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG);
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
 
     public void searchTextChangeListener(String s) {
@@ -574,5 +576,17 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(getActivity(), NativeKIANCSmartRegisterActivity.class);
+        if (data != null) {
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        }
+        getActivity().startActivity(myIntent);
+
+    }
 
 }
