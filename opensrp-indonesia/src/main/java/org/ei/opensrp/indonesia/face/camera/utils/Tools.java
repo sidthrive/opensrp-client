@@ -478,9 +478,9 @@ public class Tools {
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
         final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
 
-        AsyncHttpClient client = new AsyncHttpClient();
+//        AsyncHttpClient client = new AsyncHttpClient();
 
-        client.setBasicAuth(user, pwd);
+//        client.setBasicAuth(user, pwd);
 
 //        client.get(api_url, new JsonHttpResponseHandler(){
 //        });
@@ -569,40 +569,6 @@ public class Tools {
         return client;
     }
 
-    private static void getImages2(final String user, final String pwd, AsyncHttpClient asyhandler, final String api_url) {
-        // new
-        RequestParams params = new RequestParams();
-        params.add("username", user );
-        params.add("password", pwd );
-
-        getClient().get(getAppContext().applicationContext().getApplicationContext(), api_url, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d(TAG, "onSuccess response Object: " + response.toString());
-                Log.e(TAG, "onSuccess response Object: " + response.toString());
-                // ?????????
-//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                startActivity(intent);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                String respArray = response.toString();
-                Log.d(TAG, "onSuccess Array: " + respArray.toString());
-                Log.e(TAG, "onSuccess Array: " + respArray.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                String respString = responseString.toString();
-                Log.d(TAG, "onFailure response String: " + respString);
-                Log.e(TAG, "onFailure response String: " + respString);
-                getImages2(user, pwd, getClient(), api_url);
-            }
-        });
-
-
-    }
     private static void getImages(final AsyncHttpClient client, final String api_url) {
 
         client.get(api_url, new AsyncHttpResponseHandler() {
@@ -831,7 +797,6 @@ public class Tools {
     private static String[] getHeaderBaseUserCount(int i) {
 //        String headerNew = imageRepo.findByUserCount(n);
 //        return headerNew.substring(1, headerNew.length() -1).split(", ");
-
 
         Log.e(TAG, "getHeaderBaseUserCount: Number User"+ i );
 

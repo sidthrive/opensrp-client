@@ -454,31 +454,37 @@ public class Tools {
         //TODO : cange to based locationId
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
         final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        client.setBasicAuth(user, pwd);
-
-//        client.get(api_url, new JsonHttpResponseHandler(){
+//
+//        AsyncHttpClient client = new AsyncHttpClient();
+//
+//        client.setBasicAuth(user, pwd);
+//
+////        client.get(api_url, new JsonHttpResponseHandler(){
+////        });
+//
+//        client.get(api_url, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                Log.e(TAG, "onSuccess: " + statusCode);
+//                insertOrUpdate(responseBody);
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                Log.e(TAG, "onFailure: " + api_url);
+//            }
 //        });
 
-        client.get(api_url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.e(TAG, "onSuccess: " + statusCode);
-                insertOrUpdate(responseBody);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: " + api_url);
-            }
-        });
+        try {
+            WebUtils.fetch(api_url, user, pwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
 
-    private static void insertOrUpdate(byte[] responseBody) {
+    static void insertOrUpdate(byte[] responseBody) {
 
         try {
             JSONArray response = new JSONArray(new String(responseBody));
