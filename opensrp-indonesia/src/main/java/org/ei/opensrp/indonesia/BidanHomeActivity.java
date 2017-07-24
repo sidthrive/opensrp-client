@@ -1,5 +1,6 @@
 package org.ei.opensrp.indonesia;
 import android.database.Cursor;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,8 +69,6 @@ public class BidanHomeActivity extends SecuredActivity {
 
             new Tools(context());
 
-            Log.e("TAG", "onEvent: "+ context() );
-
 //            Tools.setAppContext(context());
             Tools.setVectorfromAPI(getApplicationContext());
 //            Tools.download_images();
@@ -115,13 +114,21 @@ public class BidanHomeActivity extends SecuredActivity {
         FlurryAgent.logEvent("home_dashboard",Home, true );
 
         setContentView(R.layout.smart_registers_home_bidan);
-        navigationController = new NavigationControllerINA(this,anmController,context());
+        navigationController = new NavigationControllerINA(this, anmController, context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
       //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
 
+        }
     }
 
     private void setupViews() {

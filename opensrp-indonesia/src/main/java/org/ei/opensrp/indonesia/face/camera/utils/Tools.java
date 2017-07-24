@@ -12,13 +12,17 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.ThumbnailUtils;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
@@ -64,6 +68,18 @@ import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
+import okhttp3.Authenticator;
+import okhttp3.Credentials;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.Route;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.ei.opensrp.indonesia.face.camera.utils.Tools.appContext;
 
 
 /**
@@ -457,7 +473,7 @@ public class Tools {
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
         String location = appContext.allSharedPreferences().getPreference("locationId");
-        String pwd = appContext.allSettings().fetchANMPassword();
+        final String pwd = appContext.allSettings().fetchANMPassword();
         //TODO : cange to based locationId
 //        String api_url = DRISTHI_BASE_URL + "/multimedia-file?anm-id=" + user;
         final String api_url = DRISTHI_BASE_URL + "/multimedia-file?locationid=" + location;
@@ -469,12 +485,126 @@ public class Tools {
 //        client.get(api_url, new JsonHttpResponseHandler(){
 //        });
 
-        getImages(client, api_url);
+//        getImages(client, api_url);
+
+//        getImages2(user, pwd, getClient(), api_url);
+
+
+        try {
+            WebUtils.fetch(api_url, user, pwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//            insertUpdateVector(response.body());
+
 
         Log.e(TAG, "setVectorfromAPI: END" );
+
     }
 
+    private static void insertUpdateVector(ResponseBody rBody) {
+        PatientFace[] pFace = null;
+
+//        try {
+//            ObjectMapper mapper = new ObjectMapper();
+//            pFace = mapper.readValue(rBody.bytes(), PatientFace[].class);
+
+//            Log.e(TAG, "insertUpdateVector: pFace "+ Arrays.toString(pFace));
+
+//            String response = new String(bytes.bytes());
+//            Log.e(TAG, "insertUpdateVector: response "+ response );
+//            JSONArray ja = new JSONArray(response);
+//
+//            for (int i = 0; i < ja.length(); i++) {
+//                JSONObject data = ja.getJSONObject(i);
+//
+//                String uid = data.getString("caseId");
+//                String anmId = data.getString("providerId");
+////                        String uid = data.getString("caseId");
+//
+//                Log.e(TAG, "insertOrUpdate: uid "+ uid );
+//                // To AlbumArray
+//                String faceVector = data.getJSONObject("attributes").getString("faceVector");
+//
+//                // Update Table ImageList on existing record based on entityId where faceVector== null
+//                ProfileImage profileImage = new ProfileImage();
+////                profileImage.setImageid(UUID.randomUUID().toString());
+//                // TODO : get anmID from ?
+//                profileImage.setAnmId(anmId);
+//                profileImage.setEntityID(uid);
+////                profileImage.setFilepath(null);
+////                profileImage.setFilecategory("profilepic");
+////                profileImage.setSyncStatus(ImageRepository.TYPE_Synced);
+//
+//                // TODO : fetch vector from imagebitmap
+//                profileImage.setFilevector(faceVector);
+//
+////                imageRepo.createOrUpdate(profileImage, uid);
+//                imageRepo.add(profileImage, uid);
+//
+//            }
+//
+//        } catch ( IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+
+    public static String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+    //and use it as getClient().get(Context, URL, RequestParams, Callback
+
+    public static AsyncHttpClient getClient() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
+        client.setMaxRetriesAndTimeout(1, 5000);
+        return client;
+    }
+
+    private static void getImages2(final String user, final String pwd, AsyncHttpClient asyhandler, final String api_url) {
+        // new
+        RequestParams params = new RequestParams();
+        params.add("username", user );
+        params.add("password", pwd );
+
+        getClient().get(getAppContext().applicationContext().getApplicationContext(), api_url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d(TAG, "onSuccess response Object: " + response.toString());
+                Log.e(TAG, "onSuccess response Object: " + response.toString());
+                // ?????????
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivity(intent);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                String respArray = response.toString();
+                Log.d(TAG, "onSuccess Array: " + respArray.toString());
+                Log.e(TAG, "onSuccess Array: " + respArray.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                String respString = responseString.toString();
+                Log.d(TAG, "onFailure response String: " + respString);
+                Log.e(TAG, "onFailure response String: " + respString);
+                getImages2(user, pwd, getClient(), api_url);
+            }
+        });
+
+
+    }
     private static void getImages(final AsyncHttpClient client, final String api_url) {
+
         client.get(api_url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -486,13 +616,13 @@ public class Tools {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e(TAG, "onFailure: " + api_url);
+                Log.e(TAG, "onFailure: reconnect " + api_url);
                 getImages(client, api_url);
             }
         });
     }
 
-    private static void insertOrUpdate(byte[] responseBody) {
+    static void insertOrUpdate(byte[] responseBody) {
         Log.e(TAG, "insertOrUpdate: START" );
 
         try {

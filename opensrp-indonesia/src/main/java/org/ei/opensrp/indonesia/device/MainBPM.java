@@ -61,8 +61,8 @@ public class MainBPM extends Activity implements View.OnClickListener {
     String clientId = "708bde5b65884f8d9e579e33e66e8e80";
     String clientSecret = "38ff62374a0d4aacadaf0e4fb4ed1931";
 
-    long discoveryType = 67108864; // BP7
-//    long discoveryType = 33554432; // BP5
+//    long discoveryType = 67108864; // BP7
+    long discoveryType = 33554432; // BP5
 
     private ListView listview_scan, listview_connected;
     private SimpleAdapter sa_scan, sa_connected;
