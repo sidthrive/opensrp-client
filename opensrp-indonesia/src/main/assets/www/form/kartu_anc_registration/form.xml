@@ -83,16 +83,16 @@
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/anc_registration/pptest:label">Hasil pptest</span>
                 <span lang="en" class="question-label " data-itext-id="/anc_registration/pptest:label">Pregnancy Test</span>
-                <span class="required">*</span>
+                
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/anc_registration/pptest" data-name="/anc_registration/pptest" value="Positive" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/anc_registration/pptest" data-name="/anc_registration/pptest" value="Positive" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/anc_registration/pptest/Positive:label">Positif</span>
                     <span lang="en" class="option-label " data-itext-id="/anc_registration/pptest/Positive:label">Positive</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/anc_registration/pptest" data-name="/anc_registration/pptest" value="Negative" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/anc_registration/pptest" data-name="/anc_registration/pptest" value="Negative" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/anc_registration/pptest/Negative:label">Negatif</span>
                     <span lang="en" class="option-label " data-itext-id="/anc_registration/pptest/Negative:label">Negative</span>
                 </label>

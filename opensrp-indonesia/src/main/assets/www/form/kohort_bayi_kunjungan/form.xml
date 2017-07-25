@@ -65,10 +65,10 @@
         <span lang="en" class="or-constraint-msg " data-itext-id="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan:jr:constraintMsg">Fill in the date of today or the days before</span>
         <span lang="Bahasa" class="question-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan:label">Tanggal diperiksa</span>
         <span lang="en" class="question-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan:label">Date of baby check-up per month</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan:hint">Diisi dengan tanggal pemeriksaan</span>
         <span lang="en" class="or-hint " data-itext-id="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan" required="required" data-constraint=".&lt;= /kohort_kunjungan_bayi_reviewed/today " data-calculate=" /kohort_kunjungan_bayi_reviewed/today " data-type-xml="date"/>
+        <input type="date" name="/kohort_kunjungan_bayi_reviewed/tanggal_kunjungan_bayi_perbulan" data-constraint=".&lt;= /kohort_kunjungan_bayi_reviewed/today " data-calculate=" /kohort_kunjungan_bayi_reviewed/today " data-type-xml="date"/>
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/panjang_bayi:label">Tinggi/Panjang Bayi (cm)</span>
@@ -89,28 +89,28 @@
             <legend>
                 <span lang="Bahasa" class="question-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi:label">Indikator pertumbuhan bayi (monitor berat badan)</span>
                 <span lang="en" class="question-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi:label">Indicator of baby's growth (weight monitoring)</span>
-                <span class="required">*</span>
+                
                 <span lang="Bahasa" class="or-hint active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi:hint">Diisi N (jika berat badan naik sesuai garis pertumbuhan), T ( tidak naik berat badannya), O (tidak ditimbang pada bulan lalu), B (jika baru pertama kali ditimbang)</span>
                 <span lang="en" class="or-hint " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi:hint">Fill N (if the weight gain is appropriate with the growth line), T (no weight gain in this month), O (baby wasn't weighed last month), B (it's the first baby weighing)</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="N" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="N" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/N:label">N (jika berat bedan naik sesuai garis pertumbuhan)</span>
                     <span lang="en" class="option-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/N:label">N (in line with healthy growth)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="T" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="T" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/T:label">T (tidak naik berat badannya, berat badan tetap)</span>
                     <span lang="en" class="option-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/T:label">T (weight not increasing in line with growth chart)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="O" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="O" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/O:label">O (tidak ditimbang pada bulan lalu)</span>
                     <span lang="en" class="option-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/O:label">O (child wasn't weighed last month)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="B" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" data-name="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi" value="B" data-type-xml="select1"/>
                     <span lang="Bahasa" class="option-label active" data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/B:label">B (baru pertama kali ditimbang)</span>
                     <span lang="en" class="option-label " data-itext-id="/kohort_kunjungan_bayi_reviewed/indikator_berat_bedan_bayi/B:label">B (it is the first time the child is weighed)</span>
                 </label>

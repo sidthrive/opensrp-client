@@ -63,11 +63,11 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:label">Tanggal kunjungan</span>
         <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:label">Check-up date</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:hint">Tanggal dilakukannya kunjungan nifas</span>
         <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/tanggal_kunjungan:hint">Date of post-partum check-up</span>
-        <input type="date" name="/PNC_visit_reviewed/tanggal_kunjungan" required="required"  data-type-xml="date"/>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        <input type="date" name="/PNC_visit_reviewed/tanggal_kunjungan"  data-type-xml="date"/>
+        
     </label>
     <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/generated_note_name_27:label">Tanggal lahir anak :
@@ -79,11 +79,11 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/hari_ke__kf:label">Hari Ke / KF</span>
         <span lang="en" class="question-label " data-itext-id="/PNC_visit_reviewed/hari_ke__kf:label">Day/ Postpartum care</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/PNC_visit_reviewed/hari_ke__kf:hint">Menunjukkan hari ke berapa setelah persalinan</span>
         <span lang="en" class="or-hint " data-itext-id="/PNC_visit_reviewed/hari_ke__kf:hint">Indicating the day of post-partum</span>
-        <input type="number" name="/PNC_visit_reviewed/hari_ke__kf" required="required" data-type-xml="int"/>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        <input type="number" name="/PNC_visit_reviewed/hari_ke__kf" data-type-xml="int"/>
+        
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/PNC_visit_reviewed/keadaan_umum:label">Keadaan umum ibu nifas</span>

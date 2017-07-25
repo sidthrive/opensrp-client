@@ -66,10 +66,10 @@
         <span lang="en" class="or-constraint-msg " data-itext-id="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita:jr:constraintMsg">Fill in the date of today or the days before</span>
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita:label">Tanggal diperiksa</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita:label">Date of child check-up</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita:hint">Diisi tanggal kunjungan</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita" required="required" data-constraint=".&lt;= /kunjungan_balita_reviewed/today " data-calculate=" /kunjungan_balita_reviewed/today " data-type-xml="date"/>
+        <input type="date" name="/kunjungan_balita_reviewed/tanggal_pemeriksaan_anak_balita" data-constraint=".&lt;= /kunjungan_balita_reviewed/today " data-calculate=" /kunjungan_balita_reviewed/today " data-type-xml="date"/>
     </label>
     <label class="question non-select ">
         <span lang="Bahasa" class="or-constraint-msg active" data-itext-id="/kunjungan_balita_reviewed/hasil_penimbangan_anak_balita:jr:constraintMsg">nilai tidak boleh minus</span>

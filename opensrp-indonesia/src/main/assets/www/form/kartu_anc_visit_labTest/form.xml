@@ -63,11 +63,11 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:label">Tanggal kunjungan ANC LAB</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:label">Date of ANC LAB visit</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:hint">Diisi dengan tanggal periksa Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_Lab_test/reference_date:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kunjungan_anc_reviewed_Lab_test/reference_date" required="required" data-type-xml="date"/>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        <input type="date" name="/kunjungan_anc_reviewed_Lab_test/reference_date" data-type-xml="date"/>
+        
     </label>
     <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_Lab_test/generated_note_name_26:label">Pemeriksaan Laboratorium</span>

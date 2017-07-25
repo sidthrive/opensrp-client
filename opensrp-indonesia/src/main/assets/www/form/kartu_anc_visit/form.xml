@@ -88,12 +88,12 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:label">Tanggal kunjungan ANC</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:label">Date of ANC visit</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:hint">Diisi dengan tanggal periksa Ibu</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_date:hint">Fill in the date of check-up</span>
-        <input type="date" name="/kunjungan_anc_reviewed_anc_visit/anc_date" required="required" data-constraint=".&gt; /kunjungan_anc_reviewed_anc_visit/hpht " data-type-xml="date"/>
+        <input type="date" name="/kunjungan_anc_reviewed_anc_visit/anc_date" data-constraint=".&gt; /kunjungan_anc_reviewed_anc_visit/hpht " data-type-xml="date"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        
     </label>
     <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/generated_note_name_31:label">Usia Klinis :
@@ -122,11 +122,11 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_ke:label">K1 - K4?</span>
         <span lang="en" class="question-label " data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_ke:label">Recommend Antenatal Care Visit 1 to 4</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_ke:hint">Diisi dengan K1 atau K2 sampai dengan K4</span>
         <span lang="en" class="or-hint " data-itext-id="/kunjungan_anc_reviewed_anc_visit/anc_ke:hint">Fill in K1, K2, K3 or K4</span>
-        <input type="number" name="/kunjungan_anc_reviewed_anc_visit/anc_ke" required="required" data-type-xml="int"/>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        <input type="number" name="/kunjungan_anc_reviewed_anc_visit/anc_ke" data-type-xml="int"/>
+        
     </label>
     <label class="question note non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/kunjungan_anc_reviewed_anc_visit/generated_note_name_38:label">Isi variabel di atas dengan angka 0 jika kunjungan ibu tidak termasuk K1, K2, K3 atau K4</span>
@@ -455,7 +455,7 @@
             <span data-option-value="lengkap" lang="Bahasa">Ibu telah menerima imunisasi TT yang lengkap</span>
             <span data-option-value="lengkap" lang="en">Mother has received complete TT immunization</span>
         </span>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        
     </label>
 
     <fieldset class="question simple-select ">

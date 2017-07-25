@@ -70,18 +70,18 @@
     <label class="question non-select ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/rencana_persalinan_reviewed/tanggal:label">Tanggal Kunjungan</span>
         <span lang="en" class="question-label " data-itext-id="/rencana_persalinan_reviewed/tanggal:label">Visit Date</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/rencana_persalinan_reviewed/tanggal:hint">Diisi dengan tanggal taksiran persalinan</span>
         <span lang="en" class="or-hint " data-itext-id="/rencana_persalinan_reviewed/tanggal:hint">Fill in the estimated date of delivery</span>
-        <input type="date" name="/rencana_persalinan_reviewed/tanggal" required="required" data-type-xml="date"/>
+        <input type="date" name="/rencana_persalinan_reviewed/tanggal" data-type-xml="date"/>
     </label>
     <label class="question or-appearance-minimal ">
         <span lang="Bahasa" class="question-label active" data-itext-id="/rencana_persalinan_reviewed/rencana_penolong_persalinan:label">Rencana Penolong Persalinan</span>
         <span lang="en" class="question-label " data-itext-id="/rencana_persalinan_reviewed/rencana_penolong_persalinan:label">Birth Attendant</span>
-        <span class="required">*</span>
+        
         <span lang="Bahasa" class="or-hint active" data-itext-id="/rencana_persalinan_reviewed/rencana_penolong_persalinan:hint">Diisi dengan pihak yang akan menolong persalinan</span>
         <span lang="en" class="or-hint " data-itext-id="/rencana_persalinan_reviewed/rencana_penolong_persalinan:hint">Fill in the intended birth attendant</span>
-        <select name="/rencana_persalinan_reviewed/rencana_penolong_persalinan" data-name="/rencana_persalinan_reviewed/rencana_penolong_persalinan" required="required" data-type-xml="select1">
+        <select name="/rencana_persalinan_reviewed/rencana_penolong_persalinan" data-name="/rencana_persalinan_reviewed/rencana_penolong_persalinan" data-type-xml="select1">
             <option value="">...</option>
             <option value="keluarga">Keluarga (K)</option>
             <option value="dukun">Dukun (D)</option>
