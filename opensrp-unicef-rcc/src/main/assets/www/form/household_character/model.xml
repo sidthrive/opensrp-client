@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <rcc_baseline_survey_module_2 id="rcc_baseline_survey_module_2" version="201707180815">
+    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201707250916">
       <formhub>
         <uuid/>
       </formhub>
@@ -10,9 +10,9 @@
       <generated_note_name_6/>
       <household_size/>
       <generated_note_name_9/>
+      <child_hh_member_0_4/>
+      <child_hh_member_above_5/>
       <adult_hh_member/>
-      <child_hh_member_under_5/>
-      <child_hh_member_6-14/>
       <elderly_hh_member/>
       <mobile_connectivity/>
       <phone_purpose/>
@@ -50,6 +50,6 @@
       <meta>
         <instanceID/>
       </meta>
-    </rcc_baseline_survey_module_2>
+    </RCC_Baseline_Survey_module_2>
   </instance>
 </model>
