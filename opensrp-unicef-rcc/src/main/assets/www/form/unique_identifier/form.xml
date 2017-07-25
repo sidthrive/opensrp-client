@@ -1,4 +1,4 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey">\n
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
     <h3 dir="auto" id="form-title">RCC Identitas Responden</h3>
@@ -67,64 +67,64 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="12" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/12:label">&lt;12</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/12:label">&lt;12</span>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="12" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/12:label">12</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/12:label">12</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="13" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="13" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/13:label">13</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/13:label">13</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="14" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="14" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/14:label">14</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/14:label">14</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="15" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="15" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/15:label">15</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/15:label">15</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="16" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="16" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/16:label">16</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/16:label">16</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="17" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="17" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/17:label">17</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/17:label">17</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="18" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="18" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/18:label">18</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/18:label">18</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="19" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="19" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/19:label">19</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/19:label">19</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="20" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="20" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/20:label">20</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/20:label">20</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="21" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="21" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/21:label">21</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/21:label">21</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="22" required="required" data-type-xml="select1"/>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="22" data-required="true()" data-type-xml="select1"/>
                     <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/22:label">22</span>
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/22:label">22</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="23" required="required" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/23:label">&gt;23</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/23:label">&gt;23</span>
+                    <input type="radio" name="/RCC_Baseline_Survey/child_age" data-name="/RCC_Baseline_Survey/child_age" value="23" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey/child_age/23:label">23</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey/child_age/23:label">23</span>
                 </label>
             </div>
         </fieldset>
@@ -143,7 +143,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">Jika responden bukan ibu atau ayah anak, tolong pilih pemberi perawatan laki-laki atau pemberi perawatan wanita, tergantung pada jenis kelamin responden.</span>
         <span lang="en" class="or-hint " data-itext-id="/RCC_Baseline_Survey/relation_to_child:hint">If the respondent is not the child's mother or father, please select male-care giver or female-care giver, depending on the respondent's sex.</span>
-        <select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" required="required" data-type-xml="select1">
+        <select name="/RCC_Baseline_Survey/relation_to_child" data-name="/RCC_Baseline_Survey/relation_to_child" data-required="true()" data-type-xml="select1">
             <option value="">...</option>
             <option value="1">Ibu</option>
             <option value="2">Ayah</option>
@@ -168,7 +168,7 @@
         <span class="required">*</span>
         <span lang="id" class="or-hint active" data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">Jumlah tahun yang telah selesai sejak kelahiran responden</span>
         <span lang="en" class="or-hint " data-itext-id="/RCC_Baseline_Survey/respondent_age:hint">Number of completed years since the respondent's birth</span>
-        <input type="number" name="/RCC_Baseline_Survey/respondent_age" required="required" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/>
+        <input type="number" name="/RCC_Baseline_Survey/respondent_age" data-required="true()" data-constraint=".&gt;14 and .&lt;66" data-type-xml="int"/>
         <span lang="" class="or-constraint-msg active">Age Should be between 15 – 65</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -176,7 +176,7 @@
         <span lang="id" class="question-label active" data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Tingkat pendidikan tertinggi responden</span>
         <span lang="en" class="question-label " data-itext-id="/RCC_Baseline_Survey/respondent_education:label">Highest level of education of respondent (completed level):</span>
         <span class="required">*</span>
-        <select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" required="required" data-type-xml="select1">
+        <select name="/RCC_Baseline_Survey/respondent_education" data-name="/RCC_Baseline_Survey/respondent_education" data-required="true()" data-type-xml="select1">
             <option value="">...</option>
             <option value="0">Tidak Sekolah</option>
             <option value="1">SD</option>
@@ -206,7 +206,7 @@
             <span data-option-value="7" lang="en">more than SMA</span>
         </span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
-    </label> \n
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/RCC_Baseline_Survey/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
