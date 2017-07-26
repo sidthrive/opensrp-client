@@ -33,8 +33,8 @@
         <child_existing_location openmrs_entity="encounter" openmrs_entity_id="location_id"/>
         <no_bayi openmrs_entity="person_attribute" openmrs_entity_id="noBayi"/>
         <nama_bayi openmrs_entity="Concept" openmrs_entity_id="1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-        <tanggal_lahir_anak openmrs_entity="person/birthdate"/>
-        <jenis_kelamin openmrs_entity="person/gender"/>
+        <tanggal_lahir_anak openmrs_entity="person" openmrs_entity_id="birthdate"/>
+        <jenis_kelamin openmrs_entity="person" openmrs_entity_id="gender"/>
         <kepemilikan_buku_kia openmrs_entity="n/a"/>
         <berat_lahir openmrs_entity="concept" openmrs_entity_id="5916AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
         <high_risk_child_Low_Birthweght openmrs_entity="concept" openmrs_entity_id="1431AAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
