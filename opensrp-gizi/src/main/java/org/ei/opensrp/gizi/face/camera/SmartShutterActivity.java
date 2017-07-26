@@ -150,6 +150,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
         settingsButtonPress = false;
 
+
         chooseCameraActionListener();
 //        switchCameraActionListener();
         galleryActionListener();
@@ -561,6 +562,7 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
         galleryButton.setVisibility(View.INVISIBLE);
 
         settingsButton = (ImageView) findViewById(R.id.settings);
+        settingsButton.setVisibility(View.INVISIBLE);
 
         chooseCameraButton = (ImageView) findViewById(R.id.chooseCamera);
         chooseCameraButton.setImageResource(R.drawable.ic_camera_rear_white_24dp);

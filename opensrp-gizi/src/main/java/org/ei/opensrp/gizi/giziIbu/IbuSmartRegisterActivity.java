@@ -361,6 +361,7 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
 
     @Override
     public void onBackPressed() {
+        nf.setCriteria("");
         if (currentPage != 0) {
             switchToBaseFragment(null);
         } else if (currentPage == 0) {
@@ -413,13 +414,13 @@ public class IbuSmartRegisterActivity extends SecuredNativeSmartRegisterActivity
                 nf.setCriteria("!");
                 currentPage = 0;
                 Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face OK", true);
 
             } else {
                 nf.setCriteria("");
                 onBackPressed();
                 Log.e(TAG, "onClick: NO " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face NOK", true);
+                FlurryAgent.logEvent(TAG + "search_by_face NOK", true);
 
                 Intent intent= new Intent(IbuSmartRegisterActivity.this, IbuSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));

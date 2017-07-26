@@ -36,8 +36,8 @@ public class Generator {
     private String url;
     private String result;
 
-    public static final int UNIQUE_ID_LIMIT = 5;
-    public static final int UNIQUE_ID_LENGTH_REQUEST = 1;
+    public static final int UNIQUE_ID_LIMIT = 10;
+    public static final int UNIQUE_ID_LENGTH_REQUEST = 15;
 
     public Generator(Context context, String username, String password){
         this.context=context;

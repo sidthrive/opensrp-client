@@ -1,6 +1,7 @@
 package org.ei.opensrp.gizi;
 
 import android.database.Cursor;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -116,6 +117,17 @@ public class GiziHomeActivity extends SecuredActivity {
         Map<String, String> Home = new HashMap<String, String>();
         Home.put("start", HomeStart);
         FlurryAgent.logEvent("gizi_home_dashboard",Home, true );
+
+        // Require for okhttp
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+        }
 
     }
 

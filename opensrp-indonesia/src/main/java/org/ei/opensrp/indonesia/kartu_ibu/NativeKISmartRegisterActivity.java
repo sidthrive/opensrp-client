@@ -154,8 +154,6 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void setupViews() {
-
-
     }
 
     @Override
@@ -382,13 +380,13 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
             if (which == -1 ){
                 nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face OK", FS, true);
+                Log.e(TAG, "onClick: YES ");
+                FlurryAgent.logEvent(TAG + "search_by_face OK", FS, true);
 
             } else {
                 nf.setCriteria("");
-                Log.e(TAG, "onClick: NO " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face NOK", FS, true);
+                Log.e(TAG, "onClick: NO ");
+                FlurryAgent.logEvent(TAG + "search_by_face NOK", FS, true);
 //                onBackPressed();
 //
 //                Intent intent= new Intent(NativeKISmartRegisterActivity.this, NativeKISmartRegisterActivity.class);

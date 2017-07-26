@@ -115,8 +115,10 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
             //start profile image
             viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
             if(pc.getCaseId()!=null){//image already in local storage most likey ):
+
                 //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+                        OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
             }
 
             convertView.setTag(viewHolder);

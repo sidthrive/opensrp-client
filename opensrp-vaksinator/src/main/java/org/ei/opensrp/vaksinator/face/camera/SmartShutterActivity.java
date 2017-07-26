@@ -562,6 +562,8 @@ public class SmartShutterActivity extends Activity implements Camera.PreviewCall
 
         settingsButton = (ImageView) findViewById(R.id.settings);
 
+        settingsButton.setVisibility(View.INVISIBLE);
+
         chooseCameraButton = (ImageView) findViewById(R.id.chooseCamera);
         chooseCameraButton.setImageResource(R.drawable.ic_camera_rear_white_24dp);
         chooseCameraButton.setVisibility(View.VISIBLE);

@@ -272,7 +272,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
     public void onBackPressed() {
 
 //        WD
-        nf.setCriteria("");
+        nf.setCriteria("!");
         Log.e(TAG, "onBackPressed: "+currentPage );
         if (currentPage != 0) {
             switchToBaseFragment(null);
@@ -321,7 +321,7 @@ public class NativeKISmartRegisterActivity extends SecuredNativeSmartRegisterAct
         public void onClick(DialogInterface dialog, int which) {
 //            mBaseFragment = new NativeKISmartRegisterFragment();
 
-//            nf.setCriteria("");
+//            nf.setCriteria("!");
 //            onBackPressed();
             Log.e(TAG, "onClick: Cancel");
 

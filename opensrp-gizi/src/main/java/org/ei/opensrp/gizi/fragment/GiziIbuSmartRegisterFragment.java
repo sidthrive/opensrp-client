@@ -594,18 +594,39 @@ public class GiziIbuSmartRegisterFragment extends SecuredNativeSmartRegisterCurs
         }
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        Intent myIntent = new Intent(getActivity(), IbuSmartRegisterActivity.class);
+//        if (data != null) {
+//            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+//            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+//        }
+//        getActivity().startActivity(myIntent);
+//
+//    }
+
+
     @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        Intent myIntent = new Intent(getActivity(), IbuSmartRegisterActivity.class);
-        if (data != null) {
-            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
-            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        if (requestCode == 2 ) {
+            if (resultCode != 0) {
+                Intent myIntent = new Intent(getActivity(), IbuSmartRegisterActivity.class);
+                if (data != null) {
+                    myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+                    myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+                }
+                getActivity().startActivity(myIntent);
+        } else {
+            Log.e(TAG, "onActivityResult: "+ resultCode );
         }
-        getActivity().startActivity(myIntent);
-
     }
+
+}
 
 
 

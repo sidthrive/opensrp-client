@@ -1,6 +1,7 @@
 package org.ei.opensrp.vaksinator;
 
 import android.database.Cursor;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -103,25 +104,37 @@ public class VaksinatorHomeActivity extends SecuredActivity {
     protected void onCreation() {
         //home dashboard
         setContentView(R.layout.smart_registers_jurim_home);
-      //  FlurryFacade.logEvent("vaksinator_home_dashboard");
-        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this,anmController,context());
+        //  FlurryFacade.logEvent("vaksinator_home_dashboard");
+        navigationController = new org.ei.opensrp.vaksinator.TestNavigationController(this, anmController, context());
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
 
-                String HomeStart = timer.format(new Date());
-               Map<String, String> Home = new HashMap<String, String>();
-                Home.put("start", HomeStart);
-                FlurryAgent.logEvent("vaksinator_home_dashboard",Home, true );
+        String HomeStart = timer.format(new Date());
+        Map<String, String> Home = new HashMap<String, String>();
+        Home.put("start", HomeStart);
+        FlurryAgent.logEvent("vaksinator_home_dashboard", Home, true);
+
+        // Require for okhttp
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+        }
+
 
     }
 
     private void setupViews() {
         findViewById(R.id.btn_vaksinator_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_TT_vaksinator_register).setOnClickListener(onRegisterStartListener);
-       // findViewById(R.id.btn_test2_register).setOnClickListener(onRegisterStartListener);
-       // findViewById(R.id.btn_tt_register).setVisibility(View.INVISIBLE);
+        // findViewById(R.id.btn_test2_register).setOnClickListener(onRegisterStartListener);
+        // findViewById(R.id.btn_tt_register).setVisibility(View.INVISIBLE);
 
         findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
 //        findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);
@@ -174,12 +187,12 @@ public class VaksinatorHomeActivity extends SecuredActivity {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
         Cursor childcountcursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
         childcountcursor.moveToFirst();
-        childcount= childcountcursor.getInt(0);
+        childcount = childcountcursor.getInt(0);
         childcountcursor.close();
 
-        Cursor kicountcursor = context().commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu", "ec_ibu.is_closed=0 and ec_ibu.pptest='Positive'" ));
+        Cursor kicountcursor = context().commonrepository("ec_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ec_ibu", "ec_ibu.is_closed=0 and ec_ibu.pptest='Positive'"));
         kicountcursor.moveToFirst();
-        kicount= kicountcursor.getInt(0);
+        kicount = kicountcursor.getInt(0);
         kicountcursor.close();
 
         anakRegisterClientCountView.setText(valueOf(childcount));
@@ -224,7 +237,7 @@ public class VaksinatorHomeActivity extends SecuredActivity {
                 this.recreate();
                 return true;
             case R.id.help:
-              //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
+                //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -238,13 +251,13 @@ public class VaksinatorHomeActivity extends SecuredActivity {
         FlurryFacade.logEvent("click_update_from_server");
         updateActionsTask.updateFromServer(new SyncAfterFetchListener());
 
-        if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT))  // unique id part
+        if (LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT))  // unique id part
             LoginActivity.generator.requestUniqueId();                                                                  // unique id part
 
         String locationjson = context().anmLocationController().get();
         LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
-        Map<String,TreeNode<String, Location>> locationMap =
+        Map<String, TreeNode<String, Location>> locationMap =
                 locationTree.getLocationsHierarchy();
     }
 
@@ -310,7 +323,7 @@ public class VaksinatorHomeActivity extends SecuredActivity {
             String HomeEnd = timer.format(new Date());
             Map<String, String> Home = new HashMap<String, String>();
             Home.put("end", HomeEnd);
-            FlurryAgent.logEvent("vaksinator_home_dashboard",Home, true);
+            FlurryAgent.logEvent("vaksinator_home_dashboard", Home, true);
         }
     };
 

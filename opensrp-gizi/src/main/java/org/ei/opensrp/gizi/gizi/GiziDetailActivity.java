@@ -291,11 +291,11 @@ public class GiziDetailActivity extends Activity {
 
                 }
 
-                Intent intent = new Intent(GiziDetailActivity.this, SmartShutterActivity.class);
-                intent.putExtra("IdentifyPerson", false);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-                intent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
-                startActivity(intent);
+                Intent takePictureIntent = new Intent(GiziDetailActivity.this, SmartShutterActivity.class);
+                takePictureIntent.putExtra("IdentifyPerson", false);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+                takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.origin", TAG); // send Class Name
+                startActivityForResult(takePictureIntent, 2);
 
 
             }
@@ -353,15 +353,15 @@ public class GiziDetailActivity extends Activity {
     static String entityid;
 
     private void dispatchTakePictureIntent(ImageView imageView) {
-        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-        mImageView = imageView;
-        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
+//        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
+//        mImageView = imageView;
+//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
 //        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 //        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
+//        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
 //            File photoFile = null;
 //            try {
@@ -375,10 +375,10 @@ public class GiziDetailActivity extends Activity {
 //                currentfile = photoFile;
 //                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
 //
-            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-            startActivityForResult(takePictureIntent, 1);
+//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
+//            startActivityForResult(takePictureIntent, 1);
 //            }
-        }
+//        }
     }
 
 //    @Override

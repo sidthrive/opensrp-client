@@ -122,7 +122,8 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         detailsRepository.updateDetails(pc);
 
         //start profile image
-        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
+//        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
+        viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
 
         if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
@@ -131,13 +132,14 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
                     OpenSRPImageLoader.getStaticImageListener(
                             viewHolder.profilepic,
                             pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-                            0)
+                            R.mipmap.child_girl_infant)
             );
             } else {
                 Log.e(TAG, "getView: Gender is Not Set" );
             }
         }
         //end profile image
+//        convertView.setTag(viewHolder);
 
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));

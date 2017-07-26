@@ -394,12 +394,12 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
                 nf.setCriteria("!");
                 currentPage = 0;
                 Log.e(TAG, "onClick: YES "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face OK", true);
 
             } else {
                 nf.setCriteria("");
                 Log.e(TAG, "onClick: NO "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face NOK", true);
 
                 onBackPressed();
 

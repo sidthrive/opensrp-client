@@ -205,9 +205,11 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 //        list.setBackgroundColor(Color.RED);
         initializeQueries(getCriteria());
     }
+
     private String filterStringForAll(){
         return "";
     }
+
     private String sortByAlertmethod() {
         return " CASE WHEN alerts.status = 'urgent' THEN '1'"
                 +
@@ -226,7 +228,7 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("ec_anak");
 
-        if (s == null || s.equals("!")) {
+        if (s == null || s.equals("!") || s.equals("")) {
             Log.e(TAG, "initializeQueries: "+"Not Initialized" );
             mainCondition = "is_closed = 0 ";
         } else {
@@ -552,6 +554,8 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
         intent.putExtra("org.sid.sidface.ImageConfirmation.identify", true);
         intent.putExtra("org.sid.sidface.ImageConfirmation.kidetail", (Parcelable) SmartShutterActivity.kidetail);
         startActivityForResult(intent, 2);
+
+
     }
 
     public void searchTextChangeListener(String s) {
@@ -567,7 +571,6 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
                 @Override
                 public void onTextChanged(final CharSequence cs, int start, int before, int count) {
 
-                    Log.e(TAG, "onTextChanged: " + searchView.getText());
                     (new AsyncTask() {
 //                    SmartRegisterClients filteredClients;
 
@@ -613,12 +616,19 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        Intent myIntent = new Intent(getActivity(), GiziSmartRegisterActivity.class);
-        if (data != null) {
-            myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
-            myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+        if (requestCode == 2 ) {
+
+            if (resultCode != 0) {
+                Intent myIntent = new Intent(getActivity(), GiziSmartRegisterActivity.class);
+                if (data != null) {
+                    myIntent.putExtra("org.ei.opensrp.indonesia.face.face_mode", true);
+                    myIntent.putExtra("org.ei.opensrp.indonesia.face.base_id", data.getStringExtra("org.ei.opensrp.indonesia.face.base_id"));
+                }
+                getActivity().startActivity(myIntent);
+            } else {
+                Log.e(TAG, "onActivityResult: "+ resultCode );
+            }
         }
-        getActivity().startActivity(myIntent);
 
     }
 

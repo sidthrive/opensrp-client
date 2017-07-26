@@ -60,7 +60,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     SimpleDateFormat timer = new SimpleDateFormat("hh:mm:ss");
 
-    public static final String TAG = "GiziActivity";
+    public static final String TAG = GiziSmartRegisterActivity.class.getSimpleName();
     @Bind(R.id.view_pager)
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
@@ -73,6 +73,9 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     GiziSmartRegisterFragment nf = new GiziSmartRegisterFragment();
 
+    Map<String, String> FS = new HashMap<>();
+
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,15 +84,16 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         String GiziStart = timer.format(new Date());
-                Map<String, String> Gizi = new HashMap<>();
-                Gizi.put("start", GiziStart);
+        Map<String, String> Gizi = new HashMap<>();
+        Gizi.put("start", GiziStart);
 //                FlurryAgent.logEvent("Gizi_dashboard", Gizi, true);
       //  FlurryFacade.logEvent("Gizi_dashboard");
 
         formNames = this.buildFormNameList();
 
         //        WD
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
+
         if (extras != null) {
             boolean mode_face = extras.getBoolean("org.ei.opensrp.indonesia.face.face_mode");
             String base_id = extras.getString("org.ei.opensrp.indonesia.face.base_id");
@@ -114,6 +118,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 builder.setPositiveButton("YES", listener );
                 builder.show();
             }
+
         } else {
             mBaseFragment = new GiziSmartRegisterFragment();
         }
@@ -151,8 +156,6 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     @Override
     protected void setupViews() {
-
-
     }
 
     @Override
@@ -452,9 +455,12 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
     @Override
     public void onBackPressed() {
+        nf.setCriteria("!");
+        Log.e(TAG, "onBackPressed: "+currentPage );
+
         if (currentPage != 0) {
             switchToBaseFragment(null);
-        } else if (currentPage == 0) {
+        } else {
             super.onBackPressed(); // allow back key only if we are
         }
     }
@@ -497,19 +503,23 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     }
 
     private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+
         @Override
         public void onClick(DialogInterface dialog, int which) {
+            String face_end = timer.format(new Date());
+            FS.put("face_end", face_end);
+
+            Log.e(TAG, "onClick: which "+ which );
+            nf.setCriteria("!");
 
             if (which == -1 ){
-                nf.setCriteria("!");
                 currentPage = 0;
-                Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+                Log.e(TAG, "onClick: YES ");
+                FlurryAgent.logEvent(TAG+"search_by_face OK", true);
 
             } else {
-                nf.setCriteria("");
                 Log.e(TAG, "onClick: NO "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face NOK", true);
 
                 onBackPressed();
 

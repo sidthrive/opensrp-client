@@ -389,6 +389,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
     @Override
     public void onBackPressed() {
+        nf.setCriteria("!");
         if (currentPage != 0) {
             switchToBaseFragment(null);
         } else if (currentPage == 0) {
@@ -437,12 +438,12 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
                 nf.setCriteria("!");
                 currentPage = 0;
                 Log.e(TAG, "onClick: YES "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face OK", true);
 
             } else {
-                nf.setCriteria("");
+                nf.setCriteria("!");
                 Log.e(TAG, "onClick: NO "+currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face NOK", true);
+                FlurryAgent.logEvent(TAG+"search_by_face NOK", true);
 
                 onBackPressed();
 

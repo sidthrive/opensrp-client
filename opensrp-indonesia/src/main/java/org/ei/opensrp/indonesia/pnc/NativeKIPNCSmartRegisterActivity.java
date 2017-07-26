@@ -397,13 +397,13 @@ public class NativeKIPNCSmartRegisterActivity extends SecuredNativeSmartRegister
                 nf.setCriteria("!");
                 currentPage = 0;
                 Log.e(TAG, "onClick: YES " + currentPage);
-                FlurryAgent.logEvent(TAG+" search_by_face OK", FS, true);
+                FlurryAgent.logEvent(TAG+"search_by_face OK", FS, true);
 
             } else {
                 nf.setCriteria("");
                 onBackPressed();
                 Log.e(TAG, "onClick: NO " + currentPage);
-                FlurryAgent.logEvent(TAG + " search_by_face NOK", FS, true);
+                FlurryAgent.logEvent(TAG + "search_by_face NOK", FS, true);
 
                 Intent intent= new Intent(NativeKIPNCSmartRegisterActivity.this,NativeKIPNCSmartRegisterActivity.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
