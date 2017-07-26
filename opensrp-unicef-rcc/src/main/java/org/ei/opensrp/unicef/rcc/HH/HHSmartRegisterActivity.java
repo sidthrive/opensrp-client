@@ -132,7 +132,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
                 new OpenFormOption(getResources().getString(R.string.immunization_coverage), "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                new OpenFormOption(getResources().getString(R.string.knowledge_regarding_immunization), "knowledge_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.attitude_regarding_immunization), "attitude_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                // new OpenFormOption("Kartu Ibu Close ", KARTU_IBU_CLOSE, formController),
+               //  new OpenFormOption("Kartu Ibu Close ", "confirm_form", formController),
         };
 
     }
@@ -309,7 +309,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
-      //  formNames.add(KARTU_IBU_REGISTRATION);
+        formNames.add("confirm_form");
         formNames.add("unique_identifier");
         formNames.add("health_seeking_behaviour");
         formNames.add("immunization_coverage");

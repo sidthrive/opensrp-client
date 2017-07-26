@@ -772,8 +772,8 @@
             <div class="option-wrapper">
                 <label class="">
                     <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="1" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&gt;500m</span>
-                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&gt;500m</span>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&lt;500</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_posyandu/1:label">&lt;500</span>
                 </label>
                 <label class="">
                     <input type="radio" name="/rcc_baseline_survey_module_3/nearest_posyandu" data-name="/rcc_baseline_survey_module_3/nearest_posyandu" value="2" data-required="true()" data-type-xml="select1"/>
@@ -1121,8 +1121,8 @@
             <div class="option-wrapper">
                 <label class="">
                     <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="1" data-required="true()" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&gt;500m</span>
-                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&gt;500m</span>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&lt;500</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_3/nearest_puskesmas/1:label">&lt;500</span>
                 </label>
                 <label class="">
                     <input type="radio" name="/rcc_baseline_survey_module_3/nearest_puskesmas" data-name="/rcc_baseline_survey_module_3/nearest_puskesmas" value="2" data-required="true()" data-type-xml="select1"/>

@@ -1,17 +1,16 @@
 <model>
   <instance>
-    <rcc_baseline_survey_module_4
-        xmlns:jr="http://openrosa.org/javarosa"
-        xmlns:orx="http://openrosa.org/xforms" id="rcc_baseline_survey_module_4" version="201707181017">
+    <RCC_Baseline_Survey_module_4 id="rcc_baseline_survey_module_4" version="201707251153">
       <formhub>
         <uuid/>
       </formhub>
       <start/>
       <deviceid/>
       <today/>
-      <Immunization_coverage/>
+      <generated_note_name_12/>
       <have_mch_book/>
       <where_mch_book/>
+      <where_mch_book_other/>
       <vaccine/>
       <bcg/>
       <bcg_isdateknown/>
@@ -73,29 +72,36 @@
       <measles_1_date/>
       <measles_1_reason/>
       <other_measles_1_reason/>
-      <measles_2/>
-      <measles_2_isdateknown/>
-      <measles_2_date/>
-      <measles_2_reason/>
-      <other_measles_2_reason/>
+      <penta_1/>
+      <penta_1_isdateknown/>
+      <penta_1_date/>
+      <penta_1_reason/>
+      <other_Penta_1_reason/>
+      <penta_2/>
+      <penta_2_isdateknown/>
+      <penta_2_date/>
+      <penta_2_reason/>
+      <other_penta_2_reason/>
+      <penta_3/>
+      <penta_3_isdateknown/>
+      <penta_3_date/>
+      <penta_3_reason/>
+      <other_penta_3_reason/>
       <other_vacc/>
       <other_vacc_isdateknown/>
       <other_vacc_date/>
-      <generated_note_name_95/>
+      <generated_note_name_114/>
       <Has_child_received_any_vaccinations/>
       <A_BCG_vaccination/>
       <Polio_vaccine/>
-      <first_polio_vaccine_given/>
       <polio_vaccine_received/>
-      <A_DPT_vaccination/>
-      <DPT_vaccine_given/>
+      <A_Penta_vaccination/>
+      <Penta_vaccine_given/>
       <A_measles_injection/>
-      <A_Hepatitis_B_injection/>
-      <Hepatitis_B_vaccine_received/>
       <is_draft>1</is_draft>
       <meta>
         <instanceID/>
       </meta>
-    </rcc_baseline_survey_module_4>
+    </RCC_Baseline_Survey_module_4>
   </instance>
 </model>

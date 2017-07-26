@@ -168,7 +168,8 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 //        viewHolder.information_source.setText("");
         viewHolder.have_mch_book.setText("");
 
-        if(pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("mother") || pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("female-care_giver") ){
+        if(pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("mother") || pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("female-care_giver")
+                || pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("1") || pc.getColumnmaps().get("relation_to_child").equalsIgnoreCase("4")){
             viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
         }
         else{
