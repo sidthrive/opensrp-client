@@ -1,0 +1,13 @@
+<model>
+  <instance>
+    <test_image id="test_image" version="201707270034">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <test/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </test_image>
+  </instance>
+</model>

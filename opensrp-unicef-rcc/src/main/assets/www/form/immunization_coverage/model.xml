@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <RCC_Baseline_Survey_module_4 id="rcc_baseline_survey_module_4" version="201707251153">
+    <RCC_Baseline_Survey_module_4 id="rcc_baseline_survey_module_4" version="201707270756">
       <formhub>
         <uuid/>
       </formhub>
@@ -15,6 +15,7 @@
       <bcg/>
       <bcg_isdateknown/>
       <bcg_date/>
+      <BCG_vaccination_book_recall/>
       <bcg_reason/>
       <other_bcg_reason/>
       <hepb_0/>
@@ -50,6 +51,8 @@
       <polio_0/>
       <polio_0_isdateknown/>
       <polio_0_date/>
+      <Polio_vaccine_book_recall/>
+      <polio_vaccine_book_recall_received/>
       <polio_0_reason/>
       <other_polio_0_reason/>
       <polio_1/>
@@ -75,6 +78,8 @@
       <penta_1/>
       <penta_1_isdateknown/>
       <penta_1_date/>
+      <Penta_vaccination_book_recall/>
+      <Penta_vaccine_book_recall_given/>
       <penta_1_reason/>
       <other_Penta_1_reason/>
       <penta_2/>
@@ -90,7 +95,7 @@
       <other_vacc/>
       <other_vacc_isdateknown/>
       <other_vacc_date/>
-      <generated_note_name_114/>
+      <generated_note_name_119/>
       <Has_child_received_any_vaccinations/>
       <A_BCG_vaccination/>
       <Polio_vaccine/>

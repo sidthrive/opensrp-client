@@ -33,10 +33,16 @@
         "shouldLoadValue": true
       },
       {
-        "name": "bcg_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_date",
+        "name": "BCG_vaccination_book_recall",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/BCG_vaccination_book_recall",
         "shouldLoadValue": true
-      },{
+      },
+      {
+        "name": "bcg_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_reason",
+        "shouldLoadValue": true
+      },
+      {
         "name": "bcg_reason",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_reason",
         "shouldLoadValue": true
@@ -154,11 +160,23 @@
         "name": "polio_0",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_1",
         "shouldLoadValue": true
-      },{
+      },
+      {
+        "name": "Polio_vaccine_book_recall",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/Polio_vaccine_book_recall",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "polio_vaccine_book_recall_received",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_vaccine_book_recall_received",
+        "shouldLoadValue": true
+      },
+      {
         "name": "polio_0_isdateknown",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_isdateknown",
         "shouldLoadValue": true
-      },{
+      },
+      {
         "name": "polio_0_date",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_date",
         "shouldLoadValue": true
