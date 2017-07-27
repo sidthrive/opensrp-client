@@ -135,8 +135,73 @@
         "shouldLoadValue": true
       },
       {
-        "name": "drink_water_source",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/drink_water_source",
+        "name": "Branded_bottled_water",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Branded_bottled_water",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Recharge_water",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Recharge_water",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Tap_water_is_supplied_to_the_house",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Tap_water_is_supplied_to_the_house",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Water_from_the_neighbor",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Water_from_the_neighbor",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Water_from_tap",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Water_from_tap",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Drilling_wells",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Drilling_wells",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Dug_well_Protected",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Dug_well_Protected",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Dug_well_Unprotected",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Dug_well_Unprotected",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Water_springs_Sheltered_spring",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Water_springs_Sheltered_spring",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Water_springs_not_protected",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Water_springs_not_protected",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Surface_wate",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Surface_wate",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Rainwater_shelter",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Rainwater_shelter",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Tanker",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Tanker",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Carts_with_jerry",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Carts_with_jerry",
         "shouldLoadValue": true
       },
       {
@@ -148,11 +213,53 @@
         "name": "have_toilet",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/have_toilet",
         "shouldLoadValue": true
-      },{
-        "name": "what_toilet",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet",
+      },
+      {
+        "name": "Flushed_to_piped_sewer_system",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Flushed_to_piped_sewer_system",
         "shouldLoadValue": true
       },
+      {
+        "name": "Flushed_to_septic_tank",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Flushed_to_septic_tank",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Flushed_to_pit_latrine",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Flushed_to_pit_latrine",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Flush_dont_know_where",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Flush_dont_know_where",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Pit_Latrine",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Pit_Latrine",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Pit_latrine_with_slab",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Pit_latrine_with_slab",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Pit_latrine_without_slab",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Pit_latrine_without_slab",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Composting_toilet",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Composting_toilet",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Not_able_to_observe",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_2/Not_able_to_observe",
+        "shouldLoadValue": true
+      },
+
       {
         "name": "what_toilet_other",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/what_toilet_other",
