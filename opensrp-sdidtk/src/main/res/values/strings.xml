@@ -416,10 +416,10 @@
     <string name="detailTinggi">Tinggi</string>
     <string name="detailLingkarKepala">Lingkar Kepala</string>
     <string name="MMN">MMN</string>
-    <string name="sesi1">Sesi 1</string>
-    <string name="sesi2">Sesi 2</string>
-    <string name="sesi3">Sesi 3</string>
-    <string name="sesi4">Sesi 4</string>
+    <string name="sesi1">Session 1</string>
+    <string name="sesi2">Session 2</string>
+    <string name="sesi3">Session 3</string>
+    <string name="sesi4">Session 4</string>
     <string name="parana_register_title_in_short">KARANA</string>
     <string name="parana_invitation">KARANA  INVITATION</string>
     <string name="parana_header">Karana</string>
@@ -428,11 +428,11 @@
     <string name="home_invent">Home Inventory</string>
     <string name="name">Name :</string>
     <string name="nik">NIK :</string>
-    <string name="husband_name">Nama Suami :</string>
-    <string name="dob">Tanggal Lahir :</string>
-    <string name="paranaMotherRisk1">Ibu Terlalu Muda</string>
-    <string name="paranaMotherRisk2">Terlalu Banyak Anak</string>
-    <string name="paranaMotherRisk3">Pendidikan Ibu Rendah</string>
+    <string name="husband_name">husband :</string>
+    <string name="dob">Birthdate :</string>
+    <string name="paranaMotherRisk1">Too Young Mother</string>
+    <string name="paranaMotherRisk2">Too Many Children</string>
+    <string name="paranaMotherRisk3">Low Education Level</string>
     <string name="paranaMotherRisk4">Primigravida</string>
-    <string name="paranaMotherRisk5">Nilai Home Rendah</string>
+    <string name="paranaMotherRisk5">Home Score Low</string>
 </resources>

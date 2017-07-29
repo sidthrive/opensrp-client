@@ -346,7 +346,7 @@ public class HomeInventoryClientsProvider implements SmartRegisterCLientsProvide
     }
 
     private boolean isMalnourished(boolean isMale, int age, double weight){
-        if(age<=0 && weight <=0.0)
+        if((age>=1856)||(age<=0 && weight <=0.0))
             return false;
         ZScoreSystemCalculation calculate = new ZScoreSystemCalculation();
         return calculate.countWFA(isMale,age,weight) <= -2;
