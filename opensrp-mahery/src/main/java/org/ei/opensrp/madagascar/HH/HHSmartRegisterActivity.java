@@ -1,4 +1,4 @@
-package org.ei.opensrp.unicef.rcc.HH;
+package org.ei.opensrp.madagascar.HH;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +13,7 @@ import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.FormSubmissionService;
-import org.ei.opensrp.unicef.rcc.LoginActivity;
+import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.unicef.rcc.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.ZiggyService;

@@ -1,0 +1,128 @@
+{
+  "form_data_definition_version": "2",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_5/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "heard_about_immu",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/heard_about_immu",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "information_source",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/information_source",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_health_cadre",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_health_cadre",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_community_leader",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_community_leader",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_religious_leader",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_religious_leader",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_friend_family_relative",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_friend_family_relative",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_tv",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_tv",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_radio",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_radio",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_poster_banner",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_poster_banner",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "is_other_source",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_other_source",
+        "shouldLoadValue" : true
+      },
+      {
+        "name": "other_source",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/other_source",
+        "shouldLoadValue" : true
+      },
+
+      {
+        "name": "desease",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/desease",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_tbc",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_tbc",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_diphterhia",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_diphterhia",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_tetanus",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_tetanus",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_pertussis",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_pertussis",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_polio",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_polio",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_measles",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_measles",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_hepatitis_b",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_hepatitis_b",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_meningitis",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_meningitis",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "is_pneumonia",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_pneumonia",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "IsDraft5",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_draft",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/today"
+      }
+    ]
+  }
+}
