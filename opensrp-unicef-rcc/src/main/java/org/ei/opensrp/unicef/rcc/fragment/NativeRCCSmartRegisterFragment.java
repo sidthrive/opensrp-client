@@ -325,6 +325,24 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
+            if(option.name().equalsIgnoreCase(getString(R.string.unique)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft2") != null) {
+                        if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+            }
+
            if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
                if(pc.getDetails().get("is_confirm") != null) {

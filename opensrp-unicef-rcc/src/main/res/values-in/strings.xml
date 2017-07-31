@@ -498,4 +498,5 @@
     <string name="knowledge_regarding_immunization">Knowledge regarding Immunization</string>
     <string name="attitude_regarding_immunization">Attitude regarding Immunization</string>
     <string name="form_already_approved">Form Already Approved</string>
+    <string name="unique">RCC Identitas Responden(Edit)</string>
 </resources>

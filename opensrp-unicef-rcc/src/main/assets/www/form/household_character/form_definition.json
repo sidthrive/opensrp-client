@@ -299,6 +299,7 @@
         "name": "submissionDate",
         "bind": "/model/instance/RCC_Baseline_Survey_module_2/today"
       }
+
     ]
   }
 }

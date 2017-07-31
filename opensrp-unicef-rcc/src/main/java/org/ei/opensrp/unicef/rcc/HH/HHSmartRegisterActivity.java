@@ -126,7 +126,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
           //  overridemap.put("current_formStatus", alertstate);
         }
         return new DialogOption[]{
-                new OpenFormOption("RCC Identitas Responden", "unique_identifier", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.unique), "unique_identifier", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.household_character), "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.health_seeking_behaviour), "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.immunization_coverage), "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),

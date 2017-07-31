@@ -19,7 +19,13 @@
         "name": "where_mch_book",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/where_mch_book",
         "shouldLoadValue": true
-      },{
+      }
+      {
+        "name": "where_mch_book_other",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/where_mch_book_other",
+        "shouldLoadValue": true
+      }
+    ,{
         "name": "vaccine",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/vaccine",
         "shouldLoadValue": true
@@ -27,9 +33,16 @@
         "name": "bcg",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg",
         "shouldLoadValue": true
-      },{
+      },
+
+      {
         "name": "bcg_isdateknown",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_isdateknown",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bcg_date",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_date",
         "shouldLoadValue": true
       },
       {
@@ -43,8 +56,8 @@
         "shouldLoadValue": true
       },
       {
-        "name": "bcg_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/bcg_reason",
+        "name": "other_bcg_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_bcg_reason",
         "shouldLoadValue": true
       },
 
@@ -65,6 +78,11 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_0_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_hepb_0_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_hepb_0_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "hepb_1",
@@ -81,6 +99,11 @@
       },{
         "name": "hepb_1_reason",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_1_reason",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_hepb_1_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_hepb_1_reason",
         "shouldLoadValue": true
       },
 
@@ -101,6 +124,11 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_2_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_hepb_2_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_hepb_2_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "dpt_1",
@@ -117,6 +145,11 @@
       },{
         "name": "dpt_1_reason",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/dpt_1_reason",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_dpt_1_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_dpt_1_reason",
         "shouldLoadValue": true
       },
 
@@ -137,6 +170,11 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/dpt_2_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_dpt_2_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_dpt_2_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "dpt_3",
@@ -155,10 +193,25 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/dpt_3_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_dpt_3_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_dpt_3_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "polio_0",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_1",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "polio_0_isdateknown",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_isdateknown",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "polio_0_date",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_date",
         "shouldLoadValue": true
       },
       {
@@ -172,17 +225,13 @@
         "shouldLoadValue": true
       },
       {
-        "name": "polio_0_isdateknown",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_isdateknown",
+        "name": "polio_0_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_reason",
         "shouldLoadValue": true
       },
       {
-        "name": "polio_0_date",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_date",
-        "shouldLoadValue": true
-      },{
-        "name": "polio_0_reason",
-        "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_0_reason",
+        "name": "other_polio_0_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_polio_0_reason",
         "shouldLoadValue": true
       },
 
@@ -203,6 +252,11 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_1_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_polio_1_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_polio_1_reason",
+        "shouldLoadValue": true
+      },
 
       {
         "name": "polio_2",
@@ -221,6 +275,12 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_2_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_polio_2_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_polio_2_reason",
+        "shouldLoadValue": true
+      },
+
 
       {
         "name": "polio_3",
@@ -237,6 +297,11 @@
       },{
         "name": "polio_3_reason",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/polio_3_reason",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_polio_3_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_polio_3_reason",
         "shouldLoadValue": true
       },
 
@@ -257,6 +322,12 @@
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/measles_1_reason",
         "shouldLoadValue": true
       },
+      {
+        "name": "other_measles_1_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_measles_1_reason",
+        "shouldLoadValue": true
+      },
+
 
       {
         "name": "penta_1",
@@ -269,6 +340,16 @@
       },{
         "name": "penta_1_date",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/penta_1_date",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Penta_vaccination_book_recall",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/Penta_vaccination_book_recall",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Penta_vaccine_book_recall_given",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/Penta_vaccine_book_recall_given",
         "shouldLoadValue": true
       },{
         "name": "penta_1_reason",
