@@ -35,23 +35,28 @@
       },
       {
         "name": "child_age",
-        "bind": "/model/instance/RCC_Baseline_Survey/child_age"
+        "bind": "/model/instance/RCC_Baseline_Survey/child_age",
+        "shouldLoadValue": true
       },
       {
         "name": "respondent_name",
-        "bind": "/model/instance/RCC_Baseline_Survey/respondent_name"
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_name",
+        "shouldLoadValue": true
       },
       {
         "name": "relation_to_child",
-        "bind": "/model/instance/RCC_Baseline_Survey/relation_to_child"
+        "bind": "/model/instance/RCC_Baseline_Survey/relation_to_child",
+        "shouldLoadValue": true
       },
       {
         "name": "respondent_age",
-        "bind": "/model/instance/RCC_Baseline_Survey/respondent_age"
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_age",
+        "shouldLoadValue": true
       },
       {
         "name": "respondent_education",
-        "bind": "/model/instance/RCC_Baseline_Survey/respondent_education"
+        "bind": "/model/instance/RCC_Baseline_Survey/respondent_education",
+        "shouldLoadValue": true
       },
       {
         "name": "isOutOfArea",
