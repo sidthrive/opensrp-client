@@ -1,0 +1,57 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_gps">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC - GPS</h3>
+    <select id="form-languages" data-default-lang="id">
+        <option value="id" data-dir="ltr">Indonesia</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <label class="question non-select ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_gps/store_gps:label">Lokasi Responden</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_gps/store_gps:label">Responden's Location</span>
+        <input type="text" name="/rcc_baseline_survey_module_gps/store_gps" data-type-xml="geopoint"/>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_gps/is_draft:label">Simpan sementara?</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_gps/is_draft:label">Save as draft?</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_gps/is_draft:hint">Jika memilih tidak, data akan final dan tidak dapat diubah lagi</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_gps/is_draft:hint">If choose no, data will be final and can't be changed anymore</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_gps/is_draft" data-name="/rcc_baseline_survey_module_gps/is_draft" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_gps/is_draft/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_gps/is_draft/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_gps/is_draft" data-name="/rcc_baseline_survey_module_gps/is_draft" value="0" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_gps/is_draft/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_gps/is_draft/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_gps/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_gps/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_gps/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_gps/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_gps/formhub/uuid" data-calculate="'f02e83df2a034e5fbd4f5e06debda85f'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

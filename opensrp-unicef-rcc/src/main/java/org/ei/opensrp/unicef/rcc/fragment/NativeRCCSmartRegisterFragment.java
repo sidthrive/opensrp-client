@@ -428,6 +428,23 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
                     }
                 }
             }
+            if(option.name().equalsIgnoreCase(getString(R.string.gps)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft6") != null) {
+                        if (pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+            }
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }

@@ -132,7 +132,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
                 new OpenFormOption(getResources().getString(R.string.immunization_coverage), "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                new OpenFormOption(getResources().getString(R.string.knowledge_regarding_immunization), "knowledge_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.attitude_regarding_immunization), "attitude_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-               //  new OpenFormOption("Kartu Ibu Close ", "confirm_form", formController),
+                 new OpenFormOption(getResources().getString(R.string.gps), "gps", formController),
         };
 
     }
@@ -316,7 +316,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         formNames.add("household_character");
         formNames.add("knowledge_regarding_immunization");
         formNames.add("attitude_regarding_immunization");
-
+        formNames.add("gps");
       //  DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {
        //     formNames.add(((OpenFormOption) options[i]).getFormName());
