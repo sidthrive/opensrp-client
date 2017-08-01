@@ -19,7 +19,7 @@
         "name": "where_mch_book",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/where_mch_book",
         "shouldLoadValue": true
-      }
+      },
       {
         "name": "where_mch_book_other",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/where_mch_book_other",
