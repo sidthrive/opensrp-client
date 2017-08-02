@@ -130,6 +130,55 @@
         "shouldLoadValue": true
       },
 
+
+      {
+        "name": "hepb_3",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_3",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_3_isdateknown",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_3_isdateknown",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_3_date",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_3_date",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_3_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_3_reason",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_hepb_3_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_hepb_3_reason",
+        "shouldLoadValue": true
+      },
+
+
+      {
+        "name": "hepb_4",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_4",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_4_isdateknown",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_4_isdateknown",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_4_date",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_4_date",
+        "shouldLoadValue": true
+      },{
+        "name": "hepb_4_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/hepb_4_reason",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_hepb_4_reason",
+        "bind": "/model/instance/RCC_Baseline_Survey_module_4/other_hepb_4_reason",
+        "shouldLoadValue": true
+      },
+
+
       {
         "name": "dpt_1",
         "bind": "/model/instance/RCC_Baseline_Survey_module_4/dpt_1",

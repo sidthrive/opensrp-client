@@ -1,6 +1,8 @@
 <model>
   <instance>
-    <RCC_Baseline_Survey_module_4 id="rcc_baseline_survey_module_4" version="201707270756">
+    <RCC_Baseline_Survey_module_4
+        xmlns:jr="http://openrosa.org/javarosa"
+        xmlns:orx="http://openrosa.org/xforms" id="rcc_baseline_survey_module_4" version="201708010623">
       <formhub>
         <uuid/>
       </formhub>
@@ -33,6 +35,16 @@
       <hepb_2_date/>
       <hepb_2_reason/>
       <other_hepb_2_reason/>
+      <hepb_3/>
+      <hepb_3_isdateknown/>
+      <hepb_3_date/>
+      <hepb_3_reason/>
+      <other_hepb_3_reason/>
+      <hepb_4/>
+      <hepb_4_isdateknown/>
+      <hepb_4_date/>
+      <hepb_4_reason/>
+      <other_hepb_4_reason/>
       <dpt_1/>
       <dpt_1_isdateknown/>
       <dpt_1_date/>
@@ -95,7 +107,7 @@
       <other_vacc/>
       <other_vacc_isdateknown/>
       <other_vacc_date/>
-      <generated_note_name_119/>
+      <generated_note_name_131/>
       <Has_child_received_any_vaccinations/>
       <A_BCG_vaccination/>
       <Polio_vaccine/>

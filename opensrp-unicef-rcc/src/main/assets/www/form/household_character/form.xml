@@ -546,10 +546,10 @@
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/7:label">cellular calling, text messaging, data or Wi-Fi, and games or entertainment</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="77" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant="selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'2') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'3') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'4')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/77:label">lainnya</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/77:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/77:label">other</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/phone_purpose" data-name="/RCC_Baseline_Survey_module_2/phone_purpose" value="97" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant="selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'2') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'3') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'4')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/97:label">lainnya</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/97:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/phone_purpose/97:label">other</span>
                 </label>
             </div>
         </fieldset>
@@ -598,10 +598,10 @@
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/5:label">Axis</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="77" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant="selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'2') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'3') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'4')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/77:label">Lainnya</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/77:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/77:label">other</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/cell_provider" data-name="/RCC_Baseline_Survey_module_2/cell_provider" value="97" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant="selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'2') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'3') or selected( /RCC_Baseline_Survey_module_2/mobile_connectivity ,'4')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/97:label">Lainnya</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/97:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/cell_provider/97:label">other</span>
                 </label>
             </div>
         </fieldset>
@@ -1947,16 +1947,16 @@
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/8:label">Communal latrine</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="88" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = '0'" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/88:label">Tidak tahu/ Menolak untuk menjawab</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/88:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/88:label">Don't know/Refused</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="98" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = '0'" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/98:label">Tidak tahu/ Menolak untuk menjawab</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/98:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/98:label">Don't know/Refused</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="77" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = '0'" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/77:label">Lainnya</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/77:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/77:label">Other</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/if_no_toilet" data-name="/RCC_Baseline_Survey_module_2/if_no_toilet" value="97" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/have_toilet  = '0'" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/97:label">Lainnya</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/97:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/if_no_toilet/97:label">Other</span>
                 </label>
             </div>
         </fieldset>
@@ -1973,7 +1973,7 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/if_no_toilet_other" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/if_no_toilet  = '77'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/if_no_toilet_other" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/if_no_toilet  = '97'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">
@@ -2027,16 +2027,16 @@
                     <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/5:label">Thrown in garbage/rubbish bin</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="88" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/88:label">Tidak tahu</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/88:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/88:label">Don't know</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="98" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/98:label">Tidak tahu</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/98:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/98:label">Don't know</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="77" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-type-xml="select1"/>
-                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/77:label">Lainnya</span>
-                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/77:label">-</span>
-                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/77:label">Other</span>
+                    <input type="radio" name="/RCC_Baseline_Survey_module_2/baby_stools" data-name="/RCC_Baseline_Survey_module_2/baby_stools" value="97" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/97:label">Lainnya</span>
+                    <span lang="Bahasa" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/97:label">-</span>
+                    <span lang="en" class="option-label " data-itext-id="/RCC_Baseline_Survey_module_2/baby_stools/97:label">Other</span>
                 </label>
             </div>
         </fieldset>
@@ -2053,7 +2053,7 @@
             <strong></strong>__)
         </span>
         <span class="required">*</span>
-        <input type="text" name="/RCC_Baseline_Survey_module_2/baby_stools_other" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/baby_stools  = '77'" data-type-xml="string"/>
+        <input type="text" name="/RCC_Baseline_Survey_module_2/baby_stools_other" data-required="selected( /RCC_Baseline_Survey_module_2/is_draft ,'0')" data-relevant=" /RCC_Baseline_Survey_module_2/baby_stools  = '97'" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
