@@ -90,7 +90,8 @@ public class CloudantSyncHandler {
             // String locationAnmids=allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
 
             String port = AllConstants.CloudantSync.COUCHDB_PORT;
-            String databaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME;
+//            String databaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME;
+            String databaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME+"_"+locationAnmids.toLowerCase().replace(' ', '_').replace(".","");
             String pullDatabaseName = AllConstants.CloudantSync.COUCH_DATABASE_NAME+"_"+locationAnmids.toLowerCase().replace(' ', '_').replace(".","");
             dbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(databaseName);
             pulldbURL = allSharedPreferences.fetchHost("").concat(":").concat(port).concat("/").concat(pullDatabaseName);
@@ -186,14 +187,13 @@ public class CloudantSyncHandler {
 
         // Set up the new replicator objects
         URI uri = this.createServerURI();
-        URI pullUri = this.createPullServerURI();
+//        URI uri = this.createPullServerURI();
 
         CloudantDataHandler mCloudantDataHandler = CloudantDataHandler.getInstance(mContext);
         Datastore mDatastore = mCloudantDataHandler.getDatastore();
 
-        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
-//        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(uri);
-
+//        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(pullUri);
+        ReplicatorBuilder.Pull mPullBuilder = ReplicatorBuilder.pull().to(mDatastore).from(uri);
         ReplicatorBuilder.Push mPushBuilder = ReplicatorBuilder.push().from(mDatastore).to(uri);
 
         String username = AllConstants.CloudantSync.COUCH_DATABASE_USER;
