@@ -1,27 +1,15 @@
 {
   "bindobjects": [
     {
-      "name": "bidan",
+      "name": "HH",
       "columns": [
-        {"name":"bidanId"}
+        {"name":"name_household_head"},{"name":"HHGPSPoint"},{"name":"isClosed"}
       ]
     },
     {
-      "name": "kartu_ibu",
+      "name": "HHMember",
       "columns": [
-        {"name":"isClosed"},{"name":"isOutOfArea"},{"name":"relation_to_child"},{"name":"respondent_age"},{"name":"respondent_name"},{"name":"respondent_education"}
-      ]
-    },
-    {
-      "name": "ibu",
-      "columns": [
-        {"name":"kartuIbuId"}, {"name":"type"},{"name":"isClosed"},{"name":"ancDate"},{"name":"ancKe"},{"name":"hariKeKF"}
-      ]
-    },
-    {
-      "name": "anak",
-      "columns": [
-        {"name":"ibuCaseId"},{"name":"isClosed"},{"name":"namaBayi"},{"name":"tanggalLahirAnak"}
+        {"name":"Name_family_member"}, {"name":"Ethnic_Group"},{"name":"isClosed"},{"name":"Sex"},{"name":"Education"},{"name":"Profession"}
       ]
     }
   ]

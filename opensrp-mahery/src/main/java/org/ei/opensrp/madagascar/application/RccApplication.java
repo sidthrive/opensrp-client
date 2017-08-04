@@ -70,60 +70,52 @@ public class RccApplication extends DrishtiApplication {
     }
 
     private String[] getFtsSearchFields(String tableName){
-        if(tableName.equals("kartu_ibu")){
-            String[] ftsSearchFields =  { "respondent_name" };
+        if(tableName.equals("HH")){
+            //    {"name":"name_household_head"},{"name":"HHGPSPoint"},{"name":"isClosed"}
+            String[] ftsSearchFields =  { "name_household_head" };
             return ftsSearchFields;
-        } else if(tableName.equals("anak")){
-            String[] ftsSearchFields =  { "namaBayi" };
-            return ftsSearchFields;
-        } else if (tableName.equals("ibu")){
-            String[] ftsSearchFields =  { "namalengkap", "namaSuami" };
+        } else if(tableName.equals("HHMember")){
+         //   {"name":"Name_family_member"}, {"name":"Ethnic_Group"},
+            // {"name":"isClosed"},{"name":"Sex"},{"name":"Education"},{"name":"Profession"}
+
+            String[] ftsSearchFields =  { "Name_family_member"  };
             return ftsSearchFields;
         }
         return null;
     }
 
     private String[] getFtsSortFields(String tableName){
-        if(tableName.equals("kartu_ibu")) {
-            String[] sortFields = { "relation_to_child", "respondent_age",  "respondent_education", "respondent_name" };
+        if(tableName.equals("HH")) {
+            String[] sortFields = { "name_household_head"};
             return sortFields;
-        } else if(tableName.equals("anak")){
-            String[] sortFields = { "namaBayi", "tanggalLahirAnak" };
-            return sortFields;
-        } else if(tableName.equals("ibu")){
-            String[] sortFields = { "namalengkap", "umur", "noIbu", "htp" };
+        } else if(tableName.equals("HHMember")){
+            String[] sortFields = { "Name_family_member", "Ethnic_Group", "Sex" , "Education" ,"Profession" };
             return sortFields;
         }
         return null;
     }
 
     private String[] getFtsMainConditions(String tableName){
-        if(tableName.equals("kartu_ibu")) {
-            String[] mainConditions = { "isClosed", "details" };
+        if(tableName.equals("HH")) {
+            String[] mainConditions = { "isClosed", "name_household_head" };
             return mainConditions;
-        } else if(tableName.equals("anak")){
-            String[] mainConditions = { "isClosed", "ibuCaseId" };
-            return mainConditions;
-        } else if(tableName.equals("ibu")){
-            String[] mainConditions = { "isClosed", "type", "kartuIbuId" };
+        } else if(tableName.equals("HHMember")){
+            String[] mainConditions = { "isClosed", "Name_family_member" };
             return mainConditions;
         }
         return null;
     }
 
     private String getFtsCustomRelationalId(String tableName){
-        if(tableName.equals("anak")){
-            String customRelationalId = "ibuCaseId";
-            return customRelationalId;
-        } else if(tableName.equals("ibu")){
-            String customRelationalId =  "kartuIbuId" ;
+        if(tableName.equals("HHMember")){
+            String customRelationalId = "HHCaseId";
             return customRelationalId;
         }
         return null;
     }
 
     private String[] getFtsTables(){
-        String[] ftsTables = { "kartu_ibu", "anak", "ibu" };
+        String[] ftsTables = { "HH", "HHMember"};
         return ftsTables;
     }
 
@@ -133,7 +125,7 @@ public class RccApplication extends DrishtiApplication {
             commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
             commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             commonFtsObject.updateMainConditions(ftsTable, getFtsMainConditions(ftsTable));
-            commonFtsObject.updateCustomRelationalId(ftsTable, getFtsCustomRelationalId(ftsTable));
+          //  commonFtsObject.updateCustomRelationalId(ftsTable, getFtsCustomRelationalId(ftsTable));
         }
         return commonFtsObject;
     }
