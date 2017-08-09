@@ -1,0 +1,45 @@
+<model>
+  <instance>
+    <open_cencus id="open_census" version="201708030600">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <today/>
+      <Name_family_member/>
+      <Date_of_Birth/>
+      <DOB_date/>
+      <DOB_month_year/>
+      <DOB_year/>
+      <Ethnic_Group/>
+      <Other_Ethnic_Group/>
+      <Sex/>
+      <Education/>
+      <Profession/>
+      <Other_Profession/>
+      <Marital_Status/>
+      <Prior_Surgeries/>
+      <Health_History/>
+      <Other_Health_History/>
+      <Visual_Health_Deformities/>
+      <Other_Visual_Health_Deformities/>
+      <Vaccine_Card/>
+      <Vaccination_History/>
+      <Pregnant/>
+      <Pregnancies/>
+      <Number_Deliveries/>
+      <Number_Live_Births/>
+      <Birthweight/>
+      <Birthweight_gram/>
+      <Is_Person_Alive/>
+      <Cause_of_Death/>
+      <Date_of_Death/>
+      <death_date/>
+      <HH_GPS_Point/>
+      <end/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </open_cencus>
+  </instance>
+</model>

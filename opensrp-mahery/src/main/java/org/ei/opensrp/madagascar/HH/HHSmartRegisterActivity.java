@@ -14,7 +14,7 @@ import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.FormSubmissionService;
 import org.ei.opensrp.madagascar.LoginActivity;
-import org.ei.opensrp.unicef.rcc.R;
+import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.madagascar.fragment.NativeRCCSmartRegisterFragment;

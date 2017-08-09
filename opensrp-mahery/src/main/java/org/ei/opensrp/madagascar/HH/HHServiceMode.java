@@ -4,7 +4,7 @@ import android.view.View;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.unicef.rcc.R;
+import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.view.contract.ANCSmartRegisterClient;
 import org.ei.opensrp.view.contract.ChildSmartRegisterClient;
 import org.ei.opensrp.view.contract.FPSmartRegisterClient;

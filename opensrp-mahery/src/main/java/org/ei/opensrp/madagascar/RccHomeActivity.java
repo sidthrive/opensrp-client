@@ -124,8 +124,8 @@ public class RccHomeActivity extends SecuredActivity {
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
         ACTION_HANDLED.addListener(updateANMDetailsListener);
         getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.unicef.rcc.R.mipmap.logo));
-        getSupportActionBar().setLogo(org.ei.opensrp.unicef.rcc.R.mipmap.logo);
+        getSupportActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.madagascar.R.mipmap.logo));
+        getSupportActionBar().setLogo(org.ei.opensrp.madagascar.R.mipmap.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         LoginActivity.setLanguage();

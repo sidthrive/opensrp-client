@@ -88,8 +88,8 @@ public class LoginActivity extends Activity {
         setDoneActionHandlerOnPasswordField();
         initializeProgressDialog();
         getActionBar().setTitle("");
-        getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.unicef.rcc.R.mipmap.logo));
-        getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.unicef.rcc.R.color.action_bar_background));
+        getActionBar().setIcon(getResources().getDrawable(org.ei.opensrp.madagascar.R.mipmap.logo));
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(org.ei.opensrp.madagascar.R.color.action_bar_background));
         setLanguage();
 
     }

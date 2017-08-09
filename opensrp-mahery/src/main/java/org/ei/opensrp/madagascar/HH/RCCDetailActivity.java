@@ -16,7 +16,7 @@ import android.widget.TextView;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.ProfileImage;
-import org.ei.opensrp.unicef.rcc.R;
+import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.repository.ImageRepository;
 
 import java.io.File;

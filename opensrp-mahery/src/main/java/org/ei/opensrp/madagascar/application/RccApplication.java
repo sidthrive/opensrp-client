@@ -71,12 +71,9 @@ public class RccApplication extends DrishtiApplication {
 
     private String[] getFtsSearchFields(String tableName){
         if(tableName.equals("HH")){
-            //    {"name":"name_household_head"},{"name":"HHGPSPoint"},{"name":"isClosed"}
             String[] ftsSearchFields =  { "name_household_head" };
             return ftsSearchFields;
         } else if(tableName.equals("HHMember")){
-         //   {"name":"Name_family_member"}, {"name":"Ethnic_Group"},
-            // {"name":"isClosed"},{"name":"Sex"},{"name":"Education"},{"name":"Profession"}
 
             String[] ftsSearchFields =  { "Name_family_member"  };
             return ftsSearchFields;

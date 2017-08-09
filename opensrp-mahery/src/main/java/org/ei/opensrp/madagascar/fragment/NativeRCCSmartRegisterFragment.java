@@ -21,7 +21,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
-import org.ei.opensrp.unicef.rcc.R;
+import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.madagascar.HH.HHClientsProvider;
 import org.ei.opensrp.madagascar.HH.HHServiceMode;

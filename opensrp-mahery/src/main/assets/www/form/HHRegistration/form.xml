@@ -1,0 +1,48 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="household_registration">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Household Registration</h3>
+    <select id="form-languages" data-default-lang="mg">
+        <option value="mg" data-dir="ltr">Malagasy</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/HH_registration/registration_date:label">1. Daty de registration</span>
+        <span lang="en" class="question-label " data-itext-id="/HH_registration/registration_date:label">1. Registration date</span>
+        <span class="required">*</span>
+        <input type="date" name="/HH_registration/registration_date" data-required="true()" data-constraint=". &lt;= ( /HH_registration/today )" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/HH_registration/name_household_head:label">2. Izovy anaran'ny tompon-trano?</span>
+        <span lang="en" class="question-label " data-itext-id="/HH_registration/name_household_head:label">2. Name of household's head</span>
+        <span class="required">*</span>
+        <input type="text" name="/HH_registration/name_household_head" data-required="true()" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/HH_registration/HH_GPS_Point:label">3. Maka point GPS eto an-tokantrano.</span>
+        <span lang="en" class="question-label " data-itext-id="/HH_registration/HH_GPS_Point:label">3. Take a GPS point of the subject's house</span>
+        <input type="text" name="/HH_registration/HH_GPS_Point" data-type-xml="geopoint"/>
+    </label>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/HH_registration/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/HH_registration/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/HH_registration/end" data-preload="timestamp" data-preload-params="end" data-type-xml="dateTime"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/HH_registration/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/HH_registration/formhub/uuid" data-calculate="'b70fccc784624a2682d98befc11371d3'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

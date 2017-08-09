@@ -1,0 +1,33 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "HH",
+    "default_bind_path": "/model/instance/HH_registration/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "registration_date",
+        "bind": "/model/instance/HH_registration/registration_date"
+      }
+    ,
+      {
+        "name": "name_household_head",
+        "bind": "/model/instance/HH_registration/name_household_head"
+      }
+    ,
+      {
+        "name": "HH_GPS_Point",
+        "bind": "/model/instance/HH_registration/HH_GPS_Point"
+      }
+    ,
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/HH_registration/today"
+      }
+
+    ]
+  }
+}
