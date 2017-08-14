@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -272,6 +273,8 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         FlurryAgent.logEvent(formName, FS, true);
 
         if(formName.equals("kohort_bayi_immunization")) {
+            if(numOfRecord()<4)
+                activatingForm(formName,entityId,metaData);
             final int choice = new java.util.Random().nextInt(3);
             CharSequence[] selections = selections(choice, entityId);
 
@@ -326,7 +329,7 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
         selections[choice] = (CharSequence) name;
 
-        String query = "SELECT namaBayi FROM ec_anak where ec_anak.is_closed = 0";
+        String query = "SELECT count(namaBayi) FROM ec_anak where ec_anak.is_closed = 0";
         Cursor cursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(query);
         cursor.moveToFirst();
 
@@ -424,6 +427,14 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
             DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
             formFragment.saveCurrentFormData();
         }
+    }
+
+    private int numOfRecord(){
+        Cursor childcountcursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(new SmartRegisterQueryBuilder().queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
+        childcountcursor.moveToFirst();
+        int childcount = childcountcursor.getInt(0);
+        childcountcursor.close();
+        return childcount;
     }
 
     private boolean currentActivityIsShowingForm(){

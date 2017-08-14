@@ -17,6 +17,7 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
@@ -207,7 +208,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             String end = timer.format(new Date());
             Map<String, String> FS = new HashMap<String, String>();
             FS.put("end", end);
-            FlurryAgent.logEvent(formName,FS, true);
+            FlurryAgent.logEvent(formName, FS, true);
         }catch (Exception e){
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
@@ -300,21 +301,25 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         FlurryAgent.logEvent(formName, FS, true);
 
         if(formName.equals("kunjungan_gizi")) {
-            final int choice = new java.util.Random().nextInt(3);
-            CharSequence[] selections = selections(choice, entityId);
+            if(getNumOfChild()<4)
+                activatingForm(formName,entityId,metaData);
+            else {
+                final int choice = new java.util.Random().nextInt(3);
+                CharSequence[] selections = selections(choice, entityId);
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(GiziSmartRegisterActivity.this);
-            builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
-            builder.setItems(selections, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // the user clicked on colors[which]
-                    if (which == choice) {
-                        activatingForm(formName,entityId,metaData);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(GiziSmartRegisterActivity.this);
+                builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        if (which == choice) {
+                            activatingForm(formName, entityId, metaData);
+                        }
                     }
-                }
-            });
-            builder.show();
+                });
+                builder.show();
+            }
         }
         else{
             activatingForm(formName,entityId,metaData);
@@ -496,6 +501,14 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             DisplayFormFragment formFragment = getDisplayFormFragmentAtIndex(currentPage);
             formFragment.saveCurrentFormData();
         }
+    }
+
+    private int getNumOfChild(){
+        Cursor childcountcursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(new SmartRegisterQueryBuilder().queryForCountOnRegisters("ec_anak_search", "ec_anak_search.is_closed=0"));
+        childcountcursor.moveToFirst();
+        int childcount= childcountcursor.getInt(0);
+        childcountcursor.close();
+        return childcount;
     }
 
     private boolean currentActivityIsShowingForm(){
