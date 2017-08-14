@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
         }
         setContentView(org.ei.opensrp.R.layout.login);
         ImageView loginglogo = (ImageView)findViewById(R.id.login_logo);
-        loginglogo.setImageDrawable(getResources().getDrawable(R.drawable.rcc_logo));
+        loginglogo.setImageDrawable(getResources().getDrawable(R.drawable.login_logo));
         context = Context.getInstance().updateApplicationContext(this.getApplicationContext());
         initializeLoginFields();
         initializeBuildDetails();
@@ -149,7 +149,7 @@ public class LoginActivity extends Activity {
         passwordEditText = ((EditText) findViewById(org.ei.opensrp.R.id.login_passwordText));
         passwordEditText.setRawInputType(InputType.TYPE_CLASS_TEXT);
        // userNameEditText.setText("demo5");
-      //  passwordEditText.setText("One23456");
+        passwordEditText.setText("Demo@123");
     }
 
     private void setDoneActionHandlerOnPasswordField() {

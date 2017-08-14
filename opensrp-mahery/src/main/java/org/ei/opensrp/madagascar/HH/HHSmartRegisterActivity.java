@@ -123,12 +123,8 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         }
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.household_character), "household_character", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.health_seeking_behaviour), "health_seeking_behaviour", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.immunization_coverage), "immunization_coverage", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-               new OpenFormOption(getResources().getString(R.string.knowledge_regarding_immunization), "knowledge_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.attitude_regarding_immunization), "attitude_regarding_immunization", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-               //  new OpenFormOption("Kartu Ibu Close ", "confirm_form", formController),
+                new OpenFormOption(getResources().getString(R.string.open_cencus), "open_census", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+
         };
 
     }
@@ -156,7 +152,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         if (combined != null) {
             FieldOverrides fieldOverrides = new FieldOverrides(combined.toString());
 
-            startFormActivity("unique_identifier", null, fieldOverrides.getJSONString());
+            startFormActivity("HHRegistration", null, fieldOverrides.getJSONString());
         }
     }
     @Override
@@ -305,13 +301,9 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
-        formNames.add("confirm_form");
-        formNames.add("unique_identifier");
-        formNames.add("health_seeking_behaviour");
-        formNames.add("immunization_coverage");
-        formNames.add("household_character");
-        formNames.add("knowledge_regarding_immunization");
-        formNames.add("attitude_regarding_immunization");
+        formNames.add("HHRegistration");
+        formNames.add("open_census");
+
 
       //  DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {

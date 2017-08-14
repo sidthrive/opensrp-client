@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/client_profile_badge_layout_margin_top"
             android:orientation="vertical">
 
-            <ImageView
+        <!--    <ImageView
                 android:id="@+id/img_hp_badge"
                 android:layout_width="@dimen/client_profile_badge_width"
                 android:layout_height="@dimen/client_profile_badge_height"
@@ -97,7 +97,7 @@
                 android:scaleType="fitStart"
                 android:layout_marginBottom="-5dp"
                 android:src="@drawable/flag_st"
-                android:visibility="gone"/>
+                android:visibility="gone"/>-->
         </LinearLayout>
 
     </FrameLayout>
@@ -110,7 +110,7 @@
         android:layout_marginLeft="-5dp">
 
         <org.ei.opensrp.view.customControls.CustomFontTextView
-            android:id="@+id/wife_name"
+            android:id="@+id/HH_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -123,7 +123,7 @@
             android:id="@+id/txt_husband_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/wife_name"
+            android:layout_below="@id/HH_name"
             style="@style/CustomFontTextViewStyle.ListView.Small"/>
 
         <org.ei.opensrp.view.customControls.CustomFontTextView

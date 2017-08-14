@@ -14,18 +14,132 @@
         "shouldLoadValue": true
       },
       {
-        "name": "registration_date",
-        "bind": "/model/instance/HH_registration/registration_date"
+        "name": "Name_family_member",
+        "bind": "/model/instance/HH_registration/Name_family_member"
       }
     ,
       {
-        "name": "name_household_head",
-        "bind": "/model/instance/HH_registration/name_household_head"
+        "name": "Date_of_Birth",
+        "bind": "/model/instance/HH_registration/Date_of_Birth"
       }
     ,
       {
-        "name": "HH_GPS_Point",
-        "bind": "/model/instance/HH_registration/HH_GPS_Point"
+        "name": "DOB_date",
+        "bind": "/model/instance/HH_registration/DOB_date"
+      }
+    ,
+      {
+        "name": "DOB_year",
+        "bind": "/model/instance/HH_registration/DOB_year"
+      }
+    ,
+      {
+        "name": "Ethnic_Group",
+        "bind": "/model/instance/HH_registration/Ethnic_Group"
+      }
+    ,
+      {
+        "name": "Other_Ethnic_Group",
+        "bind": "/model/instance/HH_registration/Other_Ethnic_Group"
+      }
+    ,
+      {
+        "name": "Sex",
+        "bind": "/model/instance/HH_registration/Sex"
+      }
+    ,
+      {
+        "name": "Education",
+        "bind": "/model/instance/HH_registration/Education"
+      }
+    ,
+      {
+        "name": "Profession",
+        "bind": "/model/instance/HH_registration/Profession"
+      }
+    ,
+      {
+        "name": "Other_Profession",
+        "bind": "/model/instance/HH_registration/Other_Profession"
+      }
+    ,
+      {
+        "name": "Marital_Status",
+        "bind": "/model/instance/HH_registration/Marital_Status"
+      }
+    ,
+      {
+        "name": "Prior_Surgeries",
+        "bind": "/model/instance/HH_registration/Prior_Surgeries"
+      }
+    ,
+      {
+        "name": "Health_History",
+        "bind": "/model/instance/HH_registration/Health_History"
+      }
+    ,
+      {
+        "name": "Other_Health_History",
+        "bind": "/model/instance/HH_registration/Other_Health_History"
+      }
+    ,
+      {
+        "name": "Visual_Health_Deformities",
+        "bind": "/model/instance/HH_registration/Visual_Health_Deformities"
+      }
+    ,  {
+        "name": "Other_Visual_Health_Deformities",
+        "bind": "/model/instance/HH_registration/Other_Visual_Health_Deformities"
+      }
+    ,  {
+        "name": "Vaccine_Card",
+        "bind": "/model/instance/HH_registration/Vaccine_Card"
+      }
+    ,  {
+        "name": "Vaccination_History",
+        "bind": "/model/instance/HH_registration/Vaccination_History"
+      }
+    ,  {
+        "name": "Pregnant",
+        "bind": "/model/instance/HH_registration/Pregnant"
+      }
+    ,  {
+        "name": "Pregnancies",
+        "bind": "/model/instance/HH_registration/Pregnancies"
+      }
+    ,  {
+        "name": "Number_Deliveries",
+        "bind": "/model/instance/HH_registration/Number_Deliveries"
+      }
+    ,{
+        "name": "Number_Live_Births",
+        "bind": "/model/instance/HH_registration/Number_Live_Births"
+      }
+    ,{
+        "name": "Birthweight",
+        "bind": "/model/instance/HH_registration/Birthweight"
+      }
+    ,{
+        "name": "Birthweight_gram",
+        "bind": "/model/instance/HH_registration/Birthweight_gram"
+      }
+    ,{
+        "name": "Is_Person_Alive",
+        "bind": "/model/instance/HH_registration/Is_Person_Alive"
+      }
+    ,
+      {
+        "name": "Cause_of_Death",
+        "bind": "/model/instance/HH_registration/Cause_of_Death"
+      }
+    ,
+      {
+        "name": "Date_of_Death",
+        "bind": "/model/instance/HH_registration/Date_of_Death"
+      }
+    , {
+        "name": "death_date",
+        "bind": "/model/instance/HH_registration/death_date"
       }
     ,
       {

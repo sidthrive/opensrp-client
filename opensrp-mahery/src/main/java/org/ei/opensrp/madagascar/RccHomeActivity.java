@@ -88,7 +88,7 @@ public class RccHomeActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         //home dashboard
-        setContentView(R.layout.smart_registers_home_rcc);
+        setContentView(R.layout.smart_registers_home_mahery);
         navigationController = new NavigationController(this,anmController);
         setupViews();
         initialize();
@@ -153,9 +153,9 @@ public class RccHomeActivity extends SecuredActivity {
 
     private void updateRegisterCounts(HomeContext homeContext) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-        Cursor kicountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("kartu_ibu",
-                        "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != ''"));
+        Cursor kicountcursor = context().commonrepository("HH").RawCustomQueryForAdapter(
+                sqb.queryForCountOnRegisters("HH",
+                        "HH.isClosed NOT Null and HH.isClosed != ''"));
         kicountcursor.moveToFirst();
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();

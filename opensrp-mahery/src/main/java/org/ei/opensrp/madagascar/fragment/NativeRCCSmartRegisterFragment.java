@@ -204,24 +204,24 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     public void initializeQueries(){
         HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "relation_to_child", "respondent_age","respondent_name","respondent_education"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HH",new String []{"HH.isClosed", "name_household_head", "HHGPSPoint"}));
         clientsView.setAdapter(clientAdapter);
 
-        setTablename("kartu_ibu");
+        setTablename("HH");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
-        countqueryBUilder.SelectInitiateMainTableCounts("kartu_ibu");
+        countqueryBUilder.SelectInitiateMainTableCounts("HH");
 
-       // countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-      //  countqueryBUilder.joinwithKIs("kartu_ibu");
-        countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
+       // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
+      //  countqueryBUilder.joinwithKIs("HH");
+        countSelect = countqueryBUilder.mainCondition(" HH.isClosed !='true' ");
         mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "relation_to_child", "respondent_age","respondent_name","respondent_education"});
-       // queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
+        queryBUilder.SelectInitiateMainTable("HH", new String[]{"HH.isClosed", "HH.details","name_household_head", "HHGPSPoint"});
+       // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
-        mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' ");
+        mainSelect = queryBUilder.mainCondition(" HH.isClosed !='true' ");
         Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
@@ -284,10 +284,10 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
 
 
     private String KiSortByNameAZ() {
-        return " respondent_name ASC";
+        return " name_household_head ASC";
     }
     private String KiSortByNameZA() {
-        return " respondent_name DESC";
+        return " name_household_head DESC";
     }
 
     private String KiSortByAge() {
@@ -325,51 +325,6 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
-           if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
-                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft2") != null) {
-                    if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
-            if(option.name().equalsIgnoreCase(getString(R.string.health_seeking_behaviour)) ) {
-                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft3") != null) {
-                    if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
-            if(option.name().equalsIgnoreCase(getString(R.string.immunization_coverage)) ) {
-                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft4") != null) {
-                    if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
-            if(option.name().equalsIgnoreCase(getString(R.string.knowledge_regarding_immunization)) ) {
-                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft5") != null) {
-                    if (pc.getDetails().get("IsDraft5").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
-            if(option.name().equalsIgnoreCase(getString(R.string.attitude_regarding_immunization)) ) {
-                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft6") != null) {
-                    if (pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
             onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
