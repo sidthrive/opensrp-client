@@ -376,7 +376,8 @@ public class Tools {
 
         if (arrayOfString != null) {
 
-            splitStringArray = arrayOfString.substring(1, arrayOfString.length() - 1).split(", ");
+            String temp = arrayOfString.replaceAll("  "," ");
+            splitStringArray = temp.substring(1, temp.length() - 1).split(", ");
 
             albumArray = new byte[splitStringArray.length];
 
