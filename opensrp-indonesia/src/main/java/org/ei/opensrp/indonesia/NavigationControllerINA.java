@@ -63,7 +63,7 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
             id="noname";
             pass="null";
         }
-        String uri = "http://"+id+":"+pass+"@"+activity.getApplicationContext().getString(R.string.dho_site).replace("http://","");
+        String uri = "http://"+id+":"+pass+"@kia-report.sid-indonesia.org/login/auth";
         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
     }
 
