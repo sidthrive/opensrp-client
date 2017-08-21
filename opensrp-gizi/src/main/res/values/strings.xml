@@ -314,7 +314,7 @@
     <string name="test_register">Test Register</string>
     <string name="test">Test</string>
     <string name="hh_register_title_in_short">HH</string>
-    <string name="dho_site">"http://kia-report.sid-indonesia.org"</string>
+    <string name="dho_site">kia-report.sid-indonesia.org/login/auth</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
