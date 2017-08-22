@@ -14,6 +14,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "relationalid",
+        "source": "HH.HHMember.id",
+        "shouldLoadValue": true
+      },
+      {
         "name": "Name_family_member",
         "bind": "/model/instance/HH_registration/Name_family_member"
       }

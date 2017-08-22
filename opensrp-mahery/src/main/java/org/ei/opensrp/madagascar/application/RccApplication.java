@@ -80,7 +80,7 @@ public class RccApplication extends DrishtiApplication {
         }
         return null;
     }
-
+   // {"name":"name_household_head"},{"name":"HHGPSPoint"},{"name":"isClosed"}
     private String[] getFtsSortFields(String tableName){
         if(tableName.equals("HH")) {
             String[] sortFields = { "name_household_head"};
@@ -94,10 +94,10 @@ public class RccApplication extends DrishtiApplication {
 
     private String[] getFtsMainConditions(String tableName){
         if(tableName.equals("HH")) {
-            String[] mainConditions = { "isClosed", "name_household_head" };
+            String[] mainConditions = { "isClosed", "name_household_head", "details" };
             return mainConditions;
         } else if(tableName.equals("HHMember")){
-            String[] mainConditions = { "isClosed", "Name_family_member" };
+            String[] mainConditions = { "isClosed", "Name_family_member", "details" };
             return mainConditions;
         }
         return null;
@@ -122,7 +122,7 @@ public class RccApplication extends DrishtiApplication {
             commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
             commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             commonFtsObject.updateMainConditions(ftsTable, getFtsMainConditions(ftsTable));
-          //  commonFtsObject.updateCustomRelationalId(ftsTable, getFtsCustomRelationalId(ftsTable));
+            commonFtsObject.updateCustomRelationalId(ftsTable, getFtsCustomRelationalId(ftsTable));
         }
         return commonFtsObject;
     }

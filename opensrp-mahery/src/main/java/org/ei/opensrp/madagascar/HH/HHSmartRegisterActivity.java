@@ -61,8 +61,8 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORT‌​RAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
        // FlurryFacade.logEvent("kohort_ibu_dashboard");
         formNames = this.buildFormNameList();
         mBaseFragment = new NativeRCCSmartRegisterFragment();

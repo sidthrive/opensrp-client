@@ -33,24 +33,23 @@ public class HHServiceMode extends ServiceModeOption {
         return new ClientsHeaderProvider() {
             @Override
             public int count() {
-                return 6;
+                return 3;
             }
 
             @Override
             public int weightSum() {
-                return 1004;
+                return 500;
             }
 
             @Override
             public int[] weights() {
-                return new int[]{244, 165, 165, 180, 205, 75};
+                return new int[]{244, 165,75};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.header_nama, R.string.chara, R.string.behavioir,
-                        R.string.mode_immu,  R.string.knowledge,
+                        R.string.header_nama, R.string.chara,
                         R.string.header_edit};
             }
         };

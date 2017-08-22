@@ -204,7 +204,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     public void initializeQueries(){
         HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HH",new String []{"HH.isClosed", "name_household_head", "HHGPSPoint"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HH",new String []{ "HH.name_household_head","HH_GPS_Point","HH.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("HH");
@@ -218,7 +218,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("HH", new String[]{"HH.isClosed", "HH.details","name_household_head", "HHGPSPoint"});
+        queryBUilder.SelectInitiateMainTable("HH", new String[]{"HH.isClosed", "HH.details","HH.name_household_head","HH_GPS_Point"});
        // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
         mainSelect = queryBUilder.mainCondition(" HH.name_household_head != '' ");

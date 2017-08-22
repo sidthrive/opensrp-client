@@ -3,7 +3,7 @@
     {
       "name": "HH",
       "columns": [
-        {"name":"name_household_head"},{"name":"HHGPSPoint"},{"name":"isClosed"}
+        {"name":"name_household_head"},{"name":"HH_GPS_Point"},{"name":"isClosed"}
       ]
     },
     {
