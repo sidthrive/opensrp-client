@@ -213,15 +213,15 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
 
        // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
       //  countqueryBUilder.joinwithKIs("HH");
-        countSelect = countqueryBUilder.mainCondition(" HH.isClosed !='true' ");
-        mainCondition = " isClosed !='true' ";
+        countSelect = countqueryBUilder.mainCondition(" HH.name_household_head != '' ");
+        mainCondition = " name_household_head != '' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("HH", new String[]{"HH.isClosed", "HH.details","name_household_head", "HHGPSPoint"});
        // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
-        mainSelect = queryBUilder.mainCondition(" HH.isClosed !='true' ");
+        mainSelect = queryBUilder.mainCondition(" HH.name_household_head != '' ");
         Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;

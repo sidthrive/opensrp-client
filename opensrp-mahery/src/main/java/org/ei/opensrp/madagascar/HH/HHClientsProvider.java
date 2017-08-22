@@ -98,7 +98,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
-        viewHolder.HH_name.setText(pc.getColumnmaps().get("name_household_head") !=null?pc.getDetails().get("name_household_head"):"");
+        viewHolder.HH_name.setText(pc.getColumnmaps().get("name_household_head") !=null?pc.getColumnmaps().get("name_household_head"):"aa");
 
 
         //}

@@ -155,7 +155,7 @@ public class RccHomeActivity extends SecuredActivity {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
         Cursor kicountcursor = context().commonrepository("HH").RawCustomQueryForAdapter(
                 sqb.queryForCountOnRegisters("HH",
-                        "HH.isClosed NOT Null and HH.isClosed != ''"));
+                        "name_household_head NOT Null and name_household_head != ''"));
         kicountcursor.moveToFirst();
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();
