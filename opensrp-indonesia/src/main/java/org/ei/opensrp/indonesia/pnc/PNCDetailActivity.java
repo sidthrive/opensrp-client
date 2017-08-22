@@ -26,6 +26,7 @@ import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.device.MainBPM;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
@@ -247,7 +248,11 @@ public class PNCDetailActivity extends Activity {
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(ibuparent);
         // Set Image
-        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ibuparent.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ibuparent.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+
+        KIDetailActivity.setImagetoHolderFromUri(this,
+                DrishtiApplication.getAppDir() + File.separator + pncclient.getDetails().get("base_entity_id") + ".JPEG",
+                kiview, R.mipmap.woman_placeholder);
 
 //        if(ibuparent.getDetails().get("profilepic")!= null){
 //            setImagetoHolderFromUri(PNCDetailActivity.this, ibuparent.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);

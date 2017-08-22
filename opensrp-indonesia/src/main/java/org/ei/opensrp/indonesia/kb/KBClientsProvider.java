@@ -1,5 +1,6 @@
 package org.ei.opensrp.indonesia.kb;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter
 import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -29,6 +31,7 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
+import java.io.File;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -135,13 +138,18 @@ public class KBClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
 
         //set image
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-        if(pc.getCaseId()!=null){//image already in local storage most likey ):
-            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
-        }
+//        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+//            set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//        }
+
+        KIDetailActivity.setImagetoHolderFromUri((Activity) context,
+                DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                viewHolder.profilepic, R.mipmap.woman_placeholder);
+
         //end profile image
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");

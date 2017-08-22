@@ -30,6 +30,7 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -141,42 +142,20 @@ public class RecapitulationClientsProvider implements SmartRegisterCLientsProvid
         if (pc.getCaseId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
             if (pc.getDetails().get("gender") != null) {
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-                        OpenSRPImageLoader.getStaticImageListener(
-                                viewHolder.profilepic,
-                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-                                0)
-                );
+//                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+//                        OpenSRPImageLoader.getStaticImageListener(
+//                                viewHolder.profilepic,
+//                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+//                                0)
+//                );
+
+                VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context,
+                        DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                        viewHolder.profilepic, pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
             } else {
                 Log.e(TAG, "getView: Gender is NOT SET");
             }
         }
-
-//        if (pc.getDetails().get("profilepic") != null) {
-////            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
-//            childview.setTag(smartRegisterClient);
-//        }
-//        else if (pc.getDetails().get("gender") != null) {
-//            if(viewHolder.profilepic==null){
-//
-//            }
-//            else if (pc.getDetails().get("gender").equalsIgnoreCase("female")){
-//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
-//            } else {
-//                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
-//            }
-//        }
-//
-       /* viewHolder.motherName.setText(
-                pc.getDetails().get("namaIbu")!=null
-                        ? pc.getDetails().get("namaIbu")
-                        : pc.getDetails().get("nama_orang_tua")!=null
-                        ? pc.getDetails().get("nama_orang_tua")
-                        :" ");
-
-        viewHolder.village.setText(pc.getDetails().get("address1")!= null
-                ? pc.getDetails().get("address1")
-                : " ");*/
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
         CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());

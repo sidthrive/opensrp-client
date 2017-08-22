@@ -1,5 +1,6 @@
 package org.ei.opensrp.gizi.giziIbu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.gizi.R;
+import org.ei.opensrp.gizi.gizi.GiziDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -26,6 +28,7 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -114,12 +117,17 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 
             //start profile image
             viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-            if(pc.getCaseId()!=null){//image already in local storage most likey ):
+//            if(pc.getCaseId()!=null){//image already in local storage most likey ):
 
                 //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-                        OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
-            }
+//                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+//                        OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//            }
+            viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+            GiziDetailActivity.setImagetoHolderFromUri((Activity) context,
+                    DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                    viewHolder.profilepic, R.mipmap.woman_placeholder);
+
 
             convertView.setTag(viewHolder);
         } else {
@@ -169,10 +177,10 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.vitaminA24.setText(String.format("%s%s", context.getString(R.string.vitamin_a_pnc_24), getDetails("vitaminA24jamPP", pc)));
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+//        if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
-        }
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//        }
         //end profile image
 
         viewHolder.profilepic.setOnClickListener(new View.OnClickListener() {

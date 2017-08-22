@@ -1,5 +1,6 @@
 package org.ei.opensrp.vaksinator.imunisasiTT;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.vaksinator.R;
 import org.ei.opensrp.service.AlertService;
+import org.ei.opensrp.vaksinator.vaksinator.VaksinatorDetailActivity;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -31,6 +33,7 @@ import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -137,10 +140,13 @@ public class TTSmartClientsProvider implements SmartRegisterCLientsProviderForCu
 //            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.woman_placeholder));
 //        }
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+//        if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
-        }
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//        }
+        VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context,
+                DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                viewHolder.profilepic, R.mipmap.woman_placeholder);
 
         ////System.out.println("details: "+pc.getDetails().toString());
 

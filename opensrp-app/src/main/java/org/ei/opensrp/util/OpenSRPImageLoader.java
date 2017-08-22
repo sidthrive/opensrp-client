@@ -158,8 +158,6 @@ public class OpenSRPImageLoader extends ImageLoader {
                 ProfileImage imageRecord = imageRepo.findByEntityId(entityId);
 //                String imageRecord = DrishtiApplication.getAppDir() + File.separator + ".thumbs" + File.separator + entityId +".jpg";
                 if(imageRecord!=null) {
-
-                    Log.e(TAG, "getImageByClientId: imagerecord "+ imageRecord );
                     get(imageRecord, opensrpImageListener);
                 }else{
                     String url= FileUtilities.getImageUrl(entityId);
@@ -179,6 +177,7 @@ public class OpenSRPImageLoader extends ImageLoader {
              * Non existent image record, display image with defaultImageResId
              */
             if (image == null) {
+//                Log.e(TAG, "get: "+ image. );
                 ImageContainer imgContainer = new ImageContainer(null, null, null, opensrpImageListener);
                 opensrpImageListener.onResponse(imgContainer, true);
                 return;

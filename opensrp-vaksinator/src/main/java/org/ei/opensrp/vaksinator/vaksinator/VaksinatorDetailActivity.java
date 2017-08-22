@@ -243,7 +243,10 @@ public class VaksinatorDetailActivity extends Activity {
         photo.setTag(R.id.entity_id, controller.getCaseId());//required when saving file to disk
         if(controller.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(controller.getCaseId(), OpenSRPImageLoader.getStaticImageListener(photo, placeholderDrawable, placeholderDrawable));
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(controller.getCaseId(), OpenSRPImageLoader.getStaticImageListener(photo, placeholderDrawable, placeholderDrawable));
+            VaksinatorDetailActivity.setImagetoHolderFromUri( this ,
+                    DrishtiApplication.getAppDir() + File.separator + controller.getDetails().get("base_entity_id") + ".JPEG",
+                    mImageView, controller.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
 
         }
 
@@ -360,6 +363,16 @@ public class VaksinatorDetailActivity extends Activity {
         Log.e(TAG, "onActivityResult: refresh" );
         finish();
         startActivity(getIntent());
+
+    }
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder){
+        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+        File externalFile = new File(file);
+        if (externalFile.exists()) {
+            Uri external = Uri.fromFile(externalFile);
+            view.setImageURI(external);
+        }
 
     }
 }

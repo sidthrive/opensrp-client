@@ -16,12 +16,14 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.face.camera.SmartShutterActivity;
 import org.ei.opensrp.indonesia.face.camera.utils.Tools;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.ChildDetailActivity;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
+import java.io.File;
 import java.util.HashMap;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
@@ -113,8 +115,11 @@ public class AnakDetailActivity extends Activity {
         childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
         if(childclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
 
+            KIDetailActivity.setImagetoHolderFromUri(this,
+                    DrishtiApplication.getAppDir() + File.separator + childclient.getDetails().get("base_entity_id") + ".JPEG",
+                    childview, childclient.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
         }
 
         //end profile image

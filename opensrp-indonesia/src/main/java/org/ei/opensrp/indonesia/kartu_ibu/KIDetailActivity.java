@@ -2,6 +2,7 @@ package org.ei.opensrp.indonesia.kartu_ibu;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -134,7 +136,11 @@ public class KIDetailActivity extends Activity {
         detailsRepository.updateDetails(kiclient);
 
         //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//        DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(kiclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+
+        KIDetailActivity.setImagetoHolderFromUri(this,
+                DrishtiApplication.getAppDir() + File.separator + kiclient.getDetails().get("base_entity_id") + ".JPEG",
+                kiview, R.mipmap.woman_placeholder);
 
         nama.setText(String.format("%s%s", getResources().getString(R.string.name), kiclient.getColumnmaps().get("namalengkap") != null ? kiclient.getColumnmaps().get("namalengkap") : "-"));
         nik.setText(String.format("%s%s", getResources().getString(R.string.nik), kiclient.getDetails().get("nik") != null ? kiclient.getDetails().get("nik") : "-"));
@@ -267,6 +273,16 @@ public class KIDetailActivity extends Activity {
         Log.e(TAG, "onActivityResult: refresh" );
         finish();
         startActivity(getIntent());
+
+    }
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder){
+        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+        File externalFile = new File(file);
+        if (externalFile.exists()) {
+            Uri external = Uri.fromFile(externalFile);
+            view.setImageURI(external);
+        }
 
     }
 }

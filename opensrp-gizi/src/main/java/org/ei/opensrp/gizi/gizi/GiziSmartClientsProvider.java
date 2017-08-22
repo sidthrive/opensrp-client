@@ -32,6 +32,7 @@ import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import util.formula.Formula;
@@ -125,19 +126,28 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 //        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
 
-        if(pc.getCaseId()!=null){//image already in local storage most likey ):
+//        if(pc.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            if (pc.getDetails().get("gender") != null) {
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-                    OpenSRPImageLoader.getStaticImageListener(
-                            viewHolder.profilepic,
-                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-                            R.mipmap.child_girl_infant)
-            );
-            } else {
-                Log.e(TAG, "getView: Gender is Not Set" );
-            }
+//            if (pc.getDetails().get("gender") != null) {
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+//                    OpenSRPImageLoader.getStaticImageListener(
+//                            viewHolder.profilepic,
+//                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+//                            R.mipmap.child_girl_infant)
+//            );
+//            } else {
+//                Log.e(TAG, "getView: Gender is Not Set" );
+//            }
+//        }
+
+        if (pc.getDetails().get("gender") != null) {
+            GiziDetailActivity.setImagetoHolderFromUri((Activity) context,
+                    DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                    viewHolder.profilepic, pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+        } else {
+            Log.e(TAG, "getView: Gender is NOT SET");
         }
+
         //end profile image
 //        convertView.setTag(viewHolder);
 

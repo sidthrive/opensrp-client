@@ -20,6 +20,7 @@ import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -35,6 +36,7 @@ import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -144,26 +146,35 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
         viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi") != null ? pc.getColumnmaps().get("namaBayi") : "");
         //delivery documentation
-        viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak")!=null?pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T")):"");
+        viewHolder.anak_register_dob.setText(pc.getColumnmaps().get("tanggalLahirAnak") != null ? pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T")) : "");
         viewHolder.berat_lahir.setText(pc.getDetails().get("beratLahir") != null ? pc.getDetails().get("beratLahir") : "");
 
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
 
-        Log.e(TAG, "getView: " + pc.getDetails().toString());
-        if (pc.getCaseId() != null) {//image already in local storage most likey ):
-            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            if (pc.getDetails().get("gender") != null) {
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-                        OpenSRPImageLoader.getStaticImageListener(
-                                viewHolder.profilepic,
-                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-                                0)
-                );
-            } else {
-                Log.e(TAG, "getView: Gender is NOT SET");
-            }
+//        Log.e(TAG, "getView: " + pc.getDetails().toString());
+//        if (pc.getCaseId() != null) {//image already in local storage most likey ):
+        //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
+//            if (pc.getDetails().get("gender") != null) {
+//                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
+//                        OpenSRPImageLoader.getStaticImageListener(
+//                                viewHolder.profilepic,
+//                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+//                                0)
+//                );
+//            } else {
+//                Log.e(TAG, "getView: Gender is NOT SET");
+//            }
+//        }
+
+        if (pc.getDetails().get("gender") != null) {
+            KIDetailActivity.setImagetoHolderFromUri((Activity) context,
+                    DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                    viewHolder.profilepic, pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+        } else {
+            Log.e(TAG, "getView: Gender is NOT SET");
         }
+
         //end profile image
 
         //immunization
@@ -208,10 +219,10 @@ public class AnakRegisterClientsProvider implements SmartRegisterCLientsProvider
 
             viewHolder.childs_name.setText(pc.getColumnmaps().get("namaBayi") != null
                     ? pc.getColumnmaps().get("namaBayi").length() > 1
-                        ? pc.getColumnmaps().get("namaBayi")
-                        : kiparent.getColumnmaps().get("namalengkap") != null ? "By. "+kiparent.getColumnmaps().get("namalengkap") : ""
+                    ? pc.getColumnmaps().get("namaBayi")
+                    : kiparent.getColumnmaps().get("namalengkap") != null ? "By. " + kiparent.getColumnmaps().get("namalengkap") : ""
                     : kiparent.getColumnmaps().get("namalengkap") != null ?
-                            "By. "+kiparent.getColumnmaps().get("namalengkap") : ""
+                    "By. " + kiparent.getColumnmaps().get("namalengkap") : ""
             );
 
             String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";

@@ -20,6 +20,7 @@ import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.device.BpmTestMainActivity;
 import org.ei.opensrp.indonesia.device.MainBPM;
 import org.ei.opensrp.indonesia.device.TestBPM;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.FormUtils;
@@ -34,6 +35,7 @@ import org.json.JSONObject;
 //import org.opensrp.bpm.MainBPM;
 //import org.opensrp.id.MainBPMActivity;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -278,7 +280,10 @@ public class ANCDetailActivity extends Activity {
 
         if(ancclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ancclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(ancclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(kiview, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
+            KIDetailActivity.setImagetoHolderFromUri(this,
+                    DrishtiApplication.getAppDir() + File.separator + ancclient.getDetails().get("base_entity_id") + ".JPEG",
+                    kiview, R.mipmap.woman_placeholder);
         }
 
         nama.setText(String.format("%s%s", getResources().getString(R.string.name), ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));

@@ -139,12 +139,18 @@ public class GiziDetailActivity extends Activity {
         int placeholderDrawable= mgender.equalsIgnoreCase("male") ? R.drawable.child_boy_infant:R.drawable.child_girl_infant;
 
         childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
-        if(childclient.getCaseId()!=null){//image already in local storage most likey ):
+//        if(childclient.getCaseId()!=null){//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
+//        }
 
+        if (childclient.getDetails().get("gender") != null) {
+            GiziDetailActivity.setImagetoHolderFromUri( this ,
+                    DrishtiApplication.getAppDir() + File.separator + childclient.getDetails().get("base_entity_id") + ".JPEG",
+                    childview, childclient.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+        } else {
+            android.util.Log.e(TAG, "getView: Gender is NOT SET");
         }
-
 //        if(childclient.getDetails().get("profilepic")!= null){
 //            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
 //                setImagetoHolderFromUri(GiziDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
@@ -431,12 +437,15 @@ public class GiziDetailActivity extends Activity {
 //        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
 //        view.setImageBitmap(bitmap);
     }
-    public static void setImagetoHolderFromUri(Activity activity,String file, ImageView view, int placeholder){
+
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder){
         view.setImageDrawable(activity.getResources().getDrawable(placeholder));
         File externalFile = new File(file);
-        Uri external = Uri.fromFile(externalFile);
-        view.setImageURI(external);
-
+        if (externalFile.exists()) {
+            Uri external = Uri.fromFile(externalFile);
+            view.setImageURI(external);
+        }
 
     }
 
@@ -501,4 +510,6 @@ public class GiziDetailActivity extends Activity {
         startActivity(getIntent());
 
     }
+
+
 }

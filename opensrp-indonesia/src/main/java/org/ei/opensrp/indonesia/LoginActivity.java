@@ -106,15 +106,6 @@ public class LoginActivity extends Activity {
 
     }
 
-    private void debugApp(){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.login, null);
-        if (context.userService().hasARegisteredUser()){
-            localLogin(view, "demo_test", "Demo@123");
-        } else {
-            remoteLogin(view, "demo_test", "Demo@123");
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

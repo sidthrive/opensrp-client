@@ -1,5 +1,6 @@
 package org.ei.opensrp.indonesia.anc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -24,6 +25,7 @@ import org.ei.opensrp.domain.Alert;
 import org.ei.opensrp.indonesia.AllConstantsINA;
 import org.ei.opensrp.indonesia.R;
 import org.ei.opensrp.indonesia.application.BidanApplication;
+import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.util.OpenSRPImageLoader;
@@ -39,6 +41,7 @@ import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -167,15 +170,21 @@ public class KIANCClientsProvider implements SmartRegisterCLientsProviderForCurs
                 pc.getDetails().get("highRisklabourFetusNumber"),pc.getDetails().get("HighRiskLabourSectionCesareaRecord"),
                 pc.getDetails().get("highRiskLabourTBRisk"),null,null,null,null,null,viewHolder.img_hrl_badge);
 
-        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+//        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
         //start profile image
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
 
-        if(pc.getColumnmaps().get("_id")!=null){//image already in local storage most likey ):
+//        if(pc.getColumnmaps().get("_id")!=null){//image already in local storage most likey ):
 //            Log.e(TAG, "getView: "+pc.getColumnmaps().get("_id") );
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getColumnmaps().get("_id"), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.drawable.woman_placeholder, R.drawable.woman_placeholder));
-        }
+//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getColumnmaps().get("_id"), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.drawable.woman_placeholder, R.drawable.woman_placeholder));
+//        }
+
+        KIDetailActivity.setImagetoHolderFromUri((Activity) context,
+                DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
+                viewHolder.profilepic, R.mipmap.woman_placeholder);
+
+
         //end profile image
 
         viewHolder.wife_name.setText(pc.getColumnmaps().get("namalengkap")!=null?pc.getColumnmaps().get("namalengkap"):"");
