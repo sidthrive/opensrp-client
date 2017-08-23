@@ -70,7 +70,7 @@ public class RccHomeActivity extends SecuredActivity {
     };
 
     private TextView ecRegisterClientCountView;
-    private TextView kartuIbuANCRegisterClientCountView;
+    private TextView HHmembercountView;
     private TextView kartuIbuPNCRegisterClientCountView;
     private TextView anakRegisterClientCountView;
     private TextView kohortKbCountView;
@@ -80,7 +80,7 @@ public class RccHomeActivity extends SecuredActivity {
     public static CommonPersonObjectController childcontroller;
     public static CommonPersonObjectController pnccontroller;
     public static int kicount;
-    private int kbcount;
+    private int hhmembercount;
     private int anccount;
     private int pnccount;
     private int childcount;
@@ -100,8 +100,8 @@ public class RccHomeActivity extends SecuredActivity {
 
     private void setupViews() {
         findViewById(R.id.btn_hh).setOnClickListener(onRegisterStartListener);
-     /*   findViewById(R.id.btn_kartu_ibu_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_kartu_ibu_anc_register).setOnClickListener(onRegisterStartListener);
+        findViewById(R.id.btn_hh_member).setOnClickListener(onRegisterStartListener);
+    /*    findViewById(R.id.btn_kartu_ibu_anc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kartu_ibu_pnc_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);*/
@@ -111,8 +111,8 @@ public class RccHomeActivity extends SecuredActivity {
         findViewById(R.id.btn_videos).setOnClickListener(onButtonsClickListener);*/
 
         ecRegisterClientCountView = (TextView) findViewById(R.id.txt_hh_register_client_count);
-      /*  kartuIbuANCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_anc_register_client_count);
-        kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
+        HHmembercountView = (TextView) findViewById(R.id.txt_hhmember_count);
+     /*   kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
         anakRegisterClientCountView = (TextView) findViewById(R.id.txt_anak_client_count);*/
        // kohortKbCountView = (TextView) findViewById(R.id.txt_kohort_kb_register_count);
     }
@@ -160,13 +160,13 @@ public class RccHomeActivity extends SecuredActivity {
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();
 
-     /*   Cursor kbcountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("kartu_ibu",
-                        "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and details not LIKE '%\"jenisKontrasepsi\":\"\"%'"));
-        kbcountcursor.moveToFirst();
-        kbcount= kbcountcursor.getInt(0);
-        kbcountcursor.close();
-
+        Cursor hhmembercounts = context().commonrepository("HHMember").RawCustomQueryForAdapter(
+                sqb.queryForCountOnRegisters("HHMember",
+                        "Name_family_member NOT Null and Name_family_member != ''"));
+        hhmembercounts.moveToFirst();
+        hhmembercount= hhmembercounts.getInt(0);
+        hhmembercounts.close();
+/*
 
         Cursor anccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(
                 sqb.queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
@@ -189,8 +189,8 @@ public class RccHomeActivity extends SecuredActivity {
         childcountcursor.close();*/
 
         ecRegisterClientCountView.setText(valueOf(kicount));
-  /*      kartuIbuANCRegisterClientCountView.setText(valueOf(anccount));
-        kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
+        HHmembercountView.setText(valueOf(hhmembercount));
+    /*    kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
         anakRegisterClientCountView.setText(valueOf(childcount));
         kohortKbCountView.setText(valueOf(kbcount));*/
     }

@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -18,14 +17,15 @@ import org.ei.opensrp.cursoradapter.CursorCommonObjectSort;
 import org.ei.opensrp.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
 import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
+import org.ei.opensrp.madagascar.HH.HHClientsProvider;
+import org.ei.opensrp.madagascar.HH.HHServiceMode;
+import org.ei.opensrp.madagascar.HH.HHSmartRegisterActivity;
+import org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity;
 import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.madagascar.HH.HHClientsProvider;
-import org.ei.opensrp.madagascar.HH.HHServiceMode;
-import org.ei.opensrp.madagascar.HH.HHSmartRegisterActivity;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
@@ -56,7 +56,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
-public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
+public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
 
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
@@ -204,12 +204,12 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
     public void initializeQueries(){
         HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HH",new String []{ "HH.name_household_head","HH_GPS_Point","HH.isClosed"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HHMember",new String []{ "HH.name_household_head","HH_GPS_Point","HH.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
-        setTablename("HH");
+        setTablename("HHMember");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
-        countqueryBUilder.SelectInitiateMainTableCounts("HH");
+        countqueryBUilder.SelectInitiateMainTableCounts("HHMember");
 
        // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
       //  countqueryBUilder.joinwithKIs("HH");
@@ -218,7 +218,7 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("HH", new String[]{"HH.isClosed", "HH.details","HH.name_household_head","HH_GPS_Point"});
+        queryBUilder.SelectInitiateMainTable("HHMember", new String[]{"HH.isClosed", "HH.details","HH.name_household_head","HH_GPS_Point"});
        // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
     //    countqueryBUilder.joinwithchilds("ibu");
         mainSelect = queryBUilder.mainCondition(" HH.name_household_head != '' ");
@@ -258,8 +258,8 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                  //   FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
-                   RCCDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),RCCDetailActivity.class);
+                    HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
+                    Intent intent = new Intent(getActivity(),HouseHoldDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;

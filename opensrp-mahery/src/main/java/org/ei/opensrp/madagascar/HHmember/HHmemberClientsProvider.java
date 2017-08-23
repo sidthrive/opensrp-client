@@ -1,22 +1,15 @@
-package org.ei.opensrp.madagascar.HH;
+package org.ei.opensrp.madagascar.HHmember;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
@@ -28,20 +21,13 @@ import org.ei.opensrp.view.dialog.FilterOption;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
 import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
-import org.joda.time.LocalDate;
-import org.joda.time.Months;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.text.SimpleDateFormat;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static org.joda.time.LocalDateTime.parse;
 
 /**
  * Created by Dimas Ciputra on 2/16/15.
  */
-public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForCursorAdapter {
     private final LayoutInflater inflater;
     private final Context context;
     private final View.OnClickListener onClickListener;
@@ -52,9 +38,9 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
     protected CommonPersonObjectController controller;
 
     AlertService alertService;
-    public HHClientsProvider(Context context,
-                             View.OnClickListener onClickListener,
-                             AlertService alertService) {
+    public HHmemberClientsProvider(Context context,
+                                   View.OnClickListener onClickListener,
+                                   AlertService alertService) {
         this.onClickListener = onClickListener;
 //        this.controller = controller;
         this.context = context;

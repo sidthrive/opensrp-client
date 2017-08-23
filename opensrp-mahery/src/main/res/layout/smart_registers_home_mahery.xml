@@ -81,13 +81,13 @@
                         style="@style/CustomFontTextViewStyle.Badge2"/>
                 </FrameLayout>
 
-                <!--<FrameLayout
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/btn_mother_register"
+                        android:id="@+id/btn_hh_member"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/register_fp"
@@ -96,7 +96,7 @@
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mother"
+                        android:text="HH Member"
                         style="@style/CustomFontTextViewStyle.Home.RegisterName"/>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -106,12 +106,12 @@
                         style="@style/CustomFontTextViewStyle.Home.RegisterLabel"/>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
-                        android:id="@+id/txt_kohort_kb_register_count"
+                        android:id="@+id/txt_hhmember_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/CustomFontTextViewStyle.Badge2"/>
 
-                </FrameLayout>-->
+                </FrameLayout>
 
                <!-- <FrameLayout
                     android:layout_width="0dp"

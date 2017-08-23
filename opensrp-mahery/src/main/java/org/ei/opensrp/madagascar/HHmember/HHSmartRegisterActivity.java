@@ -1,4 +1,4 @@
-package org.ei.opensrp.madagascar.HH;
+package org.ei.opensrp.madagascar.HHmember;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,14 +11,15 @@ import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.domain.form.FieldOverrides;
 import org.ei.opensrp.domain.form.FormSubmission;
-import org.ei.opensrp.repository.AllSharedPreferences;
-import org.ei.opensrp.service.FormSubmissionService;
+import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
-import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.madagascar.fragment.NativeHHSmartRegisterFragment;
 import org.ei.opensrp.madagascar.pageradapter.BaseRegisterActivityPagerAdapter;
+import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.repository.AllSharedPreferences;
+import org.ei.opensrp.service.FormSubmissionService;
+import org.ei.opensrp.service.ZiggyService;
 import org.ei.opensrp.util.FormUtils;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.dialog.DialogOption;

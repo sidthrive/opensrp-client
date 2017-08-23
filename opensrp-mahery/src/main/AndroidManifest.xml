@@ -27,7 +27,7 @@
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
-        <activity android:name="org.ei.opensrp.madagascar.HH.RCCDetailActivity"
+        <activity android:name="org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
