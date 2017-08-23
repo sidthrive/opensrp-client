@@ -64,6 +64,20 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.village_name = (TextView)convertView.findViewById(R.id.txt_village_name);
             viewHolder.wife_age = (TextView)convertView.findViewById(R.id.wife_age);
 
+            /*education
+            * profession
+            * marital
+            * pregnant
+            * fp
+            * menopause
+            * weight
+            * height
+            * muac
+            * head_cicle
+            * */
+            viewHolder.education = (TextView)convertView.findViewById(R.id.education);
+            viewHolder.profession = (TextView)convertView.findViewById(R.id.profession);
+            viewHolder.marital = (TextView)convertView.findViewById(R.id.marital);
 
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
@@ -86,9 +100,13 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
         viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
-        viewHolder.HH_name.setText(pc.getColumnmaps().get("HH.name_household_head") !=null?pc.getColumnmaps().get("HH.name_household_head"):"");
-        viewHolder.husband_name.setText(pc.getDetails().get("registration_date")!= null?pc.getDetails().get("registration_date"):"");
-        viewHolder.village_name.setText("GPS :"+pc.getColumnmaps().get("HH_GPS_Point")!= null?pc.getColumnmaps().get("HH_GPS_Point"):"");
+        viewHolder.HH_name.setText( pc.getColumnmaps().get("Name_family_member") !=null?pc.getColumnmaps().get("Name_family_member"):"");
+        viewHolder.husband_name.setText(pc.getColumnmaps().get("Ethnic_Group")!= null?pc.getColumnmaps().get("Ethnic_Group"):"");
+        viewHolder.village_name.setText(pc.getColumnmaps().get("Education")!= null?pc.getColumnmaps().get("Education"):"");
+
+        viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
+        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+pc.getColumnmaps().get("Profession"):"");
+        viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
 
         //}
 
@@ -127,7 +145,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
     @Override
     public View inflatelayoutForCursorAdapter() {
-        View View = inflater().inflate(R.layout.smart_register_ki_client, null);
+        View View = inflater().inflate(R.layout.smart_register_hhmember_client, null);
         return View;
     }
 
@@ -141,6 +159,9 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         ImageView profilepic;
         public TextView HH_name;
         public ImageButton follow_up;
+        TextView profession;
+        TextView marital;
+        TextView education;
     }
 
 

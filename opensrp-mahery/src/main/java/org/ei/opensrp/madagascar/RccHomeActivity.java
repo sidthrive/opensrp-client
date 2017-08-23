@@ -283,10 +283,10 @@ public class RccHomeActivity extends SecuredActivity {
                     navigationController.startECSmartRegistry();
                     break;
 
-            /*    case R.id.btn_kohort_kb_register:
+                case R.id.btn_hh_member:
                         navigationController.startFPSmartRegistry();
                         break;
-
+/*
                case R.id.btn_kartu_ibu_anc_register:
                     navigationController.startANCSmartRegistry();
                    break;

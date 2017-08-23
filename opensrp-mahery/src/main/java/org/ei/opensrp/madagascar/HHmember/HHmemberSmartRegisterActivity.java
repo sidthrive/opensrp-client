@@ -15,6 +15,7 @@ import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.madagascar.fragment.NativeHHSmartRegisterFragment;
+import org.ei.opensrp.madagascar.fragment.NativeHHmemberSmartRegisterFragment;
 import org.ei.opensrp.madagascar.pageradapter.BaseRegisterActivityPagerAdapter;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
 import org.ei.opensrp.repository.AllSharedPreferences;
@@ -43,7 +44,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 /**
  * Created by Dimas Ciputra on 2/18/15.
  */
-public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
+public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterActivity implements LocationSelectorDialogFragment.OnLocationSelectedListener{
 
     public static final String TAG = "KIActivity";
     @Bind(R.id.view_pager)
@@ -66,7 +67,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
        // FlurryFacade.logEvent("kohort_ibu_dashboard");
         formNames = this.buildFormNameList();
-        mBaseFragment = new NativeHHSmartRegisterFragment();
+        mBaseFragment = new NativeHHmemberSmartRegisterFragment();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPagerAdapter = new BaseRegisterActivityPagerAdapter(getSupportFragmentManager(), formNames, mBaseFragment);

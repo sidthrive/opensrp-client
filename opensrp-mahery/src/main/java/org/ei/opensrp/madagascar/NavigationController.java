@@ -5,6 +5,7 @@ import android.content.Intent;
 
 
 import org.ei.opensrp.madagascar.HH.HHSmartRegisterActivity;
+import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
 import org.ei.opensrp.view.controller.ANMController;
 
 public class NavigationController extends org.ei.opensrp.view.controller.NavigationController {
@@ -25,7 +26,7 @@ public class NavigationController extends org.ei.opensrp.view.controller.Navigat
     }
     @Override
     public void startFPSmartRegistry() {
-           activity.startActivity(new Intent(activity, HHSmartRegisterActivity.class));
+           activity.startActivity(new Intent(activity, HHmemberSmartRegisterActivity.class));
     }
     @Override
     public void startANCSmartRegistry() {

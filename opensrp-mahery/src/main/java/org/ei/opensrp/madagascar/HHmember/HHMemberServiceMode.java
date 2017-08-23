@@ -33,23 +33,23 @@ public class HHMemberServiceMode extends ServiceModeOption {
         return new ClientsHeaderProvider() {
             @Override
             public int count() {
-                return 3;
+                return 5;
             }
 
             @Override
             public int weightSum() {
-                return 500;
+                return 1000;
             }
 
             @Override
             public int[] weights() {
-                return new int[]{244, 165,75};
+                return new int[]{300, 225,200,200,200,75};
             }
 
             @Override
             public int[] headerTextResourceIds() {
                 return new int[]{
-                        R.string.header_nama, R.string.chara,
+                        R.string.header_nama, R.string.census, R.string.woman_status, R.string.child_stats,
                         R.string.header_edit};
             }
         };

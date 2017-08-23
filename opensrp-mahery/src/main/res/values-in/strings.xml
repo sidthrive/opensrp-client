@@ -419,7 +419,7 @@
     <string name="subvillage">Dusun</string>
     <string name="elco_age_label">Umur</string>
     <string name="address">Alamat Domisili</string>
-    <string name="education">Pendidikan</string>
+    <string name="education">Education</string>
     <string name="religion">Agama</string>
     <string name="job">Pekerjaan</string>
     <string name="poor_household">Gakin</string>
@@ -499,4 +499,11 @@
     <string name="attitude_regarding_immunization">Attitude regarding Immunization</string>
     <string name="hh">HH Registration</string>
     <string name="open_cencus">Open Census</string>
+
+    <string name="hh_other_inhabitants">HH Member</string>
+    <string name="census">Census</string>
+    <string name="woman_status">Woman Status</string>
+    <string name="child_stats">Child Status</string>
+    <string name="profession">Profession</string>
+    <string name="marital">Marital Status</string>
 </resources>

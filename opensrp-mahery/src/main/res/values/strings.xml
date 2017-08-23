@@ -331,7 +331,7 @@
     <string name="hh_no_of_mwra">NO. OF ELCO</string>
     <string name="last_visit_date">Last Visit:&#160;</string>
     <string name="hh_visit_due_date">HH VISIT DUE DATE</string>
-    <string name="hh_other_inhabitants">OTHER INHABITANTS</string>
+    <string name="hh_other_inhabitants">HH Member</string>
     <string name="hh_inhabitants_details">HH Details</string>
     <string name="household_entries">All Household Entries</string>
     <string name="hh_register_title_in_short">HH</string>
@@ -566,4 +566,9 @@
     <string name="attitude_regarding_immunization">Attitude regarding Immunization</string>
     <string name="hh">HH Registration</string>
     <string name="open_cencus">Open Census</string>
+    <string name="census">Census</string>
+    <string name="woman_status">Woman Status</string>
+    <string name="child_stats">Child Status</string>
+    <string name="profession">Profession</string>
+    <string name="marital">Marital Status</string>
 </resources>

@@ -79,8 +79,8 @@ public class HouseHoldDetailActivity extends Activity {
 
         TextView householdhead_name = (TextView)findViewById(R.id.name_household_head);
         TextView mauza = (TextView)findViewById(R.id.mauza);
-        TextView household_hhid = (TextView)findViewById(R.id.house_detail_hhid);
-        TextView household_hhid_jivita = (TextView)findViewById(R.id.hh_detail_jivita);
+       // TextView household_hhid = (TextView)findViewById(R.id.house_detail_hhid);
+       // TextView household_hhid_jivita = (TextView)findViewById(R.id.hh_detail_jivita);
 
         ImageButton back = (ImageButton)findViewById(R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +99,12 @@ public class HouseHoldDetailActivity extends Activity {
 //        household_hhid_jivita.setText(getResources().getString(R.string.hhid_jivita) + householdclient.getColumnmaps().get("FWJIVHHID"));
 
 
-
-        Clientsview = (ListView)findViewById(R.id.list);
+        /*Clientsview = (ListView)findViewById(R.id.list);
         paginationViewHandler.addPagination(Clientsview);
 
         householdcontroller = new CommonPersonObjectController(Context.getInstance().allCommonsRepositoryobjects("HHMember"), Context.getInstance().allBeneficiaries(),context.listCache(),
                 context.personObjectClientsCache(),"Name_family_member","HHMember","relationalid",householdclient.entityId(), CommonPersonObjectController.ByColumnAndByDetails.byrelationalid,"Name_family_member", CommonPersonObjectController.ByColumnAndByDetails.byColumn);
-                clientsAdapter = adapter();
+        clientsAdapter = adapter();
         clientsAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -120,8 +119,9 @@ public class HouseHoldDetailActivity extends Activity {
         }
         if(!(clientsAdapter.getCount()>1)){
             paginationViewHandler.footerView.setVisibility(INVISIBLE);
-        }
+        }*/
 //        clientsProgressView.setVisibility(View.GONE);
+
 
 
 //        paginationViewHandler.refresh();
@@ -175,6 +175,9 @@ public class HouseHoldDetailActivity extends Activity {
                     break;
                 case R.id.btn_previous_page:
                     goBackToPreviousPage();
+                    break;
+                case R.id.registerlink:
+                    startActivity(new Intent(HouseHoldDetailActivity.this, HHSmartRegisterActivity.class));
                     break;
                 /*case R.id.profilepic:
                     entityid = ((CommonPersonObjectClient)view.getTag()).entityId();

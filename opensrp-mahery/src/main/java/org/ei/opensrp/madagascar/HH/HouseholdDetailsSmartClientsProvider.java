@@ -76,7 +76,7 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
         ViewGroup itemView = viewGroup;
 
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
-       // if(pc.getDetails().get("FWELIGIBLE").equalsIgnoreCase("1")) {
+      /*  if(pc.getDetails().get("FWELIGIBLE").equalsIgnoreCase("1")) {
 
             itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_register_clients, null);
             TextView name = (TextView) itemView.findViewById(R.id.name);
@@ -111,34 +111,36 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
             profilepic.setTag(smartRegisterClient);
 
             name.setText(humanize(pc.getColumnmaps().get("Name_family_member") != null ? pc.getColumnmaps().get("Name_family_member") : ""));
-           // age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")")");
+            age.setText(pc.getColumnmaps().get("Date_of_Birth") != null ? pc.getColumnmaps().get("Date_of_Birth")
+                    :pc.getColumnmaps().get("dob_date")!=null? pc.getColumnmaps().get("dob_date")
+                    :pc.getColumnmaps().get("dob_year")!=null? pc.getColumnmaps().get("dob_year")
+                    : "");
 
             LinearLayout child_parent_carrier = (LinearLayout)itemView.findViewById(R.id.child_parent_holder);
             ArrayList<String> stringList = new ArrayList<String>();
             stringList.add(pc.getCaseId());
-            List <CommonPersonObject> commonPersonObjects = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("mcaremother").findByRelationalIDs(stringList);
+            List <CommonPersonObject> commonPersonObjects = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("HHMember").findByRelationalIDs(stringList);
             if(commonPersonObjects.size()>0) {
                 CommonPersonObject mcaremother = commonPersonObjects.get(0);
               //  addchildrenifany(child_parent_carrier,mcaremother);
             }
-       /* }else{
+        }else{*/
             ArrayList<String> stringList = new ArrayList<String>();
             stringList.add(pc.getCaseId());
-            List <CommonPersonObject> commonPersonObjects = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("mcaremother").findByRelationalIDs(stringList);
+            List <CommonPersonObject> commonPersonObjects = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("HHMember").findByRelationalIDs(stringList);
             if(commonPersonObjects.size()>0){
                 CommonPersonObject mcaremother = commonPersonObjects.get(0);
-                if(mcaremother.getDetails().get("FWWOMVALID").equalsIgnoreCase("1")) {
                     itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_register_clients, null);
                     TextView name = (TextView) itemView.findViewById(R.id.name);
                     TextView age = (TextView) itemView.findViewById(R.id.age);
                     TextView registerlink = (TextView) itemView.findViewById(R.id.registerlink);
 //                    registerlink.setPaintFlags(registerlink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    if ((mcaremother.getColumnmaps().get("Is_PNC") != null ? mcaremother.getColumnmaps().get("Is_PNC") : "0").equalsIgnoreCase("0")) {
+                 /*   if ((mcaremother.getColumnmaps().get("Is_PNC") != null ? mcaremother.getColumnmaps().get("Is_PNC") : "0").equalsIgnoreCase("0")) {
                         registerlink.setText("ANC Register");
                     }
                     if ((mcaremother.getColumnmaps().get("Is_PNC") != null ? mcaremother.getColumnmaps().get("Is_PNC") : "").equalsIgnoreCase("1")) {
                         registerlink.setText("PNC Register");
-                    }
+                    }*/
 
 
                     Button edit_form = (Button) itemView.findViewById(R.id.nidpic_capture);
@@ -155,19 +157,6 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
 
                         }
                     }
-                   *//* registerlink.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(((TextView)v).getText().toString().contains("ANC")){
-                                context.startActivity(new Intent(context, mCareANCSmartRegisterActivity.class));
-
-                            }
-                            if(((TextView)v).getText().toString().contains("PNC")){
-                                context.startActivity(new Intent(context, mCarePNCSmartRegisterActivity.class));
-
-                            }
-                        }
-                    });*//*
 
 
                     edit_form.setOnClickListener(onClickListener);
@@ -176,19 +165,24 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
                     profilepic.setOnClickListener(onClickListener);
                     profilepic.setTag(smartRegisterClient);
 
-                    name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
-                    age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
+                   // name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
+                  //  age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
                     DateUtil.setDefaultDateFormat("yyyy-MM-dd");
-                    try {
+                name.setText(humanize(pc.getColumnmaps().get("Name_family_member") != null ? pc.getColumnmaps().get("Name_family_member") : ""));
+                age.setText(pc.getColumnmaps().get("Date_of_Birth") != null ? pc.getColumnmaps().get("Date_of_Birth")
+                        :pc.getColumnmaps().get("dob_date")!=null? pc.getColumnmaps().get("dob_date")
+                        :pc.getColumnmaps().get("dob_year")!=null? pc.getColumnmaps().get("dob_year")
+                        : "");
+                    /*try {
                         int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
                         int calc_age = days / 365;
                         age.setText("("+calc_age+")");
                     }catch (Exception e){
 
-                    }
+                    }*/
                     LinearLayout child_parent_carrier = (LinearLayout)itemView.findViewById(R.id.child_parent_holder);
                   //  addchildrenifany(child_parent_carrier,mcaremother);
-                }else {
+              /*  }else {
 
                     itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_nonregister_clients, null);
                     TextView name = (TextView) itemView.findViewById(R.id.name);
@@ -218,7 +212,7 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
                     }catch (Exception e){
 
                     }
-                }
+                }*/
             }else {
 
                 itemView = (ViewGroup) inflater().inflate(R.layout.household_inhabitants_nonregister_clients, null);
@@ -239,19 +233,23 @@ public class HouseholdDetailsSmartClientsProvider implements SmartRegisterClient
                 editform.setTag(smartRegisterClient);
 
 
-                name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
-                age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
-
-                DateUtil.setDefaultDateFormat("yyyy-MM-dd");
+              //  name.setText(humanize(pc.getColumnmaps().get("FWWOMFNAME") != null ? pc.getColumnmaps().get("FWWOMFNAME") : ""));
+              //  age.setText("("+(pc.getDetails().get("FWWOMAGE") != null ? pc.getDetails().get("FWWOMAGE") : "")+")");
+                name.setText(humanize(pc.getColumnmaps().get("Name_family_member") != null ? pc.getColumnmaps().get("Name_family_member") : ""));
+                age.setText(pc.getColumnmaps().get("Date_of_Birth") != null ? pc.getColumnmaps().get("Date_of_Birth")
+                        :pc.getColumnmaps().get("dob_date")!=null? pc.getColumnmaps().get("dob_date")
+                        :pc.getColumnmaps().get("dob_year")!=null? pc.getColumnmaps().get("dob_year")
+                        : "");
+            /*    DateUtil.setDefaultDateFormat("yyyy-MM-dd");
                 try {
                     int days = DateUtil.dayDifference(DateUtil.getLocalDate((pc.getDetails().get("FWBIRTHDATE") != null ?  pc.getDetails().get("FWBIRTHDATE")  : "")), DateUtil.today());
                     int calc_age = days / 365;
                     age.setText("("+calc_age+")");
                 }catch (Exception e){
 
-                }
-            }
-        }*/
+                }*/
+          //  }
+        }
 //        itemView.setLayoutParams(clientViewLayoutParams);
         return itemView;
     }

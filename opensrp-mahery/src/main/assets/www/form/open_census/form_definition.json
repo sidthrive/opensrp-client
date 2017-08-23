@@ -2,7 +2,7 @@
   "form_data_definition_version": "1",
   "form": {
     "bind_type": "HH",
-    "default_bind_path": "/model/instance/HH_registration/",
+    "default_bind_path": "/model/instance/open_cencus/",
     "fields": [
       {
         "name": "id",
@@ -15,141 +15,170 @@
       },
       {
         "name": "relationalid",
-        "source": "HH.HHMember.id",
+        "source": "HHMember.HH.id",
         "shouldLoadValue": true
       },
       {
         "name": "Name_family_member",
-        "bind": "/model/instance/HH_registration/Name_family_member"
+        "source": "HH.HHMember.Name_family_member",
+        "bind": "/model/instance/open_cencus/Name_family_member"
       }
     ,
       {
         "name": "Date_of_Birth",
-        "bind": "/model/instance/HH_registration/Date_of_Birth"
+        "source": "HH.HHMember.Date_of_Birth",
+        "bind": "/model/instance/open_cencus/Date_of_Birth"
       }
     ,
       {
-        "name": "DOB_date",
-        "bind": "/model/instance/HH_registration/DOB_date"
+        "name": "dob_date",
+        "source": "HH.HHMember.dob_date",
+        "bind": "/model/instance/open_cencus/DOB_date"
       }
     ,
       {
-        "name": "DOB_year",
-        "bind": "/model/instance/HH_registration/DOB_year"
+        "name": "dob_year",
+        "source": "HH.HHMember.dob_year",
+        "bind": "/model/instance/open_cencus/DOB_year"
       }
     ,
       {
         "name": "Ethnic_Group",
-        "bind": "/model/instance/HH_registration/Ethnic_Group"
+        "source": "HH.HHMember.Ethnic_Group",
+        "bind": "/model/instance/open_cencus/Ethnic_Group"
       }
     ,
       {
         "name": "Other_Ethnic_Group",
-        "bind": "/model/instance/HH_registration/Other_Ethnic_Group"
+        "source": "HH.HHMember.Other_Ethnic_Group",
+        "bind": "/model/instance/open_cencus/Other_Ethnic_Group"
       }
     ,
       {
         "name": "Sex",
-        "bind": "/model/instance/HH_registration/Sex"
+        "source": "HH.HHMember.Sex",
+        "bind": "/model/instance/open_cencus/Sex"
       }
     ,
       {
         "name": "Education",
-        "bind": "/model/instance/HH_registration/Education"
+        "source": "HH.HHMember.Education",
+        "bind": "/model/instance/open_cencus/Education"
       }
     ,
       {
         "name": "Profession",
-        "bind": "/model/instance/HH_registration/Profession"
+        "source": "HH.HHMember.Profession",
+        "bind": "/model/instance/open_cencus/Profession"
       }
     ,
       {
         "name": "Other_Profession",
-        "bind": "/model/instance/HH_registration/Other_Profession"
+         "source": "HH.HHMember.Other_Profession",
+        "bind": "/model/instance/open_cencus/Other_Profession"
       }
     ,
       {
         "name": "Marital_Status",
-        "bind": "/model/instance/HH_registration/Marital_Status"
+        "source": "HH.HHMember.Marital_Status",
+        "bind": "/model/instance/open_cencus/Marital_Status"
       }
     ,
       {
         "name": "Prior_Surgeries",
-        "bind": "/model/instance/HH_registration/Prior_Surgeries"
+        "source": "HH.HHMember.Prior_Surgeries",
+        "bind": "/model/instance/open_cencus/Prior_Surgeries"
       }
     ,
       {
         "name": "Health_History",
-        "bind": "/model/instance/HH_registration/Health_History"
+        "source": "HH.HHMember.Health_History",
+        "bind": "/model/instance/open_cencus/Health_History"
       }
     ,
       {
         "name": "Other_Health_History",
-        "bind": "/model/instance/HH_registration/Other_Health_History"
+        "source": "HH.HHMember.Other_Health_History",
+        "bind": "/model/instance/open_cencus/Other_Health_History"
       }
     ,
       {
         "name": "Visual_Health_Deformities",
-        "bind": "/model/instance/HH_registration/Visual_Health_Deformities"
+        "source": "HH.HHMember.Visual_Health_Deformities",
+        "bind": "/model/instance/open_cencus/Visual_Health_Deformities"
       }
     ,  {
         "name": "Other_Visual_Health_Deformities",
-        "bind": "/model/instance/HH_registration/Other_Visual_Health_Deformities"
+        "source": "HH.HHMember.Other_Visual_Health_Deformities",
+        "bind": "/model/instance/open_cencus/Other_Visual_Health_Deformities"
       }
     ,  {
         "name": "Vaccine_Card",
-        "bind": "/model/instance/HH_registration/Vaccine_Card"
+        "source": "HH.HHMember.Vaccine_Card",
+        "bind": "/model/instance/open_cencus/Vaccine_Card"
       }
     ,  {
         "name": "Vaccination_History",
-        "bind": "/model/instance/HH_registration/Vaccination_History"
+        "source": "HH.HHMember.Vaccination_History",
+        "bind": "/model/instance/open_cencus/Vaccination_History"
       }
     ,  {
         "name": "Pregnant",
-        "bind": "/model/instance/HH_registration/Pregnant"
+        "source": "HH.HHMember.Pregnant",
+        "bind": "/model/instance/open_cencus/Pregnant"
       }
     ,  {
         "name": "Pregnancies",
-        "bind": "/model/instance/HH_registration/Pregnancies"
+        "source": "HH.HHMember.Pregnancies",
+        "bind": "/model/instance/open_cencus/Pregnancies"
       }
     ,  {
         "name": "Number_Deliveries",
-        "bind": "/model/instance/HH_registration/Number_Deliveries"
+        "source": "HH.HHMember.Number_Deliveries",
+        "bind": "/model/instance/open_cencus/Number_Deliveries"
       }
     ,{
         "name": "Number_Live_Births",
-        "bind": "/model/instance/HH_registration/Number_Live_Births"
+        "source": "HH.HHMember.Number_Live_Births",
+        "bind": "/model/instance/open_cencus/Number_Live_Births"
       }
     ,{
         "name": "Birthweight",
-        "bind": "/model/instance/HH_registration/Birthweight"
+        "source": "HH.HHMember.Birthweight",
+        "bind": "/model/instance/open_cencus/Birthweight"
       }
     ,{
         "name": "Birthweight_gram",
-        "bind": "/model/instance/HH_registration/Birthweight_gram"
+        "source": "HH.HHMember.Birthweight_gram",
+        "bind": "/model/instance/open_cencus/Birthweight_gram"
       }
     ,{
         "name": "Is_Person_Alive",
-        "bind": "/model/instance/HH_registration/Is_Person_Alive"
+        "source": "HH.HHMember.Is_Person_Alive",
+        "bind": "/model/instance/open_cencus/Is_Person_Alive"
       }
     ,
       {
         "name": "Cause_of_Death",
-        "bind": "/model/instance/HH_registration/Cause_of_Death"
+        "source": "HH.HHMember.Cause_of_Death",
+        "bind": "/model/instance/open_cencus/Cause_of_Death"
       }
     ,
       {
         "name": "Date_of_Death",
-        "bind": "/model/instance/HH_registration/Date_of_Death"
+        "source": "HH.HHMember.Date_of_Death",
+        "bind": "/model/instance/open_cencus/Date_of_Death"
       }
     , {
         "name": "death_date",
-        "bind": "/model/instance/HH_registration/death_date"
+        "source": "HH.HHMember.death_date",
+        "bind": "/model/instance/open_cencus/death_date"
       }
     ,
       {
         "name": "submissionDate",
-        "bind": "/model/instance/HH_registration/today"
+        "source": "HH.HHMember.submissionDate",
+        "bind": "/model/instance/open_cencus/today"
       }
 
     ]

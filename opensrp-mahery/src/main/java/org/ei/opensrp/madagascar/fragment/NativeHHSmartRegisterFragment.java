@@ -21,7 +21,6 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity;
 import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
-import org.ei.opensrp.madagascar.HHmember.HHmemberClientsProvider;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -204,7 +203,7 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 "Else alerts.status END ASC";
     }
     public void initializeQueries(){
-        HHmemberClientsProvider kiscp = new HHmemberClientsProvider(getActivity(),clientActionHandler,
+        HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HH",new String []{ "HH.name_household_head","HH_GPS_Point","HH.isClosed"}));
         clientsView.setAdapter(clientAdapter);

@@ -23,6 +23,9 @@ import org.ei.opensrp.madagascar.HH.HHSmartRegisterActivity;
 import org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity;
 import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
+import org.ei.opensrp.madagascar.HHmember.HHMemberServiceMode;
+import org.ei.opensrp.madagascar.HHmember.HHmemberClientsProvider;
+import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -81,7 +84,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
             @Override
             public ServiceModeOption serviceMode() {
-                return new HHServiceMode(clientsProvider());
+                return new HHMemberServiceMode(clientsProvider());
             }
 
             @Override
@@ -169,7 +172,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
     }
 
     private DialogOption[] getEditOptions() {
-        return ((HHSmartRegisterActivity)getActivity()).getEditOptions();
+        return ((HHmemberSmartRegisterActivity)getActivity()).getEditOptions();
     }
 
     @Override
@@ -202,28 +205,27 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
                 "Else alerts.status END ASC";
     }
     public void initializeQueries(){
-        HHClientsProvider kiscp = new HHClientsProvider(getActivity(),clientActionHandler,
+        HHmemberClientsProvider kiscp = new HHmemberClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HHMember",new String []{ "HH.name_household_head","HH_GPS_Point","HH.isClosed"}));
+        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HHMember",new String []{ "Name_family_member","Ethnic_Group","Sex","Education","Profession","isClosed"}));
         clientsView.setAdapter(clientAdapter);
 
         setTablename("HHMember");
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("HHMember");
 
-       // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-      //  countqueryBUilder.joinwithKIs("HH");
-        countSelect = countqueryBUilder.mainCondition(" HH.name_household_head != '' ");
-        mainCondition = " name_household_head != '' ";
+        // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
+        //  countqueryBUilder.joinwithKIs("HH");
+        countSelect = countqueryBUilder.mainCondition(" Name_family_member != '' ");
+        mainCondition = " Name_family_member != '' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("HHMember", new String[]{"HH.isClosed", "HH.details","HH.name_household_head","HH_GPS_Point"});
-       // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-    //    countqueryBUilder.joinwithchilds("ibu");
-        mainSelect = queryBUilder.mainCondition(" HH.name_household_head != '' ");
+        queryBUilder.SelectInitiateMainTable("HHMember", new String[]{"isClosed", "details","Name_family_member","Ethnic_Group","Sex","Education","Profession"});
+        // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
+        //    countqueryBUilder.joinwithchilds("ibu");
+        mainSelect = queryBUilder.mainCondition(" Name_family_member != '' ");
         Sortqueries = KiSortByNameAZ();
-
         currentlimit = 20;
         currentoffset = 0;
 
@@ -246,7 +248,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         }
         ft.addToBackStack(null);
         LocationSelectorDialogFragment
-                .newInstance((HHSmartRegisterActivity) getActivity(), new
+                .newInstance((HHmemberSmartRegisterActivity) getActivity(), new
                         EditDialogOptionModel(), context().anmLocationController().get(),
                         "unique_identifier")
                 .show(ft, locationDialogTAG);
@@ -284,10 +286,10 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
 
     private String KiSortByNameAZ() {
-        return " name_household_head ASC";
+        return " Name_family_member ASC";
     }
     private String KiSortByNameZA() {
-        return " name_household_head DESC";
+        return " Name_family_member DESC";
     }
 
     private String KiSortByAge() {

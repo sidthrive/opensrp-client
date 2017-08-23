@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+              android:layout_height="@dimen/list_item_height"
+              android:weightSum="@integer/ec_list_item_weight_count"
+              android:background="#ffffff"
+    android:orientation="horizontal">
+
+    <include layout="@layout/smart_register_client_profile_ki"/>
+
+    <ImageView
+            android:layout_width="@dimen/smart_register_client_divider_height"
+            android:layout_height="fill_parent"
+            android:src="@color/smart_register_client_divider_color"/>
+
+
+    <!--census-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="220"
+        android:padding="5dp"
+        android:id="@+id/id_sensus"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/profession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        <org.ei.opensrp.view.customControls.CustomFontTextView
+            android:id="@+id/marital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text=""
+            style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+    <!--<include layout="@layout/smart_register_client_obsetri_layout"/>-->
+    <!--woman status-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="200"
+        android:padding="5dp"
+        android:id="@+id/id_woman_status"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/pregnant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/fp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/menopause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingLeft="5dp"
+                android:text=""
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+
+    <!--<include layout="@layout/smart_register_client_obsetri_layout"/>-->
+    <!--child status-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="200"
+        android:padding="5dp"
+        android:id="@+id/id_child_status"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/status_bar_text_almost_white"
+            android:orientation="vertical">
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/muac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingLeft="5dp"
+                android:text=""
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:id="@+id/head_cicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingLeft="5dp"
+                android:text=""
+                style="@style/CustomFontTextViewStyle.ListView.Small"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/smart_register_client_divider_height"
+        android:layout_height="fill_parent"
+        android:src="@color/smart_register_client_divider_color"/>
+    
+        <ImageView
+            android:layout_width="@dimen/smart_register_client_divider_height"
+            android:layout_height="fill_parent"
+            android:src="@color/smart_register_client_divider_color"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="@dimen/list_edit_icon_view_width"
+            android:layout_height="fill_parent"
+            android:layout_weight="80"
+            android:scaleType="center"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/edit_button_background"/>
+
+
+    </LinearLayout>
