@@ -75,6 +75,10 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.fp = (TextView)convertView.findViewById(R.id.fp);
             viewHolder.menopause = (TextView)convertView.findViewById(R.id.menopause);
 
+            viewHolder.weight =(TextView)convertView.findViewById(R.id.weight);
+            viewHolder.height = (TextView)convertView.findViewById(R.id.height);
+            viewHolder.muac = (TextView)convertView.findViewById(R.id.muac);
+
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
 
@@ -104,12 +108,15 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+pc.getColumnmaps().get("Profession"):"");
         viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
 
-        viewHolder.pregnant.setText(pc.getDetails().get("Pregnant") !=null?context.getString(R.string.education)+": "+pc.getDetails().get("Pregnant"):"");
-        viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.profession)+": "+pc.getDetails().get("Contraception_Type"):"");
-        viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Menopause"):"");
+        viewHolder.pregnant.setText(pc.getDetails().get("Pregnant") !=null?context.getString(R.string.pregnancy)+": "+pc.getDetails().get("Pregnant"):"");
+        viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.contraseption)+": "+pc.getDetails().get("Contraception_Type"):"");
+        viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.menopause)+": "+pc.getDetails().get("Menopause"):"");
+
+        viewHolder.weight.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
+        viewHolder.height.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");
+        viewHolder.muac.setText(pc.getDetails().get("anthropmetryUpperArm") !=null?context.getString(R.string.muac)+" "+pc.getDetails().get("anthropmetryUpperArm"):"");
 
         //}
-
 
         //distance to nearest
         convertView.setLayoutParams(clientViewLayoutParams);
@@ -165,6 +172,10 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         TextView pregnant;
         TextView fp;
         TextView menopause;
+
+        TextView weight;
+        TextView height;
+        TextView muac;
 
     }
 

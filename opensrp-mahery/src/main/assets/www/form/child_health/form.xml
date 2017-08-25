@@ -1,0 +1,76 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="child_health">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Child Health</h3>
+    <select id="form-languages" data-default-lang="mg">
+        <option value="mg" data-dir="ltr">Malagasy</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_weight:label">-</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/note_weight:label">For child's age &lt;= 6 years old</span>
+        <input type="text" name="/child_health/note_weight" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/Child_Weight:label">1. Firy kilo ny zaza
+            <strong></strong>_?
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/Child_Weight:label">1. Weight child</span>
+        <input type="number" name="/child_health/Child_Weight" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_height:label">-</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/note_height:label">For child's age &lt;= 6 years old</span>
+        <input type="text" name="/child_health/note_height" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/Child_Height:label">2. Firy centimetres ny zaza
+            <strong></strong>_?
+        </span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/Child_Height:label">2. Measure child's height / length</span>
+        <input type="number" name="/child_health/Child_Height" data-constraint=".&gt;=0 and .&lt;=150" data-type-xml="decimal" step="any"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_muac:label">-</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/note_muac:label">For child's age &lt;= 6 years old</span>
+        <input type="text" name="/child_health/note_muac" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/Anthropmetry_Upper_Arm:label">3. Firy centimetres ny MUAC na baobaon-tanana?</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/Anthropmetry_Upper_Arm:label">3. Measure child's upper arm circumference</span>
+        <input type="number" name="/child_health/Anthropmetry_Upper_Arm" data-constraint=".&gt;=0 and .&lt;=25" data-type-xml="decimal" step="any"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_head_circ:label">-</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/note_head_circ:label">For child's age &lt;= 3 years old</span>
+        <input type="text" name="/child_health/note_head_circ" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health/Anthropmetry_Head:label">4. Firy centrimetres ny circonference craniale?</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health/Anthropmetry_Head:label">4. Measure child's head circumference.</span>
+        <input type="number" name="/child_health/Anthropmetry_Head" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/child_health/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/child_health/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/child_health/end" data-preload="timestamp" data-preload-params="end" data-type-xml="dateTime"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/child_health/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/child_health/formhub/uuid" data-calculate="'ea198c8a50f749499444bbcd9667a432'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

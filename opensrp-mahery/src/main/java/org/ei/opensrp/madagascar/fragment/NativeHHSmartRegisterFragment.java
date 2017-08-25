@@ -257,13 +257,13 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.profile_info_layout:
+              /*  case R.id.profile_info_layout:
                  //   FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
                     HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
                     Intent intent = new Intent(getActivity(),HouseHoldDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
-                    break;
+                    break;*/
             //    case R.id.id_detail_layout:
             //        HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
 //
