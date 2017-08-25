@@ -26,6 +26,7 @@ import org.ei.opensrp.view.contract.HomeContext;
 import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
 import org.ei.opensrp.view.controller.NativeUpdateANMDetailsTask;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
+import org.json.JSONObject;
 import org.opensrp.api.domain.Location;
 import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
@@ -111,7 +112,7 @@ public class BidanHomeActivity extends SecuredActivity {
         String HomeStart = timer.format(new Date());
         Map<String, String> Home = new HashMap<String, String>();
         Home.put("start", HomeStart);
-        FlurryAgent.logEvent("home_dashboard",Home, true );
+        FlurryAgent.logEvent("home_dashboard", Home, true);
 
         setContentView(R.layout.smart_registers_home_bidan);
         navigationController = new NavigationControllerINA(this, anmController, context());
@@ -254,7 +255,13 @@ public class BidanHomeActivity extends SecuredActivity {
                 this.recreate();
                 return true;
             case R.id.help:
-                //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
+                String anmID;
+                try {
+                    anmID = new JSONObject(context().anmController().get()).get("anmName").toString();
+                }catch (org.json.JSONException e){
+                    anmID = "undefined";
+                }
+                Toast.makeText(this, String.format("%s current user = %s",context().getStringResource(R.string.app_name),anmID), LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

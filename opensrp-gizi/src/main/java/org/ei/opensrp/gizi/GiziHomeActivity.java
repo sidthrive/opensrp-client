@@ -28,6 +28,7 @@ import org.ei.opensrp.view.contract.HomeContext;
 import org.ei.opensrp.view.controller.NativeAfterANMDetailsFetchListener;
 import org.ei.opensrp.view.controller.NativeUpdateANMDetailsTask;
 import org.ei.opensrp.view.fragment.DisplayFormFragment;
+import org.json.JSONObject;
 import org.opensrp.api.domain.Location;
 import org.opensrp.api.util.EntityUtils;
 import org.opensrp.api.util.LocationTree;
@@ -241,8 +242,13 @@ public class GiziHomeActivity extends SecuredActivity {
                 this.recreate();
                 return true;
             case R.id.help:
-                //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
-                return true;
+                String anmID;
+                try {
+                    anmID = new JSONObject(context().anmController().get()).get("anmName").toString();
+                }catch (org.json.JSONException e){
+                    anmID = "undefined";
+                }
+                Toast.makeText(this, String.format("%s current user = %s",context().getStringResource(R.string.app_name),anmID), LENGTH_SHORT).show();return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
