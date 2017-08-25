@@ -125,7 +125,7 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         }
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.open_cencus), "open_census", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
 
         };
 
@@ -306,7 +306,7 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         formNames.add("HHRegistration");
         formNames.add("open_census");
 
-
+        formNames.add("follow_up");
       //  DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {
        //     formNames.add(((OpenFormOption) options[i]).getFormName());

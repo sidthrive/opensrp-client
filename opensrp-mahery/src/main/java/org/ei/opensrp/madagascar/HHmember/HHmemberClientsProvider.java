@@ -65,19 +65,15 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             viewHolder.wife_age = (TextView)convertView.findViewById(R.id.wife_age);
 
             /*education
-            * profession
-            * marital
-            * pregnant
-            * fp
-            * menopause
-            * weight
-            * height
-            * muac
-            * head_cicle
+    pregnant fp menopause
             * */
             viewHolder.education = (TextView)convertView.findViewById(R.id.education);
             viewHolder.profession = (TextView)convertView.findViewById(R.id.profession);
             viewHolder.marital = (TextView)convertView.findViewById(R.id.marital);
+
+            viewHolder.pregnant = (TextView)convertView.findViewById(R.id.pregnant);
+            viewHolder.fp = (TextView)convertView.findViewById(R.id.fp);
+            viewHolder.menopause = (TextView)convertView.findViewById(R.id.menopause);
 
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
@@ -107,6 +103,10 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
         viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+pc.getColumnmaps().get("Profession"):"");
         viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
+
+        viewHolder.pregnant.setText(pc.getDetails().get("Pregnant") !=null?context.getString(R.string.education)+": "+pc.getDetails().get("Pregnant"):"");
+        viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.profession)+": "+pc.getDetails().get("Contraception_Type"):"");
+        viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Menopause"):"");
 
         //}
 
@@ -162,6 +162,10 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         TextView profession;
         TextView marital;
         TextView education;
+        TextView pregnant;
+        TextView fp;
+        TextView menopause;
+
     }
 
 
