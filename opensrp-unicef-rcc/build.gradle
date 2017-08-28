@@ -33,7 +33,7 @@ android {
         targetSdkVersion 21
 
         versionCode 1
-        versionName "Alpha.05.1"
+        versionName "1.01"
 
         multiDexEnabled true
     }
