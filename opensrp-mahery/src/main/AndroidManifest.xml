@@ -27,13 +27,14 @@
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
-        <activity android:name="org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity"
+
+
+        <activity android:name="org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="landscape"/>
-
-        <activity android:name="org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity"
+        <activity android:name="org.ei.opensrp.madagascar.HHmember.HHmemberDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppThemeNoActionBarAndTitle"
             android:windowSoftInputMode="adjustResize"

@@ -25,6 +25,7 @@ import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
 import org.ei.opensrp.madagascar.HHmember.HHMemberServiceMode;
 import org.ei.opensrp.madagascar.HHmember.HHmemberClientsProvider;
+import org.ei.opensrp.madagascar.HHmember.HHmemberDetailActivity;
 import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
@@ -260,8 +261,8 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
             switch (view.getId()) {
                 case R.id.profile_info_layout:
                  //   FlurryFacade.logEvent("click_detail_view_on_kohort_ibu_dashboard");
-                    HouseHoldDetailActivity.householdclient = (CommonPersonObjectClient)view.getTag();
-                    Intent intent = new Intent(getActivity(),HouseHoldDetailActivity.class);
+                    HHmemberDetailActivity.memberclient = (CommonPersonObjectClient)view.getTag();
+                    Intent intent = new Intent(getActivity(),HHmemberDetailActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                     break;

@@ -63,10 +63,7 @@ public class RCCDetailActivity extends Activity {
         TextView husband_name = (TextView) findViewById(R.id.txt_husband_name);
         TextView dob = (TextView) findViewById(R.id.txt_dob);
         TextView phone = (TextView) findViewById(R.id.txt_contact_phone_number);
-        TextView risk1 = (TextView) findViewById(R.id.txt_risk1);
-        TextView risk2 = (TextView) findViewById(R.id.txt_risk2);
-        TextView risk3 = (TextView) findViewById(R.id.txt_risk3);
-        TextView risk4 = (TextView) findViewById(R.id.txt_risk4);
+
 
         final TextView show_risk = (TextView) findViewById(R.id.health);
         final TextView show_detail = (TextView) findViewById(R.id.hh_char);
