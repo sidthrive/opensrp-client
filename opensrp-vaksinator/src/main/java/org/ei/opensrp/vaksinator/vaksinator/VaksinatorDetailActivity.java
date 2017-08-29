@@ -246,7 +246,7 @@ public class VaksinatorDetailActivity extends Activity {
 //            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(controller.getCaseId(), OpenSRPImageLoader.getStaticImageListener(photo, placeholderDrawable, placeholderDrawable));
             VaksinatorDetailActivity.setImagetoHolderFromUri( this ,
                     DrishtiApplication.getAppDir() + File.separator + controller.getDetails().get("base_entity_id") + ".JPEG",
-                    mImageView, controller.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+                    photo, controller.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
 
         }
 
