@@ -275,21 +275,23 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
         if(formName.equals("kohort_bayi_immunization")) {
             if(numOfRecord()<4)
                 activatingForm(formName,entityId,metaData);
-            final int choice = new java.util.Random().nextInt(3);
-            CharSequence[] selections = selections(choice, entityId);
+            else {
+                final int choice = new java.util.Random().nextInt(3);
+                CharSequence[] selections = selections(choice, entityId);
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(VaksinatorSmartRegisterActivity.this);
-            builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
-            builder.setItems(selections, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // the user clicked on colors[which]
-                    if (which == choice) {
-                        activatingForm(formName,entityId,metaData);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(VaksinatorSmartRegisterActivity.this);
+                builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
+                builder.setItems(selections, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        if (which == choice) {
+                            activatingForm(formName, entityId, metaData);
+                        }
                     }
-                }
-            });
-            builder.show();
+                });
+                builder.show();
+            }
         }
         else{
             activatingForm(formName,entityId,metaData);
@@ -329,9 +331,11 @@ public class VaksinatorSmartRegisterActivity extends SecuredNativeSmartRegisterA
 
         selections[choice] = (CharSequence) name;
 
-        String query = "SELECT count(namaBayi) FROM ec_anak where ec_anak.is_closed = 0";
+        String query = "SELECT namaBayi FROM ec_anak where ec_anak.is_closed = 0";
         Cursor cursor = context().commonrepository("ec_anak").RawCustomQueryForAdapter(query);
         cursor.moveToFirst();
+
+        System.out.println(cursor.getCount());
 
         for (int i = 0; i < selections.length; i++) {
             if (i != choice) {
