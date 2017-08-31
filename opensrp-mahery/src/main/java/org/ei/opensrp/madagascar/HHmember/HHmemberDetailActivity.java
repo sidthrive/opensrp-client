@@ -105,18 +105,25 @@ public class HHmemberDetailActivity extends Activity {
         TextView txt_STI = (TextView) findViewById(R.id.txt_STI);
         TextView txt_TSTI = (TextView) findViewById(R.id.txt_TSTI);
         TextView txt_healthcare = (TextView) findViewById(R.id.txt_healthcare);
-     /*
-        TextView integrasiProgramtbObat = (TextView) findViewById(R.id.txt_integrasiProgramtbObat);
 
-        TextView laboratoriumPeriksaHbHasil = (TextView) findViewById(R.id.txt_laboratoriumPeriksaHbHasil);
-        TextView laboratoriumPeriksaHbAnemia = (TextView) findViewById(R.id.txt_laboratoriumPeriksaHbAnemia);
-        TextView laboratoriumProteinUria = (TextView) findViewById(R.id.txt_laboratoriumProteinUria);
-        TextView laboratoriumGulaDarah = (TextView) findViewById(R.id.txt_laboratoriumGulaDarah);
-        TextView laboratoriumThalasemia = (TextView) findViewById(R.id.txt_laboratoriumThalasemia);
-        TextView laboratoriumSifilis = (TextView) findViewById(R.id.txt_laboratoriumSifilis);
-        TextView laboratoriumHbsAg = (TextView) findViewById(R.id.txt_laboratoriumHbsAg);
+        TextView txt_ethnic = (TextView) findViewById(R.id.txt_ethnic);
+        TextView txt_education = (TextView) findViewById(R.id.txt_education);
+        TextView txt_occupation = (TextView) findViewById(R.id.txt_occupation);
+        TextView txt_marital = (TextView) findViewById(R.id.txt_marital);
+        TextView txt_Surgeries = (TextView) findViewById(R.id.txt_Surgeries);
+        TextView txt_diagnosed = (TextView) findViewById(R.id.txt_diagnosed);
+        TextView txt_deformities = (TextView) findViewById(R.id.txt_deformities);
+        TextView txt_vaccine = (TextView) findViewById(R.id.txt_vaccine);
+         TextView txt_vaccines_re = (TextView) findViewById(R.id.txt_vaccines_re);
+         TextView txt_have_pregnant = (TextView) findViewById(R.id.txt_have_pregnant);
+         TextView txt_Pregnancies = (TextView) findViewById(R.id.txt_Pregnancies);
+         TextView txt_resulted_delivery = (TextView) findViewById(R.id.txt_resulted_delivery);
+         TextView txt_live_birth = (TextView) findViewById(R.id.txt_live_birth);
+         TextView txt_birthweight = (TextView) findViewById(R.id.txt_birthweight);
+         TextView txt_alive = (TextView) findViewById(R.id.txt_alive);
+         TextView txt_gps = (TextView) findViewById(R.id.txt_gps);
 
-*/
+
 
 
         ImageButton back = (ImageButton) findViewById(R.id.btn_back_to_home);
@@ -135,6 +142,23 @@ public class HHmemberDetailActivity extends Activity {
      //   dob.setText(getResources().getString(R.string.dob)+ (memberclient.getDetails().get("Education") != null ? kiclients.getDetails().get("Education") : "-"));
       //  phone.setText("No HP: "+ (memberclient.getDetails().get("NomorTelponHp") != null ? memberclient.getDetails().get("NomorTelponHp") : "-"));
 
+
+         txt_ethnic.setText(memberclient.getDetails().get("Ethnic_Group") != null ? memberclient.getDetails().get("Ethnic_Group") : "-");
+         txt_education.setText(memberclient.getDetails().get("Education") != null ? memberclient.getDetails().get("Education") : "-");
+         txt_occupation.setText(memberclient.getDetails().get("Profession") != null ? memberclient.getDetails().get("Profession") : "-");
+         txt_marital.setText(memberclient.getDetails().get("Marital_Status") != null ? memberclient.getDetails().get("Marital_Status") : "-");
+         txt_Surgeries.setText(memberclient.getDetails().get("Prior_Surgeries") != null ? memberclient.getDetails().get("Prior_Surgeries") : "-");
+         txt_diagnosed.setText(memberclient.getDetails().get("Health_History") != null ? memberclient.getDetails().get("Health_History") : "-");
+         txt_deformities.setText(memberclient.getDetails().get("Visual_Health_Deformities") != null ? memberclient.getDetails().get("Visual_Health_Deformities") : "-");
+         txt_vaccine.setText(memberclient.getDetails().get("Vaccine_Card") != null ? memberclient.getDetails().get("Vaccine_Card") : "-");
+         txt_vaccines_re.setText(memberclient.getDetails().get("Vaccination_History") != null ? memberclient.getDetails().get("Vaccination_History") : "-");
+         txt_have_pregnant.setText(memberclient.getDetails().get("Pregnant") != null ? memberclient.getDetails().get("Pregnant") : "-");
+         txt_Pregnancies.setText(memberclient.getDetails().get("Pregnancies") != null ? memberclient.getDetails().get("Pregnancies") : "-");
+         txt_resulted_delivery.setText(memberclient.getDetails().get("Number_Deliveries") != null ? memberclient.getDetails().get("Number_Deliveries") : "-");
+         txt_live_birth.setText(memberclient.getDetails().get("Number_Live_Births") != null ? memberclient.getDetails().get("Number_Live_Births") : "-");
+         txt_birthweight.setText(memberclient.getDetails().get("Birthweight_gram") != null ? memberclient.getDetails().get("Birthweight_gram") : "-");
+         txt_alive.setText(memberclient.getDetails().get("Is_Person_Alive") != null ? memberclient.getDetails().get("Is_Person_Alive") : "-");
+         txt_gps.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
 
          txt_Recent_Deaths.setText(memberclient.getDetails().get("Recent_Deaths") != null ? memberclient.getDetails().get("Recent_Deaths") : "-");
          txt_Recent_Births.setText(memberclient.getDetails().get("Recent_Births") != null ? memberclient.getDetails().get("Recent_Births") : "-");
@@ -166,7 +190,7 @@ public class HHmemberDetailActivity extends Activity {
         txt_unrination.setText(memberclient.getDetails().get("Pain_Urination") != null ? memberclient.getDetails().get("Pain_Urination") : "-");
         txt_medications.setText(memberclient.getDetails().get("Medications") != null ? memberclient.getDetails().get("Medications") : "-");
         txt_STI.setText(memberclient.getDetails().get("STI") != null ? memberclient.getDetails().get("STI") : "-");
-        txt_TSTI.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("v") : "-");
+        txt_TSTI.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
         txt_healthcare.setText(memberclient.getDetails().get("Health__Specialist_Visit") != null ? memberclient.getDetails().get("Health__Specialist_Visit") : "-");
 
 
