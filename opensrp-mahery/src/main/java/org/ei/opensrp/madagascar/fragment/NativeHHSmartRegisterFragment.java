@@ -1,5 +1,6 @@
 package org.ei.opensrp.madagascar.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.madagascar.HH.HouseHoldDetailActivity;
 import org.ei.opensrp.madagascar.HH.KICommonObjectFilterOption;
 import org.ei.opensrp.madagascar.HH.RCCDetailActivity;
+import org.ei.opensrp.madagascar.HHmember.HHmemberDetailActivity;
+import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
@@ -58,7 +61,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Created by Dimas Ciputra on 2/18/15.
  */
 public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment {
-
+    private Activity activity;
     private SmartRegisterClientsProvider clientProvider = null;
     private CommonPersonObjectController controller;
     private VillageController villageController;
@@ -269,6 +272,11 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 //
             //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
             //        break;
+                case R.id.profile_info_layout:
+                  //  activity.startActivity(new Intent(activity, HHmemberSmartRegisterActivity.class));
+                    Intent intent = new Intent(getActivity(),HHmemberSmartRegisterActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 case R.id.btn_edit:
                     RCCDetailActivity.kiclient = (CommonPersonObjectClient)view.getTag();
                     showFragmentDialog(new EditDialogOptionModel(), view.getTag());
