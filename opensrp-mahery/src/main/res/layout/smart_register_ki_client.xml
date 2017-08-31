@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="660"
+        android:layout_weight="620"
         android:padding="5dp"
         android:id="@+id/id_detail_layout"
         android:weightSum="1">

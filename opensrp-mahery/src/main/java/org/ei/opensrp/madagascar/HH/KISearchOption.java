@@ -24,8 +24,8 @@ public class KISearchOption implements FilterOption {
         CommonPersonObjectClient currentclient = (CommonPersonObjectClient) client;
 //        AllCommonsRepository allElcoRepository = new AllCommonsRepository("elco");
         if(!result) {
-            if(currentclient.getDetails().get("namaLengkap") != null) {
-                if (currentclient.getDetails().get("namaLengkap").toLowerCase().contains(criteria.toLowerCase())) {
+            if(currentclient.getDetails().get("Name_family_member") != null) {
+                if (currentclient.getDetails().get("Name_family_member").toLowerCase().contains(criteria.toLowerCase())) {
                     result = true;
                 }
             }

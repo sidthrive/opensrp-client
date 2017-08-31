@@ -19,9 +19,9 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal Kunjungan : "
+                android:text="Deaths household since last visit : "
                 android:layout_margin="5dp"
-                android:id="@+id/lbl_ancDate"
+                android:id="@+id/Recent_Deaths"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
@@ -32,7 +32,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A "
                 android:layout_margin="5dp"
-                android:id="@+id/txt_ancDate"
+                android:id="@+id/txt_Recent_Deaths"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
@@ -44,8 +44,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="ANC Ke : "
-                android:id="@+id/lbl_ancKe"
+                android:text="Births in household since last visit : "
+                android:id="@+id/Recent_Births"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -55,7 +55,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_ancKe"
+                android:id="@+id/txt_Recent_Births"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -70,8 +70,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Keterangan K1/K4  : "
-                android:id="@+id/lbl_Keterangan_k1k4"
+                android:text="Delivery place  : "
+                android:id="@+id/Birth_location"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -83,7 +83,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_Keterangan_k1k4"
+                android:id="@+id/txt_Birth_location"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -97,8 +97,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Kunjungan Ke : "
-                android:id="@+id/lbl_kunjunganKe"
+                android:text="Pregnant last month : "
+                android:id="@+id/Pregnant_Last_Month"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -109,7 +109,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_kunjunganKe"
+                android:id="@+id/txt_Pregnant_Last_Month"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -120,15 +120,13 @@ android:layout_width="match_parent" android:layout_height="match_parent"
 
         <TableRow>
 
-
-
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Tanggal HPHT  : "
-                android:id="@+id/lbl_tanggalHPHT"
+                android:text="Pregnant now  : "
+                android:id="@+id/Pregnant"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -140,31 +138,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_tanggalHPHT"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Usia Klinis  : "
-                android:id="@+id/lbl_usiaKlinis"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_usiaKlinis"
+                android:id="@+id/txt_Pregnant"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -177,8 +151,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Trimester  : "
-                android:id="@+id/lbl_trimesterKe"
+                android:text="Last menstration : "
+                android:id="@+id/Last_Period"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -188,7 +162,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_trimesterKe"
+                android:id="@+id/txt_Last_Period"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -201,8 +175,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Berat Badan  : "
-                android:id="@+id/lbl_bbKg"
+                android:text="Exact LMP date  : "
+                android:id="@+id/LMP_exact_date"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -212,7 +186,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_bbKg"
+                android:id="@+id/txt_LMP_exact_date"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -225,8 +199,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="TD Sistolik  : "
-                android:id="@+id/lbl_tandaVitalTDSistolik"
+                android:text="LMP in mont-year : "
+                android:id="@+id/LMP_month_year"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -236,7 +210,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_tandaVitalTDSistolik"
+                android:id="@+id/txt_LMP_month_year"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -249,8 +223,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="TD Diastolik  : "
-                android:id="@+id/lbl_tandaVitalTDDiastolik"
+                android:text="Prenatal visits during pregnancy : "
+                android:id="@+id/Prenatal_Visits"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -260,7 +234,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_tandaVitalTDDiastolik"
+                android:id="@+id/txt_Prenatal_Visits"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -273,8 +247,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="LILA  : "
-                android:id="@+id/lbl_hasilPemeriksaanLILA"
+                android:text="Prenatal medications  : "
+                android:id="@+id/Prenatal_Medication"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -284,7 +258,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_hasilPemeriksaanLILA"
+                android:id="@+id/txt_Prenatal_Medication"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -297,8 +271,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Status Gizi Ibu  : "
-                android:id="@+id/lbl_statusGiziibu"
+                android:text="Name(s) for medication(s)?  : "
+                android:id="@+id/Prenatal_Medication_Type"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -308,7 +282,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_statusGiziibu"
+                android:id="@+id/txt_Prenatal_Medication_Type"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -321,8 +295,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="TFU  : "
-                android:id="@+id/lbl_tfu"
+                android:text="Vaginal bleeding during pregnancy : "
+                android:id="@+id/Vaginal_Bleeding"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -332,7 +306,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_tfu"
+                android:id="@+id/txt_Vaginal_Bleeding"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -345,8 +319,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Refleksi Patela Ibu  : "
-                android:id="@+id/lbl_refleksPatelaIbu"
+                android:text="Severity vaginal bleeding : "
+                android:id="@+id/Vaginal_Bleeding_Severity"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -356,7 +330,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_refleksPatelaIbu"
+                android:id="@+id/txt_Vaginal_Bleeding_Severity"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -369,8 +343,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="DJJ  : "
-                android:id="@+id/lbl_djj"
+                android:text="Treatment for vaginal bleeding : "
+                android:id="@+id/Vaginal_Bleeding_Treatment"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -380,7 +354,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_djj"
+                android:id="@+id/txt_Vaginal_Bleeding_Treatmentu"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -393,8 +367,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Kepala Janin Terhadap PAP  : "
-                android:id="@+id/lbl_kepalaJaninTerhadapPAP"
+                android:text="Miscarriage or stillbirth? "
+                android:id="@+id/Miscarriage"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -404,7 +378,122 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_kepalaJaninTerhadapPAP"
+                android:id="@+id/txt_Miscarriage"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Contraception "
+                android:id="@+id/Contraception"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_Contraception"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Type of contraception "
+                android:id="@+id/type"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_type"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="breastfeeding "
+                android:id="@+id/breastfeeding"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_breastfeeding"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Exclusively breastfeeding "
+                android:id="@+id/exclusively_breastfeeding"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_exclusively_breastfeeding"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Menopause "
+                android:id="@+id/menopause"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_menopause"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -417,8 +506,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Presentasi Janin  : "
-                android:id="@+id/lbl_persentasiJanin"
+                android:text="Experienced diarrhea "
+                android:id="@+id/diarrhea"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -428,7 +517,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_persentasiJanin"
+                android:id="@+id/txt_diarrhea"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -441,8 +530,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Taksiran Berat Janin  : "
-                android:id="@+id/lbl_taksiranBeratJanin"
+                android:text="Blood or a thick black substance in stool "
+                android:id="@+id/substance"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -452,7 +541,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_taksiranBeratJanin"
+                android:id="@+id/txt_substance"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -465,8 +554,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Jumlah Janin  : "
-                android:id="@+id/lbl_jumlahJanin"
+                android:text="medical treatment for your diarrea "
+                android:id="@+id/medical"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -476,493 +565,91 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/txt_jumlahJanin"
+                android:id="@+id/txt_medical"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
         </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="Seek treatment "
+                android:id="@+id/treatment"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_treatment"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="symptoms resolve after treatment "
+                android:id="@+id/symptoms"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_symptoms"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="symptoms resolve after treatment "
+                android:id="@+id/symptomsresolve"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/txt_symptomsresolve"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+
+
+
 
     </TableLayout>
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/listview_background_rounded">
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Status Imunisasi TT : "
-                android:layout_margin="5dp"
-                android:id="@+id/lbl_statusImunisasitt"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A "
-                android:layout_margin="5dp"
-                android:id="@+id/txt_statusImunisasitt"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pelayanan FE : "
-                android:id="@+id/lbl_pelayananfe"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_pelayananfe"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Komlikasi Dalam Kehamilan  : "
-                android:id="@+id/lbl_komplikasidalamKehamilan"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_komplikasidalamKehamilan"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Voluntary Counseling Test : "
-                android:id="@+id/lbl_integrasiProgrampmtctvct"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgrampmtctvct"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-
-
-        <TableRow>
-
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Darah  : "
-                android:id="@+id/lbl_integrasiProgrampmtctPeriksaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgrampmtctPeriksaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Serologi  : "
-                android:id="@+id/lbl_integrasiProgrampmtctSerologi"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgrampmtctSerologi"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="jenis obat pada Ibu PMTCT  : "
-                android:id="@+id/lbl_integrasiProgrampmtctarvProfilaksis"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgrampmtctarvProfilaksis"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Periksaan Darah (Malaria) : "
-                android:id="@+id/lbl_integrasiProgramMalariaPeriksaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgramMalariaPeriksaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Integrasi Program Malaria Obat  : "
-                android:id="@+id/lbl_integrasiProgramMalariaObat"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgramMalariaObat"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Integrasi Program Malaria Kelambu  : "
-                android:id="@+id/lbl_integrasiProgramMalariaKelambuBerinsektisida"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgramMalariaKelambuBerinsektisida"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Integrasi Program TB Dahak  : "
-                android:id="@+id/lbl_integrasiProgramtbDahak"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgramtbDahak"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Integrasi Obat TB  : "
-                android:id="@+id/lbl_integrasiProgramtbObat"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_integrasiProgramtbObat"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab HB  : "
-                android:id="@+id/lbl_laboratoriumPeriksaHbHasil"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumPeriksaHbHasil"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab HB Anemia  : "
-                android:id="@+id/lbl_laboratoriumPeriksaHbAnemia"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumPeriksaHbAnemia"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab Protein Uria : "
-                android:id="@+id/lbl_laboratoriumProteinUria"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumProteinUria"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab Gula Darah : "
-                android:id="@+id/lbl_laboratoriumGulaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumGulaDarah"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab Thalasemia  : "
-                android:id="@+id/lbl_laboratoriumThalasemia"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumThalasemia"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab Sifilis  : "
-                android:id="@+id/lbl_laboratoriumSifilis"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumSifilis"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Pemeriksaan Lab HbsAG  : "
-                android:id="@+id/lbl_laboratoriumHbsAg"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/txt_laboratoriumHbsAg"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-    </TableLayout>
 
 
 </LinearLayout>
+
 </ScrollView>

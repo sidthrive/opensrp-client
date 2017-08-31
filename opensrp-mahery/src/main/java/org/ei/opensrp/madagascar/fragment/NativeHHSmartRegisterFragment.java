@@ -360,7 +360,7 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " isClosed !='true' ";
+                mainCondition = " name_household_head != ''";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -386,7 +386,7 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " isClosed !='true' ";
+                mainCondition = "  name_household_head != ''";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();

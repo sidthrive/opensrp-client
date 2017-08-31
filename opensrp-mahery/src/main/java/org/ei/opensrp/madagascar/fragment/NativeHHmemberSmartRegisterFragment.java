@@ -362,7 +362,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " isClosed !='true' ";
+                mainCondition = " Name_family_member != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -388,7 +388,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " isClosed !='true' ";
+                mainCondition = " Name_family_member != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();

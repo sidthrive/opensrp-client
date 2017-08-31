@@ -1,5 +1,6 @@
 package org.ei.opensrp.madagascar.HHmember;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -98,7 +99,22 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.follow_up.setImageDrawable(iconPencilDrawable);
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
-        viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
+        final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
+        if(pc.getDetails().get("profilepic") !=null) {
+            HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
+            kiview.setTag(smartRegisterClient);
+
+        }
+        else {
+            if (pc.getDetails().get("Sex") != null) {
+                if (pc.getDetails().get("Sex").equalsIgnoreCase("Female")) {
+                    viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
+                }
+            }
+            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
+
+
+        }
 
         viewHolder.HH_name.setText( pc.getColumnmaps().get("Name_family_member") !=null?pc.getColumnmaps().get("Name_family_member"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("Ethnic_Group")!= null?pc.getColumnmaps().get("Ethnic_Group"):"");
