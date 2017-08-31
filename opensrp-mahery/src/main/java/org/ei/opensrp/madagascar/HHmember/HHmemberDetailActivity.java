@@ -61,7 +61,7 @@ public class HHmemberDetailActivity extends Activity {
 
         final ImageView kiview = (ImageView)findViewById(R.id.motherdetailprofileview);
         //header
-        TextView today = (TextView) findViewById(R.id.detail_today);
+       // TextView today = (TextView) findViewById(R.id.detail_today);
 
         //profile
         TextView nama = (TextView) findViewById(R.id.txt_wife_name);
@@ -82,29 +82,30 @@ public class HHmemberDetailActivity extends Activity {
         TextView txt_Prenatal_Visits = (TextView) findViewById(R.id.txt_Prenatal_Visits);
         TextView txt_Prenatal_Medication = (TextView) findViewById(R.id.txt_Prenatal_Medication);
         TextView txt_Prenatal_Medication_Type = (TextView) findViewById(R.id.txt_Prenatal_Medication_Type);
-        TextView txt_Vaginal_Bleeding = (TextView) findViewById(R.id.txt_Vaginal_Bleeding);
-        TextView txt_Vaginal_Bleeding_Severity = (TextView) findViewById(R.id.txt_Vaginal_Bleeding_Severity);
-        TextView txt_Vaginal_Bleeding_Treatmentu = (TextView) findViewById(R.id.txt_Vaginal_Bleeding_Treatmentu);
+        TextView txt_Miscarriage = (TextView) findViewById(R.id.txt_Miscarriage);
+        TextView txt_Contraception = (TextView) findViewById(R.id.txt_Contraception);
+        TextView txt_type = (TextView) findViewById(R.id.txt_type);
 
-       /* TextView djj = (TextView) findViewById(R.id.txt_djj);
-        TextView kepalaJaninTerhadapPAP = (TextView) findViewById(R.id.txt_kepalaJaninTerhadapPAP);
-        TextView taksiranBeratJanin = (TextView) findViewById(R.id.txt_taksiranBeratJanin);
-        TextView persentasiJanin = (TextView) findViewById(R.id.txt_persentasiJanin);
-        TextView jumlahJanin = (TextView) findViewById(R.id.txt_jumlahJanin);
+       TextView txt_breastfeeding = (TextView) findViewById(R.id.txt_breastfeeding);
+        TextView txt_exclusively_breastfeeding = (TextView) findViewById(R.id.txt_exclusively_breastfeeding);
+        TextView txt_diarrhea = (TextView) findViewById(R.id.txt_diarrhea);
+        TextView txt_substance = (TextView) findViewById(R.id.txt_substance);
+        TextView txt_fever = (TextView) findViewById(R.id.txt_fever);
 
 
-        TextView statusImunisasitt = (TextView) findViewById(R.id.txt_statusImunisasitt);
-        TextView pelayananfe = (TextView) findViewById(R.id.txt_pelayananfe);
-        TextView komplikasidalamKehamilan = (TextView) findViewById(R.id.txt_komplikasidalamKehamilan);
+        TextView txt_Fever_Treatment = (TextView) findViewById(R.id.txt_Fever_Treatment);
+        TextView txt_vomiting = (TextView) findViewById(R.id.txt_vomiting);
+        TextView txt_headache = (TextView) findViewById(R.id.txt_headache);
 
-        TextView integrasiProgrampmtctvct = (TextView) findViewById(R.id.txt_integrasiProgrampmtctvct);
-        TextView integrasiProgrampmtctPeriksaDarah = (TextView) findViewById(R.id.txt_integrasiProgrampmtctPeriksaDarah);
-        TextView integrasiProgrampmtctSerologi = (TextView) findViewById(R.id.txt_integrasiProgrampmtctSerologi);
-        TextView integrasiProgrampmtctarvProfilaksis = (TextView) findViewById(R.id.txt_integrasiProgrampmtctarvProfilaksis);
-        TextView integrasiProgramMalariaPeriksaDarah = (TextView) findViewById(R.id.txt_integrasiProgramMalariaPeriksaDarah);
-        TextView integrasiProgramMalariaObat = (TextView) findViewById(R.id.txt_integrasiProgramMalariaObat);
-        TextView integrasiProgramMalariaKelambuBerinsektisida = (TextView) findViewById(R.id.txt_integrasiProgramMalariaKelambuBerinsektisida);
-        TextView integrasiProgramtbDahak = (TextView) findViewById(R.id.txt_integrasiProgramtbDahak);
+        TextView txt_headaches = (TextView) findViewById(R.id.txt_headaches);
+        TextView txt_wounds = (TextView) findViewById(R.id.txt_wounds);
+        TextView txt_measles = (TextView) findViewById(R.id.txt_measles);
+        TextView txt_unrination = (TextView) findViewById(R.id.txt_unrination);
+        TextView txt_medications = (TextView) findViewById(R.id.txt_medications);
+        TextView txt_STI = (TextView) findViewById(R.id.txt_STI);
+        TextView txt_TSTI = (TextView) findViewById(R.id.txt_TSTI);
+        TextView txt_healthcare = (TextView) findViewById(R.id.txt_healthcare);
+     /*
         TextView integrasiProgramtbObat = (TextView) findViewById(R.id.txt_integrasiProgramtbObat);
 
         TextView laboratoriumPeriksaHbHasil = (TextView) findViewById(R.id.txt_laboratoriumPeriksaHbHasil);
@@ -146,10 +147,30 @@ public class HHmemberDetailActivity extends Activity {
          txt_Prenatal_Visits.setText(memberclient.getDetails().get("Prenatal_Visits") != null ? memberclient.getDetails().get("Prenatal_Visits") : "-");
          txt_Prenatal_Medication.setText(memberclient.getDetails().get("Prenatal_Medication") != null ? memberclient.getDetails().get("Prenatal_Medication") : "-");
          txt_Prenatal_Medication_Type.setText(memberclient.getDetails().get("Prenatal_Medication_Type") != null ? memberclient.getDetails().get("Prenatal_Medication_Type") : "-");
-         txt_Vaginal_Bleeding.setText(memberclient.getDetails().get("Vaginal_Bleeding") != null ? memberclient.getDetails().get("Vaginal_Bleeding") : "-");
-         txt_Vaginal_Bleeding_Severity.setText(memberclient.getDetails().get("Vaginal_Bleeding_Severity") != null ? memberclient.getDetails().get("Vaginal_Bleeding_Severity") : "-");
-         txt_Vaginal_Bleeding_Treatmentu.setText(memberclient.getDetails().get("Vaginal_Bleeding_Treatment") != null ? memberclient.getDetails().get("Vaginal_Bleeding_Treatment") : "-");
-        final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
+
+
+        txt_Miscarriage.setText(memberclient.getDetails().get("Miscarriage_Stillbirth") != null ? memberclient.getDetails().get("Miscarriage_Stillbirth") : "-");
+        txt_Contraception.setText(memberclient.getDetails().get("Contraception") != null ? memberclient.getDetails().get("Contraception") : "-");
+        txt_type.setText(memberclient.getDetails().get("Contraception_Type") != null ? memberclient.getDetails().get("Contraception_Type") : "-");
+        txt_breastfeeding.setText(memberclient.getDetails().get("Breastfeeding") != null ? memberclient.getDetails().get("Breastfeeding") : "-");
+        txt_exclusively_breastfeeding.setText(memberclient.getDetails().get("Exlusive_breastfeeding") != null ? memberclient.getDetails().get("Exlusive_breastfeeding") : "-");
+        txt_diarrhea.setText(memberclient.getDetails().get("Diarrhea") != null ? memberclient.getDetails().get("Diarrhea") : "-");
+        txt_substance.setText(memberclient.getDetails().get("Diarrhea_Bloody") != null ? memberclient.getDetails().get("Diarrhea_Bloody") : "-");
+        txt_fever.setText(memberclient.getDetails().get("Fever") != null ? memberclient.getDetails().get("Fever") : "-");
+        txt_Fever_Treatment.setText(memberclient.getDetails().get("Fever_Treatment") != null ? memberclient.getDetails().get("Fever_Treatment") : "-");
+        txt_vomiting.setText(memberclient.getDetails().get("Vomiting") != null ? memberclient.getDetails().get("Vomiting") : "-");
+        txt_headache.setText(memberclient.getDetails().get("Headache") != null ? memberclient.getDetails().get("Headache") : "-");
+        txt_headaches.setText(memberclient.getDetails().get("Headache_Treatment") != null ? memberclient.getDetails().get("Headache_Treatment") : "-");
+        txt_wounds.setText(memberclient.getDetails().get("Open_Wounds") != null ? memberclient.getDetails().get("Open_Wounds") : "-");
+        txt_measles.setText(memberclient.getDetails().get("Measles") != null ? memberclient.getDetails().get("Measles") : "-");
+        txt_unrination.setText(memberclient.getDetails().get("Pain_Urination") != null ? memberclient.getDetails().get("Pain_Urination") : "-");
+        txt_medications.setText(memberclient.getDetails().get("Medications") != null ? memberclient.getDetails().get("Medications") : "-");
+        txt_STI.setText(memberclient.getDetails().get("STI") != null ? memberclient.getDetails().get("STI") : "-");
+        txt_TSTI.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("v") : "-");
+        txt_healthcare.setText(memberclient.getDetails().get("Health__Specialist_Visit") != null ? memberclient.getDetails().get("Health__Specialist_Visit") : "-");
+
+
+           final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
         final ImageView pic2 = (ImageView)findViewById(R.id.photo2);
         final ImageView pic3 = (ImageView)findViewById(R.id.photo3);
         final ImageView pic4 = (ImageView)findViewById(R.id.photo4);
