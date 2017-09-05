@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.formula.Support;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
 import static org.ei.opensrp.event.Event.ACTION_HANDLED;
@@ -55,6 +57,7 @@ public class GiziHomeActivity extends SecuredActivity {
     private Listener<Boolean> onSyncStartListener = new Listener<Boolean>() {
         @Override
         public void onEvent(Boolean data) {
+            Support.ONSYNC = true;
             if (updateMenuItem != null) {
                 updateMenuItem.setActionView(R.layout.progress);
             }
@@ -65,6 +68,7 @@ public class GiziHomeActivity extends SecuredActivity {
         @Override
         public void onEvent(Boolean data) {
             //#TODO: RemainingFormsToSyncCount cannot be updated from a back ground thread!!
+            Support.ONSYNC = true;
             updateRemainingFormsToSyncCount();
             if (updateMenuItem != null) {
                 updateMenuItem.setActionView(null);
@@ -75,7 +79,6 @@ public class GiziHomeActivity extends SecuredActivity {
             Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
             Tools.setVectorsBuffered();
-
         }
     };
 

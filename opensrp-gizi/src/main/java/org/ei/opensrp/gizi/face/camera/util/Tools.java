@@ -209,7 +209,7 @@ public class Tools {
         }
 
         // Create a media file name
-        return new File(String.format("%s%s%s.jpg", mediaStorageDir.getPath(), File.separator, entityId));
+        return new File(String.format("%s%s%s.JPEG", mediaStorageDir.getPath(), File.separator, entityId));
     }
 
     /**

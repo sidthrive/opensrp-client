@@ -16,15 +16,12 @@ public class KmsCalc {
 
     public String cek2T(KmsPerson bayi){
         boolean status = true;
-       // ////System.out.println("check 2T");
         String measureDate[] = {bayi.getLastVisitDate(),bayi.getSecondLastVisitDate()};
         double weight[] = {bayi.getWeight(),bayi.getPreviousWeight()};
         status = status && (cekWeightStatus(bayi.isMale(), bayi.getDateOfBirth(), measureDate, weight).toLowerCase().equals("not gaining weight"));
-        ////System.out.println("status 1: "+status+", weight: "+weight[0]+", "+weight[1]);
         String measureDate2[] = {bayi.getSecondLastVisitDate(),bayi.getThirdLastVisitDate()};
         double weight2[] = {bayi.getPreviousWeight(),bayi.getSecondLastWeight()};
         status = status && (cekWeightStatus(bayi.isMale(), bayi.getDateOfBirth(), measureDate2, weight2).toLowerCase().equals("not gaining weight"));
-        ////System.out.println("status 2: "+status+", weight: "+weight2[0]+", "+weight2[1]);
         bayi.Tidak2Kali = status;
         return (bayi.Tidak2Kali ? "Yes":"No");
     }
