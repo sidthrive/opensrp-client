@@ -2,8 +2,6 @@ package org.ei.opensrp.gizi.gizi;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,7 +23,6 @@ import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
 import org.ei.opensrp.gizi.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.Log;
-import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
@@ -37,7 +34,8 @@ import java.util.Map;
 
 import util.ImageCache;
 import util.ImageFetcher;
-import util.formula.Formula;
+import util.KMS.KmsPerson;
+import util.formula.Support;
 import util.growthChart.GrowthChartGenerator;
 
 /**
@@ -139,33 +137,15 @@ public class GiziDetailActivity extends Activity {
         int placeholderDrawable= mgender.equalsIgnoreCase("male") ? R.drawable.child_boy_infant:R.drawable.child_girl_infant;
 
         childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
-//        if(childclient.getCaseId()!=null){//image already in local storage most likey ):
-            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(childclient.getCaseId(), OpenSRPImageLoader.getStaticImageListener(childview, placeholderDrawable, placeholderDrawable));
-//        }
 
         if (childclient.getDetails().get("gender") != null) {
-            GiziDetailActivity.setImagetoHolderFromUri( this ,
+            System.out.println(childclient.getDetails().toString());
+            util.formula.Support.setImagetoHolderFromUri( this ,
                     DrishtiApplication.getAppDir() + File.separator + childclient.getDetails().get("base_entity_id") + ".JPEG",
                     childview, childclient.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
         } else {
             android.util.Log.e(TAG, "getView: Gender is NOT SET");
         }
-//        if(childclient.getDetails().get("profilepic")!= null){
-//            if((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-//                setImagetoHolderFromUri(GiziDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-//            } else if ((childclient.getDetails().get("gender")!=null?childclient.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-//                setImagetoHolderFromUri(GiziDetailActivity.this, childclient.getDetails().get("profilepic"), childview, R.mipmap.child_boy_infant);
-//
-//            }
-//        }
-//        else {
-//            if (childclient.getDetails().get("gender").equalsIgnoreCase("male") ) {
-//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_boy_infant));
-//            } else {
-//                childview.setImageDrawable(getResources().getDrawable(R.mipmap.child_girl_infant));
-//            }
-//        }
 
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
@@ -192,15 +172,6 @@ public class GiziDetailActivity extends Activity {
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        /*father_name.setText(getString(R.string.father_name)+" "+(childclient.getDetails().get("namaAyah")!=null ? childclient.getDetails().get("namaAyah") : "-"));
-        mother_name.setText(getString(R.string.mother_name) +" : "+ (childclient.getDetails().get("namaIbu") != null ? childclient.getDetails().get("namaIbu")
-                : childclient.getDetails().get("namaOrtu")!=null
-                    ? childclient.getDetails().get("namaOrtu")
-                    : "-"));*/
-
-        
-      /*  village_name.setText(getString(R.string.village) +" "+ (childclient.getDetails().get("desa") != null ? childclient.getDetails().get("desa") : "-"));*/
-
         String dateOfBirth = childclient.getDetails().get("tanggalLahirAnak");
         birth_date.setText(getString(R.string.birth_date) +" "+ (dateOfBirth.contains("T") ? dateOfBirth.substring(0,10) : dateOfBirth));
         gender.setText(getString(R.string.gender) +" "+ (childclient.getDetails().get("gender") != null ? gender(childclient.getDetails().get("gender")) : "-"));
@@ -213,7 +184,7 @@ public class GiziDetailActivity extends Activity {
         lastVitA.setText(getString(R.string.lastVitA)+" "+(childclient.getDetails().get("lastVitA")!=null ? childclient.getDetails().get("lastVitA") : "-"));
         lastAnthelmintic.setText(getString(R.string.lastAnthelmintic)+" "+(childclient.getDetails().get("lastAnthelmintic")!=null ? childclient.getDetails().get("lastAnthelmintic") : "-"));
         //set value
-        String[]data = childclient.getDetails().get("history_berat")!= null ? split(Formula.fixHistory(childclient.getDetails().get("history_berat"))) : new String[]{"0","0"};
+        String[]data = childclient.getDetails().get("history_berat")!= null ? split(Support.fixHistory(childclient.getDetails().get("history_berat"))) : new String[]{"0","0"};
         String berats = data[1];
         String[] history_berat = berats.split(",");
         String tempUmurs = data[0];
@@ -222,12 +193,16 @@ public class GiziDetailActivity extends Activity {
         for(int i=0;i<history_umur.length;i++){
             umurs = umurs + "," + Integer.toString(Integer.parseInt(history_umur[i])/30);
         }
-//        ////System.out.println("status : bgm = "+", garis kuning = "+", 2T = ");
-            dua_t.setText(getString(R.string.dua_t) +" "+ (childclient.getDetails().get("dua_t") != null ? yesNo(childclient.getDetails().get("dua_t")) : "-"));
-            bgm.setText(getString(R.string.bgm) + " "+ (childclient.getDetails().get("bgm") != null ? yesNo(childclient.getDetails().get("bgm")) : "-"));
-            under_yellow_line.setText(getString(R.string.under_yellow_line) + " "+ (childclient.getDetails().get("garis_kuning") != null ? yesNo(childclient.getDetails().get("garis_kuning")) : "-"));
-            breast_feeding.setText(getString(R.string.asi) + " " + (childclient.getDetails().get("asi") != null ? yesNo(childclient.getDetails().get("asi")) : "-"));
-            nutrition_status.setText(getString(R.string.nutrition_status) + " "+ (childclient.getDetails().get("nutrition_status") != null ? weightStatus(childclient.getDetails().get("nutrition_status")) : "-"));
+
+        KmsPerson anak = new KmsPerson(
+
+        );
+
+        dua_t.setText(getString(R.string.dua_t) +" "+ (childclient.getDetails().get("dua_t") != null ? yesNo(childclient.getDetails().get("dua_t")) : "-"));
+        bgm.setText(getString(R.string.bgm) + " "+ (childclient.getDetails().get("bgm") != null ? yesNo(childclient.getDetails().get("bgm")) : "-"));
+        under_yellow_line.setText(getString(R.string.under_yellow_line) + " "+ (childclient.getDetails().get("garis_kuning") != null ? yesNo(childclient.getDetails().get("garis_kuning")) : "-"));
+        breast_feeding.setText(getString(R.string.asi) + " " + (childclient.getDetails().get("asi") != null ? yesNo(childclient.getDetails().get("asi")) : "-"));
+        nutrition_status.setText(getString(R.string.nutrition_status) + " "+ (childclient.getDetails().get("nutrition_status") != null ? weightStatus(childclient.getDetails().get("nutrition_status")) : "-"));
 
         Log.logInfo("Berat :" +berats);
         Log.logInfo("umurs :" +umurs.substring(1,umurs.length()));
@@ -237,24 +212,7 @@ public class GiziDetailActivity extends Activity {
                 ? childclient.getDetails().get("tanggalLahirAnak").substring(0,10)
                 : childclient.getDetails().get("tanggalLahirAnak")
             ,umurs.substring(1,umurs.length()),berats);
-        //set data for graph
-       /* DataPoint dataPoint[] = new DataPoint[history_berat.length];
-        for(int i=0;i<history_berat.length;i++){
-            dataPoint[i]= new DataPoint(Double.parseDouble(history_umur[i]),Double.parseDouble(history_berat[i]));
-        }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoint);
-        //add series data into chart
-        graph.addSeries(series);
 
-        //series.setTitle("Random Curve 1");
-        series.setColor(Color.BLUE);
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(6);
-        series.setThickness(10);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        series.setCustomPaint(paint);*/
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -269,18 +227,6 @@ public class GiziDetailActivity extends Activity {
 
         });
 
-//        childview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FlurryFacade.logEvent("taking_anak_pictures_on_child_detail_view");
-//                bindobject = "anak";
-//                entityid = childclient.entityId();
-//                android.util.Log.e(TAG, "onClick: " + entityid);
-//                dispatchTakePictureIntent(childview);
-//
-//            }
-//        });
-//
         hash = Tools.retrieveHash(context.applicationContext());
 
         childview.setOnClickListener(new View.OnClickListener() {
@@ -358,60 +304,6 @@ public class GiziDetailActivity extends Activity {
     static String bindobject;
     static String entityid;
 
-    private void dispatchTakePictureIntent(ImageView imageView) {
-//        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + "klik");
-//        mImageView = imageView;
-//        Intent takePictureIntent = new Intent(this,SmartShutterActivity.class);
-//        Intent takePictureIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-//        android.util.Log.e(TAG, "dispatchTakePictureIntent: " + takePictureIntent.resolveActivity(getPackageManager()));
-        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                currentfile = photoFile;
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//
-//            takePictureIntent.putExtra("org.sid.sidface.ImageConfirmation.id", entityid);
-//            startActivityForResult(takePictureIntent, 1);
-//            }
-//        }
-    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
-
-/*
-            HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
-*/
-
-//            Long tsLong = System.currentTimeMillis()/1000;
-//            DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
-//            System.out.println("image absolute path: "+currentfile.getAbsolutePath());
-//            detailsRepository.add(entityid, "profilepic", currentfile.getAbsolutePath(), tsLong);
-//
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//            Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
-//            mImageView.setImageBitmap(bitmap);
-//        }
-//    }
-
     public static void setImagetoHolder(Activity activity, String file, ImageView view, int placeholder){
         mImageThumbSize = 300;
         mImageThumbSpacing = Context.getInstance().applicationContext().getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
@@ -423,31 +315,9 @@ public class GiziDetailActivity extends Activity {
         mImageFetcher = new ImageFetcher(activity, mImageThumbSize);
         mImageFetcher.setLoadingImage(placeholder);
         mImageFetcher.addImageCache(activity.getFragmentManager(), cacheParams);
-//        Toast.makeText(activity,file,Toast.LENGTH_LONG).show();
         mImageFetcher.loadImage("file:///"+file,view);
-
-//        Uri.parse(new File("/sdcard/cats.jpg")
-
-
-
-
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        Bitmap bitmap = BitmapFactory.decodeFile(file, options);
-//        view.setImageBitmap(bitmap);
     }
 
-
-    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder){
-        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
-        File externalFile = new File(file);
-        if (externalFile.exists()) {
-            Uri external = Uri.fromFile(externalFile);
-            view.setImageURI(external);
-        }
-
-    }
 
     private boolean inTheSameRegion(String date){
         if(date==null || date.length()<6)
@@ -504,7 +374,6 @@ public class GiziDetailActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-//        refresh
         android.util.Log.e(TAG, "onActivityResult: refresh" );
         finish();
         startActivity(getIntent());

@@ -124,7 +124,7 @@ public class IbuSmartClientsProvider implements SmartRegisterCLientsProviderForC
 //                        OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
 //            }
             viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-            GiziDetailActivity.setImagetoHolderFromUri((Activity) context,
+            util.formula.Support.setImagetoHolderFromUri((Activity) context,
                     DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
                     viewHolder.profilepic, R.mipmap.woman_placeholder);
 

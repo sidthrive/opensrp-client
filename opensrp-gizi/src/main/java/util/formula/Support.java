@@ -1,9 +1,19 @@
 package util.formula;
 
+import android.app.Activity;
+import android.net.Uri;
+import android.widget.ImageView;
+
+import org.ei.opensrp.util.Log;
+
+import java.io.File;
+
 /**
  * Created by al on 30/05/2017.
  */
-public class Formula {
+public class Support {
+    public static boolean ONSYNC = false;
+
     public static String[]split(String data){
         if(!data.contains(":"))
             return new String[]{"0","0"};
@@ -82,5 +92,19 @@ public class Formula {
         String m = "" + (startMonth<10 ? "0"+startMonth : Integer.toString(startMonth));
         String d = "" + (startDay<10 ? "0"+startDay : Integer.toString(startDay));
         return Integer.toString(startYear)+"-"+m+"-"+d;
+    }
+
+    public static void setImagetoHolderFromUri(Activity activity, String file, ImageView view, int placeholder) {
+        view.setImageDrawable(activity.getResources().getDrawable(placeholder));
+        File externalFile = new File(file);
+        if (!externalFile.exists()) {
+            externalFile = new File(file.replace(".JPEG", ".jpg"));
+        }
+        if (externalFile.exists()) {
+            Uri external = Uri.fromFile(externalFile);
+            view.setImageURI(external);
+        } else {
+            Log.logError(Support.class.getSimpleName(), String.format("image %s doesn't exist",file));
+        }
     }
 }

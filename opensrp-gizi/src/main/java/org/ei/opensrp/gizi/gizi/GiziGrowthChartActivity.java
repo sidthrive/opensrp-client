@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.formula.Formula;
+import util.formula.Support;
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
 
@@ -149,7 +149,7 @@ public class GiziGrowthChartActivity extends Activity{
         String ageSeries="";
         String lengthSeries="";
         String dateOfBirth = client.getDetails().get("tanggalLahirAnak").substring(0,10);
-        String data = Formula.fixHistory(client.getDetails().get("history_tinggi"));
+        String data = Support.fixHistory(client.getDetails().get("history_tinggi"));
         String []array = data.substring(4,data.length()).split(",");
         String [][]array2 = new String[array.length][];
         int []age = new int[array.length];

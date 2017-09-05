@@ -18,7 +18,7 @@ import org.ei.opensrp.gizi.R;
 import org.ei.opensrp.repository.DetailsRepository;
 
 import util.ZScore.ZScoreSystemCalculation;
-import util.formula.Formula;
+import util.formula.Support;
 import util.growthChart.GraphConstant;
 import util.growthChart.GrowthChartGenerator;
 
@@ -73,10 +73,10 @@ public class GiziZScoreChartActivity extends Activity{
 
     private void initializeGlobalVariable(){
         ////System.out.println("data z score client = "+client.getDetails().toString());
-        historyUmur = split(Formula.fixHistory(client.getDetails().get("history_berat")))[0];
+        historyUmur = split(Support.fixHistory(client.getDetails().get("history_berat")))[0];
         historyUmurHari = client.getDetails().get("history_umur_tinggi");
-        historyBerat = split(Formula.fixHistory(client.getDetails().get("history_berat")))[1];
-        historyTinggi = cleanBlankValueOf(Formula.fixHistory(client.getDetails().get("history_tinggi")));
+        historyBerat = split(Support.fixHistory(client.getDetails().get("history_berat")))[1];
+        historyTinggi = cleanBlankValueOf(Support.fixHistory(client.getDetails().get("history_tinggi")));
         historyTinggiUmurHari = cleanBlankValueOf(client.getDetails().get("history_tinggi_umur_hari"));
 
     }

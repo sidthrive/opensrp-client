@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -23,7 +22,6 @@ import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.AlertService;
 import org.ei.opensrp.gizi.R;
-import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 import org.ei.opensrp.view.contract.SmartRegisterClient;
 import org.ei.opensrp.view.contract.SmartRegisterClients;
@@ -35,7 +33,7 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
-import util.formula.Formula;
+import util.formula.Support;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -122,46 +120,18 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
-        //start profile image
-//        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
-
-//        if(pc.getCaseId()!=null){//image already in local storage most likey ):
-            //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-//            if (pc.getDetails().get("gender") != null) {
-//            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
-//                    OpenSRPImageLoader.getStaticImageListener(
-//                            viewHolder.profilepic,
-//                            pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
-//                            R.mipmap.child_girl_infant)
-//            );
-//            } else {
-//                Log.e(TAG, "getView: Gender is Not Set" );
-//            }
-//        }
-
         if (pc.getDetails().get("gender") != null) {
-            GiziDetailActivity.setImagetoHolderFromUri((Activity) context,
+            util.formula.Support.setImagetoHolderFromUri((Activity) context,
                     DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
                     viewHolder.profilepic, pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
         } else {
             Log.e(TAG, "getView: Gender is NOT SET");
         }
 
-        //end profile image
-//        convertView.setTag(viewHolder);
-
         viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
         viewHolder.age.setVisibility(View.INVISIBLE);//.setText(pc.getDetails().get("tanggalLahirAnak")!= null ? Integer.toString(monthRangeToToday(ages))+" bln" : "");
-
-        /*viewHolder.fatherName.setText(pc.getDetails().get("namaIbu")!=null
-                ? pc.getDetails().get("namaIbu")
-                : pc.getDetails().get("namaOrtu") != null
-                    ? pc.getDetails().get("namaOrtu")
-                    : "");
-           viewHolder.subVillage.setText(pc.getDetails().get("address1")!=null ? pc.getDetails().get("address1"):"");
-                     */
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
         CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
@@ -192,21 +162,20 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         );
         viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahirAnak")!=null?Tgl:"");
 
-//        viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
         int age = monthRangeToToday(ages);
         viewHolder.gender.setText(pc.getDetails().get("tanggalLahirAnak") != null
                 ? age/12 + " " + context.getString(R.string.years_unit)+" "+age%12+" "+context.getString(R.string.month_unit) : "-");
 
 /** collect history data and clean latest history data which contains no specific date or value,
  */
-        String[]history1 = pc.getDetails().get("history_berat") != null ? Formula.insertionSort(pc.getDetails().get("history_berat")) : new String[]{"0:0"};
+        String[]history1 = pc.getDetails().get("history_berat") != null ? Support.insertionSort(pc.getDetails().get("history_berat")) : new String[]{"0:0"};
         if(history1[history1.length-1].charAt(history1[history1.length-1].length()-1) == ':')
             history1[history1.length-1] = history1[history1.length-1]+"-";
-        String[]history2 = pc.getDetails().get("history_tinggi") != null ? Formula.insertionSort(pc.getDetails().get("history_tinggi")) : new String[]{"0:0"};
+        String[]history2 = pc.getDetails().get("history_tinggi") != null ? Support.insertionSort(pc.getDetails().get("history_tinggi")) : new String[]{"0:0"};
         if(history2[history2.length-1].charAt(history2[history2.length-1].length()-1) == ':')
             history2[history2.length-1] = history2[history2.length-1]+"-";
         String newestDateonHistory = history1.length > 1
-                ? findDate(Tgl,Formula.getAge(history1[history1.length - 1]))
+                ? findDate(Tgl, Support.getAge(history1[history1.length - 1]))
                 : pc.getDetails().get("tanggalPenimbangan") != null
                     ? pc.getDetails().get("tanggalPenimbangan")
                     : Tgl;

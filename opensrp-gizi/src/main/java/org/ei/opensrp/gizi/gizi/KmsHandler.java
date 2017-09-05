@@ -1,20 +1,15 @@
 package org.ei.opensrp.gizi.gizi;
 
-import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.service.formSubmissionHandler.FormSubmissionHandler;
-import org.ei.opensrp.sync.ClientProcessor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
 import util.ZScore.ZScoreSystemCalculation;
-import util.formula.Formula;
+import util.formula.Support;
 
 /**
  * Created by Iq on 15/09/16.
@@ -39,8 +34,8 @@ public class KmsHandler  implements FormSubmissionHandler {
 
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
 
-        String[]history = submission.getFieldValue("history_berat")!= null ? split(Formula.fixHistory(submission.getFieldValue("history_berat"))) : new String []{"0","0"};
-        String[]history2 = submission.getFieldValue("history_tinggi")!= null ? split(Formula.fixHistory(submission.getFieldValue("history_tinggi"))) : new String []{"0","0"};
+        String[]history = submission.getFieldValue("history_berat")!= null ? split(Support.fixHistory(submission.getFieldValue("history_berat"))) : new String []{"0","0"};
+        String[]history2 = submission.getFieldValue("history_tinggi")!= null ? split(Support.fixHistory(submission.getFieldValue("history_tinggi"))) : new String []{"0","0"};
         String berats = history[1];
         String[] history_berat = berats.split(",");
         double berat_sebelum = Double.parseDouble((history_berat.length) >=3 ? (history_berat[(history_berat.length)-3]) : "0");
@@ -61,10 +56,10 @@ public class KmsHandler  implements FormSubmissionHandler {
         // detailsRepository.add(entityID, "preload_history_tinggi", submission.getFieldValue("history_tinggi")!= null ? submission.getFieldValue("history_tinggi") :"0#0", tsLong);
         detailsRepository.add(entityID, "preload_history_tinggi", tinggi, tsLong);
         detailsRepository.add(entityID, "kunjunganSebelumnya", lastVisitDate, tsLong);
-
+        ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
         if(submission.getFieldValue("tanggalPenimbangan") != null)
         {
-            if(new ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 1857) {
+            if(zScore.dailyUnitCalculationOf(dateOfBirth, lastVisitDate) < 1857) {
                 String[]tempAgeW = history[0].split(",");
                 String[]tempAgeH = history2[0].split(",");
                 String[]tempWeight = history[1].split(",");
@@ -72,10 +67,7 @@ public class KmsHandler  implements FormSubmissionHandler {
                 int weightAge = Integer.parseInt(tempAgeW[tempAgeW.length - 1]);
                 double weight = Double.parseDouble(tempWeight[tempWeight.length - 1]);
                 int lengthAge = Integer.parseInt(tempAgeH[tempAgeH.length - 1]);
-                double length = Double.parseDouble(tempHeight[tempHeight.length-1]);
-//                double length = Double.parseDouble(submission.getFieldValue("tinggiBadan") != null ? submission.getFieldValue("tinggiBadan") : "0");
-
-                ZScoreSystemCalculation zScore = new ZScoreSystemCalculation();
+                double length = tempHeight.length>0 ? Double.parseDouble(tempHeight[tempHeight.length-1]) : 0;
 
                 double weight_for_age = zScore.countWFA(!gender.toLowerCase().contains("em"), weightAge, weight);
                 String wfaStatus = zScore.getWFAZScoreClassification(weight_for_age);
@@ -116,8 +108,8 @@ public class KmsHandler  implements FormSubmissionHandler {
         String tanggal_sebelumnya="", tanggal2sblmnya="";
 
         if(submission.getFieldValue("history_berat") != null && submission.getFieldValue("tanggalLahirAnak") != null) {
-            String []historyBerat = Formula.insertionSort(submission.getFieldValue("history_berat"));
-            String latestDate = Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-1].split(":")[0]));
+            String []historyBerat = Support.insertionSort(submission.getFieldValue("history_berat"));
+            String latestDate = Support.findDate(submission.getFieldValue("tanggalLahirAnak"), Integer.parseInt(historyBerat[historyBerat.length - 1].split(":")[0]));
             if(submission.getFieldValue("tanggalPenimbangan").toLowerCase().equals(latestDate.toLowerCase()) && submission.getFieldValue("kunjunganSebelumnya") != null)
             {
                 berat = Double.parseDouble(submission.getFieldValue("beratBadan") != null ? submission.getFieldValue("beratBadan") : "0");
@@ -127,9 +119,9 @@ public class KmsHandler  implements FormSubmissionHandler {
             else{
                 berat = Double.parseDouble(historyBerat[historyBerat.length-1].split(":")[1]);
                 beraSebelum = historyBerat.length > 2 ? Double.parseDouble(historyBerat[historyBerat.length-2].split(":")[1]) : 0.0;
-                tanggal_sebelumnya = historyBerat.length > 2 ? Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-2].split(":")[0])) : "";
+                tanggal_sebelumnya = historyBerat.length > 2 ? Support.findDate(submission.getFieldValue("tanggalLahirAnak"), Integer.parseInt(historyBerat[historyBerat.length - 2].split(":")[0])) : "";
             }
-            tanggal2sblmnya = historyBerat.length > 3 ? Formula.findDate(submission.getFieldValue("tanggalLahirAnak"),Integer.parseInt(historyBerat[historyBerat.length-3].split(":")[0])) : "";
+            tanggal2sblmnya = historyBerat.length > 3 ? Support.findDate(submission.getFieldValue("tanggalLahirAnak"), Integer.parseInt(historyBerat[historyBerat.length - 3].split(":")[0])) : "";
         }
         if(submission.getFieldValue("tanggalPenimbangan") != null) {
 
