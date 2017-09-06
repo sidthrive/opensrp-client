@@ -1,17 +1,19 @@
 package util.KMS;
 
+import org.apache.http.io.SessionOutputBuffer;
+
 /**
  * Created by Iq on 27/05/16.
  */
 public class KmsCalc {
 
     public int monthAges(String lastVisitDate,String currentDate){
-
+            if(lastVisitDate.length()<10 || currentDate.length()<10)
+                return 0;
             int tahun = Integer.parseInt(currentDate.substring(0, 4)) - Integer.parseInt(lastVisitDate.substring(0, 4));
             int bulan = Integer.parseInt(currentDate.substring(5, 7)) - Integer.parseInt(lastVisitDate.substring(5, 7));
             int hari = Integer.parseInt(currentDate.substring(8)) - Integer.parseInt(lastVisitDate.substring(8));
             return (tahun * 12 + bulan + (int) (hari / 30));
-
     }
 
     public String cek2T(KmsPerson bayi){
@@ -33,14 +35,17 @@ public class KmsCalc {
         String measureDate[] = {bayi.getLastVisitDate(),bayi.getSecondLastVisitDate()};
         double weight[] = {bayi.getWeight(),bayi.getPreviousWeight()};
         bayi.StatusBeratBadan = cekWeightStatus(bayi.isMale(),bayi.getDateOfBirth(),measureDate,weight);
-
         return  bayi.StatusBeratBadan;
     }
 
     public String cekWeightStatus(boolean isMale, String dateOfBirth, String measureDate[], double weight[]){
-        if( measureDate.equals("0") || measureDate[0].equals("") || measureDate[1].equals(""))
+        if( measureDate[1].equals("0") || measureDate[0].equals("") || measureDate[1].equals(""))
             return "New";
         else {
+            System.out.println("check weight status");
+            System.out.println("date of birth "+dateOfBirth);
+            System.out.println("measure date "+measureDate[0]+", "+measureDate[1]);
+            System.out.println("weight "+weight[0]+", "+weight[1]);
             int age = monthAges(dateOfBirth, measureDate[0]);
             int range = monthAges(measureDate[1], measureDate[0]);
             int stagnanIndicator = (isMale ? 12 : 11);

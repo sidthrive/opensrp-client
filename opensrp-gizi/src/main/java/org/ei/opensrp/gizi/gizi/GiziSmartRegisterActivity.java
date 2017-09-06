@@ -167,7 +167,6 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     public DialogOption[] getEditOptions() {
             return new DialogOption[]{
                 new OpenFormOption("Kunjungan Per Bulan ", "kunjungan_gizi", formController),
-//                new OpenFormOption("Edit Registrasi Gizi ", "edit_registrasi_gizi", formController),
                 new OpenFormOption("Close Form","close_form",formController)
             };
     }
@@ -180,6 +179,7 @@ public class GiziSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         try{
             FormUtils formUtils = FormUtils.getInstance(getApplicationContext());
             FormSubmission submission = formUtils.generateFormSubmisionFromXMLString(id, formSubmission, formName, fieldOverrides);
+
             ClientProcessor.getInstance(getApplicationContext()).processClient();
 
             context().formSubmissionService().updateFTSsearch(submission);

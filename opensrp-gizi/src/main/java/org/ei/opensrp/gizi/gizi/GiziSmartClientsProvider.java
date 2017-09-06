@@ -120,7 +120,10 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
+        //start profile image
+//        viewHolder.profilepic.setTag(R.id.entity_id, pc.getCaseId());//required when saving file to disk
         viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+
         if (pc.getDetails().get("gender") != null) {
             util.formula.Support.setImagetoHolderFromUri((Activity) context,
                     DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
@@ -129,7 +132,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
             Log.e(TAG, "getView: Gender is NOT SET");
         }
 
-        viewHolder.name.setText(pc.getDetails().get("namaBayi")!=null?pc.getDetails().get("namaBayi"):"");
+        viewHolder.name.setText(Support.getDetails(pc,"namaBayi"));
         String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
         viewHolder.age.setVisibility(View.INVISIBLE);//.setText(pc.getDetails().get("tanggalLahirAnak")!= null ? Integer.toString(monthRangeToToday(ages))+" bln" : "");
 
@@ -137,7 +140,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         CommonPersonObject childobject = childRepository.findByCaseID(pc.entityId());
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(childobject.getColumnmaps().get("relational_id"));
+        final CommonPersonObject kiparent = kirep.findByCaseID(Support.getColumnmaps(childobject,"relational_id"));
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);
@@ -146,7 +149,6 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
             viewHolder.fatherName.setText(String.format("%s,%s", namaibu, namaayah));
             viewHolder.subVillage.setText(kiparent.getDetails().get("address1") != null ? kiparent.getDetails().get("address1") : "");
-            // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
 
@@ -162,6 +164,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         );
         viewHolder.dateOfBirth.setText(pc.getDetails().get("tanggalLahirAnak")!=null?Tgl:"");
 
+//        viewHolder.gender.setText( pc.getDetails().get("gender") != null ? setGender(pc.getDetails().get("gender")):"-");
         int age = monthRangeToToday(ages);
         viewHolder.gender.setText(pc.getDetails().get("tanggalLahirAnak") != null
                 ? age/12 + " " + context.getString(R.string.years_unit)+" "+age%12+" "+context.getString(R.string.month_unit) : "-");
@@ -229,7 +232,7 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
         System.out.println("latest date = "+returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory));
 
         viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory),0)?R.drawable.ic_remove:R.drawable.ic_yes_large));
-        viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable((!isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory), 0) && (pc.getDetails().get("tinggiBadan")!=null || !history2[history2.length-1].equals("-"))) ? R.drawable.ic_yes_large : R.drawable.ic_remove));
+        viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable(!isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory), 0) && !Support.getDetails(pc,"tinggiBadan").equals("-") ? R.drawable.ic_yes_large : R.drawable.ic_remove));
         viewHolder.vitALogo.setImageDrawable(context.getResources().getDrawable(inTheSameRegion(pc.getDetails().get("lastVitA")) ? R.drawable.ic_yes_large:R.drawable.ic_remove));
         viewHolder.antihelminticLogo.setImageDrawable(context.getResources().getDrawable(isGiven(pc,"obatcacing")? R.drawable.ic_yes_large:R.drawable.ic_remove));
 

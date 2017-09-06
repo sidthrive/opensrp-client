@@ -2,6 +2,8 @@ package org.ei.opensrp.gizi.gizi;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +25,7 @@ import org.ei.opensrp.gizi.face.camera.SmartShutterActivity;
 import org.ei.opensrp.gizi.face.camera.util.Tools;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.util.Log;
+import org.ei.opensrp.util.OpenSRPImageLoader;
 import org.ei.opensrp.view.activity.DrishtiApplication;
 
 import java.io.File;
@@ -34,6 +37,7 @@ import java.util.Map;
 
 import util.ImageCache;
 import util.ImageFetcher;
+import util.KMS.KmsCalc;
 import util.KMS.KmsPerson;
 import util.formula.Support;
 import util.growthChart.GrowthChartGenerator;
@@ -128,14 +132,6 @@ public class GiziDetailActivity extends Activity {
         System.out.println("columnmaps: " + childclient.getColumnmaps().toString());
         System.out.println("details: "+childclient.getDetails().toString());
 
-
-        String mgender = childclient.getDetails().containsKey("gender") ? childclient.getDetails().get("gender"):"male";
-
-
-        //start profile image
-
-        int placeholderDrawable= mgender.equalsIgnoreCase("male") ? R.drawable.child_boy_infant:R.drawable.child_girl_infant;
-
         childview.setTag(R.id.entity_id, childclient.getCaseId());//required when saving file to disk
 
         if (childclient.getDetails().get("gender") != null) {
@@ -149,8 +145,8 @@ public class GiziDetailActivity extends Activity {
 
         header_name.setText(R.string.child_profile);
         subheader.setText(R.string.child_profile);
-        uniqueId.setText(getString(R.string.unique_id) + " " + (childclient.getDetails().get("UniqueId") != null ? childclient.getDetails().get("UniqueId"):"-"));
-        nama.setText(getString(R.string.child_name) +" "+ (childclient.getDetails().get("namaBayi") != null ? childclient.getDetails().get("namaBayi") : "-"));
+        uniqueId.setText(String.format("%s %s",getString(R.string.unique_id),Support.getDetails(childclient,"UniqueId")));
+        nama.setText(String.format("%s %s",getString(R.string.child_name) , Support.getDetails(childclient,"namaBayi")));
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
         CommonPersonObject childobject = childRepository.findByCaseID(childclient.entityId());
@@ -160,75 +156,57 @@ public class GiziDetailActivity extends Activity {
 
         if(kiparent != null) {
             detailsRepository.updateDetails(kiparent);
-            String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
-            String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
+            String namaayah = Support.getDetails(kiparent,"namaSuami");
+            String namaibu = Support.getColumnmaps(kiparent, "namalengkap");
 
             father_name.setText(getString(R.string.father_name)+" " + namaayah);
             mother_name.setText(getString(R.string.mother_name) +" " +namaibu);
-            village_name.setText(getString(R.string.village) +" "+ (kiparent.getDetails().get("cityVillage") != null ? kiparent.getDetails().get("cityVillage") : "-"));
-            posyandu.setText(getString(R.string.posyandu) +" "+ (kiparent.getDetails().get("address1") != null ? kiparent.getDetails().get("address1") : "-"));
-          //  village_name.setText(getString(R.string.village) + kiparent.getDetails().get("cityVillage") != null ? ": " + kiparent.getDetails().get("cityVillage") : "");
-           // subVillage.setText(kiparent.getDetails().get("address1") != null ? ": " + kiparent.getDetails().get("address1") : "");
-            // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
+            village_name.setText(String.format("%s %s",getString(R.string.village),(Support.getDetails(kiparent,"cityVillage"))));
+            posyandu.setText(String.format("%s %s",getString(R.string.posyandu),(Support.getDetails(kiparent,"address1"))));
+
         }
 
-        String dateOfBirth = childclient.getDetails().get("tanggalLahirAnak");
-        birth_date.setText(getString(R.string.birth_date) +" "+ (dateOfBirth.contains("T") ? dateOfBirth.substring(0,10) : dateOfBirth));
-        gender.setText(getString(R.string.gender) +" "+ (childclient.getDetails().get("gender") != null ? gender(childclient.getDetails().get("gender")) : "-"));
-        birthWeight.setText(getString(R.string.birth_weight) + " " + (childclient.getDetails().get("beratLahir") != null ? childclient.getDetails().get("beratLahir") + " gr" : "-"));
-        weight.setText(getString(R.string.weight) + " " + (childclient.getDetails().get("beratBadan") != null ? childclient.getDetails().get("beratBadan") + "Kg" : "- Kg"));
-        height.setText(getString(R.string.height) +" "+ (childclient.getDetails().get("tinggiBadan") != null ? childclient.getDetails().get("tinggiBadan")+"Cm" : "- Cm"));
-        vitA.setText(getString(R.string.vitamin_a) +" : "+ (inTheSameRegion(childclient.getDetails().get("lastVitA")) ? getString(R.string.yes) : getString(R.string.no)));
-        mpasi.setText(getString(R.string.mpasi) + " "+(childclient.getDetails().get("mp_asi")!=null ? yesNo(childclient.getDetails().get("mp_asi")) : "-"));
-        obatCacing.setText(getString(R.string.obatcacing)+ " "+(inTheSameRegionAnth(childclient.getDetails().get("lastAnthelmintic")) ? getString(R.string.yes) : getString(R.string.no)));
-        lastVitA.setText(getString(R.string.lastVitA)+" "+(childclient.getDetails().get("lastVitA")!=null ? childclient.getDetails().get("lastVitA") : "-"));
-        lastAnthelmintic.setText(getString(R.string.lastAnthelmintic)+" "+(childclient.getDetails().get("lastAnthelmintic")!=null ? childclient.getDetails().get("lastAnthelmintic") : "-"));
+        String dateOfBirth = Support.getDetails(childclient, "tanggalLahirAnak").substring(0,10);
+        birth_date.setText(String.format("%s %s",getString(R.string.birth_date) ,(dateOfBirth.contains("T") ? dateOfBirth.substring(0, 10) : dateOfBirth)));
+        gender.setText(String.format("%s %s",getString(R.string.gender), (Support.getDetails(childclient, "gender").toLowerCase().contains("em")? getString(R.string.child_female) : getString(R.string.child_male))));
+        birthWeight.setText(String.format("%s %s",getString(R.string.birth_weight), (Support.getDetails(childclient, "beratLahir") + " gr")));
+        weight.setText(String.format("%s %s",getString(R.string.weight),(Support.getDetails(childclient, "beratBadan")) + " Kg"));
+        height.setText(String.format("%s %s",getString(R.string.height),(Support.getDetails(childclient, "tinggiBadan") + " Cm")));
+        vitA.setText(String.format("%s : %s",getString(R.string.vitamin_a),(inTheSameRegion(Support.getDetails(childclient, "lastVitA")) ? getString(R.string.yes) : getString(R.string.no))));
+        mpasi.setText(String.format("%s %s",getString(R.string.mpasi),(yesNo(Support.getDetails(childclient, "mp_asi")))));
+        obatCacing.setText(String.format("%s %s",getString(R.string.obatcacing),(inTheSameRegionAnth(Support.getDetails(childclient, "lastAnthelmintic")) ? getString(R.string.yes) : getString(R.string.no))));
+        lastVitA.setText(String.format("%s %s",getString(R.string.lastVitA),(Support.getDetails(childclient, "lastVitA"))));
+        lastAnthelmintic.setText(String.format("%s %s",getString(R.string.lastAnthelmintic),(Support.getDetails(childclient, "lastAnthelmintic"))));
+
+        String[]history = Support.split(Support.fixHistory(Support.getDetails(childclient,"history_berat")));
+        String[]historyUmur = history[0].split(",");
+        String[]historyBerat = history[1].split(",");
+
+        KmsPerson anak = new KmsPerson(childclient);
+        KmsCalc kalkulator = new KmsCalc();
+
+        System.out.println("age "+anak.getAge());
+        System.out.println("dob "+anak.getDateOfBirth());
+        System.out.println("weight "+anak.getWeight());
+        System.out.println("prev weight "+anak.getPreviousWeight());
+        System.out.println("2nd last weight "+anak.getSecondLastWeight());
+        System.out.println("last visit "+anak.getLastVisitDate());
+        System.out.println("2nd last visit "+anak.getSecondLastVisitDate());
+        System.out.println("3rd last visit "+anak.getThirdLastVisitDate());
+
+        dua_t.setText(String.format("%s %s", getString(R.string.dua_t), (yesNo(kalkulator.cek2T(anak)))));
+        bgm.setText(String.format("%s %s",getString(R.string.bgm), (yesNo(kalkulator.cekBGM(anak)))));
+        under_yellow_line.setText(String.format("%s %s",getString(R.string.under_yellow_line),(yesNo(kalkulator.cekBawahKuning(anak)))));
+        breast_feeding.setText(String.format("%s %s",getString(R.string.asi),(yesNo(Support.getDetails(childclient, "asi")))));
+        nutrition_status.setText(String.format("%s %s",getString(R.string.nutrition_status),weightStatus(kalkulator.cekWeightStatus(anak))));
+
         //set value
-        String[]data = childclient.getDetails().get("history_berat")!= null ? split(Support.fixHistory(childclient.getDetails().get("history_berat"))) : new String[]{"0","0"};
-        String berats = data[1];
-        String[] history_berat = berats.split(",");
-        String tempUmurs = data[0];
-        String[] history_umur = tempUmurs.split(",");
-        String umurs="";
-        for(int i=0;i<history_umur.length;i++){
-            umurs = umurs + "," + Integer.toString(Integer.parseInt(history_umur[i])/30);
-        }
+        String[]data = split(Support.fixHistory(Support.getDetails(childclient, "history_berat")));
+        String[] history_umur = data[0].split(",");
+        String umurs=arrayToString(history_umur,",");
 
-        KmsPerson anak = new KmsPerson(
-
-        );
-
-        dua_t.setText(getString(R.string.dua_t) +" "+ (childclient.getDetails().get("dua_t") != null ? yesNo(childclient.getDetails().get("dua_t")) : "-"));
-        bgm.setText(getString(R.string.bgm) + " "+ (childclient.getDetails().get("bgm") != null ? yesNo(childclient.getDetails().get("bgm")) : "-"));
-        under_yellow_line.setText(getString(R.string.under_yellow_line) + " "+ (childclient.getDetails().get("garis_kuning") != null ? yesNo(childclient.getDetails().get("garis_kuning")) : "-"));
-        breast_feeding.setText(getString(R.string.asi) + " " + (childclient.getDetails().get("asi") != null ? yesNo(childclient.getDetails().get("asi")) : "-"));
-        nutrition_status.setText(getString(R.string.nutrition_status) + " "+ (childclient.getDetails().get("nutrition_status") != null ? weightStatus(childclient.getDetails().get("nutrition_status")) : "-"));
-
-        Log.logInfo("Berat :" +berats);
-        Log.logInfo("umurs :" +umurs.substring(1,umurs.length()));
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        new GrowthChartGenerator(graph,childclient.getDetails().get("gender"),
-                childclient.getDetails().get("tanggalLahirAnak").length() > 10
-                ? childclient.getDetails().get("tanggalLahirAnak").substring(0,10)
-                : childclient.getDetails().get("tanggalLahirAnak")
-            ,umurs.substring(1,umurs.length()),berats);
-
-        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                if (isValueX) {
-                    // show normal x values
-                    return super.formatLabel(value, isValueX )+ " Month";
-                } else {
-                    // show currency for y values
-                    return super.formatLabel(value, isValueX) + " Kg";
-                }
-            }
-
-        });
-
+        generateGrowthChart(umurs,data[1]);
         hash = Tools.retrieveHash(context.applicationContext());
-
         childview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,8 +240,32 @@ public class GiziDetailActivity extends Activity {
             return getString(R.string.child_male);
     }
 
+    private void generateGrowthChart(String xAxis, String yAxis){
+        Log.logInfo("Berat :" +yAxis);
+        Log.logInfo("umurs :" +xAxis);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        new GrowthChartGenerator(graph,childclient.getDetails().get("gender"),
+                Support.getDetails(childclient, "tanggalLahirAnak").substring(0, Support.getDetails(childclient, "tanggalLahirAnak").indexOf("T"))
+                ,xAxis,yAxis);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if (isValueX) {
+                    // show normal x values
+                    return super.formatLabel(value, isValueX )+ " Month";
+                } else {
+                    // show currency for y values
+                    return super.formatLabel(value, isValueX) + " Kg";
+                }
+            }
+        });
+    }
+
     private String yesNo(String value){
-        if(value.toLowerCase().contains("yes") || value.toLowerCase().contains("ya"))
+        if(value==null)
+            return "-";
+        else if(value.toLowerCase().contains("yes") || value.toLowerCase().contains("ya"))
             return getString(R.string.yes);
         else
             return getString(R.string.no);
@@ -318,6 +320,13 @@ public class GiziDetailActivity extends Activity {
         mImageFetcher.loadImage("file:///"+file,view);
     }
 
+    public String arrayToString(String[]data,String separator){
+        String umurs="";
+        for(int i=0;i<data.length;i++){
+            umurs = umurs + "," + Integer.toString(Integer.parseInt(data[i])/30);
+        }
+        return umurs.substring(1,umurs.length());
+    }
 
     private boolean inTheSameRegion(String date){
         if(date==null || date.length()<6)
@@ -348,6 +357,8 @@ public class GiziDetailActivity extends Activity {
     }
 
     private String[]split(String data){
+        if(data == null)
+            data="";
         if(!data.contains(":"))
             return new String[]{"0","0"};
         String []temp = data.split(",");
@@ -374,7 +385,7 @@ public class GiziDetailActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        android.util.Log.e(TAG, "onActivityResult: refresh" );
+        android.util.Log.e(TAG, "onActivityResult: refresh");
         finish();
         startActivity(getIntent());
 

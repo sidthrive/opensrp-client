@@ -8,13 +8,26 @@ import org.ei.opensrp.util.Log;
 
 import java.io.File;
 
+import org.ei.opensrp.commonregistry.CommonPersonObject;
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+
 /**
  * Created by al on 30/05/2017.
  */
 public class Support {
     public static boolean ONSYNC = false;
 
+    public static String[]replace(String[]data,String target,String replacement){
+        for(int i=0;i<data.length;i++){
+            if(data[i].equals(target))
+                data[i]=replacement;
+        }
+        return data;
+    }
+
     public static String[]split(String data){
+        if(data == null)
+            data="";
         if(!data.contains(":"))
             return new String[]{"0","0"};
         String []temp = data.split(",");
@@ -26,6 +39,38 @@ public class Support {
         result[0]=result[0].substring(1,result[0].length());
         result[1]=result[1].substring(1,result[1].length());
         return result;
+    }
+
+    public static String getColumnmaps(CommonPersonObjectClient person, String values){
+        if(person.getColumnmaps().get(values)!=null){
+            if(person.getColumnmaps().get(values).length()>0)
+                return person.getColumnmaps().get(values);
+        }
+        return "-";
+    }
+
+    public static String getColumnmaps(CommonPersonObject person, String values){
+        if(person.getColumnmaps().get(values)!=null){
+            if(person.getColumnmaps().get(values).length()>0)
+                return person.getColumnmaps().get(values);
+        }
+        return "-";
+    }
+
+    public static String getDetails(CommonPersonObjectClient person, String values){
+        if(person.getDetails().get(values)!=null){
+            if(person.getDetails().get(values).length()>0)
+                return person.getDetails().get(values);
+        }
+        return "-";
+    }
+
+    public static String getDetails(CommonPersonObject person, String values){
+        if(person.getDetails().get(values)!=null){
+            if(person.getDetails().get(values).length()>0)
+                return person.getDetails().get(values);
+        }
+        return "-";
     }
 
     public static String[]insertionSort(String data){
@@ -106,5 +151,12 @@ public class Support {
         } else {
             Log.logError(Support.class.getSimpleName(), String.format("image %s doesn't exist",file));
         }
+    }
+
+    public static int monthAges(String lastVisitDate,String currentDate){
+        int tahun = Integer.parseInt(currentDate.substring(0,4))-Integer.parseInt(lastVisitDate.substring(0,4));
+        int bulan = Integer.parseInt(currentDate.substring(5,7))-Integer.parseInt(lastVisitDate.substring(5,7));
+        int hari = Integer.parseInt(currentDate.substring(8))-Integer.parseInt(lastVisitDate.substring(8));
+        return(tahun*12 + bulan + (int)(hari/30));
     }
 }
