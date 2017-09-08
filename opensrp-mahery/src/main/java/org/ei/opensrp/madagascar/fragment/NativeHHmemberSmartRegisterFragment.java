@@ -101,7 +101,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
             @Override
             public String nameInShortFormForTitle() {
-                return Context.getInstance().getStringResource(R.string.hh_register_title_in_short);
+                return Context.getInstance().getStringResource(R.string.hh_members);
             }
         };
     }

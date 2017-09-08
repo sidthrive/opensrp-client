@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import static org.ei.opensrp.util.StringUtil.humanize;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
@@ -100,33 +101,57 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.follow_up.setOnClickListener(onClickListener);
 
         final ImageView kiview = (ImageView)convertView.findViewById(R.id.img_profile);
-        if(pc.getDetails().get("profilepic") !=null) {
+     /*   if(pc.getDetails().get("profilepic") !=null) {
             HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
             kiview.setTag(smartRegisterClient);
 
         }
-        else {
+        else {*/
             if (pc.getDetails().get("Sex") != null) {
                 if (pc.getDetails().get("Sex").equalsIgnoreCase("Female")) {
                     viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
+                    if(pc.getDetails().get("profilepic") !=null) {
+                        HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
+                        kiview.setTag(smartRegisterClient);
+
+                    }
+                }
+                else if(pc.getDetails().get("Sex").equalsIgnoreCase("Male")) {
+                    viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
+                    if(pc.getDetails().get("profilepic") !=null) {
+                        HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
+                        kiview.setTag(smartRegisterClient);
+
+                    }
                 }
             }
-            viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
+         //   viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
-        }
 
         viewHolder.HH_name.setText( pc.getColumnmaps().get("Name_family_member") !=null?pc.getColumnmaps().get("Name_family_member"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("Ethnic_Group")!= null?pc.getColumnmaps().get("Ethnic_Group"):"");
         viewHolder.village_name.setText(pc.getColumnmaps().get("Education")!= null?pc.getColumnmaps().get("Education"):"");
 
         viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
-        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+pc.getColumnmaps().get("Profession"):"");
+        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+humanize(pc.getColumnmaps().get("Profession")) :"");
         viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
 
-        viewHolder.pregnant.setText(pc.getDetails().get("Pregnant") !=null?context.getString(R.string.pregnancy)+": "+pc.getDetails().get("Pregnant"):"");
-        viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.contraseption)+": "+pc.getDetails().get("Contraception_Type"):"");
-        viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.menopause)+": "+pc.getDetails().get("Menopause"):"");
+
+        if (pc.getDetails().get("Sex") != null) {
+            if (pc.getDetails().get("Sex").equalsIgnoreCase("Female")) {
+                viewHolder.pregnant.setText(
+                        pc.getDetails().get("Pregnant") != null ?
+                                context.getString(R.string.pregnancy) + ": " + pc.getDetails().get("Pregnant") :
+                                pc.getDetails().get("Contraception_Type") != null ?
+                                        context.getString(R.string.contraseption) + ": " + pc.getDetails().get("Contraception_Type") :
+                                        pc.getDetails().get("Menopause") != null ?
+                                                context.getString(R.string.menopause) + ": " + pc.getDetails().get("Menopause")
+                                                : "");
+            }
+        }
+       // viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.contraseption)+": "+pc.getDetails().get("Contraception_Type"):"");
+       // viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.menopause)+": "+pc.getDetails().get("Menopause"):"");
 
         viewHolder.weight.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
         viewHolder.height.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");

@@ -10,7 +10,7 @@
         <span lang="mg" class="question-label active" data-itext-id="/HH_registration/registration_date:label">1. Daty de registration</span>
         <span lang="en" class="question-label " data-itext-id="/HH_registration/registration_date:label">1. Registration date</span>
         <span class="required">*</span>
-        <input type="date" name="/HH_registration/registration_date" data-required="true()" data-constraint=". &lt;= ( /HH_registration/today )" data-type-xml="date"/>
+        <input type="date" name="/HH_registration/registration_date" required="required" data-constraint=". &lt;= ( /HH_registration/today )" data-type-xml="date"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -18,7 +18,7 @@
         <span lang="mg" class="question-label active" data-itext-id="/HH_registration/name_household_head:label">2. Izovy anaran'ny tompon-trano?</span>
         <span lang="en" class="question-label " data-itext-id="/HH_registration/name_household_head:label">2. Name of household's head</span>
         <span class="required">*</span>
-        <input type="text" name="/HH_registration/name_household_head" data-required="true()" data-type-xml="string"/>
+        <input type="text" name="/HH_registration/name_household_head" required="required" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question non-select ">

@@ -267,7 +267,7 @@
     <string name="str_weeks">&#160;weeks</string>
     <string name="anc_register_title_in_short">ANC</string>
     <string name="str_bp">BP</string>
-    <string name="str_weight">Wt.</string>
+    <string name="str_weight">Height :</string>
     <string name="str_anc_search_hint">Search ANC Register</string>
     <string name="anc_service_mode_overview">Overview</string>
     <string name="anc_service_mode_anc_visits">ANC Visits</string>
@@ -574,5 +574,6 @@
     <string name="profession">Profession</string>
     <string name="marital">Marital Status</string>
     <string name="menopause">Menopause</string>
-    <string name="muac">MUAC</string>
+    <string name="muac">MUAC :</string>
+    <string name="hh_members">HH member</string>
 </resources>
