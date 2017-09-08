@@ -34,6 +34,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static org.joda.time.LocalDateTime.parse;
@@ -102,10 +104,20 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         viewHolder.HH_name.setText(pc.getColumnmaps().get("HH.name_household_head") !=null?pc.getColumnmaps().get("HH.name_household_head"):"");
         viewHolder.husband_name.setText(pc.getDetails().get("registration_date")!= null?pc.getDetails().get("registration_date"):"");
-        viewHolder.village_name.setText("GPS :"+pc.getColumnmaps().get("HH_GPS_Point")!= null?pc.getColumnmaps().get("HH_GPS_Point"):"");
+        viewHolder.village_name.setText(pc.getColumnmaps().get("HH_GPS_Point")!= null?"GPS :"+pc.getColumnmaps().get("HH_GPS_Point"):"");
 
         //}
-
+   /*     AllCommonsRepository allElcoRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("HHMember");
+        ArrayList<String> list = new ArrayList<String>();
+        list.add((pc.entityId()));
+        List<CommonPersonObject> allchildelco = allElcoRepository.findByRelationalIDs(list);
+        for (int i = 0; i < allchildelco.size(); i++) {
+            if (allchildelco.get(i).getDetails().get("FWELIGIBLE").equalsIgnoreCase("1")) {
+                if (allchildelco.get(i).getDetails().get("nidImage") == null) {
+                    toreturn = false;
+                }
+            }
+        }*/
 
         //distance to nearest
         convertView.setLayoutParams(clientViewLayoutParams);
