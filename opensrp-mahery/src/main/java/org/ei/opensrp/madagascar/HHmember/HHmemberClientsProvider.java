@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import static org.ei.opensrp.util.StringUtil.humanize;
+
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
@@ -107,8 +110,8 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
         }
         else {*/
-            if (pc.getDetails().get("Sex") != null) {
-                if (pc.getDetails().get("Sex").equalsIgnoreCase("Female")) {
+            if (pc.getColumnmaps().get("Sex") != null) {
+                if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                     viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
                     if(pc.getDetails().get("profilepic") !=null) {
                         HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
@@ -116,7 +119,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
                     }
                 }
-                else if(pc.getDetails().get("Sex").equalsIgnoreCase("Male")) {
+                else if(pc.getColumnmaps().get("Sex").equalsIgnoreCase("Male")) {
                     viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
                     if(pc.getDetails().get("profilepic") !=null) {
                         HHmemberDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
@@ -125,8 +128,13 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
                     }
                 }
             }
+            else{
+                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
+
+            }
 
          //   viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
+
 
 
         viewHolder.HH_name.setText( pc.getColumnmaps().get("Name_family_member") !=null?pc.getColumnmaps().get("Name_family_member"):"");
@@ -138,8 +146,8 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
 
 
-        if (pc.getDetails().get("Sex") != null) {
-            if (pc.getDetails().get("Sex").equalsIgnoreCase("Female")) {
+        if (pc.getColumnmaps().get("Sex") != null) {
+            if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                 viewHolder.pregnant.setText(
                         pc.getDetails().get("Pregnant") != null ?
                                 context.getString(R.string.pregnancy) + ": " + pc.getDetails().get("Pregnant") :

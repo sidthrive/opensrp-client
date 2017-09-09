@@ -204,8 +204,8 @@ public class HHmemberDetailActivity extends Activity {
 
         }
         else {
-            if(memberclient.getDetails().get("Sex")!= null) {
-                if (memberclient.getDetails().get("Sex").equalsIgnoreCase("Female")) {
+            if(memberclient.getColumnmaps().get("Sex")!= null) {
+                if (memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                     kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
 
                 }

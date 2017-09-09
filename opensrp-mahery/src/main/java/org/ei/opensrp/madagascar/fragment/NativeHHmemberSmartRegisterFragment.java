@@ -147,10 +147,10 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
-                      new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
-                         new CursorCommonObjectSort(getResources().getString(R.string.short_by_gender),shortbygenderFM()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.short_by_gendermf),shortbygenderMF()),
+                    //    new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
+                    //  new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
+                    //     new CursorCommonObjectSort(getResources().getString(R.string.short_by_gender),shortbygenderFM()),
+                    //    new CursorCommonObjectSort(getResources().getString(R.string.short_by_gendermf),shortbygenderMF()),
                  };
             }
 
@@ -186,6 +186,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         getDefaultOptionsProvider();
 
         super.setupViews(view);
+        view.findViewById(R.id.register_client).setVisibility(INVISIBLE);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);

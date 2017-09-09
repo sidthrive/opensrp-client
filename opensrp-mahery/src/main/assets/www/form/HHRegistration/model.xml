@@ -6,6 +6,11 @@
       </formhub>
       <start/>
       <today/>
+      <Village/>
+      <Sub-village/>
+      <Province/>
+      <District/>
+      <Sub-district/>
       <registration_date/>
       <name_household_head/>
       <HH_GPS_Point/>

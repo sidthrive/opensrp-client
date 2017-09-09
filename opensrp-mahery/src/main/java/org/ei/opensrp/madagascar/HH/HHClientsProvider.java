@@ -104,7 +104,7 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         viewHolder.HH_name.setText(pc.getColumnmaps().get("HH.name_household_head") !=null?pc.getColumnmaps().get("HH.name_household_head"):"");
         viewHolder.husband_name.setText(pc.getDetails().get("registration_date")!= null?pc.getDetails().get("registration_date"):"");
-        viewHolder.village_name.setText(pc.getDetails().get("HH_GPS_Point")!= null?"GPS :"+pc.getDetails().get("HH_GPS_Point"):"");
+        viewHolder.village_name.setText(pc.getDetails().get("Village")!= null?"GPS :"+pc.getDetails().get("Village"):"");
 
         //}
    /*     AllCommonsRepository allElcoRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("HHMember");
