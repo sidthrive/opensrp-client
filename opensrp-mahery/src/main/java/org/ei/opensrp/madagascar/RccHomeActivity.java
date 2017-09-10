@@ -220,13 +220,13 @@ public class RccHomeActivity extends SecuredActivity {
             case R.id.updateMenuItem:
                 updateFromServer();
                 return true;
-            case R.id.switchLanguageMenuItem:
+         /*   case R.id.switchLanguageMenuItem:
                 String newLanguagePreference = LoginActivity.switchLanguagePreference();
                 LoginActivity.setLanguage();
                 Toast.makeText(this, "Language preference set to " + newLanguagePreference + ". Please restart the application.", LENGTH_SHORT).show();
                 this.recreate();
                 return true;
-            case R.id.help:
+         */   case R.id.help:
                 //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
                 return true;
             default:

@@ -142,7 +142,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         viewHolder.village_name.setText(pc.getColumnmaps().get("Education")!= null?pc.getColumnmaps().get("Education"):"");
 
         viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
-        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+humanize(pc.getColumnmaps().get("Profession")) :"");
+        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","Too young, no profession")) :"");
         viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
 
 

@@ -334,7 +334,7 @@ public class LoginActivity extends Activity {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(Context.getInstance().applicationContext()));
 
         String preferredLocale = allSharedPreferences.fetchLanguagePreference();
-        if (ENGLISH_LOCALE.equals(preferredLocale)) {
+     /*   if (ENGLISH_LOCALE.equals(preferredLocale)) {
             allSharedPreferences.saveLanguagePreference(BAHASA_LOCALE);
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
@@ -344,7 +344,7 @@ public class LoginActivity extends Activity {
             res.updateConfiguration(conf, dm);
             return Bahasa_LANGUAGE;
         } else {
-            allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
+     */       allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -352,7 +352,7 @@ public class LoginActivity extends Activity {
             conf.locale = new Locale(ENGLISH_LOCALE);
             res.updateConfiguration(conf, dm);
             return ENGLISH_LANGUAGE;
-        }
+       // }
     }
 
 }
