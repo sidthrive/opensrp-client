@@ -171,84 +171,84 @@ public class GiziSmartClientsProvider implements SmartRegisterCLientsProviderFor
 
 /** collect history data and clean latest history data which contains no specific date or value,
  */
-        String[]history1 = pc.getDetails().get("history_berat") != null ? Support.insertionSort(pc.getDetails().get("history_berat")) : new String[]{"0:0"};
-        if(history1[history1.length-1].charAt(history1[history1.length-1].length()-1) == ':')
-            history1[history1.length-1] = history1[history1.length-1]+"-";
-        String[]history2 = pc.getDetails().get("history_tinggi") != null ? Support.insertionSort(pc.getDetails().get("history_tinggi")) : new String[]{"0:0"};
-        if(history2[history2.length-1].charAt(history2[history2.length-1].length()-1) == ':')
-            history2[history2.length-1] = history2[history2.length-1]+"-";
-        String newestDateonHistory = history1.length > 1
-                ? findDate(Tgl, Support.getAge(history1[history1.length - 1]))
-                : pc.getDetails().get("tanggalPenimbangan") != null
+        if(!Support.getDetails(pc,"umur").toLowerCase().equals("nan")) {
+            String[] history1 = pc.getDetails().get("history_berat") != null ? Support.insertionSort(pc.getDetails().get("history_berat")) : new String[]{"0:0"};
+            if (history1[history1.length - 1].charAt(history1[history1.length - 1].length() - 1) == ':')
+                history1[history1.length - 1] = history1[history1.length - 1] + "-";
+            String[] history2 = pc.getDetails().get("history_tinggi") != null ? Support.insertionSort(pc.getDetails().get("history_tinggi")) : new String[]{"0:0"};
+            if (history2[history2.length - 1].charAt(history2[history2.length - 1].length() - 1) == ':')
+                history2[history2.length - 1] = history2[history2.length - 1] + "-";
+            String newestDateonHistory = history1.length > 1
+                    ? findDate(Tgl, Support.getAge(history1[history1.length - 1]))
+                    : pc.getDetails().get("tanggalPenimbangan") != null
                     ? pc.getDetails().get("tanggalPenimbangan")
                     : Tgl;
 
-        System.out.println("history1 : "+history1[history1.length-1]);
-        System.out.println("history2 : "+history2[history2.length-1]);
-        System.out.println("newest : "+newestDateonHistory);
+            System.out.println("history1 : " + history1[history1.length - 1]);
+            System.out.println("history2 : " + history2[history2.length - 1]);
+            System.out.println("newest : " + newestDateonHistory);
 /**
  */
-        if(newestDateonHistory.equals(pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-")) {
-            System.out.println("history = tglPenimbangan");
-            viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-"));
-            viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
-            viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
-            viewHolder.weightText.setText(context.getString(R.string.label_weight));
-            viewHolder.heightText.setText(context.getString(R.string.label_height));
-            viewHolder.antihelminticText.setText(R.string.anthelmintic);
-        }
-        else {
-            System.out.println("history != tglPenimbangan");
-            viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (history1.length>1 ? newestDateonHistory : "-"));
-            viewHolder.height.setText(context.getString(R.string.height) + " "
-                    +   (pc.getDetails().get("tinggiBadan") != null
-                        ? !pc.getDetails().get("tinggiBadan").equals(history2[history2.length-1])
-                            ? history2[history2.length-1].split(":")[1]
-                            : pc.getDetails().get("tinggiBadan")
+
+            if (newestDateonHistory.equals(pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-")) {
+                System.out.println("history = tglPenimbangan");
+                viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (pc.getDetails().get("tanggalPenimbangan") != null ? pc.getDetails().get("tanggalPenimbangan") : "-"));
+                viewHolder.height.setText(context.getString(R.string.height) + " " + (pc.getDetails().get("tinggiBadan") != null ? pc.getDetails().get("tinggiBadan") : "-") + " Cm");
+                viewHolder.weight.setText(context.getString(R.string.weight) + " " + (pc.getDetails().get("beratBadan") != null ? pc.getDetails().get("beratBadan") : "-") + " Kg");
+                viewHolder.weightText.setText(context.getString(R.string.label_weight));
+                viewHolder.heightText.setText(context.getString(R.string.label_height));
+                viewHolder.antihelminticText.setText(R.string.anthelmintic);
+            } else {
+                System.out.println("history != tglPenimbangan");
+                viewHolder.visitDate.setText(context.getString(R.string.tanggal) + " " + (history1.length > 1 ? newestDateonHistory : "-"));
+                viewHolder.height.setText(context.getString(R.string.height) + " "
+                        + (pc.getDetails().get("tinggiBadan") != null
+                        ? !pc.getDetails().get("tinggiBadan").equals(history2[history2.length - 1])
+                        ? history2[history2.length - 1].split(":")[1]
+                        : pc.getDetails().get("tinggiBadan")
                         : "-")
-                    + " Cm");
-            viewHolder.weight.setText(context.getString(R.string.weight) + " "
-                    +   (pc.getDetails().get("beratBadan") != null
-                        ? !pc.getDetails().get("beratBadan").equals(history1[history1.length-1])
-                            ? history1[history1.length-1].split(":")[1]
-                            : pc.getDetails().get("beratBadan")
+                        + " Cm");
+                viewHolder.weight.setText(context.getString(R.string.weight) + " "
+                        + (pc.getDetails().get("beratBadan") != null
+                        ? !pc.getDetails().get("beratBadan").equals(history1[history1.length - 1])
+                        ? history1[history1.length - 1].split(":")[1]
+                        : pc.getDetails().get("beratBadan")
                         : "-")
-                    + " Kg");
-            viewHolder.weightText.setText(context.getString(R.string.label_weight));
-            viewHolder.heightText.setText(context.getString(R.string.label_height));
-            viewHolder.antihelminticText.setText(R.string.anthelmintic);
-        }
+                        + " Kg");
+                viewHolder.weightText.setText(context.getString(R.string.label_weight));
+                viewHolder.heightText.setText(context.getString(R.string.label_height));
+                viewHolder.antihelminticText.setText(R.string.anthelmintic);
+            }
+
 //------VISIBLE AND INVISIBLE COMPONENT
-        viewHolder.absentAlert.setVisibility(pc.getDetails().get("tanggalPenimbangan")!=null
-                ? isLate(pc.getDetails().get("tanggalPenimbangan"), 1)
-                    ? View.VISIBLE
-                    : View.INVISIBLE
-                : View.INVISIBLE
-        );
-        viewHolder.setVitAVisibility();
+            viewHolder.absentAlert.setVisibility(pc.getDetails().get("tanggalPenimbangan") != null
+                            ? isLate(pc.getDetails().get("tanggalPenimbangan"), 1)
+                            ? View.VISIBLE
+                            : View.INVISIBLE
+                            : View.INVISIBLE
+            );
+            viewHolder.setVitAVisibility();
 
 
 //------CHILD DATA HAS BEEN SUBMITTED OR NOT
-        System.out.println("latest date = "+returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory));
+            System.out.println("latest date = " + returnLatestDate(pc.getDetails().get("tanggalPenimbangan"), newestDateonHistory));
 
-        viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory),0)?R.drawable.ic_remove:R.drawable.ic_yes_large));
-        viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable(!isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"),newestDateonHistory), 0) && !Support.getDetails(pc,"tinggiBadan").equals("-") ? R.drawable.ic_yes_large : R.drawable.ic_remove));
-        viewHolder.vitALogo.setImageDrawable(context.getResources().getDrawable(inTheSameRegion(pc.getDetails().get("lastVitA")) ? R.drawable.ic_yes_large:R.drawable.ic_remove));
-        viewHolder.antihelminticLogo.setImageDrawable(context.getResources().getDrawable(isGiven(pc,"obatcacing")? R.drawable.ic_yes_large:R.drawable.ic_remove));
+            viewHolder.weightLogo.setImageDrawable(context.getResources().getDrawable(isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"), newestDateonHistory), 0) ? R.drawable.ic_remove : R.drawable.ic_yes_large));
+            viewHolder.heightLogo.setImageDrawable(context.getResources().getDrawable(!isLate(returnLatestDate(pc.getDetails().get("tanggalPenimbangan"), newestDateonHistory), 0) && !Support.getDetails(pc, "tinggiBadan").equals("-") ? R.drawable.ic_yes_large : R.drawable.ic_remove));
+            viewHolder.vitALogo.setImageDrawable(context.getResources().getDrawable(inTheSameRegion(pc.getDetails().get("lastVitA")) ? R.drawable.ic_yes_large : R.drawable.ic_remove));
+            viewHolder.antihelminticLogo.setImageDrawable(context.getResources().getDrawable(isGiven(pc, "obatcacing") ? R.drawable.ic_yes_large : R.drawable.ic_remove));
 
-        if(pc.getDetails().get("tanggalPenimbangan") != null)
-        {
-            viewHolder.stunting_status.setText(String.format("%s %s", context.getString(R.string.stunting), hasValue(pc.getDetails().get("stunting")) ? setStatus(pc.getDetails().get("stunting")) : "-"));
-            viewHolder.underweight.setText(String.format("%s %s", context.getString(R.string.wfa), hasValue(pc.getDetails().get("underweight")) ? setStatus(pc.getDetails().get("underweight")) : "-"));
-            viewHolder.wasting_status.setText(String.format("%s %s", context.getString(R.string.wasting), hasValue(pc.getDetails().get("wasting")) ? setStatus(pc.getDetails().get("wasting")) : "-"));
+            if (pc.getDetails().get("tanggalPenimbangan") != null) {
+                viewHolder.stunting_status.setText(String.format("%s %s", context.getString(R.string.stunting), hasValue(pc.getDetails().get("stunting")) ? setStatus(pc.getDetails().get("stunting")) : "-"));
+                viewHolder.underweight.setText(String.format("%s %s", context.getString(R.string.wfa), hasValue(pc.getDetails().get("underweight")) ? setStatus(pc.getDetails().get("underweight")) : "-"));
+                viewHolder.wasting_status.setText(String.format("%s %s", context.getString(R.string.wasting), hasValue(pc.getDetails().get("wasting")) ? setStatus(pc.getDetails().get("wasting")) : "-"));
+            } else {
+                viewHolder.underweight.setText(String.format("%s ", context.getString(R.string.wfa)));
+                viewHolder.stunting_status.setText(String.format("%s ", context.getString(R.string.stunting)));
+                viewHolder.wasting_status.setText(String.format("%s ", context.getString(R.string.wasting)));
+            }
+            //================ END OF Z-SCORE==============================//
         }
-        else{
-            viewHolder.underweight.setText(String.format("%s ", context.getString(R.string.wfa)));
-            viewHolder.stunting_status.setText(String.format("%s ", context.getString(R.string.stunting)));
-            viewHolder.wasting_status.setText(String.format("%s ", context.getString(R.string.wasting)));
-        }
-        //================ END OF Z-SCORE==============================//
-
         convertView.setLayoutParams(clientViewLayoutParams);
        // return convertView;
     }
