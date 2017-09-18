@@ -70,10 +70,10 @@ public class VaksinatorHomeActivity extends SecuredActivity {
             }
             updateRegisterCounts();
 
-            Tools mTools = new Tools(context());
-            Tools.download_images();
+            new Tools(context());
+//            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-            Tools.setVectorsBuffered();
+//            Tools.setVectorsBuffered();
 
         }
     };
