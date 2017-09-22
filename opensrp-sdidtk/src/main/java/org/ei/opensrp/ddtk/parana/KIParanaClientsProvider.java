@@ -184,7 +184,7 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
             Log.logInfo(""+days);
             //int months = Months.monthsBetween(dateNow, date).ge();
             if(days < 14) {
-                if(pc.getDetails().get("paranaStatus1") == null){
+                if(pc.getDetails().get("paranaStatus1") == null || pc.getDetails().get("aktif_sesi1" )  == null){
                     viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
                 //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
@@ -195,32 +195,32 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
                 }
                         //setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
             }*/ else if(days >=14 && days < 21){
-                if(pc.getDetails().get("paranaStatus1") == null){
+                if(pc.getDetails().get("paranaStatus1") == null || pc.getDetails().get("aktif_sesi1" )  == null){
                     viewHolder.parana1.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus2") == null){
+                else if(pc.getDetails().get("paranaStatus2") == null || pc.getDetails().get("aktif_sesi2" )  == null){
                     viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
             }
             else if(days >=21 && days < 28){
-                if(pc.getDetails().get("paranaStatus2") == null) {
+                if(pc.getDetails().get("paranaStatus2") == null || pc.getDetails().get("aktif_sesi2" )  == null) {
                     viewHolder.parana2.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus3") == null) {
+                else if(pc.getDetails().get("paranaStatus3") == null || pc.getDetails().get("aktif_sesi3" )  == null) {
                     viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
 
             }
             else if(days >=28 && days < 35){
-                if(pc.getDetails().get("paranaStatus3") == null) {
+                if(pc.getDetails().get("paranaStatus3") == null || pc.getDetails().get("aktif_sesi3" )  == null) {
                     viewHolder.parana3.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
-                else if(pc.getDetails().get("paranaStatus4") == null) {
+                else if(pc.getDetails().get("paranaStatus4") == null || pc.getDetails().get("aktif_sesi4" )  == null) {
                     viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_in_progress_blue));
                 }
             }
             else if(days >=35){
-                if(pc.getDetails().get("paranaStatus4") == null) {
+                if(pc.getDetails().get("paranaStatus4") == null || pc.getDetails().get("aktif_sesi14" )  == null) {
                     viewHolder.parana4.setBackgroundColor(context.getResources().getColor(R.color.alert_urgent_red));
                 }
             }
@@ -230,10 +230,17 @@ public class KIParanaClientsProvider implements SmartRegisterCLientsProviderForC
 //            viewHolder.edd_due.setText("-");
         }
 
-        Status_parana(pc.getDetails().get("paranaStatus1"),pc.getDetails().get("tanggal_sesi1"),viewHolder.tgl1,viewHolder.sesi1);
-        Status_parana(pc.getDetails().get("paranaStatus2"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2);
-        Status_parana(pc.getDetails().get("paranaStatus3"),pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3);
-        Status_parana(pc.getDetails().get("paranaStatus4"),pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4);
+
+        Status_parana(pc.getDetails().get("aktif_sesi1") != null? pc.getDetails().get("aktif_sesi1")
+                :pc.getDetails().get("paranaStatus1"),
+                pc.getDetails().get("tanggal_sesi1"),
+                viewHolder.tgl1,viewHolder.sesi1);
+        Status_parana(pc.getDetails().get("aktif_sesi2")!= null? pc.getDetails().get("aktif_sesi2")
+                :pc.getDetails().get("paranaStatus1"),pc.getDetails().get("tanggal_sesi2"),viewHolder.tgl2,viewHolder.sesi2);
+        Status_parana(pc.getDetails().get("aktif_sesi3")!= null? pc.getDetails().get("aktif_sesi3")
+                :pc.getDetails().get("paranaStatus3"), pc.getDetails().get("tanggal_sesi3"),viewHolder.tgl3,viewHolder.sesi3);
+        Status_parana(pc.getDetails().get("aktif_sesi4")!= null? pc.getDetails().get("aktif_sesi4")
+                :pc.getDetails().get("paranaStatus4"), pc.getDetails().get("tanggal_sesi4"),viewHolder.tgl4,viewHolder.sesi4);
 
 
 
