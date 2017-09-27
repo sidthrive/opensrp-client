@@ -52,6 +52,10 @@
       {
         "name": "submissionDate",
         "bind": "/model/instance/HH_registration/today"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
       }
 
     ]

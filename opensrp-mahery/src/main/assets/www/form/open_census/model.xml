@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <open_cencus id="open_census" version="201708030600">
+    <open_cencus_sep id="open_census_new" version="201709260848">
       <formhub>
         <uuid/>
       </formhub>
@@ -18,11 +18,12 @@
       <Profession/>
       <Other_Profession/>
       <Marital_Status/>
-      <Prior_Surgeries/>
-      <Health_History/>
-      <Other_Health_History/>
+      <Prior_HealthCare/>
+      <Prior_Diagnosis/>
+      <Other_Prior_Diagnosis/>
       <Visual_Health_Deformities/>
       <Other_Visual_Health_Deformities/>
+      <Prior_Surgeries/>
       <Vaccine_Card/>
       <Vaccination_History/>
       <Pregnant/>
@@ -35,11 +36,10 @@
       <Cause_of_Death/>
       <Date_of_Death/>
       <death_date/>
-      <HH_GPS_Point/>
       <end/>
       <meta>
         <instanceID/>
       </meta>
-    </open_cencus>
+    </open_cencus_sep>
   </instance>
 </model>

@@ -1,27 +1,36 @@
 <model>
   <instance>
-    <follow_up id="follow_up" version="201707250620">
+    <follow_up_sep id="follow_up_new" version="201709250630">
       <formhub>
         <uuid/>
       </formhub>
       <start/>
       <today/>
+      <Sex/>
       <Recent_Deaths/>
       <Recent_Births/>
       <Birth_location/>
       <Other_Birth_location/>
+      <Visited_HealthCare/>
+      <Treatment_Location/>
+      <Treatment_Location_text/>
+      <New_Diagnosis/>
+      <New_Diagnosis_text/>
       <Pregnant_Last_Month/>
       <Pregnant/>
       <group_anc>
         <Last_Period/>
-        <LMP_exact_date/>
-        <LMP_month_year/>
+        <LMP_date/>
+        <LMP_month/>
+        <LMP_year/>
         <Prenatal_Visits/>
         <Prenatal_Medication/>
         <Prenatal_Medication_Type/>
-        <Vaginal_Bleeding/>
-        <Vaginal_Bleeding_Severity/>
-        <Vaginal_Bleeding_Treatment/>
+        <Pelvic_Cramps/>
+        <Amniotic_Fluid/>
+        <Dizziness/>
+        <Feet_Swelling/>
+        <Vaginal_discharge/>
       </group_anc>
       <Miscarriage_Stillbirth/>
       <Contraception/>
@@ -30,12 +39,18 @@
       <Exlusive_breastfeeding/>
       <Menopause/>
       <Diarrhea/>
+      <Diarrhea_Days/>
+      <Diarrhea_Black/>
       <Diarrhea_Bloody/>
+      <Eyes_Sunken/>
+      <Tears/>
+      <Mouth_dry/>
       <Diarrhea_Treatment/>
       <Diarrhea_Treatment_Location/>
       <Other_Diarrhea_Treatment/>
       <Diarrhea_Treatment_Outcome/>
-      <Fever/>
+      <Fever_TF/>
+      <Fever_Duration/>
       <Fever_Treatment/>
       <Fever_Treatment_Location/>
       <Other_Fever_Treatment/>
@@ -44,39 +59,42 @@
       <Temperature/>
       <Fever_Treatment_Outcome/>
       <Vomiting/>
-      <Vomiting_Treatment/>
-      <Vomiting_Treatment_Location/>
-      <Other_Vomiting_Treatment/>
-      <Vomiting_Treatment_Outcome/>
       <Headache/>
-      <Headache_Treatment/>
-      <Headache_Treatment_Location/>
-      <Other_Headache_Treatment/>
-      <Headache_Treatment_Outcome/>
-      <Open_Wounds/>
+      <Animal_Contact/>
+      <Animal_Incident/>
+      <Rat_contact/>
       <Jaundice/>
       <Measles/>
-      <Animal_contact/>
-      <Rat_contact/>
+      <Weight_loss/>
+      <Persistent_Cough/>
+      <Coughing_Blood/>
+      <Sputum/>
+      <Breathing/>
+      <Stomach_Pain/>
+      <Stomach_Pain_Duration/>
+      <Stomach_Pain_food/>
+      <Open_Wounds/>
+      <Wound_Condition/>
+      <Cigarettes/>
+      <Drinking/>
+      <Urine_Color/>
+      <Pus/>
       <Pain_Urination/>
       <Urination_Blood/>
+      <Back_Pain/>
       <Medications/>
-      <Medications_option/>
-      <Traditional_Medications_Name/>
-      <Traditional_Medications_Purpose/>
-      <Pharmaceuticals_Medications_Name/>
-      <Pharmaceuticals_Medications_Purpose/>
+      <Medications_Name/>
+      <Medications_Name_open/>
+      <Medications_Purpose/>
       <STI/>
       <STI_Treatment/>
-      <STI_Treatment_Location/>
-      <Other_STI_Treatment/>
       <STI_Treatment_Outcome/>
-      <Health__Specialist_Visit/>
-      <Visit_Location/>
+      <New_vaccine/>
+      <New_vaccine_types/>
       <end/>
       <meta>
         <instanceID/>
       </meta>
-    </follow_up>
+    </follow_up_sep>
   </instance>
 </model>
