@@ -9,6 +9,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "Attitude_regarding_Immunization",
+        "bind": "/model/instance/rcc_baseline_survey_module_6/Attitude_regarding_Immunization",
+        "shouldLoadValue": true
+      },
+      {
         "name": "attitude_1",
         "bind": "/model/instance/rcc_baseline_survey_module_6/attitude_1",
         "shouldLoadValue": true

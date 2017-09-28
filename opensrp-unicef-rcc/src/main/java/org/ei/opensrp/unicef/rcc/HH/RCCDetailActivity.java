@@ -167,7 +167,8 @@ public class RCCDetailActivity extends Activity {
 
         a.setText( (kiclient.getDetails().get("household_size") != null ? kiclient.getDetails().get("household_size") : "-"));
         b.setText( (kiclient.getDetails().get("adult_hh_member") != null ? kiclient.getDetails().get("adult_hh_member") : "-"));
-        d.setText( (kiclient.getDetails().get("child_hh_member_6-14") != null ? kiclient.getDetails().get("child_hh_member_6-14") : "-"));
+        c.setText( (kiclient.getDetails().get("child_hh_member_above_5") != null ? kiclient.getDetails().get("child_hh_member_above_5").replace("_"," ") : "-"));
+        d.setText( (kiclient.getDetails().get("child_hh_member_0_4") != null ? kiclient.getDetails().get("child_hh_member_0_4") : "-"));
         e.setText( (kiclient.getDetails().get("elderly_hh_member") != null ? kiclient.getDetails().get("elderly_hh_member") : "-"));
         f.setText( (kiclient.getDetails().get("mobile_connectivity") != null ? kiclient.getDetails().get("mobile_connectivity").replace("_"," ") : "-"));
         g.setText( (kiclient.getDetails().get("phone_purpose") != null ? kiclient.getDetails().get("phone_purpose").replace("_"," ") : "-"));
@@ -183,8 +184,7 @@ public class RCCDetailActivity extends Activity {
         q.setText( (kiclient.getDetails().get("have_radio") != null ? kiclient.getDetails().get("have_radio").replace("_"," ") : "-"));
         r.setText( (kiclient.getDetails().get("have_tv") != null ? kiclient.getDetails().get("have_tv").replace("_"," ") : "-"));
         s.setText( (kiclient.getDetails().get("have_refrigerator") != null ? kiclient.getDetails().get("have_refrigerator").replace("_"," ") : "-"));
-        c.setText( (kiclient.getDetails().get("have_separate_kitchen") != null ? kiclient.getDetails().get("have_separate_kitchen").replace("_"," ") : "-"));
-     //   dob.setText( (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education") : "-"));
+      //   dob.setText( (kiclient.getDetails().get("respondent_education") != null ? kiclient.getDetails().get("respondent_education") : "-"));
 
 
         aa.setText( (kiclient.getDetails().get("anc_visit_num") != null ? kiclient.getDetails().get("anc_visit_num").replace("_"," ") : "-"));

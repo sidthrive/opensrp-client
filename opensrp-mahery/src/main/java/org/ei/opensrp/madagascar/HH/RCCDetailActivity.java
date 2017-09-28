@@ -70,7 +70,7 @@ public class RCCDetailActivity extends Activity {
         final TextView coverage = (TextView) findViewById(R.id.coverage);
 
 
-        //detail data
+      /*  //detail data
         TextView a = (TextView) findViewById(R.id.a);
         TextView b = (TextView) findViewById(R.id.b);
         TextView c = (TextView) findViewById(R.id.c);
@@ -134,7 +134,7 @@ public class RCCDetailActivity extends Activity {
         TextView pol_n = (TextView) findViewById(R.id.pol_n);
         TextView dpt_n = (TextView) findViewById(R.id.dpt_n);
         TextView meas_n = (TextView) findViewById(R.id.meas_n);
-        TextView hb_n = (TextView) findViewById(R.id.hb_n);
+        TextView hb_n = (TextView) findViewById(R.id.hb_n);*/
 
         ImageButton back = (ImageButton) findViewById(org.ei.opensrp.R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +158,7 @@ public class RCCDetailActivity extends Activity {
         husband_name.setText("Age : "+ (kiclient.getColumnmaps().get("respondent_age") != null ? kiclient.getColumnmaps().get("respondent_age") : "-"));
         dob.setText("Education : "+ (kiclient.getColumnmaps().get("respondent_education") != null ? kiclient.getColumnmaps().get("respondent_education").replace("_","") : "-"));
 
-        a.setText( (kiclient.getDetails().get("household_size") != null ? kiclient.getDetails().get("household_size") : "-"));
+      /*  a.setText( (kiclient.getDetails().get("household_size") != null ? kiclient.getDetails().get("household_size") : "-"));
         b.setText( (kiclient.getDetails().get("adult_hh_member") != null ? kiclient.getDetails().get("adult_hh_member") : "-"));
         d.setText( (kiclient.getDetails().get("child_hh_member_6-14") != null ? kiclient.getDetails().get("child_hh_member_6-14") : "-"));
         e.setText( (kiclient.getDetails().get("elderly_hh_member") != null ? kiclient.getDetails().get("elderly_hh_member") : "-"));
@@ -228,7 +228,7 @@ public class RCCDetailActivity extends Activity {
         dpt_n.setText(dpt);
         meas_n.setText(measles);
         hb_n.setText(hepa);
-
+*/
 
         coverage.setOnClickListener(new View.OnClickListener() {
             @Override

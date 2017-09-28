@@ -289,6 +289,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc:label">Tuberkulosis (TBC)</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc:label">Tuberculosis (TBC)</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc:hint">batuk terus menerus dan berlendir/dahak</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_tbc:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -311,6 +313,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:label">Difteri</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:label">Diphterhia</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:hint">demam tinggi, sesak nafas, ada pembengkakan di tenggorokan</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -333,6 +337,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:label">Tetanus</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:label">Tetanus</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:hint">demam tinggi dan kejang setelah ada luka yang ada bakteri</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -355,6 +361,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:label">Pertusis</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:label">Pertussis</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:hint">batuk rejan/batuk 100 hari</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -377,6 +385,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio:label">Polio</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio:label">Polio</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_polio:hint">virus, demam tinggi dan lumpuh layuh</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_polio:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -399,6 +409,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles:label">Campak</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles:label">Measles</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_measles:hint">demam tinggi, merah bercak2 dikulit</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_measles:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -421,6 +433,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:label">Hepatitis B</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:label">Hepatitis B</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:hint">infeksi di hati, bahaya jangka panjang sirosis/kanker hati</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -443,6 +457,8 @@
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:label">Meningitis</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:label">Meningitis</span>
                 <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:hint">radang pada selaput otak</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:hint">-</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
@@ -464,6 +480,8 @@
             <legend>
                 <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:label">Pneumonia</span>
                 <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:label">Pneumonia</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:hint">sesak nafas</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:hint">-</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">

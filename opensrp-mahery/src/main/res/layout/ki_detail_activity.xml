@@ -126,6 +126,6 @@
         android:visibility="gone"/>
     <include
         android:id="@+id/id3"
-        layout="@layout/immuni_detail_data_layout"
+        layout="@layout/opencensus_detail_data_layout"
         android:visibility="gone"/>
 </LinearLayout>

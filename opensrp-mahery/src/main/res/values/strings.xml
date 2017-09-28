@@ -656,4 +656,27 @@
 
     <string name="colon">  :  </string>
 
+
+    <string name="Ethnic_Group">Ethnic Group</string>
+    <string name="Other_Ethnic_Group">Other Ethnic Group</string>
+    <string name="gender">Gender</string>
+    <string name="Profession">Profession</string>
+    <string name="Other_Profession">Profession (Other)</string>
+    <string name="Prior_HealthCare">Prior HealthCare</string>
+    <string name="Prior_Diagnosis">Prior Diagnosis</string>
+    <string name="Other_Prior_Diagnosis">Prior Diagnosis (Other)</string>
+    <string name="Visual_Health_Deformities">Visual Health Deformities</string>
+    <string name="Visual_Health_Deformities_other">Visual Health Deformities (Other)</string>
+    <string name="Prior_Surgeries">Prior Surgeries</string>
+    <string name="Vaccine_Card">Vaccine Card</string>
+    <string name="Vaccination_History">Vaccination History</string>
+    <string name="Prior_Pregnancies">Prior Pregnancies</string>
+    <string name="Number_Deliveries">Number Deliveries</string>
+    <string name="Number_Live_Births">Number Live Births</string>
+    <string name="Prior_Birthweight">Prior Birthweight</string>
+    <string name="Birthweight_gram">Birthweight (gram)</string>
+    <string name="Is_Person_Alive">Is Person Alive</string>
+    <string name="Cause_of_Death">Cause of Death</string>
+    <string name="death_date">Death Date</string>
+
 </resources>

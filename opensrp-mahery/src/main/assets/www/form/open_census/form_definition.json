@@ -22,26 +22,22 @@
         "name": "Date_of_Birth",
         "source": "HH.HHMember.Date_of_Birth",
         "bind": "/model/instance/open_cencus_sep/Date_of_Birth"
-      }
-    ,
+      },
       {
         "name": "dob_date",
         "source": "HH.HHMember.dob_date",
         "bind": "/model/instance/open_cencus_sep/DOB_date"
-      }
-    ,
+      },
       {
         "name": "dob_year",
         "source": "HH.HHMember.dob_year",
         "bind": "/model/instance/open_cencus_sep/DOB_year"
-      }
-    ,
+      },
       {
         "name": "Ethnic_Group",
         "source": "HH.HHMember.Ethnic_Group",
         "bind": "/model/instance/open_cencus_sep/Ethnic_Group"
-      }
-    ,
+      },
       {
         "name": "Other_Ethnic_Group",
         "source": "HH.HHMember.Other_Ethnic_Group",

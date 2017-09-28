@@ -244,6 +244,7 @@
         "name": "submissionDate",
         "bind": "/model/instance/rcc_baseline_survey_module_3/today"
       }
+
     ]
   }
 }

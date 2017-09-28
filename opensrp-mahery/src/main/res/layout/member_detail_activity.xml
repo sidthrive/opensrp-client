@@ -85,14 +85,16 @@
             android:layout_height="@dimen/smart_register_client_divider_height"
             android:src="@color/smart_register_client_divider_color"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="20dp">
+
+
 
         <include  android:id="@+id/id1"
             layout="@layout/member_detail_data_layout2"
             />
-    </FrameLayout>
+
+    <include  android:id="@+id/id2"
+        layout="@layout/opencensus_detail_data_layout"
+        android:visibility="gone"/>
+
 
 </LinearLayout>
