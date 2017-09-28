@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:weightSum="2"
+        >
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/listview_background_rounded">
+
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/childWeight"
+
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    android:id="@+id/textView"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/textView76"
+
+                    android:paddingRight="10dp" />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/childWeight"
+                    />
+            </TableRow>
+
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/childHeight"
+                    android:id="@+id/textView2"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/textView77"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/childHeight"
+                    />
+            </TableRow>
+
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/anthropmetryUpperArm"
+                    android:id="@+id/textView3"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/textView78"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/anthropmetryUpperArm"
+                    />
+            </TableRow>
+
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/anthropmetryHead"
+                    android:id="@+id/textView4"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/textView79"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/anthropmetryHead"
+                    />
+            </TableRow>
+
+
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

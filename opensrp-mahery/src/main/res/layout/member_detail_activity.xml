@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="    "
+            android:text="      "
             android:id="@+id/separators" />
         <TextView
             android:layout_width="wrap_content"
@@ -82,6 +82,8 @@
             android:text="Open Census"
             android:layout_toRightOf="@+id/separators"
             android:textColor="@color/light_blue"
+
+            android:hint="Click Here to Open Census Up Data"
             android:id="@+id/Census" />
 
         <TextView
@@ -98,6 +100,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Follow Up"
             android:textColor="@color/light_blue"
+
+            android:hint="Click Here to Open Follow Up Data"
             android:layout_toRightOf="@+id/separator"
             android:id="@+id/follow_up" />
 
@@ -114,6 +118,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Child Health"
+            android:hint="Click Here to Open Child Health Data"
             android:textColor="@color/light_blue"
             android:layout_toRightOf="@+id/separator3"
             android:id="@+id/child_health" />
@@ -172,6 +177,9 @@
     <include  android:id="@+id/id2"
         layout="@layout/opencensus_detail_data_layout"
          />
-
+    <include  android:id="@+id/id3"
+        layout="@layout/childhealth_detail_data_layout"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

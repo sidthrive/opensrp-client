@@ -678,5 +678,9 @@
     <string name="Is_Person_Alive">Is Person Alive</string>
     <string name="Cause_of_Death">Cause of Death</string>
     <string name="death_date">Death Date</string>
+    <string name="childWeight">Child Weight</string>
+    <string name="childHeight">Child Height</string>
+    <string name="anthropmetryUpperArm">Anthropmetry Upper Arm</string>
+    <string name="anthropmetryHead">Anthropmetry Head</string>
 
 </resources>
