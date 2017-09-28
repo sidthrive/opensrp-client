@@ -1,0 +1,23 @@
+{
+  "form_data_definition_version": "2",
+  "form": {
+    "bind_type": "kartu_ibu",
+    "default_bind_path": "/model/instance/rcc_baseline_survey_module_gps/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "store_gps",
+        "bind": "/model/instance/rcc_baseline_survey_module_gps/store_gps",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "IsDraft6",
+        "bind": "/model/instance/rcc_baseline_survey_module_gps/is_draft",
+        "shouldLoadValue": true
+      }
+    ]
+  }
+}

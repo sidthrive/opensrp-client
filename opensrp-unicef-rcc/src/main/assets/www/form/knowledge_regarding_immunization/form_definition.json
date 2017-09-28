@@ -19,6 +19,11 @@
         "shouldLoadValue" : true
       },
       {
+        "name": "is_health_worker",
+        "bind": "/model/instance/rcc_baseline_survey_module_5/is_health_worker",
+        "shouldLoadValue" : true
+      },
+      {
         "name": "is_health_cadre",
         "bind": "/model/instance/rcc_baseline_survey_module_5/is_health_cadre",
         "shouldLoadValue" : true

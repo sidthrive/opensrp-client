@@ -325,48 +325,123 @@ public class NativeRCCSmartRegisterFragment extends SecuredNativeSmartRegisterCu
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
 
-           if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
+            if(option.name().equalsIgnoreCase(getString(R.string.unique)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft2") != null) {
-                    if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
+                else {
+                    if (pc.getDetails().get("IsDraft2") != null) {
+                        if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+            }
+
+           if(option.name().equalsIgnoreCase(getString(R.string.household_character)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+               if(pc.getDetails().get("is_confirm") != null) {
+                   if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                       Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
+                       return;
+                   }
+               }
+               else {
+                   if (pc.getDetails().get("IsDraft2") != null) {
+                       if (pc.getDetails().get("IsDraft2").equalsIgnoreCase("0")) {
+                           Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                           return;
+                       }
+                   }
+               }
             }
             if(option.name().equalsIgnoreCase(getString(R.string.health_seeking_behaviour)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft3") != null) {
-                    if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft3") != null) {
+                        if (pc.getDetails().get("IsDraft3").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
             }
             if(option.name().equalsIgnoreCase(getString(R.string.immunization_coverage)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft4") != null) {
-                    if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft4") != null) {
+                        if (pc.getDetails().get("IsDraft4").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
             }
             if(option.name().equalsIgnoreCase(getString(R.string.knowledge_regarding_immunization)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft5") != null) {
-                    if (pc.getDetails().get("IsDraft5").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft5") != null) {
+                        if (pc.getDetails().get("IsDraft5").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
             }
             if(option.name().equalsIgnoreCase(getString(R.string.attitude_regarding_immunization)) ) {
                 CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
-                if(pc.getDetails().get("IsDraft6") != null) {
-                    if (pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft6") != null) {
+                        if (pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+            }
+            if(option.name().equalsIgnoreCase(getString(R.string.gps)) ) {
+                CommonPersonObjectClient pc = RCCDetailActivity.kiclient;
+                if(pc.getDetails().get("is_confirm") != null) {
+                    if (pc.getDetails().get("is_confirm").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_approved), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else {
+                    if (pc.getDetails().get("IsDraft6") != null) {
+                        if (pc.getDetails().get("IsDraft6").equalsIgnoreCase("0")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.form_already_submitted), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
             }

@@ -604,7 +604,8 @@
         <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu_date:label">Masukkan tanggal</span>
         <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_posyandu_date:label">Input date</span>
         <span class="required">*</span>
-        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_posyandu_date" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_posyandu ,'1')" data-type-xml="date"/>
+        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_posyandu_date" data-required="true()" data-constraint=".&lt; /rcc_baseline_survey_module_3/today " data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_posyandu ,'1')" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note or-branch pre-init non-select or-appearance-horizontal-compact ">
@@ -808,8 +809,8 @@
         <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:label">7. Waktu untuk mencapai posyandu terdekat sekali jalan</span>
         <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:label">7. Time to reach the nearest posyandu one way</span>
         <span class="required">*</span>
-        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Waktu dalam menit untuk satu arah. Mintalah responden untuk memperkirakan berapa lama waktu yang dibutuhkan mereka untuk sampai ke Puskesmas (satu arah), sambil mempertimbangkan alat transportasi dan lalu lintas yang biasa di gunakan</span>
-        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Time in minutes one way. Ask the respondent to estimate how long it normally takes them to get to the Puskesmas (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
+        <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Waktu dalam menit untuk satu arah. Mintalah responden untuk memperkirakan berapa lama waktu yang dibutuhkan mereka untuk sampai ke Posyandu (satu arah), sambil mempertimbangkan alat transportasi dan lalu lintas yang biasa di gunakan</span>
+        <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_3/posyandu_reach_time:hint">Time in minutes one way. Ask the respondent to estimate how long it normally takes them to get to the Posyandu (one way), while taking into consideration regular mode of transportation and regular levels of traffic</span>
         <input type="number" name="/rcc_baseline_survey_module_3/posyandu_reach_time" data-required="true()" data-type-xml="int"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
@@ -953,7 +954,8 @@
         <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date:label">Masukkan tanggal</span>
         <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date:label">Input date</span>
         <span class="required">*</span>
-        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_puskesmas ,'1')" data-type-xml="date"/>
+        <input type="date" name="/rcc_baseline_survey_module_3/last_time_to_puskesmas_date" data-required="true()" data-constraint=".&lt; /rcc_baseline_survey_module_3/today " data-relevant="selected( /rcc_baseline_survey_module_3/last_time_to_puskesmas ,'1')" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <label class="question note or-branch pre-init non-select or-appearance-horizontal ">

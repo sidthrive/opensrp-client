@@ -24,7 +24,6 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/household_size"
@@ -52,6 +51,14 @@
                 android:layout_gravity="center"
                 android:visibility="gone"
                 android:src="@drawable/vacc_due"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_layout_logo2"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/doneintime"
                 />
         <org.ei.opensrp.view.customControls.CustomFontTextView
             android:id="@+id/adult_hh_member"
@@ -107,7 +114,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/connect"
-            android:background="@color/status_bar_text_almost_white"
             android:orientation="vertical">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -132,6 +138,14 @@
             android:visibility="gone"
             android:src="@drawable/vacc_due"
             />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pol1Logo2"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/doneintime"
+                />
             <TextView
                 android:id="@+id/attendance_at_posyandu"
                 android:layout_width="wrap_content"
@@ -172,7 +186,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/status_bar_text_almost_white"
+
             android:orientation="vertical">
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -196,6 +210,14 @@
                 android:layout_gravity="center"
                 android:visibility="gone"
                 android:src="@drawable/vacc_due"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/attend2"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@mipmap/doneintime"
                 />
             <TextView
                 android:id="@+id/bcg"

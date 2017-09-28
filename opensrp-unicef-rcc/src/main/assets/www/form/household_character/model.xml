@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201707250916">
+    <RCC_Baseline_Survey_module_2 id="rcc_baseline_survey_module_2" version="201707270649">
       <formhub>
         <uuid/>
       </formhub>
@@ -36,10 +36,35 @@
       <have_separate_kitchen/>
       <number_of_rooms/>
       <number_of_motorcycles/>
-      <drink_water_source/>
+      <generated_note_name_42/>
+      <Branded_bottled_water/>
+      <Recharge_water/>
+      <Tap_water_is_supplied_to_the_house/>
+      <Water_from_the_neighbor/>
+      <Water_from_tap/>
+      <Drilling_wells/>
+      <Dug_well_Protected/>
+      <Dug_well_Unprotected/>
+      <Water_springs_Sheltered_spring/>
+      <Water_springs_not_protected/>
+      <Surface_wate/>
+      <Rainwater_shelter/>
+      <Tanker/>
+      <Carts_with_jerry/>
       <what_source/>
       <have_toilet/>
-      <what_toilet/>
+      <generated_note_name_67/>
+      <generated_note_name_68/>
+      <Flushed_to_piped_sewer_system/>
+      <Flushed_to_septic_tank/>
+      <Flushed_to_pit_latrine/>
+      <Flush_dont_know_where/>
+      <Pit_Latrine/>
+      <generated_note_name_74/>
+      <Pit_latrine_with_slab/>
+      <Pit_latrine_without_slab/>
+      <Composting_toilet/>
+      <Not_able_to_observe/>
       <what_toilet_other/>
       <if_no_toilet/>
       <if_no_toilet_other/>
