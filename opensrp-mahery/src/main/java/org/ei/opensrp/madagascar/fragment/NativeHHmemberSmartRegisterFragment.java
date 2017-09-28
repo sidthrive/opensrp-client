@@ -216,8 +216,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         SmartRegisterQueryBuilder countqueryBUilder = new SmartRegisterQueryBuilder();
         countqueryBUilder.SelectInitiateMainTableCounts("HHMember");
 
-        // countqueryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
-        //  countqueryBUilder.joinwithKIs("HH");
+
         countSelect = countqueryBUilder.mainCondition(" Name_family_member != '' ");
         mainCondition = " Name_family_member != '' ";
         super.CountExecute();

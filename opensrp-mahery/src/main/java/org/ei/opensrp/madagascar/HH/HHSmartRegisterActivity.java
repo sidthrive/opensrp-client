@@ -123,8 +123,8 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
         }
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "census_enrollment_form", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.open_cencus), "open_census", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-
+               // new OpenFormOption(getResources().getString(R.string.open_cencus), "open_census", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getString(R.string.open_cencus), "open_census", formController),
         };
 
     }
@@ -165,8 +165,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            FormSubmissionService formSubmissionService = context().formSubmissionService();
-            formSubmissionService.updateFTSsearch(submission);
+            context().formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
@@ -201,6 +200,7 @@ public class HHSmartRegisterActivity extends SecuredNativeSmartRegisterActivity 
                     displayFormFragment.setFieldOverides(metaData);
                 }
             }
+
 
             mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
 

@@ -14,11 +14,6 @@
         "shouldLoadValue": true
       },
       {
-        "name": "relationalid",
-        "source": "HHMember.HH.id",
-        "shouldLoadValue": true
-      },
-      {
         "name": "Name_family_member",
         "source": "HH.HHMember.Name_family_member",
         "bind": "/model/instance/open_cencus_sep/Name_family_member"
