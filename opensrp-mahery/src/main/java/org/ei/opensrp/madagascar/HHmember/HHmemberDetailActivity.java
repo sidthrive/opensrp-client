@@ -199,20 +199,27 @@ public class HHmemberDetailActivity extends Activity {
         final ImageView pic3 = (ImageView)findViewById(R.id.photo3);
         final ImageView pic4 = (ImageView)findViewById(R.id.photo4);
 
-        if(memberclient.getDetails().get("profilepic") !=null){
-            setImagetoHolderFromUri(HHmemberDetailActivity.this, memberclient.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
 
-        }
-        else {
-            if(memberclient.getColumnmaps().get("Sex")!= null) {
-                if (memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
-                    kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+        if (memberclient.getColumnmaps().get("Sex") != null) {
+            if (memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
+                kiview.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
+                if(memberclient.getDetails().get("profilepic") !=null) {
+                    setImagetoHolderFromUri(HHmemberDetailActivity.this, memberclient.getDetails().get("profilepic"), kiview, R.mipmap.woman_placeholder);
 
                 }
             }
+            else if(memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Male")) {
+                kiview.setImageDrawable(getResources().getDrawable(R.mipmap.household_profile));
+                if(memberclient.getDetails().get("profilepic") !=null) {
+                    setImagetoHolderFromUri(HHmemberDetailActivity.this, memberclient.getDetails().get("profilepic"), kiview, R.mipmap.household_profile);
+
+
+                }
+            }
+        }
+        else{
             kiview.setImageDrawable(getResources().getDrawable(R.mipmap.household_profile));
         }
-
 
         pic1.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
         pic2.setImageDrawable(getResources().getDrawable(R.mipmap.woman_placeholder));
