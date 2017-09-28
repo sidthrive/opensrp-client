@@ -123,8 +123,9 @@ public class HHmemberDetailActivity extends Activity {
          TextView txt_alive = (TextView) findViewById(R.id.txt_alive);
          TextView txt_gps = (TextView) findViewById(R.id.txt_gps);
 
+        MemberDetail2 d = new MemberDetail2();
 
-
+        refreshMemberDetails(d);
 
         ImageButton back = (ImageButton) findViewById(R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
@@ -143,55 +144,55 @@ public class HHmemberDetailActivity extends Activity {
       //  phone.setText("No HP: "+ (memberclient.getDetails().get("NomorTelponHp") != null ? memberclient.getDetails().get("NomorTelponHp") : "-"));
 
 
-         txt_ethnic.setText(memberclient.getDetails().get("Ethnic_Group") != null ? memberclient.getDetails().get("Ethnic_Group") : "-");
-         txt_education.setText(memberclient.getDetails().get("Education") != null ? memberclient.getDetails().get("Education") : "-");
-         txt_occupation.setText(memberclient.getDetails().get("Profession") != null ? memberclient.getDetails().get("Profession") : "-");
-         txt_marital.setText(memberclient.getDetails().get("Marital_Status") != null ? memberclient.getDetails().get("Marital_Status") : "-");
-         txt_Surgeries.setText(memberclient.getDetails().get("Prior_Surgeries") != null ? memberclient.getDetails().get("Prior_Surgeries") : "-");
-         txt_diagnosed.setText(memberclient.getDetails().get("Health_History") != null ? memberclient.getDetails().get("Health_History") : "-");
-         txt_deformities.setText(memberclient.getDetails().get("Visual_Health_Deformities") != null ? memberclient.getDetails().get("Visual_Health_Deformities") : "-");
-         txt_vaccine.setText(memberclient.getDetails().get("Vaccine_Card") != null ? memberclient.getDetails().get("Vaccine_Card") : "-");
-         txt_vaccines_re.setText(memberclient.getDetails().get("Vaccination_History") != null ? memberclient.getDetails().get("Vaccination_History") : "-");
-         txt_have_pregnant.setText(memberclient.getDetails().get("Pregnant") != null ? memberclient.getDetails().get("Pregnant") : "-");
-         txt_Pregnancies.setText(memberclient.getDetails().get("Pregnancies") != null ? memberclient.getDetails().get("Pregnancies") : "-");
-         txt_resulted_delivery.setText(memberclient.getDetails().get("Number_Deliveries") != null ? memberclient.getDetails().get("Number_Deliveries") : "-");
-         txt_live_birth.setText(memberclient.getDetails().get("Number_Live_Births") != null ? memberclient.getDetails().get("Number_Live_Births") : "-");
-         txt_birthweight.setText(memberclient.getDetails().get("Birthweight_gram") != null ? memberclient.getDetails().get("Birthweight_gram") : "-");
-         txt_alive.setText(memberclient.getDetails().get("Is_Person_Alive") != null ? memberclient.getDetails().get("Is_Person_Alive") : "-");
-         txt_gps.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
-
-         txt_Recent_Deaths.setText(memberclient.getDetails().get("Recent_Deaths") != null ? memberclient.getDetails().get("Recent_Deaths") : "-");
-         txt_Recent_Births.setText(memberclient.getDetails().get("Recent_Births") != null ? memberclient.getDetails().get("Recent_Births") : "-");
-         txt_Birth_location.setText(memberclient.getDetails().get("Birth_location") != null ? memberclient.getDetails().get("Birth_location") : "-");
-         txt_Pregnant_Last_Month.setText(memberclient.getDetails().get("Pregnant_Last_Month") != null ? memberclient.getDetails().get("Pregnant_Last_Month") : "-");
-         txt_Pregnant.setText(memberclient.getDetails().get("Pregnant") != null ? memberclient.getDetails().get("Pregnant") : "-");
-         txt_Last_Period.setText(memberclient.getDetails().get("Last_Period") != null ? memberclient.getDetails().get("Last_Period") : "-");
-         txt_LMP_exact_date.setText(memberclient.getDetails().get("LMP_exact_date") != null ? memberclient.getDetails().get("LMP_exact_date") : "-");
-         txt_LMP_month_year.setText(memberclient.getDetails().get("LMP_month_year") != null ? memberclient.getDetails().get("LMP_month_year") : "-");
-         txt_Prenatal_Visits.setText(memberclient.getDetails().get("Prenatal_Visits") != null ? memberclient.getDetails().get("Prenatal_Visits") : "-");
-         txt_Prenatal_Medication.setText(memberclient.getDetails().get("Prenatal_Medication") != null ? memberclient.getDetails().get("Prenatal_Medication") : "-");
-         txt_Prenatal_Medication_Type.setText(memberclient.getDetails().get("Prenatal_Medication_Type") != null ? memberclient.getDetails().get("Prenatal_Medication_Type") : "-");
-
-
-        txt_Miscarriage.setText(memberclient.getDetails().get("Miscarriage_Stillbirth") != null ? memberclient.getDetails().get("Miscarriage_Stillbirth") : "-");
-        txt_Contraception.setText(memberclient.getDetails().get("Contraception") != null ? memberclient.getDetails().get("Contraception") : "-");
-        txt_type.setText(memberclient.getDetails().get("Contraception_Type") != null ? memberclient.getDetails().get("Contraception_Type") : "-");
-        txt_breastfeeding.setText(memberclient.getDetails().get("Breastfeeding") != null ? memberclient.getDetails().get("Breastfeeding") : "-");
-        txt_exclusively_breastfeeding.setText(memberclient.getDetails().get("Exlusive_breastfeeding") != null ? memberclient.getDetails().get("Exlusive_breastfeeding") : "-");
-        txt_diarrhea.setText(memberclient.getDetails().get("Diarrhea") != null ? memberclient.getDetails().get("Diarrhea") : "-");
-        txt_substance.setText(memberclient.getDetails().get("Diarrhea_Bloody") != null ? memberclient.getDetails().get("Diarrhea_Bloody") : "-");
-        txt_fever.setText(memberclient.getDetails().get("Fever") != null ? memberclient.getDetails().get("Fever") : "-");
-        txt_Fever_Treatment.setText(memberclient.getDetails().get("Fever_Treatment") != null ? memberclient.getDetails().get("Fever_Treatment") : "-");
-        txt_vomiting.setText(memberclient.getDetails().get("Vomiting") != null ? memberclient.getDetails().get("Vomiting") : "-");
-        txt_headache.setText(memberclient.getDetails().get("Headache") != null ? memberclient.getDetails().get("Headache") : "-");
-        txt_headaches.setText(memberclient.getDetails().get("Headache_Treatment") != null ? memberclient.getDetails().get("Headache_Treatment") : "-");
-        txt_wounds.setText(memberclient.getDetails().get("Open_Wounds") != null ? memberclient.getDetails().get("Open_Wounds") : "-");
-        txt_measles.setText(memberclient.getDetails().get("Measles") != null ? memberclient.getDetails().get("Measles") : "-");
-        txt_unrination.setText(memberclient.getDetails().get("Pain_Urination") != null ? memberclient.getDetails().get("Pain_Urination") : "-");
-        txt_medications.setText(memberclient.getDetails().get("Medications") != null ? memberclient.getDetails().get("Medications") : "-");
-        txt_STI.setText(memberclient.getDetails().get("STI") != null ? memberclient.getDetails().get("STI") : "-");
-        txt_TSTI.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
-        txt_healthcare.setText(memberclient.getDetails().get("Health__Specialist_Visit") != null ? memberclient.getDetails().get("Health__Specialist_Visit") : "-");
+//         txt_ethnic.setText(memberclient.getDetails().get("Ethnic_Group") != null ? memberclient.getDetails().get("Ethnic_Group") : "-");
+//         txt_education.setText(memberclient.getDetails().get("Education") != null ? memberclient.getDetails().get("Education") : "-");
+//         txt_occupation.setText(memberclient.getDetails().get("Profession") != null ? memberclient.getDetails().get("Profession") : "-");
+//         txt_marital.setText(memberclient.getDetails().get("Marital_Status") != null ? memberclient.getDetails().get("Marital_Status") : "-");
+//         txt_Surgeries.setText(memberclient.getDetails().get("Prior_Surgeries") != null ? memberclient.getDetails().get("Prior_Surgeries") : "-");
+//         txt_diagnosed.setText(memberclient.getDetails().get("Health_History") != null ? memberclient.getDetails().get("Health_History") : "-");
+//         txt_deformities.setText(memberclient.getDetails().get("Visual_Health_Deformities") != null ? memberclient.getDetails().get("Visual_Health_Deformities") : "-");
+//         txt_vaccine.setText(memberclient.getDetails().get("Vaccine_Card") != null ? memberclient.getDetails().get("Vaccine_Card") : "-");
+//         txt_vaccines_re.setText(memberclient.getDetails().get("Vaccination_History") != null ? memberclient.getDetails().get("Vaccination_History") : "-");
+//         txt_have_pregnant.setText(memberclient.getDetails().get("Pregnant") != null ? memberclient.getDetails().get("Pregnant") : "-");
+//         txt_Pregnancies.setText(memberclient.getDetails().get("Pregnancies") != null ? memberclient.getDetails().get("Pregnancies") : "-");
+//         txt_resulted_delivery.setText(memberclient.getDetails().get("Number_Deliveries") != null ? memberclient.getDetails().get("Number_Deliveries") : "-");
+//         txt_live_birth.setText(memberclient.getDetails().get("Number_Live_Births") != null ? memberclient.getDetails().get("Number_Live_Births") : "-");
+//         txt_birthweight.setText(memberclient.getDetails().get("Birthweight_gram") != null ? memberclient.getDetails().get("Birthweight_gram") : "-");
+//         txt_alive.setText(memberclient.getDetails().get("Is_Person_Alive") != null ? memberclient.getDetails().get("Is_Person_Alive") : "-");
+//         txt_gps.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
+//
+//         txt_Recent_Deaths.setText(memberclient.getDetails().get("Recent_Deaths") != null ? memberclient.getDetails().get("Recent_Deaths") : "-");
+//         txt_Recent_Births.setText(memberclient.getDetails().get("Recent_Births") != null ? memberclient.getDetails().get("Recent_Births") : "-");
+//         txt_Birth_location.setText(memberclient.getDetails().get("Birth_location") != null ? memberclient.getDetails().get("Birth_location") : "-");
+//         txt_Pregnant_Last_Month.setText(memberclient.getDetails().get("Pregnant_Last_Month") != null ? memberclient.getDetails().get("Pregnant_Last_Month") : "-");
+//         txt_Pregnant.setText(memberclient.getDetails().get("Pregnant") != null ? memberclient.getDetails().get("Pregnant") : "-");
+//         txt_Last_Period.setText(memberclient.getDetails().get("Last_Period") != null ? memberclient.getDetails().get("Last_Period") : "-");
+//         txt_LMP_exact_date.setText(memberclient.getDetails().get("LMP_exact_date") != null ? memberclient.getDetails().get("LMP_exact_date") : "-");
+//         txt_LMP_month_year.setText(memberclient.getDetails().get("LMP_month_year") != null ? memberclient.getDetails().get("LMP_month_year") : "-");
+//         txt_Prenatal_Visits.setText(memberclient.getDetails().get("Prenatal_Visits") != null ? memberclient.getDetails().get("Prenatal_Visits") : "-");
+//         txt_Prenatal_Medication.setText(memberclient.getDetails().get("Prenatal_Medication") != null ? memberclient.getDetails().get("Prenatal_Medication") : "-");
+//         txt_Prenatal_Medication_Type.setText(memberclient.getDetails().get("Prenatal_Medication_Type") != null ? memberclient.getDetails().get("Prenatal_Medication_Type") : "-");
+//
+//
+//        txt_Miscarriage.setText(memberclient.getDetails().get("Miscarriage_Stillbirth") != null ? memberclient.getDetails().get("Miscarriage_Stillbirth") : "-");
+//        txt_Contraception.setText(memberclient.getDetails().get("Contraception") != null ? memberclient.getDetails().get("Contraception") : "-");
+//        txt_type.setText(memberclient.getDetails().get("Contraception_Type") != null ? memberclient.getDetails().get("Contraception_Type") : "-");
+//        txt_breastfeeding.setText(memberclient.getDetails().get("Breastfeeding") != null ? memberclient.getDetails().get("Breastfeeding") : "-");
+//        txt_exclusively_breastfeeding.setText(memberclient.getDetails().get("Exlusive_breastfeeding") != null ? memberclient.getDetails().get("Exlusive_breastfeeding") : "-");
+//        txt_diarrhea.setText(memberclient.getDetails().get("Diarrhea") != null ? memberclient.getDetails().get("Diarrhea") : "-");
+//        txt_substance.setText(memberclient.getDetails().get("Diarrhea_Bloody") != null ? memberclient.getDetails().get("Diarrhea_Bloody") : "-");
+//        txt_fever.setText(memberclient.getDetails().get("Fever") != null ? memberclient.getDetails().get("Fever") : "-");
+//        txt_Fever_Treatment.setText(memberclient.getDetails().get("Fever_Treatment") != null ? memberclient.getDetails().get("Fever_Treatment") : "-");
+//        txt_vomiting.setText(memberclient.getDetails().get("Vomiting") != null ? memberclient.getDetails().get("Vomiting") : "-");
+//        txt_headache.setText(memberclient.getDetails().get("Headache") != null ? memberclient.getDetails().get("Headache") : "-");
+//        txt_headaches.setText(memberclient.getDetails().get("Headache_Treatment") != null ? memberclient.getDetails().get("Headache_Treatment") : "-");
+//        txt_wounds.setText(memberclient.getDetails().get("Open_Wounds") != null ? memberclient.getDetails().get("Open_Wounds") : "-");
+//        txt_measles.setText(memberclient.getDetails().get("Measles") != null ? memberclient.getDetails().get("Measles") : "-");
+//        txt_unrination.setText(memberclient.getDetails().get("Pain_Urination") != null ? memberclient.getDetails().get("Pain_Urination") : "-");
+//        txt_medications.setText(memberclient.getDetails().get("Medications") != null ? memberclient.getDetails().get("Medications") : "-");
+//        txt_STI.setText(memberclient.getDetails().get("STI") != null ? memberclient.getDetails().get("STI") : "-");
+//        txt_TSTI.setText(memberclient.getDetails().get("STI_Treatment") != null ? memberclient.getDetails().get("STI_Treatment") : "-");
+//        txt_healthcare.setText(memberclient.getDetails().get("Health__Specialist_Visit") != null ? memberclient.getDetails().get("Health__Specialist_Visit") : "-");
 
 
            final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
@@ -530,7 +531,7 @@ public class HHmemberDetailActivity extends Activity {
     }
 
     public void saveimagereferences(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
+        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
         ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
         ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
@@ -610,4 +611,284 @@ public class HHmemberDetailActivity extends Activity {
 
 
     }
+
+    private String getDetails(String key){
+        if(memberclient==null)
+            return "-";
+        String temp = memberclient.getDetails().get(key);
+        if(temp==null)
+            return "-";
+        else if(temp.equals(""))
+            return "-";
+        return temp;
+    }
+
+    private void refreshMemberDetails(MemberDetail2 d){
+        if(d==null)
+            return;
+        initializeMemberDetail(d);
+        if(!d.initialized)
+            return;
+        d.Recent_Deaths.setText(getDetails("Recent_Deaths"));
+        d.Recent_Births.setText(getDetails("Recent_Births"));
+        d.Birth_location.setText(getDetails("Birth_location"));
+//        d.Other_Birth_location.setText(getDetails(""));
+        d.Visited_HealthCare.setText(getDetails("Visited_HealthCare"));
+        d.Treatment_Location.setText(getDetails("Treatment_Location"));
+//        d.Treatment_Location_text.setText(getDetails(""));
+        d.New_Diagnosis.setText(getDetails("New_Diagnosis"));
+//        d.New_Diagnosis_text.setText(getDetails(""));
+        d.Pregnant_Last_Month.setText(getDetails("Pregnant_Last_Month"));
+        d.Pregnant.setText(getDetails("Pregnant"));
+        d.Last_Period.setText(getDetails("Last_Period"));
+        d.LMP_date.setText(getDetails("LMP_date"));
+        d.LMP_month.setText(getDetails("LMP_month"));
+        d.LMP_year.setText(getDetails("LMP_year"));
+        d.Prenatal_Visits.setText(getDetails("Prenatal_Visits"));
+        d.Prenatal_Medication.setText(getDetails("Prenatal_Medication"));
+//        d.Prenatal_Medication_Type.setText(getDetails("Prenatal_Medication_Type"));
+        d.Pelvic_Cramps.setText(getDetails("Pelvic_Cramps"));
+        d.Amniotic_Fluid.setText(getDetails("Amniotic_Fluid"));
+        d.Dizziness.setText(getDetails("Dizziness"));
+        d.Feet_Swelling.setText(getDetails("Feet_Swelling"));
+        d.Vaginal_discharge.setText(getDetails("Vaginal_discharge"));
+        d.Miscarriage_Stillbirth.setText(getDetails("Miscarriage_Stillbirth"));
+        d.Contraception.setText(getDetails("Contraception"));
+        d.Contraception_Type.setText(getDetails("Contraception_Type"));
+        d.Breastfeeding.setText(getDetails("Breastfeeding"));
+        d.Exlusive_breastfeeding.setText(getDetails("Exlusive_breastfeeding"));
+        d.Menopause.setText(getDetails("Menopause"));
+        d.Diarrhea.setText(getDetails("Diarrhea"));
+        d.Diarrhea_Days.setText(getDetails("Diarrhea_Days"));
+        d.Diarrhea_Black.setText(getDetails("Diarrhea_Black"));
+        d.Diarrhea_Bloody.setText(getDetails("Diarrhea_Bloody"));
+        d.Eyes_Sunken.setText(getDetails("Eyes_Sunken"));
+        d.Tears.setText(getDetails("Tears"));
+        d.Mouth_dry.setText(getDetails("Mouth_dry"));
+        d.Diarrhea_Treatment.setText(getDetails("Diarrhea_Treatment"));
+        d.Diarrhea_Treatment_Location.setText(getDetails("Diarrhea_Treatment_Location"));
+//        d.Other_Diarrhea_Treatment.setText(getDetails(""));
+        d.Diarrhea_Treatment_Outcome.setText(getDetails("Diarrhea_Treatment_Outcome"));
+        d.Fever_TF.setText(getDetails("Fever_TF"));
+        d.Fever_Duration.setText(getDetails("Fever_Duration"));
+        d.Fever_Treatment.setText(getDetails("Fever_Treatment"));
+        d.Fever_Treatment_Location.setText(getDetails("Fever_Treatment_Location"));
+//        d.Other_Fever_Treatment.setText(getDetails(""));
+        d.TDR.setText(getDetails("TDR"));
+        d.TDR_result.setText(getDetails("TDR_result"));
+        d.Temperature.setText(getDetails("Temperature"));
+        d.Fever_Treatment_Outcome.setText(getDetails("Fever_Treatment_Outcome"));
+        d.Vomiting.setText(getDetails("Vomiting"));
+        d.Headache.setText(getDetails("Headache"));
+        d.Animal_Contact.setText(getDetails("Animal_Contact"));
+        d.Animal_Incident.setText(getDetails("Animal_Incident"));
+        d.Rat_contact.setText(getDetails("Rat_contact"));
+        d.Jaundice.setText(getDetails("Jaundice"));
+        d.Measles.setText(getDetails("Measles"));
+        d.Weight_loss.setText(getDetails("Weight_loss"));
+        d.Persistent_Cough.setText(getDetails("Persistent_Cough"));
+        d.Coughing_Blood.setText(getDetails("Coughing_Blood"));
+        d.Sputum.setText(getDetails("Sputum"));
+        d.Breathing.setText(getDetails("Breathing"));
+        d.Stomach_Pain.setText(getDetails("Stomach_Pain"));
+        d.Stomach_Pain_Duration.setText(getDetails("Stomach_Pain_Duration"));
+        d.Stomach_Pain_food.setText(getDetails("Stomach_Pain_food"));
+        d.Open_Wounds.setText(getDetails("Open_Wounds"));
+        d.Wound_Condition.setText(getDetails("Wound_Condition"));
+        d.Cigarettes.setText(getDetails("Cigarettes"));
+        d.Drinking.setText(getDetails("Drinking"));
+        d.Urine_Color.setText(getDetails("Urine_Color"));
+        d.Pus.setText(getDetails("Pus"));
+        d.Pain_Urination.setText(getDetails("Pain_Urination"));
+        d.Urination_Blood.setText(getDetails("Urination_Blood"));
+        d.Back_Pain.setText(getDetails("Back_Pain"));
+        d.Medications.setText(getDetails("Medications"));
+        d.Medications_Name.setText(getDetails("Medications_Name"));
+//        d.Medications_Name_open.setText(getDetails(""));
+        d.Medications_Purpose.setText(getDetails("Medications_Purpose"));
+        d.STI.setText(getDetails("STI"));
+        d.STI_Treatment.setText(getDetails("STI_Treatment"));
+        d.STI_Treatment_Outcome.setText(getDetails("STI_Treatment_Outcome"));
+        d.New_vaccine.setText(getDetails("New_vaccine"));
+        d.New_vaccine_types.setText(getDetails("New_vaccine_types"));
+//        d.submissionDate.setText(getDetails(""));
+    }
+
+    private void initializeMemberDetail(MemberDetail2 d){
+        if(d==null)
+            return;
+        d.initialized=true;
+        d.Recent_Deaths = (TextView) findViewById(R.id.Recent_Deaths);
+        d.Recent_Births  = (TextView) findViewById(R.id.Recent_Births);
+        d.Birth_location  = (TextView) findViewById(R.id.Birth_location);
+//        d.Other_Birth_location  = (TextView) findViewById(R.id.);
+        d.Visited_HealthCare  = (TextView) findViewById(R.id.Visited_HealthCare);
+        d.Treatment_Location  = (TextView) findViewById(R.id.Treatment_Location);
+//        d.Treatment_Location_text  = (TextView) findViewById(R.id.);
+        d.New_Diagnosis  = (TextView) findViewById(R.id.New_Diagnosis);
+//        d.New_Diagnosis_text  = (TextView) findViewById(R.id.);
+        d.Pregnant_Last_Month  = (TextView) findViewById(R.id.Pregnant_Last_Month);
+        d.Pregnant  = (TextView) findViewById(R.id.Pregnant);
+        d.Last_Period  = (TextView) findViewById(R.id.Last_Period);
+        d.LMP_date  = (TextView) findViewById(R.id.LMP_date);
+        d.LMP_month  = (TextView) findViewById(R.id.LMP_month);
+        d.LMP_year  = (TextView) findViewById(R.id.LMP_year);
+        d.Prenatal_Visits  = (TextView) findViewById(R.id.Prenatal_Visits);
+        d.Prenatal_Medication  = (TextView) findViewById(R.id.Prenatal_Medication);
+        d.Prenatal_Medication_Type  = (TextView) findViewById(R.id.Prenatal_Medication_Type);
+        d.Pelvic_Cramps  = (TextView) findViewById(R.id.Pelvic_Cramps);
+        d.Amniotic_Fluid  = (TextView) findViewById(R.id.Amniotic_Fluid);
+        d.Dizziness  = (TextView) findViewById(R.id.Dizziness);
+        d.Feet_Swelling  = (TextView) findViewById(R.id.Feet_Swelling);
+        d.Vaginal_discharge  = (TextView) findViewById(R.id.Vaginal_discharge);
+        d.Miscarriage_Stillbirth  = (TextView) findViewById(R.id.Miscarriage_Stillbirth);
+        d.Contraception  = (TextView) findViewById(R.id.Contraception);
+        d.Contraception_Type  = (TextView) findViewById(R.id.Contraception_Type);
+        d.Breastfeeding  = (TextView) findViewById(R.id.Breastfeeding);
+        d.Exlusive_breastfeeding  = (TextView) findViewById(R.id.Exlusive_breastfeeding);
+        d.Menopause  = (TextView) findViewById(R.id.Menopause);
+        d.Diarrhea  = (TextView) findViewById(R.id.Diarrhea);
+        d.Diarrhea_Days  = (TextView) findViewById(R.id.Diarrhea_Days);
+        d.Diarrhea_Black  = (TextView) findViewById(R.id.Diarrhea_Black);
+        d.Diarrhea_Bloody  = (TextView) findViewById(R.id.Diarrhea_Bloody);
+        d.Eyes_Sunken  = (TextView) findViewById(R.id.Eyes_Sunken);
+        d.Tears  = (TextView) findViewById(R.id.Tears);
+        d.Mouth_dry  = (TextView) findViewById(R.id.Mouth_dry);
+        d.Diarrhea_Treatment  = (TextView) findViewById(R.id.Diarrhea_Treatment);
+        d.Diarrhea_Treatment_Location  = (TextView) findViewById(R.id.Diarrhea_Treatment_Location);
+//        d.Other_Diarrhea_Treatment  = (TextView) findViewById(R.id.);
+        d.Diarrhea_Treatment_Outcome  = (TextView) findViewById(R.id.Diarrhea_Treatment_Outcome);
+        d.Fever_TF  = (TextView) findViewById(R.id.Fever_TF);
+        d.Fever_Duration  = (TextView) findViewById(R.id.Fever_Duration);
+        d.Fever_Treatment  = (TextView) findViewById(R.id.Fever_Treatment);
+        d.Fever_Treatment_Location  = (TextView) findViewById(R.id.Fever_Treatment_Location);
+//        d.Other_Fever_Treatment  = (TextView) findViewById(R.id.);
+        d.TDR  = (TextView) findViewById(R.id.TDR);
+        d.TDR_result  = (TextView) findViewById(R.id.TDR_result);
+        d.Temperature  = (TextView) findViewById(R.id.Temperature);
+        d.Fever_Treatment_Outcome  = (TextView) findViewById(R.id.Fever_Treatment_Outcome);
+        d.Vomiting  = (TextView) findViewById(R.id.Vomiting);
+        d.Headache  = (TextView) findViewById(R.id.Headache);
+        d.Animal_Contact  = (TextView) findViewById(R.id.Animal_Contact);
+        d.Animal_Incident  = (TextView) findViewById(R.id.Animal_Incident);
+        d.Rat_contact  = (TextView) findViewById(R.id.Rat_contact);
+        d.Jaundice  = (TextView) findViewById(R.id.Jaundice);
+        d.Measles  = (TextView) findViewById(R.id.Measles);
+        d.Weight_loss  = (TextView) findViewById(R.id.Weight_loss);
+        d.Persistent_Cough  = (TextView) findViewById(R.id.Persistent_Cough);
+        d.Coughing_Blood  = (TextView) findViewById(R.id.Coughing_Blood);
+        d.Sputum  = (TextView) findViewById(R.id.Sputum);
+        d.Breathing  = (TextView) findViewById(R.id.Breathing);
+        d.Stomach_Pain  = (TextView) findViewById(R.id.Stomach_Pain);
+        d.Stomach_Pain_Duration  = (TextView) findViewById(R.id.Stomach_Pain_Duration);
+        d.Stomach_Pain_food  = (TextView) findViewById(R.id.Stomach_Pain_food);
+        d.Open_Wounds  = (TextView) findViewById(R.id.Open_Wounds);
+        d.Wound_Condition  = (TextView) findViewById(R.id.Wound_Condition);
+        d.Cigarettes  = (TextView) findViewById(R.id.Cigarettes);
+        d.Drinking  = (TextView) findViewById(R.id.Drinking);
+        d.Urine_Color  = (TextView) findViewById(R.id.Urine_Color);
+        d.Pus  = (TextView) findViewById(R.id.Pus);
+        d.Pain_Urination  = (TextView) findViewById(R.id.Pain_Urination);
+        d.Urination_Blood  = (TextView) findViewById(R.id.Urination_Blood);
+        d.Back_Pain  = (TextView) findViewById(R.id.Back_Pain);
+        d.Medications  = (TextView) findViewById(R.id.Medications);
+        d.Medications_Name  = (TextView) findViewById(R.id.Medications_Name);
+//        d.Medications_Name_open  = (TextView) findViewById(R.id.);
+        d.Medications_Purpose  = (TextView) findViewById(R.id.Medications_Purpose);
+        d.STI  = (TextView) findViewById(R.id.STI);
+        d.STI_Treatment  = (TextView) findViewById(R.id.STI_Treatment);
+        d.STI_Treatment_Outcome  = (TextView) findViewById(R.id.STI_Treatment_Outcome);
+        d.New_vaccine  = (TextView) findViewById(R.id.New_vaccine);
+        d.New_vaccine_types  = (TextView) findViewById(R.id.New_vaccine_types);
+//        d.submissionDate  = (TextView) findViewById(R.id.);
+
+    }
+
+    private class MemberDetail2 {
+        boolean initialized = false;
+        TextView Recent_Deaths;
+        TextView Recent_Births;
+        TextView Birth_location;
+        TextView Other_Birth_location;
+        TextView Visited_HealthCare;
+        TextView Treatment_Location;
+        TextView Treatment_Location_text;
+        TextView New_Diagnosis;
+        TextView New_Diagnosis_text;
+        TextView Pregnant_Last_Month;
+        TextView Pregnant;
+        TextView Last_Period;
+        TextView LMP_date;
+        TextView LMP_month;
+        TextView LMP_year;
+        TextView Prenatal_Visits;
+        TextView Prenatal_Medication;
+        TextView Prenatal_Medication_Type;
+        TextView Pelvic_Cramps;
+        TextView Amniotic_Fluid;
+        TextView Dizziness;
+        TextView Feet_Swelling;
+        TextView Vaginal_discharge;
+        TextView Miscarriage_Stillbirth;
+        TextView Contraception;
+        TextView Contraception_Type;
+        TextView Breastfeeding;
+        TextView Exlusive_breastfeeding;
+        TextView Menopause;
+        TextView Diarrhea;
+        TextView Diarrhea_Days;
+        TextView Diarrhea_Black;
+        TextView Diarrhea_Bloody;
+        TextView Eyes_Sunken;
+        TextView Tears;
+        TextView Mouth_dry;
+        TextView Diarrhea_Treatment;
+        TextView Diarrhea_Treatment_Location;
+        TextView Other_Diarrhea_Treatment;
+        TextView Diarrhea_Treatment_Outcome;
+        TextView Fever_TF;
+        TextView Fever_Duration;
+        TextView Fever_Treatment;
+        TextView Fever_Treatment_Location;
+        TextView Other_Fever_Treatment;
+        TextView TDR;
+        TextView TDR_result;
+        TextView Temperature;
+        TextView Fever_Treatment_Outcome;
+        TextView Vomiting;
+        TextView Headache;
+        TextView Animal_Contact;
+        TextView Animal_Incident;
+        TextView Rat_contact;
+        TextView Jaundice;
+        TextView Measles;
+        TextView Weight_loss;
+        TextView Persistent_Cough;
+        TextView Coughing_Blood;
+        TextView Sputum;
+        TextView Breathing;
+        TextView Stomach_Pain;
+        TextView Stomach_Pain_Duration;
+        TextView Stomach_Pain_food;
+        TextView Open_Wounds;
+        TextView Wound_Condition;
+        TextView Cigarettes;
+        TextView Drinking;
+        TextView Urine_Color;
+        TextView Pus;
+        TextView Pain_Urination;
+        TextView Urination_Blood;
+        TextView Back_Pain;
+        TextView Medications;
+        TextView Medications_Name;
+        TextView Medications_Name_open;
+        TextView Medications_Purpose;
+        TextView STI;
+        TextView STI_Treatment;
+        TextView STI_Treatment_Outcome;
+        TextView New_vaccine;
+        TextView New_vaccine_types;
+        TextView submissionDate;
+    }
+
 }
