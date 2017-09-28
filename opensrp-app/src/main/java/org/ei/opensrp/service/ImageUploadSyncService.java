@@ -32,12 +32,15 @@ public class ImageUploadSyncService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
+            logInfo("Sync images");
             List<ProfileImage> profileImages = imageRepo.findAllUnSynced();
+
             for(int i = 0;i<profileImages.size();i++){
                 String response = Context.getInstance().getHttpAgent().httpImagePost(Context.getInstance().configuration().dristhiBaseURL()+ AllConstants.PROFILE_IMAGES_UPLOAD_PATH,profileImages.get(i));
                 if(response.contains("success")){
                     imageRepo.close(profileImages.get(i).getImageid());
                 }
+                logInfo("EEEEEEE"+response);
             }
         } catch (Exception e) {
             logError(TAG,e.getMessage());

@@ -56,7 +56,7 @@
         "bind": "/model/instance/follow_up_sep/Pregnant_Last_Month"
       },
       {
-        "name": "Pregnant",
+        "name": "Pregnant_now",
         "bind": "/model/instance/follow_up_sep/Pregnant"
       },
       {

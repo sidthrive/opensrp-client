@@ -3,8 +3,7 @@ package org.ei.opensrp;
 public class AllConstants {
     public static final String DRISHTI_BASE_URL = "DRISHTI_BASE_URL";
     public static final String PROFILE_IMAGES_DOWNLOAD_PATH = "/multimedia/profileimage";
-    public static final String PROFILE_IMAGES_UPLOAD_PATH = "/multimedia-file";
-
+    public static final String PROFILE_IMAGES_UPLOAD_PATH = "/multimedia/upload";
 
     public static final String REPORT_CATEGORY = "reportCategory";
     public static final String INDICATOR_DETAIL = "indicatorDetail";
@@ -44,7 +43,6 @@ public class AllConstants {
     public static final String ANM_LOCATION_CONTROLLER = "anmLocationContext";
 
     public static final String REPOSITORY = "formDataRepositoryContext";
-
 
     public static final String NEW_FP_METHOD_FIELD_NAME = "newMethod";
 

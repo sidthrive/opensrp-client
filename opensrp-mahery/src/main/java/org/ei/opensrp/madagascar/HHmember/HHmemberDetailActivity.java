@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,8 +26,11 @@ import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.repository.ImageRepository;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +46,8 @@ import static org.ei.opensrp.util.StringUtil.humanizeAndDoUPPERCASE;
  * Created by Iq on 07/09/16.
  */
 public class HHmemberDetailActivity extends Activity {
-
+    public static org.ei.opensrp.madagascar.util.Tools tools;
+    private static ProfileImage profileImage = new ProfileImage();
     //image retrieving
     private static final String TAG = "ImageGridFragment";
     private static final String IMAGE_CACHE_DIR = "thumbs";
@@ -50,7 +56,8 @@ public class HHmemberDetailActivity extends Activity {
     private static int mImageThumbSpacing;
     private static String showbgm;
     private static ImageFetcher mImageFetcher;
-
+    private static String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+    private static ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
     //image retrieving
     public static CommonPersonObjectClient memberclient;
     @Override
@@ -484,7 +491,7 @@ public class HHmemberDetailActivity extends Activity {
 //            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("photo",currentfile.getAbsolutePath());
-            saveimagereference(bindobject,entityid,details);
+          //  saveimagereference(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
@@ -497,7 +504,7 @@ public class HHmemberDetailActivity extends Activity {
         else if (requestCode == REQUEST_TAKE_PHOTO2 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("photo2",currentfile.getAbsolutePath());
-            saveimagereference2(bindobject,entityid,details);
+          //  saveimagereference2(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
@@ -509,7 +516,7 @@ public class HHmemberDetailActivity extends Activity {
         else if (requestCode == REQUEST_TAKE_PHOTO3 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("photo3",currentfile.getAbsolutePath());
-            saveimagereference3(bindobject,entityid,details);
+         //   saveimagereference3(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
@@ -521,7 +528,7 @@ public class HHmemberDetailActivity extends Activity {
         else if (requestCode == REQUEST_TAKE_PHOTO4 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
             details.put("photo4",currentfile.getAbsolutePath());
-            saveimagereference4(bindobject,entityid,details);
+         //   saveimagereference4(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
@@ -532,12 +539,16 @@ public class HHmemberDetailActivity extends Activity {
         }
         else if (requestCode == REQUEST_TAKE_PHOTOS && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
-            details.put("profilepic",currentfile.getAbsolutePath());
-            saveimagereferences(bindobject,entityid,details);
+          //  details.put("profilepic",currentfile.getAbsolutePath());
+         //   saveimagereferences(bindobject,entityid,details);
+         //   Bitmap storedBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
+            tools.WritePictureToFile(bitmap,entityid,null,false);
+           // Tools = new org.ei.opensrp.madagascar.util.Tools();
+         //   saveToDb(entityid,currentfile.getAbsolutePath(),null,false,HHmemberDetailActivity.class.getSimpleName());
             finish();
             startActivity(new Intent(this, HHmemberSmartRegisterActivity.class));
             overridePendingTransition(0, 0);
@@ -551,44 +562,7 @@ public class HHmemberDetailActivity extends Activity {
 
     }
 
-    public void saveimagereferences(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid, details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("profilepic"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-//                kiclient.entityId();
-//        Toast.makeText(this,entityid,Toast.LENGTH_LONG).show();
-    }
 
-    public void saveimagereference(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("photo"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-
-    }
-
-    public void saveimagereference2(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("photo2"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-
-    }
-    public void saveimagereference3(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("photo3"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-      //  recreate();
-    }
-    public void saveimagereference4(String bindobject,String entityid,Map<String,String> details){
-        Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityid,details);
-        String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        ProfileImage profileImage = new ProfileImage(UUID.randomUUID().toString(),anmId,entityid,"Image",details.get("photo4"), ImageRepository.TYPE_Unsynced,"dp");
-        ((ImageRepository) Context.getInstance().imageRepository()).add(profileImage);
-        //  recreate();
-    }
 
     public static void setImagetoHolder(Activity activity,String file, ImageView view, int placeholder){
         String TAG = "ImageGridFragment";
@@ -911,5 +885,47 @@ public class HHmemberDetailActivity extends Activity {
         TextView New_vaccine_types;
         TextView submissionDate;
     }
+
+
+
+    /*private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated, String className) {
+
+        Log.e(TAG, "saveToDb: " + "start");
+        // insert into the db local
+        if (!updated) {
+            // insert into the db local
+            ProfileImage profileImage = new ProfileImage();
+
+            profileImage.setImageid(entityId);
+            profileImage.setAnmId(anmId);
+            profileImage.setEntityID(entityId);
+            profileImage.setContenttype("jpeg");
+            profileImage.setFilepath(absoluteFileName);
+            profileImage.setFilecategory("profilepic");
+          //  profileImage.setFilevector(faceVector);
+            profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+            ImageRepository imageRepo = (ImageRepository) org.ei.opensrp.Context.imageRepository();
+            imageRepo.add(profileImage,entityId);
+
+            // insert into details
+            Map<String, String> details = new HashMap<>();
+            details.put("profilepic", absoluteFileName);
+           *//* if (className.equals(HHmemberDetailActivity.class.getSimpleName())) {
+                bindobject = "HHmember";
+            } else {
+                bindobject = "HH";
+            }*//*
+            bindobject = "HHMember";
+            Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityId, details);
+
+
+        } else {
+            // do nothings
+           // imageRepo.updateByEntityId(entityId, faceVector);
+        }
+        Log.e(TAG, "saveToDb: " + "done");
+
+    }*/
 
 }

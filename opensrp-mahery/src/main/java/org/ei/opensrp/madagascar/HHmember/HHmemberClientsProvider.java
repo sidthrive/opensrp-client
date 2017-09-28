@@ -157,7 +157,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                 viewHolder.pregnant.setText(
                         pc.getDetails().get("Pregnant") != null ?
-                                context.getString(R.string.pregnancy) + ": " + pc.getDetails().get("Pregnant") :
+                                context.getString(R.string.pregnancy) + ": " + pc.getDetails().get("Pregnant_now") :
                                 pc.getDetails().get("Contraception_Type") != null ?
                                         context.getString(R.string.contraseption) + ": " + pc.getDetails().get("Contraception_Type") :
                                         pc.getDetails().get("Menopause") != null ?

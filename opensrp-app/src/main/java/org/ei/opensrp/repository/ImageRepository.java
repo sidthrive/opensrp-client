@@ -2,6 +2,7 @@ package org.ei.opensrp.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -36,6 +37,17 @@ public class ImageRepository extends DrishtiRepository {
     public void add(ProfileImage Image) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
         database.insert(Image_TABLE_NAME, null, createValuesFor(Image, TYPE_ANC));
+        database.close();
+    }
+
+    public void add(ProfileImage profileImage, String entityId) {
+        SQLiteDatabase database = masterRepository.getWritableDatabase();
+        long id = database.update(Image_TABLE_NAME, createValuesFor(profileImage, TYPE_ANC), ID_COLUMN + "=?", new String[]{String.valueOf(entityId)});
+        if (id == 0) {
+            Log.e("Image", "add: INSERT " );
+            id = database.insertWithOnConflict(Image_TABLE_NAME, null, createValuesFor(profileImage, TYPE_ANC), SQLiteDatabase.CONFLICT_IGNORE);
+        }
+
         database.close();
     }
 

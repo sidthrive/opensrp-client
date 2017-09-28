@@ -56,6 +56,7 @@ import static org.ei.opensrp.domain.LoginResponse.UNAUTHORIZED;
 import static org.ei.opensrp.domain.LoginResponse.UNKNOWN_RESPONSE;
 import static org.ei.opensrp.util.HttpResponseUtil.getResponseBody;
 import static org.ei.opensrp.util.Log.logError;
+import static org.ei.opensrp.util.Log.logInfo;
 import static org.ei.opensrp.util.Log.logWarn;
 
 public class HTTPAgent {
@@ -221,11 +222,13 @@ public class HTTPAgent {
         String responseString = "";
         try {
             File uploadFile = new File(image.getFilepath());
+            logInfo("AAA"+uploadFile);
             if(uploadFile.exists()) {
                 setCredentials(allSharedPreferences.fetchRegisteredANM(), settings.fetchANMPassword());
 
                 HttpPost httpost = new HttpPost(url);
 
+                Log.e(TAG, "httpImagePost: "+image.getFilepath() );
                 httpost.setHeader("Accept", "multipart/form-data");
                 File filetoupload = new File(image.getFilepath());
                 Log.v("file to upload", "" + filetoupload.length());
@@ -236,6 +239,8 @@ public class HTTPAgent {
                 entity.addPart("file-category", new StringBody(image.getFilecategory() != null ? image.getFilecategory() : "profilepic"));
                 ContentBody cbFile = new FileBody(uploadFile,"image/jpeg");
                 entity.addPart("file", cbFile);
+                entity.addPart("face-vector", new StringBody(""));
+                entity.addPart("locationId", new StringBody(""));
                 httpost.setEntity(entity);
                 String authToken = null;
                 HttpResponse response = httpClient.postContent(httpost);
@@ -244,6 +249,7 @@ public class HTTPAgent {
                 int RESPONSE_OK = 200;
                 int RESPONSE_OK_ = 201;
 
+            logInfo("IMAGEEEEEEEEEEEEEEEE : "+response.getStatusLine().getStatusCode());
                 if (response.getStatusLine().getStatusCode() != RESPONSE_OK_ && response.getStatusLine().getStatusCode() != RESPONSE_OK) {
                 }
             }
