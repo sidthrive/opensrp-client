@@ -139,7 +139,14 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
         viewHolder.HH_name.setText( pc.getColumnmaps().get("Name_family_member") !=null?pc.getColumnmaps().get("Name_family_member"):"");
         viewHolder.husband_name.setText(pc.getColumnmaps().get("Ethnic_Group")!= null?pc.getColumnmaps().get("Ethnic_Group"):"");
-        viewHolder.village_name.setText(pc.getColumnmaps().get("Education")!= null?pc.getColumnmaps().get("Education"):"");
+       // viewHolder.village_name.setText(pc.getColumnmaps().get("Education")!= null?pc.getColumnmaps().get("Education"):"");
+
+        if( pc.getDetails().get("HHId") != null) {
+            String kiid = pc.getDetails().get("HHId");
+            AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("HH");
+            final CommonPersonObject ibuparent = iburep.findByCaseID(kiid);
+            viewHolder.village_name.setText(ibuparent.getDetails().get("Village") != null ? ibuparent.getDetails().get("Village") : "");
+        }
 
         viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
         viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","Too young, no profession")) :"");
