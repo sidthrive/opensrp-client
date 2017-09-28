@@ -86,7 +86,7 @@
             android:src="@color/smart_register_client_divider_color"/>
 
     <include  android:id="@+id/id1"
-        layout="@layout/member_detail_data_layout"
+        layout="@layout/opencensus_detail_data_layout"
         />
 
 </LinearLayout>

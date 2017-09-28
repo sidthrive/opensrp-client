@@ -42,7 +42,8 @@
         "name": "Other_Ethnic_Group",
         "source": "HH.HHMember.Other_Ethnic_Group",
         "bind": "/model/instance/open_cencus_sep/Other_Ethnic_Group"
-      },
+      }
+    ,
       {
         "name": "Sex",
         "source": "HH.HHMember.Sex",

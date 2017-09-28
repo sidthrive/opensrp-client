@@ -18,9 +18,9 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="BCG(MCH Book Shown)"
+                android:text="@string/Ethnic_Group"
                 android:layout_margin="5dp"
-                android:id="@+id/lbl_village"
+                android:id="@+id/lbl_Ethnic_Group"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
@@ -31,7 +31,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A "
                 android:layout_margin="5dp"
-                android:id="@+id/aas"
+                android:id="@+id/Ethnic_Group"
                 android:textSize="14sp"
                 android:textColor="@color/text_black" />
 
@@ -42,7 +42,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="HepB 0(MCH Book Shown)"
+                android:text="@string/Other_Ethnic_Group"
                 android:id="@+id/lbl_subvillage"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -53,7 +53,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ba"
+                android:id="@+id/Other_Ethnic_Group"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -66,7 +66,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="HepB 1(MCH Book Shown)"
+                android:text="@string/gender"
                 android:id="@+id/lbl_age"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -78,7 +78,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ca"
+                android:id="@+id/Sex"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -93,7 +93,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="HepB 2(MCH Book Shown)"
+                android:text="@string/education"
                 android:id="@+id/lbl_alamat"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -106,7 +106,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/da"
+                android:id="@+id/Education"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -122,7 +122,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="DPT 1(MCH Book Shown)"
+                android:text="@string/Profession"
                 android:id="@+id/lbl_edu"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -135,7 +135,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ea"
+                android:id="@+id/Profession"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -148,7 +148,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="DPT 2(MCH Book Shown)"
+                android:text="@string/Other_Profession"
                 android:id="@+id/lbl_agama"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -159,7 +159,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/fa"
+                android:id="@+id/Other_Profession"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -172,7 +172,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="DPT 3(MCH Book Shown)"
+                android:text="@string/marital"
                 android:id="@+id/lbl_job"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -183,7 +183,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ga"
+                android:id="@+id/Marital_Status"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -196,7 +196,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Polio 0(MCH Book Shown)"
+                android:text="@string/Prior_HealthCare"
                 android:id="@+id/lbl_gakin"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -207,12 +207,14 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ha"
+                android:id="@+id/Prior_HealthCare"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
         </TableRow>
+
+
 
         <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -220,31 +222,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Polio 1 (MCH Book Shown)"
-                android:id="@+id/lbl_asuransi"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/ia"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Polio 2(MCH Book Shown)"
+                android:text="@string/Prior_Diagnosis"
                 android:id="@+id/lbl_blood"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -255,7 +233,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/ja"
+                android:id="@+id/Prior_Diagnosis"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -267,7 +245,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Polio 3(MCH Book Shown)"
+                android:text="@string/Other_Prior_Diagnosis"
                 android:id="@+id/lblpol3"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -278,7 +256,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/pol3"
+                android:id="@+id/Other_Prior_Diagnosis"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -290,7 +268,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Measles 1(MCH Book Shown)"
+                android:text="@string/Visual_Health_Deformities"
                 android:id="@+id/lbl_Measles_1"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -301,7 +279,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/measles1"
+                android:id="@+id/Visual_Health_Deformities"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -313,7 +291,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Measles 2(MCH Book Shown)"
+                android:text="@string/Visual_Health_Deformities_other"
                 android:id="@+id/lbl_measles_2"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -324,7 +302,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/measles2"
+                android:id="@+id/Other_Visual_Health_Deformities"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
@@ -336,7 +314,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Other (MCH Book Shown)"
+                android:text="@string/Prior_Surgeries"
                 android:id="@+id/lbl_other"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
@@ -347,357 +325,279 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 style="@style/CustomFontTextViewStyle.ListView.Medium"
                 android:text="N/A"
-                android:id="@+id/other"
+                android:id="@+id/Prior_Surgeries"
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
         </TableRow>
+
+        /////////////////////////
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Vaccine_Card"
+                android:id="@+id/lbl_Vaccine_Card"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Vaccine_Card"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Vaccination_History"
+                android:id="@+id/lbl_Vaccination_History"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Vaccination_History"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/pregnancy"
+                android:id="@+id/lbl_Pregnant"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Pregnant"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Prior_Pregnancies"
+                android:id="@+id/lbl_Pregnancies"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Prior_Pregnancies"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Number_Deliveries"
+                android:id="@+id/lbl_Number_Deliveries"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Number_Deliveries"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Number_Live_Births"
+                android:id="@+id/lbl_Number_Live_Births"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Number_Live_Births"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Prior_Birthweight"
+                android:id="@+id/lbl_Birthweight"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Prior_Birthweight"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Birthweight_gram"
+                android:id="@+id/lbl_Birthweight_gram"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Birthweight_gram"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Is_Person_Alive"
+                android:id="@+id/lbl_Is_Person_Alive"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Is_Person_Alive"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/Cause_of_Death"
+                android:id="@+id/lbl_Cause_of_Death"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/Cause_of_Death"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+        <TableRow>
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="@string/death_date"
+                android:id="@+id/lbl_death_date"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+            <org.ei.opensrp.view.customControls.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/CustomFontTextViewStyle.ListView.Medium"
+                android:text="N/A"
+                android:id="@+id/death_date"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_black" />
+
+        </TableRow>
+
+
     </TableLayout>
 
 
-   <!-- /////////////////////////////////////////-->
-
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/listview_background_rounded">
-
-
-        <TableRow>
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="BCG (MCH Book Not Shown)"
-                android:id="@+id/lbl_n_bcg"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/bcg_n"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Polio (MCH Book Not Shown)"
-                android:id="@+id/lbl_pol"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/pol_n"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="DPT (MCH Book Not Shown)"
-                android:id="@+id/lbl_dpt"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/dpt_n"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Measles (MCH Book Not Shown)"
-                android:id="@+id/lbl_meas"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/meas_n"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="Hepatitis B (MCH Book Not Shown)"
-                android:id="@+id/lbl_hb"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/hb_n"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/lbl_job0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/ga0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/lbl_gakin0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/ha0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/lbl_asuransi0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/ia0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/lbl_blood0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/ja0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/lblpol03"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/pol30"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" "
-                android:id="@+id/lbl_Measles_10"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/measles10"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" "
-                android:id="@+id/lbl_measles_20"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/measles20"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" "
-                android:id="@+id/lbl_other0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/other1"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=" "
-                android:id="@+id/lbl_others0"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text=""
-                android:id="@+id/other1s"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-
-        </TableRow>
-    </TableLayout>
 
 </LinearLayout>
