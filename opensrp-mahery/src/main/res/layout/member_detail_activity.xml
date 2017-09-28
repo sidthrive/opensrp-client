@@ -53,12 +53,88 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/smart_register_client_divider_height"
         android:src="@color/smart_register_client_divider_color"
         android:id="@+id/imageView3" />
 
+    <RelativeLayout
+        android:id="@+id/navigate"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+
+        android:background="@drawable/listview_background_rounded"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="    "
+            android:id="@+id/separators" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Open Census"
+            android:layout_toRightOf="@+id/separators"
+            android:textColor="@color/light_blue"
+            android:id="@+id/Census" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="    "
+            android:layout_toRightOf="@+id/Census"
+            android:id="@+id/separator" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Follow Up"
+            android:textColor="@color/light_blue"
+            android:layout_toRightOf="@+id/separator"
+            android:id="@+id/follow_up" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="    "
+            android:layout_toRightOf="@+id/follow_up"
+            android:id="@+id/separator3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Child Health"
+            android:textColor="@color/light_blue"
+            android:layout_toRightOf="@+id/separator3"
+            android:id="@+id/child_health" />
+
+
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/smart_register_client_divider_height"
+        android:id="@+id/imageView3s" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="@dimen/list_view_margin_left_and_right"
+        android:layout_marginRight="@dimen/list_view_margin_left_and_right"
+        android:orientation="horizontal">
+    </LinearLayout>
     <LinearLayout
             android:id="@+id/clients_header_layout"
             android:layout_width="match_parent"
@@ -90,11 +166,12 @@
 
         <include  android:id="@+id/id1"
             layout="@layout/member_detail_data_layout2"
-            />
+            android:visibility="gone"
+           />
 
     <include  android:id="@+id/id2"
         layout="@layout/opencensus_detail_data_layout"
-        android:visibility="gone"/>
+         />
 
 
 </LinearLayout>
