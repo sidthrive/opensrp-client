@@ -66,7 +66,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
     private CommonPersonObjectController controller;
     private VillageController villageController;
     private DialogOptionMapper dialogOptionMapper;
-
+    public static CommonPersonObjectClient HHid;
     private final ClientActionHandler clientActionHandler = new ClientActionHandler();
     private String locationDialogTAG = "locationDialogTAG";
     @Override
@@ -186,13 +186,14 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         getDefaultOptionsProvider();
 
         super.setupViews(view);
-        view.findViewById(R.id.register_client).setVisibility(INVISIBLE);
+        view.findViewById(R.id.register_client).setVisibility(View.GONE);
         view.findViewById(R.id.btn_report_month).setVisibility(INVISIBLE);
         view.findViewById(R.id.service_mode_selection).setVisibility(View.GONE);
+        view.findViewById(R.id.filter_selection).setVisibility(View.GONE);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
 //        list.setBackgroundColor(Color.RED);
-        initializeQueries();
+        initializeQueries(getCriteria());
     }
     private String filterStringForAll(){
         return "";
@@ -206,7 +207,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
                 "WHEN alerts.status is Null THEN '5'\n" +
                 "Else alerts.status END ASC";
     }
-    public void initializeQueries(){
+    public void initializeQueries(String s){
         HHmemberClientsProvider kiscp = new HHmemberClientsProvider(getActivity(),clientActionHandler,
                 context().alertService());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("HHMember",new String []{ "Name_family_member","Ethnic_Group","Sex","Education","Profession","isClosed"}));
@@ -218,7 +219,15 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
 
         countSelect = countqueryBUilder.mainCondition(" Name_family_member != '' ");
-        mainCondition = " Name_family_member != '' ";
+       // mainCondition = " Name_family_member != '' ";
+       // mainCondition = " ";
+                if (s == null) {
+                        mainCondition = " Name_family_member != '' ";
+                     //  Log.e(TAG, "initializeQueries: Not Initialized" );
+                            } else {
+                     //   Log.e(TAG, "initializeQueries: id " + s); details not LIKE '%"jenisKontrasepsi":""%'
+                                mainCondition = " Name_family_member != '' AND details LIKE '%" + s + "%'";
+                   }
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -239,6 +248,23 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
     }
 
+//    String HHids = NativeHHmemberSmartRegisterFragment.HHid.getCaseId();
+
+/*            public void setCriteria(CommonPersonObjectClient HHid) {
+                String HHids = NativeHHmemberSmartRegisterFragment.HHid.getCaseId();
+                HHids = HHid;
+            }*/
+
+    public static String getCriteria() {
+        if (NativeHHmemberSmartRegisterFragment.HHid == null){
+            return "";
+        }
+        else {
+            String HHids = NativeHHmemberSmartRegisterFragment.HHid.getCaseId();
+
+            return HHids;
+        }
+    }
 
     @Override
     public void startRegistration() {
@@ -337,7 +363,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 //        super.onResumption();
         getDefaultOptionsProvider();
         if(isPausedOrRefreshList()) {
-            initializeQueries();
+            initializeQueries(getCriteria());
         }
    //     updateSearchView();
 //

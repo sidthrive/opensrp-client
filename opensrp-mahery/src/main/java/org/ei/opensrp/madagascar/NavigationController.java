@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 
 
+import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.madagascar.HH.HHSmartRegisterActivity;
 import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
+import org.ei.opensrp.madagascar.fragment.NativeHHmemberSmartRegisterFragment;
 import org.ei.opensrp.view.controller.ANMController;
 
 public class NavigationController extends org.ei.opensrp.view.controller.NavigationController {
@@ -26,6 +28,7 @@ public class NavigationController extends org.ei.opensrp.view.controller.Navigat
     }
     @Override
     public void startFPSmartRegistry() {
+            NativeHHmemberSmartRegisterFragment.HHid = null;
            activity.startActivity(new Intent(activity, HHmemberSmartRegisterActivity.class));
     }
     @Override

@@ -273,6 +273,7 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
             //        showFragmentDialog(new EditDialogOptionModel(), view.getTag());
             //        break;
                 case R.id.profile_info_layout:
+                    NativeHHmemberSmartRegisterFragment.HHid = (CommonPersonObjectClient)view.getTag();
                   //  activity.startActivity(new Intent(activity, HHmemberSmartRegisterActivity.class));
                     Intent intent = new Intent(getActivity(),HHmemberSmartRegisterActivity.class);
                     startActivity(intent);
