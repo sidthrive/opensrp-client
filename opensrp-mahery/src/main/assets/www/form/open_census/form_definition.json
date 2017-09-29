@@ -19,14 +19,14 @@
         "bind": "/model/instance/open_cencus_sep/Name_family_member"
       },
       {
-        "name": "Date_of_Birth",
-        "source": "HH.HHMember.Date_of_Birth",
-        "bind": "/model/instance/open_cencus_sep/Date_of_Birth"
-      },
-      {
         "name": "dob_date",
         "source": "HH.HHMember.dob_date",
         "bind": "/model/instance/open_cencus_sep/DOB_date"
+      },
+      {
+        "name": "dob_month",
+        "source": "HH.HHMember.dob_year",
+        "bind": "/model/instance/open_cencus_sep/DOB_month_year"
       },
       {
         "name": "dob_year",
