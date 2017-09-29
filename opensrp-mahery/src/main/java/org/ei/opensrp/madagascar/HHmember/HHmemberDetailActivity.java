@@ -74,7 +74,7 @@ public class HHmemberDetailActivity extends Activity {
         TextView nama = (TextView) findViewById(R.id.txt_wife_name);
         TextView nik = (TextView) findViewById(R.id.txt_nik);
         TextView husband_name = (TextView) findViewById(R.id.txt_husband_name);
-
+        TextView txt_dob = (TextView) findViewById(R.id.txt_dob);
         /**
          * Open cencus
          * */
@@ -201,8 +201,14 @@ public class HHmemberDetailActivity extends Activity {
         nik.setText("Ethnic : "+ (memberclient.getColumnmaps().get("Ethnic_Group") != null ? memberclient.getColumnmaps().get("Ethnic_Group") : "-"));
         husband_name.setText("Education : "+ (memberclient.getColumnmaps().get("namaSuami") != null ? memberclient.getColumnmaps().get("namaSuami") : "-"));
 
+        String date = memberclient.getDetails().get("dob_date") != null? memberclient.getDetails().get("dob_date"):"n/a";
+        String month = memberclient.getDetails().get("dob_month") != null? memberclient.getDetails().get("dob_month"):"n/a";
+        String year = memberclient.getDetails().get("dob_year") != null? memberclient.getDetails().get("dob_year"):"n/a";
 
-           final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
+        String dob = date+" - "+month+" - "+year ;
+        txt_dob.setText("Date of Birth : "+ dob);
+
+        final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
         final ImageView pic2 = (ImageView)findViewById(R.id.photo2);
         final ImageView pic3 = (ImageView)findViewById(R.id.photo3);
         final ImageView pic4 = (ImageView)findViewById(R.id.photo4);
