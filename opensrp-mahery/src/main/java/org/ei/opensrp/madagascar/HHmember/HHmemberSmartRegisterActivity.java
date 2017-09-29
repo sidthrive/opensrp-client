@@ -125,11 +125,11 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         }
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "child_health", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.str_follow_up_edit), "follow_up_edit", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.child_stats), "child_health", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-              //  new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
-                new OpenFormOption(getResources().getString(R.string.child_stats_edit), "child_health_edit", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController),
+                new OpenFormOption(getResources().getString(R.string.str_follow_up_edit), "follow_up_edit", formController),
+                new OpenFormOption(getResources().getString(R.string.child_stats), "child_health", formController),
+                new OpenFormOption(getResources().getString(R.string.child_stats_edit), "child_health_edit", formController),
+                  new OpenFormOption(getResources().getString(R.string.open_census_edit), "open_census_edit", formController),
 
         };
 
@@ -309,7 +309,7 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         List<String> formNames = new ArrayList<String>();
         formNames.add("HHRegistration");
         formNames.add("open_census");
-
+        formNames.add("open_census_edit");
         formNames.add("follow_up");
         formNames.add("child_health");
         formNames.add("follow_up_edit");

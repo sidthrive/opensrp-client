@@ -1,0 +1,23 @@
+<model>
+  <instance>
+    <HH_registration id="household_registration" version="201708030601">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <today/>
+      <Village/>
+      <Sub-village/>
+      <Province/>
+      <District/>
+      <Sub-district/>
+      <registration_date/>
+      <name_household_head/>
+      <HH_GPS_Point/>
+      <end/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </HH_registration>
+  </instance>
+</model>

@@ -1,0 +1,66 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "HH",
+    "default_bind_path": "/model/instance/HH_registration/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Village",
+        "bind": "/model/instance/HH_registration/Village",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Province",
+        "bind": "/model/instance/HH_registration/Province",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-district",
+        "bind": "/model/instance/HH_registration/Sub-district",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "District",
+        "bind": "/model/instance/HH_registration/District",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "Sub-village",
+        "bind": "/model/instance/HH_registration/Sub-village",
+        "shouldLoadValue": true
+      },
+
+      {
+        "name": "registration_date",
+        "bind": "/model/instance/HH_registration/registration_date",
+        "shouldLoadValue": true
+      }
+    ,
+      {
+        "name": "name_household_head",
+        "bind": "/model/instance/HH_registration/name_household_head",
+        "shouldLoadValue": true
+      }
+    ,
+      {
+        "name": "HH_GPS_Point",
+        "bind": "/model/instance/HH_registration/HH_GPS_Point",
+        "shouldLoadValue": true
+      }
+    ,
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/HH_registration/today"
+      },
+      {
+        "name": "isClosed",
+        "value": "false"
+      }
+
+    ]
+  }
+}

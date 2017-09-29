@@ -158,11 +158,11 @@ public class HHmemberDetailActivity extends Activity {
 
         refreshMemberDetails(d);
 
-
         /**
          * Open cencus
          * */
-        Ethnic_Group.setText(humanize(memberclient.getColumnmaps().get("Ethnic_Group")));
+        //Ethnic_Group.setText(humanize(memberclient.getColumnmaps().get("Ethnic_Group")));
+        Ethnic_Group.setVisibility(View.GONE);
         Other_Ethnic_Group.setText(humanize(memberclient.getDetails().get("Other_Ethnic_Group")));
         Sex.setText(humanize(memberclient.getColumnmaps().get("Sex")));
         Education.setText(humanize(memberclient.getColumnmaps().get("Education")));
