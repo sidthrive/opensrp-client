@@ -165,121 +165,78 @@
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Treatment_Location_text:label">5a. Other</span>
         <input type="text" name="/follow_up_sep/Treatment_Location_text" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Treatment_Location_Other')" data-type-xml="string"/>
     </label>
-    <fieldset class="question simple-select or-branch pre-init ">
-        <fieldset>
-            <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/New_Diagnosis:label">6. Tamin'ny fitsaboana anatin'ny volana iraika teo, nisy ity karazana aretina ity?</span>
-                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/New_Diagnosis:label">6. Were you dignosed with any of the following illnesses by a doctor or nurse?</span>
-            </legend>
-            <div class="option-wrapper">
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="malaria" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/malaria:label">Tazo be (TDR positif)</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/malaria:label">Malaria (diagnosed by RDT)</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="pneumonia" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/pneumonia:label">Aretin'avokavoka azo avy amin'ny otrik'aretina</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/pneumonia:label">Bacterial pneumonia</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="Tuberculosis" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/Tuberculosis:label">Tiberkilaozy</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/Tuberculosis:label">Tuberculosis</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="HIV" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/HIV:label">VIH</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/HIV:label">HIV</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="Measles" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/Measles:label">Kitrotro</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/Measles:label">Measles</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="infected_wound" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/infected_wound:label">Fery mamori-nana ka ilana antibiotika na fanapahana rantsana</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/infected_wound:label">Severely infected wound that required antibiotic or amputation</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="stroke" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/stroke:label">Fahatsetseman'ny lalan-drà</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/stroke:label">Stroke</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="seizure" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/seizure:label">Fanintona</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/seizure:label">Seizures/Convulsions</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="dev_disorder" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/dev_disorder:label">Olana ara-pitombona</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/dev_disorder:label">Developmental disorder</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="blindness" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/blindness:label">Fahajambana</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/blindness:label">Blindness</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="deafness" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/deafness:label">Marenina</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/deafness:label">Deafness</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="hypertension" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/hypertension:label">Tosidrà</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/hypertension:label">Hypertension</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="cancer" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/cancer:label">Omamiadana</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/cancer:label">Cancer</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="no_pregnancy" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/no_pregnancy:label">Fitondrana vohoka tandidomin-doza</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/no_pregnancy:label">High-risk pregnancy</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="schistosomiasis" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/schistosomiasis:label">Bilariziozy</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/schistosomiasis:label">Schistosomiasis</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="int_worms" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/int_worms:label">Kankana an-kibo</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/int_worms:label">Intestinal worms</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="gonorrhea" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/gonorrhea:label">Angatra</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/gonorrhea:label">Gonorrhea</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="pelv_inflammatory" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/pelv_inflammatory:label">Areti-taova-pananahan'ny vehivavy azo avy amin'ny otrik'aretina</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/pelv_inflammatory:label">Pelvic Inflammatory Disease</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="no_diagnosis" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/no_diagnosis:label">Aretina tsy fanta-pototra</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/no_diagnosis:label">No diagnosis</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="Prior_Diagnosis_other" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/Prior_Diagnosis_other:label">Hafa</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/Prior_Diagnosis_other:label">Other</span>
-                </label>
-                <label class="">
-                    <input type="checkbox" name="/follow_up_sep/New_Diagnosis" value="idr" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_Diagnosis/idr:label">Tsy tadidiko</span>
-                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_Diagnosis/idr:label">I don't remember</span>
-                </label>
-            </div>
-        </fieldset>
-    </fieldset>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/New_Diagnosis:label">6. Tamin'ny fitsaboana anatin'ny volana iraika teo, nisy ity karazana aretina ity?</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/New_Diagnosis:label">6. Were you dignosed with any of the following illnesses by a doctor or nurse?</span>
+        <select multiple="multiple" name="/follow_up_sep/New_Diagnosis" data-relevant="selected( /follow_up_sep/Treatment_Location ,'Hospital_clinic')" data-type-xml="select">
+            <option value="">...</option>
+            <option value="malaria">Tazo be (TDR positif)</option>
+            <option value="pneumonia">Aretin'avokavoka azo avy amin'ny otrik'aretina</option>
+            <option value="Tuberculosis">Tiberkilaozy</option>
+            <option value="HIV">VIH</option>
+            <option value="Measles">Kitrotro</option>
+            <option value="infected_wound">Fery mamori-nana ka ilana antibiotika na fanapahana rantsana</option>
+            <option value="stroke">Fahatsetseman'ny lalan-drà</option>
+            <option value="seizure">Fanintona</option>
+            <option value="dev_disorder">Olana ara-pitombona</option>
+            <option value="blindness">Fahajambana</option>
+            <option value="deafness">Marenina</option>
+            <option value="hypertension">Tosidrà</option>
+            <option value="cancer">Omamiadana</option>
+            <option value="no_pregnancy">Fitondrana vohoka tandidomin-doza</option>
+            <option value="schistosomiasis">Bilariziozy</option>
+            <option value="int_worms">Kankana an-kibo</option>
+            <option value="gonorrhea">Angatra</option>
+            <option value="pelv_inflammatory">Areti-taova-pananahan'ny vehivavy azo avy amin'ny otrik'aretina</option>
+            <option value="no_diagnosis">Aretina tsy fanta-pototra</option>
+            <option value="Prior_Diagnosis_other">Hafa</option>
+            <option value="idr">Tsy tadidiko</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="malaria" lang="mg">Tazo be (TDR positif)</span>
+            <span data-option-value="malaria" lang="en">Malaria (diagnosed by RDT)</span>
+            <span data-option-value="pneumonia" lang="mg">Aretin'avokavoka azo avy amin'ny otrik'aretina</span>
+            <span data-option-value="pneumonia" lang="en">Bacterial pneumonia</span>
+            <span data-option-value="Tuberculosis" lang="mg">Tiberkilaozy</span>
+            <span data-option-value="Tuberculosis" lang="en">Tuberculosis</span>
+            <span data-option-value="HIV" lang="mg">VIH</span>
+            <span data-option-value="HIV" lang="en">HIV</span>
+            <span data-option-value="Measles" lang="mg">Kitrotro</span>
+            <span data-option-value="Measles" lang="en">Measles</span>
+            <span data-option-value="infected_wound" lang="mg">Fery mamori-nana ka ilana antibiotika na fanapahana rantsana</span>
+            <span data-option-value="infected_wound" lang="en">Severely infected wound that required antibiotic or amputation</span>
+            <span data-option-value="stroke" lang="mg">Fahatsetseman'ny lalan-drà</span>
+            <span data-option-value="stroke" lang="en">Stroke</span>
+            <span data-option-value="seizure" lang="mg">Fanintona</span>
+            <span data-option-value="seizure" lang="en">Seizures/Convulsions</span>
+            <span data-option-value="dev_disorder" lang="mg">Olana ara-pitombona</span>
+            <span data-option-value="dev_disorder" lang="en">Developmental disorder</span>
+            <span data-option-value="blindness" lang="mg">Fahajambana</span>
+            <span data-option-value="blindness" lang="en">Blindness</span>
+            <span data-option-value="deafness" lang="mg">Marenina</span>
+            <span data-option-value="deafness" lang="en">Deafness</span>
+            <span data-option-value="hypertension" lang="mg">Tosidrà</span>
+            <span data-option-value="hypertension" lang="en">Hypertension</span>
+            <span data-option-value="cancer" lang="mg">Omamiadana</span>
+            <span data-option-value="cancer" lang="en">Cancer</span>
+            <span data-option-value="no_pregnancy" lang="mg">Fitondrana vohoka tandidomin-doza</span>
+            <span data-option-value="no_pregnancy" lang="en">High-risk pregnancy</span>
+            <span data-option-value="schistosomiasis" lang="mg">Bilariziozy</span>
+            <span data-option-value="schistosomiasis" lang="en">Schistosomiasis</span>
+            <span data-option-value="int_worms" lang="mg">Kankana an-kibo</span>
+            <span data-option-value="int_worms" lang="en">Intestinal worms</span>
+            <span data-option-value="gonorrhea" lang="mg">Angatra</span>
+            <span data-option-value="gonorrhea" lang="en">Gonorrhea</span>
+            <span data-option-value="pelv_inflammatory" lang="mg">Areti-taova-pananahan'ny vehivavy azo avy amin'ny otrik'aretina</span>
+            <span data-option-value="pelv_inflammatory" lang="en">Pelvic Inflammatory Disease</span>
+            <span data-option-value="no_diagnosis" lang="mg">Aretina tsy fanta-pototra</span>
+            <span data-option-value="no_diagnosis" lang="en">No diagnosis</span>
+            <span data-option-value="Prior_Diagnosis_other" lang="mg">Hafa</span>
+            <span data-option-value="Prior_Diagnosis_other" lang="en">Other</span>
+            <span data-option-value="idr" lang="mg">Tsy tadidiko</span>
+            <span data-option-value="idr" lang="en">I don't remember</span>
+        </span>
+    </label>
     <label class="question or-branch pre-init non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/New_Diagnosis_text:label">6a. Hafa</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/New_Diagnosis_text:label">6a. Other</span>
@@ -1916,6 +1873,35 @@
             <span data-option-value="measles" lang="mg">Vaksiny faha-9 volana atao aminny sandry ambony</span>
             <span data-option-value="measles" lang="en">Measles/VAR</span>
         </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/blood_pressure:label">65. Tension</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/blood_pressure:label">65. Blood Pressure</span>
+        <input type="text" name="/follow_up_sep/blood_pressure" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/systolic:label">65a. Systolic</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/systolic:label">65a. Systolic</span>
+        <span class="required">*</span>
+        <input type="number" name="/follow_up_sep/systolic" data-required="true()" data-constraint=".&gt;=50 and .&lt;=300" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/diastolic:label">65b. Diastolic</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/diastolic:label">65b. Diastolic</span>
+        <span class="required">*</span>
+        <input type="number" name="/follow_up_sep/diastolic" data-required="true()" data-constraint=".&gt;=10 and .&lt;=200" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/pulse:label">65c. Pulse</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/pulse:label">65c. Pulse</span>
+        <span class="required">*</span>
+        <input type="number" name="/follow_up_sep/pulse" data-required="true()" data-constraint=".&gt;=50 and .&lt;=200" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset id="or-preload-items" style="display:none;">

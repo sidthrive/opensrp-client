@@ -217,11 +217,11 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <label class="question or-appearance-minimal ">
+    <label class="question or-appearance-minimal  or-branch pre-init ">
         <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Prior_Diagnosis:label">9. Avy nisy dokotera na rasage nambara taminao ka misy ity aretina ity?</span>
         <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Prior_Diagnosis:label">9. Were you ever dignosed with any of the following illnesses by a doctor or nurse?</span>
         <span class="required">*</span>
-        <select multiple="multiple" name="/open_cencus_sep/Prior_Diagnosis" data-required="true()" data-type-xml="select">
+        <select multiple="multiple" name="/open_cencus_sep/Prior_Diagnosis" data-required="true()" data-relevant="selected( /open_cencus_sep/Prior_HealthCare ,'Yes')" data-type-xml="select">
             <option value="">...</option>
             <option value="malaria">Tazo be (TDR positif)</option>
             <option value="pneumonia">Aretin'avokavoka azo avy amin'ny otrik'aretina</option>
@@ -356,7 +356,7 @@
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Vaccine_Card:label">12. Manana aratra vaksiny ve ianao?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Vaccine_Card:label">12. Manana karatra vaksiny ve ianao?</span>
                 <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Vaccine_Card:label">12. Do you have a vaccine card?</span>
                 <span class="required">*</span>
             </legend>
@@ -380,11 +380,11 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <label class="question or-appearance-minimal ">
+    <label class="question or-appearance-minimal  or-branch pre-init ">
         <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Vaccination_History:label">13. Inona no karazana vaksiny avy nataonao?</span>
         <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Vaccination_History:label">13. Please list all the vaccines you have received.</span>
         <span class="required">*</span>
-        <select multiple="multiple" name="/open_cencus_sep/Vaccination_History" data-required="true()" data-type-xml="select">
+        <select multiple="multiple" name="/open_cencus_sep/Vaccination_History" data-required="true()" data-relevant="selected( /open_cencus_sep/Vaccine_Card ,'Yes')" data-type-xml="select">
             <option value="">...</option>
             <option value="polio">Vaksiny polio/Deboka ambava in-2 na tété vava</option>
             <option value="dtc1">Vaksiny 6 herinandro/tsindro fe havia sy havanana</option>
@@ -464,12 +464,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="birth_weight_gram" data-required="true()" data-relevant="selected( /open_cencus_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="birth_weight_gram" data-required="true()" data-relevant=" /open_cencus_sep/Number_Deliveries &gt;=1" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Birthweight/birth_weight_gram:label">Lanja zaza vao-teraka</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Birthweight/birth_weight_gram:label">Birthweight</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="Birthweight_NA" data-required="true()" data-relevant="selected( /open_cencus_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="Birthweight_NA" data-required="true()" data-relevant=" /open_cencus_sep/Number_Deliveries &gt;=1" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Birthweight/Birthweight_NA:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Birthweight/Birthweight_NA:label">I don't remember</span>
                 </label>

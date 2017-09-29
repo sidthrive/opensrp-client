@@ -126,6 +126,7 @@ public class Tools {
             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoPath),
                     THUMBSIZE, THUMBSIZE);
             ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, tfos);
+
             tfos.close();
             Log.e(TAG, "Wrote Thumbs image to " + thumbs_photo);
 

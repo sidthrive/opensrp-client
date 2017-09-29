@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <follow_up_sep id="follow_up_new" version="201709250630">
+    <follow_up_sep id="follow_up_new" version="201709280953">
       <formhub>
         <uuid/>
       </formhub>
@@ -91,6 +91,10 @@
       <STI_Treatment_Outcome/>
       <New_vaccine/>
       <New_vaccine_types/>
+      <blood_pressure/>
+      <systolic/>
+      <diastolic/>
+      <pulse/>
       <end/>
       <meta>
         <instanceID/>

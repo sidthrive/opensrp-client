@@ -332,8 +332,20 @@
         "bind": "/model/instance/follow_up_sep/New_vaccine"
       },
       {
-        "name": "New_vaccine_types",
-        "bind": "/model/instance/follow_up_sep/New_vaccine_types"
+        "name": "blood_pressure",
+        "bind": "/model/instance/follow_up_sep/blood_pressure"
+      },
+      {
+        "name": "systolic",
+        "bind": "/model/instance/follow_up_sep/systolic"
+      },
+      {
+        "name": "diastolic",
+        "bind": "/model/instance/follow_up_sep/diastolic"
+      },
+      {
+        "name": "pulse",
+        "bind": "/model/instance/follow_up_sep/pulse"
       },
       {
         "name": "submissionDate",
