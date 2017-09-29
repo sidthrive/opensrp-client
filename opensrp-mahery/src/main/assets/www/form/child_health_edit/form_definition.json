@@ -1,0 +1,39 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "HHMember",
+    "default_bind_path": "/model/instance/child_health/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "childWeight",
+        "bind": "/model/instance/child_health/Child_Weight",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "childHeight",
+        "bind": "/model/instance/child_health/Child_Height",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "anthropmetryUpperArm",
+        "bind": "/model/instance/child_health/Anthropmetry_Upper_Arm",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "anthropmetryHead",
+        "bind": "/model/instance/child_health/Anthropmetry_Head",
+        "shouldLoadValue": true
+      },
+
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/child_health/today"
+      }
+
+    ]
+  }
+}

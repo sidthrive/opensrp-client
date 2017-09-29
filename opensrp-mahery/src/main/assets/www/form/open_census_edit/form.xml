@@ -1,0 +1,566 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="open_census_new">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">Open Census (New)</h3>
+    <select id="form-languages" data-default-lang="mg">
+        <option value="mg" data-dir="ltr">Malagasy</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Name_family_member:label">1. Anaran'olona anatin'ny tokantrano</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Name_family_member:label">1. Name of family member</span>
+        <span class="required">*</span>
+        <input type="text" name="/open_cencus_sep/Name_family_member" data-required="true()" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question note non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Date_of_Birth:label">2. Daty ny terahana</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Date_of_Birth:label">2. What is the date of your birth?</span>
+        <input type="text" name="/open_cencus_sep/Date_of_Birth" data-type-xml="string" readonly="readonly"/>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/DOB_date:label">2a. Daty</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/DOB_date:label">2a. Date</span>
+        <input type="number" name="/open_cencus_sep/DOB_date" data-constraint=".&gt;=1 and .&lt;=31 or .=99" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/DOB_month_year:label">2b. Volana</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/DOB_month_year:label">2b. Month</span>
+        <input type="number" name="/open_cencus_sep/DOB_month_year" data-constraint=".&gt;=1 and .&lt;=12 or .=99" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/DOB_year:label">2c. Taona</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/DOB_year:label">2c. Year</span>
+        <span class="required">*</span>
+        <input type="number" name="/open_cencus_sep/DOB_year" data-required="true()" data-constraint=".&gt;=1900 and .&lt;=3000 or .=8000" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Ethnic_Group:label">3. Inona fokonao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Ethnic_Group:label">3. What ethnic group are you?</span>
+        <span class="required">*</span>
+        <select name="/open_cencus_sep/Ethnic_Group" data-name="/open_cencus_sep/Ethnic_Group" data-required="true()" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Betsimisaraka">Betsimisaraka</option>
+            <option value="Tsimihety">Tsimihety</option>
+            <option value="Merina">Merina</option>
+            <option value="Betsileo">Betsileo</option>
+            <option value="Sakalava">Sakalava</option>
+            <option value="Ethnic_Group_Other">Hafa</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="Betsimisaraka" lang="mg">Betsimisaraka</span>
+            <span data-option-value="Betsimisaraka" lang="en">Betsimisaraka</span>
+            <span data-option-value="Tsimihety" lang="mg">Tsimihety</span>
+            <span data-option-value="Tsimihety" lang="en">Tsimihety</span>
+            <span data-option-value="Merina" lang="mg">Merina</span>
+            <span data-option-value="Merina" lang="en">Merina</span>
+            <span data-option-value="Betsileo" lang="mg">Betsileo</span>
+            <span data-option-value="Betsileo" lang="en">Betsileo</span>
+            <span data-option-value="Sakalava" lang="mg">Sakalava</span>
+            <span data-option-value="Sakalava" lang="en">Sakalava</span>
+            <span data-option-value="Ethnic_Group_Other" lang="mg">Hafa</span>
+            <span data-option-value="Ethnic_Group_Other" lang="en">Other</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Other_Ethnic_Group:label">3a. Hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Other_Ethnic_Group:label">3a. Other ethnic group</span>
+        <span class="required">*</span>
+        <input type="text" name="/open_cencus_sep/Other_Ethnic_Group" data-required="true()" data-relevant="selected( /open_cencus_sep/Ethnic_Group ,'Ethnic_Group_Other')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Sex:label">4. Lahy na Vavy?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Sex:label">4. What sex are you?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Sex" data-name="/open_cencus_sep/Sex" value="Male" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Sex/Male:label">Lahy</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Sex/Male:label">Male</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Sex" data-name="/open_cencus_sep/Sex" value="Female" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Sex/Female:label">Vavy</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Sex/Female:label">Female</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-appearance-minimal ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Education:label">5. Inona no faram-pahaizanao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Education:label">5. What is your highest level of education?</span>
+        <span class="required">*</span>
+        <select name="/open_cencus_sep/Education" data-name="/open_cencus_sep/Education" data-required="true()" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="None">Tsisy</option>
+            <option value="EPP">EPP</option>
+            <option value="CEG">CEG</option>
+            <option value="Lycee">Lycee</option>
+            <option value="University">Universite</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="None" lang="mg">Tsisy</span>
+            <span data-option-value="None" lang="en">None</span>
+            <span data-option-value="EPP" lang="mg">EPP</span>
+            <span data-option-value="EPP" lang="en">EPP</span>
+            <span data-option-value="CEG" lang="mg">CEG</span>
+            <span data-option-value="CEG" lang="en">CEG</span>
+            <span data-option-value="Lycee" lang="mg">Lycee</span>
+            <span data-option-value="Lycee" lang="en">Lycee</span>
+            <span data-option-value="University" lang="mg">Universite</span>
+            <span data-option-value="University" lang="en">University</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Profession:label">6. Inona no asanao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Profession:label">6. What is your occupation?</span>
+        <span class="required">*</span>
+        <select multiple="multiple" name="/open_cencus_sep/Profession" data-required="true()" data-type-xml="select">
+            <option value="">...</option>
+            <option value="Farmer">Mpamboly</option>
+            <option value="Shop_owner">Mpivarotra</option>
+            <option value="Fisher">Mpanjono</option>
+            <option value="Teacher">Mpampianatra</option>
+            <option value="Government">Mpiasan'ny Fanjakana</option>
+            <option value="student">Mpianatra</option>
+            <option value="too_young">Zaza loatra tsy miasa</option>
+            <option value="caretaker">Mpanaramaso zaza</option>
+            <option value="Profession_Other">Hafa</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="Farmer" lang="mg">Mpamboly</span>
+            <span data-option-value="Farmer" lang="en">Farmer</span>
+            <span data-option-value="Shop_owner" lang="mg">Mpivarotra</span>
+            <span data-option-value="Shop_owner" lang="en">Shop owner</span>
+            <span data-option-value="Fisher" lang="mg">Mpanjono</span>
+            <span data-option-value="Fisher" lang="en">Fisher</span>
+            <span data-option-value="Teacher" lang="mg">Mpampianatra</span>
+            <span data-option-value="Teacher" lang="en">Teacher</span>
+            <span data-option-value="Government" lang="mg">Mpiasan'ny Fanjakana</span>
+            <span data-option-value="Government" lang="en">Government</span>
+            <span data-option-value="student" lang="mg">Mpianatra</span>
+            <span data-option-value="student" lang="en">Student</span>
+            <span data-option-value="too_young" lang="mg">Zaza loatra tsy miasa</span>
+            <span data-option-value="too_young" lang="en">Too young, still baby</span>
+            <span data-option-value="caretaker" lang="mg">Mpanaramaso zaza</span>
+            <span data-option-value="caretaker" lang="en">Caretaker</span>
+            <span data-option-value="Profession_Other" lang="mg">Hafa</span>
+            <span data-option-value="Profession_Other" lang="en">Other</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Other_Profession:label">6a. Hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Other_Profession:label">6a. Other profession</span>
+        <span class="required">*</span>
+        <input type="text" name="/open_cencus_sep/Other_Profession" data-required="true()" data-relevant="selected( /open_cencus_sep/Profession ,'Profession_Other')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Marital_Status:label">7. Manambady ve ianao, sa mpitovo, efa nisaraka, sns?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Marital_Status:label">7. What is your marital status?</span>
+        <span class="required">*</span>
+        <select name="/open_cencus_sep/Marital_Status" data-name="/open_cencus_sep/Marital_Status" data-required="true()" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="Single">Mpitovo</option>
+            <option value="Married">Manambady</option>
+            <option value="Divorced">Efa Nisaraka</option>
+            <option value="Widowed">Vady Naty</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="Single" lang="mg">Mpitovo</span>
+            <span data-option-value="Single" lang="en">Single</span>
+            <span data-option-value="Married" lang="mg">Manambady</span>
+            <span data-option-value="Married" lang="en">Married</span>
+            <span data-option-value="Divorced" lang="mg">Efa Nisaraka</span>
+            <span data-option-value="Divorced" lang="en">Divorced</span>
+            <span data-option-value="Widowed" lang="mg">Vady Naty</span>
+            <span data-option-value="Widowed" lang="en">Widowed</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Prior_HealthCare:label">8. Efa avy nitsabo tena taminy CSB na Hopitaly Be momba aretina na raha hafa nahavoa ianao?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Prior_HealthCare:label">8. Have you ever visited a hospital or clinic to receive treatment for a disease?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Prior_HealthCare" data-name="/open_cencus_sep/Prior_HealthCare" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Prior_HealthCare/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Prior_HealthCare/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Prior_HealthCare" data-name="/open_cencus_sep/Prior_HealthCare" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Prior_HealthCare/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Prior_HealthCare/No:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Prior_HealthCare" data-name="/open_cencus_sep/Prior_HealthCare" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Prior_HealthCare/idr:label">Tsy tadidiko</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Prior_HealthCare/idr:label">I don't Remember</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Prior_Diagnosis:label">9. Avy nisy dokotera na rasage nambara taminao ka misy ity aretina ity?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Prior_Diagnosis:label">9. Were you ever dignosed with any of the following illnesses by a doctor or nurse?</span>
+        <span class="required">*</span>
+        <select multiple="multiple" name="/open_cencus_sep/Prior_Diagnosis" data-required="true()" data-relevant="selected( /open_cencus_sep/Prior_HealthCare ,'Yes')" data-type-xml="select">
+            <option value="">...</option>
+            <option value="malaria">Tazo be (TDR positif)</option>
+            <option value="pneumonia">Aretin'avokavoka azo avy amin'ny otrik'aretina</option>
+            <option value="Tuberculosis">Tiberkilaozy</option>
+            <option value="HIV">VIH</option>
+            <option value="Measles">Kitrotro</option>
+            <option value="infected_wound">Fery mamori-nana ka ilana antibiotika na fanapahana rantsana</option>
+            <option value="stroke">Fahatsetseman'ny lalan-drà</option>
+            <option value="seizure">Fanintona</option>
+            <option value="dev_disorder">Olana ara-pitombona</option>
+            <option value="blindness">Fahajambana</option>
+            <option value="deafness">Marenina</option>
+            <option value="hypertension">Tosidrà</option>
+            <option value="cancer">Omamiadana</option>
+            <option value="no_pregnancy">Fitondrana vohoka tandidomin-doza</option>
+            <option value="schistosomiasis">Bilariziozy</option>
+            <option value="int_worms">Kankana an-kibo</option>
+            <option value="gonorrhea">Angatra</option>
+            <option value="pelv_inflammatory">Areti-taova-pananahan'ny vehivavy azo avy amin'ny otrik'aretina</option>
+            <option value="no_diagnosis">Aretina tsy fanta-pototra</option>
+            <option value="Prior_Diagnosis_other">Hafa</option>
+            <option value="idr">Tsy tadidiko</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="malaria" lang="mg">Tazo be (TDR positif)</span>
+            <span data-option-value="malaria" lang="en">Malaria (diagnosed by RDT)</span>
+            <span data-option-value="pneumonia" lang="mg">Aretin'avokavoka azo avy amin'ny otrik'aretina</span>
+            <span data-option-value="pneumonia" lang="en">Bacterial pneumonia</span>
+            <span data-option-value="Tuberculosis" lang="mg">Tiberkilaozy</span>
+            <span data-option-value="Tuberculosis" lang="en">Tuberculosis</span>
+            <span data-option-value="HIV" lang="mg">VIH</span>
+            <span data-option-value="HIV" lang="en">HIV</span>
+            <span data-option-value="Measles" lang="mg">Kitrotro</span>
+            <span data-option-value="Measles" lang="en">Measles</span>
+            <span data-option-value="infected_wound" lang="mg">Fery mamori-nana ka ilana antibiotika na fanapahana rantsana</span>
+            <span data-option-value="infected_wound" lang="en">Severely infected wound that required antibiotic or amputation</span>
+            <span data-option-value="stroke" lang="mg">Fahatsetseman'ny lalan-drà</span>
+            <span data-option-value="stroke" lang="en">Stroke</span>
+            <span data-option-value="seizure" lang="mg">Fanintona</span>
+            <span data-option-value="seizure" lang="en">Seizures/Convulsions</span>
+            <span data-option-value="dev_disorder" lang="mg">Olana ara-pitombona</span>
+            <span data-option-value="dev_disorder" lang="en">Developmental disorder</span>
+            <span data-option-value="blindness" lang="mg">Fahajambana</span>
+            <span data-option-value="blindness" lang="en">Blindness</span>
+            <span data-option-value="deafness" lang="mg">Marenina</span>
+            <span data-option-value="deafness" lang="en">Deafness</span>
+            <span data-option-value="hypertension" lang="mg">Tosidrà</span>
+            <span data-option-value="hypertension" lang="en">Hypertension</span>
+            <span data-option-value="cancer" lang="mg">Omamiadana</span>
+            <span data-option-value="cancer" lang="en">Cancer</span>
+            <span data-option-value="no_pregnancy" lang="mg">Fitondrana vohoka tandidomin-doza</span>
+            <span data-option-value="no_pregnancy" lang="en">High-risk pregnancy</span>
+            <span data-option-value="schistosomiasis" lang="mg">Bilariziozy</span>
+            <span data-option-value="schistosomiasis" lang="en">Schistosomiasis</span>
+            <span data-option-value="int_worms" lang="mg">Kankana an-kibo</span>
+            <span data-option-value="int_worms" lang="en">Intestinal worms</span>
+            <span data-option-value="gonorrhea" lang="mg">Angatra</span>
+            <span data-option-value="gonorrhea" lang="en">Gonorrhea</span>
+            <span data-option-value="pelv_inflammatory" lang="mg">Areti-taova-pananahan'ny vehivavy azo avy amin'ny otrik'aretina</span>
+            <span data-option-value="pelv_inflammatory" lang="en">Pelvic Inflammatory Disease</span>
+            <span data-option-value="no_diagnosis" lang="mg">Aretina tsy fanta-pototra</span>
+            <span data-option-value="no_diagnosis" lang="en">No diagnosis</span>
+            <span data-option-value="Prior_Diagnosis_other" lang="mg">Hafa</span>
+            <span data-option-value="Prior_Diagnosis_other" lang="en">Other</span>
+            <span data-option-value="idr" lang="mg">Tsy tadidiko</span>
+            <span data-option-value="idr" lang="en">I don't remember</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Other_Prior_Diagnosis:label">9a. Hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Other_Prior_Diagnosis:label">9a. Other prior diagnosis</span>
+        <span class="required">*</span>
+        <input type="text" name="/open_cencus_sep/Other_Prior_Diagnosis" data-required="true()" data-relevant="selected( /open_cencus_sep/Prior_Diagnosis ,'Prior_Diagnosis_other')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-appearance-minimal ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Visual_Health_Deformities:label">10. Inona karazana kilema hitanao ve? Soratana jiaby.</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Visual_Health_Deformities:label">10. Please list any physical deformities that are visible.</span>
+        <span class="required">*</span>
+        <select multiple="multiple" name="/open_cencus_sep/Visual_Health_Deformities" data-required="true()" data-type-xml="select">
+            <option value="">...</option>
+            <option value="Cleft_palate">Sima vava (molotra)</option>
+            <option value="Cleft_lip">Sima vava (anatiny)</option>
+            <option value="Club_foot">Kilema aminy tongotra hatrany abohoka</option>
+            <option value="Missing_teeth">Bagna.</option>
+            <option value="albinism">Olona bobo</option>
+            <option value="Missing_limbs">Traka</option>
+            <option value="goiter">Goitre</option>
+            <option value="no_teeth">Tsisy nify</option>
+            <option value="Other_Deformities">Hafa</option>
+            <option value="Deformities_NA">Tsy misy</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="Cleft_palate" lang="mg">Sima vava (molotra)</span>
+            <span data-option-value="Cleft_palate" lang="en">Cleft palate</span>
+            <span data-option-value="Cleft_lip" lang="mg">Sima vava (anatiny)</span>
+            <span data-option-value="Cleft_lip" lang="en">Cleft lip</span>
+            <span data-option-value="Club_foot" lang="mg">Kilema aminy tongotra hatrany abohoka</span>
+            <span data-option-value="Club_foot" lang="en">Club foot</span>
+            <span data-option-value="Missing_teeth" lang="mg">Bagna.</span>
+            <span data-option-value="Missing_teeth" lang="en">Missing teeth</span>
+            <span data-option-value="albinism" lang="mg">Olona bobo</span>
+            <span data-option-value="albinism" lang="en">Albinism</span>
+            <span data-option-value="Missing_limbs" lang="mg">Traka</span>
+            <span data-option-value="Missing_limbs" lang="en">Missing limbs</span>
+            <span data-option-value="goiter" lang="mg">Goitre</span>
+            <span data-option-value="goiter" lang="en">Goiter</span>
+            <span data-option-value="no_teeth" lang="mg">Tsisy nify</span>
+            <span data-option-value="no_teeth" lang="en">No teeth</span>
+            <span data-option-value="Other_Deformities" lang="mg">Hafa</span>
+            <span data-option-value="Other_Deformities" lang="en">Other</span>
+            <span data-option-value="Deformities_NA" lang="mg">Tsy misy</span>
+            <span data-option-value="Deformities_NA" lang="en">No deformities</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Other_Visual_Health_Deformities:label">10a. Hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Other_Visual_Health_Deformities:label">10a. Other visual health deformities</span>
+        <span class="required">*</span>
+        <input type="text" name="/open_cencus_sep/Other_Visual_Health_Deformities" data-required="true()" data-relevant="selected( /open_cencus_sep/Visual_Health_Deformities ,'Other_Deformities')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question non-select or-appearance-multiline ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Prior_Surgeries:label">11. Inona no karazana chirurgie avy nisy taminao taloha? Soratana jiaby.</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Prior_Surgeries:label">11. Please list any prior surgeries.</span>
+        <span class="required">*</span>
+        <textarea name="/open_cencus_sep/Prior_Surgeries" data-required="true()" data-type-xml="string"></textarea>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Vaccine_Card:label">12. Manana karatra vaksiny ve ianao?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Vaccine_Card:label">12. Do you have a vaccine card?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Vaccine_Card" data-name="/open_cencus_sep/Vaccine_Card" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Vaccine_Card/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Vaccine_Card/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Vaccine_Card" data-name="/open_cencus_sep/Vaccine_Card" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Vaccine_Card/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Vaccine_Card/No:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Vaccine_Card" data-name="/open_cencus_sep/Vaccine_Card" value="idk" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Vaccine_Card/idk:label">Tsy fantatra</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Vaccine_Card/idk:label">I don't know</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Vaccination_History:label">13. Inona no karazana vaksiny avy nataonao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Vaccination_History:label">13. Please list all the vaccines you have received.</span>
+        <span class="required">*</span>
+        <select multiple="multiple" name="/open_cencus_sep/Vaccination_History" data-required="true()" data-relevant="selected( /open_cencus_sep/Vaccine_Card ,'Yes')" data-type-xml="select">
+            <option value="">...</option>
+            <option value="polio">Vaksiny polio/Deboka ambava in-2 na tété vava</option>
+            <option value="dtc1">Vaksiny 6 herinandro/tsindro fe havia sy havanana</option>
+            <option value="dtc2">Vaksiny 10 herinandro</option>
+            <option value="dtc3">Vaksiny 14 herinandro</option>
+            <option value="measles">Vaksiny faha-9 volana atao aminny sandry ambony</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="polio" lang="mg">Vaksiny polio/Deboka ambava in-2 na tété vava</span>
+            <span data-option-value="polio" lang="en">Polio vaccine 0</span>
+            <span data-option-value="dtc1" lang="mg">Vaksiny 6 herinandro/tsindro fe havia sy havanana</span>
+            <span data-option-value="dtc1" lang="en">DTC1/Hep B1/Hib1/Polio 1/Rota 1/PCV 10-1</span>
+            <span data-option-value="dtc2" lang="mg">Vaksiny 10 herinandro</span>
+            <span data-option-value="dtc2" lang="en">DTC2/Hep B2/Hib2/Polio 2 (P2)/Rota2/PCV10-2</span>
+            <span data-option-value="dtc3" lang="mg">Vaksiny 14 herinandro</span>
+            <span data-option-value="dtc3" lang="en">DTC3/Hep B3/Hib3/PCV10-3/Polio 3 (injection)</span>
+            <span data-option-value="measles" lang="mg">Vaksiny faha-9 volana atao aminny sandry ambony</span>
+            <span data-option-value="measles" lang="en">Measles/VAR</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Pregnant:label">14. Efa avy bevotraka ve ianao?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Pregnant:label">14. Have you ever been pregnant?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="Yes" data-required="true()" data-relevant="selected( /open_cencus_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="No" data-required="true()" data-relevant="selected( /open_cencus_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Pregnancies:label">15. Impiry efa avy bevotraka ve ianao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Pregnancies:label">15. How many times have you been pregnant?</span>
+        <span class="required">*</span>
+        <input type="number" name="/open_cencus_sep/Pregnancies" data-required="true()" data-constraint=".&gt;=1 and .&lt;=20" data-relevant="selected( /open_cencus_sep/Pregnant ,'Yes')" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Number_Deliveries:label">16. Impiry niteraka zaza ve ianao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Number_Deliveries:label">16. How many pregnancies resulted in a delivery?</span>
+        <span class="required">*</span>
+        <input type="number" name="/open_cencus_sep/Number_Deliveries" data-required="true()" data-constraint=".&gt;=0 and .&lt;=20" data-relevant="selected( /open_cencus_sep/Pregnant ,'Yes')" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Number_Live_Births:label">17. Impiry niteraka zaza velona ve ianao?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Number_Live_Births:label">17. How many deliveries resulted in a live birth?</span>
+        <span class="required">*</span>
+        <input type="number" name="/open_cencus_sep/Number_Live_Births" data-required="true()" data-constraint=".&gt;=0 and .&lt;=20" data-relevant="selected( /open_cencus_sep/Pregnant ,'Yes')" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Birthweight:label">18. Raha mitadidy ianao, inona no lanzan'ny zaza taminy fotoana izy tena niteraka? (ataovy numero en grammes)</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Birthweight:label">18. If you can remember, what was the birthweight of
+                    <strong></strong>
+                    <strong></strong>__?
+                </span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="birth_weight_gram" data-required="true()" data-relevant=" /open_cencus_sep/Number_Deliveries &gt;=1" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Birthweight/birth_weight_gram:label">Lanja zaza vao-teraka</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Birthweight/birth_weight_gram:label">Birthweight</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Birthweight" data-name="/open_cencus_sep/Birthweight" value="Birthweight_NA" data-required="true()" data-relevant=" /open_cencus_sep/Number_Deliveries &gt;=1" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Birthweight/Birthweight_NA:label">Tsy tadidiko</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Birthweight/Birthweight_NA:label">I don't remember</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Birthweight_gram:label">18a. Lanja zaza vao-teraka (grammes)</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Birthweight_gram:label">18a. Birthweight (gram)</span>
+        <span class="required">*</span>
+        <input type="number" name="/open_cencus_sep/Birthweight_gram" data-required="true()" data-constraint=".&gt;=1000 and .&lt;=5000" data-relevant="selected( /open_cencus_sep/Birthweight ,'birth_weight_gram')" data-type-xml="int"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Is_Person_Alive:label">19. Mbola velona ve ianao?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Is_Person_Alive:label">19. Is this person still alive?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Is_Person_Alive" data-name="/open_cencus_sep/Is_Person_Alive" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Is_Person_Alive/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Is_Person_Alive/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Is_Person_Alive" data-name="/open_cencus_sep/Is_Person_Alive" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Is_Person_Alive/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Is_Person_Alive/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select or-appearance-multiline ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Cause_of_Death:label">20. Inona no mahatonga izy naty?</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Cause_of_Death:label">20. What was the cause of death?</span>
+        <span class="required">*</span>
+        <textarea name="/open_cencus_sep/Cause_of_Death" data-required="true()" data-relevant="selected( /open_cencus_sep/Is_Person_Alive ,'No')" data-type-xml="string"></textarea>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/Date_of_Death:label">21. Tamin'ny daty inona ny olona naty?</span>
+                <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/Date_of_Death:label">21. What was the date when they died?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Date_of_Death" data-name="/open_cencus_sep/Date_of_Death" value="date_death" data-required="true()" data-relevant="selected( /open_cencus_sep/Is_Person_Alive ,'No')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Date_of_Death/date_death:label">Datin'ny olo maty</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Date_of_Death/date_death:label">Date of death</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/open_cencus_sep/Date_of_Death" data-name="/open_cencus_sep/Date_of_Death" value="date_death_NA" data-required="true()" data-relevant="selected( /open_cencus_sep/Is_Person_Alive ,'No')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Date_of_Death/date_death_NA:label">NA</span>
+                    <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Date_of_Death/date_death_NA:label">NA</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/open_cencus_sep/death_date:label">21a. Datin'ny olo maty</span>
+        <span lang="en" class="question-label " data-itext-id="/open_cencus_sep/death_date:label">21a. Date of death</span>
+        <span class="required">*</span>
+        <input type="date" name="/open_cencus_sep/death_date" data-required="true()" data-constraint=".&gt;=&quot;1900-01-01&quot; and . &lt;= ( /open_cencus_sep/today )" data-relevant="selected( /open_cencus_sep/Date_of_Death ,'date_death')" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/open_cencus_sep/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/open_cencus_sep/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/open_cencus_sep/end" data-preload="timestamp" data-preload-params="end" data-type-xml="dateTime"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/open_cencus_sep/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/open_cencus_sep/formhub/uuid" data-calculate="'fa26ace6000d43f5bddc4cc8381f6e3e'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

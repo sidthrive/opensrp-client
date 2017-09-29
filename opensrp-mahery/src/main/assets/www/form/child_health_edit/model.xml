@@ -1,0 +1,23 @@
+<model>
+  <instance>
+    <child_health id="child_health" version="201707190647">
+      <formhub>
+        <uuid/>
+      </formhub>
+      <start/>
+      <today/>
+      <note_weight/>
+      <Child_Weight/>
+      <note_height/>
+      <Child_Height/>
+      <note_muac/>
+      <Anthropmetry_Upper_Arm/>
+      <note_head_circ/>
+      <Anthropmetry_Head/>
+      <end/>
+      <meta>
+        <instanceID/>
+      </meta>
+    </child_health>
+  </instance>
+</model>
