@@ -19,68 +19,8 @@ android:layout_width="match_parent" android:layout_height="match_parent"
         android:layout_marginRight="5dp"
         android:background="@drawable/listview_background_rounded">
 
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/Ethnic_Group"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/lbl_Ethnic_Group"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/colon"
-                android:layout_column="1"
-                android:paddingRight="10dp" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A "
-                android:layout_margin="5dp"
-                android:id="@+id/Ethnic_Group"
-                android:textSize="14sp"
-                android:textColor="@color/text_black" />
 
-        </TableRow>
-        <TableRow>
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/Other_Ethnic_Group"
-                android:id="@+id/lbl_subvillage"
-                android:layout_marginLeft="5dp"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="@string/colon"
-                android:layout_column="1"
-                android:paddingRight="10dp" />
-            <org.ei.opensrp.view.customControls.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                style="@style/CustomFontTextViewStyle.ListView.Medium"
-                android:text="N/A"
-                android:id="@+id/Other_Ethnic_Group"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textColor="@color/text_black" />
 
-        </TableRow>
         <TableRow>
 
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -185,7 +125,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
 
         </TableRow>
 
-        <TableRow>
+        <!--<TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -215,7 +155,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
-        </TableRow>
+        </TableRow>-->
 
         <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -314,7 +254,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textColor="@color/text_black" />
 
         </TableRow>
-        <TableRow>
+       <!-- <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -344,7 +284,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
-        </TableRow>
+        </TableRow>-->
         <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
@@ -376,7 +316,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:textColor="@color/text_black" />
 
         </TableRow>
-        <TableRow>
+       <!-- <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -406,7 +346,7 @@ android:layout_width="match_parent" android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:textColor="@color/text_black" />
 
-        </TableRow>
+        </TableRow>-->
         <TableRow>
             <org.ei.opensrp.view.customControls.CustomFontTextView
                 android:layout_width="wrap_content"
