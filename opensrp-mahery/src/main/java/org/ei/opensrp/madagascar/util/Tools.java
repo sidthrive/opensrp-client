@@ -100,7 +100,7 @@ public class Tools {
      * @param updated    capture mode
      * @return Boolean
      */
-    public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated) {
+    public static boolean WritePictureToFile(Bitmap bitmap, String entityId, String[] faceVector, boolean updated, String type) {
 
         File pictureFile = getOutputMediaFile(0, entityId);
         File thumbs_photo = getOutputMediaFile(1, entityId);
@@ -131,9 +131,9 @@ public class Tools {
             Log.e(TAG, "Wrote Thumbs image to " + thumbs_photo);
 
 //           FIXME File & Database Stored
-            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector), updated);
+            saveStaticImageToDisk(entityId, ThumbImage, Arrays.toString(faceVector), updated,type);
 
-            saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated);
+            saveToDb(entityId, thumbs_photo.toString(), Arrays.toString(faceVector), updated,type);
 
             return true;
 
@@ -145,7 +145,7 @@ public class Tools {
         return false;
     }
 
-    private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated) {
+    private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated, String type) {
 
         Log.e(TAG, "saveToDb: " + "start");
         // insert into the db local
@@ -155,7 +155,7 @@ public class Tools {
             profileImage.setEntityID(entityId);
             profileImage.setContenttype("jpeg");
             profileImage.setFilepath(absoluteFileName);
-            profileImage.setFilecategory("profilepic");
+            profileImage.setFilecategory(type);
            // profileImage.setFilevector(faceVector);
             profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
 
@@ -793,7 +793,7 @@ public class Tools {
         return newHeader;
     }
 
-    public static void saveStaticImageToDisk(String entityId, Bitmap image, String contentVector, boolean updated) {
+    public static void saveStaticImageToDisk(String entityId, Bitmap image, String contentVector, boolean updated, String type) {
         String anmId = Context.getInstance().allSharedPreferences().fetchRegisteredANM();
 
         String[] res = contentVector.substring(1, contentVector.length() - 1).split(",");
@@ -828,7 +828,7 @@ public class Tools {
                     profileImage.setEntityID(entityId);
                     profileImage.setContenttype("jpeg");
                     profileImage.setFilepath(absoluteFileName);
-                    profileImage.setFilecategory("profilepic");
+                    profileImage.setFilecategory(type);
                     profileImage.setFilevector("");
                     profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
 

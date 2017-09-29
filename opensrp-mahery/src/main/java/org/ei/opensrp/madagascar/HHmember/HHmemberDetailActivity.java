@@ -486,16 +486,15 @@ public class HHmemberDetailActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            String imageBitmap = (String) extras.get(MediaStore.EXTRA_OUTPUT);
-//            Toast.makeText(this,imageBitmap,Toast.LENGTH_LONG).show();
+
             HashMap<String,String> details = new HashMap<String,String>();
-            details.put("photo",currentfile.getAbsolutePath());
+          //  details.put("photo",currentfile.getAbsolutePath());
           //  saveimagereference(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
+            tools.WritePictureToFile(bitmap,entityid,null,false,"image1");
            // onCreate(null);
             Intent refresh = new Intent(this, HHmemberSmartRegisterActivity.class);
             startActivity(refresh);//Start the same Activity
@@ -503,50 +502,49 @@ public class HHmemberDetailActivity extends Activity {
         }
         else if (requestCode == REQUEST_TAKE_PHOTO2 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
-            details.put("photo2",currentfile.getAbsolutePath());
+           // details.put("photo2",currentfile.getAbsolutePath());
           //  saveimagereference2(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
+            tools.WritePictureToFile(bitmap,entityid,null,false,"image2");
             finish();
             startActivity(new Intent(this, HHmemberSmartRegisterActivity.class));
             overridePendingTransition(0, 0);
         }
         else if (requestCode == REQUEST_TAKE_PHOTO3 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
-            details.put("photo3",currentfile.getAbsolutePath());
+          //  details.put("photo3",currentfile.getAbsolutePath());
          //   saveimagereference3(bindobject,entityid,details);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
+            tools.WritePictureToFile(bitmap,entityid,null,false,"image3");
             finish();
             startActivity(new Intent(this, HHmemberSmartRegisterActivity.class));
             overridePendingTransition(0, 0);
         }
         else if (requestCode == REQUEST_TAKE_PHOTO4 && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
-            details.put("photo4",currentfile.getAbsolutePath());
-         //   saveimagereference4(bindobject,entityid,details);
+           // details.put("photo4",currentfile.getAbsolutePath());
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
+            tools.WritePictureToFile(bitmap,entityid,null,false,"image4");
             finish();
             startActivity(new Intent(this, HHmemberSmartRegisterActivity.class));
             overridePendingTransition(0, 0);
         }
         else if (requestCode == REQUEST_TAKE_PHOTOS && resultCode == RESULT_OK) {
             HashMap<String,String> details = new HashMap<String,String>();
-          //  details.put("profilepic",currentfile.getAbsolutePath());
-         //   saveimagereferences(bindobject,entityid,details);
-         //   Bitmap storedBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(currentfile.getPath(), options);
             mImageView.setImageBitmap(bitmap);
-            tools.WritePictureToFile(bitmap,entityid,null,false);
+            tools.WritePictureToFile(bitmap,entityid,null,false,"profilepic");
            // Tools = new org.ei.opensrp.madagascar.util.Tools();
          //   saveToDb(entityid,currentfile.getAbsolutePath(),null,false,HHmemberDetailActivity.class.getSimpleName());
             finish();

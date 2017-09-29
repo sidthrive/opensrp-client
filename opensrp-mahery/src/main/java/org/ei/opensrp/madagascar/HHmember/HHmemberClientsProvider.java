@@ -109,7 +109,9 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             kiview.setTag(smartRegisterClient);
 
         }
+
         else {*/
+
             if (pc.getColumnmaps().get("Sex") != null) {
                 if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                     viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.woman_placeholder));
