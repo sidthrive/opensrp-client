@@ -162,7 +162,7 @@ public class RccHomeActivity extends SecuredActivity {
 
         Cursor hhmembercounts = context().commonrepository("HHMember").RawCustomQueryForAdapter(
                 sqb.queryForCountOnRegisters("HHMember",
-                        "Name_family_member NOT Null and Name_family_member != ''"));
+                        "Name_family_member NOT Null and Name_family_member != '' and details not like '%\"Is_Person_Alive\":\"No\"%'"));
         hhmembercounts.moveToFirst();
         hhmembercount= hhmembercounts.getInt(0);
         hhmembercounts.close();

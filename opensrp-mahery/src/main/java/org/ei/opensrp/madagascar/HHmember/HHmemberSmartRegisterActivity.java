@@ -126,7 +126,10 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         return new DialogOption[]{
                // new OpenFormOption(getResources().getString(R.string.censusenrollmentform), "child_health", formController, overridemap, OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.str_follow_up_edit), "follow_up_edit", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
                 new OpenFormOption(getResources().getString(R.string.child_stats), "child_health", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+              //  new OpenFormOption(getResources().getString(R.string.str_follow_up), "follow_up", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
+                new OpenFormOption(getResources().getString(R.string.child_stats_edit), "child_health_edit", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault),
 
         };
 
@@ -309,6 +312,8 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
         formNames.add("follow_up");
         formNames.add("child_health");
+        formNames.add("follow_up_edit");
+        formNames.add("child_health_edit");
       //  DialogOption[] options = getEditOptions();
         //for (int i = 0; i < options.length; i++) {
        //     formNames.add(((OpenFormOption) options[i]).getFormName());

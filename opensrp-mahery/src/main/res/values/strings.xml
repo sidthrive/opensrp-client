@@ -682,5 +682,7 @@
     <string name="childHeight">Child Height</string>
     <string name="anthropmetryUpperArm">Anthropmetry Upper Arm</string>
     <string name="anthropmetryHead">Anthropmetry Head</string>
+    <string name="child_stats_edit">Child Status Edit</string>
+    <string name="str_follow_up_edit">follow-up Edit</string>
 
 </resources>

@@ -30,6 +30,7 @@ import org.ei.opensrp.madagascar.HHmember.HHmemberSmartRegisterActivity;
 import org.ei.opensrp.madagascar.LoginActivity;
 import org.ei.opensrp.madagascar.R;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
+import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
@@ -218,15 +219,15 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         countqueryBUilder.SelectInitiateMainTableCounts("HHMember");
 
 
-        countSelect = countqueryBUilder.mainCondition(" Name_family_member != '' ");
+        countSelect = countqueryBUilder.mainCondition(mainCondition);
        // mainCondition = " Name_family_member != '' ";
        // mainCondition = " ";
                 if (s == null) {
-                        mainCondition = " Name_family_member != '' ";
-                     //  Log.e(TAG, "initializeQueries: Not Initialized" );
+                        mainCondition = " Name_family_member != '' and details not like '%\"Is_Person_Alive\":\"No\"%' ";
+                     //  Log.e(TAG, "initializeQueries: Not Initialized" ); "Is_Person_Alive":"Yes"
                             } else {
                      //   Log.e(TAG, "initializeQueries: id " + s); details not LIKE '%"jenisKontrasepsi":""%'
-                                mainCondition = " Name_family_member != '' AND details LIKE '%" + s + "%'";
+                                mainCondition = " Name_family_member != ''  and details not like '%\"Is_Person_Alive\":\"No\"%' AND details LIKE '%" + s + "%'";
                    }
         super.CountExecute();
 
@@ -234,10 +235,11 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
         queryBUilder.SelectInitiateMainTable("HHMember", new String[]{"isClosed", "details","Name_family_member","Ethnic_Group","Sex","Education","Profession"});
         // queryBUilder.customJoin("LEFT JOIN ibu on HH.id = ibu.kartuIbuId LEFT JOIN anak ON ibu.id = anak.ibuCaseId ");
         //    countqueryBUilder.joinwithchilds("ibu");
-        mainSelect = queryBUilder.mainCondition(" Name_family_member != '' ");
+        mainSelect = queryBUilder.mainCondition(mainCondition);
         Sortqueries = KiSortByNameAZ();
         currentlimit = 20;
         currentoffset = 0;
+        Log.logInfo("AAAAAAA"+mainSelect);
 
         super.filterandSortInInitializeQueries();
 
@@ -388,7 +390,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " Name_family_member != '' ";
+                mainCondition = " Name_family_member != '' and details not like '%\"Is_Person_Alive\":\"No\"%'";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
@@ -414,7 +416,7 @@ public class NativeHHmemberSmartRegisterFragment extends SecuredNativeSmartRegis
 
                 filters = cs.toString();
                 joinTable = "";
-                mainCondition = " Name_family_member != '' ";
+                mainCondition = " Name_family_member != '' and details not like '%\"Is_Person_Alive\":\"No\"%'";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
