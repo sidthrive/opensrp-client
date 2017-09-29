@@ -78,18 +78,16 @@ public class HHmemberDetailActivity extends Activity {
         /**
          * Open cencus
          * */
-        TextView Ethnic_Group = (TextView) findViewById(R.id.Ethnic_Group);
-        TextView Other_Ethnic_Group = (TextView) findViewById(R.id.Other_Ethnic_Group);
+    //    TextView Ethnic_Group = (TextView) findViewById(R.id.Ethnic_Group);
+     //   TextView Other_Ethnic_Group = (TextView) findViewById(R.id.Other_Ethnic_Group);
         TextView Sex = (TextView) findViewById(R.id.Sex);
         TextView Education = (TextView) findViewById(R.id.Education);
         TextView Profession = (TextView) findViewById(R.id.Profession);
-        TextView Other_Profession = (TextView) findViewById(R.id.Other_Profession);
+       // TextView Other_Profession = (TextView) findViewById(R.id.Other_Profession);
         TextView Marital_Status = (TextView) findViewById(R.id.Marital_Status);
         TextView Prior_HealthCare = (TextView) findViewById(R.id.Prior_HealthCare);
         TextView Prior_Diagnosis = (TextView) findViewById(R.id.Prior_Diagnosis);
-        TextView Other_Prior_Diagnosis = (TextView) findViewById(R.id.Other_Prior_Diagnosis);
         TextView Visual_Health_Deformities = (TextView) findViewById(R.id.Visual_Health_Deformities);
-        TextView Other_Visual_Health_Deformities = (TextView) findViewById(R.id.Other_Visual_Health_Deformities);
         TextView Prior_Surgeries = (TextView) findViewById(R.id.Prior_Surgeries);
         TextView Vaccine_Card = (TextView) findViewById(R.id.Vaccine_Card);
         TextView Vaccination_History = (TextView) findViewById(R.id.Vaccination_History);
@@ -162,18 +160,18 @@ public class HHmemberDetailActivity extends Activity {
          * Open cencus
          * */
         //Ethnic_Group.setText(humanize(memberclient.getColumnmaps().get("Ethnic_Group")));
-        Ethnic_Group.setVisibility(View.GONE);
-        Other_Ethnic_Group.setText(humanize(memberclient.getDetails().get("Other_Ethnic_Group")));
+       // Ethnic_Group.setVisibility(View.GONE);
+      //  Other_Ethnic_Group.setText(humanize(memberclient.getDetails().get("Other_Ethnic_Group")));
         Sex.setText(humanize(memberclient.getColumnmaps().get("Sex")));
         Education.setText(humanize(memberclient.getColumnmaps().get("Education")));
         Profession.setText(humanize(memberclient.getColumnmaps().get("Profession")));
-        Other_Profession.setText(humanize(memberclient.getDetails().get("Other_Profession")));
+       // Other_Profession.setText(humanize(memberclient.getDetails().get("Other_Profession")));
         Marital_Status.setText(humanize(memberclient.getDetails().get("Marital_Status")));
         Prior_HealthCare.setText(humanize(memberclient.getDetails().get("Prior_HealthCare")));
         Prior_Diagnosis.setText(humanize(memberclient.getDetails().get("Prior_Diagnosis")));
-        Other_Prior_Diagnosis.setText(humanize(memberclient.getDetails().get("Other_Prior_Diagnosis")));
+       // Other_Prior_Diagnosis.setText(humanize(memberclient.getDetails().get("Other_Prior_Diagnosis")));
         Visual_Health_Deformities.setText(humanize(memberclient.getDetails().get("Visual_Health_Deformities")));
-        Other_Visual_Health_Deformities.setText(humanize(memberclient.getDetails().get("Other_Visual_Health_Deformities")));
+        //Other_Visual_Health_Deformities.setText(humanize(memberclient.getDetails().get("Other_Visual_Health_Deformities")));
         Prior_Surgeries.setText(humanize(memberclient.getDetails().get("Prior_Surgeries")));
         Vaccine_Card.setText(humanize(memberclient.getDetails().get("Vaccine_Card")));
         Vaccination_History.setText(humanize(memberclient.getDetails().get("Vaccination_History")));
@@ -641,8 +639,8 @@ public class HHmemberDetailActivity extends Activity {
         d.Pregnant.setText(getDetails("Pregnant").replace("idr","I don't Remember"));
         d.Last_Period.setText(getDetails("Last_Period").replace("idr","I don't Remember"));
         d.LMP_date.setText(getDetails("LMP_date").replace("idr","I don't Remember"));
-        d.LMP_month.setText(getDetails("LMP_month").replace("idr","I don't Remember"));
-        d.LMP_year.setText(getDetails("LMP_year").replace("idr","I don't Remember"));
+//        d.LMP_month.setText(getDetails("LMP_month").replace("idr","I don't Remember"));
+     //   d.LMP_year.setText(getDetails("LMP_year").replace("idr","I don't Remember"));
         d.Prenatal_Visits.setText(getDetails("Prenatal_Visits").replace("idr","I don't Remember"));
         d.Prenatal_Medication.setText(getDetails("Prenatal_Medication").replace("idr","I don't Remember"));
 //        d.Prenatal_Medication_Type.setText(getDetails("Prenatal_Medication_Type"));
@@ -730,8 +728,8 @@ public class HHmemberDetailActivity extends Activity {
         d.Pregnant  = (TextView) findViewById(R.id.Pregnant);
         d.Last_Period  = (TextView) findViewById(R.id.Last_Period);
         d.LMP_date  = (TextView) findViewById(R.id.LMP_date);
-        d.LMP_month  = (TextView) findViewById(R.id.LMP_month);
-        d.LMP_year  = (TextView) findViewById(R.id.LMP_year);
+      //  d.LMP_month  = (TextView) findViewById(R.id.LMP_month);
+     //   d.LMP_year  = (TextView) findViewById(R.id.LMP_year);
         d.Prenatal_Visits  = (TextView) findViewById(R.id.Prenatal_Visits);
         d.Prenatal_Medication  = (TextView) findViewById(R.id.Prenatal_Medication);
         d.Prenatal_Medication_Type  = (TextView) findViewById(R.id.Prenatal_Medication_Type);

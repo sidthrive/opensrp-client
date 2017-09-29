@@ -59,6 +59,7 @@ public class Tools {
     private static Bitmap dummyImage = null;
     private static byte[] headerOfVector;
 
+    static String bindobject;
     private static byte[] bodyOfVector;
     private static byte[] lastContentOfVector;
     //    private static String headerOne;
@@ -158,6 +159,12 @@ public class Tools {
             profileImage.setFilecategory(type);
            // profileImage.setFilevector(faceVector);
             profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+
+            // insert into details
+            Map<String, String> details = new HashMap<>();
+            details.put(type, absoluteFileName);
+            bindobject = "HHMember";
+            Context.getInstance().allCommonsRepositoryobjects(bindobject).mergeDetails(entityId, details);
 
             imageRepo.add(profileImage, entityId);
         } else {
