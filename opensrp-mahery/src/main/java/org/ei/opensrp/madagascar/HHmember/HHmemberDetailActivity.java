@@ -293,7 +293,12 @@ public class HHmemberDetailActivity extends Activity {
             }
         });
 
-        pic1.setOnClickListener(new View.OnClickListener() {
+
+        /*****
+         * Comment it at the moment because it replace other photo
+         *
+         * */
+       /* pic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
              //   FlurryFacade.logEvent("taking_mother_pictures_on_kohort_ibu_detail_view");
@@ -333,7 +338,7 @@ public class HHmemberDetailActivity extends Activity {
                 takepicture4(kiview);
 
             }
-        });
+        });*/
 
     }
 
@@ -638,9 +643,14 @@ public class HHmemberDetailActivity extends Activity {
         d.Pregnant_Last_Month.setText(getDetails("Pregnant_Last_Month").replace("idr","I don't Remember"));
         d.Pregnant.setText(getDetails("Pregnant").replace("idr","I don't Remember"));
         d.Last_Period.setText(getDetails("Last_Period").replace("idr","I don't Remember"));
-        d.LMP_date.setText(getDetails("LMP_date").replace("idr","I don't Remember"));
-//        d.LMP_month.setText(getDetails("LMP_month").replace("idr","I don't Remember"));
-     //   d.LMP_year.setText(getDetails("LMP_year").replace("idr","I don't Remember"));
+
+
+        String date = memberclient.getDetails().get("LMP_date") != null? memberclient.getDetails().get("LMP_date"):"n/a";
+        String month = memberclient.getDetails().get("LMP_month") != null? memberclient.getDetails().get("LMP_month"):"n/a";
+        String year = memberclient.getDetails().get("LMP_year") != null? memberclient.getDetails().get("LMP_year"):"n/a";
+
+        d.LMP_date.setText(date+" - "+month+" - "+ year);
+
         d.Prenatal_Visits.setText(getDetails("Prenatal_Visits").replace("idr","I don't Remember"));
         d.Prenatal_Medication.setText(getDetails("Prenatal_Medication").replace("idr","I don't Remember"));
 //        d.Prenatal_Medication_Type.setText(getDetails("Prenatal_Medication_Type"));
