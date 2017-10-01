@@ -19,6 +19,8 @@ public class FormSubmissionCouch {
     @JsonProperty
     private String formName;
     @JsonProperty
+    private String locationId;
+    @JsonProperty
     private String entityId;
     @JsonProperty
     private long clientVersion;
@@ -34,10 +36,11 @@ public class FormSubmissionCouch {
     public FormSubmissionCouch() {
     }
 
-    public FormSubmissionCouch(String type, String anmId, String instanceId, String formName, String entityId, long clientVersion, String formDataDefinitionVersion, FormInstanceCouch formInstance, long serverVersion) {
+    public FormSubmissionCouch(String type, String anmId, String instanceId, String formName, String locationId, String entityId, long clientVersion, String formDataDefinitionVersion, FormInstanceCouch formInstance, long serverVersion) {
         this.instanceId = instanceId;
         this.type = type;
         this.formName = formName;
+        this.locationId = locationId;
         this.anmId = anmId;
         this.clientVersion = clientVersion;
         this.entityId = entityId;
@@ -46,8 +49,8 @@ public class FormSubmissionCouch {
         this.formDataDefinitionVersion = formDataDefinitionVersion;
     }
 
-    public FormSubmissionCouch(String type, String anmId, String instanceId, String formName, String entityId, String formDataDefinitionVersion, long clientVersion, FormInstanceCouch formInstance) {
-        this(type, anmId, instanceId, formName, entityId, clientVersion, formDataDefinitionVersion, formInstance, 0L);
+    public FormSubmissionCouch(String type, String anmId, String instanceId, String formName, String locationId, String entityId, String formDataDefinitionVersion, long clientVersion, FormInstanceCouch formInstance) {
+        this(type, anmId, instanceId, formName, locationId, entityId, clientVersion, formDataDefinitionVersion, formInstance, 0L);
     }
 
     public String type() {
@@ -67,6 +70,10 @@ public class FormSubmissionCouch {
 
     public String formName() {
         return this.formName;
+    }
+
+    public String locationId() {
+        return this.locationId;
     }
 
     public String bindType() {
