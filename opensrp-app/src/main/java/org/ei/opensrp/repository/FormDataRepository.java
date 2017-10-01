@@ -36,13 +36,14 @@ public class FormDataRepository extends DrishtiRepository {
     public static final String INSTANCE_ID_COLUMN = "instanceId";
     public static final String ENTITY_ID_COLUMN = "entityId";
     private static final String FORM_NAME_COLUMN = "formName";
+    private static final String LOCATION_ID_COLUMN = "locationId";
     private static final String INSTANCE_COLUMN = "instance";
     private static final String VERSION_COLUMN = "version";
     private static final String SERVER_VERSION_COLUMN = "serverVersion";
     private static final String SYNC_STATUS_COLUMN = "syncStatus";
     private static final String FORM_DATA_DEFINITION_VERSION_COLUMN = "formDataDefinitionVersion";
     private static final String FORM_SUBMISSION_TABLE_NAME = "form_submission";
-    public static final String[] FORM_SUBMISSION_TABLE_COLUMNS = new String[]{INSTANCE_ID_COLUMN, ENTITY_ID_COLUMN, FORM_NAME_COLUMN,
+    public static final String[] FORM_SUBMISSION_TABLE_COLUMNS = new String[]{INSTANCE_ID_COLUMN, ENTITY_ID_COLUMN, FORM_NAME_COLUMN, LOCATION_ID_COLUMN,
             INSTANCE_COLUMN, VERSION_COLUMN, SERVER_VERSION_COLUMN, FORM_DATA_DEFINITION_VERSION_COLUMN, SYNC_STATUS_COLUMN};
     public static final String ID_COLUMN = "id";
     private static final String DETAILS_COLUMN_NAME = "details";
@@ -133,7 +134,7 @@ public class FormDataRepository extends DrishtiRepository {
     public void markFormSubmissionsAsSynced(List<FormSubmission> formSubmissions) {
         SQLiteDatabase database = masterRepository.getWritableDatabase();
         for (FormSubmission submission : formSubmissions) {
-            FormSubmission updatedSubmission = new FormSubmission(submission.instanceId(), submission.entityId(), submission.formName(), submission.instance(), submission.version(), SYNCED, "1");
+            FormSubmission updatedSubmission = new FormSubmission(submission.instanceId(), submission.entityId(), submission.formName(), submission.locationId(), submission.instance(), submission.version(), SYNCED, "1");
             database.update(FORM_SUBMISSION_TABLE_NAME, createValuesForFormSubmission(updatedSubmission), INSTANCE_ID_COLUMN + " = ?", new String[]{updatedSubmission.instanceId()});
         }
     }
@@ -172,6 +173,7 @@ public class FormDataRepository extends DrishtiRepository {
         values.put(INSTANCE_ID_COLUMN, submission.instanceId());
         values.put(ENTITY_ID_COLUMN, submission.entityId());
         values.put(FORM_NAME_COLUMN, submission.formName());
+        values.put(LOCATION_ID_COLUMN, submission.locationId());
         values.put(INSTANCE_COLUMN, submission.instance());
         values.put(VERSION_COLUMN, submission.version());
         values.put(SERVER_VERSION_COLUMN, submission.serverVersion());
@@ -204,6 +206,7 @@ public class FormDataRepository extends DrishtiRepository {
                     cursor.getString(cursor.getColumnIndex(INSTANCE_ID_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(ENTITY_ID_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(FORM_NAME_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(LOCATION_ID_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(INSTANCE_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(VERSION_COLUMN)),
                     SyncStatus.valueOf(cursor.getString(cursor.getColumnIndex(SYNC_STATUS_COLUMN))),
