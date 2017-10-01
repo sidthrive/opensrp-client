@@ -16,7 +16,7 @@ public class FormSubmissionConverter {
     public static FormSubmissionCouch toFormSubmission(FormSubmissionDTO FormSubmissionDTO) {
         try {
             FormInstanceCouch FormInstanceCouch = new Gson().fromJson(FormSubmissionDTO.instance(), FormInstanceCouch.class);
-            return new FormSubmissionCouch("FormSubmission", FormSubmissionDTO.anmId(), FormSubmissionDTO.instanceId(), FormSubmissionDTO.formName(), FormSubmissionDTO.entityId(),
+            return new FormSubmissionCouch("FormSubmission", FormSubmissionDTO.anmId(), FormSubmissionDTO.instanceId(), FormSubmissionDTO.formName(), FormSubmissionDTO.locationId(), FormSubmissionDTO.entityId(),
                     FormSubmissionDTO.formDataDefinitionVersion(), parseLong(FormSubmissionDTO.clientVersion()), FormInstanceCouch);
         } catch (Exception e) {
             throw e;
@@ -24,7 +24,7 @@ public class FormSubmissionConverter {
     }
 
     public static FormSubmissionCouch toFormSubmissionWithVersion(FormSubmissionDTO FormSubmissionDTO) {
-        return new FormSubmissionCouch("FormSubmission", FormSubmissionDTO.anmId(), FormSubmissionDTO.instanceId(), FormSubmissionDTO.formName(),
+        return new FormSubmissionCouch("FormSubmission", FormSubmissionDTO.anmId(), FormSubmissionDTO.instanceId(), FormSubmissionDTO.formName(), FormSubmissionDTO.locationId(),
                 FormSubmissionDTO.entityId(), parseLong(FormSubmissionDTO.clientVersion()), FormSubmissionDTO.formDataDefinitionVersion(), new Gson().fromJson(FormSubmissionDTO.instance(), FormInstanceCouch.class),
                 parseLong(FormSubmissionDTO.serverVersion()));
     }
