@@ -39,6 +39,7 @@ import static org.ei.opensrp.util.Log.logInfo;
 
 public class FormSubmissionSyncService {
     public static final String FORM_SUBMISSIONS_PATH = "form-submissions";
+    public static final String FORM_SUBMISSIONS_PATH_BY_LOC = "form-submissions-by-loc";
     private final HTTPAgent httpAgent;
     private final FormDataRepository formDataRepository;
     private AllSettings allSettings;
@@ -62,7 +63,7 @@ public class FormSubmissionSyncService {
         boolean pushStatus = pushToServer();
         Intent intent = new Intent(DrishtiApplication.getInstance().getApplicationContext(),ImageUploadSyncService.class);
         DrishtiApplication.getInstance().getApplicationContext().startService(intent);
-        FetchStatus pullStatus = pullFromServer();
+        FetchStatus pullStatus = pullFromServerbyLoc();
 
         if((!pushStatus)&&pullStatus==fetchedFailed){
             return pushAndFetchFailed;
@@ -141,8 +142,37 @@ public class FormSubmissionSyncService {
                 logError(format("Form submis,sions pull failed."));
                 return fetchedFailed;
             }
-            List<org.ei.drishti.dto.form.FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
-                    new TypeToken<List<org.ei.drishti.dto.form.FormSubmissionDTO>>() {
+            List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
+                    new TypeToken<List<FormSubmissionDTO>>() {
+                    }.getType());
+            if (formSubmissions.isEmpty()) {
+                return dataStatus;
+            } else {
+                formSubmissionService.processSubmissions(toDomain(formSubmissions));
+                dataStatus = fetched;
+            }
+        }
+    }
+
+    public FetchStatus pullFromServerbyLoc() {
+        FetchStatus dataStatus = nothingFetched;
+        String locationId = allSettings.fetchANMLocation();
+        int downloadBatchSize = configuration.syncDownloadBatchSize();
+        String baseURL = configuration.dristhiBaseURL();
+        while (true) {
+            String uri = format("{0}/{1}?locationId={2}&timestamp={3}&batch-size={4}",
+                    baseURL,
+                    FORM_SUBMISSIONS_PATH_BY_LOC,
+                    locationId,
+                    allSettings.fetchPreviousFormSyncIndex(),
+                    downloadBatchSize);
+            Response<String> response = httpAgent.fetch(uri);
+            if (response.isFailure()) {
+                logError(format("Form submis,sions pull failed."));
+                return fetchedFailed;
+            }
+            List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
+                    new TypeToken<List<FormSubmissionDTO>>() {
                     }.getType());
             if (formSubmissions.isEmpty()) {
                 return dataStatus;
