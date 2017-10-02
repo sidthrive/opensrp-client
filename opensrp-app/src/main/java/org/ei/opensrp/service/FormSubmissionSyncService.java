@@ -6,6 +6,7 @@ import ch.lambdaj.function.convert.Converter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.domain.Response;
@@ -102,9 +103,9 @@ public class FormSubmissionSyncService {
             String submissionPayload = new Gson().toJson(docs);
             Response<String> response = httpAgent.postToCouch(
                     format("{0}/{1}",
-                            "http://118.91.130.18:5983",
+                            "http://192.168.1.253:5984",
                             "opensrp-form/_bulk_docs"),
-                    submissionPayload, "rootuser", "Satu23456");
+                    submissionPayload, "admin", "Satu2345");
             if (response.isFailure()) {
                 logError(format("Form submissions sync failed. Submissions:  {0}", pendingFormSubmissions));
                 return false;
@@ -139,7 +140,7 @@ public class FormSubmissionSyncService {
                     downloadBatchSize);
             Response<String> response = httpAgent.fetch(uri);
             if (response.isFailure()) {
-                logError(format("Form submis,sions pull failed."));
+                logError(format("Form submissions pull failed."));
                 return fetchedFailed;
             }
             List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
@@ -156,19 +157,20 @@ public class FormSubmissionSyncService {
 
     public FetchStatus pullFromServerbyLoc() {
         FetchStatus dataStatus = nothingFetched;
-        String locationId = allSettings.fetchANMLocation();
+        String locationId = allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
         int downloadBatchSize = configuration.syncDownloadBatchSize();
         String baseURL = configuration.dristhiBaseURL();
         while (true) {
             String uri = format("{0}/{1}?locationId={2}&timestamp={3}&batch-size={4}",
                     baseURL,
-                    FORM_SUBMISSIONS_PATH_BY_LOC,
+                    FORM_SUBMISSIONS_PATH_BY_LOC.replace(" ","%20"),
                     locationId,
                     allSettings.fetchPreviousFormSyncIndex(),
                     downloadBatchSize);
             Response<String> response = httpAgent.fetch(uri);
+            logInfo(format("Uri:  {0}", uri));
             if (response.isFailure()) {
-                logError(format("Form submis,sions pull failed."));
+                logError(format("Form submissions pull failed."));
                 return fetchedFailed;
             }
             List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
@@ -186,8 +188,8 @@ public class FormSubmissionSyncService {
     private String mapToFormSubmissionDTO(List<FormSubmission> pendingFormSubmissions) {
         List<FormSubmissionDTO> formSubmissions = new ArrayList<FormSubmissionDTO>();
         for (FormSubmission pendingFormSubmission : pendingFormSubmissions) {
-            formSubmissions.add(new FormSubmissionDTO("FormSubmission",allSharedPreferences.fetchRegisteredANM(), pendingFormSubmission.instanceId(),
-                    pendingFormSubmission.entityId(), pendingFormSubmission.formName(), allSettings.fetchANMLocation(), pendingFormSubmission.instance(), pendingFormSubmission.version(),
+            formSubmissions.add(new FormSubmissionDTO("FormSubmission", allSharedPreferences.fetchRegisteredANM(), pendingFormSubmission.instanceId(),
+                    pendingFormSubmission.entityId(), pendingFormSubmission.formName(), allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID), pendingFormSubmission.instance(), pendingFormSubmission.version(),
                     pendingFormSubmission.formDataDefinitionVersion()).withServerVersion(DateTime.now().getMillis()));
         }
         return new Gson().toJson(formSubmissions);
