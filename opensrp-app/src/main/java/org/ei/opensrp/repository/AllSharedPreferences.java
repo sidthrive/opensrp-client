@@ -6,7 +6,6 @@ import static org.ei.opensrp.AllConstants.*;
 
 public class AllSharedPreferences {
     public static final String ANM_IDENTIFIER_PREFERENCE_KEY = "anmIdentifier";
-    private static final String DRISHTI_BASE_URL = "DRISHTI_BASE_URL";
     private static final String HOST = "HOST";
     private static final String PORT = "PORT";
     private SharedPreferences preferences;
@@ -41,7 +40,7 @@ public class AllSharedPreferences {
 
     public String fetchBaseURL(String baseurl){
 
-      return   preferences.getString(DRISHTI_BASE_URL,baseurl);
+        return   preferences.getString(DRISHTI_BASE_URL, baseurl);
     }
 
     public String fetchHost(String host){
@@ -55,10 +54,16 @@ public class AllSharedPreferences {
 
     public Integer fetchPort(Integer port){
 
-        return  Integer.parseInt( preferences.getString(PORT,""+port));
+        return  Integer.parseInt(preferences.getString(PORT, "" + port));
     }
 
-    public void savePort(Integer port){
+    public void savePort(Integer port) {
         preferences.edit().putString(PORT,String.valueOf(port)).commit();
+    }
+    public String getPreference(String key) {
+        return preferences.getString(key, "").trim();
+    }
+    public void setPreference(String key, String value) {
+        preferences.edit().putString(key, value).commit();
     }
 }
