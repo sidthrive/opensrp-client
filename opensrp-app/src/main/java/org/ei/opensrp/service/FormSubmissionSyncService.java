@@ -163,8 +163,8 @@ public class FormSubmissionSyncService {
         while (true) {
             String uri = format("{0}/{1}?locationId={2}&timestamp={3}&batch-size={4}",
                     baseURL,
-                    FORM_SUBMISSIONS_PATH_BY_LOC.replace(" ","%20"),
-                    locationId,
+                    FORM_SUBMISSIONS_PATH_BY_LOC,
+                    locationId.replaceAll(" ","%20"),
                     allSettings.fetchPreviousFormSyncIndex(),
                     downloadBatchSize);
             Response<String> response = httpAgent.fetch(uri);
