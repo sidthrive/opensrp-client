@@ -11,8 +11,7 @@ public class KICommonObjectFilterOption implements CursorFilterOption {
     @Override
     public String filter() {
 
-
-        return " and anak.details LIKE '%"+criteria+"%' AND anak.details NOT LIKE '%\"+criteria+\"I%'";
+        return " AND anak.details LIKE '%"+criteria+"%' AND anak.details NOT LIKE '%"+criteria+"I%'";
     }
 
 

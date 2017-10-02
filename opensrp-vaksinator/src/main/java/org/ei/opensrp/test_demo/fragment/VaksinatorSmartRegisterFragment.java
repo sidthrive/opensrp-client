@@ -229,13 +229,13 @@ public class VaksinatorSmartRegisterFragment extends SecuredNativeSmartRegisterC
             mainCondition = "nama_bayi !='' AND ((isClosed IS NULL) OR isClosed = 'false') AND object_id LIKE '%" + s + "%'";
         }
 
-        countSelect = countqueryBUilder.mainCondition(" isClosed IS NULL OR isClosed = 'false' ");
+        countSelect = countqueryBUilder.mainCondition(" (isClosed IS NULL OR isClosed = 'false') ");
         //  mainCondition = " isClosed !='true' ";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable("anak", new String[]{"isClosed", "anak.details", "tanggalLahirAnak", "nama_bayi"});
-        mainSelect = queryBUilder.mainCondition(" isClosed IS NULL OR isClosed = 'false' ");
+        mainSelect = queryBUilder.mainCondition(" (isClosed IS NULL OR isClosed = 'false') ");
         //   Sortqueries = KiSortByNameAZ();
 
         currentlimit = 20;
