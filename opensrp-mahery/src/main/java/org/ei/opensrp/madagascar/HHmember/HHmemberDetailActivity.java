@@ -162,15 +162,32 @@ public class HHmemberDetailActivity extends Activity {
         //Ethnic_Group.setText(humanize(memberclient.getColumnmaps().get("Ethnic_Group")));
        // Ethnic_Group.setVisibility(View.GONE);
       //  Other_Ethnic_Group.setText(humanize(memberclient.getDetails().get("Other_Ethnic_Group")));
-        Sexs.setText(humanize(memberclient.getColumnmaps().get("Sex")));
-        Educations.setText(humanize(memberclient.getColumnmaps().get("Education")));
-        Professions.setText(humanize(memberclient.getColumnmaps().get("Profession")));
-       // Other_Profession.setText(humanize(memberclient.getDetails().get("Other_Profession")));
-        Marital_Statuss.setText(humanize(memberclient.getDetails().get("Marital_Status")));
+
+        Sexs.setText(humanize(memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Male")?getResources().getString(R.string.Male):
+                memberclient.getColumnmaps().get("Sex").equalsIgnoreCase("Female")?getResources().getString(R.string.Female):""));
+        
+        String educate = value_compare(memberclient.getColumnmaps().get("Education"),"None","EPP","CEG","Lycee","University","-","-","-",
+                getResources().getString(R.string.None),getResources().getString(R.string.EPP),
+                getResources().getString(R.string.CEG),getResources().getString(R.string.Lycee),getResources().getString(R.string.University),null,null,null);
+        String profession = value_compare(memberclient.getColumnmaps().get("Profession"),"Farmer","Shop_owner","Fisher","Teacher","Government","Profession_Other","student","Profession_NA",
+                getResources().getString(R.string.Farmer),getResources().getString(R.string.Shop_owner),
+                getResources().getString(R.string.Fisher),getResources().getString(R.string.Teacher),getResources().getString(R.string.Government)
+                ,getResources().getString(R.string.Profession_Other),getResources().getString(R.string.student),getResources().getString(R.string.Profession_NA));
+        String maried = value_compare(memberclient.getDetails().get("Marital_Status"),"Single","Married","Fisher","Divorced","Widowed","-","-","-",
+                getResources().getString(R.string.Single),getResources().getString(R.string.Married),
+                getResources().getString(R.string.Fisher),getResources().getString(R.string.Divorced),getResources().getString(R.string.Widowed)
+                ,null, null, null);
+
+        Educations.setText(humanize(educate));
+        Professions.setText(humanize(profession));
+        Marital_Statuss.setText(humanize(maried));
+
         Prior_HealthCares.setText(humanize(memberclient.getDetails().get("Prior_HealthCare")));
         Prior_Diagnosiss.setText(humanize(memberclient.getDetails().get("Prior_Diagnosis")));
        // Other_Prior_Diagnosis.setText(humanize(memberclient.getDetails().get("Other_Prior_Diagnosis")));
+
         Visual_Health_Deformitiess.setText(humanize(memberclient.getDetails().get("Visual_Health_Deformities")));
+
         //Other_Visual_Health_Deformities.setText(humanize(memberclient.getDetails().get("Other_Visual_Health_Deformities")));
         Prior_Surgeriess.setText(humanize(memberclient.getDetails().get("Prior_Surgeries")));
         Vaccine_Cards.setText(humanize(memberclient.getDetails().get("Vaccine_Card")));
@@ -618,6 +635,20 @@ public class HHmemberDetailActivity extends Activity {
 
 
     }
+    private String value_compare(String value_education,String value1,String value2,String value3,String value4,String value5,String value6,String value7,String value8,
+                                 String a, String b, String c, String d, String e, String f, String g, String h) {
+
+        String as =value_education.equalsIgnoreCase(value1) ? a:
+                value_education.equalsIgnoreCase(value2)?b:
+                        value_education.equalsIgnoreCase(value3)?c:
+                                value_education.equalsIgnoreCase(value4)?d:
+                                        value_education.equalsIgnoreCase(value5)?e:
+                                                value_education.equalsIgnoreCase(value6)?f:
+                                                        value_education.equalsIgnoreCase(value7)?g:
+                                                                value_education.equalsIgnoreCase(value8)?h:
+                                                                        "";
+        return as;
+    }
 
     private String getDetails(String key){
         if(memberclient==null)
@@ -636,18 +667,18 @@ public class HHmemberDetailActivity extends Activity {
         initializeMemberDetail(d);
         if(!d.initialized)
             return;
-        d.Recent_Deathss.setText(getDetails("Recent_Deaths").replace("idr","I don't Remember"));
-        d.Recent_Birthss.setText(getDetails("Recent_Births").replace("idr","I don't Remember"));
-        d.Birth_locations.setText(getDetails("Birth_location").replace("idr","I don't Remember"));
-//        d.Other_Birth_locations.setText(getDetails(""));
-        d.Visited_HealthCares.setText(getDetails("Visited_HealthCare").replace("idr","I don't Remember"));
-        d.Treatment_Locations.setText(getDetails("Treatment_Location").replace("idr","I don't Remember"));
-//        d.Treatment_Location_texts.setText(getDetails(""));
-        d.New_Diagnosiss.setText(getDetails("New_Diagnosis").replace("idr","I don't Remember"));
-//        d.New_Diagnosis_texts.setText(getDetails(""));
-        d.Pregnant_Last_Months.setText(getDetails("Pregnant_Last_Month").replace("idr","I don't Remember"));
-        d.Pregnants.setText(getDetails("Pregnant").replace("idr","I don't Remember"));
-        d.Last_Periods.setText(getDetails("Last_Period").replace("idr","I don't Remember"));
+        d.Recent_Deathss.setText(idontremember(getDetails("Recent_Births")));
+        d.Recent_Birthss.setText(idontremember(getDetails("Recent_Births")));
+        d.Birth_locations.setText(idontremember(getDetails("Birth_location")));
+//        d.Other_Birth_locations.setText(idontremember(getDetails(""));
+        d.Visited_HealthCares.setText(idontremember(getDetails("Visited_HealthCare")));
+        d.Treatment_Locations.setText(idontremember(getDetails("Treatment_Location")));
+//        d.Treatment_Location_texts.setText(idontremember(getDetails(""));
+        d.New_Diagnosiss.setText(idontremember(getDetails("New_Diagnosis")));
+//        d.New_Diagnosis_texts.setText(idontremember(getDetails(""));
+        d.Pregnant_Last_Months.setText(idontremember(getDetails("Pregnant_Last_Month")));
+        d.Pregnants.setText(idontremember(getDetails("Pregnant")));
+        d.Last_Periods.setText(idontremember(getDetails("Last_Period")));
 
 
         String date = memberclient.getDetails().get("LMP_date") != null? memberclient.getDetails().get("LMP_date"):"n/a";
@@ -656,73 +687,73 @@ public class HHmemberDetailActivity extends Activity {
 
         d.LMP_dates.setText(date+" - "+month+" - "+ year);
 
-        d.Prenatal_Visitss.setText(getDetails("Prenatal_Visits").replace("idr","I don't Remember"));
-        d.Prenatal_Medications.setText(getDetails("Prenatal_Medication").replace("idr","I don't Remember"));
-//        d.Prenatal_Medication_Types.setText(getDetails("Prenatal_Medication_Type"));
-        d.Pelvic_Crampss.setText(getDetails("Pelvic_Cramps").replace("idr","I don't Remember"));
-        d.Amniotic_Fluids.setText(getDetails("Amniotic_Fluid").replace("idr","I don't Remember"));
-        d.Dizzinesss.setText(getDetails("Dizziness").replace("idr","I don't Remember"));
-        d.Feet_Swellings.setText(getDetails("Feet_Swelling").replace("idr","I don't Remember"));
-        d.Vaginal_discharges.setText(getDetails("Vaginal_discharge").replace("idr","I don't Remember"));
-        d.Miscarriage_Stillbirths.setText(getDetails("Miscarriage_Stillbirth").replace("idr","I don't Remember"));
-        d.Contraceptions.setText(getDetails("Contraception").replace("idr","I don't Remember"));
-        d.Contraception_Types.setText(getDetails("Contraception_Type").replace("idr","I don't Remember"));
-        d.Breastfeedings.setText(getDetails("Breastfeeding").replace("idr","I don't Remember"));
-        d.Exlusive_breastfeedings.setText(getDetails("Exlusive_breastfeeding").replace("idr","I don't Remember"));
-        d.Menopauses.setText(getDetails("Menopause").replace("idr","I don't Remember"));
-        d.Diarrheas.setText(getDetails("Diarrhea").replace("idr","I don't Remember"));
-        d.Diarrhea_Dayss.setText(getDetails("Diarrhea_Days").replace("idr","I don't Remember"));
-        d.Diarrhea_Blacks.setText(getDetails("Diarrhea_Black").replace("idr","I don't Remember"));
-        d.Diarrhea_Bloodys.setText(getDetails("Diarrhea_Bloody").replace("idr","I don't Remember"));
-        d.Eyes_Sunkens.setText(getDetails("Eyes_Sunken").replace("idr","I don't Remember"));
-        d.Tearss.setText(getDetails("Tears").replace("idr","I don't Remember"));
-        d.Mouth_drys.setText(getDetails("Mouth_dry").replace("idr","I don't Remember"));
-        d.Diarrhea_Treatments.setText(getDetails("Diarrhea_Treatment").replace("idr","I don't Remember"));
-        d.Diarrhea_Treatment_Locations.setText(getDetails("Diarrhea_Treatment_Location").replace("idr","I don't Remember"));
-//        d.Other_Diarrhea_Treatments.setText(getDetails(""));
-        d.Diarrhea_Treatment_Outcomes.setText(getDetails("Diarrhea_Treatment_Outcome").replace("idr","I don't Remember"));
-        d.Fever_TFs.setText(getDetails("Fever_TF").replace("idr","I don't Remember"));
-        d.Fever_Durations.setText(getDetails("Fever_Duration").replace("idr","I don't Remember"));
-        d.Fever_Treatments.setText(getDetails("Fever_Treatment").replace("idr","I don't Remember"));
-        d.Fever_Treatment_Locations.setText(getDetails("Fever_Treatment_Location").replace("idr","I don't Remember"));
-//        d.Other_Fever_Treatments.setText(getDetails(""));
-        d.TDRs.setText(getDetails("TDR").replace("idr","I don't Remember"));
-        d.TDR_results.setText(getDetails("TDR_result").replace("idr","I don't Remember"));
-        d.Temperatures.setText(getDetails("Temperature").replace("idr","I don't Remember"));
-        d.Fever_Treatment_Outcomes.setText(getDetails("Fever_Treatment_Outcome").replace("idr","I don't Remember"));
-        d.Vomitings.setText(getDetails("Vomiting").replace("idr","I don't Remember"));
-        d.Headaches.setText(getDetails("Headache").replace("idr","I don't Remember"));
-        d.Animal_Contacts.setText(getDetails("Animal_Contact").replace("idr","I don't Remember"));
-        d.Animal_Incidents.setText(getDetails("Animal_Incident").replace("idr","I don't Remember"));
-        d.Rat_contacts.setText(getDetails("Rat_contact").replace("idr","I don't Remember"));
-        d.Jaundices.setText(getDetails("Jaundice").replace("idr","I don't Remember"));
-        d.Measless.setText(getDetails("Measles").replace("idr","I don't Remember"));
-        d.Weight_losss.setText(getDetails("Weight_loss").replace("idr","I don't Remember"));
-        d.Persistent_Coughs.setText(getDetails("Persistent_Cough").replace("idr","I don't Remember"));
-        d.Coughing_Bloods.setText(getDetails("Coughing_Blood").replace("idr","I don't Remember"));
-        d.Sputums.setText(getDetails("Sputum").replace("idr","I don't Remember"));
-        d.Breathings.setText(getDetails("Breathing").replace("idr","I don't Remember"));
-        d.Stomach_Pains.setText(getDetails("Stomach_Pain").replace("idr","I don't Remember"));
-        d.Stomach_Pain_Durations.setText(getDetails("Stomach_Pain_Duration").replace("idr","I don't Remember"));
-        d.Stomach_Pain_foods.setText(getDetails("Stomach_Pain_food").replace("idr","I don't Remember"));
-        d.Open_Woundss.setText(getDetails("Open_Wounds").replace("idr","I don't Remember"));
-        d.Wound_Conditions.setText(getDetails("Wound_Condition").replace("idr","I don't Remember"));
-        d.Cigarettess.setText(getDetails("Cigarettes").replace("idr","I don't Remember"));
-        d.Drinkings.setText(getDetails("Drinking").replace("idr","I don't Remember"));
-        d.Urine_Colors.setText(getDetails("Urine_Color").replace("idr","I don't Remember"));
-        d.Puss.setText(getDetails("Pus").replace("idr","I don't Remember"));
-        d.Pain_Urinations.setText(getDetails("Pain_Urination").replace("idr","I don't Remember"));
-        d.Urination_Bloods.setText(getDetails("Urination_Blood").replace("idr","I don't Remember"));
-        d.Back_Pains.setText(getDetails("Back_Pain").replace("idr","I don't Remember"));
-        d.Medicationss.setText(getDetails("Medications").replace("idr","I don't Remember"));
-        d.Medications_Names.setText(getDetails("Medications_Name").replace("idr","I don't Remember"));
-//        d.Medications_Name_opens.setText(getDetails(""));
-        d.Medications_Purposes.setText(getDetails("Medications_Purpose").replace("idr","I don't Remember"));
-        d.STIs.setText(getDetails("STI").replace("idr","I don't Remember"));
-        d.STI_Treatments.setText(getDetails("STI_Treatment").replace("idr","I don't Remember"));
-        d.STI_Treatment_Outcomes.setText(getDetails("STI_Treatment_Outcome").replace("idr","I don't Remember"));
-        d.New_vaccines.setText(getDetails("New_vaccine").replace("idr","I don't Remember"));
-        d.New_vaccine_typess.setText(getDetails("New_vaccine_types").replace("idr","I don't Remember"));
+        d.Prenatal_Visitss.setText(idontremember(getDetails("Prenatal_Visits")));
+        d.Prenatal_Medications.setText(idontremember(getDetails("Prenatal_Medication")));
+//        d.Prenatal_Medication_Types.setText(idontremember(getDetails("Prenatal_Medication_Type"));
+        d.Pelvic_Crampss.setText(idontremember(getDetails("Pelvic_Cramps")));
+        d.Amniotic_Fluids.setText(idontremember(getDetails("Amniotic_Fluid")));
+        d.Dizzinesss.setText(idontremember(getDetails("Dizziness")));
+        d.Feet_Swellings.setText(idontremember(getDetails("Feet_Swelling")));
+        d.Vaginal_discharges.setText(idontremember(getDetails("Vaginal_discharge")));
+        d.Miscarriage_Stillbirths.setText(idontremember(getDetails("Miscarriage_Stillbirth")));
+        d.Contraceptions.setText(idontremember(getDetails("Contraception")));
+        d.Contraception_Types.setText(idontremember(getDetails("Contraception_Type")));
+        d.Breastfeedings.setText(idontremember(getDetails("Breastfeeding")));
+        d.Exlusive_breastfeedings.setText(idontremember(getDetails("Exlusive_breastfeeding")));
+        d.Menopauses.setText(idontremember(getDetails("Menopause")));
+        d.Diarrheas.setText(idontremember(getDetails("Diarrhea")));
+        d.Diarrhea_Dayss.setText(idontremember(getDetails("Diarrhea_Days")));
+        d.Diarrhea_Blacks.setText(idontremember(getDetails("Diarrhea_Black")));
+        d.Diarrhea_Bloodys.setText(idontremember(getDetails("Diarrhea_Bloody")));
+        d.Eyes_Sunkens.setText(idontremember(getDetails("Eyes_Sunken")));
+        d.Tearss.setText(idontremember(getDetails("Tears")));
+        d.Mouth_drys.setText(idontremember(getDetails("Mouth_dry")));
+        d.Diarrhea_Treatments.setText(idontremember(getDetails("Diarrhea_Treatment")));
+        d.Diarrhea_Treatment_Locations.setText(idontremember(getDetails("Diarrhea_Treatment_Location")));
+//        d.Other_Diarrhea_Treatments.setText(idontremember(getDetails(""));
+        d.Diarrhea_Treatment_Outcomes.setText(idontremember(getDetails("Diarrhea_Treatment_Outcome")));
+        d.Fever_TFs.setText(idontremember(getDetails("Fever_TF")));
+        d.Fever_Durations.setText(idontremember(getDetails("Fever_Duration")));
+        d.Fever_Treatments.setText(idontremember(getDetails("Fever_Treatment")));
+        d.Fever_Treatment_Locations.setText(idontremember(getDetails("Fever_Treatment_Location")));
+//        d.Other_Fever_Treatments.setText(idontremember(getDetails(""));
+        d.TDRs.setText(idontremember(getDetails("TDR")));
+        d.TDR_results.setText(idontremember(getDetails("TDR_result")));
+        d.Temperatures.setText(idontremember(getDetails("Temperature")));
+        d.Fever_Treatment_Outcomes.setText(idontremember(getDetails("Fever_Treatment_Outcome")));
+        d.Vomitings.setText(idontremember(getDetails("Vomiting")));
+        d.Headaches.setText(idontremember(getDetails("Headache")));
+        d.Animal_Contacts.setText(idontremember(getDetails("Animal_Contact")));
+        d.Animal_Incidents.setText(idontremember(getDetails("Animal_Incident")));
+        d.Rat_contacts.setText(idontremember(getDetails("Rat_contact")));
+        d.Jaundices.setText(idontremember(getDetails("Jaundice")));
+        d.Measless.setText(idontremember(getDetails("Measles")));
+        d.Weight_losss.setText(idontremember(getDetails("Weight_loss")));
+        d.Persistent_Coughs.setText(idontremember(getDetails("Persistent_Cough")));
+        d.Coughing_Bloods.setText(idontremember(getDetails("Coughing_Blood")));
+        d.Sputums.setText(idontremember(getDetails("Sputum")));
+        d.Breathings.setText(idontremember(getDetails("Breathing")));
+        d.Stomach_Pains.setText(idontremember(getDetails("Stomach_Pain")));
+        d.Stomach_Pain_Durations.setText(idontremember(getDetails("Stomach_Pain_Duration")));
+        d.Stomach_Pain_foods.setText(idontremember(getDetails("Stomach_Pain_food")));
+        d.Open_Woundss.setText(idontremember(getDetails("Open_Wounds")));
+        d.Wound_Conditions.setText(idontremember(getDetails("Wound_Condition")));
+        d.Cigarettess.setText(idontremember(getDetails("Cigarettes")));
+        d.Drinkings.setText(idontremember(getDetails("Drinking")));
+        d.Urine_Colors.setText(idontremember(getDetails("Urine_Color")));
+        d.Puss.setText(idontremember(getDetails("Pus")));
+        d.Pain_Urinations.setText(idontremember(getDetails("Pain_Urination")));
+        d.Urination_Bloods.setText(idontremember(getDetails("Urination_Blood")));
+        d.Back_Pains.setText(idontremember(getDetails("Back_Pain")));
+        d.Medicationss.setText(idontremember(getDetails("Medications")));
+        d.Medications_Names.setText(idontremember(getDetails("Medications_Name")));
+//        d.Medications_Name_opens.setText(idontremember(getDetails(""));
+        d.Medications_Purposes.setText(idontremember(getDetails("Medications_Purpose")));
+        d.STIs.setText(idontremember(getDetails("STI")));
+        d.STI_Treatments.setText(idontremember(getDetails("STI_Treatment")));
+        d.STI_Treatment_Outcomes.setText(idontremember(getDetails("STI_Treatment_Outcome")));
+        d.New_vaccines.setText(idontremember(getDetails("New_vaccine")));
+        d.New_vaccine_typess.setText(idontremember(getDetails("New_vaccine_types")));
 //        d.submissionDate.setText(getDetails(""));
     }
 
@@ -904,7 +935,12 @@ public class HHmemberDetailActivity extends Activity {
     }
 
 
-
+private String idontremember (String value){
+    String ret = value.equalsIgnoreCase("yes")?getResources().getString(R.string.Yes):
+            value.equalsIgnoreCase("No")?getResources().getString(R.string.No):
+                    value.equalsIgnoreCase("idr")?getResources().getString(R.string.idr):"";
+      return ret;
+}
     /*private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated, String className) {
 
         Log.e(TAG, "saveToDb: " + "start");

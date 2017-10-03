@@ -146,8 +146,7 @@ public class NativeHHSmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
 
                         new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label),KiSortByNameAZ()),
-                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),
-                      //  new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
+                        new CursorCommonObjectSort(getResources().getString(R.string.sort_by_name_label_reverse),KiSortByNameZA()),   //  new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label),KiSortByAge()),
                      // new CursorCommonObjectSort(getResources().getString(R.string.sort_by_wife_age_label_rev),KiSortByAgeRev()),
                      //    new CursorCommonObjectSort(getResources().getString(R.string.short_by_gender),shortbygenderFM()),
                      //   new CursorCommonObjectSort(getResources().getString(R.string.short_by_gendermf),shortbygenderMF()),
