@@ -147,7 +147,6 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
             }
 
-         //   viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
 
 
@@ -161,11 +160,32 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             final CommonPersonObject ibuparent = iburep.findByCaseID(kiid);
             viewHolder.village_name.setText(ibuparent.getDetails().get("Village") != null ? ibuparent.getDetails().get("Village") : "");
         }
-        viewHolder.educations.setText(context.getString(R.string.education) + ": " + (pc.getColumnmaps().get("Education") != null ? pc.getColumnmaps().get("Education") : "-"));
 
+        String value_education = pc.getColumnmaps().get("Education") != null ? pc.getColumnmaps().get("Education") : "";
+        String value_profession = pc.getColumnmaps().get("Profession") !=null?humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","No profession")) :"";
+        String value_maritals = pc.getDetails().get("Marital_Status") !=null?pc.getDetails().get("Marital_Status"):"";
+
+        String educate = value_compare(value_education,"None","EPP","CEG","Lycee","University","-","-","-",
+                context.getString(R.string.None),context.getString(R.string.EPP),
+                context.getString(R.string.CEG),context.getString(R.string.Lycee),context.getString(R.string.University),null,null,null);
+
+
+        String profession = value_compare(value_profession,"Farmer","Shop_owner","Fisher","Teacher","Government","Profession_Other","student","Profession_NA",
+                context.getString(R.string.Farmer),context.getString(R.string.Shop_owner),
+                context.getString(R.string.Fisher),context.getString(R.string.Teacher),context.getString(R.string.Government)
+                ,context.getString(R.string.Profession_Other),context.getString(R.string.student),context.getString(R.string.Profession_NA));
+
+
+        String maried = value_compare(value_maritals,"Single","Married","Fisher","Divorced","Widowed","-","-","-",
+                context.getString(R.string.Single),context.getString(R.string.Married),
+                context.getString(R.string.Fisher),context.getString(R.string.Divorced),context.getString(R.string.Widowed)
+                ,null, null, null);
+
+        viewHolder.educations.setText(context.getString(R.string.education) + ": " +educate );
        // viewHolder.education.setText(context.getString(R.string.education) + " " + pc.getColumnmaps().get("Education") !=null?pc.getColumnmaps().get("Education"):"");
-        viewHolder.professions.setText(context.getString(R.string.profession) + ": " + (pc.getColumnmaps().get("Profession") !=null?humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","No profession")) :""));
-        viewHolder.maritals.setText(context.getString(R.string.marital) + ": " + (pc.getDetails().get("Marital_Status") !=null?pc.getDetails().get("Marital_Status"):""));
+        viewHolder.professions.setText(context.getString(R.string.profession) + ": " + profession);
+        viewHolder.maritals.setText(context.getString(R.string.marital) + ": " + maried);
+
 
 
         if (pc.getColumnmaps().get("Sex") != null) {
@@ -180,10 +200,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
                                                 : "");
             }
         }
-       // viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.contraseption)+": "+pc.getDetails().get("Contraception_Type"):"");
-       // viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.menopause)+": "+pc.getDetails().get("Menopause"):"");
-
-        viewHolder.weights.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
+    viewHolder.weights.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
         viewHolder.heights.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");
         viewHolder.muacs.setText(pc.getDetails().get("anthropmetryUpperArm") !=null?context.getString(R.string.muac)+" "+pc.getDetails().get("anthropmetryUpperArm"):"");
 
@@ -193,6 +210,22 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         convertView.setLayoutParams(clientViewLayoutParams);
       //  return convertView;
     }
+
+    private String value_compare(String value_education,String value1,String value2,String value3,String value4,String value5,String value6,String value7,String value8,
+                                 String a, String b, String c, String d, String e, String f, String g, String h) {
+
+        String as =value_education.equalsIgnoreCase(value1) ? a:
+                value_education.equalsIgnoreCase(value2)?b:
+                        value_education.equalsIgnoreCase(value3)?c:
+                                value_education.equalsIgnoreCase(value4)?d:
+                                        value_education.equalsIgnoreCase(value5)?e:
+                                                value_education.equalsIgnoreCase(value6)?f:
+                                                        value_education.equalsIgnoreCase(value7)?g:
+                                                                value_education.equalsIgnoreCase(value8)?h:
+                                                "";
+        return as;
+    }
+
     CommonPersonObjectController householdelcocontroller;
     
 

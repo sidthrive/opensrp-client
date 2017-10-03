@@ -102,6 +102,8 @@ public class HHClientsProvider implements SmartRegisterCLientsProviderForCursorA
 
         viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.mipmap.household_profile));
 
+
+
         viewHolder.HH_name.setText(pc.getColumnmaps().get("HH.name_household_head") !=null?pc.getColumnmaps().get("HH.name_household_head"):"");
         viewHolder.husband_name.setText(pc.getDetails().get("registration_date")!= null?pc.getDetails().get("registration_date"):"");
         viewHolder.village_name.setText(pc.getDetails().get("Village")!= null?""+pc.getDetails().get("Village"):"");

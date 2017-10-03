@@ -184,7 +184,7 @@
     <string name="service_type_illness_visit">Illness Visit</string>
     <string name="service_type_empty"/>
     <string name="sick_visit">Sick Visit</string>
-    <string name="illness_report"><b>Illness Report:</b> %s</string>
+    <string name="illness_report">Illness Report: </string>
     <string name="illness_date">Date:</string>
     <string name="str_bcg">BCG</string>
     <string name="str_bcg_on">On</string>
@@ -692,5 +692,87 @@
     <string name="household">Tokantrano</string>
     <string name="household_member">Olona an-tokantrano</string>
     <string name="ethnic">Foko</string>
+
+    <!--Variable database mapping-->
+    <string name="None">Tsisy</string>
+    <string name="EPP">EPP</string>
+    <string name="CEG">CEG</string>
+    <string name="Lycee">Lycee</string>
+    <string name="University">Universite</string>
+
+    <string name="Yes">Eny</string>
+    <string name="No">Tsia</string>
+    <string name="Betsimisaraka">Betsimisaraka</string>
+    <string name="Tsimihety">Tsimihety</string>
+    <string name="Merina">Merina</string>
+    <string name="Betsileo">Betsileo</string>
+    <string name="Sakalava">Sakalava</string>
+    <string name="Ethnic_Group_Other">Hafa</string>
+    <string name="Male">Lahy</string>
+    <string name="Female">Vavy</string>
+    <string name="Shop_owner">Mpivarotra</string>
+    <string name="Fisher">Mpanjono</string>
+    <string name="Teacher">Mpampianatra</string>
+    <string name="Government">Mpiasan\'ny Fanjakana</string>
+    <string name="Profession_Other">Hafa</string>
+    <string name="student">Mpianatra</string>
+    <string name="Profession_NA">Mbola zaza, tsy miasa</string>
+    <string name="Single">Mpitovo</string>
+    <string name="Married">Manambady</string>
+    <string name="Divorced">Efa Nisaraka</string>
+    <string name="Widowed">Vady Naty</string>
+    <string name="Diabetes">Diabetes</string>
+    <string name="Cancer">Cancer</string>
+    <string name="Hyptertension">Hyptertension</string>
+    <string name="Difficult_labor_predicted">Saro-petra</string>
+    <string name="Sickle_cell_anemia">Drepanocytose</string>
+    <string name="Health_History_Other">Hafa</string>
+    <string name="Health_History_NA">Tsisy aretina naventy taloha</string>
+    <string name="Cleft_palate">Sima vava (molotra)</string>
+    <string name="Cleft_lip">Sima vava (anatiny)</string>
+    <string name="Club_foot">Kilema aminy tongotra hatrany abohoka</string>
+    <string name="Missing_teeth">Goitre</string>
+    <string name="Other_Deformities">Hafa</string>
+    <string name="Deformities_NA">Tsy misy</string>
+    <string name="MMR">Vaksiny fahasivy volana</string>
+    <string name="Something">Vaksiny aminy fé</string>
+    <string name="Polio">Tété ambava</string>
+    <string name="Vaccination_NA">Tsary natao vaksiny</string>
+    <string name="birthdate_date">Datin\'ny terahana (Daty)</string>
+    <string name="birthdate_month_year">Datin\'ny terahana (volana-taona)</string>
+    <string name="birthdate_year">Datin\'ny terahana (taona)</string>
+    <string name="DOB_NA">NA</string>
+    <string name="birth_weight_gram">Lanja zaza vao-teraka</string>
+    <string name="Birthweight_NA">Tsy tadidiko</string>
+    <string name="date_death">Datin\'ny olo maty</string>
+    <string name="date_death_NA">NA</string>
+    <string name="Home">Antrano</string>
+    <string name="Mpanavana_home">Tranon\'ny mpananava</string>
+    <string name="Clinic">CSB</string>
+    <string name="Hospital_Maroa">Hopitaly Be Maroa</string>
+    <string name="Birth_location_Other">Hafa</string>
+    <string name="Miscarriage">Hafa-zaza</string>
+    <string name="Stillbirth">Zaza tsy azo</string>
+    <string name="Live_birth">Niteraka zaza velogno</string>
+    <string name="Pill">Pilina</string>
+    <string name="Shot">Epicura</string>
+    <string name="IUD">Kapaoty</string>
+    <string name="Condoms">Hafa</string>
+    <string name="Traditional_medicines">Tanika aody</string>
+    <string name="Pharmaceuticals">Aody vazaha</string>
+    <string name="Hospital_clinic">Hopitaly</string>
+    <string name="Traditional_healer">Mpomoasy</string>
+    <string name="Treatment_Location_Other">Hafa</string>
+    <string name="Positive">Positif</string>
+    <string name="Negative">Negatif</string>
+    <string name="medication">Fanafody ampiasaina</string>
+    <string name="No_medication">Tsy nihinana</string>
+    <string name="Mild_bleeding">Be</string>
+    <string name="Heavy_bleeding">Hely</string>
+
+
+
+
+
 
 </resources>
