@@ -42,6 +42,17 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
     protected CommonPersonObjectController controller;
 
+    /*
+    *  private static final String TAG = GiziSmartClientsProvider.class.getSimpleName();
+    private final LayoutInflater inflater;
+    private final Context context;
+    private final View.OnClickListener onClickListener;
+    private Drawable iconPencilDrawable;
+    private final int txtColorBlack;
+    private final AbsListView.LayoutParams clientViewLayoutParams;
+
+    protected CommonPersonObjectController controller;
+    */
     AlertService alertService;
     public HHmemberClientsProvider(Context context,
                                    View.OnClickListener onClickListener,
@@ -72,17 +83,18 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             /*education
     pregnant fp menopause
             * */
-            viewHolder.education = (TextView)convertView.findViewById(R.id.education);
-            viewHolder.profession = (TextView)convertView.findViewById(R.id.profession);
-            viewHolder.marital = (TextView)convertView.findViewById(R.id.marital);
+            viewHolder.educations = (TextView)convertView.findViewById(R.id.education);
+           // viewHolder.education = (TextView)convertView.findViewById(R.id.education);
+            viewHolder.professions = (TextView)convertView.findViewById(R.id.profession);
+            viewHolder.maritals = (TextView)convertView.findViewById(R.id.marital);
 
-            viewHolder.pregnant = (TextView)convertView.findViewById(R.id.pregnant);
-            viewHolder.fp = (TextView)convertView.findViewById(R.id.fp);
-            viewHolder.menopause = (TextView)convertView.findViewById(R.id.menopause);
+            viewHolder.pregnants = (TextView)convertView.findViewById(R.id.pregnant);
+            viewHolder.fps = (TextView)convertView.findViewById(R.id.fp);
+            viewHolder.menopauses = (TextView)convertView.findViewById(R.id.menopause);
 
-            viewHolder.weight =(TextView)convertView.findViewById(R.id.weight);
-            viewHolder.height = (TextView)convertView.findViewById(R.id.height);
-            viewHolder.muac = (TextView)convertView.findViewById(R.id.muac);
+            viewHolder.weights =(TextView)convertView.findViewById(R.id.weight);
+            viewHolder.heights = (TextView)convertView.findViewById(R.id.height);
+            viewHolder.muacs = (TextView)convertView.findViewById(R.id.muac);
 
             viewHolder.profilepic =(ImageView)convertView.findViewById(R.id.img_profile);
             viewHolder.follow_up = (ImageButton)convertView.findViewById(R.id.btn_edit);
@@ -149,15 +161,16 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
             final CommonPersonObject ibuparent = iburep.findByCaseID(kiid);
             viewHolder.village_name.setText(ibuparent.getDetails().get("Village") != null ? ibuparent.getDetails().get("Village") : "");
         }
+        viewHolder.educations.setText(context.getString(R.string.education) + ": " + (pc.getColumnmaps().get("Education") != null ? pc.getColumnmaps().get("Education") : "-"));
 
-        viewHolder.education.setText(pc.getColumnmaps().get("Education") !=null?context.getString(R.string.education)+": "+pc.getColumnmaps().get("Education"):"");
-        viewHolder.profession.setText(pc.getColumnmaps().get("Profession") !=null?context.getString(R.string.profession)+": "+humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","Too young, no profession")) :"");
-        viewHolder.marital.setText(pc.getDetails().get("Marital_Status") !=null?context.getString(R.string.marital)+": "+pc.getDetails().get("Marital_Status"):"");
+       // viewHolder.education.setText(context.getString(R.string.education) + " " + pc.getColumnmaps().get("Education") !=null?pc.getColumnmaps().get("Education"):"");
+        viewHolder.professions.setText(context.getString(R.string.profession) + ": " + (pc.getColumnmaps().get("Profession") !=null?humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","No profession")) :""));
+        viewHolder.maritals.setText(context.getString(R.string.marital) + ": " + (pc.getDetails().get("Marital_Status") !=null?pc.getDetails().get("Marital_Status"):""));
 
 
         if (pc.getColumnmaps().get("Sex") != null) {
             if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
-                viewHolder.pregnant.setText(
+                viewHolder.pregnants.setText(
                         pc.getDetails().get("Pregnant_now") != null ?
                                 context.getString(R.string.pregnancy) + ": " + pc.getDetails().get("Pregnant_now") :
                                 pc.getDetails().get("Contraception_Type") != null ?
@@ -170,9 +183,9 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
        // viewHolder.fp.setText(pc.getDetails().get("Contraception_Type") !=null?context.getString(R.string.contraseption)+": "+pc.getDetails().get("Contraception_Type"):"");
        // viewHolder.menopause.setText(pc.getDetails().get("Menopause") !=null?context.getString(R.string.menopause)+": "+pc.getDetails().get("Menopause"):"");
 
-        viewHolder.weight.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
-        viewHolder.height.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");
-        viewHolder.muac.setText(pc.getDetails().get("anthropmetryUpperArm") !=null?context.getString(R.string.muac)+" "+pc.getDetails().get("anthropmetryUpperArm"):"");
+        viewHolder.weights.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
+        viewHolder.heights.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");
+        viewHolder.muacs.setText(pc.getDetails().get("anthropmetryUpperArm") !=null?context.getString(R.string.muac)+" "+pc.getDetails().get("anthropmetryUpperArm"):"");
 
         //}
 
@@ -222,18 +235,18 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         TextView wife_age;
         LinearLayout profilelayout;
         ImageView profilepic;
-        public TextView HH_name;
-        public ImageButton follow_up;
-        TextView profession;
-        TextView marital;
-        TextView education;
-        TextView pregnant;
-        TextView fp;
-        TextView menopause;
+         TextView HH_name;
+        ImageButton follow_up;
+        TextView professions;
+        TextView maritals;
+        TextView educations;
+        TextView pregnants;
+        TextView fps;
+        TextView menopauses;
 
-        TextView weight;
-        TextView height;
-        TextView muac;
+        TextView weights;
+        TextView heights;
+        TextView muacs;
 
     }
 

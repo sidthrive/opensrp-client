@@ -51,9 +51,9 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
     OpenSRPViewPager mPager;
     private FragmentPagerAdapter mPagerAdapter;
     private int currentPage;
-
     private String[] formNames = new String[]{};
     private android.support.v4.app.Fragment mBaseFragment = null;
+
 
 
     ZiggyService ziggyService;
@@ -64,7 +64,7 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORT‌​RAIT);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
        // FlurryFacade.logEvent("kohort_ibu_dashboard");
         formNames = this.buildFormNameList();
         mBaseFragment = new NativeHHmemberSmartRegisterFragment();
@@ -252,55 +252,9 @@ public class HHmemberSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onBackPressed() {
-
-        if (currentPage != 0){
-            retrieveAndSaveUnsubmittedFormData();
-            String BENGALI_LOCALE = "bn";
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(Context.getInstance().applicationContext()));
-
-            String preferredLocale = allSharedPreferences.fetchLanguagePreference();
-            if (BENGALI_LOCALE.equals(preferredLocale)) {
-                new AlertDialog.Builder(this)
-                        .setMessage("আপনি কি নিশ্চিত যে আপনি ফর্ম থেকে বের হয়ে যেতে চান? ")
-                        .setTitle("ফর্ম বন্ধ নিশ্চিত করুন ")
-                        .setCancelable(false)
-                        .setPositiveButton("হাঁ",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                        switchToBaseFragment(null);
-                                    }
-                                })
-                        .setNegativeButton("না",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                    }
-                                })
-                        .show();
-            }else{
-                new AlertDialog.Builder(this)
-                      //  .setMessage(R.string.mcareform_back_confirm_dialog_message)
-                        .setMessage(R.string.mcareform_back_confirm_dialog_message)
-                        .setTitle(R.string.mcareform_back_confirm_dialog_title)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.mcareyes_button_label,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                        switchToBaseFragment(null);
-                                    }
-                                })
-                        .setNegativeButton(R.string.mcareno_button_label,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                    }
-                                })
-                        .show();
-            }
-
-        }else if (currentPage == 0) {
+        if (currentPage != 0) {
+            switchToBaseFragment(null);
+        } else {
             super.onBackPressed(); // allow back key only if we are
         }
     }

@@ -103,7 +103,7 @@ public class FormSubmissionSyncService {
                     format("{0}/{1}",
                             "http://13.229.79.91:5983",
                             "opensrp-form/_bulk_docs"),
-                    submissionPayload, "rootuser", "Satu23456");
+                    submissionPayload, "root", "Password123");
             if (response.isFailure()) {
                 logError(format("Form submissions sync failed. Submissions:  {0}", pendingFormSubmissions));
                 return false;

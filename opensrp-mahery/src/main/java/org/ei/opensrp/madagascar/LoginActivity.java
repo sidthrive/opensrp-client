@@ -56,10 +56,10 @@ public class LoginActivity extends Activity {
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
     public static final String ENGLISH_LOCALE = "en";
-    public static final String KANNADA_LOCALE = "kn";
+    public static final String MALAGASY_LOCALE = "mg";
     public static final String BAHASA_LOCALE = "in";
     public static final String ENGLISH_LANGUAGE = "English";
-    public static final String KANNADA_LANGUAGE = "Kannada";
+    public static final String MALAGASY_LANGUAGE = "Malagasy";
     public static final String Bahasa_LANGUAGE = "Bahasa";
 
 
@@ -334,17 +334,17 @@ public class LoginActivity extends Activity {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(Context.getInstance().applicationContext()));
 
         String preferredLocale = allSharedPreferences.fetchLanguagePreference();
-     /*   if (ENGLISH_LOCALE.equals(preferredLocale)) {
-            allSharedPreferences.saveLanguagePreference(BAHASA_LOCALE);
+        if (ENGLISH_LOCALE.equals(preferredLocale)) {
+            allSharedPreferences.saveLanguagePreference(MALAGASY_LOCALE);
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
             android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale(BAHASA_LOCALE);
+            conf.locale = new Locale(MALAGASY_LOCALE);
             res.updateConfiguration(conf, dm);
-            return Bahasa_LANGUAGE;
+            return MALAGASY_LANGUAGE;
         } else {
-     */       allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
+            allSharedPreferences.saveLanguagePreference(ENGLISH_LOCALE);
             Resources res = Context.getInstance().applicationContext().getResources();
             // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -352,7 +352,7 @@ public class LoginActivity extends Activity {
             conf.locale = new Locale(ENGLISH_LOCALE);
             res.updateConfiguration(conf, dm);
             return ENGLISH_LANGUAGE;
-       // }
+        }
     }
 
 }

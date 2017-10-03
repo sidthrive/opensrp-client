@@ -65,7 +65,7 @@
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="HH"
+                        android:text="@string/household"
                         style="@style/CustomFontTextViewStyle.Home.RegisterName"/>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
@@ -96,13 +96,13 @@
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="HH Member"
+                        android:text="@string/hh_members"
                         style="@style/CustomFontTextViewStyle.Home.RegisterName"/>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="REGISTER"
+                        android:text="@string/hh_memberss"
                         style="@style/CustomFontTextViewStyle.Home.RegisterLabel"/>
 
                     <org.ei.opensrp.view.customControls.CustomFontTextView

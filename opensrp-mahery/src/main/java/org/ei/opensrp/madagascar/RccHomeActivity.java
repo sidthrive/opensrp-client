@@ -94,17 +94,13 @@ public class RccHomeActivity extends SecuredActivity {
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
-      //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
+
 
     }
 
     private void setupViews() {
         findViewById(R.id.btn_hh).setOnClickListener(onRegisterStartListener);
         findViewById(R.id.btn_hh_member).setOnClickListener(onRegisterStartListener);
-    /*    findViewById(R.id.btn_kartu_ibu_anc_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_kartu_ibu_pnc_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_anak_register).setOnClickListener(onRegisterStartListener);
-        findViewById(R.id.btn_kohort_kb_register).setOnClickListener(onRegisterStartListener);*/
 
 
 /*        findViewById(R.id.btn_reporting).setOnClickListener(onButtonsClickListener);
@@ -112,9 +108,7 @@ public class RccHomeActivity extends SecuredActivity {
 
         ecRegisterClientCountView = (TextView) findViewById(R.id.txt_hh_register_client_count);
         HHmembercountView = (TextView) findViewById(R.id.txt_hhmember_count);
-     /*   kartuIbuPNCRegisterClientCountView = (TextView) findViewById(R.id.txt_kartu_ibu_pnc_register_client_count);
-        anakRegisterClientCountView = (TextView) findViewById(R.id.txt_anak_client_count);*/
-       // kohortKbCountView = (TextView) findViewById(R.id.txt_kohort_kb_register_count);
+
     }
 
     private void initialize() {
@@ -166,33 +160,11 @@ public class RccHomeActivity extends SecuredActivity {
         hhmembercounts.moveToFirst();
         hhmembercount= hhmembercounts.getInt(0);
         hhmembercounts.close();
-/*
 
-        Cursor anccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
-        anccountcursor.moveToFirst();
-        anccount= anccountcursor.getInt(0);
-        anccountcursor.close();
-
-
-        Cursor pnccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("ibu", "ibu.type NOT Null and ibu.type = 'pnc'"));
-        pnccountcursor.moveToFirst();
-        pnccount= pnccountcursor.getInt(0);
-        pnccountcursor.close();
-
-
-        Cursor childcountcursor = context().commonrepository("anak").RawCustomQueryForAdapter(
-                sqb.queryForCountOnRegisters("anak", "anak.isClosed = 'false'"));
-        childcountcursor.moveToFirst();
-        childcount= childcountcursor.getInt(0);
-        childcountcursor.close();*/
 
         ecRegisterClientCountView.setText(valueOf(kicount));
         HHmembercountView.setText(valueOf(hhmembercount));
-    /*    kartuIbuPNCRegisterClientCountView.setText(valueOf(pnccount));
-        anakRegisterClientCountView.setText(valueOf(childcount));
-        kohortKbCountView.setText(valueOf(kbcount));*/
+
     }
 
     @Override
@@ -220,13 +192,13 @@ public class RccHomeActivity extends SecuredActivity {
             case R.id.updateMenuItem:
                 updateFromServer();
                 return true;
-         /*   case R.id.switchLanguageMenuItem:
+            case R.id.switchLanguageMenuItem:
                 String newLanguagePreference = LoginActivity.switchLanguagePreference();
                 LoginActivity.setLanguage();
                 Toast.makeText(this, "Language preference set to " + newLanguagePreference + ". Please restart the application.", LENGTH_SHORT).show();
                 this.recreate();
                 return true;
-         */   case R.id.help:
+            case R.id.help:
                 //  startActivity(new Intent(this, tutorialCircleViewFlow.class));
                 return true;
             default:
