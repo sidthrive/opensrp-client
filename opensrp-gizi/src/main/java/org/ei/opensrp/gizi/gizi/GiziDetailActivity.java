@@ -185,14 +185,14 @@ public class GiziDetailActivity extends Activity {
         KmsPerson anak = new KmsPerson(childclient);
         KmsCalc kalkulator = new KmsCalc();
 
-        System.out.println("age "+anak.getAge());
-        System.out.println("dob "+anak.getDateOfBirth());
-        System.out.println("weight "+anak.getWeight());
-        System.out.println("prev weight "+anak.getPreviousWeight());
-        System.out.println("2nd last weight "+anak.getSecondLastWeight());
-        System.out.println("last visit "+anak.getLastVisitDate());
-        System.out.println("2nd last visit "+anak.getSecondLastVisitDate());
-        System.out.println("3rd last visit "+anak.getThirdLastVisitDate());
+//        System.out.println("age "+anak.getAge());
+//        System.out.println("dob "+anak.getDateOfBirth());
+//        System.out.println("weight "+anak.getWeight());
+//        System.out.println("prev weight "+anak.getPreviousWeight());
+//        System.out.println("2nd last weight "+anak.getSecondLastWeight());
+//        System.out.println("last visit "+anak.getLastVisitDate());
+//        System.out.println("2nd last visit "+anak.getSecondLastVisitDate());
+//        System.out.println("3rd last visit "+anak.getThirdLastVisitDate());
 
         dua_t.setText(String.format("%s %s", getString(R.string.dua_t), (yesNo(kalkulator.cek2T(anak)))));
         bgm.setText(String.format("%s %s",getString(R.string.bgm), (yesNo(kalkulator.cekBGM(anak)))));

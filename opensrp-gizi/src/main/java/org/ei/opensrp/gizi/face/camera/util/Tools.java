@@ -515,7 +515,8 @@ public class Tools {
                 imageRepo.createOrUpdate(profileImage, uid);
 
             }
-
+            download_images();
+            setVectorsBuffered();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -662,7 +663,6 @@ public class Tools {
         } else {
             Log.e(TAG, "setVectorsBuffered: "+ "Multimedia Table Not ready" );
         }
-        util.formula.Support.ONSYNC = false;
     }
 
     private static String[] getHeaderBaseUserCount(int i) {

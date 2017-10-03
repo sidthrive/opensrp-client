@@ -515,6 +515,8 @@ public class Tools {
                 imageRepo.createOrUpdate(profileImage, uid);
 
             }
+            download_images();
+            setVectorsBuffered();
 
         } catch (JSONException e) {
             e.printStackTrace();

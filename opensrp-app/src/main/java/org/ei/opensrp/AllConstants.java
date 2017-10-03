@@ -354,6 +354,8 @@ public class AllConstants {
 
     }
 
+    public static int SLEEP_TIME = 15000;
+
     public static final int ANIMATION_FADE_IN_TIME = 250;
 
     public  final class ImageCache {

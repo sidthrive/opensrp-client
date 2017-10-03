@@ -1,7 +1,9 @@
 package org.ei.opensrp.gizi;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,12 +14,14 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.event.Listener;
 
 import org.ei.opensrp.gizi.face.camera.util.Tools;
+import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.service.PendingFormSubmissionService;
 import org.ei.opensrp.sync.SyncAfterFetchListener;
 import org.ei.opensrp.sync.SyncProgressIndicator;
@@ -58,6 +62,7 @@ public class GiziHomeActivity extends SecuredActivity {
         @Override
         public void onEvent(Boolean data) {
             Support.ONSYNC = true;
+            AllConstants.SLEEP_TIME = 15000;
             if (updateMenuItem != null) {
                 updateMenuItem.setActionView(R.layout.progress);
             }
@@ -78,9 +83,27 @@ public class GiziHomeActivity extends SecuredActivity {
             new Tools(context());
 //            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
+            AllConstants.SLEEP_TIME = 3000;
 //            Tools.setVectorsBuffered();
+            flagActivator();
         }
     };
+
+    private void flagActivator(){
+        new Thread(){
+            public void run(){
+                try{
+                    while(AllConstants.SLEEP_TIME>0){
+                        sleep(1000);
+                        AllConstants.SLEEP_TIME-=1000;
+                    }
+                    Support.ONSYNC=false;
+                }catch (InterruptedException ie){
+                    Toast.makeText(context().applicationContext(),"flag activator crashed",Toast.LENGTH_LONG);
+                }
+            }
+        }.start();
+    }
 
     private Listener<String> onFormSubmittedListener = new Listener<String>() {
         @Override

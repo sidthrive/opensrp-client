@@ -486,9 +486,11 @@ public class OpenSRPImageLoader extends ImageLoader {
                             @Override
                             public void run() {
                                 if (view.getTag(R.id.entity_id) != null){
+                                    AllConstants.SLEEP_TIME=3000;
+                                    Log.e(TAG,"sleep time = "+AllConstants.SLEEP_TIME);
                                     OpenSRPImageLoader.saveStaticImageToDisk(view.getTag(R.id.entity_id).toString(), response.getBitmap());
                                 } else {
-                                    Log.e(TAG, "run: R.id.entity_id NULL" );
+                                    Log.e(TAG, "run: R.id.entity_id NULL");
                                 }
                             }
                         }).start();

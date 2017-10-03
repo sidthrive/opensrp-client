@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
@@ -38,6 +39,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.formula.Support;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.valueOf;
 import static org.ei.opensrp.event.Event.ACTION_HANDLED;
@@ -54,6 +57,8 @@ public class VaksinatorHomeActivity extends SecuredActivity {
     private Listener<Boolean> onSyncStartListener = new Listener<Boolean>() {
         @Override
         public void onEvent(Boolean data) {
+            Support.ONSYNC = true;
+            AllConstants.SLEEP_TIME = 15000;
             if (updateMenuItem != null) {
                 updateMenuItem.setActionView(R.layout.progress);
             }
@@ -74,9 +79,27 @@ public class VaksinatorHomeActivity extends SecuredActivity {
 //            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
 //            Tools.setVectorsBuffered();
+            AllConstants.SLEEP_TIME = 3000;
+            flagActivator();
 
         }
     };
+
+    private void flagActivator(){
+        new Thread(){
+            public void run(){
+                try{
+                    while(AllConstants.SLEEP_TIME>0){
+                        sleep(1000);
+                        AllConstants.SLEEP_TIME-=1000;
+                    }
+                    Support.ONSYNC=false;
+                }catch (InterruptedException ie){
+                    Toast.makeText(context().applicationContext(),"flag activator crashed",Toast.LENGTH_LONG);
+                }
+            }
+        }.start();
+    }
 
     private Listener<String> onFormSubmittedListener = new Listener<String>() {
         @Override
