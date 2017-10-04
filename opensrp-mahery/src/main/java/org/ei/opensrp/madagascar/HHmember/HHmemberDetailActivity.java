@@ -212,16 +212,16 @@ public class HHmemberDetailActivity extends Activity {
             }
         });
 
-        nama.setText(getResources().getString(R.string.name)+ (memberclient.getColumnmaps().get("Name_family_member") != null ? memberclient.getColumnmaps().get("Name_family_member") : "-"));
-        nik.setText(getResources().getString(R.string.ethnic)+ (memberclient.getColumnmaps().get("Ethnic_Group") != null ? memberclient.getColumnmaps().get("Ethnic_Group") : "-"));
-        husband_name.setText(getResources().getString(R.string.education)+ (memberclient.getColumnmaps().get("namaSuami") != null ? memberclient.getColumnmaps().get("namaSuami") : "-"));
+        nama.setText(getResources().getString(R.string.name)+ ": "+(memberclient.getColumnmaps().get("Name_family_member") != null ? memberclient.getColumnmaps().get("Name_family_member") : "-"));
+        nik.setText(getResources().getString(R.string.ethnic)+": "+ (memberclient.getColumnmaps().get("Ethnic_Group") != null ? memberclient.getColumnmaps().get("Ethnic_Group") : "-"));
+        husband_name.setText(getResources().getString(R.string.education)+": "+ (memberclient.getColumnmaps().get("namaSuami") != null ? memberclient.getColumnmaps().get("namaSuami") : "-"));
 
         String date = memberclient.getDetails().get("dob_date") != null? memberclient.getDetails().get("dob_date"):"n/a";
         String month = memberclient.getDetails().get("dob_month") != null? memberclient.getDetails().get("dob_month"):"n/a";
         String year = memberclient.getDetails().get("dob_year") != null? memberclient.getDetails().get("dob_year"):"n/a";
 
         String dob = date+" - "+month+" - "+year ;
-        txt_dob.setText(getResources().getString(R.string.date_of_birth)+ dob);
+        txt_dob.setText(getResources().getString(R.string.date_of_birth)+": "+ dob);
 
         final ImageView pic1 = (ImageView)findViewById(R.id.photo1);
         final ImageView pic2 = (ImageView)findViewById(R.id.photo2);
