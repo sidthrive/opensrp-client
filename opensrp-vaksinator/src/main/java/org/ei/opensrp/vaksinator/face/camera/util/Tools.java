@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
+import util.formula.Support;
 
 
 /**
@@ -448,7 +449,7 @@ public class Tools {
     public static void setVectorfromAPI(final android.content.Context context) {
         Log.e(TAG, "setVectorfromAPI: " );
 //        AllSharedPreferences allSharedPreferences;
-
+        Support.ONSYNC = true;
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
         String location = appContext.allSharedPreferences().getPreference("locationId");

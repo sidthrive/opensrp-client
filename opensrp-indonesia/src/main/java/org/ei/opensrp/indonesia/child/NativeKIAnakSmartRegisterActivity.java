@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -38,6 +39,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import util.formula.Support;
 
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.BALITA_KUNJUNGAN;
 import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.BAYI_NEONATAL_PERIOD;
@@ -223,6 +225,10 @@ public class NativeKIAnakSmartRegisterActivity extends SecuredNativeSmartRegiste
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         //  FlurryFacade.logEvent(formName);
+        if(Support.ONSYNC) {
+            Toast.makeText(this, "Data still Synchronizing, please wait", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String start = timer.format(new Date());
         Map<String, String> FS = new HashMap<String, String>();
         FS.put("start", start);

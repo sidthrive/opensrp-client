@@ -480,13 +480,14 @@ public class OpenSRPImageLoader extends ImageLoader {
                     final Object[] uid = new Object[1];
 
                     // perform I/O on non UI thread
+                    AllConstants.IDLE = true;
                     if (!isImmediate) {
                     //pass the entity id to act as the file name . Remember to always set this value as a tag in the image view
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 if (view.getTag(R.id.entity_id) != null){
-                                    AllConstants.SLEEP_TIME=3000;
+                                    AllConstants.SLEEP_TIME=AllConstants.WAITING_TIME;
                                     Log.e(TAG,"sleep time = "+AllConstants.SLEEP_TIME);
                                     OpenSRPImageLoader.saveStaticImageToDisk(view.getTag(R.id.entity_id).toString(), response.getBitmap());
                                 } else {

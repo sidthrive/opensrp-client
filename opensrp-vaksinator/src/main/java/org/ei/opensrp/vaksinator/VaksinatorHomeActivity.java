@@ -2,6 +2,7 @@ package org.ei.opensrp.vaksinator;
 
 import android.database.Cursor;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,23 +80,25 @@ public class VaksinatorHomeActivity extends SecuredActivity {
 //            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
 //            Tools.setVectorsBuffered();
-            AllConstants.SLEEP_TIME = 3000;
+            AllConstants.SLEEP_TIME = AllConstants.WAITING_TIME;
             flagActivator();
 
         }
     };
 
     private void flagActivator(){
+        Log.i(LOG_TAG,"flag activator executed");
         new Thread(){
             public void run(){
                 try{
                     while(AllConstants.SLEEP_TIME>0){
                         sleep(1000);
-                        AllConstants.SLEEP_TIME-=1000;
+                        if(AllConstants.IDLE)
+                            AllConstants.SLEEP_TIME-=1000;
                     }
                     Support.ONSYNC=false;
                 }catch (InterruptedException ie){
-                    Toast.makeText(context().applicationContext(),"flag activator crashed",Toast.LENGTH_LONG);
+
                 }
             }
         }.start();

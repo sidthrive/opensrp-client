@@ -64,6 +64,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import util.AsyncTask;
+import util.formula.Support;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -178,6 +179,10 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     public void startRegistration() {
+        if(Support.ONSYNC) {
+            Toast.makeText(getActivity(), "Data still Synchronizing, please wait", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String uniqueIdJson = LoginActivity.generator.uniqueIdController().getUniqueIdJson();
         if (uniqueIdJson == null || uniqueIdJson.isEmpty()) {

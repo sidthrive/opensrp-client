@@ -355,6 +355,8 @@ public class AllConstants {
     }
 
     public static int SLEEP_TIME = 15000;
+    public static final int WAITING_TIME = 5000;
+    public static boolean IDLE = false;
 
     public static final int ANIMATION_FADE_IN_TIME = 250;
 

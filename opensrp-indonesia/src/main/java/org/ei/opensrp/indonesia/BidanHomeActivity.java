@@ -56,6 +56,7 @@ public class BidanHomeActivity extends SecuredActivity {
         @Override
         public void onEvent(Boolean data) {
             Support.ONSYNC = true;
+            AllConstants.IDLE = false;
             AllConstants.SLEEP_TIME = 15000;
             if (updateMenuItem != null) {
                 updateMenuItem.setActionView(R.layout.progress);
@@ -79,7 +80,7 @@ public class BidanHomeActivity extends SecuredActivity {
             Tools.setVectorfromAPI(getApplicationContext());
 //            Tools.download_images();
 //            Tools.setVectorsBuffered();
-            AllConstants.SLEEP_TIME = 3000;
+//            AllConstants.SLEEP_TIME = AllConstants.WAITING_TIME;
             flagActivator();
 
         }
@@ -91,11 +92,12 @@ public class BidanHomeActivity extends SecuredActivity {
                 try{
                     while(AllConstants.SLEEP_TIME>0){
                         sleep(1000);
-                        AllConstants.SLEEP_TIME-=1000;
+                        if(AllConstants.IDLE)
+                            AllConstants.SLEEP_TIME-=1000;
                     }
                     Support.ONSYNC=false;
                 }catch (InterruptedException ie){
-                    Toast.makeText(context().applicationContext(),"flag activator crashed",Toast.LENGTH_LONG);
+
                 }
             }
         }.start();

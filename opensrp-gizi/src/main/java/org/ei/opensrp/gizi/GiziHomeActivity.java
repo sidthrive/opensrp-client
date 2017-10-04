@@ -83,7 +83,7 @@ public class GiziHomeActivity extends SecuredActivity {
             new Tools(context());
 //            Tools.download_images();
             Tools.setVectorfromAPI(getApplicationContext());
-            AllConstants.SLEEP_TIME = 3000;
+//            AllConstants.SLEEP_TIME = AllConstants.WAITING_TIME;
 //            Tools.setVectorsBuffered();
             flagActivator();
         }
@@ -95,11 +95,12 @@ public class GiziHomeActivity extends SecuredActivity {
                 try{
                     while(AllConstants.SLEEP_TIME>0){
                         sleep(1000);
-                        AllConstants.SLEEP_TIME-=1000;
+                        if(AllConstants.IDLE)
+                            AllConstants.SLEEP_TIME-=1000;
                     }
                     Support.ONSYNC=false;
                 }catch (InterruptedException ie){
-                    Toast.makeText(context().applicationContext(),"flag activator crashed",Toast.LENGTH_LONG);
+
                 }
             }
         }.start();

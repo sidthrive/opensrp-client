@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import util.AsyncTask;
+import util.formula.Support;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -260,6 +261,11 @@ public class GiziSmartRegisterFragment extends SecuredNativeSmartRegisterCursorA
 
     @Override
     public void startRegistration() {
+        if(Support.ONSYNC) {
+            Toast.makeText(getActivity(), "Data still Synchronizing, please wait", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         Fragment prev = getActivity().getFragmentManager().findFragmentByTag(locationDialogTAG);
         if (prev != null) {

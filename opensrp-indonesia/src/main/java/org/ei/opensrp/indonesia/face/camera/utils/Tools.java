@@ -77,6 +77,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.Route;
+import util.formula.Support;
 
 import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.ei.opensrp.indonesia.face.camera.utils.Tools.appContext;
@@ -470,7 +471,7 @@ public class Tools {
     public static void setVectorfromAPI(final android.content.Context context) {
         Log.e(TAG, "setVectorfromAPI: Start" );
 //        AllSharedPreferences allSharedPreferences;
-
+        Support.ONSYNC = true;
         String DRISTHI_BASE_URL = appContext.configuration().dristhiBaseURL();
         String user = appContext.allSharedPreferences().fetchRegisteredANM();
         String location = appContext.allSharedPreferences().getPreference("locationId");
