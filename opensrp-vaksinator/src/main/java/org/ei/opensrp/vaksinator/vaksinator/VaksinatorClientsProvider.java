@@ -33,6 +33,8 @@ import org.ei.opensrp.view.viewHolder.OnClickFormLauncher;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
+import util.formula.Support;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static org.joda.time.LocalDateTime.parse;
 
@@ -127,50 +129,52 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         DetailsRepository detailsRepository = org.ei.opensrp.Context.getInstance().detailsRepository();
         detailsRepository.updateDetails(pc);
 
-        String ages = pc.getColumnmaps().get("tanggalLahirAnak").substring(0, pc.getColumnmaps().get("tanggalLahirAnak").indexOf("T"));
+        String ages = Support.getColumnmaps(pc,"tanggalLahirAnak");
+        if (ages.length()>10)
+                ages = ages.substring(0, Support.getColumnmaps(pc,"tanggalLahirAnak").indexOf("T"));
 
-        int umur = pc.getColumnmaps().get("tanggalLahirAnak") != null ? age(ages) : 0;
+        int umur = Support.getColumnmaps(pc,"tanggalLahirAnak") != "-" ? age(ages) : 0;
 
-        viewHolder.name.setText(pc.getColumnmaps().get("namaBayi") != null ? pc.getColumnmaps().get("namaBayi") : " ");
+        viewHolder.name.setText(Support.getColumnmaps(pc,"namaBayi"));
 
-        //  viewHolder.name.setText(pc.getc().get("namaIbu") != null ? pc.getDetails().get("namaIbu") : " ");
+        //  viewHolder.name.setText(pc.getc().get("namaIbu") != null ? Support.getDetails(pc,"namaIbu") : " ");
         //set default image for mother berat_badan_saat_lahir
 
 //        final ImageView childview = (ImageView) convertView.findViewById(R.id.profilepic);
-//        if (pc.getDetails().get("profilepic") != null) {
-//            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, pc.getDetails().get("profilepic"), childview, R.drawable.child_boy_infant);
+//        if (Support.getDetails(pc,"profilepic") != null) {
+//            VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context, Support.getDetails(pc,"profilepic"), childview, R.drawable.child_boy_infant);
 //            childview.setTag(smartRegisterClient);
-//        } else if (pc.getDetails().get("gender") != null) {
+//        } else if (Support.getDetails(pc,"gender") != null) {
 //            if (viewHolder.profilepic == null) {
 //
-//            } else if (pc.getDetails().get("gender").equalsIgnoreCase("female")) {
+//            } else if (Support.getDetails(pc,"gender").equalsIgnoreCase("female")) {
 //                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_girl_infant));
 //            } else {
 //                viewHolder.profilepic.setImageDrawable(context.getResources().getDrawable(R.drawable.child_boy_infant));
 //            }
 //        }
 
-       /* viewHolder.motherName.setText(
-                pc.getDetails().get("namaIbu")!=null
-                        ? pc.getDetails().get("namaIbu")
-                        : pc.getDetails().get("nama_orang_tua")!=null
-                        ? pc.getDetails().get("nama_orang_tua")
-                        :" ");
-
-        viewHolder.village.setText(pc.getDetails().get("address1")!= null
-                ? pc.getDetails().get("address1")
-                : " ");*/
+//        viewHolder.motherName.setText(
+//                Support.getDetails(pc,"namaIbu")!=null
+//                        ? Support.getDetails(pc,"namaIbu")
+//                        : Support.getDetails(pc,"nama_orang_tua")!=null
+//                        ? Support.getDetails(pc,"nama_orang_tua")
+//                        :" ");
+//
+//        viewHolder.village.setText(Support.getDetails(pc,"address1")!= null
+//                ? Support.getDetails(pc,"address1")
+//                : " ");
 
         //start profile image
-        viewHolder.profilepic.setTag(R.id.entity_id, pc.getColumnmaps().get("_id"));//required when saving file to disk
+        viewHolder.profilepic.setTag(R.id.entity_id, Support.getColumnmaps(pc,"_id"));//required when saving file to disk
 //            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(), OpenSRPImageLoader.getStaticImageListener(viewHolder.profilepic, R.mipmap.woman_placeholder, R.mipmap.woman_placeholder));
 //        if (pc.getCaseId() != null) {//image already in local storage most likey ):
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-//            if (pc.getDetails().get("gender") != null) {
+//            if (Support.getDetails(pc,"gender") != null) {
 //                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(pc.getCaseId(),
 //                        OpenSRPImageLoader.getStaticImageListener(
 //                                viewHolder.profilepic,
-//                                pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
+//                                Support.getDetails(pc,"gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant,
 //                                0)
 //                );
 //            } else {
@@ -178,10 +182,10 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
 //            }
 //        }
 
-        if (pc.getDetails().get("gender") != null) {
+        if (!Support.getDetails(pc,"gender").equals("-")) {
             VaksinatorDetailActivity.setImagetoHolderFromUri((Activity) context,
-                    DrishtiApplication.getAppDir() + File.separator + pc.getDetails().get("base_entity_id") + ".JPEG",
-                    viewHolder.profilepic, pc.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+                    DrishtiApplication.getAppDir() + File.separator + Support.getDetails(pc,"base_entity_id") + ".JPEG",
+                    viewHolder.profilepic, Support.getDetails(pc,"gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
         } else {
             Log.e(TAG, "getView: Gender is NOT SET");
         }
@@ -197,44 +201,44 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
 
         if (kiparent != null) {
             detailsRepository.updateDetails(kiparent);
-            String namaayah = kiparent.getDetails().get("namaSuami") != null ? kiparent.getDetails().get("namaSuami") : "";
-            String namaibu = kiparent.getColumnmaps().get("namalengkap") != null ? kiparent.getColumnmaps().get("namalengkap") : "";
+            String namaayah = kiparent.getDetails().get("namaSuami");
+            String namaibu = kiparent.getColumnmaps().get("namalengkap");
 
             viewHolder.motherName.setText(namaibu + "," + namaayah);
-            viewHolder.village.setText(kiparent.getDetails().get("address1") != null ? kiparent.getDetails().get("address1") : "");
+            viewHolder.village.setText(kiparent.getDetails().get("address1"));
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        viewHolder.age.setText(pc.getColumnmaps().get("tanggalLahirAnak") != null
+        viewHolder.age.setText(!Support.getColumnmaps(pc,"tanggalLahirAnak").equals("-")
                 ? Integer.toString(age(ages) / 12) + " " + context.getResources().getString(R.string.year_short)
                     + ", " + Integer.toString(age(ages) % 12) + " " + context.getResources().getString(R.string.month_short)
                 : " ");
-        viewHolder.gender.setText(pc.getDetails().get("jenis_kelamin") != null
-                ? pc.getDetails().get("jenis_kelamin").contains("em")
+        viewHolder.gender.setText(!Support.getDetails(pc,"jenis_kelamin").equalsIgnoreCase("-")
+                ? Support.getDetails(pc,"jenis_kelamin").contains("em")
                     ? "Perempuan"
                     : "Laki-laki"
                 : " ");
 
-        viewHolder.hb0.setText(transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("hb0")})));
+        viewHolder.hb0.setText(transformToddmmyyyy(latestDate(new String[]{Support.getDetails(pc,"hb0")})));
 
         viewHolder.pol1.setText(
-                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("bcg"), pc.getDetails().get("polio1")}))
+                transformToddmmyyyy(latestDate(new String[]{Support.getDetails(pc,"bcg"), Support.getDetails(pc,"polio1")}))
         );
 
         viewHolder.pol2.setText(
-                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb1"), pc.getDetails().get("polio2")}))
+                transformToddmmyyyy(latestDate(new String[]{Support.getDetails(pc,"dptHb1"), Support.getDetails(pc,"polio2")}))
         );
 
         viewHolder.pol3.setText(
-                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb2"), pc.getDetails().get("polio3")}))
+                transformToddmmyyyy(latestDate(new String[]{Support.getDetails(pc,"dptHb2"), Support.getDetails(pc,"polio3")}))
 
         );
 
         viewHolder.pol4.setText(
-                transformToddmmyyyy(latestDate(new String[]{pc.getDetails().get("dptHb3"), pc.getDetails().get("polio4"), pc.getDetails().get("ipv")}))
+                transformToddmmyyyy(latestDate(new String[]{Support.getDetails(pc,"dptHb3"), Support.getDetails(pc,"polio4"), Support.getDetails(pc,"ipv")}))
         );
 
-        viewHolder.campak.setText(transformToddmmyyyy(pc.getDetails().get("campak") != null ? pc.getDetails().get("campak") : " "));
+        viewHolder.campak.setText(transformToddmmyyyy(Support.getDetails(pc,"campak")));
 
 //----- logo visibility, sometimes the variable contains blank string that count as not null, so we must check both the availability and content
         boolean a = hasDate(pc, "hb0");
@@ -277,7 +281,7 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
     //  updating icon
     private void setIcon(FrameLayout frame, ImageView image, String oldCode, String detailID, int umur, int indicator, CommonPersonObjectClient pc) {
         if (hasDate(pc, oldCode)) {
-            image.setImageResource(pc.getDetails().get(oldCode).contains("-")
+            image.setImageResource(Support.getDetails(pc,oldCode).contains("-")
                     ? R.drawable.ic_yes_large
                     : umur > indicator
                     ? R.drawable.vacc_late
@@ -293,23 +297,23 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
         boolean someComplete = false;
 
         for (int i = 0; i < var.length; i++) {
-            someComplete = someComplete || (pc.getDetails().get(var[i]) != null && pc.getDetails().get(var[i]).length() > 6);
+            someComplete = someComplete || (Support.getDetails(pc,var[i]).length() > 6);
         }
 
         if (someComplete) {
             complete = true;
             for (int i = 0; i < var.length; i++) {
-                complete = complete && (pc.getDetails().get(var[i]) != null && pc.getDetails().get(var[i]).length() > 6);
+                complete = complete && (Support.getDetails(pc,var[i]).length() > 6);
             }
         }
 
         image.setImageResource(complete
                 ? R.drawable.ic_yes_large
                 : someComplete
-                ? R.drawable.vacc_due
-                : umur > indicator
-                ? R.drawable.vacc_late
-                : R.drawable.abc_list_divider_mtrl_alpha
+                    ? R.drawable.vacc_due
+                    : umur > indicator
+                        ? R.drawable.vacc_late
+                        : R.drawable.abc_list_divider_mtrl_alpha
         );
 
         if ((umur == indicator) && !(complete || someComplete))
@@ -327,11 +331,13 @@ public class VaksinatorClientsProvider implements SmartRegisterCLientsProviderFo
     * */
 
     private boolean hasDate(CommonPersonObjectClient pc, String variable) {
-        return pc.getDetails().get(variable) != null && pc.getDetails().get(variable).length() > 6;
+        return Support.getDetails(pc,variable).length() > 6;
     }
 
     //  month age calculation
     private int age(String date) {
+        if(date.length()<10)
+            return 0;
         String[] dateOfBirth = date.split("-");
         String[] currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()).split("-");
 

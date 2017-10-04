@@ -38,6 +38,7 @@ import java.util.UUID;
 
 import util.ImageCache;
 import util.ImageFetcher;
+import util.formula.Support;
 
 /**
  * Created by Iq on 09/06/16.
@@ -66,10 +67,10 @@ public class VaksinatorDetailActivity extends Activity {
         detailsRepository.updateDetails(controller);
 
         AllCommonsRepository childRepository = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_anak");
-        CommonPersonObject controllers = childRepository.findByCaseID(controller.entityId());
+        final CommonPersonObject controllers = childRepository.findByCaseID(controller.entityId());
 
         AllCommonsRepository kirep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ec_kartu_ibu");
-        final CommonPersonObject kiparent = kirep.findByCaseID(controllers.getColumnmaps().get("relational_id"));
+        final CommonPersonObject kiparent = kirep.findByCaseID(Support.getColumnmaps(controllers, "relational_id"));
 
         String DetailStart = timer.format(new Date());
         Map<String, String> Detail = new HashMap<String, String>();
@@ -141,8 +142,8 @@ public class VaksinatorDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
-                VaksinatorRecapitulationActivity.staticVillageName = (kiparent.getDetails().get("cityVillage") != null ? ": " + kiparent.getDetails().get("cityVillage") : "null");
-                        startActivity(new Intent(VaksinatorDetailActivity.this, VaksinatorRecapitulationActivity.class));
+                VaksinatorRecapitulationActivity.staticVillageName = Support.getDetails(controller,"desa_anak");
+                startActivity(new Intent(VaksinatorDetailActivity.this, VaksinatorRecapitulationActivity.class));
                 overridePendingTransition(0, 0);
                 FlurryFacade.logEvent("click_recapitulation_button");
             }
@@ -166,8 +167,9 @@ public class VaksinatorDetailActivity extends Activity {
         additionalMeaslesLabel.setText(getString(R.string.campakTambahan));
 
 
-        uid.setText(": "+(controller.getDetails().get("UniqueId")!=null ? controller.getDetails().get("UniqueId") : "-"));
-        nama.setText(": " + (controller.getColumnmaps().get("namaBayi") != null ? controller.getColumnmaps().get("namaBayi") : "-"));
+        uid.setText(": "+(Support.getDetails(controller, "UniqueId")));
+        nama.setText(": " + (Support.getColumnmaps(controller, "namaBayi")));
+        village.setText(": " + Support.getDetails(controller,"desa_anak"));
 
         System.out.println("details: "+controller.getDetails().toString());
 
@@ -178,62 +180,61 @@ public class VaksinatorDetailActivity extends Activity {
 
             fatherName.setText(": " + namaayah);
             motherName.setText(": " +namaibu);
-            village.setText(kiparent.getDetails().get("cityVillage") != null ? ": " + kiparent.getDetails().get("cityVillage") : "");
             subVillage.setText(kiparent.getDetails().get("address1") != null ? ": " + kiparent.getDetails().get("address1") : "");
             // viewHolder.no_ibu.setText(kiparent.getDetails().get("noBayi") != null ? kiparent.getDetails().get("noBayi") : "");
         }
 
-        /*fatherName.setText(": " + (controller.getDetails().get("namaAyah") != null ? transformToddmmyyyy(controller.getDetails().get("namaAyah") : "-"));
-        motherName.setText(": " + (controller.getDetails().get("namaIbu") != null
-                ? controller.getDetails().get("namaIbu")
-                : controller.getDetails().get("nama_orang_tua")!=null
-                        ? controller.getDetails().get("nama_orang_tua")
+        /*fatherName.setText(": " + (Support.getDetails(controller,"namaAyah") != null ? transformToddmmyyyy(Support.getDetails(controller,"namaAyah");
+        motherName.setText(": " + (Support.getDetails(controller,"namaIbu") != null
+                ? Support.getDetails(controller,"namaIbu")
+                : Support.getDetails(controller,"nama_orang_tua")!=null
+                        ? Support.getDetails(controller,"nama_orang_tua")
                         : "-"
             )
         );*/
-       /* village.setText(": " + (controller.getDetails().get("desa") != null
-                ? controller.getDetails().get("desa")
-                : "-"));*/
+       /* village.setText(": " + (Support.getDetails(controller,"desa") != null
+                ? Support.getDetails(controller,"desa")
+                : "-"))));*/
 
-   /*     subVillage.setText(": " + (controller.getDetails().get("dusun") != null
-                ? controller.getDetails().get("dusun")
-                : controller.getDetails().get("village") != null
-                    ? controller.getDetails().get("village")
+   /*     subVillage.setText(": " + (Support.getDetails(controller,"dusun") != null
+                ? Support.getDetails(controller,"dusun")
+                : Support.getDetails(controller,"village") != null
+                    ? Support.getDetails(controller,"village")
                     : "-")
         );
 */
 
-        dateOfBirth.setText(": " + (controller.getColumnmaps().get("tanggalLahirAnak") != null ? transformToddmmyyyy(controller.getColumnmaps().get("tanggalLahirAnak").substring(0,10)) : "-"));
-        birthWeight.setText(": " + (controller.getDetails().get("beratLahir") != null
+        dateOfBirth.setText(": " + (transformToddmmyyyy(Support.getColumnmaps(controller,"tanggalLahirAnak").substring(0,10))));
+        birthWeight.setText(": " + (!Support.getDetails(controller, "beratLahir").equals("-")
                                     ? Double.toString(Integer.parseInt(controller.getDetails()
                                                         .get("beratLahir"))/1000)
                                                         + " kg"
                                     : "-"));
-        antipiretik.setText(": " + (controller.getDetails().get("antipiretik") != null ? yesNo(controller.getDetails().get("antipiretik").toLowerCase().contains("y")) : "-"));
+        antipiretik.setText(": " + (yesNo(Support.getDetails(controller, "antipiretik").toLowerCase().contains("y"))));
 
         hb1Under7.setText(": " + transformToddmmyyyy(hasDate(controller,"hb0")
-                ? controller.getDetails().get("hb0")
+                ? Support.getDetails(controller, "hb0")
                 : hasDate(controller,"hb1_kurang_7_hari")
-                    ? controller.getDetails().get("hb1_kurang_7_hari")
+                    ? Support.getDetails(controller, "hb1_kurang_7_hari")
                     :"-"));
 
-        bcg.setText(": " + (controller.getDetails().get("bcg") != null ? transformToddmmyyyy(controller.getDetails().get("bcg")) : "-"));
-        pol1.setText(": " + (controller.getDetails().get("polio1") != null ? transformToddmmyyyy(controller.getDetails().get("polio1")) : "-"));
-        dpt1.setText(": " + (controller.getDetails().get("dptHb1") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb1")) : "-"));
-        pol2.setText(": " + (controller.getDetails().get("polio2") != null ? transformToddmmyyyy(controller.getDetails().get("polio2")) : "-"));
-        dpt2.setText(": " + (controller.getDetails().get("dptHb2") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb2")) : "-"));
-        pol3.setText(": " + (controller.getDetails().get("polio3") != null ? transformToddmmyyyy(controller.getDetails().get("polio3")) : "-"));
-        dpt3.setText(": " + (controller.getDetails().get("dptHb3") != null ? transformToddmmyyyy(controller.getDetails().get("dptHb3")) : "-"));
-        pol4.setText(": " + (controller.getDetails().get("polio4") != null ? transformToddmmyyyy(controller.getDetails().get("polio4")) : "-"));
-        ipv.setText(": " + (controller.getDetails().get("ipv") != null ? transformToddmmyyyy(controller.getDetails().get("ipv")) : "-"));
-        measles.setText(": " + (controller.getDetails().get("campak") != null ? transformToddmmyyyy(controller.getDetails().get("campak")) : "-"));
+        bcg.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "bcg"))));
+        pol1.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "polio1"))));
+        dpt1.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "dptHb1"))));
+        pol2.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "polio2"))));
+        dpt2.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "dptHb2"))));
+        pol3.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "polio3"))));
+        dpt3.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "dptHb3"))));
+        pol4.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "polio4"))));
+        ipv.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "ipv"))));
+        measles.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "campak"))));
 
         complete.setText(": " + yesNo(isComplete()));
-        additionalDPT.setText(": " + (controller.getDetails().get("dpt_hb_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("dpt_hb_lanjutan")) : "-"));
-        additionalMeasles.setText(": " + (controller.getDetails().get("campak_lanjutan") != null ? transformToddmmyyyy(controller.getDetails().get("campak_lanjutan")) : "-"));
+        additionalDPT.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "dpt_hb_lanjutan"))));
+        additionalMeasles.setText(": " + (transformToddmmyyyy(Support.getDetails(controller, "campak_lanjutan"))));
 
 
-        String mgender = controller.getDetails().containsKey("gender") ? controller.getDetails().get("gender"):"laki";
+        String mgender = controller.getDetails().containsKey("gender") ? Support.getDetails(controller, "gender"):"laki";
 
 
         //start profile image
@@ -245,32 +246,32 @@ public class VaksinatorDetailActivity extends Activity {
             //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
 //            DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(controller.getCaseId(), OpenSRPImageLoader.getStaticImageListener(photo, placeholderDrawable, placeholderDrawable));
             VaksinatorDetailActivity.setImagetoHolderFromUri( this ,
-                    DrishtiApplication.getAppDir() + File.separator + controller.getDetails().get("base_entity_id") + ".JPEG",
-                    photo, controller.getDetails().get("gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
+                    DrishtiApplication.getAppDir() + File.separator + Support.getDetails(controller, "base_entity_id") + ".JPEG",
+                    photo, Support.getDetails(controller, "gender").equals("female") ? R.drawable.child_girl_infant : R.drawable.child_boy_infant);
 
         }
 
-//        if(controller.getDetails().get("profilepic")!= null){
-//            if((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("female")) {
-//                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_girl_infant);
-//            } else if ((controller.getDetails().get("gender")!=null?controller.getDetails().get("gender"):"").equalsIgnoreCase("male")){
-//                setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+//        if(Support.getDetails(controller,"profilepic")!= null){
+//            if((Support.getDetails(controller,"gender")!=null?Support.getDetails(controller,"gender"):"").equalsIgnoreCase("female")) {
+//                setImagetoHolderFromUri(VaksinatorDetailActivity.this, Support.getDetails(controller,"profilepic"), photo, R.drawable.child_girl_infant);
+//            } else if ((Support.getDetails(controller,"gender")!=null?Support.getDetails(controller,"gender"):"").equalsIgnoreCase("male")){
+//                setImagetoHolderFromUri(VaksinatorDetailActivity.this, Support.getDetails(controller,"profilepic"), photo, R.drawable.child_boy_infant);
 //
 //            }
 //        }
 //        else {
-//            if (controller.getDetails().get("gender").equalsIgnoreCase("male") ) {
+//            if (Support.getDetails(controller,"gender").equalsIgnoreCase("male") ) {
 //                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_boy_infant));
 //            } else {
 //                photo.setImageDrawable(getResources().getDrawable(R.drawable.child_girl_infant));
 //            }
 //        }
 
-        /*if(controller.getDetails().get("profilepic")!= null){
-            setImagetoHolderFromUri(VaksinatorDetailActivity.this, controller.getDetails().get("profilepic"), photo, R.drawable.child_boy_infant);
+        /*if(Support.getDetails(controller,"profilepic")!= null){
+            setImagetoHolderFromUri(VaksinatorDetailActivity.this, Support.getDetails(controller,"profilepic"), photo, R.drawable.child_boy_infant);
         }
         else {
-            photo.setImageResource(controller.getDetails().get("jenisKelamin").contains("em")
+            photo.setImageResource(Support.getDetails(controller,"jenisKelamin").contains("em")
                     ? R.drawable.child_girl_infant
                     : R.drawable.child_boy_infant);
 
@@ -304,16 +305,16 @@ public class VaksinatorDetailActivity extends Activity {
     static String entityid;
 
     private boolean isComplete(){
-        return (controller.getDetails().get("hb0") != null &&
-                controller.getDetails().get("bcg") != null &&
-                controller.getDetails().get("polio1") != null &&
-                controller.getDetails().get("dptHb1") != null &&
-                controller.getDetails().get("polio2") != null &&
-                controller.getDetails().get("dptHb2") != null &&
-                controller.getDetails().get("polio3") != null &&
-                controller.getDetails().get("dptHb3") != null &&
-                controller.getDetails().get("polio4") != null &&
-                controller.getDetails().get("campak") != null
+        return (Support.getDetails(controller, "hb0") != null &&
+                Support.getDetails(controller, "bcg") != null &&
+                Support.getDetails(controller, "polio1") != null &&
+                Support.getDetails(controller, "dptHb1") != null &&
+                Support.getDetails(controller, "polio2") != null &&
+                Support.getDetails(controller, "dptHb2") != null &&
+                Support.getDetails(controller, "polio3") != null &&
+                Support.getDetails(controller, "dptHb3") != null &&
+                Support.getDetails(controller, "polio4") != null &&
+                Support.getDetails(controller, "campak") != null
         );
     }
 
