@@ -192,7 +192,7 @@ public class HHmemberDetailActivity extends Activity {
         Prior_Surgeriess.setText(humanize(memberclient.getDetails().get("Prior_Surgeries")));
         Vaccine_Cards.setText(humanize(memberclient.getDetails().get("Vaccine_Card")));
         Vaccination_Historys.setText(humanize(memberclient.getDetails().get("Vaccination_History")));
-        Pregnants.setText(humanize(memberclient.getDetails().get("Pregnant")));
+        Pregnants.setText(humanize(memberclient.getDetails().get("Pregnant_now")));
         Prior_Pregnanciess.setText(humanize(memberclient.getDetails().get("Prior_Pregnancies")));
         Number_Deliveriess.setText(humanize(memberclient.getDetails().get("Number_Deliveries")));
         Number_Live_Birthss.setText(humanize(memberclient.getDetails().get("Number_Live_Births")));

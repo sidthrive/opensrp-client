@@ -58,8 +58,8 @@ public class LoginActivity extends Activity {
     public static final String ENGLISH_LOCALE = "en";
     public static final String MALAGASY_LOCALE = "mg";
     public static final String BAHASA_LOCALE = "in";
-    public static final String ENGLISH_LANGUAGE = "English";
-    public static final String MALAGASY_LANGUAGE = "Malagasy";
+    public static final String ENGLISH_LANGUAGE = "Language preference set to English";
+    public static final String MALAGASY_LANGUAGE = "Safidy fiteny gasy";
     public static final String Bahasa_LANGUAGE = "Bahasa";
 
 
