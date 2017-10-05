@@ -6,6 +6,7 @@ import ch.lambdaj.function.convert.Converter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.FetchStatus;
 import org.ei.opensrp.domain.Response;
@@ -39,6 +40,7 @@ import static org.ei.opensrp.util.Log.logInfo;
 
 public class FormSubmissionSyncService {
     public static final String FORM_SUBMISSIONS_PATH = "form-submissions";
+    public static final String FORM_SUBMISSIONS_PATH_BY_LOC = "form-submissions-by-loc";
     private final HTTPAgent httpAgent;
     private final FormDataRepository formDataRepository;
     private AllSettings allSettings;
@@ -62,7 +64,7 @@ public class FormSubmissionSyncService {
         boolean pushStatus = pushToServer();
         Intent intent = new Intent(DrishtiApplication.getInstance().getApplicationContext(),ImageUploadSyncService.class);
         DrishtiApplication.getInstance().getApplicationContext().startService(intent);
-        FetchStatus pullStatus = pullFromServer();
+        FetchStatus pullStatus = pullFromServerbyLoc();
 
         if((!pushStatus)&&pullStatus==fetchedFailed){
             return pushAndFetchFailed;
@@ -101,9 +103,9 @@ public class FormSubmissionSyncService {
             String submissionPayload = new Gson().toJson(docs);
             Response<String> response = httpAgent.postToCouch(
                     format("{0}/{1}",
-                            "http://118.91.130.18:5983",
+                            "http://192.168.1.253:5984",
                             "opensrp-form/_bulk_docs"),
-                    submissionPayload, "rootuser", "Satu23456");
+                    submissionPayload, "admin", "Satu2345");
             if (response.isFailure()) {
                 logError(format("Form submissions sync failed. Submissions:  {0}", pendingFormSubmissions));
                 return false;
@@ -138,11 +140,41 @@ public class FormSubmissionSyncService {
                     downloadBatchSize);
             Response<String> response = httpAgent.fetch(uri);
             if (response.isFailure()) {
-                logError(format("Form submis,sions pull failed."));
+                logError(format("Form submissions pull failed."));
                 return fetchedFailed;
             }
-            List<org.ei.drishti.dto.form.FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
-                    new TypeToken<List<org.ei.drishti.dto.form.FormSubmissionDTO>>() {
+            List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
+                    new TypeToken<List<FormSubmissionDTO>>() {
+                    }.getType());
+            if (formSubmissions.isEmpty()) {
+                return dataStatus;
+            } else {
+                formSubmissionService.processSubmissions(toDomain(formSubmissions));
+                dataStatus = fetched;
+            }
+        }
+    }
+
+    public FetchStatus pullFromServerbyLoc() {
+        FetchStatus dataStatus = nothingFetched;
+        String locationId = allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID);
+        int downloadBatchSize = configuration.syncDownloadBatchSize();
+        String baseURL = configuration.dristhiBaseURL();
+        while (true) {
+            String uri = format("{0}/{1}?locationId={2}&timestamp={3}&batch-size={4}",
+                    baseURL,
+                    FORM_SUBMISSIONS_PATH_BY_LOC,
+                    locationId.replaceAll(" ","%20"),
+                    allSettings.fetchPreviousFormSyncIndex(),
+                    downloadBatchSize);
+            Response<String> response = httpAgent.fetch(uri);
+            logInfo(format("Uri:  {0}", uri));
+            if (response.isFailure()) {
+                logError(format("Form submissions pull failed."));
+                return fetchedFailed;
+            }
+            List<FormSubmissionDTO> formSubmissions = new Gson().fromJson(response.payload(),
+                    new TypeToken<List<FormSubmissionDTO>>() {
                     }.getType());
             if (formSubmissions.isEmpty()) {
                 return dataStatus;
@@ -156,8 +188,8 @@ public class FormSubmissionSyncService {
     private String mapToFormSubmissionDTO(List<FormSubmission> pendingFormSubmissions) {
         List<FormSubmissionDTO> formSubmissions = new ArrayList<FormSubmissionDTO>();
         for (FormSubmission pendingFormSubmission : pendingFormSubmissions) {
-            formSubmissions.add(new FormSubmissionDTO("FormSubmission",allSharedPreferences.fetchRegisteredANM(), pendingFormSubmission.instanceId(),
-                    pendingFormSubmission.entityId(), pendingFormSubmission.formName(), pendingFormSubmission.instance(), pendingFormSubmission.version(),
+            formSubmissions.add(new FormSubmissionDTO("FormSubmission", allSharedPreferences.fetchRegisteredANM(), pendingFormSubmission.instanceId(),
+                    pendingFormSubmission.entityId(), pendingFormSubmission.formName(), allSharedPreferences.getPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID), pendingFormSubmission.instance(), pendingFormSubmission.version(),
                     pendingFormSubmission.formDataDefinitionVersion()).withServerVersion(DateTime.now().getMillis()));
         }
         return new Gson().toJson(formSubmissions);

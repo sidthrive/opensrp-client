@@ -10,6 +10,7 @@ public class FormSubmission {
     private String instanceId;
     private String entityId;
     private String formName;
+    private String locationId;
     private String instance;
     private String clientVersion;
     private String formDataDefinitionVersion;
@@ -17,8 +18,26 @@ public class FormSubmission {
     private SyncStatus syncStatus;
     private FormInstance formInstance;
 
+    public FormSubmission(String instanceId, String entityId, String formName, String locationId, String instance, String clientVersion, SyncStatus syncStatus, String formDataDefinitionVersion) {
+        this(instanceId, entityId, formName, locationId, instance, clientVersion, syncStatus, formDataDefinitionVersion, null);
+    }
+
     public FormSubmission(String instanceId, String entityId, String formName, String instance, String clientVersion, SyncStatus syncStatus, String formDataDefinitionVersion) {
         this(instanceId, entityId, formName, instance, clientVersion, syncStatus, formDataDefinitionVersion, null);
+    }
+
+    public FormSubmission(String instanceId, String entityId, String formName, String locationId, String instance, String clientVersion, SyncStatus syncStatus, String formDataDefinitionVersion,
+                          String serverVersion) {
+        this.instanceId = instanceId;
+        this.entityId = entityId;
+        this.formName = formName;
+        this.locationId = locationId;
+        this.instance = instance;
+        this.clientVersion = clientVersion;
+        this.syncStatus = syncStatus;
+        this.formDataDefinitionVersion = formDataDefinitionVersion;
+        this.serverVersion = serverVersion;
+        this.formInstance = new Gson().fromJson(instance, FormInstance.class);
     }
 
     public FormSubmission(String instanceId, String entityId, String formName, String instance, String clientVersion, SyncStatus syncStatus, String formDataDefinitionVersion,
@@ -44,6 +63,10 @@ public class FormSubmission {
 
     public String formName() {
         return formName;
+    }
+
+    public String locationId() {
+        return locationId;
     }
 
     public String instance() {
