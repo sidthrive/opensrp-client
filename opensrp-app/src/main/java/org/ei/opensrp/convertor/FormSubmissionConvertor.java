@@ -1,6 +1,6 @@
 package org.ei.opensrp.convertor;
 
-import org.ei.drishti.dto.form.FormSubmissionDTO;
+import org.ei.opensrp.domain.form.FormSubmissionDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class FormSubmissionConvertor {
                     formSubmission.instanceId(),
                     formSubmission.entityId(),
                     formSubmission.formName(),
+                    formSubmission.locationId(),
                     formSubmission.instance(),
                     formSubmission.clientVersion(),
                     SYNCED,
