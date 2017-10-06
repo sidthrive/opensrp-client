@@ -75,6 +75,7 @@ import org.ei.opensrp.service.formSubmissionHandler.RenewFPProductHandler;
 import org.ei.opensrp.service.formSubmissionHandler.TTHandler;
 import org.ei.opensrp.service.formSubmissionHandler.VitaminAHandler;
 import org.ei.opensrp.sync.SaveANMLocationTask;
+import org.ei.opensrp.sync.SaveTeamInfoTask;
 import org.ei.opensrp.sync.SaveUserInfoTask;
 import org.ei.opensrp.util.Cache;
 import org.ei.opensrp.util.Session;
@@ -187,6 +188,7 @@ public class Context {
     private ANCInvestigationsHandler ancInvestigationsHandler;
     private SaveANMLocationTask saveANMLocationTask;
     private SaveUserInfoTask saveUserInfoTask;
+    private SaveTeamInfoTask saveTeamInfoTask;
 
     private ANMController anmController;
     private ANMLocationController anmLocationController;
@@ -656,7 +658,7 @@ public class Context {
     public UserService userService() {
         if (userService == null) {
             Repository repo = initRepository();
-            userService = new UserService(repo, allSettings(), allSharedPreferences(), httpAgent(), session(), configuration(), saveANMLocationTask(),saveUserInfoTask());
+            userService = new UserService(repo, allSettings(), allSharedPreferences(), httpAgent(), session(), configuration(), saveANMLocationTask(),saveUserInfoTask(),saveTeamInfoTask());
         }
         return userService;
     }
@@ -673,6 +675,13 @@ public class Context {
             saveUserInfoTask = new SaveUserInfoTask(allSettings());
         }
         return saveUserInfoTask;
+    }
+
+    private SaveTeamInfoTask saveTeamInfoTask() {
+        if(saveTeamInfoTask == null) {
+            saveTeamInfoTask = new SaveTeamInfoTask(allSettings());
+        }
+        return saveTeamInfoTask;
     }
 
     public AlertService alertService() {

@@ -2,14 +2,19 @@ package org.ei.opensrp.service;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.ei.opensrp.AllConstants;
 import org.ei.opensrp.DristhiConfiguration;
 import org.ei.opensrp.domain.LoginResponse;
 import org.ei.opensrp.domain.Response;
+import org.ei.opensrp.domain.TeamData;
 import org.ei.opensrp.repository.AllSettings;
 import org.ei.opensrp.repository.AllSharedPreferences;
 import org.ei.opensrp.repository.Repository;
 import org.ei.opensrp.sync.SaveANMLocationTask;
+import org.ei.opensrp.sync.SaveTeamInfoTask;
 import org.ei.opensrp.sync.SaveUserInfoTask;
 import org.ei.opensrp.util.Session;
 import org.ei.opensrp.util.StringUtil;
@@ -22,8 +27,10 @@ import org.opensrp.api.util.TreeNode;
 
 import java.util.Map;
 
+import static java.text.MessageFormat.format;
 import static org.ei.opensrp.AllConstants.*;
 import static org.ei.opensrp.event.Event.ON_LOGOUT;
+import static org.ei.opensrp.util.Log.logInfo;
 
 public class UserService {
     private final Repository repository;
@@ -35,10 +42,11 @@ public class UserService {
     private SaveANMLocationTask saveANMLocationTask;
     private String village ="";
     private SaveUserInfoTask saveUserInfoTask;
+    private SaveTeamInfoTask saveTeamInfoTask;
 
     public UserService(Repository repository, AllSettings allSettings, AllSharedPreferences allSharedPreferences, HTTPAgent httpAgent, Session session,
                        DristhiConfiguration configuration, SaveANMLocationTask saveANMLocationTask,
-                       SaveUserInfoTask saveUserInfoTask) {
+                       SaveUserInfoTask saveUserInfoTask,SaveTeamInfoTask saveTeamInfoTask) {
         this.repository = repository;
         this.allSettings = allSettings;
         this.allSharedPreferences = allSharedPreferences;
@@ -47,6 +55,7 @@ public class UserService {
         this.configuration = configuration;
         this.saveANMLocationTask = saveANMLocationTask;
         this.saveUserInfoTask = saveUserInfoTask;
+        this.saveTeamInfoTask = saveTeamInfoTask;
     }
 
     public boolean isValidLocalLogin(String userName, String password) {
@@ -79,32 +88,13 @@ public class UserService {
         loginWith(userName, password);
         saveAnmLocation(getUserLocation(userInfo));
         saveUserInfo(getUserData(userInfo));
+        saveUserTeam(getUserTeam(userInfo));
 
-        String locationjson = allSettings.fetchANMLocation();
-        LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
-
-        Map<String,TreeNode<String, Location>> locationMap =
-                locationTree.getLocationsHierarchy();
-
-        allSharedPreferences.setPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID, addFilterLocation(locationMap));
-    }
-
-    public String addFilterLocation(Map<String,TreeNode<String, Location>> locationMap){
-
-        for(Map.Entry<String, TreeNode<String, Location>> entry : locationMap.entrySet()) {
-
-            if(entry.getValue().getChildren() != null) {
-                if(entry.getValue().getNode().getTags().toString().equals("[Village]")){
-                    village = StringUtil.humanize(entry.getValue().getLabel());
-                    break;
-                }
-
-                addFilterLocation(entry.getValue().getChildren());
-
-            }
-
-        }
-        return village;
+        TeamData teamData = new Gson().fromJson(allSettings.fetchTeamInformation(),
+                new TypeToken<TeamData>() {
+                }.getType());
+        allSharedPreferences.setPreference(AllConstants.SyncFilters.FILTER_LOCATION_ID, teamData.locationName());
+        logInfo(format("team location:  {0}", teamData.locationName()));
     }
 
     public String getUserData(String userInfo) {
@@ -127,11 +117,25 @@ public class UserService {
         }
     }
 
+    public String getUserTeam(String userInfo) {
+        try {
+            JSONObject userInfoJson = new JSONObject(userInfo);
+            return userInfoJson.getString("team");
+        } catch (JSONException e) {
+            Log.v("Error : ", e.getMessage());
+            return null;
+        }
+    }
+
     public void saveAnmLocation(String anmLocation) {
         saveANMLocationTask.save(anmLocation);
     }
 
     public void saveUserInfo(String userInfo) { saveUserInfoTask.save(userInfo); }
+
+    public void saveUserTeam(String teamData) {
+        saveTeamInfoTask.save(teamData);
+    }
 
     public boolean hasARegisteredUser() {
         return !allSharedPreferences.fetchRegisteredANM().equals("");
