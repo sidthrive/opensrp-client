@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DVAKSINATOR</string>
+    <string name="app_name">VAKSINATOR SYNC</string>
     <string name="userNameEditText">Masukkan User Name</string>
     <string name="passwordEditText">Masukkan kata kunci</string>
     <string name="login_text">Masuk</string>

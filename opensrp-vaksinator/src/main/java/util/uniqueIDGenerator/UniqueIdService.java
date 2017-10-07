@@ -75,7 +75,8 @@ public class UniqueIdService implements AdditionalSyncService {
     public Response<String> pullUniqueIdFromServer(String username, String password) {
 //        String baseURL = configuration.dristhiBaseURL();
         while (true) {
-            String uri = "http://118.91.130.18:8080/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(100)+"&username="+username+"&password="+password;
+            String uri = allSharedPreferences.fetchHost("")+":"+allSharedPreferences.fetchPort(8080)+"/openmrs/module/idgen/exportIdentifiers.form?source=1&numberToGenerate="+Integer.toString(100)+"&username="+username+"&password="+password;
+            logDebug(format("Unique id uri : {0}",uri));
             Response<String> response = httpAgent.fetchWithCredentials(uri, username, password);
             if (response.isFailure()) {
                     logError(format("Unique id pull failed"));

@@ -29,7 +29,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "org.ei.opensrp.test_demo"
+        applicationId "org.ei.opensrp.vaksinator_sync"
         minSdkVersion 16
         targetSdkVersion 21
 

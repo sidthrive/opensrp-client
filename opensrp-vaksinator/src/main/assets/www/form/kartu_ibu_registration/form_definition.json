@@ -1,7 +1,7 @@
 {
   "form_data_definition_version": "1",
   "form": {
-    "bind_type": "anak",
+    "bind_type": "kartu_ibu",
     "default_bind_path": "/model/instance/Kartu_ibu/",
     "fields": [
       {
@@ -75,7 +75,7 @@
         "bind": "/model/instance/Kartu_ibu/no_ibu"
       },
       {
-        "name": "namaBayi",
+        "name": "namalengkap",
         "bind": "/model/instance/Kartu_ibu/nama_lengkap"
       },
       {
@@ -83,7 +83,7 @@
         "bind": "/model/instance/Kartu_ibu/nama_suami"
       },
       {
-        "name": "tanggalLahirAnak",
+        "name": "tanggalLahir",
         "bind": "/model/instance/Kartu_ibu/tanggal_lahir_ibu"
       },
       {

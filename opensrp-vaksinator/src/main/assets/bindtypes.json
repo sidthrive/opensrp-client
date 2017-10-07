@@ -1,6 +1,12 @@
 {
   "bindobjects": [
     {
+      "name": "kartu_ibu",
+      "columns": [
+        {"name":"namalengkap"}, {"name":"isClosed"},{"name":"isOutOfArea"},{"name":"umur"},{"name":"namaSuami"},{"name":"noIbu"},{"name":"htp"}
+      ]
+    },
+    {
       "name": "ibu",
       "columns": [
         {"name":"namaIbu"},{"name":"namaAyah"}

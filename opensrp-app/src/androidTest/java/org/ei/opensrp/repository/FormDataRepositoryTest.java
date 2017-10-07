@@ -198,7 +198,7 @@ public class FormDataRepositoryTest extends AndroidTestCase {
         repository.saveFormSubmission(secondSubmission);
         repository.saveFormSubmission(thirdSubmission);
 
-        List<FormSubmission> pendingFormSubmissions = repository.getPendingFormSubmissions();
+        List<FormSubmission> pendingFormSubmissions = repository.getPendingFormSubmissions(50);
 
         assertEquals(asList(firstSubmission, secondSubmission), pendingFormSubmissions);
     }
