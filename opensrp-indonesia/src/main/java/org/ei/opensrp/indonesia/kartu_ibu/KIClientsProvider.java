@@ -202,30 +202,37 @@ public class KIClientsProvider implements SmartRegisterCLientsProviderForCursorA
         viewHolder.date_status.setText("");
         viewHolder.visit_status.setText("");
 
-        if (pc.getColumnmaps().get("ibu.type") != null) {
-            if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
-                viewHolder.anc_status_layout.setText(context.getString(R.string.service_anc));
-                String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
-                String visit_stat = pc.getColumnmaps().get("ibu.ancKe") != null ? context.getString(R.string.anc_ke) + " " + pc.getColumnmaps().get("ibu.ancKe") : "";
-                viewHolder.date_status.setText(visit_date);
-                viewHolder.visit_status.setText(visit_stat);
-
+        final CommonPersonObject ancclient = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu").findByCaseID(pc.getColumnmaps().get("ibu.id"));
+        if (pc.getColumnmaps().get("ibu.type") != null && ancclient.getColumnmaps().get("isClosed")!=null) {
+            if(ancclient.getColumnmaps().get("isClosed").equals("true")){
+                    viewHolder.date_status.setText("");
+                    viewHolder.visit_status.setText("");
             }
-            if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
-                viewHolder.anc_status_layout.setText(context.getString(R.string.service_pnc));
-                String visit_date = pc.getColumnmaps().get("anak.tanggalLahirAnak") != null ? context.getString(R.string.str_pnc_delivery) + " " + pc.getColumnmaps().get("anak.tanggalLahirAnak") : "";
-                String hariKeKF = pc.getColumnmaps().get("ibu.hariKeKF") != null ? context.getString(R.string.hari_ke_kf) + " " + pc.getColumnmaps().get("ibu.hariKeKF") : "";
-
-                viewHolder.date_status.setText(visit_date);
-                viewHolder.visit_status.setText(hariKeKF);
-            }
-            if (pc.getDetails().get("jenisKontrasepsi") != null) {
-                if (!pc.getDetails().get("jenisKontrasepsi").equals("")) {
-                    viewHolder.anc_status_layout.setText(context.getString(R.string.service_fp));
-                    String visit_date = pc.getDetails().get("tanggalkunjungan") != null ? context.getString(R.string.date_visit_title) + " " + pc.getDetails().get("tanggalkunjungan") : "";
-                    String visit_stat = pc.getDetails().get("jenisKontrasepsi") != null ? context.getString(R.string.fp_methods) + " " + pc.getDetails().get("jenisKontrasepsi") : "";
+            else {
+                if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
+                    viewHolder.anc_status_layout.setText(context.getString(R.string.service_anc));
+                    String visit_date = pc.getColumnmaps().get("ibu.ancDate") != null ? context.getString(R.string.date_visit_title) + " " + pc.getColumnmaps().get("ibu.ancDate") : "";
+                    String visit_stat = pc.getColumnmaps().get("ibu.ancKe") != null ? context.getString(R.string.anc_ke) + " " + pc.getColumnmaps().get("ibu.ancKe") : "";
                     viewHolder.date_status.setText(visit_date);
                     viewHolder.visit_status.setText(visit_stat);
+                }
+
+                if (pc.getColumnmaps().get("ibu.type").equals("pnc")) {
+                    viewHolder.anc_status_layout.setText(context.getString(R.string.service_pnc));
+                    String visit_date = pc.getColumnmaps().get("anak.tanggalLahirAnak") != null ? context.getString(R.string.str_pnc_delivery) + " " + pc.getColumnmaps().get("anak.tanggalLahirAnak") : "";
+                    String hariKeKF = pc.getColumnmaps().get("ibu.hariKeKF") != null ? context.getString(R.string.hari_ke_kf) + " " + pc.getColumnmaps().get("ibu.hariKeKF") : "";
+
+                    viewHolder.date_status.setText(visit_date);
+                    viewHolder.visit_status.setText(hariKeKF);
+                }
+                if (pc.getDetails().get("jenisKontrasepsi") != null) {
+                    if (!pc.getDetails().get("jenisKontrasepsi").equals("")) {
+                        viewHolder.anc_status_layout.setText(context.getString(R.string.service_fp));
+                        String visit_date = pc.getDetails().get("tanggalkunjungan") != null ? context.getString(R.string.date_visit_title) + " " + pc.getDetails().get("tanggalkunjungan") : "";
+                        String visit_stat = pc.getDetails().get("jenisKontrasepsi") != null ? context.getString(R.string.fp_methods) + " " + pc.getDetails().get("jenisKontrasepsi") : "";
+                        viewHolder.date_status.setText(visit_date);
+                        viewHolder.visit_status.setText(visit_stat);
+                    }
                 }
             }
         }
