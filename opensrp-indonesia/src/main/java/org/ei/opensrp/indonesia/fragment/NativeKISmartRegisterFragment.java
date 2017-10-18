@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.ei.opensrp.Context;
+import org.ei.opensrp.commonregistry.AllCommonsRepository;
+import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.commonregistry.CommonRepository;
@@ -336,18 +338,20 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
         }
         @Override
         public void onDialogOptionSelection(DialogOption option, Object tag) {
-
-
             if(option.name().equalsIgnoreCase(getString(R.string.str_register_anc_form)) ) {
                 CommonPersonObjectClient pc = KIDetailActivity.kiclient;
-                if(pc.getColumnmaps().get("ibu.type")!= null) {
-                    if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
-                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
-                        return;
+                AllCommonsRepository iburep = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("ibu");
+                final CommonPersonObject ancclient = iburep.findByCaseID(pc.getColumnmaps().get("ibu.id"));
+                if (pc.getColumnmaps().get("ibu.type") != null && ancclient.getColumnmaps().get("isClosed") != null) {
+                    if (!ancclient.getColumnmaps().get("isClosed").equals("true")) {
+                        if (pc.getColumnmaps().get("ibu.type").equals("anc")) {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.mother_already_registered), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
+                onEditSelection((EditOption) option, (SmartRegisterClient) tag);
             }
-            onEditSelection((EditOption) option, (SmartRegisterClient) tag);
         }
     }
 
