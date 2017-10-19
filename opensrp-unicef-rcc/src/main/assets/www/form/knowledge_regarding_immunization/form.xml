@@ -1,0 +1,545 @@
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="rcc_baseline_survey_module_5">
+    <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
+    <section class="form-logo"></section>
+    <h3 dir="auto" id="form-title">RCC Pengetahuan tentang Imunisasi</h3>
+    <select id="form-languages" data-default-lang="id">
+        <option value="id" data-dir="ltr">Indonesia</option>
+        <option value="en" data-dir="ltr">English</option>
+    </select>
+    <fieldset class="question simple-select or-appearance-horizontal ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu:label">1. Pernahkah Anda mendengar tentang imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu:label">1. Have you heard about immunization</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu:hint">Tanyakan kepada responden apakah dia pernah mendengar tentang imunisasi atau apakah dia tahu apa itu?</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu:hint">Ask the respondent if s/he has heard about immunization or if s/he knows what it is</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="1" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/heard_about_immu" data-name="/rcc_baseline_survey_module_5/heard_about_immu" value="0" data-required="true()" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/heard_about_immu/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source:label">2. Jika ya, dari sumber manakah Anda mendengar tentang Imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/information_source:label">2. If yes, from what sources has the respondent heard about Immunization</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/information_source:hint">Multiple choice (lebih dari satu opsi diperbolehkan)</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/information_source:hint">Multiple choices (more than one option is allowed)</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="98" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source/98:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/information_source/98:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/information_source" data-name="/rcc_baseline_survey_module_5/information_source" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/information_source/1:label">Pilih</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/information_source/1:label">Choose</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_worker:label">Pekerja kesehatan</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_worker:label">Health workers</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_worker" data-name="/rcc_baseline_survey_module_5/is_health_worker" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_worker/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre:label">Kader kesehatan</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre:label">Health cadres</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_health_cadre" data-name="/rcc_baseline_survey_module_5/is_health_cadre" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_health_cadre/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_community_leader:label">Tokoh masyarakat</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_community_leader:label">Community leaders</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_community_leader" data-name="/rcc_baseline_survey_module_5/is_community_leader" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_community_leader/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader:label">Tokoh agama</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader:label">Religious leaders</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_religious_leader" data-name="/rcc_baseline_survey_module_5/is_religious_leader" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_religious_leader/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative:label">Teman / saudara / kerabat</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative:label">Friends/family/relatives</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_friend_family_relative" data-name="/rcc_baseline_survey_module_5/is_friend_family_relative" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_friend_family_relative/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tv:label">Televisi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_tv:label">TV</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tv/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tv/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tv" data-name="/rcc_baseline_survey_module_5/is_tv" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tv/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tv/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_radio:label">Radio</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_radio:label">Radio</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_radio/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_radio/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_radio" data-name="/rcc_baseline_survey_module_5/is_radio" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_radio/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_radio/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner:label">Poster / Spanduk</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner:label">Poster/Banner</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_poster_banner" data-name="/rcc_baseline_survey_module_5/is_poster_banner" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_poster_banner/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_other_source:label">Lainnya</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_other_source:label">Others</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_other_source/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_other_source/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_other_source" data-name="/rcc_baseline_survey_module_5/is_other_source" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/information_source ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_other_source/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_other_source/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select or-appearance-horizontal ">
+        <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/other_source:label">Lainnya, entri manual</span>
+        <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/other_source:label">Others, manual entry</span>
+        <span class="required">*</span>
+        <input type="text" name="/rcc_baseline_survey_module_5/other_source" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/is_other_source ,'1')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/desease:label">3. Menurut responden, apa saja penyakit yang dapat dicegah oleh Imunisasi</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/desease:label">3. According to the respondent, what are some of the diseases that can be prevented by Immunization</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/desease:hint">Multiple choice (lebih dari satu opsi diperbolehkan)</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/desease:hint">Multiple choices (more than one option is allowed)</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="98" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/desease/98:label">Tidak Tahu</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/desease/98:label">Don't Know</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/desease" data-name="/rcc_baseline_survey_module_5/desease" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/heard_about_immu ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/desease/1:label">Pilih</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/desease/1:label">Choose</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc:label">Tuberkulosis (TBC)</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc:label">Tuberculosis (TBC)</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc:hint">batuk terus menerus dan berlendir/dahak</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_tbc:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tbc" data-name="/rcc_baseline_survey_module_5/is_tbc" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tbc/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tbc/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:label">Difteri</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:label">Diphterhia</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:hint">demam tinggi, sesak nafas, ada pembengkakan di tenggorokan</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_diphterhia" data-name="/rcc_baseline_survey_module_5/is_diphterhia" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_diphterhia/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:label">Tetanus</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:label">Tetanus</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:hint">demam tinggi dan kejang setelah ada luka yang ada bakteri</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_tetanus" data-name="/rcc_baseline_survey_module_5/is_tetanus" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_tetanus/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:label">Pertusis</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:label">Pertussis</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:hint">batuk rejan/batuk 100 hari</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pertussis" data-name="/rcc_baseline_survey_module_5/is_pertussis" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pertussis/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio:label">Polio</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio:label">Polio</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_polio:hint">virus, demam tinggi dan lumpuh layuh</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_polio:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_polio" data-name="/rcc_baseline_survey_module_5/is_polio" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_polio/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_polio/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles:label">Campak</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles:label">Measles</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_measles:hint">demam tinggi, merah bercak2 dikulit</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_measles:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_measles" data-name="/rcc_baseline_survey_module_5/is_measles" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_measles/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_measles/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:label">Hepatitis B</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:label">Hepatitis B</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:hint">infeksi di hati, bahaya jangka panjang sirosis/kanker hati</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_hepatitis_b" data-name="/rcc_baseline_survey_module_5/is_hepatitis_b" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_hepatitis_b/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:label">Meningitis</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:label">Meningitis</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:hint">radang pada selaput otak</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis:hint">-</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_meningitis" data-name="/rcc_baseline_survey_module_5/is_meningitis" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_meningitis/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:label">Pneumonia</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:label">Pneumonia</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:hint">sesak nafas</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia:hint">-</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="1" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_pneumonia" data-name="/rcc_baseline_survey_module_5/is_pneumonia" value="0" data-required="true()" data-relevant="selected( /rcc_baseline_survey_module_5/desease ,'1')" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_pneumonia/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="id" class="question-label active" data-itext-id="/rcc_baseline_survey_module_5/is_draft:label">Simpan sementara?</span>
+                <span lang="en" class="question-label " data-itext-id="/rcc_baseline_survey_module_5/is_draft:label">Save as draft?</span>
+                <span class="required">*</span>
+                <span lang="id" class="or-hint active" data-itext-id="/rcc_baseline_survey_module_5/is_draft:hint">Jika memilih tidak, data akan final dan tidak dapat diubah lagi</span>
+                <span lang="en" class="or-hint " data-itext-id="/rcc_baseline_survey_module_5/is_draft:hint">If choose no, data will be final and can't be changed anymore</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_draft" data-name="/rcc_baseline_survey_module_5/is_draft" value="1" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_draft/1:label">Ya</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_draft/1:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/rcc_baseline_survey_module_5/is_draft" data-name="/rcc_baseline_survey_module_5/is_draft" value="0" required="required" data-type-xml="select1"/>
+                    <span lang="id" class="option-label active" data-itext-id="/rcc_baseline_survey_module_5/is_draft/0:label">Tidak</span>
+                    <span lang="en" class="option-label " data-itext-id="/rcc_baseline_survey_module_5/is_draft/0:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset id="or-preload-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_5/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_5/deviceid" data-preload="property" data-preload-params="deviceid" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_5/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+        </label>
+    </fieldset>
+    <fieldset id="or-calculated-items" style="display:none;">
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_5/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+        </label>
+        <label class="calculation non-select ">
+            <input type="hidden" name="/rcc_baseline_survey_module_5/formhub/uuid" data-calculate="'7d9873edae184e3aba01a0fcdc70ff6b'" data-type-xml="string"/>
+        </label>
+    </fieldset>
+</form>

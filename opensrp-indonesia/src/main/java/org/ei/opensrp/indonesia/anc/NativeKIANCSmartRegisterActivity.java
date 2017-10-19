@@ -102,7 +102,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
             }
         });
 
-        ziggyService = context.ziggyService();
+        ziggyService = context().ziggyService();
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -160,7 +160,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            FormSubmissionService formSubmissionService = context.formSubmissionService();
+            FormSubmissionService formSubmissionService = context().formSubmissionService();
             formSubmissionService.updateFTSsearch(submission);
 
             //switch to forms list fragment
@@ -189,7 +189,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
             CharSequence[] selections = selections(choice, entityId);
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(NativeKIANCSmartRegisterActivity.this);
-            builder.setTitle(context.getStringResource(R.string.reconfirmChildName));
+            builder.setTitle(context().getStringResource(R.string.reconfirmChildName));
             builder.setItems(selections, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -257,7 +257,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
         selections[choice] = (CharSequence) name;
 
         String query = "SELECT namalengkap FROM kartu_ibu where kartu_ibu.isClosed !='true'";
-        Cursor cursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(query);
+        Cursor cursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(query);
         cursor.moveToFirst();
 
         for (int i = 0; i < selections.length; i++) {

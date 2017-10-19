@@ -109,18 +109,18 @@ public class BidanHomeActivity extends SecuredActivity {
         Home.put("start", HomeStart);
         FlurryAgent.logEvent("home_dashboard",Home, true );
 
-       // FlurryAgent.logEvent("home_dashboard");
+        // FlurryAgent.logEvent("home_dashboard");
         setContentView(R.layout.smart_registers_home_bidan);
         navigationController = new NavigationControllerINA(this,anmController);
         setupViews();
         initialize();
         DisplayFormFragment.formInputErrorMessage = getResources().getString(R.string.forminputerror);
         DisplayFormFragment.okMessage = getResources().getString(R.string.okforminputerror);
-      //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
-        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
-        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
-        context.formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
-       // context.formSubmissionRouter().getHandlerMap().put(KARTU_IBU_ANC_REGISTRATION, new AncRegHandler());
+        //  context().formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new ANChandler());
+        context().formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
+        context().formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
+        context().formSubmissionRouter().getHandlerMap().put(ANAK_BAYI_REGISTRATION, new ChildRegistrationHandler());
+        // context().formSubmissionRouter().getHandlerMap().put(KARTU_IBU_ANC_REGISTRATION, new AncRegHandler());
 
         //  System.out.println("unique id = " + LoginActivity.generator.uniqueIdController().getAllUniqueId().toString());
     }
@@ -149,7 +149,7 @@ public class BidanHomeActivity extends SecuredActivity {
     }
 
     private void initialize() {
-        pendingFormSubmissionService = context.pendingFormSubmissionService();
+        pendingFormSubmissionService = context().pendingFormSubmissionService();
         SYNC_STARTED.addListener(onSyncStartListener);
         SYNC_COMPLETED.addListener(onSyncCompleteListener);
         FORM_SUBMITTED.addListener(onFormSubmittedListener);
@@ -176,7 +176,7 @@ public class BidanHomeActivity extends SecuredActivity {
     }
 
     private void updateRegisterCounts() {
-        NativeUpdateANMDetailsTask task = new NativeUpdateANMDetailsTask(Context.getInstance().anmController());
+        NativeUpdateANMDetailsTask task = new NativeUpdateANMDetailsTask(context().getInstance().anmController());
         task.fetch(new NativeAfterANMDetailsFetchListener() {
             @Override
             public void afterFetch(HomeContext anmDetails) {
@@ -187,36 +187,36 @@ public class BidanHomeActivity extends SecuredActivity {
 
     private void updateRegisterCounts(HomeContext homeContext) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-        Cursor kicountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true'"));
+        Cursor kicountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true'"));
         kicountcursor.moveToFirst();
         kicount= kicountcursor.getInt(0);
         kicountcursor.close();
 
-        Cursor kbcountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true' and details not LIKE '%\"jenisKontrasepsi\":\"\"%'"));
+        Cursor kbcountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true' and details not LIKE '%\"jenisKontrasepsi\":\"\"%'"));
         kbcountcursor.moveToFirst();
         kbcount= kbcountcursor.getInt(0);
         kbcountcursor.close();
 
 
-        Cursor anccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
+        Cursor anccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
         anccountcursor.moveToFirst();
         anccount= anccountcursor.getInt(0);
         anccountcursor.close();
 
 
-        Cursor pnccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.isClosed != 'true' and ibu.type = 'pnc'"));
+        Cursor pnccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("ibu", "ibu.isClosed != 'true' and ibu.type = 'pnc'"));
         pnccountcursor.moveToFirst();
         pnccount= pnccountcursor.getInt(0);
         pnccountcursor.close();
 
 
-        Cursor childcountcursor = context.commonrepository("anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("anak", "anak.isClosed NOT Null and anak.isClosed != '' and anak.isClosed != 'true' "));
+        Cursor childcountcursor = context().commonrepository("anak").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("anak", "anak.isClosed NOT Null and anak.isClosed != '' and anak.isClosed != 'true' "));
         childcountcursor.moveToFirst();
         childcount= childcountcursor.getInt(0);
         childcountcursor.close();
 
 
-        Cursor prcountcursor = context.commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true'"));
+        Cursor prcountcursor = context().commonrepository("kartu_ibu").RawCustomQueryForAdapter(sqb.queryForCountOnRegisters("kartu_ibu", "kartu_ibu.isClosed NOT Null and kartu_ibu.isClosed != '' and kartu_ibu.isClosed != 'true'"));
         prcountcursor.moveToFirst();
         paranacount= prcountcursor.getInt(0);
         prcountcursor.close();
@@ -227,7 +227,7 @@ public class BidanHomeActivity extends SecuredActivity {
         anakRegisterClientCountView.setText(valueOf(childcount));
         kohortKbCountView.setText(valueOf(kbcount));
         ParanaClientCount.setText(valueOf(paranacount));
-       // ParanaClientCount.setText(paranacount);
+        // ParanaClientCount.setText(paranacount);
     }
 
     @Override
@@ -271,7 +271,7 @@ public class BidanHomeActivity extends SecuredActivity {
     public void updateFromServer() {
         FlurryFacade.logEvent("clicked_update_from_server");
         UpdateActionsTask updateActionsTask = new UpdateActionsTask(
-                this, context.actionService(), context.formSubmissionSyncService(), new SyncProgressIndicator(), context.allFormVersionSyncService());
+                this, context().actionService(), context().formSubmissionSyncService(), new SyncProgressIndicator(), context().allFormVersionSyncService());
 
 //        updateActionsTask.setAdditionalSyncService((context).uniqueIdService());
        /* if(LoginActivity.generator.uniqueIdController().needToRefillUniqueId(LoginActivity.generator.UNIQUE_ID_LIMIT)){
@@ -297,7 +297,7 @@ public class BidanHomeActivity extends SecuredActivity {
 
     private void updateSyncIndicator() {
         if (updateMenuItem != null) {
-            if (context.allSharedPreferences().fetchIsSyncInProgress()) {
+            if (context().allSharedPreferences().fetchIsSyncInProgress()) {
                 updateMenuItem.setActionView(R.layout.progress);
             } else
                 updateMenuItem.setActionView(null);
@@ -328,20 +328,20 @@ public class BidanHomeActivity extends SecuredActivity {
                     break;
 
                 case R.id.btn_kohort_kb_register:
-                        navigationController.startFPSmartRegistry();
-                        break;
+                    navigationController.startFPSmartRegistry();
+                    break;
 
-               case R.id.btn_kartu_ibu_anc_register:
+                case R.id.btn_kartu_ibu_anc_register:
                     navigationController.startANCSmartRegistry();
-                   break;
+                    break;
 
-               case R.id.btn_anak_register:
+                case R.id.btn_anak_register:
                     navigationController.startChildSmartRegistry();
-                   break;
+                    break;
 
-               case R.id.btn_kartu_ibu_pnc_register:
-                   navigationController.startPNCSmartRegistry();
-                   break;
+                case R.id.btn_kartu_ibu_pnc_register:
+                    navigationController.startPNCSmartRegistry();
+                    break;
                 case R.id.btn_parana_register:
                     navigationController.startVideos();
                     break;
@@ -350,7 +350,7 @@ public class BidanHomeActivity extends SecuredActivity {
             Map<String, String> Home = new HashMap<String, String>();
             Home.put("end", HomeEnd);
             FlurryAgent.logEvent("home_dashboard",Home, true);
-         //   FlurryAgent.endTimedEvent("home_dashboard");
+            //   FlurryAgent.endTimedEvent("home_dashboard");
         }
     };
 

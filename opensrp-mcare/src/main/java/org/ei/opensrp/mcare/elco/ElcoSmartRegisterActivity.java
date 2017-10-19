@@ -92,7 +92,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
             }
         });
 
-        ziggyService = context.ziggyService();
+        ziggyService = context().ziggyService();
     }
     private String[] buildFormNameList(){
         List<String> formNames = new ArrayList<String>();
@@ -147,9 +147,11 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
     }
 
     public DialogOption[] getEditOptions(CommonPersonObjectClient elco) {
-        AllCommonsRepository allelcoRepository = context.getInstance().allCommonsRepositoryobjects("elco");
+        AllCommonsRepository allelcoRepository = context().getInstance()
+                .allCommonsRepositoryobjects("elco");
         CommonPersonObject elcoobject = allelcoRepository.findByCaseID(elco.entityId());
-        AllCommonsRepository householdrep = context.getInstance().allCommonsRepositoryobjects("household");
+        AllCommonsRepository householdrep = context().getInstance()
+                .allCommonsRepositoryobjects("household");
         CommonPersonObject householdparent = householdrep.findByCaseID(elcoobject.getRelationalId());
         String alertstate = "";
         alertstate = getalertstateofelco(elco);
@@ -162,17 +164,20 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 new OpenFormOption(getResources().getString(R.string.psrfform), "psrf_form", formController,overridemap, OpenFormOption.ByColumnAndByDetails.bydefault)
         };
     }
-    public DialogOption[] getEditOptionsForMISELCO(CommonPersonObjectClient elco) {
+    public DialogOption[] getEditOptionsForMISELCO(CommonPersonObjectClient elco,String alertstatus) {
+        String alertstate = alertstatus;
+        HashMap<String,String> overridemap = new HashMap<String,String>();
+        overridemap.put("mis_elco_current_formStatus", alertstate);
 
         return new DialogOption[]{
 
-                new OpenFormOption(getResources().getString(R.string.mis_elco), "mis_elco", formController)
+                new OpenFormOption(getResources().getString(R.string.mis_elco), "mis_elco", formController,overridemap,OpenFormOption.ByColumnAndByDetails.bydefault)
         };
     }
 
     private String getalertstateofelco(CommonPersonObjectClient elco) {
         List<Alert> alertlist_for_client = org.ei.opensrp.Context.getInstance().alertService().findByEntityIdAndAlertNames(elco.entityId(), "ELCO PSRF");
-        String alertstate = "";
+        String alertstate = "upcoming";
         if(alertlist_for_client.size() == 0 ){
 
         }else {
@@ -200,6 +205,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
                 }
 
                 DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
+
                 if (displayFormFragment != null) {
                     displayFormFragment.setFormData(data);
                     displayFormFragment.setRecordId(entityId);
@@ -274,7 +280,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            FormSubmissionService formSubmissionService = context.formSubmissionService();
+            FormSubmissionService formSubmissionService = context().formSubmissionService();
             formSubmissionService.updateFTSsearch(submission);
 
             Log.v("we are here", "hhregister");
@@ -286,6 +292,7 @@ public class ElcoSmartRegisterActivity extends SecuredNativeSmartRegisterActivit
         }catch (Exception e){
             // TODO: show error dialog on the formfragment if the submission fails
             DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(currentPage);
+
             if (displayFormFragment != null) {
                 displayFormFragment.hideTranslucentProgressDialog();
             }

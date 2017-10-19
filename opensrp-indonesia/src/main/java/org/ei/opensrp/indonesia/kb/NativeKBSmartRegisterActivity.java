@@ -98,7 +98,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
-        ziggyService = context.ziggyService();
+        ziggyService = context().ziggyService();
 
     }
     public void onPageChanged(int page){
@@ -187,7 +187,7 @@ public class NativeKBSmartRegisterActivity extends SecuredNativeSmartRegisterAct
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            context.formSubmissionService().updateFTSsearch(submission);
+            context().formSubmissionService().updateFTSsearch(submission);
 
             //switch to forms list fragment
             switchToBaseFragment(formSubmission); // Unnecessary!! passing on data
