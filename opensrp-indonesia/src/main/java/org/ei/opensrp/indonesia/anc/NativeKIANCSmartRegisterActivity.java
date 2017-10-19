@@ -14,6 +14,7 @@ import com.flurry.android.FlurryAgent;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
+import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.domain.form.FormSubmission;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
@@ -183,8 +184,11 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     @Override
     public void startFormActivity(final String formName, final String entityId, final String metaData) {
-
-        if(formName != null) {
+        Cursor anccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(new SmartRegisterQueryBuilder().queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
+        anccountcursor.moveToFirst();
+        int anccount= anccountcursor.getInt(0);
+        anccountcursor.close();
+        if(formName != null && anccount>3) {
             final int choice = new java.util.Random().nextInt(3);
             CharSequence[] selections = selections(choice, entityId);
 
