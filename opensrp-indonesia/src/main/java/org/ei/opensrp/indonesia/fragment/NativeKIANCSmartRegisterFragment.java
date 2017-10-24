@@ -168,7 +168,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     protected void onInitialization() {
-        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
+        context().formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
         //context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new PncDokHandler());
         //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }

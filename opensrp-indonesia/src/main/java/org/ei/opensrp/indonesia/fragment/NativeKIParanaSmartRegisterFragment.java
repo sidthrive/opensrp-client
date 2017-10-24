@@ -17,11 +17,7 @@ import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.anc.ANCDetailActivity;
 import org.ei.opensrp.indonesia.anc.ChildMergeID;
-import org.ei.opensrp.indonesia.anc.KIANCClientsProvider;
-import org.ei.opensrp.indonesia.anc.KIANCOverviewServiceMode;
-import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
 import org.ei.opensrp.indonesia.parana.KIParanaClientsProvider;
@@ -120,7 +116,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
                 //     dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_no_mwra),filterStringForNoElco()));
                 //      dialogOptionslist.add(new CursorCommonObjectFilterOption(getString(R.string.hh_has_mwra),filterStringForOneOrMoreElco()));
 
-                String locationjson = context.anmLocationController().get();
+                String locationjson = context().anmLocationController().get();
                 LocationTree locationTree = EntityUtils.fromJson(locationjson, LocationTree.class);
 
                 Map<String,TreeNode<String, Location>> locationMap =
@@ -175,7 +171,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
 
     @Override
     protected void onInitialization() {
-        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
+        context().formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new ChildMergeID());
         //context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_dokumentasi_persalinan", new PncDokHandler());
         //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
@@ -206,7 +202,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
                 "Else alerts.status END ASC";
     }
     public void initializeQueries(){
-        KIParanaClientsProvider kiscp = new KIParanaClientsProvider(getActivity(),clientActionHandler,context.alertService());
+        KIParanaClientsProvider kiscp = new KIParanaClientsProvider(getActivity(),clientActionHandler,context().alertService());
         clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, kiscp, new CommonRepository("kartu_ibu",new String []{"kartu_ibu.isClosed", "namalengkap", "umur", "ibu.type","namaSuami","ibu.ancDate","ibu.ancKe","ibu.hariKeKF","ibu.id","noIbu","htp","kartu_ibu.isOutOfArea","ibu.isClosed"}));
         clientsView.setAdapter(clientAdapter);
 

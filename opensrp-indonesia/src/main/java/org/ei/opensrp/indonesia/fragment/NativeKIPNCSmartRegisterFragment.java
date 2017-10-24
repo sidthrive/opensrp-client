@@ -170,7 +170,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
 
     @Override
     protected void onInitialization() {
-        context.formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
+        context().formSubmissionRouter().getHandlerMap().put("kartu_pnc_regitration_oa", new PncOAHandler());
         //  context.formSubmissionRouter().getHandlerMap().put("census_enrollment_form", new CensusEnrollmentHandler());
     }
 

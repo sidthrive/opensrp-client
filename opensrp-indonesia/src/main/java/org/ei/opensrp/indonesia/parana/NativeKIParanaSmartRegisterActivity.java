@@ -91,7 +91,7 @@ public class NativeKIParanaSmartRegisterActivity extends SecuredNativeSmartRegis
             }
         });
 
-        ziggyService = context.ziggyService();
+        ziggyService = context().ziggyService();
     }
     public void onPageChanged(int page){
         setRequestedOrientation(page == 0 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -148,7 +148,7 @@ public class NativeKIParanaSmartRegisterActivity extends SecuredNativeSmartRegis
 
             ziggyService.saveForm(getParams(submission), submission.instance());
 
-            FormSubmissionService formSubmissionService = context.formSubmissionService();
+            FormSubmissionService formSubmissionService = context().formSubmissionService();
             formSubmissionService.updateFTSsearch(submission);
 
             //switch to forms list fragment

@@ -184,7 +184,7 @@ public class NativeKIANCSmartRegisterActivity extends SecuredNativeSmartRegister
 
     @Override
     public void startFormActivity(final String formName, final String entityId, final String metaData) {
-        Cursor anccountcursor = context.commonrepository("ibu").RawCustomQueryForAdapter(new SmartRegisterQueryBuilder().queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
+        Cursor anccountcursor = context().commonrepository("ibu").RawCustomQueryForAdapter(new SmartRegisterQueryBuilder().queryForCountOnRegisters("ibu", "ibu.isClosed !='true' and ibu.type ='anc'"));
         anccountcursor.moveToFirst();
         int anccount= anccountcursor.getInt(0);
         anccountcursor.close();
