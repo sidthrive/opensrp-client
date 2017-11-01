@@ -32,6 +32,7 @@
     <string name="sort_by_no_ibu_label">No Ibu</string>
     <string name="sort_by_edd_label">Hari Tafsiran Persalinan (HTP)</string>
     <string name="sort_by_kb_method">Keluarga Berencana (KB)</string>
+    <string name="dho_site">kia-report.sid-indonesia.org/login/auth</string>
 
     <string name="header_name">Nama</string>
     <string name="header_ec_no">No Ec.</string>

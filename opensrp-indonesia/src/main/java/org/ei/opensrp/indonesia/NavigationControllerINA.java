@@ -4,27 +4,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-
 import org.ei.opensrp.indonesia.anc.NativeKIANCSmartRegisterActivity;
 import org.ei.opensrp.indonesia.child.NativeKIAnakSmartRegisterActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.kb.NativeKBSmartRegisterActivity;
 import org.ei.opensrp.indonesia.parana.NativeKIParanaSmartRegisterActivity;
 import org.ei.opensrp.indonesia.pnc.NativeKIPNCSmartRegisterActivity;
-import org.ei.opensrp.view.activity.VideosActivity;
 import org.ei.opensrp.view.controller.ANMController;
-
+import org.json.JSONObject;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class NavigationControllerINA extends org.ei.opensrp.view.controller.NavigationController {
     private Activity activity;
     private ANMController anmController;
+    private org.ei.opensrp.Context context;
 
     public NavigationControllerINA(Activity activity, ANMController anmController) {
         super(activity,anmController);
         this.activity = activity;
         this.anmController = anmController;
+    }
+
+    public NavigationControllerINA(Activity activity, ANMController anmController, org.ei.opensrp.Context context) {
+        this(activity,anmController);
+        this.context=context;
     }
     @Override
     public void startECSmartRegistry() {
@@ -58,6 +62,15 @@ public class NavigationControllerINA extends org.ei.opensrp.view.controller.Navi
         activity.startActivity(new Intent(activity, NativeKIParanaSmartRegisterActivity.class));
     }
     public void startReports(){
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://gen-report.sid-indonesia.org")));
+        String id, pass;
+        try{
+            id = new JSONObject(anmController.get()).get("anmName").toString();
+            pass = context.allSettings().fetchANMPassword();
+        }catch(org.json.JSONException ex){
+            id="noname";
+            pass="null";
+        }
+        String uri = "http://"+id+":"+pass+"@"+activity.getApplicationContext().getString(R.string.dho_site).replace("http://","");
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
     }
 }
