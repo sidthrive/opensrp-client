@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,13 +13,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.AllCommonsRepository;
 import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
-import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.ddtk.R;
+import org.ei.opensrp.domain.ProfileImage;
 import org.ei.opensrp.repository.DetailsRepository;
 import org.ei.opensrp.repository.ImageRepository;
 
@@ -35,7 +33,6 @@ import java.util.UUID;
 import util.ImageCache;
 import util.ImageFetcher;
 
-import static org.ei.opensrp.util.StringUtil.getValue;
 import static org.ei.opensrp.util.StringUtil.humanize;
 
 /**
@@ -121,6 +118,9 @@ public class ParanaDetailActivity extends Activity {
             }
         });
 
+        System.out.println("columnmaps: " + ancclient.getColumnmaps().toString());
+        System.out.println("details: " + ancclient.getDetails().toString());
+
         nama.setText(getResources().getString(R.string.name) + (ancclient.getColumnmaps().get("namalengkap") != null ? ancclient.getColumnmaps().get("namalengkap") : "-"));
         //   nik.setText(getResources().getString(R.string.nik)+ (ancclient.getDetails().get("nik") != null ? ancclient.getDetails().get("nik") : "-"));
         husband_name.setText(getResources().getString(R.string.husband_name) + (ancclient.getColumnmaps().get("namaSuami") != null ? ancclient.getColumnmaps().get("namaSuami") : "-"));
@@ -131,10 +131,10 @@ public class ParanaDetailActivity extends Activity {
                 : "-"));
         phone.setText("No HP: " + (ancclient.getDetails().get("NomorTelponHp") != null ? ancclient.getDetails().get("NomorTelponHp") : "-"));
 
-        sesi1.setText(ancclient.getDetails().get("paranaStatus1"));
-        sesi2.setText(ancclient.getDetails().get("paranaStatus2"));
-        sesi3.setText(ancclient.getDetails().get("paranaStatus3"));
-        sesi4.setText(ancclient.getDetails().get("paranaStatus4"));
+        sesi1.setText(ancclient.getDetails().get("aktif_sesi1"));
+        sesi2.setText(ancclient.getDetails().get("aktif_sesi2"));
+        sesi3.setText(ancclient.getDetails().get("aktif_sesi3"));
+        sesi4.setText(ancclient.getDetails().get("aktif_sesi4"));
 
         AllCommonsRepository anak = org.ei.opensrp.Context.getInstance().allCommonsRepositoryobjects("anak");
         int umurAnak = 0;
