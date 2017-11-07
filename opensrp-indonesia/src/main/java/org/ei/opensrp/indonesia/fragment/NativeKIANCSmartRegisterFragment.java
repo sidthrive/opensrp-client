@@ -224,6 +224,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
+        CountExecute();
         updateSearchView();
         refresh();
     }
@@ -358,6 +359,7 @@ public class NativeKIANCSmartRegisterFragment extends SecuredNativeSmartRegister
                 mainCondition = " isClosed !='true' and type = 'anc' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
                 filterandSortExecute();
 
             }

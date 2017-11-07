@@ -1,21 +1,14 @@
 package org.ei.opensrp.indonesia.fragment;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.flurry.android.FlurryAgent;
 
 import org.ei.opensrp.Context;
-import org.ei.opensrp.commonregistry.AllCommonsRepository;
-import org.ei.opensrp.commonregistry.CommonPersonObject;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
 import org.ei.opensrp.commonregistry.CommonPersonObjectController;
 import org.ei.opensrp.commonregistry.CommonRepository;
@@ -26,19 +19,14 @@ import org.ei.opensrp.cursoradapter.SmartRegisterPaginatedCursorAdapter;
 import org.ei.opensrp.cursoradapter.SmartRegisterQueryBuilder;
 import org.ei.opensrp.indonesia.LoginActivity;
 import org.ei.opensrp.indonesia.R;
-import org.ei.opensrp.indonesia.kartu_ibu.ChildRegistrationHandler;
-import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
-
 import org.ei.opensrp.indonesia.kartu_ibu.AllKartuIbuServiceMode;
-
+import org.ei.opensrp.indonesia.kartu_ibu.ChildRegistrationHandler;
 import org.ei.opensrp.indonesia.kartu_ibu.KIClientsProvider;
 import org.ei.opensrp.indonesia.kartu_ibu.KICommonObjectFilterOption;
 import org.ei.opensrp.indonesia.kartu_ibu.KIDetailActivity;
 import org.ei.opensrp.indonesia.kartu_ibu.NativeKISmartRegisterActivity;
 import org.ei.opensrp.indonesia.lib.FlurryFacade;
-import org.ei.opensrp.indonesia.pnc.PncOAHandler;
 import org.ei.opensrp.provider.SmartRegisterClientsProvider;
-import org.ei.opensrp.util.Log;
 import org.ei.opensrp.util.StringUtil;
 import org.ei.opensrp.view.activity.SecuredNativeSmartRegisterActivity;
 import org.ei.opensrp.view.contract.ECClient;
@@ -61,8 +49,6 @@ import org.opensrp.api.util.TreeNode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import static android.view.View.INVISIBLE;
@@ -238,23 +224,24 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
 
         countqueryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
         //  countqueryBUilder.joinwithKIs("kartu_ibu");
-        countSelect = countqueryBUilder.mainCondition(" isClosed !='true' and namalengkap !=''");
+        countSelect = countqueryBUilder.mainCondition(" kartu_ibu.isClosed !='true' and namalengkap !=''");
         mainCondition = " isClosed !='true' and namalengkap !=''";
         super.CountExecute();
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "ibu.id", "noIbu", "htp","ibu.isClosed"});
+        queryBUilder.SelectInitiateMainTable("kartu_ibu", new String[]{"kartu_ibu.isClosed", "kartu_ibu.details", "kartu_ibu.isOutOfArea", "namalengkap", "umur", "ibu.type", "namaSuami", "ibu.ancDate", "ibu.ancKe", "ibu.hariKeKF", "ibu.id", "noIbu", "htp", "ibu.isClosed"});
         queryBUilder.customJoin("LEFT JOIN ibu on kartu_ibu.id = ibu.kartuIbuId ");
         //    countqueryBUilder.joinwithchilds("ibu");
         mainSelect = queryBUilder.mainCondition(" kartu_ibu.isClosed !='true' and namalengkap !=''");
         Sortqueries = KiSortByNameAZ();
-
+        CountExecute();
         currentlimit = 20;
         currentoffset = 0;
 
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
+
         updateSearchView();
         refresh();
 
@@ -417,8 +404,8 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 joinTable = "";
                 mainCondition = " isClosed !='true' ";
 
-                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 CountExecute();
+                getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
                 filterandSortExecute();
             }
 
@@ -444,6 +431,7 @@ public class NativeKISmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 mainCondition = " isClosed !='true' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
                 filterandSortExecute();
 
             }

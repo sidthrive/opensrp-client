@@ -227,6 +227,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
 
 //        setServiceModeViewDrawableRight(null);
         updateSearchView();
+        CountExecute();
         refresh();
 //        checkforNidMissing(view);
     }
@@ -347,6 +348,7 @@ public class NativeKIAnakSmartRegisterFragment extends SecuredNativeSmartRegiste
                 mainCondition = " isClosed !='true' and ibuCaseId !='' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
                 filterandSortExecute();
 
             }

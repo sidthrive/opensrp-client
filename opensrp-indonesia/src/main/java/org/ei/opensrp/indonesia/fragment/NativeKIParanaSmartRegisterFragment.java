@@ -229,6 +229,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
+        CountExecute();
         updateSearchView();
         refresh();
     }
@@ -405,6 +406,7 @@ public class NativeKIParanaSmartRegisterFragment extends SecuredNativeSmartRegis
 //                        getClientsAdapter().refreshClients(filteredClients);
 //                        getClientsAdapter().notifyDataSetChanged();
                         getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                        CountExecute();
                         filterandSortExecute();
                         super.onPostExecute(o);
                     }

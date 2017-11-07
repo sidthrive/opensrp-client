@@ -12,7 +12,7 @@ public class KICommonObjectFilterOption implements CursorFilterOption {
     public String filter() {
 
 
-        return " and kartu_ibu.details LIKE '%"+criteria+"%'";
+        return " and kartu_ibu.details LIKE '%"+criteria+"%' and kartu_ibu.details NOT LIKE '%"+criteria+"I%' and kartu_ibu.details NOT LIKE '%"+criteria+"V%'";
     }
 
 

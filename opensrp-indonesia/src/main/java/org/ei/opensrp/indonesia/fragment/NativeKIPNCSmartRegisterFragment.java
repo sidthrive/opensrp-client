@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.ei.opensrp.Context;
 import org.ei.opensrp.commonregistry.CommonPersonObjectClient;
@@ -226,6 +225,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
+        CountExecute();
         updateSearchView();
         refresh();
     }
@@ -367,6 +367,7 @@ public class NativeKIPNCSmartRegisterFragment extends SecuredNativeSmartRegister
                 mainCondition = " isClosed !='true'  and type = 'pnc' and kartuIbuId != '' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
                 filterandSortExecute();
 
             }

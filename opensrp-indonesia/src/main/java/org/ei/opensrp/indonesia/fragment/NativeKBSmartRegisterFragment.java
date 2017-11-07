@@ -1,7 +1,5 @@
 package org.ei.opensrp.indonesia.fragment;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,7 +35,6 @@ import org.ei.opensrp.view.dialog.DialogOptionMapper;
 import org.ei.opensrp.view.dialog.DialogOptionModel;
 import org.ei.opensrp.view.dialog.EditOption;
 import org.ei.opensrp.view.dialog.FilterOption;
-import org.ei.opensrp.view.dialog.LocationSelectorDialogFragment;
 import org.ei.opensrp.view.dialog.NameSort;
 import org.ei.opensrp.view.dialog.ServiceModeOption;
 import org.ei.opensrp.view.dialog.SortOption;
@@ -52,7 +49,6 @@ import java.util.Map;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.ei.opensrp.indonesia.AllConstantsINA.FormNames.KOHORT_KB_REGISTER;
 
 /**
  * Created by koros on 10/29/15.
@@ -228,6 +224,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
         super.filterandSortInInitializeQueries();
 
 //        setServiceModeViewDrawableRight(null);
+        CountExecute();
         updateSearchView();
         refresh();
 //        checkforNidMissing(view);
@@ -365,6 +362,7 @@ public class NativeKBSmartRegisterFragment extends SecuredNativeSmartRegisterCur
                 mainCondition = "  isClosed !='true' and details not LIKE '%\"jenisKontrasepsi\":\"\"%' ";
 
                 getSearchCancelView().setVisibility(isEmpty(cs) ? INVISIBLE : VISIBLE);
+                CountExecute();
                 filterandSortExecute();
 
             }
