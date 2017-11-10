@@ -1,8 +1,8 @@
 {
-  "form_data_definition_version": "1",
+  "form_data_definition_version": "3",
   "form": {
     "bind_type": "HHMember",
-    "default_bind_path": "/model/instance/child_health/",
+    "default_bind_path": "/model/instance/child_health_sep/",
     "fields": [
       {
         "name": "id",
@@ -10,24 +10,31 @@
       },
       {
         "name": "childWeight",
-        "bind": "/model/instance/child_health/Child_Weight"
+        "bind": "/model/instance/child_health_sep/Child_Weight"
       },
       {
         "name": "childHeight",
-        "bind": "/model/instance/child_health/Child_Height"
+        "bind": "/model/instance/child_health_sep/Child_Height"
       },
       {
         "name": "anthropmetryUpperArm",
-        "bind": "/model/instance/child_health/Anthropmetry_Upper_Arm"
+        "bind": "/model/instance/child_health_sep/Anthropmetry_Upper_Arm"
       },
       {
         "name": "anthropmetryHead",
-        "bind": "/model/instance/child_health/Anthropmetry_Head"
+        "bind": "/model/instance/child_health_sep/Anthropmetry_Head"
       },
-
+      {
+        "name": "diarrhea",
+        "bind": "/model/instance/child_health_sep/Diarrhea"
+      },
+      {
+        "name": "tears",
+        "bind": "/model/instance/child_health_sep/Tears"
+      },
       {
         "name": "submissionDate",
-        "bind": "/model/instance/child_health/today"
+        "bind": "/model/instance/child_health_sep/today"
       }
 
     ]

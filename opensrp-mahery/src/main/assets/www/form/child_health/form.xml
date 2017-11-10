@@ -1,76 +1,128 @@
-<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="child_health">
+<form autocomplete="off" novalidate="novalidate" class="or clearfix" dir="ltr" id="child_health_new">
     <!--This form was created by transforming a OpenRosa-flavored (X)Form using an XSL stylesheet created by Enketo LLC.-->
     <section class="form-logo"></section>
-    <h3 dir="auto" id="form-title">Child Health</h3>
+    <h3 dir="auto" id="form-title">Child Health (New)</h3>
     <select id="form-languages" data-default-lang="mg">
         <option value="mg" data-dir="ltr">Malagasy</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
     <label class="question note non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_weight:label">-</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/note_weight:label">For child's age &lt;= 6 years old</span>
-        <input type="text" name="/child_health/note_weight" data-type-xml="string" readonly="readonly"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/note_weight:label">Ataovy aminy zaza 12 taona midina</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/note_weight:label">For child's age under or equal 12 years old</span>
+        <input type="text" name="/child_health_sep/note_weight" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/Child_Weight:label">1. Firy kilo ny zaza
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Child_Weight:label">1. Firy kilo ny zaza
             <strong></strong>_?
         </span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/Child_Weight:label">1. Weight child</span>
-        <input type="number" name="/child_health/Child_Weight" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/Child_Weight:label">1. Weight child</span>
+        <input type="number" name="/child_health_sep/Child_Weight" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
     <label class="question note non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_height:label">-</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/note_height:label">For child's age &lt;= 6 years old</span>
-        <input type="text" name="/child_health/note_height" data-type-xml="string" readonly="readonly"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/note_height:label">Ataovy aminy zaza 12 taona midina</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/note_height:label">For child's age under or equal 12 years old</span>
+        <input type="text" name="/child_health_sep/note_height" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/Child_Height:label">2. Firy centimetres ny zaza
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Child_Height:label">2. Firy centimetres ny zaza
             <strong></strong>_?
         </span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/Child_Height:label">2. Measure child's height / length</span>
-        <input type="number" name="/child_health/Child_Height" data-constraint=".&gt;=0 and .&lt;=150" data-type-xml="decimal" step="any"/>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/Child_Height:label">2. Measure child's height / length</span>
+        <input type="number" name="/child_health_sep/Child_Height" data-constraint=".&gt;=0 and .&lt;=150" data-type-xml="decimal" step="any"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
     <label class="question note non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_muac:label">-</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/note_muac:label">For child's age &lt;= 6 years old</span>
-        <input type="text" name="/child_health/note_muac" data-type-xml="string" readonly="readonly"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/note_muac:label">Ataovy aminy zaza 5 taona midina</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/note_muac:label">For child's age under or equal 5 years old</span>
+        <input type="text" name="/child_health_sep/note_muac" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/Anthropmetry_Upper_Arm:label">3. Firy centimetres ny MUAC na baobaon-tanana?</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/Anthropmetry_Upper_Arm:label">3. Measure child's upper arm circumference</span>
-        <input type="number" name="/child_health/Anthropmetry_Upper_Arm" data-constraint=".&gt;=0 and .&lt;=25" data-type-xml="decimal" step="any"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Anthropmetry_Upper_Arm:label">3. Firy centimetres ny MUAC na baobaon-tanana?</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/Anthropmetry_Upper_Arm:label">3. Measure child's upper arm circumference</span>
+        <input type="number" name="/child_health_sep/Anthropmetry_Upper_Arm" data-constraint=".&gt;=0 and .&lt;=25" data-type-xml="decimal" step="any"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
     <label class="question note non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/note_head_circ:label">-</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/note_head_circ:label">For child's age &lt;= 3 years old</span>
-        <input type="text" name="/child_health/note_head_circ" data-type-xml="string" readonly="readonly"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/note_head_circ:label">Ataovy aminy zaza 2 taona midina</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/note_head_circ:label">For child's age under or equal 2 years old</span>
+        <input type="text" name="/child_health_sep/note_head_circ" data-type-xml="string" readonly="readonly"/>
     </label>
     <label class="question non-select ">
-        <span lang="mg" class="question-label active" data-itext-id="/child_health/Anthropmetry_Head:label">4. Firy centrimetres ny circonference craniale?</span>
-        <span lang="en" class="question-label " data-itext-id="/child_health/Anthropmetry_Head:label">4. Measure child's head circumference.</span>
-        <input type="number" name="/child_health/Anthropmetry_Head" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Anthropmetry_Head:label">4. Firy centrimetres ny circonference craniale?</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/Anthropmetry_Head:label">4. Measure child's head circumference.</span>
+        <input type="number" name="/child_health_sep/Anthropmetry_Head" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Diarrhea:label">5. Avy nivalana ve ianao na androany na tao anatiny roa herinandro lasa?</span>
+                <span lang="en" class="question-label " data-itext-id="/child_health_sep/Diarrhea:label">5. Do you have diarrhea now or did you have diarrhea within the last two weeks?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/No:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/idr:label">Tsy tadidiko</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/idr:label">I don't Remember</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Tears:label">6. Rehefa mitomany ilay zaza dia mbola ahitana ranomaso ve?</span>
+                <span lang="en" class="question-label " data-itext-id="/child_health_sep/Tears:label">6. When the baby cries do they produce tears?</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="Yes" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="No" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/No:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="idk" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/idk:label">Tsy fantatra</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/idk:label">I don't know</span>
+                </label>
+            </div>
+        </fieldset>
+    </fieldset>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/child_health/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
+            <input type="hidden" name="/child_health_sep/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/child_health/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
+            <input type="hidden" name="/child_health_sep/today" data-preload="date" data-preload-params="today" data-type-xml="date"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/child_health/end" data-preload="timestamp" data-preload-params="end" data-type-xml="dateTime"/>
+            <input type="hidden" name="/child_health_sep/end" data-preload="timestamp" data-preload-params="end" data-type-xml="dateTime"/>
         </label>
     </fieldset>
     <fieldset id="or-calculated-items" style="display:none;">
         <label class="calculation non-select ">
-            <input type="hidden" name="/child_health/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
+            <input type="hidden" name="/child_health_sep/meta/instanceID" data-calculate="concat('uuid:', uuid())" data-type-xml="string"/>
         </label>
         <label class="calculation non-select ">
-            <input type="hidden" name="/child_health/formhub/uuid" data-calculate="'ea198c8a50f749499444bbcd9667a432'" data-type-xml="string"/>
+            <input type="hidden" name="/child_health_sep/formhub/uuid" data-calculate="'98d140e0db7443a592cd989d3e4aa2c6'" data-type-xml="string"/>
         </label>
     </fieldset>
 </form>

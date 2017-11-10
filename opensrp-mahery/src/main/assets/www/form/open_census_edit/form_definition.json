@@ -195,6 +195,18 @@
         "shouldLoadValue": true
       }
     ,
+
+      {
+        "name": "deathmonth",
+        "source": "HH.HHMember.deathmonth",
+        "bind": "/model/instance/open_cencus_sep/deathmonth"
+      },
+      {
+        "name": "deathyear",
+        "source": "HH.HHMember.deathyear",
+        "bind": "/model/instance/open_cencus_sep/deathyear",
+        "shouldLoadValue": true
+      },
       {
         "name": "submissionDate",
         "source": "HH.HHMember.submissionDate",

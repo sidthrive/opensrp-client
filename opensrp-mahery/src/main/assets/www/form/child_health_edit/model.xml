@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <child_health id="child_health" version="201707190647">
+    <child_health_sep id="child_health_new" version="201710300315">
       <formhub>
         <uuid/>
       </formhub>
@@ -14,10 +14,12 @@
       <Anthropmetry_Upper_Arm/>
       <note_head_circ/>
       <Anthropmetry_Head/>
+      <Diarrhea/>
+      <Tears/>
       <end/>
       <meta>
         <instanceID/>
       </meta>
-    </child_health>
+    </child_health_sep>
   </instance>
 </model>

@@ -1,5 +1,5 @@
 {
-  "form_data_definition_version": "2",
+  "form_data_definition_version": "3",
   "form": {
     "bind_type": "HHMember",
     "default_bind_path": "/model/instance/follow_up_sep/",
@@ -150,9 +150,6 @@
         "bind": "/model/instance/follow_up_sep/Eyes_Sunken"
       },
       {
-        "name": "Tears",
-        "bind": "/model/instance/follow_up_sep/Tears"
-      }, {
         "name": "Mouth_dry",
         "bind": "/model/instance/follow_up_sep/Mouth_dry"
       },

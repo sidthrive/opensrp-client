@@ -1,23 +1,25 @@
 <model>
   <instance>
-    <child_health id="child_health" version="201707190647">
-      <formhub>
-        <uuid/>
-      </formhub>
-      <start/>
-      <today/>
-      <note_weight/>
-      <Child_Weight/>
-      <note_height/>
-      <Child_Height/>
-      <note_muac/>
-      <Anthropmetry_Upper_Arm/>
-      <note_head_circ/>
-      <Anthropmetry_Head/>
-      <end/>
-      <meta>
-        <instanceID/>
-      </meta>
-    </child_health>
-  </instance>
-</model>
+    <child_health_sep id="child_health_new" version="201710300315">
+    <formhub>
+      <uuid/>
+    </formhub>
+    <start/>
+    <today/>
+    <note_weight/>
+    <Child_Weight/>
+    <note_height/>
+    <Child_Height/>
+    <note_muac/>
+    <Anthropmetry_Upper_Arm/>
+    <note_head_circ/>
+    <Anthropmetry_Head/>
+    <Diarrhea/>
+    <Tears/>
+    <end/>
+    <meta>
+      <instanceID/>
+    </meta>
+  </child_health_sep>
+</instance>
+    </model>

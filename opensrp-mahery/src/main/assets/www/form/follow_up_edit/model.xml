@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <follow_up_sep id="follow_up_new" version="201709280953">
+    <follow_up_sep id="follow_up_new" version="201710300336">
       <formhub>
         <uuid/>
       </formhub>
@@ -43,7 +43,6 @@
       <Diarrhea_Black/>
       <Diarrhea_Bloody/>
       <Eyes_Sunken/>
-      <Tears/>
       <Mouth_dry/>
       <Diarrhea_Treatment/>
       <Diarrhea_Treatment_Location/>
@@ -60,6 +59,9 @@
       <Fever_Treatment_Outcome/>
       <Vomiting/>
       <Headache/>
+      <STI/>
+      <STI_Treatment/>
+      <STI_Treatment_Outcome/>
       <Animal_Contact/>
       <Animal_Incident/>
       <Rat_contact/>
@@ -86,9 +88,6 @@
       <Medications_Name/>
       <Medications_Name_open/>
       <Medications_Purpose/>
-      <STI/>
-      <STI_Treatment/>
-      <STI_Treatment_Outcome/>
       <New_vaccine/>
       <New_vaccine_types/>
       <blood_pressure/>

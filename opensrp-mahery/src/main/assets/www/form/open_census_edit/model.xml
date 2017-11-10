@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <open_cencus_sep id="open_census_new" version="201709260848">
+    <open_cencus_sep id="open_census_new" version="201710300313">
       <formhub>
         <uuid/>
       </formhub>
@@ -9,13 +9,14 @@
       <Name_family_member/>
       <Date_of_Birth/>
       <DOB_date/>
-      <DOB_month_year/>
+      <DOB_month/>
       <DOB_year/>
       <Ethnic_Group/>
       <Other_Ethnic_Group/>
       <Sex/>
       <Education/>
       <Profession/>
+      <Profession_choices/>
       <Other_Profession/>
       <Marital_Status/>
       <Prior_HealthCare/>
@@ -36,6 +37,8 @@
       <Cause_of_Death/>
       <Date_of_Death/>
       <death_date/>
+      <deathmonth/>
+      <deathyear/>
       <end/>
       <meta>
         <instanceID/>
