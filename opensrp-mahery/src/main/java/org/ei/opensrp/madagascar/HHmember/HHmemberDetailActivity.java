@@ -200,7 +200,12 @@ public class HHmemberDetailActivity extends Activity {
         Birthweight_grams.setText(humanize(memberclient.getDetails().get("Birthweight_gram")));
         Is_Person_Alives.setText(humanize(memberclient.getDetails().get("Is_Person_Alive")));
         Cause_of_Deaths.setText(humanize(memberclient.getDetails().get("Cause_of_Death")));
-        death_dates.setText(humanize(memberclient.getDetails().get("death_date")));
+
+        String ddate = memberclient.getDetails().get("death_date") != null? memberclient.getDetails().get("death_date"):"n/a";
+        String dmonth = memberclient.getDetails().get("deathmonth") != null? memberclient.getDetails().get("deathmonth"):"n/a";
+        String dyear = memberclient.getDetails().get("deathyear") != null? memberclient.getDetails().get("deathyear"):"n/a";
+
+        death_dates.setText(ddate + "-" +dmonth +"-"+dyear);
 
         ImageButton back = (ImageButton) findViewById(R.id.btn_back_to_home);
         back.setOnClickListener(new View.OnClickListener() {
