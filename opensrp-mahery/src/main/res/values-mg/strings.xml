@@ -770,10 +770,9 @@
     <string name="Mild_bleeding">Be</string>
     <string name="Heavy_bleeding">Hely</string>
     <string name="idr">Tsy tadidiko</string>
-
-
-
-
+    <string name="dob_actual">TENA taona ve io sa taona JUGEMENT</string>
+    <string name="census_date">Datin`ny open census</string>
+    <string name="surgeries">operations</string>
 
 
 </resources>

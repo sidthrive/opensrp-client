@@ -80,6 +80,11 @@ public class HHmemberDetailActivity extends Activity {
          * */
     //    TextView Ethnic_Group = (TextView) findViewById(R.id.Ethnic_Group);
      //   TextView Other_Ethnic_Group = (TextView) findViewById(R.id.Other_Ethnic_Group);
+
+        TextView surgeries = (TextView) findViewById(R.id.txt_surgeries);
+        TextView date_census = (TextView) findViewById(R.id.txt_census_date);
+        TextView actual_dob = (TextView) findViewById(R.id.txt_dob_actual);
+
         TextView Sexs = (TextView) findViewById(R.id.Sex);
         TextView Educations = (TextView) findViewById(R.id.Educations);
         TextView Professions = (TextView) findViewById(R.id.Profession);
@@ -190,6 +195,12 @@ public class HHmemberDetailActivity extends Activity {
 
         //Other_Visual_Health_Deformities.setText(humanize(memberclient.getDetails().get("Other_Visual_Health_Deformities")));
         Prior_Surgeriess.setText(humanize(memberclient.getDetails().get("Prior_Surgeries")));
+
+        surgeries.setText(humanize(memberclient.getDetails().get("surgeries")));
+        date_census.setText(humanize(memberclient.getDetails().get("date_census")));
+        actual_dob.setText(humanize(memberclient.getDetails().get("dob_actual")));
+
+
         Vaccine_Cards.setText(humanize(memberclient.getDetails().get("Vaccine_Card")));
         Vaccination_Historys.setText(humanize(memberclient.getDetails().get("Vaccination_History")));
         Pregnants.setText(humanize(memberclient.getDetails().get("Pregnant_now")));

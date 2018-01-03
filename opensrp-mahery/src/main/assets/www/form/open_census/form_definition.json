@@ -19,6 +19,16 @@
         "bind": "/model/instance/open_cencus_sep/Name_family_member"
       },
       {
+        "name": "date_census",
+        "source": "HH.HHMember.date_census",
+        "bind": "/model/instance/open_cencus_sep/date_census"
+      },
+      {
+        "name": "dob_actual",
+        "source": "HH.HHMember.DOB_actual",
+        "bind": "/model/instance/open_cencus_sep/DOB_actual"
+      },
+      {
         "name": "dob_date",
         "source": "HH.HHMember.dob_date",
         "bind": "/model/instance/open_cencus_sep/DOB_date"
@@ -103,6 +113,11 @@
         "bind": "/model/instance/open_cencus_sep/Other_Visual_Health_Deformities"
       }
     ,  {
+        "name": "surgeries",
+        "source": "HH.HHMember.surgeries",
+        "bind": "/model/instance/open_cencus_sep/surgeries"
+      }
+    ,  {
         "name": "Prior_Surgeries",
         "source": "HH.HHMember.Prior_Surgeries",
         "bind": "/model/instance/open_cencus_sep/Prior_Surgeries"
@@ -117,6 +132,11 @@
         "name": "Vaccination_History",
         "source": "HH.HHMember.Vaccination_History",
         "bind": "/model/instance/open_cencus_sep/Vaccination_History"
+      }
+    ,  {
+        "name": "vaccine_other",
+        "source": "HH.HHMember.vaccine_other",
+        "bind": "/model/instance/open_cencus_sep/vaccine_other"
       }
     ,  {
         "name": "Pregnant",

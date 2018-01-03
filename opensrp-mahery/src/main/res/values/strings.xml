@@ -766,4 +766,7 @@
     <string name="Female">Female</string>
     <string name="idr">I don\'t remember</string>
     <string name="ethnic">Ethnic</string>
+    <string name="dob_actual">DOB Actual</string>
+    <string name="census_date">Census Date</string>
+    <string name="surgeries">Surgeries</string>
 </resources>
