@@ -9,8 +9,8 @@
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Sex:label">Lahy na Vavy?</span>
-                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Sex:label">What sex are you?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Sex:label">A. Lahy na Vavy?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Sex:label">A. What sex are you?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
@@ -28,7 +28,166 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/age_conf:label">A1. HO AN'NY MPANADIHADY: Anelanelan'ny 13 taona hatramin'ny 55 taona ve io vehivavy io?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/age_conf:label">A1: FOR ENUMERATOR: Is she between 13 - 55?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/age_conf" data-name="/follow_up_sep/age_conf" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/age_conf/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/age_conf/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/age_conf" data-name="/follow_up_sep/age_conf" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/age_conf/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/age_conf/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/date_follow_up:label">B. Datin'ny Follow-Up?</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/date_follow_up:label">B. Date of the Follow-Up</span>
+        <span class="required">*</span>
+        <input type="date" name="/follow_up_sep/date_follow_up" data-required="true()" data-constraint=". &lt;= ( /follow_up_sep/today )" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/resp_in_town:label">C. Eto an-tanana ve ilay olona tamin'ny fotoana nanaovana fanadihadiana?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/resp_in_town:label">C. Is the respondent in town during the Follow-Up survey?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/resp_in_town" data-name="/follow_up_sep/resp_in_town" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/resp_in_town/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/resp_in_town/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/resp_in_town" data-name="/follow_up_sep/resp_in_town" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/resp_in_town/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/resp_in_town/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-appearance-minimal  or-branch pre-init ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/reason_absence:label">D. Inona no antony tsy nahateo azy tamin'ny fotonan'ny Follow-Up?</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/reason_absence:label">D. Reasons of his / her absence during the Follow-Up?</span>
+        <span class="required">*</span>
+        <select name="/follow_up_sep/reason_absence" data-name="/follow_up_sep/reason_absence" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'No')" data-type-xml="select1">
+            <option value="">...</option>
+            <option value="lasy">Nandeha any amin'ny lasy</option>
+            <option value="agriculture_job">Nandeha nitoha</option>
+            <option value="married_in_village">Nanambady ka tsy mipetraka ato an-tokantrano intsony fa mbola eto an-tanana</option>
+            <option value="married_move">Nanambady ary tsy mipetraka eto an-tanana intsony</option>
+            <option value="divorced_in_village">Nisaraka fa mbola eto an-tanana</option>
+            <option value="divorced_move">Nisaraka ary tsy aketo an-tanana intsony</option>
+            <option value="seek_treatment">Nandeha nitsabo tena any amin'ny CSB na hopitaly</option>
+            <option value="attend_feast">Nanao tsaboraha</option>
+            <option value="new_job_move">Nahita asa vaovao ivelan'ny tanana ka tsy hiherina intsony</option>
+            <option value="vacation">Nanao vakansa ka tsy eto an-tanana</option>
+            <option value="reason_absence_other">Hafa</option>
+        </select>
+        <span class="or-option-translations" style="display:none;">
+            <span data-option-value="lasy" lang="mg">Nandeha any amin'ny lasy</span>
+            <span data-option-value="lasy" lang="en">Lasy</span>
+            <span data-option-value="agriculture_job" lang="mg">Nandeha nitoha</span>
+            <span data-option-value="agriculture_job" lang="en">Temporary agricultural job</span>
+            <span data-option-value="married_in_village" lang="mg">Nanambady ka tsy mipetraka ato an-tokantrano intsony fa mbola eto an-tanana</span>
+            <span data-option-value="married_in_village" lang="en">Got married and no longer part of this household but still in the village</span>
+            <span data-option-value="married_move" lang="mg">Nanambady ary tsy mipetraka eto an-tanana intsony</span>
+            <span data-option-value="married_move" lang="en">Got married and no longer lives in this village</span>
+            <span data-option-value="divorced_in_village" lang="mg">Nisaraka fa mbola eto an-tanana</span>
+            <span data-option-value="divorced_in_village" lang="en">Separated/divorced but still in the village</span>
+            <span data-option-value="divorced_move" lang="mg">Nisaraka ary tsy aketo an-tanana intsony</span>
+            <span data-option-value="divorced_move" lang="en">Separated/divorced and move to another village</span>
+            <span data-option-value="seek_treatment" lang="mg">Nandeha nitsabo tena any amin'ny CSB na hopitaly</span>
+            <span data-option-value="seek_treatment" lang="en">Seek medical treatment in CSB or hospital</span>
+            <span data-option-value="attend_feast" lang="mg">Nanao tsaboraha</span>
+            <span data-option-value="attend_feast" lang="en">Attend a traditional feast</span>
+            <span data-option-value="new_job_move" lang="mg">Nahita asa vaovao ivelan'ny tanana ka tsy hiherina intsony</span>
+            <span data-option-value="new_job_move" lang="en">Got a new job outside the village and no longer lives in this village</span>
+            <span data-option-value="vacation" lang="mg">Nanao vakansa ka tsy eto an-tanana</span>
+            <span data-option-value="vacation" lang="en">Go on vacation</span>
+            <span data-option-value="reason_absence_other" lang="mg">Hafa</span>
+            <span data-option-value="reason_absence_other" lang="en">Other</span>
+        </span>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/reason_absence_other:label">D1. Hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/reason_absence_other:label">D1. Other</span>
+        <span class="required">*</span>
+        <input type="text" name="/follow_up_sep/reason_absence_other" data-required="true()" data-relevant="selected( /follow_up_sep/reason_absence ,'reason_absence_other')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/continue_survey:label">E. Mbola tia hagnano fanadihadiana misakisaka ny fanarahamaso ny toe-pahasalama ilay olona?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/continue_survey:label">E. Does the respondent still want to do the Follow-Up?</span>
+                <span class="required">*</span>
+                <span lang="mg" class="or-hint active" data-itext-id="/follow_up_sep/continue_survey:hint">Tsy hanontaniana ilay olona fa izy no manambara</span>
+                <span lang="en" class="or-hint " data-itext-id="/follow_up_sep/continue_survey:hint">Do not ask</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/continue_survey" data-name="/follow_up_sep/continue_survey" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/continue_survey/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/continue_survey/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/continue_survey" data-name="/follow_up_sep/continue_survey" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/continue_survey/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/continue_survey/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/reason_withdraw:label">F. Faminona tsy tia hagnano fanadihadiana intsony?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/reason_withdraw:label">F. Why?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="checkbox" name="/follow_up_sep/reason_withdraw" value="bored" data-required="true()" data-relevant="selected( /follow_up_sep/continue_survey ,'No')" data-type-xml="select"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/reason_withdraw/bored:label">Disaka</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/reason_withdraw/bored:label">Bored</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/follow_up_sep/reason_withdraw" value="no_incentives" data-required="true()" data-relevant="selected( /follow_up_sep/continue_survey ,'No')" data-type-xml="select"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/reason_withdraw/no_incentives:label">Tsy misy tombotsoa</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/reason_withdraw/no_incentives:label">No incentives</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/follow_up_sep/reason_withdraw" value="no_healthcare_treatment" data-required="true()" data-relevant="selected( /follow_up_sep/continue_survey ,'No')" data-type-xml="select"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/reason_withdraw/no_healthcare_treatment:label">Tsy misy fitsaboana</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/reason_withdraw/no_healthcare_treatment:label">No healthcare treatment</span>
+                </label>
+                <label class="">
+                    <input type="checkbox" name="/follow_up_sep/reason_withdraw" value="withdraw_other" data-required="true()" data-relevant="selected( /follow_up_sep/continue_survey ,'No')" data-type-xml="select"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/reason_withdraw/withdraw_other:label">Hafa</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/reason_withdraw/withdraw_other:label">Other</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Recent_Deaths:label">1. Avy nisy olona naty tao antokantranonao letra fotoana farany namangy anao zahay? (Asiana info aminy Open Census raha Eny)</span>
@@ -37,12 +196,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Recent_Deaths" data-name="/follow_up_sep/Recent_Deaths" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Recent_Deaths" data-name="/follow_up_sep/Recent_Deaths" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Recent_Deaths/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Recent_Deaths/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Recent_Deaths" data-name="/follow_up_sep/Recent_Deaths" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Recent_Deaths" data-name="/follow_up_sep/Recent_Deaths" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Recent_Deaths/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Recent_Deaths/No:label">No</span>
                 </label>
@@ -54,19 +213,46 @@
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Recent_Births:label">2. Niteraka ve ianao tao aorinan'ny fotoana farany nanaovanay "visite" (Raha "Eny", ampiana olona vaovao ao amin'ny census)?</span>
-                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Recent_Births:label">2. Have there been any births in your household since our last visit?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Recent_Births:label">2. Did you give birth since our last visit?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Recent_Births" data-name="/follow_up_sep/Recent_Births" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Recent_Births" data-name="/follow_up_sep/Recent_Births" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Recent_Births/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Recent_Births/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Recent_Births" data-name="/follow_up_sep/Recent_Births" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Recent_Births" data-name="/follow_up_sep/Recent_Births" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Recent_Births/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Recent_Births/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Tears:label">2a. Rehefa mitomany ilay zaza dia mbola ahitana ranomaso ve?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Tears:label">2a. When the baby cries do they produce tears?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/Tears" data-name="/follow_up_sep/Tears" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Tears/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Tears/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/Tears" data-name="/follow_up_sep/Tears" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Tears/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Tears/No:label">No</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/Tears" data-name="/follow_up_sep/Tears" value="idk" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Tears/idk:label">Tsy fantatra</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Tears/idk:label">I don't know</span>
                 </label>
             </div>
         </fieldset>
@@ -105,7 +291,7 @@
         <input type="text" name="/follow_up_sep/Other_Birth_location" data-required="true()" data-relevant="selected( /follow_up_sep/Birth_location ,'Birth_location_Other')" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Visited_HealthCare:label">4. Nitsabo tena ve ianao letra fotoana farany nivangainao izahay?</span>
@@ -113,17 +299,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="Yes" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="Yes" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Visited_HealthCare/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Visited_HealthCare/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="No" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="No" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Visited_HealthCare/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Visited_HealthCare/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="idr" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Visited_HealthCare" data-name="/follow_up_sep/Visited_HealthCare" value="idr" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Visited_HealthCare/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Visited_HealthCare/idr:label">I don't Remember</span>
                 </label>
@@ -251,18 +437,18 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant_Last_Month/yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant_Last_Month/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="no" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="no" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant_Last_Month/no:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant_Last_Month/no:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="idk" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant_Last_Month/idk:label">-</span>
+                    <input type="radio" name="/follow_up_sep/Pregnant_Last_Month" data-name="/follow_up_sep/Pregnant_Last_Month" value="idk" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant_Last_Month/idk:label">Tsy aiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant_Last_Month/idk:label">I don't know</span>
                 </label>
             </div>
@@ -278,33 +464,33 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="yes" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'No')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant/yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant/yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="no" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="no" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'No')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant/no:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant/no:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="idk" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant/idk:label">-</span>
+                    <input type="radio" name="/follow_up_sep/Pregnant" data-name="/follow_up_sep/Pregnant" value="idk" data-required="true()" data-relevant="selected( /follow_up_sep/Recent_Births ,'No')" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pregnant/idk:label">Tsy aiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pregnant/idk:label">I don't know</span>
                 </label>
             </div>
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <section class="or-group or-branch pre-init or-appearance-field-list " name="/follow_up_sep/group_anc" data-relevant="selected( /follow_up_sep/Pregnant_Last_Month ,'yes') or selected( /follow_up_sep/Pregnant ,'yes')">
+    <section class="or-group or-branch pre-init or-appearance-field-list " name="/follow_up_sep/group_anc" data-relevant="selected( /follow_up_sep/Pregnant ,'yes')">
         <h4>
             <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc:label">ANC</span>
             <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc:label">ANC</span>
         </h4>
         <label class="question note non-select ">
-            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Last_Period:label">A1. Oviana fotoana farany nandeha fotoana ve ianao?</span>
+            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Last_Period:label">A1. Oviana ny fandim-bolagnao na fotoagnanao tonga farany?</span>
             <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Last_Period:label">A1. When was the date of your last menstration?</span>
-            <input type="text" name="/follow_up_sep/group_anc/Last_Period" data-required="true()" data-type-xml="string" readonly="readonly"/>
+            <input type="text" name="/follow_up_sep/group_anc/Last_Period" data-type-xml="string" readonly="readonly"/>
         </label>
         <label class="question non-select ">
             <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/LMP_date:label">A1a. Daty</span>
@@ -371,7 +557,7 @@
             <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <label class="question non-select ">
-            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Visits:label">A2. Impiry avy nandeha namangy dokotera ve ianao letra fotoana fantatrao ka bevotraka?</span>
+            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Visits:label">A2. Impiry nitsapa / nisafo tany amin'ny dokotora na rasagy ianao letry fotoana nahabevotraka agnao?</span>
             <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Visits:label">A2. How many prenatal visits have you had during your pregnancy?</span>
             <span class="required">*</span>
             <input type="number" name="/follow_up_sep/group_anc/Prenatal_Visits" data-required="true()" data-constraint=".&gt;=0 and .&lt;=20 or .=999" data-type-xml="int"/>
@@ -400,11 +586,63 @@
             </fieldset>
             <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </fieldset>
+        <fieldset class="question simple-select or-branch pre-init ">
+            <fieldset>
+                <legend>
+                    <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type:label">A4. Inona no anarany karazana aody?</span>
+                    <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type:label">A4. What is the name(s) for your medication(s)?</span>
+                    <span class="required">*</span>
+                </legend>
+                <div class="option-wrapper">
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="iron" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/iron:label">Fer</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/iron:label">Iron</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="vitA" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitA:label">Vitamine A</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitA:label">Vitamine A</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="vitB12" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitB12:label">Vitamine B12</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitB12:label">Vitamine B12</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="vitC" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitC:label">Vitamine C</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitC:label">Vitamine C</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="vitD" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitD:label">Vitamine D</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/vitD:label">Vitamine D</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="calcium" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/calcium:label">Calcium</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/calcium:label">Calcium</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="sulfadoxine" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/sulfadoxine:label">Sulfadoxine-Pirimentamine</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/sulfadoxine:label">Sulfadoxine-Pirimentamine</span>
+                    </label>
+                    <label class="">
+                        <input type="checkbox" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" value="prenatal_med_other" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="select"/>
+                        <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/prenatal_med_other:label">Hafa</span>
+                        <span lang="en" class="option-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type/prenatal_med_other:label">Other</span>
+                    </label>
+                </div>
+            </fieldset>
+            <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+        </fieldset>
         <label class="question or-branch pre-init non-select ">
-            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type:label">A4. Inona no anarany karazana aody?</span>
-            <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Type:label">A4. What is the name(s) for your medication(s)?</span>
+            <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Other:label">A4a. Hafa</span>
+            <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Prenatal_Medication_Other:label">A4a. Other</span>
             <span class="required">*</span>
-            <input type="text" name="/follow_up_sep/group_anc/Prenatal_Medication_Type" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication ,'Yes')" data-type-xml="string"/>
+            <input type="text" name="/follow_up_sep/group_anc/Prenatal_Medication_Other" data-required="true()" data-relevant="selected( /follow_up_sep/group_anc/Prenatal_Medication_Type ,'prenatal_med_other')" data-type-xml="string"/>
             <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
         </label>
         <fieldset class="question simple-select or-appearance-horizontal-compact ">
@@ -437,7 +675,7 @@
         <fieldset class="question simple-select or-appearance-horizontal-compact ">
             <fieldset>
                 <legend>
-                    <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Amniotic_Fluid:label">A6. Nisy fotoana nahatsapanao fa nandeha tataorano ve ianao ?</span>
+                    <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/group_anc/Amniotic_Fluid:label">A6. Efa nisy tataorana na rano madio niboaka tamin'ny mahavehivavignao?</span>
                     <span lang="en" class="question-label " data-itext-id="/follow_up_sep/group_anc/Amniotic_Fluid:label">A6. Have you recently experienced amniotic fluid leaking from the vagina?</span>
                     <span class="required">*</span>
                 </legend>
@@ -640,12 +878,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Breastfeeding" data-name="/follow_up_sep/Breastfeeding" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Breastfeeding" data-name="/follow_up_sep/Breastfeeding" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Breastfeeding/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Breastfeeding/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Breastfeeding" data-name="/follow_up_sep/Breastfeeding" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Breastfeeding" data-name="/follow_up_sep/Breastfeeding" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/Sex ,'Female') and selected( /follow_up_sep/age_conf ,'Yes') and selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Breastfeeding/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Breastfeeding/No:label">No</span>
                 </label>
@@ -697,7 +935,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Diarrhea:label">15. Avy nivalana ve ianao na androany na tao anatiny roa herinandro lasa?</span>
@@ -706,17 +944,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Diarrhea/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Diarrhea/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Diarrhea/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Diarrhea/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Diarrhea" data-name="/follow_up_sep/Diarrhea" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Diarrhea/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Diarrhea/idr:label">I don't Remember</span>
                 </label>
@@ -863,7 +1101,7 @@
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
     <label class="question or-appearance-minimal  or-branch pre-init ">
-        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Diarrhea_Treatment_Location:label">22. Taiza nitsabo tena ve ianao taminy nivalana?</span>
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Diarrhea_Treatment_Location:label">22. Taiza ianao no nitsabo io fivalalana io?</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Diarrhea_Treatment_Location:label">22. Where did you seek treatment?</span>
         <span class="required">*</span>
         <select multiple="multiple" name="/follow_up_sep/Diarrhea_Treatment_Location" data-required="true()" data-relevant="selected( /follow_up_sep/Diarrhea_Treatment ,'Yes')" data-type-xml="select">
@@ -923,7 +1161,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Fever_TF:label">24. Avy azon-tazo ve ianao na androany na tao anatiny roa herinandro lasa?</span>
@@ -932,17 +1170,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Fever_TF/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Fever_TF/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Fever_TF/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Fever_TF/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Fever_TF" data-name="/follow_up_sep/Fever_TF" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Fever_TF/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Fever_TF/idr:label">I don't Remember</span>
                 </label>
@@ -981,7 +1219,7 @@
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
     <label class="question or-appearance-minimal  or-branch pre-init ">
-        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Fever_Treatment_Location:label">27. Taiza nitsabo tena ve ianao taminy fotoana azon'tazo?</span>
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Fever_Treatment_Location:label">27. Taiza ianao no nitsabo tena tamin'ny azon-tazo?</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Fever_Treatment_Location:label">27. Where did you seek treatment?</span>
         <span class="required">*</span>
         <select multiple="multiple" name="/follow_up_sep/Fever_Treatment_Location" data-required="true()" data-relevant="selected( /follow_up_sep/Fever_Treatment ,'Yes')" data-type-xml="select">
@@ -1098,26 +1336,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Vomiting:label">32. Firy andro avy nandoa ve ianao tao anatiny roa herinandro lasa na amin'ny andro izao?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Vomiting:label">32. Nandoha agnao tao anatin'ny roa herinandro lasa na amin'ny andro izao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Vomiting:label">32. Do you have vomiting now or did you have vomiting within the last two weeks?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Vomiting/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Vomiting/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Vomiting/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Vomiting/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Vomiting" data-name="/follow_up_sep/Vomiting" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Vomiting/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Vomiting/idr:label">I don't Remember</span>
                 </label>
@@ -1125,26 +1363,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Headache:label">33. Firy andro avy nangandoha ve ianao tao anatiny roa herinandro lasa na amin'ny andro izao?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Headache:label">33. Nangadoha agnao tao anatin'ny roa herinandro lasa na amin'ny andro izao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Headache:label">33. Do you have a headache now or did you have a headache within the last two weeks?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Headache/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Headache/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Headache/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Headache/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Headache" data-name="/follow_up_sep/Headache" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Headache/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Headache/idr:label">I don't Remember</span>
                 </label>
@@ -1152,26 +1390,28 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/STI:label">34. Manana ve ianao aretina miforona?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/STI:label">34. Manana aretina azo avy amin'ny firaisana ara-nofo na aretina ao amin'ny taovam-pananahana ve ianao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/STI:label">34. Do you currently have an STI?</span>
                 <span class="required">*</span>
+                <span lang="mg" class="or-hint active" data-itext-id="/follow_up_sep/STI:hint">HO AN'NY MPANADIHADY: Hapetraka ho an'ny olona 13 taona miakatra ihany</span>
+                <span lang="en" class="or-hint " data-itext-id="/follow_up_sep/STI:hint">FOR ENUMERATOR: Ask for individual more than 13</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/STI/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/STI/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/STI/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/STI/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/STI" data-name="/follow_up_sep/STI" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/STI/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/STI/idr:label">I don't Remember</span>
                 </label>
@@ -1182,7 +1422,7 @@
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/STI_Treatment:label">35. Nitsabo tena ve ianao taminy fotoana nangandoha?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/STI_Treatment:label">35. Nitsabo tena ianao tamin'io aretina azo avy amin'ny firaisana ara-nofo na aretina ao amin'ny taovam-pananahana ianao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/STI_Treatment:label">35. Did you seek medical treatment for your STI</span>
                 <span class="required">*</span>
             </legend>
@@ -1233,7 +1473,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Animal_Contact:label">37. Voakaikitra na voarangotra na fery voalelaka biby manana ravin-tsofina sy vangy (ohatra: alika, saka, omby, ragidro, ramanavy, voalavo….)</span>
@@ -1242,17 +1482,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Animal_Contact/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Animal_Contact/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Animal_Contact/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Animal_Contact/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Animal_Contact" data-name="/follow_up_sep/Animal_Contact" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Animal_Contact/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Animal_Contact/idr:label">I don't Remember</span>
                 </label>
@@ -1264,29 +1504,29 @@
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Animal_Incident:label">38. Azafady, azavainao ny tantara momba ny fotoana voakaikitra na voarangotra tamin'ny karazana biby. Ohatra, inona karazana biby? Voakaikatra sa voarangotra? Taiza aminy vatanao? Nandeha ra?</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Animal_Incident:label">38. Please describe this encounter where you were bitten or scratched by an animal.</span>
         <span class="required">*</span>
-        <textarea name="/follow_up_sep/Animal_Incident" data-required="true()" data-relevant="selected( /follow_up_sep/Animal_Contact ,'Yes')" data-type-xml="string"></textarea>
+        <textarea name="/follow_up_sep/Animal_Incident" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/Animal_Contact ,'Yes')" data-type-xml="string"></textarea>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Rat_contact:label">39. Fahafatesam-boalavo tsy nampiasana poizim-boalavo mitranga eo amin'ny fiaraha-monina</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Rat_contact:label">39. Agnao tsy nikasika taim-boalavo na voalavo naty letry fotoana nandalovanay?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Rat_contact:label">39. Have you come into contact with rat droppings?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Rat_contact/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Rat_contact/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Rat_contact/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Rat_contact/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Rat_contact" data-name="/follow_up_sep/Rat_contact" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Rat_contact/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Rat_contact/idr:label">I don't Remember</span>
                 </label>
@@ -1294,7 +1534,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Jaundice:label">40. Ianao ve misy asaka maso miara mafana hoditra?</span>
@@ -1303,17 +1543,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Jaundice/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Jaundice/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Jaundice/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Jaundice/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Jaundice" data-name="/follow_up_sep/Jaundice" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Jaundice/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Jaundice/idr:label">I don't Remember</span>
                 </label>
@@ -1321,26 +1561,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Measles:label">41. Ianao ve misy kitrotro?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Measles:label">41. Agnao misy kisoso zao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Measles:label">41. Do you have measles?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Measles/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Measles/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Measles/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Measles/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Measles" data-name="/follow_up_sep/Measles" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Measles/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Measles/idr:label">I don't Remember</span>
                 </label>
@@ -1348,7 +1588,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Weight_loss:label">42. Avy niaigny be lanjanao tatoato?</span>
@@ -1357,17 +1597,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Weight_loss/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Weight_loss/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Weight_loss/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Weight_loss/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Weight_loss" data-name="/follow_up_sep/Weight_loss" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Weight_loss/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Weight_loss/idr:label">I don't Remember</span>
                 </label>
@@ -1375,26 +1615,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Persistent_Cough:label">43. Ianao ve efa nisy fotoana nikohaka tsy tapaka nandritry ny telo erin'andro?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Persistent_Cough:label">43. Nisatra tsy tapaka nihoatra ny 3 herinandro agnao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Persistent_Cough:label">43. Have you had a persistent cough for longer than three weeks?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Persistent_Cough/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Persistent_Cough/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Persistent_Cough/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Persistent_Cough/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Persistent_Cough" data-name="/follow_up_sep/Persistent_Cough" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Persistent_Cough/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Persistent_Cough/idr:label">I don't Remember</span>
                 </label>
@@ -1402,7 +1642,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Coughing_Blood:label">44. Nadreoka rà ve ianao taorian'ny fandalovanay farany?</span>
@@ -1411,17 +1651,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Coughing_Blood/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Coughing_Blood/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Coughing_Blood/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Coughing_Blood/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Coughing_Blood" data-name="/follow_up_sep/Coughing_Blood" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Coughing_Blood/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Coughing_Blood/idr:label">I don't Remember</span>
                 </label>
@@ -1429,7 +1669,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Sputum:label">45. Nandreoka maitso ve ianao taorian'ny fandalovanay farany?</span>
@@ -1438,17 +1678,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Sputum/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Sputum/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Sputum/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Sputum/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Sputum" data-name="/follow_up_sep/Sputum" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Sputum/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Sputum/idr:label">I don't Remember</span>
                 </label>
@@ -1456,26 +1696,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Breathing:label">46. Nahatsapa fahasahiranana amin'ny fisefoana ve ianao taorian'ny fandalovanay farany?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Breathing:label">46. Nahatsapatena sesisesika na sempotsempotra agnao letry fotoana nandalovanay farany?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Breathing:label">46. Have you experienced difficulty breathing since our last visit?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Breathing/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Breathing/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Breathing/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Breathing/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Breathing" data-name="/follow_up_sep/Breathing" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Breathing/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Breathing/idr:label">I don't Remember</span>
                 </label>
@@ -1483,7 +1723,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Stomach_Pain:label">47. Nahatsiaro narary vavony mafy ve ianao nandritry ny roa erin'andro farany teo?</span>
@@ -1492,17 +1732,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Stomach_Pain/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Stomach_Pain/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Stomach_Pain/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Stomach_Pain/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Stomach_Pain" data-name="/follow_up_sep/Stomach_Pain" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Stomach_Pain/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Stomach_Pain/idr:label">I don't Remember</span>
                 </label>
@@ -1521,7 +1761,7 @@
     <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Stomach_Pain_food:label">49. Afaka kely aretina vavony rehefa mihina sakafo ve ianao?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Stomach_Pain_food:label">49. Ndraiky tsapanao miheny hely aretim-bavoninao rehefa mihinana sakafo?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Stomach_Pain_food:label">49. Does your stomach pain briefly subside from eating food?</span>
                 <span class="required">*</span>
             </legend>
@@ -1545,21 +1785,21 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Open_Wounds:label">50. Misy ratra misokatra ve amin'ilay olona?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Open_Wounds:label">50. Misy fery misokatra amin'ilay olona?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Open_Wounds:label">50. Does the individual have any open wounds?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Open_Wounds" data-name="/follow_up_sep/Open_Wounds" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Open_Wounds" data-name="/follow_up_sep/Open_Wounds" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Open_Wounds/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Open_Wounds/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Open_Wounds" data-name="/follow_up_sep/Open_Wounds" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Open_Wounds" data-name="/follow_up_sep/Open_Wounds" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Open_Wounds/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Open_Wounds/No:label">No</span>
                 </label>
@@ -1576,17 +1816,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_clean" data-required="true()" data-relevant="selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_clean" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Wound_Condition/Wound_clean:label">Madio</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Wound_Condition/Wound_clean:label">Clean</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_infected" data-required="true()" data-relevant="selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_infected" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Wound_Condition/Wound_infected:label">Mamori-nana</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Wound_Condition/Wound_infected:label">Infected</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_ict" data-required="true()" data-relevant="selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Wound_Condition" data-name="/follow_up_sep/Wound_Condition" value="Wound_ict" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/Open_Wounds ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Wound_Condition/Wound_ict:label">Tsy aiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Wound_Condition/Wound_ict:label">I can't tell</span>
                 </label>
@@ -1594,7 +1834,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Cigarettes:label">52. Misesotra sigara na paraky ve ianao?</span>
@@ -1603,12 +1843,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Cigarettes" data-name="/follow_up_sep/Cigarettes" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Cigarettes" data-name="/follow_up_sep/Cigarettes" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Cigarettes/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Cigarettes/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Cigarettes" data-name="/follow_up_sep/Cigarettes" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Cigarettes" data-name="/follow_up_sep/Cigarettes" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Cigarettes/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Cigarettes/No:label">No</span>
                 </label>
@@ -1616,7 +1856,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Drinking:label">53. Migaka toaka na biera na betsa mahery indray isaky herinandro?</span>
@@ -1625,12 +1865,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Drinking" data-name="/follow_up_sep/Drinking" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Drinking" data-name="/follow_up_sep/Drinking" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Drinking/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Drinking/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Drinking" data-name="/follow_up_sep/Drinking" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Drinking" data-name="/follow_up_sep/Drinking" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Drinking/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Drinking/No:label">No</span>
                 </label>
@@ -1638,26 +1878,26 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Urine_Color:label">54. Nahatsikaritra fiovan'ny lokon'ny fivalanan-dranonao tsy mahazatra ve ianao?</span>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Urine_Color:label">54. Nahatsikaritra fiovanan'ny lokon'amanignao ve ianao?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/Urine_Color:label">54. Have you noticed an unusual color change in your urine?</span>
                 <span class="required">*</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Urine_Color/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Urine_Color/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Urine_Color/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Urine_Color/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Urine_Color" data-name="/follow_up_sep/Urine_Color" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Urine_Color/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Urine_Color/idr:label">I don't Remember</span>
                 </label>
@@ -1665,7 +1905,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Pus:label">55. Nandritra ny roa erin'andro lasa, nahatsikaritra tsiramoka toy ny nana mivoaka amin'ny taova-pananahanao ve ianao?</span>
@@ -1674,17 +1914,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pus/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pus/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pus/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pus/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pus" data-name="/follow_up_sep/Pus" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pus/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pus/idr:label">I don't Remember</span>
                 </label>
@@ -1692,7 +1932,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Pain_Urination:label">56. Nandritra ny roa erin'andro lasa, nahatsapa fangirifiriana na fanaintainana rehefa mivalan-drano ve ianao?</span>
@@ -1701,12 +1941,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pain_Urination" data-name="/follow_up_sep/Pain_Urination" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pain_Urination" data-name="/follow_up_sep/Pain_Urination" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pain_Urination/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pain_Urination/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Pain_Urination" data-name="/follow_up_sep/Pain_Urination" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Pain_Urination" data-name="/follow_up_sep/Pain_Urination" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Pain_Urination/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Pain_Urination/No:label">No</span>
                 </label>
@@ -1714,7 +1954,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Urination_Blood:label">57. Nandritra ny roa erin'andro lasa, nahatsapa fasahiranana ve ianao rehefa mivalan-drano?</span>
@@ -1723,12 +1963,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Urination_Blood" data-name="/follow_up_sep/Urination_Blood" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Urination_Blood" data-name="/follow_up_sep/Urination_Blood" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Urination_Blood/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Urination_Blood/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Urination_Blood" data-name="/follow_up_sep/Urination_Blood" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Urination_Blood" data-name="/follow_up_sep/Urination_Blood" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Urination_Blood/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Urination_Blood/No:label">No</span>
                 </label>
@@ -1736,7 +1976,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Back_Pain:label">58. Efa avy narary tahaizana na andilana na androany na tao anatiny roa herinandro lasa?</span>
@@ -1745,17 +1985,17 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Back_Pain/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Back_Pain/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Back_Pain/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Back_Pain/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="idr" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Back_Pain" data-name="/follow_up_sep/Back_Pain" value="idr" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Back_Pain/idr:label">Tsy tadidiko</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Back_Pain/idr:label">I don't Remember</span>
                 </label>
@@ -1763,7 +2003,7 @@
         </fieldset>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </fieldset>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/Medications:label">59. Efa avy nihinana karazana fanafody taminy volana lasa?</span>
@@ -1772,12 +2012,12 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Medications" data-name="/follow_up_sep/Medications" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Medications" data-name="/follow_up_sep/Medications" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Medications/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Medications/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/Medications" data-name="/follow_up_sep/Medications" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/Medications" data-name="/follow_up_sep/Medications" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/Medications/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/Medications/No:label">No</span>
                 </label>
@@ -1809,7 +2049,7 @@
             <option value="penicillin">Penicillin</option>
             <option value="praziquantel">Praziquantel</option>
             <option value="salbutamol">Salbutamol</option>
-            <option value="Medications_Name_other">Other (Open Response)</option>
+            <option value="Medications_Name_other">Hafa (Open Response)</option>
         </select>
         <span class="or-option-translations" style="display:none;">
             <span data-option-value="amoxiciline" lang="mg">Amoxicilline</span>
@@ -1848,7 +2088,7 @@
             <span data-option-value="praziquantel" lang="en">Praziquantel</span>
             <span data-option-value="salbutamol" lang="mg">Salbutamol</span>
             <span data-option-value="salbutamol" lang="en">Salbutamol</span>
-            <span data-option-value="Medications_Name_other" lang="mg">Other (Open Response)</span>
+            <span data-option-value="Medications_Name_other" lang="mg">Hafa (Open Response)</span>
             <span data-option-value="Medications_Name_other" lang="en">Other (Open Response)</span>
         </span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
@@ -1867,21 +2107,23 @@
         <input type="text" name="/follow_up_sep/Medications_Purpose" data-required="true()" data-relevant="selected( /follow_up_sep/Medications ,'Yes')" data-type-xml="string"/>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
                 <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/New_vaccine:label">62. Avy natao vaksiny vao letra fotoana farany nandalovanay?</span>
                 <span lang="en" class="question-label " data-itext-id="/follow_up_sep/New_vaccine:label">62. Did you receive any new vaccines since our last visit?</span>
                 <span class="required">*</span>
+                <span lang="mg" class="or-hint active" data-itext-id="/follow_up_sep/New_vaccine:hint">Jerevo ilay karatra vaksiny raha manana ilay olona na ankizy</span>
+                <span lang="en" class="or-hint " data-itext-id="/follow_up_sep/New_vaccine:hint">Look at the vaccine card of the respondent if available</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/New_vaccine" data-name="/follow_up_sep/New_vaccine" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/New_vaccine" data-name="/follow_up_sep/New_vaccine" value="Yes" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_vaccine/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_vaccine/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/follow_up_sep/New_vaccine" data-name="/follow_up_sep/New_vaccine" value="No" data-required="true()" data-type-xml="select1"/>
+                    <input type="radio" name="/follow_up_sep/New_vaccine" data-name="/follow_up_sep/New_vaccine" value="No" data-required="true()" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/New_vaccine/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/follow_up_sep/New_vaccine/No:label">No</span>
                 </label>
@@ -1900,6 +2142,9 @@
             <option value="dtc2">Vaksiny 10 herinandro</option>
             <option value="dtc3">Vaksiny 14 herinandro</option>
             <option value="measles">Vaksiny faha-9 volana atao aminny sandry ambony</option>
+            <option value="Tetanus">Tetanus</option>
+            <option value="vacc_idr">Tsy tadidiko</option>
+            <option value="vacc_other">Hafa</option>
         </select>
         <span class="or-option-translations" style="display:none;">
             <span data-option-value="polio" lang="mg">Vaksiny polio/Deboka ambava in-2 na tété vava</span>
@@ -1912,31 +2157,73 @@
             <span data-option-value="dtc3" lang="en">DTC3/Hep B3/Hib3/PCV10-3/Polio 3 (injection)</span>
             <span data-option-value="measles" lang="mg">Vaksiny faha-9 volana atao aminny sandry ambony</span>
             <span data-option-value="measles" lang="en">Measles/VAR</span>
+            <span data-option-value="Tetanus" lang="mg">Tetanus</span>
+            <span data-option-value="Tetanus" lang="en">Tetanus</span>
+            <span data-option-value="vacc_idr" lang="mg">Tsy tadidiko</span>
+            <span data-option-value="vacc_idr" lang="en">I don't Remember</span>
+            <span data-option-value="vacc_other" lang="mg">Hafa</span>
+            <span data-option-value="vacc_other" lang="en">Other</span>
         </span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
-    <label class="question note non-select ">
+    <label class="question or-branch pre-init non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/vaccine_other:label">63a. Vaksiny hafa</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/vaccine_other:label">63a. Other vaccines?</span>
+        <span class="required">*</span>
+        <input type="text" name="/follow_up_sep/vaccine_other" data-required="true()" data-relevant="selected( /follow_up_sep/New_vaccine_types ,'vacc_other')" data-type-xml="string"/>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </label>
+    <label class="question note or-branch pre-init non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/blood_pressure:label">64. Tension</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/blood_pressure:label">64. Blood Pressure</span>
-        <input type="text" name="/follow_up_sep/blood_pressure" data-type-xml="string" readonly="readonly"/>
+        <input type="text" name="/follow_up_sep/blood_pressure" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="string" readonly="readonly"/>
     </label>
-    <label class="question non-select ">
+    <label class="question or-branch pre-init non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/systolic:label">64a. Systolic</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/systolic:label">64a. Systolic</span>
-        <input type="number" name="/follow_up_sep/systolic" data-constraint=".&gt;=50 and .&lt;=300" data-type-xml="int"/>
+        <input type="number" name="/follow_up_sep/systolic" data-constraint=".&gt;=50 and .&lt;=300" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="int"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
-    <label class="question non-select ">
+    <label class="question or-branch pre-init non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/diastolic:label">64b. Diastolic</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/diastolic:label">64b. Diastolic</span>
-        <input type="number" name="/follow_up_sep/diastolic" data-constraint=".&gt;=10 and .&lt;=200" data-type-xml="int"/>
+        <input type="number" name="/follow_up_sep/diastolic" data-constraint=".&gt;=10 and .&lt;=200" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="int"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
     </label>
-    <label class="question non-select ">
+    <label class="question or-branch pre-init non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/pulse:label">64c. Pulse</span>
         <span lang="en" class="question-label " data-itext-id="/follow_up_sep/pulse:label">64c. Pulse</span>
-        <input type="number" name="/follow_up_sep/pulse" data-constraint=".&gt;=50 and .&lt;=200" data-type-xml="int"/>
+        <input type="number" name="/follow_up_sep/pulse" data-constraint=".&gt;=50 and .&lt;=200" data-relevant="selected( /follow_up_sep/resp_in_town ,'Yes') and selected( /follow_up_sep/continue_survey ,'Yes')" data-type-xml="int"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
+    <fieldset class="question simple-select or-appearance-horizontal-compact ">
+        <fieldset>
+            <legend>
+                <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/enum_note:label">65. Misy fanamarihana manokana mikasiaka ilay olona?</span>
+                <span lang="en" class="question-label " data-itext-id="/follow_up_sep/enum_note:label">65. Any notes about the respondent?</span>
+                <span class="required">*</span>
+            </legend>
+            <div class="option-wrapper">
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/enum_note" data-name="/follow_up_sep/enum_note" value="Yes" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/enum_note/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/enum_note/Yes:label">Yes</span>
+                </label>
+                <label class="">
+                    <input type="radio" name="/follow_up_sep/enum_note" data-name="/follow_up_sep/enum_note" value="No" data-required="true()" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/follow_up_sep/enum_note/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/follow_up_sep/enum_note/No:label">No</span>
+                </label>
+            </div>
+        </fieldset>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
+    </fieldset>
+    <label class="question or-branch pre-init non-select or-appearance-multiline ">
+        <span lang="mg" class="question-label active" data-itext-id="/follow_up_sep/enum_comment:label">66. Fanamarihana</span>
+        <span lang="en" class="question-label " data-itext-id="/follow_up_sep/enum_comment:label">66. Comment</span>
+        <span class="required">*</span>
+        <textarea name="/follow_up_sep/enum_comment" data-required="true()" data-relevant="selected( /follow_up_sep/enum_note ,'Yes')" data-type-xml="string"></textarea>
+        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">

@@ -683,6 +683,10 @@ public class HHmemberDetailActivity extends Activity {
         initializeMemberDetail(d);
         if(!d.initialized)
             return;
+        d.txt_resp_in_town.setText(idontremember(getDetails("resp_in_town")));
+        d.txt_date_follow_up.setText(idontremember(getDetails("date_follow_up")));
+        d.txt_reason_absence.setText(idontremember(getDetails("reason_absence")));
+
         d.Recent_Deathss.setText(idontremember(getDetails("Recent_Births")));
         d.Recent_Birthss.setText(idontremember(getDetails("Recent_Births")));
         d.Birth_locations.setText(idontremember(getDetails("Birth_location")));
@@ -777,6 +781,10 @@ public class HHmemberDetailActivity extends Activity {
         if(d==null)
             return;
         d.initialized=true;
+        d.txt_resp_in_town  = (TextView) findViewById(R.id.txt_resp_in_town);
+        d.txt_date_follow_up  = (TextView) findViewById(R.id.txt_date_follow_up);
+        d.txt_reason_absence  = (TextView) findViewById(R.id.txt_reason_absence);
+
         d.Recent_Deathss = (TextView) findViewById(R.id.Recent_Deaths);
         d.Recent_Birthss  = (TextView) findViewById(R.id.Recent_Births);
         d.Birth_locations  = (TextView) findViewById(R.id.Birth_location);
@@ -947,7 +955,9 @@ public class HHmemberDetailActivity extends Activity {
         TextView STI_Treatment_Outcomes;
         TextView New_vaccines;
         TextView New_vaccine_typess;
-        TextView submissionDate;
+        TextView txt_reason_absence;
+        TextView txt_resp_in_town;
+        TextView txt_date_follow_up;
     }
 
 

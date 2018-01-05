@@ -29,6 +29,121 @@
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/text_black"
                     android:textSize="14sp"
+                    android:id="@+id/lbl_resp_in_town"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/resp_in_town_sep"
+
+                    android:paddingRight="10dp" />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/txt_resp_in_town"
+                    />
+            </TableRow>
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/Recent_Deaths"
+
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    android:id="@+id/lbl_date_follow_up"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/date_follow_up_sep"
+
+                    android:paddingRight="10dp" />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/txt_date_follow_up"
+                    />
+            </TableRow>
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/Recent_Deaths"
+
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    android:id="@+id/lbl_reason_absence"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/reason_absence_sep"
+
+                    android:paddingRight="10dp" />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/txt_reason_absence"
+                    />
+            </TableRow>
+            <!--asdadsdsssssssssssssssssssssssssssssssssssssssss-->
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/Recent_Deaths"
+
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
                     android:id="@+id/textView"
                     />
 

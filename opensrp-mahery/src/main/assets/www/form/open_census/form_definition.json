@@ -201,7 +201,17 @@
         "bind": "/model/instance/open_cencus_sep/deathyear"
       }
     ,
-      {
+      ,{
+        "name": "enum_note",
+        "source": "HH.HHMember.enum_note",
+        "bind": "/model/instance/open_cencus_sep/enum_note"
+      }
+    ,{
+        "name": "enum_comment",
+        "source": "HH.HHMember.enum_comment",
+        "bind": "/model/instance/open_cencus_sep/enum_comment"
+      }
+    ,{
         "name": "submissionDate",
         "source": "HH.HHMember.submissionDate",
         "bind": "/model/instance/open_cencus_sep/today"

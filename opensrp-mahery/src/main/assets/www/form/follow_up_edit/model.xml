@@ -1,14 +1,23 @@
 <model>
   <instance>
-    <follow_up_sep id="follow_up_new" version="201710300336">
+    <follow_up_sep id="follow_up_new" version="201712290712">
       <formhub>
         <uuid/>
       </formhub>
       <start/>
       <today/>
+      <DOB_year/>
       <Sex/>
+      <age_conf/>
+      <date_follow_up/>
+      <resp_in_town/>
+      <reason_absence/>
+      <reason_absence_other/>
+      <continue_survey/>
+      <reason_withdraw/>
       <Recent_Deaths/>
       <Recent_Births/>
+      <Tears/>
       <Birth_location/>
       <Other_Birth_location/>
       <Visited_HealthCare/>
@@ -26,6 +35,7 @@
         <Prenatal_Visits/>
         <Prenatal_Medication/>
         <Prenatal_Medication_Type/>
+        <Prenatal_Medication_Other/>
         <Pelvic_Cramps/>
         <Amniotic_Fluid/>
         <Dizziness/>
@@ -90,10 +100,13 @@
       <Medications_Purpose/>
       <New_vaccine/>
       <New_vaccine_types/>
+      <vaccine_other/>
       <blood_pressure/>
       <systolic/>
       <diastolic/>
       <pulse/>
+      <enum_note/>
+      <enum_comment/>
       <end/>
       <meta>
         <instanceID/>

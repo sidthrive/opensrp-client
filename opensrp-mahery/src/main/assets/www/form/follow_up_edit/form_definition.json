@@ -14,6 +14,42 @@
         "shouldLoadValue": true
       },
       {
+        "name": "age_conf",
+        "bind": "/model/instance/follow_up_sep/age_conf",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "date_follow_up",
+        "bind": "/model/instance/follow_up_sep/date_follow_up",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "resp_in_town",
+        "bind": "/model/instance/follow_up_sep/resp_in_town",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "reason_absence",
+        "bind": "/model/instance/follow_up_sep/reason_absence",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "reason_absence_other",
+        "bind": "/model/instance/follow_up_sep/reason_absence_other",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "continue_survey",
+        "bind": "/model/instance/follow_up_sep/continue_survey",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "reason_withdraw",
+        "bind": "/model/instance/follow_up_sep/reason_withdraw",
+        "shouldLoadValue": true
+      },
+
+      {
         "name": "Recent_Deaths",
         "bind": "/model/instance/follow_up_sep/Recent_Deaths",
         "shouldLoadValue": true
