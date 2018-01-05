@@ -122,6 +122,15 @@
             android:textColor="@color/light_blue"
             android:layout_toRightOf="@+id/separator3"
             android:id="@+id/child_health" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Dietary Intake "
+            android:hint="Click Here to Open Dietary Intake  Data"
+            android:textColor="@color/light_blue"
+            android:layout_toRightOf="@+id/separator3"
+            android:id="@+id/diet" />
 
 
     </RelativeLayout>
@@ -185,6 +194,10 @@
          />
     <include  android:id="@+id/id3"
         layout="@layout/childhealth_detail_data_layout"
+        android:visibility="gone"
+        />
+    <include  android:id="@+id/id4"
+        layout="@layout/dietary_intake_detail_layout"
         android:visibility="gone"
         />
 
