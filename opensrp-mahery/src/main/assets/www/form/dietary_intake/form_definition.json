@@ -9,6 +9,10 @@
         "shouldLoadValue": true
       },
       {
+        "name": "date_visit",
+        "bind": "/model/instance/dietary_intake/date_visit"
+      },
+      {
         "name": "rice_yesterday",
         "bind": "/model/instance/dietary_intake/rice_yesterday"
       },

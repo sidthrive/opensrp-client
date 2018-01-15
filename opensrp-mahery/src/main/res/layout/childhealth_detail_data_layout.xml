@@ -101,6 +101,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/date_antro"
+
+                    android:id="@+id/textViews3"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:id="@+id/textView781"
+                    />
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="NA"
+                    android:id="@+id/txt_date_antro"
+                    />
+            </TableRow>
+            <TableRow>
+
+                <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
+
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
                     android:text="@string/anthropmetryUpperArm"
                     android:id="@+id/textView3"
                     />
@@ -164,7 +200,7 @@
                     />
             </TableRow>
 
-            <TableRow>
+            <!--<TableRow>
 
                 <org.ei.opensrp.view.customControls.CustomFontTextView android:layout_margin="5dp" android:textColor="@color/text_black"
 
@@ -234,7 +270,7 @@
                     android:text="NA"
                     android:id="@+id/Tears"
                     />
-            </TableRow>
+            </TableRow>-->
 
         </TableLayout>
     </LinearLayout>

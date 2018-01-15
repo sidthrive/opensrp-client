@@ -19,6 +19,11 @@
         "shouldLoadValue": true
       },
       {
+        "name": "date_anthro",
+        "bind": "/model/instance/child_health_sep/date_anthro",
+        "shouldLoadValue": true
+      },
+      {
         "name": "anthropmetryUpperArm",
         "bind": "/model/instance/child_health_sep/Anthropmetry_Upper_Arm",
         "shouldLoadValue": true
@@ -30,11 +35,23 @@
       },
       {
         "name": "diarrhea",
-        "bind": "/model/instance/child_health_sep/Diarrhea"
+        "bind": "/model/instance/child_health_sep/Diarrhea",
+        "shouldLoadValue": true
       },
       {
         "name": "tears",
-        "bind": "/model/instance/child_health_sep/Tears"
+        "bind": "/model/instance/child_health_sep/Tears",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "child_enum_note",
+        "bind": "/model/instance/child_health_sep/child_enum_note",
+        "shouldLoadValue": true
+      }
+    ,{
+        "name": "child_enum_comment",
+        "bind": "/model/instance/child_health_sep/child_enum_comment",
+        "shouldLoadValue": true
       },
       {
         "name": "submissionDate",

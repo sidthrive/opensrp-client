@@ -1,0 +1,952 @@
+{
+  "form_data_definition_version": "1",
+  "form": {
+    "bind_type": "HHMember",
+    "default_bind_path": "/model/instance/dietary_intake/",
+    "fields": [
+      {
+        "name": "id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "date_visit",
+        "bind": "/model/instance/dietary_intake/date_visit",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "rice_yesterday",
+        "bind": "/model/instance/dietary_intake/rice_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "rice_kp_yesterday",
+        "bind": "/model/instance/dietary_intake/rice_kp_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "rice_lastweek",
+        "bind": "/model/instance/dietary_intake/rice_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "rice_kp_lastweek",
+        "bind": "/model/instance/dietary_intake/rice_kp_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildpotato_yesterday",
+        "bind": "/model/instance/dietary_intake/wildpotato_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildpotato_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/wildpotato_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildpotato_lastweek",
+        "bind": "/model/instance/dietary_intake/wildpotato_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildpotato_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/wildpotato_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "taro_yesterday",
+        "bind": "/model/instance/dietary_intake/taro_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "taro_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/taro_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "taro_lastweek",
+        "bind": "/model/instance/dietary_intake/taro_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "taro_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/taro_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cassava_yesterday",
+        "bind": "/model/instance/dietary_intake/cassava_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cassava_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/cassava_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cassava_lastweek",
+        "bind": "/model/instance/dietary_intake/cassava_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cassava_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/cassava_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sweetpotato_yesterday",
+        "bind": "/model/instance/dietary_intake/sweetpotato_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sweetpotato_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/sweetpotato_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sweetpotato_lastweek",
+        "bind": "/model/instance/dietary_intake/sweetpotato_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sweetpotato_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/sweetpotato_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "banana_yesterday",
+        "bind": "/model/instance/dietary_intake/banana_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "banana_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/banana_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "banana_lastweek",
+        "bind": "/model/instance/dietary_intake/banana_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "banana_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/banana_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vantsiroko_yesterday",
+        "bind": "/model/instance/dietary_intake/vantsiroko_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vantsiroko_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/vantsiroko_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vantsiroko_lastweek",
+        "bind": "/model/instance/dietary_intake/vantsiroko_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vantsiroko_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/vantsiroko_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bean_yesterday",
+        "bind": "/model/instance/dietary_intake/bean_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bean_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/bean_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bean_lastweek",
+        "bind": "/model/instance/dietary_intake/bean_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bean_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/bean_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "limabean_yesterday",
+        "bind": "/model/instance/dietary_intake/limabean_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "limabean_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/limabean_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "limabean_lastweek",
+        "bind": "/model/instance/dietary_intake/limabean_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "limabean_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/limabean_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "lentil_yesterday",
+        "bind": "/model/instance/dietary_intake/lentil_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "lentil_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/lentil_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "lentil_lastweek",
+        "bind": "/model/instance/dietary_intake/lentil_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "lentil_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/lentil_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "milk_yesterday",
+        "bind": "/model/instance/dietary_intake/milk_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "milk_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/milk_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "milk_lastweek",
+        "bind": "/model/instance/dietary_intake/milk_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "milk_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/milk_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "oil_yesterday",
+        "bind": "/model/instance/dietary_intake/oil_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "oil_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/oil_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "oil_lastweek",
+        "bind": "/model/instance/dietary_intake/oil_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "oil_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/oil_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "honey_yesterday",
+        "bind": "/model/instance/dietary_intake/honey_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "honey_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/honey_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "honey_lastweek",
+        "bind": "/model/instance/dietary_intake/honey_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "honey_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/honey_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sugar_yesterday",
+        "bind": "/model/instance/dietary_intake/sugar_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sugar_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/sugar_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sugar_lastweek",
+        "bind": "/model/instance/dietary_intake/sugar_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "sugar_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/sugar_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "coffee_yesterday",
+        "bind": "/model/instance/dietary_intake/coffee_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "coffee_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/coffee_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "coffee_lastweek",
+        "bind": "/model/instance/dietary_intake/coffee_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "coffee_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/coffee_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "chicken_yesterday",
+        "bind": "/model/instance/dietary_intake/chicken_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "chicken_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/chicken_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "chicken_lastweek",
+        "bind": "/model/instance/dietary_intake/chicken_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "chicken_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/chicken_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "fowl_yesterday",
+        "bind": "/model/instance/dietary_intake/fowl_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "fowl_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/fowl_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "fowl_lastweek",
+        "bind": "/model/instance/dietary_intake/fowl_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "fowl_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/fowl_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pork_yesterday",
+        "bind": "/model/instance/dietary_intake/pork_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pork_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/pork_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pork_lastweek",
+        "bind": "/model/instance/dietary_intake/pork_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "pork_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/pork_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "zebu_yesterday",
+        "bind": "/model/instance/dietary_intake/zebu_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "zebu_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/zebu_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "zebu_lastweek",
+        "bind": "/model/instance/dietary_intake/zebu_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "zebu_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/zebu_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_type_yest",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_type_yest",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_type_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_type_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomamy_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomamy_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasina_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomasina_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasina_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomasina_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasina_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomasina_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasina_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomasina_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasinamaina_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomasinamaina_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasinamaina_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/laokoranomasinamaina_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasinamaina_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomasinamaina_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "laokoranomasinamaina_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/laokoranomasinamaina_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "egg_yesterday",
+        "bind": "/model/instance/dietary_intake/egg_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "egg_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/egg_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "egg_lastweek",
+        "bind": "/model/instance/dietary_intake/egg_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "egg_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/egg_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_yesterday",
+        "bind": "/model/instance/dietary_intake/greens_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_type_yest",
+        "bind": "/model/instance/dietary_intake/greens_type_yest",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/greens_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_lastweek",
+        "bind": "/model/instance/dietary_intake/greens_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_type_week",
+        "bind": "/model/instance/dietary_intake/greens_type_week",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "greens_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/greens_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vegetable_yesterday",
+        "bind": "/model/instance/dietary_intake/vegetable_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vegetable_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/vegetable_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vegetable_lastweek",
+        "bind": "/model/instance/dietary_intake/vegetable_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "vegetable_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/vegetable_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tomato_yesterday",
+        "bind": "/model/instance/dietary_intake/tomato_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tomato_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/tomato_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tomato_lastweek",
+        "bind": "/model/instance/dietary_intake/tomato_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tomato_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/tomato_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "onions_yesterday",
+        "bind": "/model/instance/dietary_intake/onions_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "onions_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/onions_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "onions_lastweek",
+        "bind": "/model/instance/dietary_intake/onions_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "onions_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/onions_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "hovotra_yesterday",
+        "bind": "/model/instance/dietary_intake/hovotra_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "hovotra_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/hovotra_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "hovotra_lastweek",
+        "bind": "/model/instance/dietary_intake/hovotra_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "hovotra_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/hovotra_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cucumber_yesterday",
+        "bind": "/model/instance/dietary_intake/cucumber_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cucumber_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/cucumber_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cucumber_lastweek",
+        "bind": "/model/instance/dietary_intake/cucumber_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "cucumber_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/cucumber_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "angivy_yesterday",
+        "bind": "/model/instance/dietary_intake/angivy_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "angivy_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/angivy_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "angivy_lastweek",
+        "bind": "/model/instance/dietary_intake/angivy_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "angivy_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/angivy_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_yesterday",
+        "bind": "/model/instance/dietary_intake/otherfruit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_name_yesterday",
+        "bind": "/model/instance/dietary_intake/otherfruit_name_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/otherfruit_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_lastweek",
+        "bind": "/model/instance/dietary_intake/otherfruit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_name_lastweek",
+        "bind": "/model/instance/dietary_intake/otherfruit_name_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "otherfruit_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/otherfruit_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_trandraka_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_trandraka_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_trandraka_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_trandraka_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_trandraka_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_trandraka_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_trandraka_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_trandraka_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_sokina_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_sokina_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_sokina_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_sokina_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_sokina_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_sokina_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_sokina_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_sokina_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_antsora_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_antsora_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_antsora_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/tenrec_antsora_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_antsora_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_antsora_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "tenrec_antsora_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/tenrec_antsora_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat1_yesterday",
+        "bind": "/model/instance/dietary_intake/bat1_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat1_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/bat1_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat1_lastweek",
+        "bind": "/model/instance/dietary_intake/bat1_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat1_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/bat1_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat2_yesterday",
+        "bind": "/model/instance/dietary_intake/bat2_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat2_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/bat2_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat2_lastweek",
+        "bind": "/model/instance/dietary_intake/bat2_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat2_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/bat2_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat3_yesterday",
+        "bind": "/model/instance/dietary_intake/bat3_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat3_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/bat3_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat3_lastweek",
+        "bind": "/model/instance/dietary_intake/bat3_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bat3_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/bat3_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bushpig_yesterday",
+        "bind": "/model/instance/dietary_intake/bushpig_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bushpig_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/bushpig_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bushpig_lastweek",
+        "bind": "/model/instance/dietary_intake/bushpig_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "bushpig_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/bushpig_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varikahely_yesterday",
+        "bind": "/model/instance/dietary_intake/varikahely_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varika_name_yesterday",
+        "bind": "/model/instance/dietary_intake/varika_name_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varikahely_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/varikahely_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varikahely_lastweek",
+        "bind": "/model/instance/dietary_intake/varikahely_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varika_name_week",
+        "bind": "/model/instance/dietary_intake/varika_name_week",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "varikahely_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/varikahely_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_yesterday",
+        "bind": "/model/instance/dietary_intake/insects_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_type_yest",
+        "bind": "/model/instance/dietary_intake/insects_type_yest",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/insects_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_lastweek",
+        "bind": "/model/instance/dietary_intake/insects_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_type_lastweek",
+        "bind": "/model/instance/dietary_intake/insects_type_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "insects_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/insects_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_yesterday",
+        "bind": "/model/instance/dietary_intake/carnivores_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_type_yest",
+        "bind": "/model/instance/dietary_intake/carnivores_type_yest",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/carnivores_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_lastweek",
+        "bind": "/model/instance/dietary_intake/carnivores_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_type_week",
+        "bind": "/model/instance/dietary_intake/carnivores_type_week",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "carnivores_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/carnivores_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "radaka_yesterday",
+        "bind": "/model/instance/dietary_intake/radaka_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "radaka_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/radaka_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "radaka_lastweek",
+        "bind": "/model/instance/dietary_intake/radaka_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "radaka_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/radaka_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_wildlife_yesterday",
+        "bind": "/model/instance/dietary_intake/other_wildlife_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildlife_type_yest",
+        "bind": "/model/instance/dietary_intake/wildlife_type_yest",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_wildlife_unit_yesterday",
+        "bind": "/model/instance/dietary_intake/other_wildlife_unit_yesterday",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_wildlife_lastweek",
+        "bind": "/model/instance/dietary_intake/other_wildlife_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "wildlife_type_week",
+        "bind": "/model/instance/dietary_intake/wildlife_type_week",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "other_wildlife_unit_lastweek",
+        "bind": "/model/instance/dietary_intake/other_wildlife_unit_lastweek",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "submissionDate",
+        "bind": "/model/instance/dietary_intake/today"
+      }
+    ]
+  }
+}

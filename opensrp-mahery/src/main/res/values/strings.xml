@@ -670,7 +670,7 @@
     <string name="Prior_Surgeries">Prior Surgeries</string>
     <string name="Vaccine_Card">Vaccine Card</string>
     <string name="Vaccination_History">Vaccination History</string>
-    <string name="Prior_Pregnancies">Prior Pregnancies</string>
+    <string name="Prior_Pregnancies">Pregnancies</string>
     <string name="Number_Deliveries">Number Deliveries</string>
     <string name="Number_Live_Births">Number Live Births</string>
     <string name="Prior_Birthweight">Prior Birthweight</string>
@@ -957,6 +957,14 @@
     <string name="str_other_wildlife_lastweek">173. Eat WILDLIFE last week?</string>
     <string name="str_wildlife_type_week">173b. What wildlife? (TANISAO JIABY)</string>
     <string name="str_other_wildlife_unit_lastweek">174. How many?</string>
+    <string name="str_dietary_intake">Dietary Intake</string>
+
+    <string name="str_dietary_intake_e">Dietary Intake Edit</string>
+    <string name="resp_in_town">Responden In Town</string>
+    <string name="follow_ip_date">Date of Follow Up</string>
+    <string name="absense">Reason for Absense</string>
+    <string name="date_antro">Date of the anthropometric measure</string>
+    <string name="str_date_visit">Date Visit</string>
 
 
 </resources>

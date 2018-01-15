@@ -25,7 +25,7 @@
       },
       {
         "name": "dob_actual",
-        "source": "HH.HHMember.DOB_actual",
+        "source": "HH.HHMember.dob_actual",
         "bind": "/model/instance/open_cencus_sep/DOB_actual"
       },
       {
@@ -36,7 +36,7 @@
       {
         "name": "dob_month",
         "source": "HH.HHMember.dob_month",
-        "bind": "/model/instance/open_cencus_sep/DOB_month_year"
+        "bind": "/model/instance/open_cencus_sep/DOB_month"
       },
       {
         "name": "dob_year",
@@ -70,6 +70,12 @@
         "name": "Profession",
         "source": "HH.HHMember.Profession",
         "bind": "/model/instance/open_cencus_sep/Profession"
+      }
+    ,
+      {
+        "name": "Profession_choices",
+        "source": "HH.HHMember.Profession_choices",
+        "bind": "/model/instance/open_cencus_sep/Profession_choices"
       }
     ,
       {
@@ -201,7 +207,7 @@
         "bind": "/model/instance/open_cencus_sep/deathyear"
       }
     ,
-      ,{
+      {
         "name": "enum_note",
         "source": "HH.HHMember.enum_note",
         "bind": "/model/instance/open_cencus_sep/enum_note"

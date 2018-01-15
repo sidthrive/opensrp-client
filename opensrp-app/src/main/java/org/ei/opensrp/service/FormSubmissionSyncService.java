@@ -103,9 +103,9 @@ public class FormSubmissionSyncService {
             String submissionPayload = new Gson().toJson(docs);
             Response<String> response = httpAgent.postToCouch(
                     format("{0}/{1}",
-                            "http://192.168.1.253:5984",
+                            "http://13.229.79.91:5983",
                             "opensrp-form/_bulk_docs"),
-                    submissionPayload, "admin", "Satu2345");
+                    submissionPayload, "rootuser", "Satu23456");
 
             if (response.isFailure()) {
                 logError(format("Form submissions sync failed. Submissions:  {0}", pendingFormSubmissions));

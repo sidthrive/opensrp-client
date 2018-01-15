@@ -95,7 +95,6 @@
         "shouldLoadValue": true
       },
 
-
       {
         "name": "Pregnant_Last_Month",
         "bind": "/model/instance/follow_up_sep/Pregnant_Last_Month",
@@ -103,65 +102,65 @@
       },
       {
         "name": "Pregnant_now",
-        "bind": "/model/instance/follow_up_sep/Pregnant",
+        "bind": "/model/instance/follow_up_sep/Pregnant_now",
         "shouldLoadValue": true
       },
       {
         "name": "Last_Period",
-        "bind": "/model/instance/follow_up_sep/group_anc/Last_Period",
+        "bind": "/model/instance/follow_up_sep/Last_Period",
         "shouldLoadValue": true
       },
       {
         "name": "LMP_date",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_date",
+        "bind": "/model/instance/follow_up_sep/LMP_date",
         "shouldLoadValue": true
       },
       {
         "name": "LMP_month",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_month",
+        "bind": "/model/instance/follow_up_sep/LMP_month",
         "shouldLoadValue": true
       },
       {
         "name": "LMP_year",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_year",
+        "bind": "/model/instance/follow_up_sep/LMP_year",
         "shouldLoadValue": true
       },
       {
         "name": "Prenatal_Visits",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Visits",
+        "bind": "/model/instance/follow_up_sep/Prenatal_Visits",
         "shouldLoadValue": true
       }, {
         "name": "Prenatal_Medication",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Medication",
+        "bind": "/model/instance/follow_up_sep/Prenatal_Medication",
         "shouldLoadValue": true
       }, {
         "name": "Prenatal_Medication_Type",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Medication_Type",
+        "bind": "/model/instance/follow_up_sep/Prenatal_Medication_Type",
         "shouldLoadValue": true
       },
       {
         "name": "Pelvic_Cramps",
-        "bind": "/model/instance/follow_up_sep/group_anc/Pelvic_Cramps",
+        "bind": "/model/instance/follow_up_sep/Pelvic_Cramps",
         "shouldLoadValue": true
       },
       {
         "name": "Amniotic_Fluid",
-        "bind": "/model/instance/follow_up_sep/group_anc/Amniotic_Fluid",
+        "bind": "/model/instance/follow_up_sep/Amniotic_Fluid",
         "shouldLoadValue": true
       },
       {
         "name": "Dizziness",
-        "bind": "/model/instance/follow_up_sep/group_anc/Dizziness",
+        "bind": "/model/instance/follow_up_sep/Dizziness",
         "shouldLoadValue": true
       },
       {
         "name": "Feet_Swelling",
-        "bind": "/model/instance/follow_up_sep/group_anc/Feet_Swelling",
+        "bind": "/model/instance/follow_up_sep/Feet_Swelling",
         "shouldLoadValue": true
       },
       {
         "name": "Vaginal_discharge",
-        "bind": "/model/instance/follow_up_sep/group_anc/Vaginal_discharge",
+        "bind": "/model/instance/follow_up_sep/Vaginal_discharge",
         "shouldLoadValue": true
       },
       {
@@ -466,6 +465,16 @@
       {
         "name": "pulse",
         "bind": "/model/instance/follow_up_sep/pulse",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "followup_enum_note",
+        "bind": "/model/instance/follow_up_sep/enum_note",
+        "shouldLoadValue": true
+      }
+    ,{
+        "name": "followup_enum_comment",
+        "bind": "/model/instance/follow_up_sep/enum_comment",
         "shouldLoadValue": true
       },
       {

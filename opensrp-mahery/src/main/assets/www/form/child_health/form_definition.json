@@ -17,6 +17,10 @@
         "bind": "/model/instance/child_health_sep/Child_Height"
       },
       {
+        "name": "date_anthro",
+        "bind": "/model/instance/child_health_sep/date_anthro"
+      },
+      {
         "name": "anthropmetryUpperArm",
         "bind": "/model/instance/child_health_sep/Anthropmetry_Upper_Arm"
       },
@@ -31,6 +35,14 @@
       {
         "name": "tears",
         "bind": "/model/instance/child_health_sep/Tears"
+      },
+      {
+        "name": "child_enum_note",
+        "bind": "/model/instance/child_health_sep/child_enum_note"
+      }
+    ,{
+        "name": "child_enum_comment",
+        "bind": "/model/instance/child_health_sep/child_enum_comment"
       },
       {
         "name": "submissionDate",

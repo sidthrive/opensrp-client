@@ -672,7 +672,7 @@
     <string name="Prior_Surgeries">Fandidiana taloha</string>
     <string name="Vaccine_Card">Karatra Vaksiny</string>
     <string name="Vaccination_History">Vaksiny Efa Azo</string>
-    <string name="Prior_Pregnancies">Prior pregnancies</string>
+    <string name="Prior_Pregnancies">Pregnancies</string>
     <string name="Number_Deliveries">Impiry niteraka</string>
     <string name="Number_Live_Births">Impiry niteraka zaza velona</string>
     <string name="Prior_Birthweight">Lanja tamin\`ny terahana</string>
@@ -961,6 +961,13 @@
     <string name="str_other_wildlife_lastweek">173. Nihinana BIBY ATIALA HAFA tamin`ny herinandro?</string>
     <string name="str_wildlife_type_week">173b. Bibidia inona? (TANISAO JIABY)</string>
     <string name="str_other_wildlife_unit_lastweek">174. Firy isany?</string>
+    <string name="str_dietary_intake">Dietary Intake</string>
+    <string name="str_dietary_intake_e">Dietary Intake Edit</string>
+    <string name="resp_in_town">Responden In Town</string>
+    <string name="follow_ip_date">Date of Follow Up</string>
+    <string name="absense">Reason for Absense</string>
+    <string name="date_antro">Datin\'ny fandraisana refy sy lanjan\'ny zaza</string>
+    <string name="str_date_visit">Date Visit</string>
 
 
 </resources>

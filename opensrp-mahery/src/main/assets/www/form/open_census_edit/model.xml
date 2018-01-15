@@ -1,16 +1,18 @@
 <model>
   <instance>
-    <open_cencus_sep id="open_census_new" version="201710300313">
+    <open_cencus_sep id="open_census_new" version="201712280308">
       <formhub>
         <uuid/>
       </formhub>
       <start/>
       <today/>
       <Name_family_member/>
+      <date_census/>
       <Date_of_Birth/>
       <DOB_date/>
       <DOB_month/>
       <DOB_year/>
+      <dob_actual/>
       <Ethnic_Group/>
       <Other_Ethnic_Group/>
       <Sex/>
@@ -24,9 +26,11 @@
       <Other_Prior_Diagnosis/>
       <Visual_Health_Deformities/>
       <Other_Visual_Health_Deformities/>
+      <surgeries/>
       <Prior_Surgeries/>
       <Vaccine_Card/>
       <Vaccination_History/>
+      <vaccine_other/>
       <Pregnant/>
       <Pregnancies/>
       <Number_Deliveries/>
@@ -39,6 +43,8 @@
       <death_date/>
       <deathmonth/>
       <deathyear/>
+      <enum_note/>
+      <enum_comment/>
       <end/>
       <meta>
         <instanceID/>

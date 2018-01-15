@@ -9,6 +9,23 @@
         "shouldLoadValue": true
       },
       {
+        "name": "HHId",
+        "source": "HHMember.HH.id",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "date_census",
+        "source": "HH.HHMember.date_census",
+        "bind": "/model/instance/open_cencus_sep/date_census",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "dob_actual",
+        "source": "HH.HHMember.dob_actual",
+        "bind": "/model/instance/open_cencus_sep/DOB_actual",
+        "shouldLoadValue": true
+      },
+      {
         "name": "Name_family_member",
         "source": "HH.HHMember.Name_family_member",
         "bind": "/model/instance/open_cencus_sep/Name_family_member",
@@ -23,7 +40,7 @@
       {
         "name": "dob_month",
         "source": "HH.HHMember.dob_month",
-        "bind": "/model/instance/open_cencus_sep/DOB_month_year",
+        "bind": "/model/instance/open_cencus_sep/DOB_month",
         "shouldLoadValue": true
       },
       {
@@ -63,6 +80,13 @@
         "name": "Profession",
         "source": "HH.HHMember.Profession",
         "bind": "/model/instance/open_cencus_sep/Profession",
+        "shouldLoadValue": true
+      }
+    ,
+      {
+        "name": "Profession_choices",
+        "source": "HH.HHMember.Profession_choices",
+        "bind": "/model/instance/open_cencus_sep/Profession_choices",
         "shouldLoadValue": true
       }
     ,
@@ -111,6 +135,12 @@
         "name": "Other_Visual_Health_Deformities",
         "source": "HH.HHMember.Other_Visual_Health_Deformities",
         "bind": "/model/instance/open_cencus_sep/Other_Visual_Health_Deformities",
+        "shouldLoadValue": true
+      }
+      , {
+        "name": "surgeries",
+        "source": "HH.HHMember.surgeries",
+        "bind": "/model/instance/open_cencus_sep/surgeries",
         "shouldLoadValue": true
       }
     ,  {
@@ -205,6 +235,18 @@
         "name": "deathyear",
         "source": "HH.HHMember.deathyear",
         "bind": "/model/instance/open_cencus_sep/deathyear",
+        "shouldLoadValue": true
+      },
+      {
+        "name": "enum_note",
+        "source": "HH.HHMember.enum_note",
+        "bind": "/model/instance/open_cencus_sep/enum_note",
+        "shouldLoadValue": true
+      }
+    ,{
+        "name": "enum_comment",
+        "source": "HH.HHMember.enum_comment",
+        "bind": "/model/instance/open_cencus_sep/enum_comment",
         "shouldLoadValue": true
       },
       {

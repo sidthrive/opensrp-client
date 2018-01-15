@@ -116,12 +116,13 @@ public class HHmemberDetailActivity extends Activity {
         TextView childHeights = (TextView) findViewById(R.id.childHeight);
         TextView anthropmetryUpperArms = (TextView) findViewById(R.id.anthropmetryUpperArm);
         TextView anthropmetryHeads = (TextView) findViewById(R.id.anthropmetryHead);
+        TextView date_an = (TextView) findViewById(R.id.txt_date_antro);
 
         childWeights.setText(humanize(memberclient.getDetails().get("childWeight")));
         childHeights.setText(humanize(memberclient.getDetails().get("childHeight")));
         anthropmetryUpperArms.setText(humanize(memberclient.getDetails().get("anthropmetryUpperArm")));
         anthropmetryHeads.setText(humanize(memberclient.getDetails().get("anthropmetryHead")));
-
+        date_an.setText(humanize(memberclient.getDetails().get("date_anthro")));
         /*===========================================================*/
         TextView Censuss = (TextView) findViewById(R.id.Census);
         TextView follow_ups = (TextView) findViewById(R.id.follow_up);
@@ -188,17 +189,18 @@ public class HHmemberDetailActivity extends Activity {
         String educate = value_compare(memberclient.getColumnmaps().get("Education"),"None","EPP","CEG","Lycee","University","-","-","-",
                 getResources().getString(R.string.None),getResources().getString(R.string.EPP),
                 getResources().getString(R.string.CEG),getResources().getString(R.string.Lycee),getResources().getString(R.string.University),null,null,null);
-        String profession = value_compare(memberclient.getColumnmaps().get("Profession"),"Farmer","Shop_owner","Fisher","Teacher","Government","Profession_Other","student","Profession_NA",
+        /*String profession = value_compare(memberclient.getColumnmaps().get("Profession"),"Farmer","Shop_owner","Fisher","Teacher","Government","Profession_Other","student","Profession_NA",
                 getResources().getString(R.string.Farmer),getResources().getString(R.string.Shop_owner),
                 getResources().getString(R.string.Fisher),getResources().getString(R.string.Teacher),getResources().getString(R.string.Government)
-                ,getResources().getString(R.string.Profession_Other),getResources().getString(R.string.student),getResources().getString(R.string.Profession_NA));
+                ,getResources().getString(R.string.Profession_Other),getResources().getString(R.string.student),getResources().getString(R.string.Profession_NA));*/
         String maried = value_compare(memberclient.getDetails().get("Marital_Status"),"Single","Married","Fisher","Divorced","Widowed","-","-","-",
                 getResources().getString(R.string.Single),getResources().getString(R.string.Married),
                 getResources().getString(R.string.Fisher),getResources().getString(R.string.Divorced),getResources().getString(R.string.Widowed)
+
                 ,null, null, null);
 
-        Educations.setText(humanize(educate));
-        Professions.setText(humanize(profession));
+        Educations.setText(humanize(memberclient.getColumnmaps().get("Education")));
+        Professions.setText(humanize(memberclient.getDetails().get("Profession_choices")));
         Marital_Statuss.setText(humanize(maried));
 
         Prior_HealthCares.setText(humanize(memberclient.getDetails().get("Prior_HealthCare")));
@@ -212,13 +214,13 @@ public class HHmemberDetailActivity extends Activity {
 
         surgeries.setText(humanize(memberclient.getDetails().get("surgeries")));
         date_census.setText(humanize(memberclient.getDetails().get("date_census")));
-        actual_dob.setText(humanize(memberclient.getDetails().get("dob_actual")));
+        actual_dob.setText(humanize(memberclient.getDetails().get("dob_actual")!= null?memberclient.getDetails().get("dob_actual"):memberclient.getDetails().get("DOB_actual")!=null?memberclient.getDetails().get("DOB_actual"):""));
 
 
         Vaccine_Cards.setText(humanize(memberclient.getDetails().get("Vaccine_Card")));
         Vaccination_Historys.setText(humanize(memberclient.getDetails().get("Vaccination_History")));
         Pregnants.setText(humanize(memberclient.getDetails().get("Pregnant_now")));
-        Prior_Pregnanciess.setText(humanize(memberclient.getDetails().get("Prior_Pregnancies")));
+        Prior_Pregnanciess.setText(humanize(memberclient.getDetails().get("Pregnancies")));
         Number_Deliveriess.setText(humanize(memberclient.getDetails().get("Number_Deliveries")));
         Number_Live_Birthss.setText(humanize(memberclient.getDetails().get("Number_Live_Births")));
         Prior_Birthweights.setText(humanize(memberclient.getDetails().get("Prior_Birthweight")));
@@ -244,7 +246,7 @@ public class HHmemberDetailActivity extends Activity {
 
         nama.setText(getResources().getString(R.string.name)+ ": "+(memberclient.getColumnmaps().get("Name_family_member") != null ? memberclient.getColumnmaps().get("Name_family_member") : "-"));
         nik.setText(getResources().getString(R.string.ethnic)+": "+ (memberclient.getColumnmaps().get("Ethnic_Group") != null ? memberclient.getColumnmaps().get("Ethnic_Group") : "-"));
-        husband_name.setText(getResources().getString(R.string.education)+": "+ (memberclient.getColumnmaps().get("namaSuami") != null ? memberclient.getColumnmaps().get("namaSuami") : "-"));
+        husband_name.setText(getResources().getString(R.string.education)+": "+ (memberclient.getColumnmaps().get("Education") != null ? memberclient.getColumnmaps().get("Education") : "-"));
 
         String date = memberclient.getDetails().get("dob_date") != null? memberclient.getDetails().get("dob_date"):"n/a";
         String month = memberclient.getDetails().get("dob_month") != null? memberclient.getDetails().get("dob_month"):"n/a";
@@ -258,6 +260,7 @@ public class HHmemberDetailActivity extends Activity {
          * Dietary intake
          * */
 
+        TextView date_visits = (TextView) findViewById(R.id.txt_date_visit);
         TextView var_rice_yesterday = (TextView) findViewById(R.id.txt_rice_yesterday);
         TextView var_rice_kp_yesterday = (TextView) findViewById(R.id.txt_rice_kp_yesterday);
         TextView var_rice_lastweek = (TextView) findViewById(R.id.txt_rice_lastweek);
@@ -445,6 +448,7 @@ public class HHmemberDetailActivity extends Activity {
         TextView var_wildlife_type_week = (TextView) findViewById(R.id.txt_wildlife_type_week);
         TextView var_other_wildlife_unit_lastweek = (TextView) findViewById(R.id.txt_other_wildlife_unit_lastweek);
 
+        date_visits.setText(humanize(memberclient.getDetails().get("date_visit")));
         var_rice_yesterday.setText(humanize(memberclient.getDetails().get("rice_yesterday")));
         var_rice_kp_yesterday.setText(humanize(memberclient.getDetails().get("rice_kp_yesterday")));
         var_rice_lastweek.setText(humanize(memberclient.getDetails().get("rice_lastweek")));
@@ -1076,9 +1080,9 @@ public class HHmemberDetailActivity extends Activity {
         initializeMemberDetail(d);
         if(!d.initialized)
             return;
-        d.txt_resp_in_town.setText(idontremember(getDetails("resp_in_town")));
-        d.txt_date_follow_up.setText(idontremember(getDetails("date_follow_up")));
-        d.txt_reason_absence.setText(idontremember(getDetails("reason_absence")));
+        d.txt_resp_in_town.setText(getDetails("resp_in_town"));
+        d.txt_date_follow_up.setText(getDetails("date_follow_up"));
+        d.txt_reason_absence.setText(getDetails("reason_absence"));
 
         d.Recent_Deathss.setText(idontremember(getDetails("Recent_Births")));
         d.Recent_Birthss.setText(idontremember(getDetails("Recent_Births")));
@@ -1355,9 +1359,9 @@ public class HHmemberDetailActivity extends Activity {
 
 
 private String idontremember (String value){
-    String ret = value.equalsIgnoreCase("yes")?getResources().getString(R.string.Yes):
-            value.equalsIgnoreCase("No")?getResources().getString(R.string.No):
-                    value.equalsIgnoreCase("idr")?getResources().getString(R.string.idr):"";
+    String ret = value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("Yes")?getResources().getString(R.string.Yes):
+            value.equalsIgnoreCase("No")||value.equalsIgnoreCase("No")?getResources().getString(R.string.No):
+                    value.equalsIgnoreCase("idr")?getResources().getString(R.string.idr):!value.isEmpty()?value:"";
       return ret;
 }
     /*private static void saveToDb(String entityId, String absoluteFileName, String faceVector, boolean updated, String className) {

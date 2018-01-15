@@ -1,6 +1,6 @@
 <model>
   <instance>
-    <follow_up_sep id="follow_up_new" version="201712290712">
+    <follow_up_sep id="follow_up_new" version="201801101013">
       <formhub>
         <uuid/>
       </formhub>
@@ -26,22 +26,20 @@
       <New_Diagnosis/>
       <New_Diagnosis_text/>
       <Pregnant_Last_Month/>
-      <Pregnant/>
-      <group_anc>
-        <Last_Period/>
-        <LMP_date/>
-        <LMP_month/>
-        <LMP_year/>
-        <Prenatal_Visits/>
-        <Prenatal_Medication/>
-        <Prenatal_Medication_Type/>
-        <Prenatal_Medication_Other/>
-        <Pelvic_Cramps/>
-        <Amniotic_Fluid/>
-        <Dizziness/>
-        <Feet_Swelling/>
-        <Vaginal_discharge/>
-      </group_anc>
+      <Pregnant_now/>
+      <Last_Period/>
+      <LMP_date/>
+      <LMP_month/>
+      <LMP_year/>
+      <Prenatal_Visits/>
+      <Prenatal_Medication/>
+      <Prenatal_Medication_Type/>
+      <Prenatal_Medication_Other/>
+      <Pelvic_Cramps/>
+      <Amniotic_Fluid/>
+      <Dizziness/>
+      <Feet_Swelling/>
+      <Vaginal_discharge/>
       <Miscarriage_Stillbirth/>
       <Contraception/>
       <Contraception_Type/>
@@ -105,8 +103,8 @@
       <systolic/>
       <diastolic/>
       <pulse/>
-      <enum_note/>
-      <enum_comment/>
+      <followup_enum_note/>
+      <followup_enum_comment/>
       <end/>
       <meta>
         <instanceID/>

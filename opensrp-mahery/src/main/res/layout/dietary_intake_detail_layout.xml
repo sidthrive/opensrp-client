@@ -20,6 +20,37 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/listview_background_rounded">
             <TableRow>
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/str_date_visit"
+                    android:id="@+id/lbl_date_visit"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/text_black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="@string/colon"
+                    android:layout_column="1"
+                    android:paddingRight="10dp" />
+                <org.ei.opensrp.view.customControls.CustomFontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    style="@style/CustomFontTextViewStyle.ListView.Medium"
+                    android:text="N/A"
+                    android:id="@+id/txt_date_visit"
+                    android:textSize="14sp"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/text_black" />
+            </TableRow>
+
+            <TableRow>
                 <org.ei.opensrp.view.customControls.CustomFontTextView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:textAppearance="?android:attr/textAppearanceLarge"        style="@style/CustomFontTextViewStyle.ListView.Medium"        android:text="@string/str_rice_yesterday"        android:id="@+id/lbl_rice_yesterday"        android:textSize="14sp"        android:layout_marginLeft="5dp"        android:layout_margin="5dp"        android:textColor="@color/text_black" />
                 <TextView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        style="@style/CustomFontTextViewStyle.ListView.Medium"        android:text="@string/colon"        android:layout_column="1"        android:paddingRight="10dp" />
                 <org.ei.opensrp.view.customControls.CustomFontTextView        android:layout_width="wrap_content"        android:layout_height="wrap_content"        android:textAppearance="?android:attr/textAppearanceLarge"        style="@style/CustomFontTextViewStyle.ListView.Medium"        android:text="N/A"        android:id="@+id/txt_rice_yesterday"        android:textSize="14sp"        android:layout_margin="5dp"        android:textColor="@color/text_black" />

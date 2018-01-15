@@ -85,53 +85,53 @@
       },
       {
         "name": "Pregnant_now",
-        "bind": "/model/instance/follow_up_sep/Pregnant"
+        "bind": "/model/instance/follow_up_sep/Pregnant_now"
       },
       {
         "name": "Last_Period",
-        "bind": "/model/instance/follow_up_sep/group_anc/Last_Period"
+        "bind": "/model/instance/follow_up_sep/Last_Period"
       },
       {
         "name": "LMP_date",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_date"
+        "bind": "/model/instance/follow_up_sep/LMP_date"
       },
       {
         "name": "LMP_month",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_month"
+        "bind": "/model/instance/follow_up_sep/LMP_month"
       },
       {
         "name": "LMP_year",
-        "bind": "/model/instance/follow_up_sep/group_anc/LMP_year"
+        "bind": "/model/instance/follow_up_sep/LMP_year"
       },
       {
         "name": "Prenatal_Visits",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Visits"
+        "bind": "/model/instance/follow_up_sep/Prenatal_Visits"
       }, {
         "name": "Prenatal_Medication",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Medication"
+        "bind": "/model/instance/follow_up_sep/Prenatal_Medication"
       }, {
         "name": "Prenatal_Medication_Type",
-        "bind": "/model/instance/follow_up_sep/group_anc/Prenatal_Medication_Type"
+        "bind": "/model/instance/follow_up_sep/Prenatal_Medication_Type"
       },
       {
         "name": "Pelvic_Cramps",
-        "bind": "/model/instance/follow_up_sep/group_anc/Pelvic_Cramps"
+        "bind": "/model/instance/follow_up_sep/Pelvic_Cramps"
       },
       {
         "name": "Amniotic_Fluid",
-        "bind": "/model/instance/follow_up_sep/group_anc/Amniotic_Fluid"
+        "bind": "/model/instance/follow_up_sep/Amniotic_Fluid"
       },
       {
         "name": "Dizziness",
-        "bind": "/model/instance/follow_up_sep/group_anc/Dizziness"
+        "bind": "/model/instance/follow_up_sep/Dizziness"
       },
       {
         "name": "Feet_Swelling",
-        "bind": "/model/instance/follow_up_sep/group_anc/Feet_Swelling"
+        "bind": "/model/instance/follow_up_sep/Feet_Swelling"
       },
       {
         "name": "Vaginal_discharge",
-        "bind": "/model/instance/follow_up_sep/group_anc/Vaginal_discharge"
+        "bind": "/model/instance/follow_up_sep/Vaginal_discharge"
       },
       {
         "name": "Miscarriage_Stillbirth",
@@ -371,6 +371,14 @@
       {
         "name": "pulse",
         "bind": "/model/instance/follow_up_sep/pulse"
+      },
+      {
+        "name": "followup_enum_note",
+        "bind": "/model/instance/follow_up_sep/followup_enum_note"
+      }
+    ,{
+        "name": "followup_enum_comment",
+        "bind": "/model/instance/follow_up_sep/followup_enum_comment"
       },
       {
         "name": "submissionDate",

@@ -73,14 +73,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="      "
+            android:text="  "
             android:id="@+id/separators" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Open Census Form"
-            android:layout_toRightOf="@+id/separators"
             android:textColor="@color/light_blue"
 
             android:hint="Click Here to Open Census Up Data"
@@ -90,12 +89,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="    "
+            android:text="  "
             android:layout_toRightOf="@+id/Census"
             android:id="@+id/separator" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Follow Up Form"
@@ -109,12 +108,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="    "
+            android:text="  "
             android:layout_toRightOf="@+id/follow_up"
             android:id="@+id/separator3" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Child Health Form"
@@ -126,10 +125,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="  "
+            android:layout_toRightOf="@+id/child_health"
+            android:id="@+id/separator4" />
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Dietary Intake "
             android:hint="Click Here to Open Dietary Intake  Data"
             android:textColor="@color/light_blue"
-            android:layout_toRightOf="@+id/separator3"
+            android:layout_toRightOf="@+id/separator4"
             android:id="@+id/diet" />
 
 

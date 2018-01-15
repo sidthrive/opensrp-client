@@ -6,6 +6,12 @@
         <option value="mg" data-dir="ltr">Malagasy</option>
         <option value="en" data-dir="ltr">English</option>
     </select>
+    <label class="question non-select ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/date_anthro:label">Datin'ny fandraisana refy sy lanjan'ny zaza?</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/date_anthro:label">Date of the anthropometric measure?</span>
+        <input type="date" name="/child_health_sep/date_anthro" data-constraint=". &lt;= ( /child_health_sep/today )" data-type-xml="date"/>
+        <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
+    </label>
     <label class="question note non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/note_weight:label">Ataovy aminy zaza 12 taona midina</span>
         <span lang="en" class="question-label " data-itext-id="/child_health_sep/note_weight:label">For child's age under or equal 12 years old</span>
@@ -13,7 +19,9 @@
     </label>
     <label class="question non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Child_Weight:label">1. Firy kilo ny zaza
+
             <strong></strong>_?
+
         </span>
         <span lang="en" class="question-label " data-itext-id="/child_health_sep/Child_Weight:label">1. Weight child</span>
         <input type="number" name="/child_health_sep/Child_Weight" data-constraint=".&gt;=0 and .&lt;=50" data-type-xml="decimal" step="any"/>
@@ -26,7 +34,9 @@
     </label>
     <label class="question non-select ">
         <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Child_Height:label">2. Firy centimetres ny zaza
+
             <strong></strong>_?
+
         </span>
         <span lang="en" class="question-label " data-itext-id="/child_health_sep/Child_Height:label">2. Measure child's height / length</span>
         <input type="number" name="/child_health_sep/Child_Height" data-constraint=".&gt;=0 and .&lt;=150" data-type-xml="decimal" step="any"/>
@@ -57,55 +67,28 @@
     <fieldset class="question simple-select or-appearance-horizontal-compact ">
         <fieldset>
             <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Diarrhea:label">5. Avy nivalana ve ianao na androany na tao anatiny roa herinandro lasa?</span>
-                <span lang="en" class="question-label " data-itext-id="/child_health_sep/Diarrhea:label">5. Do you have diarrhea now or did you have diarrhea within the last two weeks?</span>
-                <span class="required">*</span>
+                <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/child_enum_note:label">5. Misy fanamarihana manokana mikasiaka ilay olona?</span>
+                <span lang="en" class="question-label " data-itext-id="/child_health_sep/child_enum_note:label">5. Any notes about the respondent?</span>
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="Yes" data-required="true()" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/Yes:label">Eny</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/Yes:label">Yes</span>
+                    <input type="radio" name="/child_health_sep/child_enum_note" data-name="/child_health_sep/child_enum_note" value="Yes" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/child_enum_note/Yes:label">Eny</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/child_enum_note/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="No" data-required="true()" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/No:label">Tsia</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/No:label">No</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/child_health_sep/Diarrhea" data-name="/child_health_sep/Diarrhea" value="idr" data-required="true()" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Diarrhea/idr:label">Tsy tadidiko</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Diarrhea/idr:label">I don't Remember</span>
-                </label>
-            </div>
-        </fieldset>
-        <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
-    </fieldset>
-    <fieldset class="question simple-select or-branch pre-init or-appearance-horizontal-compact ">
-        <fieldset>
-            <legend>
-                <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/Tears:label">6. Rehefa mitomany ilay zaza dia mbola ahitana ranomaso ve?</span>
-                <span lang="en" class="question-label " data-itext-id="/child_health_sep/Tears:label">6. When the baby cries do they produce tears?</span>
-            </legend>
-            <div class="option-wrapper">
-                <label class="">
-                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="Yes" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/Yes:label">Eny</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/Yes:label">Yes</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="No" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/No:label">Tsia</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/No:label">No</span>
-                </label>
-                <label class="">
-                    <input type="radio" name="/child_health_sep/Tears" data-name="/child_health_sep/Tears" value="idk" data-relevant="selected( /child_health_sep/Diarrhea ,'Yes')" data-type-xml="select1"/>
-                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/Tears/idk:label">Tsy fantatra</span>
-                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/Tears/idk:label">I don't know</span>
+                    <input type="radio" name="/child_health_sep/child_enum_note" data-name="/child_health_sep/child_enum_note" value="No" data-type-xml="select1"/>
+                    <span lang="mg" class="option-label active" data-itext-id="/child_health_sep/child_enum_note/No:label">Tsia</span>
+                    <span lang="en" class="option-label " data-itext-id="/child_health_sep/child_enum_note/No:label">No</span>
                 </label>
             </div>
         </fieldset>
     </fieldset>
+    <label class="question or-branch pre-init non-select or-appearance-multiline ">
+        <span lang="mg" class="question-label active" data-itext-id="/child_health_sep/child_enum_comment:label">6. Fanamarihana</span>
+        <span lang="en" class="question-label " data-itext-id="/child_health_sep/child_enum_comment:label">6. Comment</span>
+        <textarea name="/child_health_sep/child_enum_comment" data-relevant="selected( /child_health_sep/child_enum_note ,'Yes')" data-type-xml="string"></textarea>
+    </label>
     <fieldset id="or-preload-items" style="display:none;">
         <label class="calculation non-select ">
             <input type="hidden" name="/child_health_sep/start" data-preload="timestamp" data-preload-params="start" data-type-xml="dateTime"/>

@@ -162,7 +162,7 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
         }
 
         String value_education = pc.getColumnmaps().get("Education") != null ? pc.getColumnmaps().get("Education") : "";
-        String value_profession = pc.getColumnmaps().get("Profession") !=null?humanize(pc.getColumnmaps().get("Profession").replace("Profession_NA","No profession")) :"";
+        String value_profession = pc.getDetails().get("Profession_choices") !=null?humanize(pc.getDetails().get("Profession_choices")) :"";
         String value_maritals = pc.getDetails().get("Marital_Status") !=null?pc.getDetails().get("Marital_Status"):"";
 
         String educate = value_compare(value_education,"None","EPP","CEG","Lycee","University","-","-","-",
@@ -183,11 +183,11 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
 
         viewHolder.educations.setText(context.getString(R.string.education) + ": " +educate );
        // viewHolder.education.setText(context.getString(R.string.education) + " " + pc.getColumnmaps().get("Education") !=null?pc.getColumnmaps().get("Education"):"");
-        viewHolder.professions.setText(context.getString(R.string.profession) + ": " + profession);
+        viewHolder.professions.setText(context.getString(R.string.profession) + ": " + value_profession);
         viewHolder.maritals.setText(context.getString(R.string.marital) + ": " + maried);
 
 
-
+        viewHolder.pregnants.setText("");
         if (pc.getColumnmaps().get("Sex") != null) {
             if (pc.getColumnmaps().get("Sex").equalsIgnoreCase("Female")) {
                 viewHolder.pregnants.setText(
@@ -199,6 +199,10 @@ public class HHmemberClientsProvider implements SmartRegisterCLientsProviderForC
                                                 context.getString(R.string.menopause) + ": " + pc.getDetails().get("Menopause")
                                                 : "");
             }
+        }
+        else
+        {
+            viewHolder.pregnants.setText("");
         }
     viewHolder.weights.setText(pc.getDetails().get("childWeight") !=null?context.getString(R.string.str_weight)+" "+pc.getDetails().get("childWeight"):"");
         viewHolder.heights.setText(pc.getDetails().get("childHeight") !=null?context.getString(R.string.height)+" "+pc.getDetails().get("childHeight"):"");
