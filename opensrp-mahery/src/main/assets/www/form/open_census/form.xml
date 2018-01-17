@@ -557,22 +557,22 @@
             </legend>
             <div class="option-wrapper">
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="Yes" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female') and  /open_cencus_sep/DOB_year &gt;=1963 and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="Yes" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female') and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/Yes:label">Eny</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/Yes:label">Yes</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="No" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female') and  /open_cencus_sep/DOB_year &gt;=1963 and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="No" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female')  and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/No:label">Tsia</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/No:label">No</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="first_pregnancy" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female') and  /open_cencus_sep/DOB_year &gt;=1963 and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="first_pregnancy" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female')  and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/first_pregnancy:label">Bevotraka voalohany aho izao</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/first_pregnancy:label">It is my first pregnancy (currently pregnant)</span>
                 </label>
                 <label class="">
-                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="pregnant_idk" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female') and  /open_cencus_sep/DOB_year &gt;=1963 and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
+                    <input type="radio" name="/open_cencus_sep/Pregnant" data-name="/open_cencus_sep/Pregnant" value="pregnant_idk" required="required" data-relevant="selected( /open_cencus_sep/Sex ,'Female')  and  /open_cencus_sep/DOB_year &lt;=2005" data-type-xml="select1"/>
                     <span lang="mg" class="option-label active" data-itext-id="/open_cencus_sep/Pregnant/pregnant_idk:label">Tsy aiko</span>
                     <span lang="en" class="option-label " data-itext-id="/open_cencus_sep/Pregnant/pregnant_idk:label">I don't know</span>
                 </label>
