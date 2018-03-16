@@ -255,7 +255,7 @@
         <span lang="mg" class="question-label active" data-itext-id="/dietary_intake/cassava_unit_yesterday:label">14. Firy isa:</span>
         <span lang="en" class="question-label " data-itext-id="/dietary_intake/cassava_unit_yesterday:label">14. How many piece(s):</span>
         <span class="required">*</span>
-        <input type="number" name="/dietary_intake/cassava_unit_yesterday" required="required" data-constraint=".&gt;0" data-relevant="selected( /dietary_intake/taro_lastweek ,'Yes')" data-type-xml="decimal" step="any"/>
+        <input type="number" name="/dietary_intake/cassava_unit_yesterday" required="required" data-constraint=".&gt;0" data-relevant="selected( /dietary_intake/cassava_yesterday ,'Yes')" data-type-xml="decimal" step="any"/>
         <span class="or-constraint-msg active" lang="" data-i18n="constraint.invalid">Value not allowed</span>
         <span class="or-required-msg active" lang="" data-i18n="constraint.required">This field is required</span>
     </label>
